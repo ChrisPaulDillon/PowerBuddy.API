@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Model\Data\DayOfWeek.cs" />
+    <Compile Remove="DTOs\DayOfWeekDTO.cs" />
+    <Compile Remove="DTOs\LiftingStatsDTO.cs" />
+    <Compile Remove="DTOs\Exercise.cs" />
+    <Compile Remove="DTOs\ExerciseDTO %28copy%29.cs" />
+    <Compile Remove="DTOs\ExerciseMarkupDTO.cs" />
+    <Compile Remove="DTOs\ProgramTypeDTO.cs" />
+    <Compile Remove="DTOs\UserDTO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Programs\" />
+    <Folder Include="DTOs\Programs\" />
+  </ItemGroup>
+</Project>

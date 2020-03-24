@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Contracts\PowerLifting.Contracts.csproj" />
+    <ProjectReference Include="..\PowerLifting.Entities\PowerLifting.Entities.csproj" />
+    <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
