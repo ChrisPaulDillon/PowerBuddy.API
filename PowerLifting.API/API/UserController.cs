@@ -34,18 +34,15 @@ namespace PowerLifting.API.API
                 var users = await _service.User.GetAllUsers();
                 if (users == null)
                 {
-                    _logger.LogError($"No Users have been found in db.");
                     return NotFound();
                 }
                 else
                 {
-                    _logger.LogInformation($"Returned all users");
                     return Ok(users);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error returning all users");
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }

@@ -11,11 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Services", "Po
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Contracts", "PowerLifting.Contracts\PowerLifting.Contracts.csproj", "{5DBCB34E-658D-4D85-9614-1CF06D6B0529}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Entities", "PowerLifting.Entities\PowerLifting.Entities.csproj", "{E538EBB2-566E-45B4-9EB4-96EAE1F7C579}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Entities", "PowerLifting.Entities\PowerLifting.Entities.csproj", "{E538EBB2-566E-45B4-9EB4-96EAE1F7C579}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Powerlifting.Persistence", "Powerlifting.Persistence\Powerlifting.Persistence.csproj", "{5E30E3B5-011F-46A8-B2A8-0A8BDD5EE352}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.UnitTests", "PowerLifting.UnitTests\PowerLifting.UnitTests.csproj", "{40715765-DD96-4BB6-8FBD-E142DBBA044D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.LoggerService", "PowerLifting.LoggerService\PowerLifting.LoggerService.csproj", "{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{40715765-DD96-4BB6-8FBD-E142DBBA044D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40715765-DD96-4BB6-8FBD-E142DBBA044D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40715765-DD96-4BB6-8FBD-E142DBBA044D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

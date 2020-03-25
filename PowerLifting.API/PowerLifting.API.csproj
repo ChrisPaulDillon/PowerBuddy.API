@@ -28,6 +28,9 @@
     <ProjectReference Include="..\PowerLifting.Entities\PowerLifting.Entities.csproj" />
     <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
     <ProjectReference Include="..\PowerLifting.Services\PowerLifting.Services.csproj" />
+    <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 
