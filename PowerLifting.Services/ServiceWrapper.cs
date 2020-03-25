@@ -3,6 +3,7 @@ using Powerlifting.Services.Service;
 using Powerlifting.Contracts;
 using Powerlifting.Contracts.Contracts;
 using AutoMapper;
+using Powerlifting.Services.Service.Users;
 
 namespace Powerlifting.Services
 {

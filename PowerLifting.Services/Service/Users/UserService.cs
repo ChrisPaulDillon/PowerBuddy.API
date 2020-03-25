@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Powerlifting.Contracts.Contracts;
 using PowerLifting.Entities.Model;
 using PowerLifting.Persistence;
-using Powerlifting.Services;
 using System.Collections.Generic;
 using AutoMapper;
 using PowerLifting.Entities.DTOs;
+using PowerLifting.Services.Service.Users;
 
-namespace Powerlifting.Services.Service
+namespace Powerlifting.Services.Service.Users
 {
     public class UserService : ServiceBase<User>, IUserService
     {
@@ -31,6 +31,10 @@ namespace Powerlifting.Services.Service
         public async Task<UserDTO> GetUserById(int id)
         {
             var user = await PowerliftingContext.Set<User>().Where(u => u.UserId == id).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
             var userDTO = _mapper.Map<UserDTO>(user);
             return userDTO;
         }
@@ -42,9 +46,25 @@ namespace Powerlifting.Services.Service
             return userDTO;
         }
 
-        public void DeleteUser(User user)
+        public async Task UpdateUser(UserDTO userDTO)
         {
-            Delete(user);
+            var user = await PowerliftingContext.Set<User>().Where(u => u.UserId == userDTO.UserId).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
+            if(user == null)
+            {
+                throw new UserNotFoundException();
+            }
+            _mapper.Map(userDTO, user);
+            PowerliftingContext.Set<User>().Update(user);
+        }
+
+        public async Task DeleteUser(int userId)
+        {
+            var user = await PowerliftingContext.Set<User>().Where(u => u.UserId == userId).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+            PowerliftingContext.Set<User>().Remove(user);
         }
     }
 }

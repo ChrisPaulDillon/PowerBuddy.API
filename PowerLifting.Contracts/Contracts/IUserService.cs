@@ -10,6 +10,7 @@ namespace Powerlifting.Contracts.Contracts
         Task<IEnumerable<UserDTO>> GetAllUsers();
         Task<UserDTO> GetUserById(int id);
         Task<UserDTO> GetUserByEmail(string username);
-        void DeleteUser(User user);
+        Task UpdateUser(UserDTO user);
+        Task DeleteUser(int userId);
     }
 }

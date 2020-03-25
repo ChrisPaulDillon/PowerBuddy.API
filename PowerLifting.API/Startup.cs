@@ -56,7 +56,7 @@ namespace PowerLifting.API
                     });
             });
 
-            var connectionString = "Server=localhost;Database=PowerLiftingDbV3.11;User Id=sa;Password=<Chippydog201060@>";
+            var connectionString = "Server=localhost;Database=PowerLiftingDbV3.12;User Id=sa;Password=<Chippydog201060@>";
 
             services.AddDbContext<PowerliftingContext>(options =>
                 options.UseSqlServer(connectionString));

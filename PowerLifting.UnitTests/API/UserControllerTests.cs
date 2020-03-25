@@ -18,7 +18,6 @@ namespace PowerLifting.UnitTests.API
     public class UserControllerTests
     {
         private readonly Mock<ILogger<UserController>> _logger;
-        private readonly Mock<IMapper> _mapper;
         private readonly Mock<IServiceWrapper> _userService;
 
         private readonly Random _rand;
@@ -28,7 +27,6 @@ namespace PowerLifting.UnitTests.API
         public UserControllerTests()
         {
             _logger = new Mock<ILogger<UserController>>();
-            _mapper = new Mock<IMapper>();
             _userService = new Mock<IServiceWrapper>(MockBehavior.Strict);
             _rand = new Random();
         }
