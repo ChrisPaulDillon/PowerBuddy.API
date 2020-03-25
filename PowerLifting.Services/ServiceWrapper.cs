@@ -18,9 +18,10 @@ namespace Powerlifting.Services
         private IProgramTemplateService _programTemplate;
         private IMapper _mapper;
 
-        public ServiceWrapper(PowerliftingContext ServiceContext)
+        public ServiceWrapper(PowerliftingContext ServiceContext, IMapper mapper)
         {
             _repoContext = ServiceContext;
+            _mapper = mapper;
         }
 
         public IUserService User

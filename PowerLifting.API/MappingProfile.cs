@@ -16,12 +16,21 @@ namespace PowerLifting.API
             CreateMap<LiftingStat, LiftingStatDTO>();
             CreateMap<Exercise, ExerciseDTO>();
             CreateMap<ExerciseCategory, ExerciseCategoryDTO>();
-            CreateMap<ExerciseCategoryDTO, ExerciseCategory>();
             CreateMap<ProgramLog, ProgramLogDTO>();
             CreateMap<IndividualSet, IndividualSetDTO>();
             CreateMap<ExerciseMarkup, ExerciseMarkupDTO>();
             CreateMap<ProgramTemplate, ProgramTemplateDTO>();
             CreateMap<ProgramExercise, ProgramExerciseDTO>();
+
+            CreateMap<UserDTO, User>();
+            CreateMap<LiftingStatDTO, LiftingStat>();
+            CreateMap<ExerciseDTO, Exercise>();
+            CreateMap<ExerciseCategoryDTO, ExerciseCategory>();
+            CreateMap<ProgramLogDTO, ProgramLog>();
+            CreateMap<IndividualSetDTO, IndividualSet>();
+            CreateMap<ExerciseMarkupDTO, ExerciseMarkup>();
+            CreateMap<ProgramTemplateDTO, ProgramTemplate>();
+            CreateMap<ProgramExerciseDTO, ProgramExercise>();
         }
     }
 }

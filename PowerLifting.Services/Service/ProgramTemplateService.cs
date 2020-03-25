@@ -29,7 +29,7 @@ namespace Powerlifting.Services.Service
 
         public async Task<ProgramTemplateDTO> GetProgramTemplateById(int programId)
         {
-            var programTemplate = await PowerliftingContext.Set<ProgramTemplate>().Where(x => x.ProgramTypeId == programId).FirstOrDefaultAsync();
+            var programTemplate = await PowerliftingContext.Set<ProgramTemplate>().Where(x => x.ProgramTemplateId == programId).FirstOrDefaultAsync();
             var programTemplateDTO = _mapper.Map<ProgramTemplateDTO>(programTemplate);
             return programTemplateDTO;
         }

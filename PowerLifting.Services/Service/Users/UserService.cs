@@ -24,7 +24,7 @@ namespace Powerlifting.Services.Service.Users
         public async Task<IEnumerable<UserDTO>> GetAllUsers()
         {
             var users = await PowerliftingContext.Set<User>().Include(x => x.LiftingStats).Include(x => x.ProgramLogs).AsNoTracking().ToListAsync();
-            var usersDTO = _mapper.Map<IEnumerable<UserDTO>>(users);
+            var usersDTO = _mapper.Map<List<UserDTO>>(users);
             return usersDTO;
         }
 
@@ -44,6 +44,17 @@ namespace Powerlifting.Services.Service.Users
             var user = await PowerliftingContext.Set<User>().Where(u => u.Email == username).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
             var userDTO = _mapper.Map<UserDTO>(user);
             return userDTO;
+        }
+
+        public async Task CreateUser(UserDTO userDTO)
+        {
+            var user = await PowerliftingContext.Set<User>().Where(u => u.UserId == userDTO.UserId).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
+            if (user != null)
+            {
+                throw new EmailInUseException();
+            }
+            var ownerEntity = _mapper.Map<User>(userDTO);
+            await PowerliftingContext.Set<User>().AddAsync(ownerEntity);
         }
 
         public async Task UpdateUser(UserDTO userDTO)

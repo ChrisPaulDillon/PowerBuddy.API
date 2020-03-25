@@ -43,6 +43,7 @@ namespace PowerLifting.API.API
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -66,41 +67,24 @@ namespace PowerLifting.API.API
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateUser([FromBody] UserDTO user)
         {
             try
             {
-                if (user == null)
-                {
-                    return BadRequest("User object is null");
-                }
+                if (user == null) return BadRequest("User object is null");
 
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
+                if (!ModelState.IsValid) return BadRequest("Invalid model object");
 
-                var userCheck = await _service.User.GetUserByEmail(user.Email);
-                if (userCheck != null)
-                {
-                    _logger.LogError("Username is already taken");
-                    return Conflict("Username is already taken");
-                }
-
-                user.Password = PasswordHandler.Instance.ComputeHash(user.Password);
-
-                //user.LiftingStats = liftingStats;
-
-                //await _service.User.AddAsync(userEntity);
+                await _service.User.CreateUser(user);
                 _service.Save();
-                //TODO fix
                 return Ok(user);
             }
-            catch (Exception ex)
+            catch(EmailInUseException)
             {
-                _logger.LogError($"Something went wrong inside CreateUser action: {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+                return Conflict();
+            }   
         }
 
         [HttpPut("{id}")]

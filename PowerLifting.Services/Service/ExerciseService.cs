@@ -20,6 +20,7 @@ namespace Powerlifting.Services.Service
         public ExerciseService(PowerliftingContext ServiceContext, IMapper mapper)
             : base(ServiceContext)
         {
+            _store = new ConcurrentDictionary<int, ExerciseDTO>();
             _mapper = mapper;
         }
 
@@ -31,10 +32,10 @@ namespace Powerlifting.Services.Service
 
         private void RefreshExerciseStore()
         {
-            if(_store.IsEmpty)
+            if(!_store.IsEmpty)
                 return;
             
-            var exercises = PowerliftingContext.Set<Exercise>().Include(x => x.ExerciseCategory).ToListAsync();
+            var exercises = PowerliftingContext.Set<Exercise>().Include(x => x.ExerciseCategory).ToList();
             var exerciseDTOs = _mapper.Map<IEnumerable<ExerciseDTO>>(exercises);
 
             foreach(var exerciseDTO in exerciseDTOs)
