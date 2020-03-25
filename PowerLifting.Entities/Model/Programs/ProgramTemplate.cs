@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PowerLifting.Entities.Model.Programs
 {
-    public class ProgramType
+    public class ProgramTemplate
     {
         public int ProgramTypeId { get; set; }
         public String Name { get; set; }

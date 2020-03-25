@@ -7,7 +7,7 @@ using PowerLifting.Entities.Model.Programs;
 
 namespace Powerlifting.Contracts.Contracts
 {
-    public interface IProgramTypeService : IServiceBase<ProgramType>
+    public interface IProgramTemplateService : IServiceBase<ProgramTemplate>
     {
         Task<List<ProgramType>> GetAllIncludeProgramExercises();
         Task<ProgramType> CreateProgramType(ProgramType programType);

@@ -10,37 +10,56 @@ using PowerLifting.Entities.Model.Lookups;
 using Powerlifting.Contracts;
 using System.Linq.Expressions;
 using System;
+using PowerLifting.Entities.DTOs.Lookups;
+using System.Collections.Concurrent;
+using AutoMapper;
 
 namespace Powerlifting.Services.Service
 {
-    public class ExerciseService : ServiceBase<Exercise>, IExerciseService
+    public class ExerciseService : ServiceBase<ExerciseDTO>, IExerciseService
     {
-        public ExerciseService(PowerliftingContext ServiceContext)
+        private ConcurrentDictionary<int, ExerciseDTO> _store;
+        private IMapper _mapper;
+
+        public ExerciseService(PowerliftingContext ServiceContext, IMapper mapper)
             : base(ServiceContext)
         {
+            _mapper = mapper;
         }
 
-        public async Task<Exercise> GetExerciseByName(string exercise)
+        public IEnumerable<ExerciseDTO> GetAllExercises()
         {
-            return await PowerliftingContext.Set<Exercise>().Where(Exercise => Exercise.ExerciseName == exercise).FirstOrDefaultAsync();
+            RefreshExerciseStore();
+            return _store.Values;
         }
 
-        public async Task<List<Exercise>> GetAllIncludeCategories()
+        private void RefreshExerciseStore()
         {
-            return await PowerliftingContext.Set<Exercise>().Include(x => x.ExerciseCategory).ToListAsync();
+            if(_store.IsEmpty)
+                return;
+            
+            var exercises = PowerliftingContext.Set<Exercise>().Include(x => x.ExerciseCategory).ToListAsync();
+            var exerciseDTOs = _mapper.Map<IEnumerable<ExerciseDTO>>(exercises);
+
+            foreach(var exerciseDTO in exerciseDTOs)
+            {
+                _store.AddOrUpdate(exerciseDTO.ExerciseId, exerciseDTO, (key, olValue) => exerciseDTO);
+            }
         }
 
-        public async Task<Exercise> GetExerciseById(int id)
+        public async Task<ExerciseDTO> GetExerciseById(int id)
         {
-            return await PowerliftingContext.Set<Exercise>().Include(x => x.ExerciseCategory).AsNoTracking().FirstOrDefaultAsync();
+            var exercise = await PowerliftingContext.Set<Exercise>().Where(x => x.ExerciseId == id).Include(x => x.ExerciseCategory).AsNoTracking().FirstOrDefaultAsync();
+            var exerciseDTO = _mapper.Map<ExerciseDTO>(exercise);
+            return exerciseDTO;
         }
 
-        public void UpdateExercie(Exercise exercise)
+        public void UpdateExercie(ExerciseDTO exercise)
         {
             Update(exercise);
         }
 
-        public void DeleteExercise(Exercise exercise)
+        public void DeleteExercise(ExerciseDTO exercise)
         {
             Delete(exercise);
         }

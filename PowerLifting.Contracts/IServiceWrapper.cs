@@ -12,7 +12,7 @@ namespace Powerlifting.Contracts
         IExerciseService Exercise { get; }
         IExerciseCategoryService ExerciseCategory { get; }
         IProgramLogService ProgramLog { get; }
-        IProgramTypeService ProgramType { get; }
+        IProgramTypeService ProgramTemplate { get; }
         void Save();
     }
 }

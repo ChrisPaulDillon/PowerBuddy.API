@@ -10,4 +10,7 @@
     <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
 </Project>
