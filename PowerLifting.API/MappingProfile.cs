@@ -20,7 +20,7 @@ namespace PowerLifting.API
             CreateMap<ProgramLog, ProgramLogDTO>();
             CreateMap<IndividualSet, IndividualSetDTO>();
             CreateMap<ExerciseMarkup, ExerciseMarkupDTO>();
-            CreateMap<ProgramType, ProgramTypeDTO>();
+            CreateMap<ProgramTemplate, ProgramTemplateDTO>();
             CreateMap<ProgramExercise, ProgramExerciseDTO>();
         }
     }

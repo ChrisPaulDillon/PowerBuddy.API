@@ -2,13 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Contracts.Contracts;
-using PowerLifting.Entities.Model;
 using PowerLifting.Persistence;
-using Powerlifting.Services;
 using System.Collections.Generic;
 using PowerLifting.Entities.Model.Lookups;
-using Powerlifting.Contracts;
-using System.Linq.Expressions;
 using System;
 using PowerLifting.Entities.DTOs.Lookups;
 using System.Collections.Concurrent;
@@ -16,7 +12,7 @@ using AutoMapper;
 
 namespace Powerlifting.Services.Service
 {
-    public class ExerciseService : ServiceBase<ExerciseDTO>, IExerciseService
+    public class ExerciseService : ServiceBase<Exercise>, IExerciseService
     {
         private ConcurrentDictionary<int, ExerciseDTO> _store;
         private IMapper _mapper;
@@ -54,14 +50,29 @@ namespace Powerlifting.Services.Service
             return exerciseDTO;
         }
 
-        public void UpdateExercie(ExerciseDTO exercise)
+        public void UpdateExercise(Exercise exercise)
         {
             Update(exercise);
         }
 
-        public void DeleteExercise(ExerciseDTO exercise)
+        public void DeleteExercise(Exercise exercise)
         {
             Delete(exercise);
+        }
+
+        public Task<ExerciseDTO> GetExerciseByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateExercie(ExerciseDTO exercise)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IExerciseService.RefreshExerciseStore()
+        {
+            throw new NotImplementedException();
         }
     }
 }

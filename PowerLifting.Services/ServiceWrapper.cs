@@ -2,6 +2,7 @@
 using Powerlifting.Services.Service;
 using Powerlifting.Contracts;
 using Powerlifting.Contracts.Contracts;
+using AutoMapper;
 
 namespace Powerlifting.Services
 {
@@ -13,7 +14,8 @@ namespace Powerlifting.Services
         private IExerciseService _exercise;
         private IExerciseCategoryService _exerciseCategory;
         private IProgramLogService _programLogs;
-        private IProgramTypeService _programType;
+        private IProgramTemplateService _programTemplate;
+        private IMapper _mapper;
 
         public ServiceWrapper(PowerliftingContext ServiceContext)
         {
@@ -26,7 +28,7 @@ namespace Powerlifting.Services
             {
                 if (_user == null)
                 {
-                    _user = new UserService(_repoContext);
+                    _user = new UserService(_repoContext, _mapper);
                 }
 
                 return _user;
@@ -39,7 +41,7 @@ namespace Powerlifting.Services
             {
                 if (_liftingStats == null)
                 {
-                    _liftingStats = new LiftingStatService(_repoContext);
+                    _liftingStats = new LiftingStatService(_repoContext, _mapper);
                 }
 
                 return _liftingStats;
@@ -52,7 +54,7 @@ namespace Powerlifting.Services
             {
                 if (_exercise == null)
                 {
-                    _exercise = new ExerciseService(_repoContext);
+                    _exercise = new ExerciseService(_repoContext, _mapper);
                 }
 
                 return _exercise;
@@ -65,7 +67,7 @@ namespace Powerlifting.Services
             {
                 if (_exerciseCategory == null)
                 {
-                    _exerciseCategory = new ExerciseCategoryService(_repoContext);
+                    _exerciseCategory = new ExerciseCategoryService(_repoContext, _mapper);
                 }
 
                 return _exerciseCategory;
@@ -79,23 +81,23 @@ namespace Powerlifting.Services
             {
                 if (_programLogs == null)
                 {
-                    _programLogs = new ProgramLogService(_repoContext);
+                    _programLogs = new ProgramLogService(_repoContext, _mapper);
                 }
 
                 return _programLogs;
             }
         }
 
-        public IProgramTypeService ProgramType
+        public IProgramTemplateService ProgramTemplate
         {
             get
             {
-                if (_programType == null)
+                if (_programTemplate == null)
                 {
-                    _programType = new ProgramTypeService(_repoContext);
+                    _programTemplate = new ProgramTemplateService(_repoContext, _mapper);
                 }
 
-                return _programType;
+                return _programTemplate;
             }
         }
 

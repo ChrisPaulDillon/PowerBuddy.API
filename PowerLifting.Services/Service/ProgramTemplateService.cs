@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Contracts.Contracts;
 using PowerLifting.Persistence;
-using PowerLifting.Entities.Model.Lookups;
 using PowerLifting.Entities.Model.Programs;
 using System.Collections.Generic;
 using AutoMapper;
@@ -21,11 +20,6 @@ namespace Powerlifting.Services.Service
             _mapper = mapper;
         }
 
-        public Task<ProgramTemplate> CreateProgramType(ProgramTemplate programType)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<IEnumerable<ProgramTemplateDTO>> GetAllIncludeProgramExercises()
         {
             var programTemplates = await PowerliftingContext.Set<ProgramTemplate>().Include(x => x.ProgramExercises).ThenInclude(s => s.IndividualSets).ToListAsync();
@@ -39,5 +33,12 @@ namespace Powerlifting.Services.Service
             var programTemplateDTO = _mapper.Map<ProgramTemplateDTO>(programTemplate);
             return programTemplateDTO;
         }
+
+        public Task<ProgramTemplateDTO> CreateProgramTemplate(ProgramTemplateDTO programType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
     }
 }

@@ -17,13 +17,13 @@ namespace PowerLifting.API.API
     public class ExerciseCategoryController : ControllerBase
     {
         private ILogger<ExerciseCategoryController> _logger;
-        private IMapper _mapper;
+       
         private IServiceWrapper _service;
-        public ExerciseCategoryController(IServiceWrapper Service, ILogger<ExerciseCategoryController> logger, IMapper mapper)
+        public ExerciseCategoryController(IServiceWrapper Service, ILogger<ExerciseCategoryController> logger)
         {
             _logger = logger;
             _service = Service;
-            _mapper = mapper;
+       
         }
 
         [HttpGet]
@@ -40,8 +40,8 @@ namespace PowerLifting.API.API
                 else
                 {
                     _logger.LogInformation($"Returned all Exercise Categories");
-                    var exerciseCatResult = _mapper.Map<IEnumerable<ExerciseCategoryDTO>>(exerciseCategories);
-                    return Ok(exerciseCatResult);
+               
+                    return Ok(exerciseCategories);
                 }
             }
             catch (Exception ex)
@@ -56,9 +56,9 @@ namespace PowerLifting.API.API
         {
             try
             {
-                var user = await _service.ExerciseCategory.GetExerciseCategoryById(id);
+                var category = await _service.ExerciseCategory.GetExerciseCategoryById(id);
 
-                if (user == null)
+                if (category == null)
                 {
                     _logger.LogError($"Exercise Category with name: {id}, hasn't been found in db.");
                     return NotFound();
@@ -67,8 +67,8 @@ namespace PowerLifting.API.API
                 {
                     _logger.LogInformation($"Returned Exercise Category with details for id: {id}");
 
-                    var userResult = _mapper.Map<ExerciseCategoryDTO>(user);
-                    return Ok(userResult);
+                  
+                    return Ok(category);
                 }
             }
             catch (Exception ex)
@@ -80,7 +80,7 @@ namespace PowerLifting.API.API
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateExerciseCategory([FromBody] ExerciseCategory exerciseCategory)
+        public async Task<IActionResult> CreateExerciseCategory([FromBody] ExerciseCategoryDTO exerciseCategory)
         {
             try
             {
@@ -103,13 +103,10 @@ namespace PowerLifting.API.API
                     return Conflict("Exercise Category is already been added");
                 }
 
-                var exerciseCategoryEntity = _mapper.Map<ExerciseCategory>(exerciseCategory);
-
-                await _service.ExerciseCategory.AddAsync(exerciseCategoryEntity);
+                //await _service.ExerciseCategory.AddAsync(exerciseCategory);
                 _service.Save();
-
-                var createdUser = _mapper.Map<ExerciseCategoryDTO>(exerciseCategoryEntity);
-                return Ok(createdUser);
+                //TODO Fix
+                return Ok(exerciseCategory);
             }
             catch (Exception ex)
             {
@@ -169,9 +166,9 @@ namespace PowerLifting.API.API
                     return NotFound();
                 }
 
-                _service.ExerciseCategory.DeleteExerciseCategory(exercise);
+                //_service.ExerciseCategory.DeleteExerciseCategory(exercise);
                 _service.Save();
-
+                //TODO fix
                 return NoContent();
             }
             catch (Exception ex)

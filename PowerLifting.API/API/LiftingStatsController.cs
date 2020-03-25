@@ -13,13 +13,11 @@ namespace PowerLifting.API.API
     public class LiftingStatsController : ControllerBase
     {
         private readonly ILogger<LiftingStatsController> _logger;
-        private readonly IMapper _mapper;
         private readonly IServiceWrapper _repository;
-        public LiftingStatsController(ILogger<LiftingStatsController> logger, IServiceWrapper repository, IMapper mapper)
+        public LiftingStatsController(ILogger<LiftingStatsController> logger, IServiceWrapper repository)
         {
             _logger = logger;
             _repository = repository;
-            _mapper = mapper;
         }
 
         [HttpPut("{id}")]

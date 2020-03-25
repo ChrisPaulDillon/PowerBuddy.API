@@ -17,13 +17,12 @@ namespace PowerLifting.API.API
     public class ProgramLogController : ControllerBase
     {
         private ILogger<ProgramLogController> _logger;
-        private IMapper _mapper;
         private IServiceWrapper _service;
-        public ProgramLogController(IServiceWrapper service, ILogger<ProgramLogController> logger, IMapper mapper)
+        public ProgramLogController(IServiceWrapper service, ILogger<ProgramLogController> logger)
         {
             _logger = logger;
             _service = service;
-            _mapper = mapper;
+         
         }
 
         [HttpGet]
@@ -40,8 +39,7 @@ namespace PowerLifting.API.API
                 else
                 {
                     _logger.LogInformation($"Returned all Program Logs");
-                    var programLogResult = _mapper.Map<IEnumerable<ProgramLogDTO>>(programLogs);
-                    return Ok(programLogResult);
+                    return Ok(programLogs);
                 }
             }
             catch (Exception ex)
@@ -65,8 +63,7 @@ namespace PowerLifting.API.API
                 else
                 {
                     _logger.LogInformation($"Returned all active Program Logs");
-                    var programLogResult = _mapper.Map<IEnumerable<ProgramLogDTO>>(programLogs);
-                    return Ok(programLogResult);
+                    return Ok(programLogs);
                 }
             }
             catch (Exception ex)
@@ -91,8 +88,7 @@ namespace PowerLifting.API.API
                 else
                 {
                     _logger.LogInformation($"Returned owner with details for id: {id}");
-                    var programLogResult = _mapper.Map<ProgramLogDTO>(programLog);
-                    return Ok(programLogResult);
+                    return Ok(programLog);
                 }
             }
             catch (Exception ex)
@@ -103,7 +99,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLog programLog)
+        public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
         {
             try
             {
@@ -128,13 +124,10 @@ namespace PowerLifting.API.API
                     return Conflict("ProgramLog is already been added");
                 }
 
-                var programLogEntity = _mapper.Map<ProgramLog>(programLog);
-
-                await _service.ProgramLog.AddAsync(programLogEntity);
+                //await _service.ProgramLog.AddAsync(programLogEntity);
                 _service.Save();
-
-                var createdUser = _mapper.Map<ProgramLogDTO>(programLogEntity);
-                return Ok(createdUser);
+                //TODO fix
+                return Ok(programLog);
             }
             catch (Exception ex)
             {
@@ -155,9 +148,9 @@ namespace PowerLifting.API.API
                     return NotFound();
                 }
 
-                _service.ProgramLog.DeleteProgramLog(programLog);
+                //_service.ProgramLog.DeleteProgramLog(programLog);
                 _service.Save();
-
+                //TODO fix
                 return NoContent();
             }
             catch (Exception ex)

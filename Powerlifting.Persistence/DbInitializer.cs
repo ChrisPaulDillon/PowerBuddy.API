@@ -61,7 +61,7 @@ namespace PowerLifting.Persistence
                                                                         Exercise = new Exercise { ExerciseName = "Standing Press" },
                                                                                 IndividualSets = new List<IndividualSet> { new IndividualSet { SetNo = 1, WeightLifted = 100, NumOfReps =5 }},
                                                                                 }},
-                        ProgramType = new ProgramType{Name="5/3/1", ProgramExercises = new List<ProgramExercise> {
+                        ProgramTemplate = new ProgramTemplate{Name="5/3/1", ProgramExercises = new List<ProgramExercise> {
                                                                                             new ProgramExercise { ExerciseId = 0, DayOfWeek = "Monday", WeekNumber = 1,
                                                                                              IndividualSets = new List<IndividualSet> { new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},
                                                                                                               new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},

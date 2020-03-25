@@ -18,7 +18,7 @@ namespace PowerLifting.Persistence
         public DbSet<IndividualSet> IndividualSet { get; set; }
         public DbSet<LiftingStat> LiftingStat{ get; set; }
         public DbSet<ProgramLog> ProgramLog { get; set; }
-        public DbSet<ProgramType> ProgramType { get; set; }
+        public DbSet<ProgramTemplate> ProgramTemplate { get; set; }
         public DbSet<ProgramExercise> ProgramExercise { get; set; }
         public DbSet<User> User { get; set; }
 
@@ -32,7 +32,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<IndividualSet>().ToTable("IndividualSet");
             modelBuilder.Entity<LiftingStat>().ToTable("LiftingStat");
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
-            modelBuilder.Entity<ProgramType>().ToTable("ProgramType");
+            modelBuilder.Entity<ProgramTemplate>().ToTable("ProgramTemplate");
             modelBuilder.Entity<ProgramExercise>().ToTable("ProgramExercise");
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);

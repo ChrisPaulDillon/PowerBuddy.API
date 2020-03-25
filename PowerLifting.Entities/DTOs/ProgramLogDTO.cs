@@ -20,7 +20,7 @@ namespace PowerLifting.Entities.DTOs
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
 
-        public virtual ProgramTypeDTO ProgramType { get; set; }
+        public virtual ProgramTemplateDTO ProgramTemplate { get; set; }
         public ICollection<ExerciseMarkupDTO> ExeciseMarkups { get; set; }
 
     }

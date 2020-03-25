@@ -16,13 +16,11 @@ namespace PowerLifting.API.API
     public class ProgramTypeController : ControllerBase
     {
         private ILogger<ProgramTypeController> _logger;
-        private IMapper _mapper;
         private IServiceWrapper _service;
-        public ProgramTypeController(IServiceWrapper service, ILogger<ProgramTypeController> logger, IMapper mapper)
+        public ProgramTypeController(IServiceWrapper service, ILogger<ProgramTypeController> logger)
         {
             _logger = logger;
             _service = service;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -30,8 +28,8 @@ namespace PowerLifting.API.API
         {
             try
             {
-                var programTypes = await _service.ProgramType.GetAllIncludeProgramExercises();
-                if (programTypes == null)
+                var programTemplates = await _service.ProgramTemplate.GetAllIncludeProgramExercises();
+                if (programTemplates == null)
                 {
                     _logger.LogError($"No Program Types have been found in db.");
                     return NotFound();
@@ -39,9 +37,7 @@ namespace PowerLifting.API.API
                 else
                 {
                     _logger.LogInformation($"Returned all Program Types");
-
-                    var programTypesResult = _mapper.Map<IEnumerable<ProgramTypeDTO>>(programTypes);
-                    return Ok(programTypesResult);
+                    return Ok(programTemplates);
                 }
             }
             catch (Exception ex)
@@ -56,7 +52,7 @@ namespace PowerLifting.API.API
         {
             try
             {
-                var programType = await _service.ProgramType.GetByCondition(x => x.ProgramTypeId == programTypeId);
+                var programType = await _service.ProgramTemplate.GetByCondition(x => x.ProgramTypeId == programTypeId);
 
                 if (programType == null)
                 {
@@ -65,10 +61,8 @@ namespace PowerLifting.API.API
                 }
                 else
                 {
-                    _logger.LogInformation($"Returned Exercise Category with details for id: {programTypeId}");
-
-                    var userResult = _mapper.Map<ProgramTypeDTO>(programType);
-                    return Ok(userResult);
+                    _logger.LogInformation($"Returned ProgramType with details for id: {programTypeId}");
+                    return Ok(programType);
                 }
             }
             catch (Exception ex)
@@ -79,11 +73,11 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProgramType([FromBody] ProgramType programType)
+        public async Task<IActionResult> CreateProgramType([FromBody] ProgramTemplateDTO programTemplate)
         {
             try
             {
-                if (programType == null)
+                if (programTemplate == null)
                 {
                     _logger.LogError("ProgramType object sent from client is null.");
                     return BadRequest("ProgramType object is null");
@@ -95,20 +89,17 @@ namespace PowerLifting.API.API
                     return BadRequest("Invalid ProgramType model object");
                 }
 
-                var ProgramTypeCheck = await _service.ProgramType.GetProgramTypeByName(programType.Name);
+                var ProgramTypeCheck = await _service.ProgramTemplate.GetProgramTypeByName(programTemplate.Name);
                 if (ProgramTypeCheck != null)
                 {
                     _logger.LogError("Exercise Category is already been added");
                     return Conflict("Exercise Category is already been added");
                 }
 
-                var ProgramTypeEntity = _mapper.Map<ProgramType>(programType);
-
-                await _service.ProgramType.AddAsync(ProgramTypeEntity);
+                //await _service.ProgramTemplate.AddAsync(programTemplate);
                 _service.Save();
-
-                var createdUser = _mapper.Map<ProgramTypeDTO>(ProgramTypeEntity);
-                return Ok(createdUser);
+                //TODO FIX
+                return Ok(programTemplate);
             }
             catch (Exception ex)
             {

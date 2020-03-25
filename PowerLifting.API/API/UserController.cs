@@ -17,16 +17,15 @@ namespace PowerLifting.API.API
     public class UserController : ControllerBase
     {
         private ILogger<UserController> _logger;
-        private IMapper _mapper;
         private IServiceWrapper _service;
-        public UserController(IServiceWrapper service, ILogger<UserController> logger, IMapper mapper)
+        public UserController(IServiceWrapper service, ILogger<UserController> logger)
         {
             _logger = logger;
             _service = service;
-            _mapper = mapper;
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -40,8 +39,7 @@ namespace PowerLifting.API.API
                 else
                 {
                     _logger.LogInformation($"Returned all users");
-                    var userResult = _mapper.Map<IEnumerable<UserDTO>>(users);
-                    return Ok(userResult);
+                    return Ok(users);
                 }
             }
             catch (Exception ex)
@@ -53,6 +51,8 @@ namespace PowerLifting.API.API
 
         // GET: api/User/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUser(int id)
         {
             try
@@ -67,9 +67,7 @@ namespace PowerLifting.API.API
                 else
                 {
                     _logger.LogInformation($"Returned owner with details for id: {id}");
-
-                    var userResult = _mapper.Map<UserDTO>(user);
-                    return Ok(userResult);
+                    return Ok(user);
                 }
             }
             catch (Exception ex)
@@ -80,6 +78,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateUser([FromBody] UserDTO user)
         {
             try
@@ -107,13 +106,10 @@ namespace PowerLifting.API.API
 
                 //user.LiftingStats = liftingStats;
 
-                var userEntity = _mapper.Map<User>(user);
-
-                await _service.User.AddAsync(userEntity);
+                //await _service.User.AddAsync(userEntity);
                 _service.Save();
-
-                var createdUser = _mapper.Map<UserDTO>(userEntity);
-                return Ok(createdUser);
+                //TODO fix
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -123,6 +119,8 @@ namespace PowerLifting.API.API
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateUserAsync(int id, [FromBody]UserDTO user)
         {
             try
@@ -146,11 +144,9 @@ namespace PowerLifting.API.API
                     return NotFound();
                 }
 
-                _mapper.Map(user, userEntity);
-
-                _service.User.Update(userEntity);
+                ///_service.User.Update(user);
                 _service.Save();
-
+                //TODO fix
                 return NoContent();
             }
             catch (Exception ex)

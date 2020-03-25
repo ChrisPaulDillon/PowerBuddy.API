@@ -42,8 +42,8 @@ namespace PowerLifting.API.API
                 else
                 {
                     _logger.LogInformation($"Returned all Exercises");
-                    var exerciseResult = _mapper.Map<IEnumerable<ExerciseDTO>>(exercises);
-                    return Ok(exerciseResult);
+                  
+                    return Ok(exercises);
                 }
             }
             catch (Exception ex)
@@ -58,9 +58,9 @@ namespace PowerLifting.API.API
         {
             try
             {
-                var Exercise = await _service.Exercise.GetExerciseByName(exerciseName);
+                var exercise = await _service.Exercise.GetExerciseByName(exerciseName);
 
-                if (Exercise == null)
+                if (exercise == null)
                 {
                     _logger.LogError($"Exercise with name: {exerciseName}, hasn't been found in db.");
                     return NotFound();
@@ -69,8 +69,8 @@ namespace PowerLifting.API.API
                 {
                     _logger.LogInformation($"Returned Exercise with details for id: {exerciseName}");
 
-                    var ExerciseResult = _mapper.Map<ExerciseDTO>(Exercise);
-                    return Ok(ExerciseResult);
+             
+                    return Ok(exercise);
                 }
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateExercise([FromBody] Exercise exercise)
+        public async Task<IActionResult> CreateExercise([FromBody] ExerciseDTO exercise)
         {
             try
             {

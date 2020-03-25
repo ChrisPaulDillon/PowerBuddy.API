@@ -9,12 +9,17 @@ using Powerlifting.Contracts;
 using PowerLifting.Persistence;
 using Powerlifting.Services;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Http;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace PowerLifting.API
 {
     public class Startup
     {
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+      
 
         public Startup(IConfiguration configuration)
         {
@@ -58,14 +63,14 @@ namespace PowerLifting.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-
+            app.ConfigureExceptionHandler(logger);
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 

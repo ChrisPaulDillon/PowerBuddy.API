@@ -25,7 +25,7 @@ namespace PowerLifting.Entities.Model
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
 
-        public virtual ProgramType ProgramType { get; set; } 
+        public virtual ProgramTemplate ProgramTemplate { get; set; } 
         public ICollection<ExerciseMarkup> ExeciseMarkups { get; set; }
 
     }

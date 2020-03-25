@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Contracts.Contracts;
+using PowerLifting.Entities.DTOs;
 using PowerLifting.Entities.Model;
 using PowerLifting.Persistence;
 
@@ -11,29 +13,37 @@ namespace Powerlifting.Services.Service
 {
     public class ProgramLogService : ServiceBase<ProgramLog>, IProgramLogService
     {
-        public ProgramLogService(PowerliftingContext ServiceContext)
+        private IMapper _mapper;
+
+        public ProgramLogService(PowerliftingContext ServiceContext, IMapper mapper)
             : base(ServiceContext)
         {
-
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProgramLog>> GetAllProgramLogs()
+        public async Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogs()
         {
-            return await PowerliftingContext.Set<ProgramLog>().Include(j => j.ProgramType).Include(k => k.ExeciseMarkups).ToListAsync();
+            var logs = await PowerliftingContext.Set<ProgramLog>().Include(j => j.ProgramTemplate).Include(k => k.ExeciseMarkups).ToListAsync();
+            var logsDTO = _mapper.Map<IEnumerable<ProgramLogDTO>>(logs);
+            return logsDTO;
         }
 
-        public async Task<ProgramLog> GetProgramLogById(int id)
+        public async Task<ProgramLogDTO> GetProgramLogById(int id)
         {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == id).Include(j => j.ProgramType).
+            var log = await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == id).Include(j => j.ProgramTemplate).
                                                                                                 Include(k => k.ExeciseMarkups.Select(c => c.IndividualSets)).
                                                                                                 FirstOrDefaultAsync();
+            var logDTO = _mapper.Map<ProgramLogDTO>(log);
+            return logDTO;
         }
 
-        public async Task<IEnumerable<ProgramLog>> GetActiveProgramLogs()
+        public async Task<IEnumerable<ProgramLogDTO>> GetActiveProgramLogs()
         {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.EndDate < DateTime.Now).Include(j => j.ProgramType).
+            var logs =  await PowerliftingContext.Set<ProgramLog>().Where(x => x.EndDate < DateTime.Now).Include(j => j.ProgramTemplate).
                                                                                                 Include(k => k.ExeciseMarkups.Select(c => c.IndividualSets)).
                                                                                                 ToListAsync();
+            var logsDTO = _mapper.Map<IEnumerable<ProgramLogDTO>>(logs);
+            return logsDTO;
         }
 
 
