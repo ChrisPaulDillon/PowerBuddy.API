@@ -18,31 +18,6 @@ namespace Powerlifting.Services
             this.PowerliftingContext = ServiceContext;
         }
 
-        public async Task<IEnumerable<T>> GetAll()
-        {
-            return await PowerliftingContext.Set<T>().AsNoTracking().ToListAsync();
-        }
-
-        public async Task<IEnumerable<T>> GetAllByCondition(Expression<Func<T, bool>> expression)
-        {
-            return await PowerliftingContext.Set<T>().Where(expression).AsNoTracking().ToListAsync();
-        }
-
-        public async Task<IEnumerable<T>> GetAllInclude(Expression<Func<T, T>> expression)
-        {
-            return await PowerliftingContext.Set<T>().Include(expression).AsNoTracking().ToListAsync();
-        }
-
-        public async Task<T> GetByCondition(Expression<Func<T, bool>> expression)
-        {
-            return await PowerliftingContext.Set<T>().Where(expression).AsNoTracking().FirstOrDefaultAsync();
-        }
-
-        public async Task AddAsync(T entity)
-        {
-            await this.PowerliftingContext.Set<T>().AddAsync(entity);
-        }
-
         public void Update(T entity)
         {
             PowerliftingContext.Set<T>().Update(entity);

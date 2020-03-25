@@ -6,6 +6,5 @@ namespace Powerlifting.Contracts.Contracts
     public interface ILiftingStatService : IServiceBase<LiftingStat>
     {
         void UpdateLiftingStats(LiftingStat stats);
-        Task<LiftingStat> GetLiftingStatsByIdAsync(int id);
     }
 }

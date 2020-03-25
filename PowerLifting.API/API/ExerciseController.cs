@@ -29,156 +29,101 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllExercises()
+        public ActionResult GetAllExercises()
         {
-            try
+            var exercises = _service.Exercise.GetAllExercises();
+            if (exercises == null)
             {
-                var exercises = await _service.Exercise.GetAllIncludeCategories();
-                if (exercises == null)
-                {
-                    _logger.LogError($"No Exercises have been found in db.");
-                    return NotFound();
-                }
-                else
-                {
-                    _logger.LogInformation($"Returned all Exercises");
-                  
-                    return Ok(exercises);
-                }
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error returning all Exercises");
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            return Ok(exercises);
         }
 
         [HttpGet("Name/{name}")]
         public async Task<IActionResult> GetExercise(string exerciseName)
         {
-            try
-            {
-                var exercise = await _service.Exercise.GetExerciseByName(exerciseName);
+            var exercise = await _service.Exercise.GetExerciseByName(exerciseName);
 
-                if (exercise == null)
-                {
-                    _logger.LogError($"Exercise with name: {exerciseName}, hasn't been found in db.");
-                    return NotFound();
-                }
-                else
-                {
-                    _logger.LogInformation($"Returned Exercise with details for id: {exerciseName}");
-
-             
-                    return Ok(exercise);
-                }
-            }
-            catch (Exception ex)
+            if (exercise == null)
             {
-                _logger.LogError($"Something went wrong inside GetExercise action: {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return NotFound();
             }
+
+            return Ok(exercise);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateExercise([FromBody] ExerciseDTO exercise)
         {
-            try
+            if (exercise == null)
             {
-                if (exercise == null)
-                {
-                    _logger.LogError("Exercise object sent from client is null.");
-                    return BadRequest("Exercise object is null");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    _logger.LogError("Invalid Exercise object sent from client.");
-                    return BadRequest("Invalid model object");
-                }
-
-                var exerciseCheck = await _service.Exercise.GetExerciseByName(exercise.ExerciseName);
-                if (exerciseCheck != null)
-                {
-                    _logger.LogError("Exercise is already been added");
-                    return Conflict("Exercise is already been added");
-                }
-
-                var exerciseEntity = _mapper.Map<Exercise>(exercise);
-
-                await _service.Exercise.AddAsync(exerciseEntity);
-                _service.Save();
-
-                var createdExercise = _mapper.Map<ExerciseDTO>(exerciseEntity);
-                return Ok(createdExercise);
+                _logger.LogError("Exercise object sent from client is null.");
+                return BadRequest("Exercise object is null");
             }
-            catch (Exception ex)
+
+            if (!ModelState.IsValid)
             {
-                _logger.LogError($"Something went wrong inside CreateExercise action: {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                _logger.LogError("Invalid Exercise object sent from client.");
+                return BadRequest("Invalid model object");
             }
+
+            var exerciseCheck = await _service.Exercise.GetExerciseByName(exercise.ExerciseName);
+            if (exerciseCheck != null)
+            {
+                _logger.LogError("Exercise is already been added");
+                return Conflict("Exercise is already been added");
+            }
+
+            var exerciseEntity = _mapper.Map<Exercise>(exercise);
+
+            //await _service.Exercise.AddAsync(exerciseEntity);
+            //_service.Save();
+
+            return Ok(exercise);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateExerciseAsync(int id, [FromBody]ExerciseDTO Exercise)
+        public async Task<IActionResult> UpdateExerciseAsync(int id, [FromBody]ExerciseDTO exercise)
         {
-            try
+
+            if (exercise == null)
             {
-                if (Exercise == null)
-                {
-                    _logger.LogError("Exercise object sent from client is null.");
-                    return BadRequest("Exercise object is null");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    _logger.LogError("Invalid Exercise object sent from client.");
-                    return BadRequest("Invalid model object");
-                }
-
-                var ExerciseEntity = await _service.Exercise.GetExerciseById(id);
-                if (ExerciseEntity == null)
-                {
-                    _logger.LogError($"Exercise with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-
-                _mapper.Map(Exercise, ExerciseEntity);
-
-                _service.Exercise.Update(ExerciseEntity);
-                _service.Save();
-
-                return NoContent();
+                return BadRequest("Exercise object is null");
             }
-            catch (Exception ex)
+
+            if (!ModelState.IsValid)
             {
-                _logger.LogError($"Something went wrong inside UpdateExercise action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return BadRequest("Invalid model object");
             }
+
+            var ExerciseEntity = await _service.Exercise.GetExerciseById(id);
+            if (ExerciseEntity == null)
+            {
+                _logger.LogError($"Exercise with id: {id}, hasn't been found in db.");
+                return NotFound();
+            }
+
+            _mapper.Map(exercise, ExerciseEntity);
+
+            //_service.Exercise.Update(exercise);
+            _service.Save();
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExerciseAsync(int id)
         {
-            try
+            var exercise = await _service.Exercise.GetExerciseById(id);
+            if (exercise == null)
             {
-                var Exercise = await _service.Exercise.GetExerciseById(id);
-                if (Exercise == null)
-                {
-                    _logger.LogError($"Exercise with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-
-                _service.Exercise.DeleteExercise(Exercise);
-                _service.Save();
-
-                return NoContent();
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong inside DeleteExercise action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
+
+            //_service.Exercise.DeleteExercise(Exercise);
+            _service.Save();
+
+            return NoContent();
         }
     }
 }

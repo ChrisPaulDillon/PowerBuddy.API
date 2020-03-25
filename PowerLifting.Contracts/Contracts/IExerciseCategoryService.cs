@@ -9,6 +9,7 @@ namespace Powerlifting.Contracts.Contracts
 {
     public interface IExerciseCategoryService : IServiceBase<ExerciseCategory>
     {
+        IEnumerable<ExerciseCategoryDTO> GetAllCategories();
         Task<ExerciseCategoryDTO> GetExerciseCategoryById(int id);
         Task<ExerciseCategoryDTO> GetExerciseCategoryByName(string categoryName);
         void UpdateExerciseCategory(ExerciseCategory exerciseCategory);

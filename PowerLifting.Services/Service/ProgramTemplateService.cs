@@ -20,10 +20,17 @@ namespace Powerlifting.Services.Service
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProgramTemplateDTO>> GetAllIncludeProgramExercises()
+        public async Task<IEnumerable<ProgramTemplateDTO>> GetAllProgramTemplates()
         {
             var programTemplates = await PowerliftingContext.Set<ProgramTemplate>().Include(x => x.ProgramExercises).ThenInclude(s => s.IndividualSets).ToListAsync();
             var programTemplateDTO = _mapper.Map<IEnumerable<ProgramTemplateDTO>>(programTemplates);
+            return programTemplateDTO;
+        }
+
+        public async Task<ProgramTemplateDTO> GetProgramTemplateById(int programId)
+        {
+            var programTemplate = await PowerliftingContext.Set<ProgramTemplate>().Where(x => x.ProgramTypeId == programId).FirstOrDefaultAsync();
+            var programTemplateDTO = _mapper.Map<ProgramTemplateDTO>(programTemplate);
             return programTemplateDTO;
         }
 

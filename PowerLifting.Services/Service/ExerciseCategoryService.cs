@@ -2,27 +2,45 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Contracts.Contracts;
-using PowerLifting.Entities.Model;
 using PowerLifting.Persistence;
-using Powerlifting.Services;
 using System.Collections.Generic;
 using PowerLifting.Entities.Model.Lookups;
-using Powerlifting.Contracts;
-using System.Linq.Expressions;
 using System;
 using AutoMapper;
 using PowerLifting.Entities.DTOs.Lookups;
+using System.Collections.Concurrent;
 
 namespace Powerlifting.Services.Service
 {
     public class ExerciseCategoryService : ServiceBase<ExerciseCategory>, IExerciseCategoryService
     {
         private IMapper _mapper;
+        private ConcurrentDictionary<int, ExerciseCategoryDTO> _store;
 
         public ExerciseCategoryService(PowerliftingContext ServiceContext, IMapper mapper)
             : base(ServiceContext)
         {
             _mapper = mapper;
+        }
+
+        public IEnumerable<ExerciseCategoryDTO> GetAllCategories()
+        {
+            RefreshExerciseStore();
+            return _store.Values;
+        }
+
+        private void RefreshExerciseStore()
+        {
+            if (_store.IsEmpty)
+                return;
+
+            var categories = PowerliftingContext.Set<ExerciseCategory>().ToListAsync();
+            var categoryDTOs = _mapper.Map<IEnumerable<ExerciseCategoryDTO>>(categories);
+
+            foreach (var exerciseDTO in categoryDTOs)
+            {
+                _store.AddOrUpdate(exerciseDTO.ExerciseCategoryId, exerciseDTO, (key, olValue) => exerciseDTO);
+            }
         }
 
         public async Task<ExerciseCategoryDTO> GetExerciseCategoryById(int id)

@@ -20,10 +20,5 @@ namespace Powerlifting.Services.Service
         {
             Update(stats);
         }
-
-        public async Task<LiftingStat> GetLiftingStatsByIdAsync(int id)
-        {
-            return await GetByCondition(x => x.LiftingStatId == id);
-        }
     }
 }

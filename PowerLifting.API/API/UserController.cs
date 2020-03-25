@@ -159,59 +159,38 @@ namespace PowerLifting.API.API
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserAsync(int id)
         {
-            try
+            var user = await _service.User.GetUserById(id);
+            if (user == null)
             {
-                var user = await _service.User.GetUserById(id);
-                if (user == null)
-                {
-                    _logger.LogError($"User with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-
-                _service.User.DeleteUser(user);
-                _service.Save();
-
-                return NoContent();
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong inside DeleteOwner action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
+
+            //_service.User.DeleteUser(user);
+            _service.Save();
+
+            return NoContent();
+        
         }
 
         // GET: api/User/5
         [HttpPost("Login")]
         public async Task<IActionResult> Login(string username, string password)
         {
-            try
+            var user = await _service.User.GetUserByEmail(username);
+
+            if (user == null)
             {
-                var user = await _service.User.GetUserByEmail(username);
-
-                if (user == null)
-                {
-                    _logger.LogError($"User with username: {username}, hasn't been found in db.");
-                    return NotFound();
-                }
-                else
-                {
-                    bool verifyPassword = PasswordHandler.Instance.VerifyHash(password, user.Password);
-                    if (!verifyPassword)
-                    {
-                        _logger.LogError($"Password authentication failed for username : {username}");
-                        return Unauthorized(); //Change in future?
-                    }
-
-                    _logger.LogInformation($"Returned user with details for username: {username}");
-
-                    var userResult = _mapper.Map<UserDTO>(user);
-                    return Ok(userResult);
-                }
+                return NotFound();
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError($"Something went wrong inside GetOwnerWithDetails action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                bool verifyPassword = PasswordHandler.Instance.VerifyHash(password, user.Password);
+                if (!verifyPassword)
+                {
+                    return Unauthorized(); //Change in future?
+                }
+
+                return Ok(user);
             }
         }
     }

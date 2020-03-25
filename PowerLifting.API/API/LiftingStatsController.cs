@@ -23,41 +23,31 @@ namespace PowerLifting.API.API
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateLiftingStats(int id, [FromBody]LiftingStatDTO liftingStats)
         {
-            try
+
+            if (liftingStats == null)
             {
-                if (liftingStats == null)
-                {
-                    _logger.LogError("liftingStats object sent from client is null.");
-                    return BadRequest("liftingStats object is null");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    _logger.LogError("Invalid liftingStats object sent from client.");
-                    return BadRequest("Invalid liftingStats model object");
-                }
-
-                liftingStats.LiftingStatId = id;
-
-                var liftingStatsEntity = await _repository.LiftingStat.GetLiftingStatsByIdAsync(id);
-                if (liftingStatsEntity == null)
-                {
-                    _logger.LogError($"liftingStats with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-
-                _mapper.Map(liftingStats, liftingStatsEntity);
-
-                _repository.LiftingStat.UpdateLiftingStats(liftingStatsEntity);
-                _repository.Save();
-
-                return NoContent();
+                _logger.LogError("liftingStats object sent from client is null.");
+                return BadRequest("liftingStats object is null");
             }
-            catch (Exception ex)
+
+            if (!ModelState.IsValid)
             {
-                _logger.LogError($"Something went wrong inside UpdateOwner action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                _logger.LogError("Invalid liftingStats object sent from client.");
+                return BadRequest("Invalid liftingStats model object");
             }
-        }
+
+            liftingStats.LiftingStatId = id;
+
+            //var liftingStatsEntity = await _repository.LiftingStat.GetLiftingStatsByIdAsync(id);
+            //if (liftingStatsEntity == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //_repository.LiftingStat.UpdateLiftingStats(liftingStats);
+            _repository.Save();
+
+            return NoContent();
+        }  
     }
 }

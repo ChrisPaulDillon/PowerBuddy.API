@@ -10,11 +10,6 @@ namespace Powerlifting.Contracts
 {
     public interface IServiceBase<T>
     {
-        Task<IEnumerable<T>> GetAll();
-        Task<IEnumerable<T>> GetAllByCondition(Expression<Func<T, bool>> expression);
-        Task<IEnumerable<T>> GetAllInclude(Expression<Func<T, T>> expression);
-        Task<T> GetByCondition(Expression<Func<T, bool>> expression);
-        Task AddAsync(T entity);
         void Update(T entity);
         void Delete(T entity);
     }
