@@ -3,7 +3,6 @@ using Powerlifting.Services.Service;
 using Powerlifting.Contracts;
 using Powerlifting.Contracts.Contracts;
 using AutoMapper;
-using Powerlifting.Services.Service.Users;
 
 namespace Powerlifting.Services
 {
@@ -18,10 +17,9 @@ namespace Powerlifting.Services
         private IProgramTemplateService _programTemplate;
         private IMapper _mapper;
 
-        public ServiceWrapper(PowerliftingContext ServiceContext, IMapper mapper)
+        public ServiceWrapper(PowerliftingContext ServiceContext)
         {
             _repoContext = ServiceContext;
-            _mapper = mapper;
         }
 
         public IUserService User

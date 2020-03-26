@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Powerlifting.Contracts;
 using PowerLifting.Entities.Model.Exceptions;
 
 public static class ExceptionMiddlewareExtensions
 {
-    public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILoggerManager logger)
+    public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILogger logger)
     {
         app.UseExceptionHandler(appError =>
         {

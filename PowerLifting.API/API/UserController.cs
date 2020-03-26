@@ -9,7 +9,6 @@ using Powerlifting.Contracts;
 using PowerLifting.Cypto;
 using PowerLifting.Entities.DTOs;
 using PowerLifting.Entities.Model;
-using PowerLifting.Services.Service.Users;
 
 namespace PowerLifting.API.API
 {
@@ -34,16 +33,18 @@ namespace PowerLifting.API.API
                 var users = await _service.User.GetAllUsers();
                 if (users == null)
                 {
+                    _logger.LogError($"No Users have been found in db.");
                     return NotFound();
                 }
                 else
                 {
+                    _logger.LogInformation($"Returned all users");
                     return Ok(users);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, $"Error returning all users");
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -57,72 +58,118 @@ namespace PowerLifting.API.API
             try
             {
                 var user = await _service.User.GetUserById(id);
-                return Ok(user);
+
+                if (user == null)
+                {
+                    _logger.LogError($"User with id: {id}, hasn't been found in db.");
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogInformation($"Returned owner with details for id: {id}");
+                    return Ok(user);
+                }
             }
-            catch(UserNotFoundException e)
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogError($"Something went wrong inside GetUser action: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateUser([FromBody] UserDTO user)
         {
             try
             {
-                if (user == null) return BadRequest("User object is null");
+                if (user == null)
+                {
+                    _logger.LogError("User object sent from client is null.");
+                    return BadRequest("User object is null");
+                }
 
-                if (!ModelState.IsValid) return BadRequest("Invalid model object");
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError("Invalid user object sent from client.");
+                    return BadRequest("Invalid model object");
+                }
 
-                await _service.User.CreateUser(user);
+                var userCheck = await _service.User.GetUserByEmail(user.Email);
+                if (userCheck != null)
+                {
+                    _logger.LogError("Username is already taken");
+                    return Conflict("Username is already taken");
+                }
+
+                user.Password = PasswordHandler.Instance.ComputeHash(user.Password);
+
+                //user.LiftingStats = liftingStats;
+
+                //await _service.User.AddAsync(userEntity);
                 _service.Save();
+                //TODO fix
                 return Ok(user);
             }
-            catch(EmailInUseException)
+            catch (Exception ex)
             {
-                return Conflict();
-            }   
+                _logger.LogError($"Something went wrong inside CreateUser action: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody]UserDTO user)
+        public async Task<IActionResult> UpdateUserAsync(int id, [FromBody]UserDTO user)
         {
             try
             {
-                if (user == null) return BadRequest("User object is null");
+                if (user == null)
+                {
+                    _logger.LogError("User object sent from client is null.");
+                    return BadRequest("User object is null");
+                }
 
-                if (!ModelState.IsValid) return BadRequest("Invalid model object");
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError("Invalid User object sent from client.");
+                    return BadRequest("Invalid model object");
+                }
 
-                await _service.User.UpdateUser(user);
+                var userEntity = await _service.User.GetUserById(id);
+                if (userEntity == null)
+                {
+                    _logger.LogError($"User with id: {id}, hasn't been found in db.");
+                    return NotFound();
+                }
+
+                ///_service.User.Update(user);
                 _service.Save();
+                //TODO fix
                 return NoContent();
             }
-            catch(UserNotFoundException)
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogError($"Something went wrong inside UpdateUser action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUserAsync(int id)
         {
-            try
-            {
-                await _service.User.DeleteUser(id);
-                _service.Save();
-                return NoContent();
-            }
-            catch(UserNotFoundException)
+            var user = await _service.User.GetUserById(id);
+            if (user == null)
             {
                 return NotFound();
             }
+
+            //_service.User.DeleteUser(user);
+            _service.Save();
+
+            return NoContent();
+        
         }
 
         // GET: api/User/5
