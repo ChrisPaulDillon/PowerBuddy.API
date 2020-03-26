@@ -1,10 +1,22 @@
 ﻿using AutoMapper;
+using Powerlifting.Service.Exercises.DTO;
+using Powerlifting.Service.Exercises.Model;
+using Powerlifting.Service.LiftingStats.DTO;
+using Powerlifting.Service.LiftingStats.Model;
+using Powerlifting.Service.ProgramExercises.DTO;
+using Powerlifting.Service.ProgramExercises.Model;
+using Powerlifting.Services.ExerciseCategories.Model;
+using Powerlifting.Services.IndividualSets.DTO;
+using Powerlifting.Services.IndividualSets.Model;
+using Powerlifting.Services.ProgramLogs;
+using Powerlifting.Services.ProgramLogs.DTO;
+using Powerlifting.Services.ProgramTemplates;
+using Powerlifting.Services.ProgramTemplates.DTO;
+using Powerlifting.Services.Users.DTO;
+using Powerlifting.Services.Users.Model;
 using PowerLifting.Entities.DTOs;
 using PowerLifting.Entities.DTOs.Lookups;
-using PowerLifting.Entities.DTOs.Programs;
-using PowerLifting.Entities.Model;
-using PowerLifting.Entities.Model.Lookups;
-using PowerLifting.Entities.Model.Programs;
+using PowerLifting.ExerciseMarkups.Model;
 
 namespace PowerLifting.API
 {

@@ -29,7 +29,7 @@ namespace Powerlifting.Service.ExerciseCategories
 
         private void RefreshExerciseStore()
         {
-            if (_store.IsEmpty)
+            if (!_store.IsEmpty)
                 return;
 
             var categories = _repo.GetAllCategories();
@@ -58,6 +58,11 @@ namespace Powerlifting.Service.ExerciseCategories
         {
             var exerciseEntity = _mapper.Map<ExerciseCategory>(exerciseCategory);
             _repo.UpdateCategory(exerciseEntity);
+        }
+
+        public Task<ExerciseCategoryDTO> GetExerciseCategoryByName(string name)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

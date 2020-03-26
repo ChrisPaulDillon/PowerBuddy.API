@@ -8,6 +8,7 @@ using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramTemplates;
 using Powerlifting.Services.Users.Model;
 using PowerLifting.Entities.DTOs;
+using PowerLifting.ExerciseMarkups.Model;
 
 namespace PowerLifting.Persistence
 {

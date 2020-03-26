@@ -1,20 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Powerlifting.Contracts;
-using PowerLifting.Entities.DTOs;
+using Powerlifting.Service.LiftingStats.DTO;
+using Powerlifting.Services.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {
-    [Route("api/LiftingStats")]
+    [Route("api/[controller]")]
     [ApiController]
     public class LiftingStatsController : ControllerBase
     {
         private readonly ILogger<LiftingStatsController> _logger;
         private readonly IServiceWrapper _repository;
-        public LiftingStatsController(ILogger<LiftingStatsController> logger, IServiceWrapper repository)
+
+        public LiftingStatsController(IServiceWrapper repository, ILogger<LiftingStatsController> logger)
         {
             _logger = logger;
             _repository = repository;
@@ -26,13 +25,11 @@ namespace PowerLifting.API.API
 
             if (liftingStats == null)
             {
-                _logger.LogError("liftingStats object sent from client is null.");
                 return BadRequest("liftingStats object is null");
             }
 
             if (!ModelState.IsValid)
             {
-                _logger.LogError("Invalid liftingStats object sent from client.");
                 return BadRequest("Invalid liftingStats model object");
             }
 
@@ -45,8 +42,6 @@ namespace PowerLifting.API.API
             //}
 
             //_repository.LiftingStat.UpdateLiftingStats(liftingStats);
-            _repository.Save();
-
             return NoContent();
         }  
     }

@@ -1,6 +1,5 @@
-﻿using System;
-using Powerlifting.Repository;
-using PowerLifting.Entities.DTOs;
+﻿using Powerlifting.Repository;
+using PowerLifting.ExerciseMarkups.Model;
 using PowerLifting.Persistence;
 using PowerLifting.Services.ExerciseMarkups;
 

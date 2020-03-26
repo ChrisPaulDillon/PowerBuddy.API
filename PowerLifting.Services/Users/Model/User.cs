@@ -12,6 +12,5 @@ namespace Powerlifting.Services.Users.Model
         public string Password { get; set; }
         public virtual LiftingStat LiftingStats { get; set; }
         public ICollection<ProgramLog> ProgramLogs { get; set; }
-
     }
 }

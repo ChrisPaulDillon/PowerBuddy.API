@@ -4,7 +4,7 @@ using Powerlifting.Services.ProgramTemplates.DTO;
 
 namespace Powerlifting.Services.ProgramTemplates
 {
-    public interface IProgramTemplateSevice
+    public interface IProgramTemplateService
     {
         Task<IEnumerable<ProgramTemplateDTO>> GetAllProgramTemplates();
         Task<ProgramTemplateDTO> GetProgramTemplateById(int programTemplateId);

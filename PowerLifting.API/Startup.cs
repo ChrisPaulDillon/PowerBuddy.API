@@ -5,18 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Powerlifting.Contracts;
 using PowerLifting.Persistence;
-using Powerlifting.Services;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Http;
-using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.Extensions.Logging;
 using NLog;
 using System;
 using System.IO;
 using PowerLifting.LoggerService;
+using Powerlifting.Services.ServiceWrappers;
 
 namespace PowerLifting.API
 {

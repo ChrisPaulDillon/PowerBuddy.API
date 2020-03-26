@@ -76,5 +76,10 @@ namespace Powerlifting.Services.Users
             }
             _repo.DeleteUser(user);
         }
+
+        Task<UserDTO> IUserService.CreateUser(UserDTO user)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

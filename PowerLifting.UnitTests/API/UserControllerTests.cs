@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Powerlifting.Services.ServiceWrappers;
+using Powerlifting.Services.Users.DTO;
+using Powerlifting.Services.Users.Model;
 using PowerLifting.API.API;
-using Powerlifting.Contracts;
-using PowerLifting.Cypto;
-using PowerLifting.Entities.DTOs;
-using PowerLifting.Entities.Model;
 using Xunit;
 
 namespace PowerLifting.UnitTests.API

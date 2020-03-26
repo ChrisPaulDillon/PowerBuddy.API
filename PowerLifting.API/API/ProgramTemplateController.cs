@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Powerlifting.Contracts;
-using PowerLifting.Entities.DTOs.Programs;
-using PowerLifting.Entities.Model.Programs;
+using Powerlifting.Services.ProgramTemplates.DTO;
+using Powerlifting.Services.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {
-    [Route("api/ProgramType")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProgramTypeController : ControllerBase
     {
         private ILogger<ProgramTypeController> _logger;
         private IServiceWrapper _service;
+
         public ProgramTypeController(IServiceWrapper service, ILogger<ProgramTypeController> logger)
         {
             _logger = logger;
@@ -65,14 +61,13 @@ namespace PowerLifting.API.API
                 return BadRequest("Invalid ProgramType model object");
             }
 
-            var ProgramTypeCheck = await _service.ProgramTemplate.GetProgramTypeByName(programTemplate.Name);
+            var ProgramTypeCheck = await _service.ProgramTemplate.GetProgramTemplateByName(programTemplate.Name);
             if (ProgramTypeCheck != null)
             {
                 return Conflict("Exercise Category is already been added");
             }
 
             //await _service.ProgramTemplate.AddAsync(programTemplate);
-            _service.Save();
             //TODO FIX
             return Ok(programTemplate);
         }

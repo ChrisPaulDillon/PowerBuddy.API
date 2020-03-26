@@ -37,22 +37,4 @@
     <Folder Include="ProgramLogs\Model\" />
     <Folder Include="ProgramTemplates\Model\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Service\Users\EmailInUserException.cs" />
-    <Compile Remove="Contracts\IExerciseCategoryService.cs" />
-    <Compile Remove="Service\IndividualSet.cs" />
-    <Compile Remove="Service\ProgramExercise.cs" />
-    <Compile Remove="Service\ExerciseMarkup.cs" />
-    <Compile Remove="Service\Users\User.cs" />
-    <Compile Remove="Service\Users\IUserService.cs" />
-    <Compile Remove="ExerciseCategories\ExerciseCategory.cs" />
-    <Compile Remove="DTOs\ProgramLogDTO.cs" />
-    <Compile Remove="DTOs\LiftingStatDTO.cs" />
-    <Compile Remove="DTOs\ExerciseMarkup.cs" />
-    <Compile Remove="DTOs\IndividualSetDTO.cs" />
-    <Compile Remove="DTOs\Programs\ProgramExerciseDTO.cs" />
-    <Compile Remove="Exercises\Exercise.cs" />
-    <Compile Remove="ServiceWrappers\IServiceWrapper.cs" />
-    <Compile Remove="ServiceWrappers\ServiceWrapper.cs" />
-  </ItemGroup>
 </Project>

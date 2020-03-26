@@ -8,6 +8,7 @@ namespace Powerlifting.Service.ExerciseCategories
     {
         IEnumerable<ExerciseCategoryDTO> GetAllCategories();
         Task<ExerciseCategoryDTO> GetExerciseCategoryById(int id);
+        Task<ExerciseCategoryDTO> GetExerciseCategoryByName(string name);
         void UpdateExerciseCategory(ExerciseCategoryDTO exerciseCategory);
         void DeleteExerciseCategory(ExerciseCategoryDTO exerciseCategory);
     }

@@ -1,29 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Powerlifting.Contracts;
+using Powerlifting.Service.ExerciseCategories;
+using Powerlifting.Services.ServiceWrappers;
 using PowerLifting.Entities.DTOs.Lookups;
-using PowerLifting.Entities.DTOs.Programs;
-using PowerLifting.Entities.Model.Lookups;
 
 namespace PowerLifting.API.API
 {
-    [Route("api/ExerciseCategory")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ExerciseCategoryController : ControllerBase
     {
         private ILogger<ExerciseCategoryController> _logger;
-       
         private IServiceWrapper _service;
+
         public ExerciseCategoryController(IServiceWrapper Service, ILogger<ExerciseCategoryController> logger)
         {
             _logger = logger;
             _service = Service;
-       
         }
 
         [HttpGet]
@@ -34,19 +30,15 @@ namespace PowerLifting.API.API
                 var exerciseCategories =  _service.ExerciseCategory.GetAllCategories();
                 if (exerciseCategories == null)
                 {
-                    _logger.LogError($"No Exercise Categories have been found in db.");
                     return NotFound();
                 }
                 else
-                {
-                    _logger.LogInformation($"Returned all Exercise Categories");
-               
+                {  
                     return Ok(exerciseCategories);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error returning all Exercise Categories");
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -92,7 +84,6 @@ namespace PowerLifting.API.API
 
 
             //await _service.ExerciseCategory.AddAsync(exerciseCategory);
-            _service.Save();
               //TODO Fix
             return Ok(exerciseCategory);
             
@@ -124,7 +115,6 @@ namespace PowerLifting.API.API
             exerciseCategory.ExerciseCategoryId = exerciseCategoryEntity.ExerciseCategoryId;
 
             //_service.ExerciseCategory.UpdateExerciseCategory(exerciseCategoryEntity);
-            _service.Save();
 
             return NoContent();
             
@@ -142,7 +132,6 @@ namespace PowerLifting.API.API
             }
 
             //_service.ExerciseCategory.DeleteExerciseCategory(exercise);
-            _service.Save();
             //TODO fix
             return NoContent();
 

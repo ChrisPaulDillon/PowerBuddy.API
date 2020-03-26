@@ -1,24 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Powerlifting.Contracts;
+using Powerlifting.Services.ServiceWrappers;
+using Powerlifting.Services.Users.DTO;
 using PowerLifting.Cypto;
-using PowerLifting.Entities.DTOs;
-using PowerLifting.Entities.Model;
-using PowerLifting.Services.Service.Users;
+using PowerLifting.Services.Service.Users.Exceptions;
+using PowerLifting.Services.Users.Exceptions;
 
 namespace PowerLifting.API.API
 {
-    [Route("api/user")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private ILogger<UserController> _logger;
         private IServiceWrapper _service;
+
         public UserController(IServiceWrapper service, ILogger<UserController> logger)
         {
             _logger = logger;
@@ -78,10 +77,9 @@ namespace PowerLifting.API.API
                 if (!ModelState.IsValid) return BadRequest("Invalid model object");
 
                 await _service.User.CreateUser(user);
-                _service.Save();
                 return Ok(user);
             }
-            catch(EmailInUseException)
+            catch(EmailInUserException)
             {
                 return Conflict();
             }   
@@ -98,8 +96,7 @@ namespace PowerLifting.API.API
 
                 if (!ModelState.IsValid) return BadRequest("Invalid model object");
 
-                await _service.User.UpdateUser(user);
-                _service.Save();
+                _service.User.UpdateUser(user);
                 return NoContent();
             }
             catch(UserNotFoundException)
@@ -116,7 +113,6 @@ namespace PowerLifting.API.API
             try
             {
                 await _service.User.DeleteUser(id);
-                _service.Save();
                 return NoContent();
             }
             catch(UserNotFoundException)

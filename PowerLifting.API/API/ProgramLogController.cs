@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Powerlifting.Contracts;
-using PowerLifting.Entities.DTOs;
-using PowerLifting.Entities.DTOs.Lookups;
-using PowerLifting.Entities.Model;
+using Powerlifting.Services.ProgramLogs.DTO;
+using Powerlifting.Services.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {
-    [Route("api/ProgramLog")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProgramLogController : ControllerBase
     {
         private ILogger<ProgramLogController> _logger;
         private IServiceWrapper _service;
+
         public ProgramLogController(IServiceWrapper service, ILogger<ProgramLogController> logger)
         {
             _logger = logger;
@@ -25,11 +20,11 @@ namespace PowerLifting.API.API
          
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllProgramLogs()
+        [HttpGet("Activate")]
+        public async Task<IActionResult> GetAllProgramLogsByUserId(int userId)
         {
 
-            var programLogs = await _service.ProgramLog.GetAllProgramLogs();
+            var programLogs = await _service.ProgramLog.GetAllProgramLogsByUserId(userId);
             if (programLogs == null)
             {
 
@@ -43,10 +38,10 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("Active")]
-        public async Task<IActionResult> GetActiveProgramLogs()
+        public async Task<IActionResult> GetActiveProgramLogsByUserId(int userId)
         {
 
-            var programLogs = await _service.ProgramLog.GetAllProgramLogs();
+            var programLogs = await _service.ProgramLog.GetActiveProgramLogsByUserId(userId);
             if (programLogs == null)
             {
                 return NotFound();
@@ -99,7 +94,6 @@ namespace PowerLifting.API.API
             }
 
             //await _service.ProgramLog.AddAsync(programLogEntity);
-            _service.Save();
             //TODO fix
             return Ok(programLog);
         }
@@ -110,12 +104,10 @@ namespace PowerLifting.API.API
             var programLog = await _service.ProgramLog.GetProgramLogById(id);
             if (programLog == null)
             {
-                _logger.LogError($"Program Log with id: {id}, hasn't been found in db.");
                 return NotFound();
             }
 
             //_service.ProgramLog.DeleteProgramLog(programLog);
-            _service.Save();
             //TODO fix
             return NoContent();
         }

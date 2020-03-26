@@ -7,7 +7,7 @@ using PowerLifting.Services.ProgramTemplates;
 
 namespace Powerlifting.Services.ProgramTemplates
 {
-    public class ProgramTemplateService : IProgramTemplateSevice
+    public class ProgramTemplateService : IProgramTemplateService
     {
         private IMapper _mapper;
         private IProgramTemplateRepository _repo;

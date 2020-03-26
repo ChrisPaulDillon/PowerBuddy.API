@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Powerlifting.Persistence", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Repository", "PowerLifting.Repository\PowerLifting.Repository.csproj", "{432C55C6-B82E-4C37-8833-F5803EAF6B6B}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "PowerLifting.Services", "PowerLifting.Services\PowerLifting.Services.csproj", "{CAA123BA-96DB-478E-B9ED-7DCD039FC695}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Services", "PowerLifting.Services\PowerLifting.Services.csproj", "{CAA123BA-96DB-478E-B9ED-7DCD039FC695}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

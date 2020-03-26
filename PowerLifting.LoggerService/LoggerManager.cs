@@ -2,7 +2,7 @@
 
 namespace PowerLifting.LoggerService
 {
-    public class LoggerManager
+    public class LoggerManager : ILoggerManager
     {
         private static ILogger logger = LogManager.GetCurrentClassLogger();
 

@@ -3,6 +3,7 @@ using Powerlifting.Service.Exercises;
 using Powerlifting.Service.LiftingStats;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramTemplates;
+using PowerLifting.Services.Users;
 
 namespace Powerlifting.Services.ServiceWrappers
 {
@@ -14,6 +15,5 @@ namespace Powerlifting.Services.ServiceWrappers
         IExerciseCategoryService ExerciseCategory { get; }
         IProgramLogService ProgramLog { get; }
         IProgramTemplateService ProgramTemplate { get; }
-        void Save();
     }
 }

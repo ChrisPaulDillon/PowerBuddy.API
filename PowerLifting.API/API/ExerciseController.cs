@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Powerlifting.Contracts;
-using PowerLifting.Cypto;
-using PowerLifting.Entities.DTOs;
-using PowerLifting.Entities.DTOs.Lookups;
-using PowerLifting.Entities.Model;
-using PowerLifting.Entities.Model.Lookups;
+using Powerlifting.Service.Exercises.DTO;
+using Powerlifting.Service.Exercises.Model;
+using Powerlifting.Services.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {
-    [Route("api/Exercises")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ExerciseController : ControllerBase
     {
         private ILogger<ExerciseController> _logger;
         private IMapper _mapper;
         private IServiceWrapper _service;
+
         public ExerciseController(IServiceWrapper service, ILogger<ExerciseController> logger, IMapper mapper)
         {
             _logger = logger;
@@ -106,7 +101,6 @@ namespace PowerLifting.API.API
             _mapper.Map(exercise, ExerciseEntity);
 
             //_service.Exercise.Update(exercise);
-            _service.Save();
 
             return NoContent();
         }
@@ -121,7 +115,6 @@ namespace PowerLifting.API.API
             }
 
             //_service.Exercise.DeleteExercise(Exercise);
-            _service.Save();
 
             return NoContent();
         }
