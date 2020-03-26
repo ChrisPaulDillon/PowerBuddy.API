@@ -1,6 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Powerlifting.Service.Exercises.Model;
+using Powerlifting.Service.LiftingStats.Model;
+using Powerlifting.Service.ProgramExercises.Model;
+using Powerlifting.Services.ExerciseCategories.Model;
+using Powerlifting.Services.IndividualSets.Model;
+using Powerlifting.Services.ProgramLogs;
+using Powerlifting.Services.ProgramTemplates;
+using Powerlifting.Services.Users.Model;
+using PowerLifting.ExerciseMarkups.Model;
 
 namespace PowerLifting.Persistence
 {

@@ -4,54 +4,63 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Powerlifting.Services.ProgramLogs.DTO;
-using Powerlifting.Services.ServiceWrappers;
+using PowerLifting.Services.ProgramLogs;
 
 namespace Powerlifting.Services.ProgramLogs
 {
-    public class ProgramLogService : ServiceBase<ProgramLog>, IProgramLogService
+    public class ProgramLogService : IProgramLogService
     {
         private IMapper _mapper;
+        private IProgramLogRepository _repo;
 
-        public ProgramLogService(PowerliftingContext ServiceContext, IMapper mapper)
-            : base(ServiceContext)
+        public ProgramLogService(IProgramLogRepository repo, IMapper mapper)
         {
+            _repo = repo;
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogs()
+        public async Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(int userId)
         {
-            var logs = await PowerliftingContext.Set<ProgramLog>().Include(j => j.ProgramTemplate).Include(k => k.ExeciseMarkups).ToListAsync();
+            var logs = await _repo.GetAllProgramLogsByUserId(userId);
             var logsDTO = _mapper.Map<IEnumerable<ProgramLogDTO>>(logs);
             return logsDTO;
         }
 
         public async Task<ProgramLogDTO> GetProgramLogById(int id)
         {
-            var log = await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == id).Include(j => j.ProgramTemplate).
-                                                                                                Include(k => k.ExeciseMarkups.Select(c => c.IndividualSets)).
-                                                                                                FirstOrDefaultAsync();
+            var log = await _repo.GetProgramLogById(id);
             var logDTO = _mapper.Map<ProgramLogDTO>(log);
             return logDTO;
         }
 
-        public async Task<IEnumerable<ProgramLogDTO>> GetActiveProgramLogs()
+        public async Task<IEnumerable<ProgramLogDTO>> GetActiveProgramLogsByUserId(int userId)
         {
-            var logs =  await PowerliftingContext.Set<ProgramLog>().Where(x => x.EndDate < DateTime.Now).Include(j => j.ProgramTemplate).
-                                                                                                Include(k => k.ExeciseMarkups.Select(c => c.IndividualSets)).
-                                                                                                ToListAsync();
+            var logs = await _repo.GetActiveProgramLogsByUserId(userId);
             var logsDTO = _mapper.Map<IEnumerable<ProgramLogDTO>>(logs);
             return logsDTO;
         }
 
 
-        public void UpdateProgramLog(ProgramLog programLog)
+        public async void UpdateProgramLog(ProgramLogDTO programLogDTO)
         {
-            Update(programLog);
+            var programLog = await _repo.GetProgramLogById(programLogDTO.ProgramLogId);
+            if (programLog == null)
+            {
+                //throw new UserNotFoundException();
+                //TODO
+            }
+            _mapper.Map(programLogDTO, programLog);
+            _repo.UpdateProgramLog(programLog);
         }
-
-        public void DeleteProgramLog(ProgramLog programLog)
+   
+        public async void DeleteProgramLog(ProgramLogDTO programLogDTO)
         {
-            Delete(programLog);
+            var programLog = await _repo.GetProgramLogById(programLogDTO.ProgramLogId);
+            if (programLog == null)
+            {
+                //throw new UserNotFoundException();
+            }
+            _repo.DeleteProgramLog(programLog);
         }
 
     }

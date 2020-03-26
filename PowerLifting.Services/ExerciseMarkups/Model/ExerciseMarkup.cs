@@ -3,7 +3,7 @@ using Powerlifting.Services.IndividualSets.DTO;
 using System;
 using System.Collections.Generic;
 
-namespace PowerLifting.Entities.DTOs
+namespace PowerLifting.ExerciseMarkups.Model
 {
     /// <summary>
     /// Represents a given lift, its sets, weight and reps lifted on a given day for that particular exercise.

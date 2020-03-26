@@ -1,11 +1,8 @@
-﻿using System.Threading.Tasks;
-using Powerlifting.Service.LiftingStats.Model;
-using Powerlifting.Services.ServiceWrappers;
-using PowerLifting.Entities.Model;
+﻿using Powerlifting.Service.LiftingStats.Model;
 
 namespace Powerlifting.Service.LiftingStats
 {
-    public interface ILiftingStatService : IServiceBase<LiftingStat>
+    public interface ILiftingStatService
     {
         void UpdateLiftingStats(LiftingStat stats);
     }

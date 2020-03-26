@@ -1,22 +1,23 @@
 ﻿using AutoMapper;
 using Powerlifting.Service.LiftingStats.Model;
-using Powerlifting.Services.ServiceWrappers;
+using PowerLifting.Services.LiftingStats;
 
 namespace Powerlifting.Service.LiftingStats
 {
-    public class LiftingStatService : ServiceBase<LiftingStat>, ILiftingStatService
+    public class LiftingStatService : ILiftingStatService
     {
         private IMapper _mapper;
+        private ILiftingStatRepository _liftingStatRepo;
 
-        public LiftingStatService(PowerliftingContext ServiceContext, IMapper mapper)
-            : base(ServiceContext)
+        public LiftingStatService(ILiftingStatRepository liftingStatRepo, IMapper mapper)
         {
+            _liftingStatRepo = liftingStatRepo;
             _mapper = mapper;
         }
 
         public void UpdateLiftingStats(LiftingStat stats)
         {
-            Update(stats);
+            //Update(stats);
         }
     }
 }

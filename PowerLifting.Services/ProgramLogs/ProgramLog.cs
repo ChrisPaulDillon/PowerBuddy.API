@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using Powerlifting.Services.ProgramTemplates;
 using PowerLifting.Entities.DTOs;
-using PowerLifting.Entities.Model;
-using PowerLifting.Entities.Model.Programs;
+using PowerLifting.ExerciseMarkups.Model;
 
 namespace Powerlifting.Services.ProgramLogs
 {
@@ -14,6 +13,7 @@ namespace Powerlifting.Services.ProgramLogs
     public class ProgramLog
     {
         public int ProgramLogId { get; set; }
+        public int UserId { get; set; }
         public int ProgramTypeId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

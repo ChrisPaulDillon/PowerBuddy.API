@@ -1,18 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Powerlifting.Services.ProgramLogs.DTO;
-using Powerlifting.Services.ServiceWrappers;
-using PowerLifting.Entities.DTOs;
-using PowerLifting.Entities.Model;
 
 namespace Powerlifting.Services.ProgramLogs
 {
-    public interface IProgramLogService : IServiceBase<ProgramLog>
+    public interface IProgramLogService
     {
-        Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogs();
-        Task<IEnumerable<ProgramLogDTO>> GetActiveProgramLogs();
+        Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(int userId);
+        Task<IEnumerable<ProgramLogDTO>> GetActiveProgramLogsByUserId(int userId);
         Task<ProgramLogDTO> GetProgramLogById(int id);
-        void UpdateProgramLog(ProgramLog programLog);
-        void DeleteProgramLog(ProgramLog programLog);
+        void UpdateProgramLog(ProgramLogDTO programLog);
+        void DeleteProgramLog(ProgramLogDTO programLog);
     }
 }

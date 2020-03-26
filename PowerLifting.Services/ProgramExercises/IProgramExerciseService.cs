@@ -1,10 +1,8 @@
 ﻿using System;
 namespace PowerLifting.Services.ProgramExercises
 {
-    public class IProgramExerciseService
+    public interface IProgramExerciseService
     {
-        public IProgramExerciseService()
-        {
-        }
+       
     }
 }

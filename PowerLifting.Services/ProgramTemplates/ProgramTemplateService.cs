@@ -3,36 +3,38 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
 using Powerlifting.Services.ProgramTemplates.DTO;
+using PowerLifting.Services.ProgramTemplates;
 
 namespace Powerlifting.Services.ProgramTemplates
 {
-    public class ProgramTemplateService : ServiceBase<ProgramTemplate>, IProgramTemplateService
+    public class ProgramTemplateService : IProgramTemplateSevice
     {
         private IMapper _mapper;
+        private IProgramTemplateRepository _repo;
 
-        public ProgramTemplateService(PowerliftingContext ServiceContext, IMapper mapper)
-            : base(ServiceContext)
+        public ProgramTemplateService(IProgramTemplateRepository repo, IMapper mapper)
         {
+            _repo = repo;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<ProgramTemplateDTO>> GetAllProgramTemplates()
         {
-            var programTemplates = await PowerliftingContext.Set<ProgramTemplate>().Include(x => x.ProgramExercises).ThenInclude(s => s.IndividualSets).ToListAsync();
+            var programTemplates = await _repo.GetAllProgramTemplates();
             var programTemplateDTO = _mapper.Map<IEnumerable<ProgramTemplateDTO>>(programTemplates);
             return programTemplateDTO;
         }
 
-        public async Task<ProgramTemplateDTO> GetProgramTemplateById(int programId)
+        public async Task<ProgramTemplateDTO> GetProgramTemplateById(int programTemplateId)
         {
-            var programTemplate = await PowerliftingContext.Set<ProgramTemplate>().Where(x => x.ProgramTemplateId == programId).FirstOrDefaultAsync();
+            var programTemplate = await _repo.GetProgramTemplateById(programTemplateId);
             var programTemplateDTO = _mapper.Map<ProgramTemplateDTO>(programTemplate);
             return programTemplateDTO;
         }
 
-        public async Task<ProgramTemplateDTO> GetProgramTypeByName(string programName)
+        public async Task<ProgramTemplateDTO> GetProgramTemplateByName(string programName)
         {
-            var programTemplate = await PowerliftingContext.Set<ProgramTemplate>().Where(x => x.Name == programName).FirstOrDefaultAsync();
+            var programTemplate = await _repo.GetProgramTemplateByName(programName);
             var programTemplateDTO = _mapper.Map<ProgramTemplateDTO>(programTemplate);
             return programTemplateDTO;
         }
@@ -41,7 +43,5 @@ namespace Powerlifting.Services.ProgramTemplates
         {
             throw new System.NotImplementedException();
         }
-
-
     }
 }

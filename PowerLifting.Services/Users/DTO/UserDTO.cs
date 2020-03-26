@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Powerlifting.Service.LiftingStats.DTO;
+using Powerlifting.Services.ProgramLogs.DTO;
 
 namespace Powerlifting.Services.Users.DTO
 {

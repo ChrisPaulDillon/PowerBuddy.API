@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ExerciseCategories\" />
@@ -52,5 +53,6 @@
     <Compile Remove="DTOs\Programs\ProgramExerciseDTO.cs" />
     <Compile Remove="Exercises\Exercise.cs" />
     <Compile Remove="ServiceWrappers\IServiceWrapper.cs" />
+    <Compile Remove="ServiceWrappers\ServiceWrapper.cs" />
   </ItemGroup>
 </Project>

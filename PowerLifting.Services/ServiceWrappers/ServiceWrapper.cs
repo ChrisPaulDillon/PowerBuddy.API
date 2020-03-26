@@ -5,13 +5,14 @@ using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramTemplates;
 using Powerlifting.Service.Exercises;
 using Powerlifting.Service.LiftingStats;
+using PowerLifting.Services.Users;
 
 namespace Powerlifting.Services.ServiceWrappers
 {
-    public class ServiceWrapper : IServiceWrapper
+    public class ServiceWrapper
     {
-        private PowerliftingContext _repoContext;
         private IUserService _user;
+        private IUserRepository _userRepo;
         private ILiftingStatService _liftingStats;
         private IExerciseService _exercise;
         private IExerciseCategoryService _exerciseCategory;
@@ -19,9 +20,8 @@ namespace Powerlifting.Services.ServiceWrappers
         private IProgramTemplateService _programTemplate;
         private IMapper _mapper;
 
-        public ServiceWrapper(PowerliftingContext ServiceContext, IMapper mapper)
+        public ServiceWrapper(IMapper mapper)
         {
-            _repoContext = ServiceContext;
             _mapper = mapper;
         }
 
@@ -31,7 +31,7 @@ namespace Powerlifting.Services.ServiceWrappers
             {
                 if (_user == null)
                 {
-                    _user = new UserService(_repoContext, _mapper);
+                    _user = new UserService(_mapper);
                 }
 
                 return _user;
@@ -44,7 +44,7 @@ namespace Powerlifting.Services.ServiceWrappers
             {
                 if (_liftingStats == null)
                 {
-                    _liftingStats = new LiftingStatService(_repoContext, _mapper);
+                    _liftingStats = new LiftingStatService(_mapper);
                 }
 
                 return _liftingStats;
@@ -57,7 +57,7 @@ namespace Powerlifting.Services.ServiceWrappers
             {
                 if (_exercise == null)
                 {
-                    _exercise = new ExerciseService(_repoContext, _mapper);
+                    _exercise = new ExerciseService(_mapper);
                 }
 
                 return _exercise;
@@ -70,7 +70,7 @@ namespace Powerlifting.Services.ServiceWrappers
             {
                 if (_exerciseCategory == null)
                 {
-                    _exerciseCategory = new ExerciseCategoryService(_repoContext, _mapper);
+                    _exerciseCategory = new ExerciseCategoryService(_mapper);
                 }
 
                 return _exerciseCategory;
@@ -84,7 +84,7 @@ namespace Powerlifting.Services.ServiceWrappers
             {
                 if (_programLogs == null)
                 {
-                    _programLogs = new ProgramLogService(_repoContext, _mapper);
+                    _programLogs = new ProgramLogService(_mapper);
                 }
 
                 return _programLogs;
@@ -97,17 +97,11 @@ namespace Powerlifting.Services.ServiceWrappers
             {
                 if (_programTemplate == null)
                 {
-                    _programTemplate = new ProgramTemplateService(_repoContext, _mapper);
+                    _programTemplate = new ProgramTemplateService(_mapper);
                 }
 
                 return _programTemplate;
             }
-        }
-
-
-        public void Save()
-        {
-            _repoContext.SaveChangesAsync();
         }
     }
 }

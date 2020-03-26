@@ -8,9 +8,8 @@ namespace Powerlifting.Services.Users.Model
     public class User
     {
         public int UserId { get; set; }
-        public int LiftingStatId { get; set; }
-        public String Email { get; set; }
-        public String Password { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         public virtual LiftingStat LiftingStats { get; set; }
         public ICollection<ProgramLog> ProgramLogs { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿
 using Newtonsoft.Json;
 
-namespace PowerLifting.Entities.Model.Exceptions
+namespace PowerLifting.Services
 {
     public class ErrorDetails
     {

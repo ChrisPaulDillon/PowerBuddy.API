@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Persistence;
+using PowerLifting.Repository.Repositories;
 
 namespace Powerlifting.Repository
 {
@@ -46,9 +47,10 @@ namespace Powerlifting.Repository
         {
             PowerliftingContext.Set<T>().Remove(entity);
         }
-    }
 
-    public interface IRepositoryBase<T> where T : class
-    {
+        public void Save()
+        {
+            PowerliftingContext.SaveChanges();
+        }
     }
 }

@@ -4,20 +4,21 @@ using System.Collections.Generic;
 using System;
 using System.Collections.Concurrent;
 using AutoMapper;
-using Powerlifting.Services.ServiceWrappers;
 using Powerlifting.Service.Exercises.DTO;
 using Powerlifting.Service.Exercises.Model;
+using PowerLifting.Services.Exercises;
 
 namespace Powerlifting.Service.Exercises
 {
-    public class ExerciseService : ServiceBase<Exercise>, IExerciseService
+    public class ExerciseService : IExerciseService
     {
         private ConcurrentDictionary<int, ExerciseDTO> _store;
         private IMapper _mapper;
+        private IExerciseRepository _repo;
 
-        public ExerciseService(PowerliftingContext ServiceContext, IMapper mapper)
-            : base(ServiceContext)
+        public ExerciseService(IExerciseRepository repo, IMapper mapper)
         {
+            _repo = repo;
             _store = new ConcurrentDictionary<int, ExerciseDTO>();
             _mapper = mapper;
         }
@@ -28,12 +29,12 @@ namespace Powerlifting.Service.Exercises
             return _store.Values;
         }
 
-        private void RefreshExerciseStore()
+        public void RefreshExerciseStore()
         {
             if(!_store.IsEmpty)
                 return;
-            
-            var exercises = PowerliftingContext.Set<Exercise>().Include(x => x.ExerciseCategory).ToList();
+
+            var exercises = _repo.GetAllExercises();
             var exerciseDTOs = _mapper.Map<IEnumerable<ExerciseDTO>>(exercises);
 
             foreach(var exerciseDTO in exerciseDTOs)
@@ -44,32 +45,34 @@ namespace Powerlifting.Service.Exercises
 
         public async Task<ExerciseDTO> GetExerciseById(int id)
         {
-            var exercise = await PowerliftingContext.Set<Exercise>().Where(x => x.ExerciseId == id).Include(x => x.ExerciseCategory).AsNoTracking().FirstOrDefaultAsync();
+            var exercise = await _repo.GetExerciseById(id);
             var exerciseDTO = _mapper.Map<ExerciseDTO>(exercise);
             return exerciseDTO;
         }
 
-        public void UpdateExercise(Exercise exercise)
+        public async void UpdateExercise(ExerciseDTO exerciseDTO)
         {
-            Update(exercise);
+            var exercise = await _repo.GetExerciseById(exerciseDTO.ExerciseId);
+            if (exercise == null)
+            {
+                //throw new UserNotFoundException();
+                //TODO
+            }
+            _mapper.Map(exerciseDTO, exercise);
+            _repo.UpdateExercise(exercise);
         }
 
-        public void DeleteExercise(Exercise exercise)
+        public async void DeleteExercise(ExerciseDTO exerciseDTO)
         {
-            Delete(exercise);
+            var exercise = await _repo.GetExerciseById(exerciseDTO.ExerciseId);
+            if (exercise == null)
+            {
+                //throw new UserNotFoundException();
+            }
+            _repo.DeleteExercise(exercise);
         }
 
         public Task<ExerciseDTO> GetExerciseByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateExercie(ExerciseDTO exercise)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IExerciseService.RefreshExerciseStore()
         {
             throw new NotImplementedException();
         }

@@ -1,24 +1,23 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using PowerLifting.Persistence;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using System;
 using AutoMapper;
 using PowerLifting.Entities.DTOs.Lookups;
 using System.Collections.Concurrent;
 using Powerlifting.Services.ExerciseCategories.Model;
+using PowerLifting.Services.ExerciseCategories;
 
 namespace Powerlifting.Service.ExerciseCategories
 {
-    public class ExerciseCategoryService : ServiceBase<ExerciseCategory>, IExerciseCategoryService
+    public class ExerciseCategoryService : IExerciseCategoryService
     {
         private IMapper _mapper;
         private ConcurrentDictionary<int, ExerciseCategoryDTO> _store;
+        private IExerciseCategoryRepository _repo;
 
-        public ExerciseCategoryService(PowerliftingContext ServiceContext, IMapper mapper)
-            : base(ServiceContext)
+        public ExerciseCategoryService(IExerciseCategoryRepository repo, IMapper mapper)
         {
+            _store = new ConcurrentDictionary<int, ExerciseCategoryDTO>();
+            _repo = repo;
             _mapper = mapper;
         }
 
@@ -33,7 +32,7 @@ namespace Powerlifting.Service.ExerciseCategories
             if (_store.IsEmpty)
                 return;
 
-            var categories = PowerliftingContext.Set<ExerciseCategory>().ToListAsync();
+            var categories = _repo.GetAllCategories();
             var categoryDTOs = _mapper.Map<IEnumerable<ExerciseCategoryDTO>>(categories);
 
             foreach (var exerciseDTO in categoryDTOs)
@@ -44,29 +43,21 @@ namespace Powerlifting.Service.ExerciseCategories
 
         public async Task<ExerciseCategoryDTO> GetExerciseCategoryById(int id)
         {
-            var exerciseCategory = await PowerliftingContext.Set<ExerciseCategory>().Where(c => c.ExerciseCategoryId == id).FirstOrDefaultAsync();
+            var exerciseCategory = await _repo.GetCategoryById(id);
             var exerciseCategoryDTO = _mapper.Map<ExerciseCategoryDTO>(exerciseCategory);
             return exerciseCategoryDTO;
         }
 
-        public async Task<ExerciseCategory> GetExerciseCategoryByName(string categoryName)
+        public void UpdateExerciseCategory(ExerciseCategoryDTO exerciseCategory)
         {
-            return await PowerliftingContext.Set<ExerciseCategory>().Where(exerciseCategory => exerciseCategory.CategoryName == categoryName).FirstOrDefaultAsync();
+            var exerciseEntity = _mapper.Map<ExerciseCategory>(exerciseCategory);
+            _repo.UpdateCategory(exerciseEntity);
         }
 
-        public void UpdateExerciseCategory(ExerciseCategory exerciseCategory)
+        public void DeleteExerciseCategory(ExerciseCategoryDTO exerciseCategory)
         {
-            Update(exerciseCategory);
-        }
-
-        public void DeleteExerciseCategory(ExerciseCategory exerciseCategory)
-        {
-            Delete(exerciseCategory);
-        }
-
-        Task<ExerciseCategoryDTO> IExerciseCategoryService.GetExerciseCategoryByName(string categoryName)
-        {
-            throw new NotImplementedException();
+            var exerciseEntity = _mapper.Map<ExerciseCategory>(exerciseCategory);
+            _repo.UpdateCategory(exerciseEntity);
         }
     }
 }
