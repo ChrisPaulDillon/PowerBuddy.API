@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PowerLifting.Entities.Model;
-using PowerLifting.Entities.Model.Lookups;
-using PowerLifting.Entities.Model.Programs;
 
 namespace PowerLifting.Persistence
 {

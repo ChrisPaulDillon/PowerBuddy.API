@@ -16,9 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.API\PowerLifting.API.csproj" />
-    <ProjectReference Include="..\PowerLifting.Contracts\PowerLifting.Contracts.csproj" />
     <ProjectReference Include="..\PowerLifting.Cypto\PowerLifting.Cypto.csproj" />
-    <ProjectReference Include="..\PowerLifting.Entities\PowerLifting.Entities.csproj" />
     <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
     <ProjectReference Include="..\PowerLifting.Services\PowerLifting.Services.csproj" />
   </ItemGroup>

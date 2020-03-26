@@ -1,11 +1,10 @@
-﻿using Powerlifting.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Entity.Entities.Data;
+using PowerLifting.Persistence;
 
 namespace Powerlifting.Repository
 {
@@ -47,5 +46,9 @@ namespace Powerlifting.Repository
         {
             PowerliftingContext.Set<T>().Remove(entity);
         }
+    }
+
+    public interface IRepositoryBase<T> where T : class
+    {
     }
 }

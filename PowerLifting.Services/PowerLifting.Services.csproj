@@ -5,12 +5,52 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerLifting.Contracts\PowerLifting.Contracts.csproj" />
-    <ProjectReference Include="..\PowerLifting.Entities\PowerLifting.Entities.csproj" />
-    <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ExerciseCategories\" />
+    <Folder Include="Exercises\" />
+    <Folder Include="LiftingStats\" />
+    <Folder Include="ProgramLogs\" />
+    <Folder Include="ProgramTemplates\" />
+    <Folder Include="Users\" />
+    <Folder Include="ExerciseCategories\Model\" />
+    <Folder Include="ServiceWrappers\" />
+    <Folder Include="ExerciseCategories\DTO\" />
+    <Folder Include="LiftingStats\DTO\" />
+    <Folder Include="ProgramLogs\DTO\" />
+    <Folder Include="ProgramTemplates\DTO\" />
+    <Folder Include="Users\DTO\" />
+    <Folder Include="Users\Model\" />
+    <Folder Include="ExerciseMarkups\" />
+    <Folder Include="ExerciseMarkups\Model\" />
+    <Folder Include="IndividualSets\" />
+    <Folder Include="IndividualSets\DTO\" />
+    <Folder Include="ProgramExercises\" />
+    <Folder Include="ProgramExercises\DTO\" />
+    <Folder Include="ExerciseMarkups\DTO\" />
+    <Folder Include="Exercises\Model\" />
+    <Folder Include="LiftingStats\Model\" />
+    <Folder Include="IndividualSets\Model\" />
+    <Folder Include="ProgramExercises\Model\" />
+    <Folder Include="ProgramLogs\Model\" />
+    <Folder Include="ProgramTemplates\Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Service\Users\EmailInUserException.cs" />
+    <Compile Remove="Contracts\IExerciseCategoryService.cs" />
+    <Compile Remove="Service\IndividualSet.cs" />
+    <Compile Remove="Service\ProgramExercise.cs" />
+    <Compile Remove="Service\ExerciseMarkup.cs" />
+    <Compile Remove="Service\Users\User.cs" />
+    <Compile Remove="Service\Users\IUserService.cs" />
+    <Compile Remove="ExerciseCategories\ExerciseCategory.cs" />
+    <Compile Remove="DTOs\ProgramLogDTO.cs" />
+    <Compile Remove="DTOs\LiftingStatDTO.cs" />
+    <Compile Remove="DTOs\ExerciseMarkup.cs" />
+    <Compile Remove="DTOs\IndividualSetDTO.cs" />
+    <Compile Remove="DTOs\Programs\ProgramExerciseDTO.cs" />
+    <Compile Remove="Exercises\Exercise.cs" />
+    <Compile Remove="ServiceWrappers\IServiceWrapper.cs" />
   </ItemGroup>
 </Project>

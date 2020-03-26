@@ -13,6 +13,10 @@ using Microsoft.AspNetCore.Http;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using NLog;
+using System;
+using System.IO;
+using PowerLifting.LoggerService;
 
 namespace PowerLifting.API
 {
@@ -23,6 +27,7 @@ namespace PowerLifting.API
 
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -36,9 +41,11 @@ namespace PowerLifting.API
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
+            services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
+            
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -56,14 +63,14 @@ namespace PowerLifting.API
                     });
             });
 
-            var connectionString = "Server=localhost;Database=PowerLiftingDbV3.11;User Id=sa;Password=<Chippydog201060@>";
+            var connectionString = "Server=localhost;Database=PowerLiftingDbV3.12;User Id=sa;Password=<Chippydog201060@>";
 
             services.AddDbContext<PowerliftingContext>(options =>
                 options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
         {
             if (env.IsDevelopment())
             {

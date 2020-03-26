@@ -12,4 +12,7 @@
     <ProjectReference Include="..\PowerLifting.Entities\PowerLifting.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="ILoggerManager.cs" />
+  </ItemGroup>
 </Project>

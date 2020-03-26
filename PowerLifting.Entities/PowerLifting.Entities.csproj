@@ -22,7 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\Programs\" />
-    <Folder Include="DTOs\Programs\" />
     <Folder Include="Model\Exceptions\" />
   </ItemGroup>
 </Project>
