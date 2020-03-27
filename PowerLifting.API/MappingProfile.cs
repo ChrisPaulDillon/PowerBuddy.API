@@ -17,6 +17,7 @@ using Powerlifting.Services.Users.Model;
 using PowerLifting.Entities.DTOs;
 using PowerLifting.Entities.DTOs.Lookups;
 using PowerLifting.ExerciseMarkups.Model;
+using PowerLifting.Services.Users.DTO;
 
 namespace PowerLifting.API
 {
@@ -24,24 +25,38 @@ namespace PowerLifting.API
     {
         public MappingProfile()
         {
+            //Users
             CreateMap<User, UserDTO>();
-            CreateMap<LiftingStat, LiftingStatDTO>();
+            CreateMap<UserDTO, User>();
+            CreateMap<RegisterUserDTO, User>();
+            CreateMap<NewUserDTO, User>();
+
+            //Program Templates
+            CreateMap<ProgramTemplate, ProgramTemplateDTO>();
+            CreateMap<ProgramTemplateDTO, ProgramTemplate>();
+            CreateMap<ProgramTemplate, TopLevelProgramTemplateDTO>();
+
             CreateMap<Exercise, ExerciseDTO>();
+            CreateMap<ExerciseDTO, Exercise>();
+            CreateMap<TopLevelProgramTemplateDTO, Exercise>();
+
+            CreateMap<LiftingStat, LiftingStatDTO>();
+
             CreateMap<ExerciseCategory, ExerciseCategoryDTO>();
             CreateMap<ProgramLog, ProgramLogDTO>();
             CreateMap<IndividualSet, IndividualSetDTO>();
             CreateMap<ExerciseMarkup, ExerciseMarkupDTO>();
-            CreateMap<ProgramTemplate, ProgramTemplateDTO>();
+            
             CreateMap<ProgramExercise, ProgramExerciseDTO>();
 
-            CreateMap<UserDTO, User>();
+            
             CreateMap<LiftingStatDTO, LiftingStat>();
-            CreateMap<ExerciseDTO, Exercise>();
+
             CreateMap<ExerciseCategoryDTO, ExerciseCategory>();
             CreateMap<ProgramLogDTO, ProgramLog>();
             CreateMap<IndividualSetDTO, IndividualSet>();
             CreateMap<ExerciseMarkupDTO, ExerciseMarkup>();
-            CreateMap<ProgramTemplateDTO, ProgramTemplate>();
+            
             CreateMap<ProgramExerciseDTO, ProgramExercise>();
         }
     }

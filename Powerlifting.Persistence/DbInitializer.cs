@@ -25,9 +25,8 @@ namespace PowerLifting.Persistence
                 var exerciseCategories = new ExerciseCategory[]
                 {
                     new ExerciseCategory{CategoryName="Dumbbells"},
-                    new ExerciseCategory{CategoryName="Bodyweight"},
                     new ExerciseCategory{CategoryName="Barbells"},
-                    new ExerciseCategory{CategoryName="Core"},
+                    new ExerciseCategory{CategoryName="Bodyweight"},
                 };
 
                 foreach (ExerciseCategory e in exerciseCategories)
@@ -41,11 +40,38 @@ namespace PowerLifting.Persistence
             {
                 var exercises = new Exercise[]
                 {
-                    //new Exercise{ExerciseName="Squat"},
-                    //new Exercise{ExerciseName="Deadlift"},
-                    //new Exercise{ExerciseName="Bench Press"},
-                    new Exercise{ExerciseName="Overhead Press"},
-                    new Exercise{ExerciseName="Dumbbell Press"},
+                    new Exercise{ExerciseName="Back Squat", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Conventional Deadlift", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Overhead Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Front Squat", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Overhead Squat", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Barbell Lunge", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Wide Grip Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Narrow Grip Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Floor Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Incline Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Decline Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Barbell Bicep Curl", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Good Morning", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Stiff Leg Deadlift", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Sumo Deadlift", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Snatch", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Hang Snatch", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Power Snatch", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Clean & Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Clean & Jerk", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Clean", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Hang Clean", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Power Clean", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Jerk", ExerciseCategoryId = 2}, 
+                    new Exercise{ExerciseName="Power Jerk", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Barbell Row", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Penlay Row", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="T-Bar Row", ExerciseCategoryId = 2},
+
+
+
                 };
 
                 foreach (Exercise e in exercises)
@@ -67,7 +93,7 @@ namespace PowerLifting.Persistence
                                                                         Exercise = new Exercise { ExerciseName = "Standing Press" },
                                                                                 IndividualSets = new List<IndividualSet> { new IndividualSet { SetNo = 1, WeightLifted = 100, NumOfReps =5 }},
                                                                                 }},
-                        ProgramTemplate = new ProgramTemplate{Name="5/3/1", ProgramExercises = new List<ProgramExercise> {
+                        ProgramTemplate = new ProgramTemplate{Name="5/3/1", Difficulty="Beginner", ProgramExercises = new List<ProgramExercise> {
                                                                                             new ProgramExercise { ExerciseId = 0, DayOfWeek = "Monday", WeekNumber = 1,
                                                                                              IndividualSets = new List<IndividualSet> { new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},
                                                                                                               new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},

@@ -8,12 +8,12 @@ namespace PowerLifting.API.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProgramTypeController : ControllerBase
+    public class ProgramTemplateController : ControllerBase
     {
-        private ILogger<ProgramTypeController> _logger;
+        private ILogger<ProgramTemplateController> _logger;
         private IServiceWrapper _service;
 
-        public ProgramTypeController(IServiceWrapper service, ILogger<ProgramTypeController> logger)
+        public ProgramTemplateController(IServiceWrapper service, ILogger<ProgramTemplateController> logger)
         {
             _logger = logger;
             _service = service;

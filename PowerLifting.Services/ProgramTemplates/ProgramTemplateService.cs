@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
 using Powerlifting.Services.ProgramTemplates.DTO;
-using PowerLifting.Services.ProgramTemplates;
 using PowerLifting.Repositorys.RepositoryWrappers;
 
 namespace Powerlifting.Services.ProgramTemplates
@@ -19,10 +17,10 @@ namespace Powerlifting.Services.ProgramTemplates
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProgramTemplateDTO>> GetAllProgramTemplates()
+        public async Task<IEnumerable<TopLevelProgramTemplateDTO>> GetAllProgramTemplates()
         {
             var programTemplates = await _repo.ProgramTemplate.GetAllProgramTemplates();
-            var programTemplateDTO = _mapper.Map<IEnumerable<ProgramTemplateDTO>>(programTemplates);
+            var programTemplateDTO = _mapper.Map<IEnumerable<TopLevelProgramTemplateDTO>>(programTemplates);
             return programTemplateDTO;
         }
 
