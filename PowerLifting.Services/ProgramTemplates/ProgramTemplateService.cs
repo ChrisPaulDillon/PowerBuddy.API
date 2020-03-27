@@ -49,18 +49,18 @@ namespace Powerlifting.Services.ProgramTemplates
             {
                 foreach (var set in exercise.IndividualSets)
                 {
+                    var percentage = (double)set.Percentage / 100;
                     if (exercise.ExerciseName == "Squat")
                     {
-                        double percentage =  exercise.Percentage / 100;
-                        set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
+                        set.WeightLifted =  percentage * user.LiftingStats.SquatWeight;
                     }
                     else if (exercise.ExerciseName == "Deadlift")
                     {
-                        set.WeightLifted = (exercise.Percentage / 100) * user.LiftingStats.DeadliftWeight;
+                        set.WeightLifted =  percentage * user.LiftingStats.DeadliftWeight;
                     }
                     else if (exercise.ExerciseName == "Bench Press")
                     {
-                        set.WeightLifted = (exercise.Percentage / 100) * user.LiftingStats.BenchWeight;
+                        set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
                     }
                 }
             }

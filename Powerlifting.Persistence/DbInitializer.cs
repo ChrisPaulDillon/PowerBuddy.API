@@ -7,7 +7,6 @@ using Powerlifting.Service.ProgramExercises.Model;
 using Powerlifting.Services.ExerciseCategories.Model;
 using Powerlifting.Services.IndividualSets.Model;
 using Powerlifting.Services.ProgramLogs;
-using Powerlifting.Services.ProgramTemplates;
 using Powerlifting.Services.ProgramTemplates.Model;
 using Powerlifting.Services.Users.Model;
 using PowerLifting.ExerciseMarkups.Model;
@@ -85,11 +84,82 @@ namespace PowerLifting.Persistence
                 {
                     new ProgramTemplate {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4,
                         ProgramExercises = new List<ProgramExercise> {
-                                          new ProgramExercise { ExerciseName = "Squat", Percentage = 65, WeekNumber = 1, DayNumber = 1, NoOfSets = 3,
+                                          new ProgramExercise { ExerciseName = "Squat", WeekNumber = 1, DayNumber = 1, NoOfSets = 3,
                                                                 IndividualSets = new List<IndividualSet> {
-                                                                    new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},
-                                                                    new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},
-                                                                    new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100} } },
+                                                                    new IndividualSet { SetNo = 1, Percentage = 65, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 75, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 85, NumOfReps = 5}
+                                                                                                          } },
+                                          new ProgramExercise { ExerciseName = "Bench Press", WeekNumber = 1, DayNumber = 2, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 65, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 75, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 85, NumOfReps = 5}
+                                                                                                          } },
+                                          new ProgramExercise { ExerciseName = "Deadlift", WeekNumber = 1, DayNumber = 3, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 65, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 75, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 85, NumOfReps = 5}
+                                                                                                          } },
+                                          //Week 2
+                                          new ProgramExercise { ExerciseName = "Squat", WeekNumber = 2, DayNumber = 1, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 70, NumOfReps = 3},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 80, NumOfReps = 3},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 90, NumOfReps = 3}
+                                                                                                          } },
+                                          new ProgramExercise { ExerciseName = "Bench Press", WeekNumber = 2, DayNumber = 2, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 70, NumOfReps = 3},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 80, NumOfReps = 3},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 90, NumOfReps = 3}
+                                                                                                          } },
+                                          new ProgramExercise { ExerciseName = "Deadlift", WeekNumber = 2, DayNumber = 3, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 70, NumOfReps = 3},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 80, NumOfReps = 3},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 90, NumOfReps = 3}
+                                                                                                          } },
+
+                                           //Week 3
+                                          new ProgramExercise { ExerciseName = "Squat", WeekNumber = 3, DayNumber = 1, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 75, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 85, NumOfReps = 3},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 95, NumOfReps = 1}
+                                                                                                          } },
+                                          new ProgramExercise { ExerciseName = "Bench Press", WeekNumber = 3, DayNumber = 2, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 75, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 85, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 95, NumOfReps = 5}
+                                                                                                          } },
+                                          new ProgramExercise { ExerciseName = "Deadlift", WeekNumber = 3, DayNumber = 3, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 75, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 85, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 95, NumOfReps = 5}
+                                                                                                          } },
+                                          //Week 4
+                                          new ProgramExercise { ExerciseName = "Squat", WeekNumber = 4, DayNumber = 1, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 40, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 50, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 60, NumOfReps = 5}
+                                                                                                          } },
+                                          new ProgramExercise { ExerciseName = "Bench Press", WeekNumber = 4, DayNumber = 2, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 40, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 50, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 60, NumOfReps = 5}
+                                                                                                          } },
+                                          new ProgramExercise { ExerciseName = "Deadlift", WeekNumber = 4, DayNumber = 1, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 1, Percentage = 40, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 2, Percentage = 50, NumOfReps = 5},
+                                                                    new IndividualSet { SetNo = 3, Percentage = 60, NumOfReps = 5}
+                                                                                                          } },
                     } }
                 };
 
