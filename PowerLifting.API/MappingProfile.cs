@@ -18,6 +18,8 @@ using Powerlifting.Services.Users.Model;
 using PowerLifting.Entities.DTOs;
 using PowerLifting.Entities.DTOs.Lookups;
 using PowerLifting.ExerciseMarkups.Model;
+using PowerLifting.Services.ProgramRepSchemes.DTO;
+using PowerLifting.Services.ProgramRepSchemes.Model;
 using PowerLifting.Services.Users.DTO;
 
 namespace PowerLifting.API
@@ -45,6 +47,9 @@ namespace PowerLifting.API
             CreateMap<IndividualSetDTO, IndividualSet>();
             CreateMap<MarkupIndividualSetDTO, IndividualSet>();
             CreateMap<IndividualSet, MarkupIndividualSetDTO>();
+
+            CreateMap<ProgramRepScheme, ProgramRepSchemeDTO>();
+            CreateMap<ProgramRepSchemeDTO, ProgramRepScheme>();
 
             CreateMap<LiftingStat, LiftingStatDTO>();
 

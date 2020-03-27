@@ -27,7 +27,7 @@ namespace PowerLifting.Repository.Repositories
         {
             return await PowerliftingContext.Set<ProgramTemplate>().Where(x => x.ProgramTemplateId == programTemplateId)
                                                                                     .Include(x => x.ProgramExercises)
-                                                                                    .ThenInclude(x => x.IndividualSets)
+                                                                                    .ThenInclude(x => x.ProgramRepSchemes)
                                                                                     .FirstOrDefaultAsync();
         }
 

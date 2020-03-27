@@ -88,7 +88,7 @@ namespace PowerLifting.API.API
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody]UserDTO user)
+        public ActionResult UpdateUser(int id, [FromBody]UserDTO user)
         {
             try
             {

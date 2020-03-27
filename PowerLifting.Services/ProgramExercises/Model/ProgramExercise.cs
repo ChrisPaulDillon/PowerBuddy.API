@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Powerlifting.Services.IndividualSets.Model;
+using PowerLifting.Services.ProgramRepSchemes.Model;
 
 namespace Powerlifting.Service.ProgramExercises.Model
 {
@@ -15,6 +15,6 @@ namespace Powerlifting.Service.ProgramExercises.Model
         public int WeekNumber { get; set; }
         public int DayNumber { get; set; }
         public int NoOfSets { get; set; }
-        public virtual ICollection<IndividualSet> IndividualSets { get; set; }
+        public virtual ICollection<ProgramRepScheme> ProgramRepSchemes { get; set; }
     }
 }

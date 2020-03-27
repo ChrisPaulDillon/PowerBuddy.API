@@ -36,5 +36,8 @@
     <Folder Include="ProgramExercises\Model\" />
     <Folder Include="ProgramLogs\Model\" />
     <Folder Include="ProgramTemplates\Model\" />
+    <Folder Include="ProgramRepSchemes\" />
+    <Folder Include="ProgramRepSchemes\Model\" />
+    <Folder Include="ProgramRepSchemes\DTO\" />
   </ItemGroup>
 </Project>

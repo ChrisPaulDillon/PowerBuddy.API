@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Powerlifting.Services.IndividualSets.DTO;
+using PowerLifting.Services.ProgramRepSchemes.DTO;
 
 namespace Powerlifting.Service.ProgramExercises.DTO
 {
@@ -12,6 +12,6 @@ namespace Powerlifting.Service.ProgramExercises.DTO
         public int WeekNumber { get; set; }
         public int DayNumber { get; set; }
         public int NoOfSets { get; set; }
-        public virtual ICollection<MarkupIndividualSetDTO> IndividualSets { get; set; }
+        public virtual ICollection<ProgramRepSchemeDTO> ProgramRepSchemes { get; set; }
     }
 }

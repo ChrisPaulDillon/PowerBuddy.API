@@ -29,13 +29,6 @@ namespace Powerlifting.Services.ProgramTemplates
         {
             //var user = await _repo.User.get(programTemplateId);
             ProgramTemplate programTemplate = await _repo.ProgramTemplate.GetProgramTemplateById(programTemplateId);
-            foreach (var exercise in programTemplate.ProgramExercises)
-            {
-                foreach(var set in exercise.IndividualSets)
-                {
-                    //set.WeightLifted = exercise.Percentage
-                }
-            }
             var programTemplateDTO = _mapper.Map<ProgramTemplateDTO>(programTemplate);
             return programTemplateDTO;
         }
@@ -47,7 +40,7 @@ namespace Powerlifting.Services.ProgramTemplates
 
             foreach (var exercise in programTemplate.ProgramExercises)
             {
-                foreach (var set in exercise.IndividualSets)
+                foreach (var set in exercise.ProgramRepSchemes)
                 {
                     var percentage = (double)set.Percentage / 100;
                     if (exercise.ExerciseName == "Squat")

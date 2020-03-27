@@ -10,6 +10,7 @@ using Powerlifting.Services.ProgramTemplates.Model;
 using Powerlifting.Services.Users.Model;
 using PowerLifting.Entities.DTOs;
 using PowerLifting.ExerciseMarkups.Model;
+using PowerLifting.Services.ProgramRepSchemes.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -28,6 +29,7 @@ namespace PowerLifting.Persistence
         public DbSet<ProgramLog> ProgramLog { get; set; }
         public DbSet<ProgramTemplate> ProgramTemplate { get; set; }
         public DbSet<ProgramExercise> ProgramExercise { get; set; }
+        public DbSet<ProgramRepScheme> ProgramRepScheme { get; set; }
         public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,7 +44,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
             modelBuilder.Entity<ProgramTemplate>().ToTable("ProgramTemplate");
             modelBuilder.Entity<ProgramExercise>().ToTable("ProgramExercise");
-
+            modelBuilder.Entity<ProgramRepScheme>().ToTable("ProgramRepScheme");
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
             modelBuilder.Entity<User>().ToTable("User");
         }
