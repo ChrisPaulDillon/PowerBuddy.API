@@ -1,6 +1,4 @@
-﻿using System;
-using AutoMapper;
-using PowerLifting.Persistence;
+﻿using PowerLifting.Persistence;
 using PowerLifting.Repositorys.RepositoryWrappers;
 using PowerLifting.Services.ExerciseCategories;
 using PowerLifting.Services.Exercises;
@@ -20,7 +18,6 @@ namespace PowerLifting.Repository.Repositories
         private IProgramLogRepository _programLogRepo;
         private IProgramTemplateRepository _programTemplateRepo;
 
-        private IMapper _mapper;
         private PowerliftingContext _context;
 
         public RepositoryWrapper(PowerliftingContext repositoryContext)

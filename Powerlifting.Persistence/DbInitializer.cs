@@ -69,9 +69,6 @@ namespace PowerLifting.Persistence
                     new Exercise{ExerciseName="Barbell Row", ExerciseCategoryId = 2},
                     new Exercise{ExerciseName="Penlay Row", ExerciseCategoryId = 2},
                     new Exercise{ExerciseName="T-Bar Row", ExerciseCategoryId = 2},
-
-
-
                 };
 
                 foreach (Exercise e in exercises)
@@ -80,7 +77,28 @@ namespace PowerLifting.Persistence
                 }
                 context.SaveChanges();
             }
-  
+
+            if (!context.ProgramTemplate.Any())
+            {
+                var templates = new ProgramTemplate[]
+                {
+                    new ProgramTemplate {Name="5/3/1", Difficulty="Beginner",
+                        ProgramExercises = new List<ProgramExercise> {
+                                          new ProgramExercise { ExerciseName = "Squat", Percentage = "65%", WeekNumber = 1, DayNumber = 1, NoOfSets = 3,
+                                                                IndividualSets = new List<IndividualSet> {
+                                                                    new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},
+                                                                    new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},
+                                                                    new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100} } },
+                    } }
+                };
+
+                foreach (ProgramTemplate e in templates)
+                {
+                    context.ProgramTemplate.Add(e);
+                }
+                context.SaveChanges();
+            }
+
             if (!context.User.Any())
             {
                 var users = new User[]
@@ -88,19 +106,14 @@ namespace PowerLifting.Persistence
                     new User{ Email="chrispauldillon@live.com", Password="test123",
                         LiftingStats= new LiftingStat { BenchWeight=100, DeadliftWeight=170, SquatWeight=200 },
                         ProgramLogs= new List<ProgramLog> {
-                            new ProgramLog { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), NoOfDaysLifting = 4, Monday = true, Tuesday = true,
-                                            ExeciseMarkups = new List<ExerciseMarkup> { new ExerciseMarkup { LiftingDate = DateTime.Now, NumOfSets = 5,
-                                                                        Exercise = new Exercise { ExerciseName = "Standing Press" },
-                                                                                IndividualSets = new List<IndividualSet> { new IndividualSet { SetNo = 1, WeightLifted = 100, NumOfReps =5 }},
-                                                                                }},
-                        ProgramTemplate = new ProgramTemplate{Name="5/3/1", Difficulty="Beginner", ProgramExercises = new List<ProgramExercise> {
-                                                                                            new ProgramExercise { ExerciseId = 0, DayOfWeek = "Monday", WeekNumber = 1,
-                                                                                             IndividualSets = new List<IndividualSet> { new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},
-                                                                                                              new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},
-                                                                                                              new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100} } },
-                                                                                            new ProgramExercise { ExerciseId = 0, DayOfWeek = "Monday", WeekNumber = 1},
-                                                                                            new ProgramExercise { ExerciseId = 0, DayOfWeek = "Monday", WeekNumber = 1 } },
-                                                                   },
+                            new ProgramLog { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), ProgramTemplateId = 1, NoOfDaysLifting = 4,
+                                Monday = true, Tuesday = true,
+                                ExeciseMarkups = new List<ExerciseMarkup> {
+                                                    new ExerciseMarkup { LiftingDate = DateTime.Now, NumOfSets = 5,
+                                                                         Exercise = new Exercise { ExerciseName = "Standing Press" },
+                                                                         IndividualSets = new List<IndividualSet> {
+                                                                                new IndividualSet { SetNo = 1, WeightLifted = 100, NumOfReps =5 }}}},
+                        
                             }
                         }
                         }
@@ -112,6 +125,8 @@ namespace PowerLifting.Persistence
                 }
                 context.SaveChanges();
             }
+
+            
         }
     }
 }

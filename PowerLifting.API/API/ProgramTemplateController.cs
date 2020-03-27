@@ -34,7 +34,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProgramTemplate(int templateId)
+        public async Task<IActionResult> GetProgramTemplateById(int templateId)
         {
             var programType = await _service.ProgramTemplate.GetProgramTemplateById(templateId);
 

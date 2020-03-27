@@ -9,6 +9,7 @@ namespace Powerlifting.Services.ProgramTemplates
         public int ProgramTemplateId { get; set; }
         public String Name { get; set; }
         public String Difficulty { get; set; }
+        public int NoOfWeeks { get; set; }
 
         public ICollection<ProgramExercise> ProgramExercises { get; set; }
         

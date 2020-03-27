@@ -24,7 +24,10 @@ namespace PowerLifting.Repository.Repositories
 
         public async Task<ProgramTemplate> GetProgramTemplateById(int programTemplateId)
         {
-            return await PowerliftingContext.Set<ProgramTemplate>().Where(x => x.ProgramTemplateId == programTemplateId).FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<ProgramTemplate>().Where(x => x.ProgramTemplateId == programTemplateId)
+                                                                                    .Include(x => x.ProgramExercises)
+                                                                                    .ThenInclude(x => x.IndividualSets)
+                                                                                    .FirstOrDefaultAsync();
         }
 
         public async Task<ProgramTemplate> GetProgramTemplateByName(string programTemplate)
