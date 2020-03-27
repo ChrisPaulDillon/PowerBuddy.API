@@ -8,6 +8,7 @@ namespace Powerlifting.Services.ProgramTemplates
     {
         Task<IEnumerable<TopLevelProgramTemplateDTO>> GetAllProgramTemplates();
         Task<ProgramTemplateDTO> GetProgramTemplateById(int programTemplateId);
+        Task<ProgramTemplateDTO> GetProgramTemplateByIdIncludeLiftingStats(int userId, int programTemplateId);
         Task<ProgramTemplateDTO> GetProgramTemplateByName(string programType);
         Task<ProgramTemplateDTO> CreateProgramTemplate(ProgramTemplateDTO programType);
     }

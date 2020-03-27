@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Repository;
 using Powerlifting.Services.ProgramTemplates;
+using Powerlifting.Services.ProgramTemplates.Model;
 using PowerLifting.Persistence;
 using PowerLifting.Services.ProgramTemplates;
 

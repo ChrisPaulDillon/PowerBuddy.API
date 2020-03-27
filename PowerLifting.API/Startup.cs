@@ -39,7 +39,7 @@ namespace PowerLifting.API
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
-            var connectionString = "Server=localhost;Database=PowerLiftingDbV3.15;User Id=sa;Password=<Chippydog201060@>";
+            var connectionString = "Server=localhost;Database=PowerLiftingDbV3.20;User Id=sa;Password=<Chippydog201060@>";
 
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddControllers();

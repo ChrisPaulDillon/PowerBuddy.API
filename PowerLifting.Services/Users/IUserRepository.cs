@@ -8,6 +8,7 @@ namespace PowerLifting.Services.Users
     {
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> GetUserById(int id);
+        Task<User> GetUserByIdIncludeLiftingStats(int id);
         Task<User> GetUserByEmail(string name);
         Task CreateUser(User user);
         void UpdateUser(User user);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Powerlifting.Services.ProgramTemplates.DTO;
 using PowerLifting.Repositorys.RepositoryWrappers;
+using Powerlifting.Services.ProgramTemplates.Model;
 
 namespace Powerlifting.Services.ProgramTemplates
 {
@@ -26,7 +27,43 @@ namespace Powerlifting.Services.ProgramTemplates
 
         public async Task<ProgramTemplateDTO> GetProgramTemplateById(int programTemplateId)
         {
+            //var user = await _repo.User.get(programTemplateId);
+            ProgramTemplate programTemplate = await _repo.ProgramTemplate.GetProgramTemplateById(programTemplateId);
+            foreach (var exercise in programTemplate.ProgramExercises)
+            {
+                foreach(var set in exercise.IndividualSets)
+                {
+                    //set.WeightLifted = exercise.Percentage
+                }
+            }
+            var programTemplateDTO = _mapper.Map<ProgramTemplateDTO>(programTemplate);
+            return programTemplateDTO;
+        }
+
+        public async Task<ProgramTemplateDTO> GetProgramTemplateByIdIncludeLiftingStats(int userId, int programTemplateId)
+        {
+            var user = await _repo.User.GetUserByIdIncludeLiftingStats(userId);
             var programTemplate = await _repo.ProgramTemplate.GetProgramTemplateById(programTemplateId);
+
+            foreach (var exercise in programTemplate.ProgramExercises)
+            {
+                foreach (var set in exercise.IndividualSets)
+                {
+                    if (exercise.ExerciseName == "Squat")
+                    {
+                        double percentage =  exercise.Percentage / 100;
+                        set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
+                    }
+                    else if (exercise.ExerciseName == "Deadlift")
+                    {
+                        set.WeightLifted = (exercise.Percentage / 100) * user.LiftingStats.DeadliftWeight;
+                    }
+                    else if (exercise.ExerciseName == "Bench Press")
+                    {
+                        set.WeightLifted = (exercise.Percentage / 100) * user.LiftingStats.BenchWeight;
+                    }
+                }
+            }
             var programTemplateDTO = _mapper.Map<ProgramTemplateDTO>(programTemplate);
             return programTemplateDTO;
         }

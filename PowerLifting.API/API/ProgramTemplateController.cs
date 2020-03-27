@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Powerlifting.Service.Exercises.Model;
 using Powerlifting.Services.ProgramTemplates.DTO;
 using Powerlifting.Services.ServiceWrappers;
 
@@ -45,6 +48,30 @@ namespace PowerLifting.API.API
             else
             {
                 return Ok(programType);
+            }
+        }
+
+
+        [HttpGet("Calculate/{id}")]
+        public async Task<IActionResult> GetProgramTemplateByIdIncludeLiftingStats(int userId, int programTemplateId)
+        {
+            try
+            {
+                var programType = await _service.ProgramTemplate.GetProgramTemplateByIdIncludeLiftingStats(userId, programTemplateId);
+
+                if (programType == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(programType);
+                }
+            }
+            catch(Exception e)
+            {
+                //TODO
+                return NotFound();
             }
         }
 

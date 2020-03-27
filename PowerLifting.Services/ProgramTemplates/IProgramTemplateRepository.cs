@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Powerlifting.Services.ProgramLogs;
-using Powerlifting.Services.ProgramTemplates;
-using Powerlifting.Services.ProgramTemplates.DTO;
+using Powerlifting.Services.ProgramTemplates.Model;
 
 namespace PowerLifting.Services.ProgramTemplates
 {

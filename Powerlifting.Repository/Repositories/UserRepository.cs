@@ -29,6 +29,11 @@ namespace PowerLifting.Repository.Repositories
 
         public async Task<User> GetUserById(int id)
         {
+            return await PowerliftingContext.Set<User>().Where(u => u.UserId == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<User> GetUserByIdIncludeLiftingStats(int id)
+        {
             return await PowerliftingContext.Set<User>().Where(u => u.UserId == id).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
         }
 

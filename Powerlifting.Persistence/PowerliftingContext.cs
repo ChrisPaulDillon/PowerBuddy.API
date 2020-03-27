@@ -6,6 +6,7 @@ using Powerlifting.Services.ExerciseCategories.Model;
 using Powerlifting.Services.IndividualSets.Model;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramTemplates;
+using Powerlifting.Services.ProgramTemplates.Model;
 using Powerlifting.Services.Users.Model;
 using PowerLifting.Entities.DTOs;
 using PowerLifting.ExerciseMarkups.Model;

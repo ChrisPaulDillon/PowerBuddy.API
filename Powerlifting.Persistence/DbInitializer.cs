@@ -8,6 +8,7 @@ using Powerlifting.Services.ExerciseCategories.Model;
 using Powerlifting.Services.IndividualSets.Model;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramTemplates;
+using Powerlifting.Services.ProgramTemplates.Model;
 using Powerlifting.Services.Users.Model;
 using PowerLifting.ExerciseMarkups.Model;
 
@@ -82,9 +83,9 @@ namespace PowerLifting.Persistence
             {
                 var templates = new ProgramTemplate[]
                 {
-                    new ProgramTemplate {Name="5/3/1", Difficulty="Beginner",
+                    new ProgramTemplate {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4,
                         ProgramExercises = new List<ProgramExercise> {
-                                          new ProgramExercise { ExerciseName = "Squat", Percentage = "65%", WeekNumber = 1, DayNumber = 1, NoOfSets = 3,
+                                          new ProgramExercise { ExerciseName = "Squat", Percentage = 65, WeekNumber = 1, DayNumber = 1, NoOfSets = 3,
                                                                 IndividualSets = new List<IndividualSet> {
                                                                     new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},
                                                                     new IndividualSet { SetNo = 3, NumOfReps = 5, WeightLifted = 100},

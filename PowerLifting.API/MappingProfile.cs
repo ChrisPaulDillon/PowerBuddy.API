@@ -12,6 +12,7 @@ using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogs.DTO;
 using Powerlifting.Services.ProgramTemplates;
 using Powerlifting.Services.ProgramTemplates.DTO;
+using Powerlifting.Services.ProgramTemplates.Model;
 using Powerlifting.Services.Users.DTO;
 using Powerlifting.Services.Users.Model;
 using PowerLifting.Entities.DTOs;
