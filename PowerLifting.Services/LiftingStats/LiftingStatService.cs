@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Powerlifting.Service.LiftingStats.Model;
+using PowerLifting.Repositorys.RepositoryWrappers;
 using PowerLifting.Services.LiftingStats;
 
 namespace Powerlifting.Service.LiftingStats
@@ -7,11 +8,11 @@ namespace Powerlifting.Service.LiftingStats
     public class LiftingStatService : ILiftingStatService
     {
         private IMapper _mapper;
-        private ILiftingStatRepository _liftingStatRepo;
+        private IRepositoryWrapper _repo;
 
-        public LiftingStatService(ILiftingStatRepository liftingStatRepo, IMapper mapper)
+        public LiftingStatService(IRepositoryWrapper repo, IMapper mapper)
         {
-            _liftingStatRepo = liftingStatRepo;
+            _repo = repo;
             _mapper = mapper;
         }
 

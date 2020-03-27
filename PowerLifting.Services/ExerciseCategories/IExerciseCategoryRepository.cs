@@ -5,7 +5,7 @@ using Powerlifting.Services.ExerciseCategories.Model;
 
 namespace PowerLifting.Services.ExerciseCategories
 {
-    public interface IExerciseCategoryRepository
+    public interface IExerciseCategoryRepository : IRepositoryBase<ExerciseCategory>
     {
         Task<IEnumerable<ExerciseCategory>> GetAllCategories();
         Task<ExerciseCategory> GetCategoryById(int id);

@@ -223,7 +223,7 @@ namespace PowerLifting.UnitTests.API
 
             _controller = new UserController(_userService.Object, _logger.Object);
 
-            _userService.Verify(x => x.Save(), Times.AtMostOnce);
+            //_userService.Verify(x => x.Save(), Times.AtMostOnce);
             //Act
             var result = await _controller.CreateUser(user);
 

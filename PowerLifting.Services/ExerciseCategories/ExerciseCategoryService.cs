@@ -5,6 +5,7 @@ using PowerLifting.Entities.DTOs.Lookups;
 using System.Collections.Concurrent;
 using Powerlifting.Services.ExerciseCategories.Model;
 using PowerLifting.Services.ExerciseCategories;
+using PowerLifting.Repositorys.RepositoryWrappers;
 
 namespace Powerlifting.Service.ExerciseCategories
 {
@@ -12,9 +13,9 @@ namespace Powerlifting.Service.ExerciseCategories
     {
         private IMapper _mapper;
         private ConcurrentDictionary<int, ExerciseCategoryDTO> _store;
-        private IExerciseCategoryRepository _repo;
+        private IRepositoryWrapper _repo;
 
-        public ExerciseCategoryService(IExerciseCategoryRepository repo, IMapper mapper)
+        public ExerciseCategoryService(IRepositoryWrapper repo, IMapper mapper)
         {
             _store = new ConcurrentDictionary<int, ExerciseCategoryDTO>();
             _repo = repo;
@@ -32,7 +33,7 @@ namespace Powerlifting.Service.ExerciseCategories
             if (!_store.IsEmpty)
                 return;
 
-            var categories = _repo.GetAllCategories();
+            var categories = _repo.ExerciseCategory.GetAllCategories();
             var categoryDTOs = _mapper.Map<IEnumerable<ExerciseCategoryDTO>>(categories);
 
             foreach (var exerciseDTO in categoryDTOs)
@@ -43,7 +44,7 @@ namespace Powerlifting.Service.ExerciseCategories
 
         public async Task<ExerciseCategoryDTO> GetExerciseCategoryById(int id)
         {
-            var exerciseCategory = await _repo.GetCategoryById(id);
+            var exerciseCategory = await _repo.ExerciseCategory.GetCategoryById(id);
             var exerciseCategoryDTO = _mapper.Map<ExerciseCategoryDTO>(exerciseCategory);
             return exerciseCategoryDTO;
         }
@@ -51,13 +52,13 @@ namespace Powerlifting.Service.ExerciseCategories
         public void UpdateExerciseCategory(ExerciseCategoryDTO exerciseCategory)
         {
             var exerciseEntity = _mapper.Map<ExerciseCategory>(exerciseCategory);
-            _repo.UpdateCategory(exerciseEntity);
+            _repo.ExerciseCategory.UpdateCategory(exerciseEntity);
         }
 
         public void DeleteExerciseCategory(ExerciseCategoryDTO exerciseCategory)
         {
             var exerciseEntity = _mapper.Map<ExerciseCategory>(exerciseCategory);
-            _repo.UpdateCategory(exerciseEntity);
+            _repo.ExerciseCategory.UpdateCategory(exerciseEntity);
         }
 
         public Task<ExerciseCategoryDTO> GetExerciseCategoryByName(string name)

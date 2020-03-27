@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Powerlifting.Service.Exercises.DTO;
 using Powerlifting.Service.Exercises.Model;
 using Powerlifting.Services.ServiceWrappers;
+using PowerLifting.Repositorys.RepositoryWrappers;
 
 namespace PowerLifting.API.API
 {
@@ -14,13 +15,15 @@ namespace PowerLifting.API.API
     {
         private ILogger<ExerciseController> _logger;
         private IMapper _mapper;
+        private IRepositoryWrapper _wrapper;
         private IServiceWrapper _service;
 
-        public ExerciseController(IServiceWrapper service, ILogger<ExerciseController> logger, IMapper mapper)
+        public ExerciseController(IRepositoryWrapper wrapper, IServiceWrapper service, ILogger<ExerciseController> logger, IMapper mapper)
         {
             _logger = logger;
-            _service = service;
+            _wrapper = wrapper;
             _mapper = mapper;
+            _service = service;
         }
 
         [HttpGet]

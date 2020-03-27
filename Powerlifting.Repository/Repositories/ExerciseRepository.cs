@@ -16,9 +16,9 @@ namespace PowerLifting.Repository.Repositories
         {
         }
 
-        public async Task<IEnumerable<Exercise>> GetAllExercises()
+        public IEnumerable<Exercise> GetAllExercises()
         {
-            return await PowerliftingContext.Set<Exercise>().ToListAsync();
+            return PowerliftingContext.Set<Exercise>().ToList();
         }
 
         public async Task<Exercise> GetExerciseById(int id)

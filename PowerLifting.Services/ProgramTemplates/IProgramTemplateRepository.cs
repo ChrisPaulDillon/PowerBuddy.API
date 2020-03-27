@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramTemplates;
 using Powerlifting.Services.ProgramTemplates.DTO;
 
 namespace PowerLifting.Services.ProgramTemplates
 {
-    public interface IProgramTemplateRepository
+    public interface IProgramTemplateRepository : IRepositoryBase<ProgramTemplate>
     {
         Task<IEnumerable<ProgramTemplate>> GetAllProgramTemplates();
         Task<ProgramTemplate> GetProgramTemplateById(int programTemplateId);

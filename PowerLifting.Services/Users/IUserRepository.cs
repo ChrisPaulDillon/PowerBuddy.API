@@ -4,7 +4,7 @@ using Powerlifting.Services.Users.Model;
 
 namespace PowerLifting.Services.Users
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepositoryBase<User>
     {
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> GetUserById(int id);

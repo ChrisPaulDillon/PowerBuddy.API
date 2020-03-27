@@ -12,6 +12,10 @@ using System;
 using System.IO;
 using PowerLifting.LoggerService;
 using Powerlifting.Services.ServiceWrappers;
+using PowerLifting.Services.Exercises;
+using PowerLifting.Repository.Repositories;
+using Powerlifting.Service.Exercises;
+using PowerLifting.Repositorys.RepositoryWrappers;
 
 namespace PowerLifting.API
 {
@@ -36,10 +40,15 @@ namespace PowerLifting.API
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
+            var connectionString = "Server=localhost;Database=PowerLiftingDbV3.13;User Id=sa;Password=<Chippydog201060@>";
+
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
+            //services.AddScoped<IExerciseService, ExerciseService>();
             
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -58,10 +67,10 @@ namespace PowerLifting.API
                     });
             });
 
-            var connectionString = "Server=localhost;Database=PowerLiftingDbV3.12;User Id=sa;Password=<Chippydog201060@>";
-
+          
             services.AddDbContext<PowerliftingContext>(options =>
                 options.UseSqlServer(connectionString));
+    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

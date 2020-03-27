@@ -5,7 +5,7 @@ using Powerlifting.Services.ProgramLogs;
 
 namespace PowerLifting.Services.ProgramLogs
 {
-    public interface IProgramLogRepository
+    public interface IProgramLogRepository : IRepositoryBase<ProgramLog>
     {
         Task<IEnumerable<ProgramLog>> GetAllProgramLogsByUserId(int userId);
         Task<IEnumerable<ProgramLog>> GetActiveProgramLogsByUserId(int userId);

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Persistence;
-using PowerLifting.Repository.Repositories;
+using PowerLifting.Services;
 
 namespace Powerlifting.Repository
 {
@@ -51,6 +51,21 @@ namespace Powerlifting.Repository
         public void Save()
         {
             PowerliftingContext.SaveChanges();
+        }
+
+        public IQueryable<T> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Create(T entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
