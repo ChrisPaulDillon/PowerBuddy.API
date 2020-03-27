@@ -3,12 +3,10 @@ using Powerlifting.Service.Exercises.Model;
 using Powerlifting.Service.LiftingStats.Model;
 using Powerlifting.Service.ProgramExercises.Model;
 using Powerlifting.Services.ExerciseCategories.Model;
-using Powerlifting.Services.IndividualSets.Model;
 using Powerlifting.Services.ProgramLogs;
-using Powerlifting.Services.ProgramTemplates;
+using Powerlifting.Services.ProgramLogSets.Model;
 using Powerlifting.Services.ProgramTemplates.Model;
 using Powerlifting.Services.Users.Model;
-using PowerLifting.Entities.DTOs;
 using PowerLifting.ExerciseMarkups.Model;
 using PowerLifting.Services.ProgramRepSchemes.Model;
 
@@ -24,7 +22,7 @@ namespace PowerLifting.Persistence
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseCategory> ExerciseCategory { get; set; }
         public DbSet<ExerciseMarkup> ExerciseMarkup { get; set; }
-        public DbSet<IndividualSet> IndividualSet { get; set; }
+        public DbSet<ProgramLogSet> ProgramLogSet { get; set; }
         public DbSet<LiftingStat> LiftingStat{ get; set; }
         public DbSet<ProgramLog> ProgramLog { get; set; }
         public DbSet<ProgramTemplate> ProgramTemplate { get; set; }
@@ -39,8 +37,8 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<ExerciseCategory>().HasAlternateKey(e => e.CategoryName);
             modelBuilder.Entity<ExerciseCategory>().ToTable("ExerciseCategory");
             modelBuilder.Entity<ExerciseMarkup>().ToTable("ExerciseMarkup");
-            modelBuilder.Entity<IndividualSet>().ToTable("IndividualSet");
-            modelBuilder.Entity<LiftingStat>().ToTable("LiftingStat");
+            modelBuilder.Entity<ProgramLogSet>().ToTable("IndividualSet");
+            modelBuilder.Entity<LiftingStat>().ToTable("ProgramLogSet");
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
             modelBuilder.Entity<ProgramTemplate>().ToTable("ProgramTemplate");
             modelBuilder.Entity<ProgramExercise>().ToTable("ProgramExercise");

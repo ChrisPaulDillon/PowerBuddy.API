@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Powerlifting.Service.Exercises.Model;
-using Powerlifting.Services.IndividualSets.DTO;
+using Powerlifting.Services.ProgramLogSets.DTO;
 
 namespace PowerLifting.Entities.DTOs
 {
@@ -17,6 +17,6 @@ namespace PowerLifting.Entities.DTOs
         public virtual Exercise Exercise { get; set; }
         public DateTime LiftingDate { get; set; }
         public int NumOfSets { get; set; }
-        public ICollection<IndividualSetDTO> IndividualSets { get; set; }  //Stores the number of reps for each set
+        public ICollection<ProgramLogSetDTO> ProgramLogSets { get; set; }  //Stores the number of reps for each set
     }
 }

@@ -6,11 +6,10 @@ using Powerlifting.Service.LiftingStats.Model;
 using Powerlifting.Service.ProgramExercises.DTO;
 using Powerlifting.Service.ProgramExercises.Model;
 using Powerlifting.Services.ExerciseCategories.Model;
-using Powerlifting.Services.IndividualSets.DTO;
-using Powerlifting.Services.IndividualSets.Model;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogs.DTO;
-using Powerlifting.Services.ProgramTemplates;
+using Powerlifting.Services.ProgramLogSets.DTO;
+using Powerlifting.Services.ProgramLogSets.Model;
 using Powerlifting.Services.ProgramTemplates.DTO;
 using Powerlifting.Services.ProgramTemplates.Model;
 using Powerlifting.Services.Users.DTO;
@@ -43,10 +42,10 @@ namespace PowerLifting.API
             CreateMap<ExerciseDTO, Exercise>();
             CreateMap<TopLevelProgramTemplateDTO, Exercise>();
 
-            CreateMap<IndividualSet, IndividualSetDTO>();
-            CreateMap<IndividualSetDTO, IndividualSet>();
-            CreateMap<MarkupIndividualSetDTO, IndividualSet>();
-            CreateMap<IndividualSet, MarkupIndividualSetDTO>();
+            CreateMap<ProgramLogSet, ProgramLogSetDTO>();
+            CreateMap<ProgramLogSetDTO, ProgramLogSet>();
+            CreateMap<MarkupProgramLogSetDTO, ProgramLogSet>();
+            CreateMap<ProgramLogSet, MarkupProgramLogSetDTO>();
 
             CreateMap<ProgramRepScheme, ProgramRepSchemeDTO>();
             CreateMap<ProgramRepSchemeDTO, ProgramRepScheme>();

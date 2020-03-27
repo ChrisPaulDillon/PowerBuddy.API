@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Powerlifting.Services.IndividualSets.DTO
+namespace Powerlifting.Services.ProgramLogSets.DTO
 {
-    public class IndividualSetDTO
+    public class ProgramLogSetDTO
     {
-        public int IndividualSetId { get; set; }
+        public int ProgramLogSetId { get; set; }
         public int? ExerciseMarkupId { get; set; }
         public double Percentage { get; set; }
         public int SetNo { get; set; }

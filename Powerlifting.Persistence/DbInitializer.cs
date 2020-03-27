@@ -6,11 +6,11 @@ using Powerlifting.Service.LiftingStats.Model;
 using Powerlifting.Service.ProgramExercises.Model;
 using Powerlifting.Services.ExerciseCategories.Model;
 using Powerlifting.Services.ProgramLogs;
+using Powerlifting.Services.ProgramLogSets.Model;
 using Powerlifting.Services.ProgramTemplates.Model;
 using Powerlifting.Services.Users.Model;
 using PowerLifting.ExerciseMarkups.Model;
 using PowerLifting.Services.ProgramRepSchemes.Model;
-using Powerlifting.Services.IndividualSets.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -183,8 +183,8 @@ namespace PowerLifting.Persistence
                                 ExeciseMarkups = new List<ExerciseMarkup> {
                                                     new ExerciseMarkup { LiftingDate = DateTime.Now, NumOfSets = 5,
                                                                          Exercise = new Exercise { ExerciseName = "Standing Press" },
-                                                                         IndividualSets = new List<IndividualSet> {
-                                                                                new IndividualSet { SetNo = 1, WeightLifted = 100, NumOfReps =5 }}}},
+                                                                         ProgramLogSets = new List<ProgramLogSet> {
+                                                                                new ProgramLogSet { SetNo = 1, WeightLifted = 100, NumOfReps =5 }}}},
                         
                             }
                         }

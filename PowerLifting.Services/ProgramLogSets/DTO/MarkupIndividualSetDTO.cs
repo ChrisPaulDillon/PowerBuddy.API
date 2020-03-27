@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Powerlifting.Services.IndividualSets.DTO
+namespace Powerlifting.Services.ProgramLogSets.DTO
 {
-    public class MarkupIndividualSetDTO
+    public class MarkupProgramLogSetDTO
     {
         public int SetNo { get; set; }
         public int NumOfReps { get; set; }

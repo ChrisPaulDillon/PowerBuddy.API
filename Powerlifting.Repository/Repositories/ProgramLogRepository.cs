@@ -24,14 +24,14 @@ namespace PowerLifting.Repository.Repositories
 
         public async Task<ProgramLog> GetProgramLogById(int id)
         {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == id).Include(k => k.ExeciseMarkups.Select(c => c.IndividualSets)).
+            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == id).Include(k => k.ExeciseMarkups.Select(c => c.ProgramLogSets)).
                                                                                                 FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<ProgramLog>> GetActiveProgramLogsByUserId(int userId)
         {
             return await PowerliftingContext.Set<ProgramLog>().Where(x => x.EndDate < DateTime.Now && x.UserId == userId).
-                                                                                                Include(k => k.ExeciseMarkups.Select(c => c.IndividualSets)).
+                                                                                                Include(k => k.ExeciseMarkups.Select(c => c.ProgramLogSets)).
                                                                                                 ToListAsync();
         }
         public void UpdateProgramLog(ProgramLog log)

@@ -1,14 +1,13 @@
-﻿using System;
-using Powerlifting.Repository;
-using Powerlifting.Services.IndividualSets.Model;
+﻿using Powerlifting.Repository;
+using Powerlifting.Services.ProgramLogSets.Model;
 using PowerLifting.Persistence;
-using PowerLifting.Services.IndividualSets;
+using PowerLifting.Services.ProgramLogSets;
 
 namespace PowerLifting.Repository.Repositories
 {
-    public class IndividualSetRepository : RepositoryBase<IndividualSet>, IIndividualSetRepository
+    public class ProgramLogSetRepository : RepositoryBase<ProgramLogSet>, IProgramLogSetRepository
     {
-        public IndividualSetRepository(PowerliftingContext context) : base(context)
+        public ProgramLogSetRepository(PowerliftingContext context) : base(context)
         {
         }
     }
