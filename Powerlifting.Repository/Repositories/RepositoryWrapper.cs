@@ -4,7 +4,7 @@ using PowerLifting.Services.ExerciseCategories;
 using PowerLifting.Services.Exercises;
 using PowerLifting.Services.LiftingStats;
 using PowerLifting.Services.ProgramLogs;
-using PowerLifting.Services.ProgramTemplates;
+using PowerLifting.Services.TemplatePrograms;
 using PowerLifting.Services.Users;
 
 namespace PowerLifting.Repository.Repositories
@@ -16,7 +16,7 @@ namespace PowerLifting.Repository.Repositories
         private IExerciseRepository _exerciseRepo;
         private IExerciseCategoryRepository _exerciseCategoryRepo;
         private IProgramLogRepository _programLogRepo;
-        private IProgramTemplateRepository _programTemplateRepo;
+        private ITemplateProgramRepository _programTemplateRepo;
 
         private PowerliftingContext _context;
 
@@ -91,13 +91,13 @@ namespace PowerLifting.Repository.Repositories
             }
         }
 
-        public IProgramTemplateRepository ProgramTemplate
+        public ITemplateProgramRepository TemplateProgram
         {
             get
             {
                 if (_programTemplateRepo == null)
                 {
-                    _programTemplateRepo = new ProgramTemplateRepository(_context);
+                    _programTemplateRepo = new TemplateProgramRepository(_context);
                 }
 
                 return _programTemplateRepo;

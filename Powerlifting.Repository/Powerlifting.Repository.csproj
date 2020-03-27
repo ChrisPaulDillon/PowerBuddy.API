@@ -8,7 +8,4 @@
     <ProjectReference Include="..\PowerLifting.Services\PowerLifting.Services.csproj" />
     <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
 </Project>

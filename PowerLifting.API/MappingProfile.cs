@@ -3,22 +3,23 @@ using Powerlifting.Service.Exercises.DTO;
 using Powerlifting.Service.Exercises.Model;
 using Powerlifting.Service.LiftingStats.DTO;
 using Powerlifting.Service.LiftingStats.Model;
-using Powerlifting.Service.ProgramExercises.DTO;
-using Powerlifting.Service.ProgramExercises.Model;
 using Powerlifting.Services.ExerciseCategories.Model;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogs.DTO;
-using Powerlifting.Services.ProgramLogSets.DTO;
-using Powerlifting.Services.ProgramLogSets.Model;
-using Powerlifting.Services.ProgramTemplates.DTO;
-using Powerlifting.Services.ProgramTemplates.Model;
+using Powerlifting.Services.ProgramLogRepSchemes.DTO;
+using Powerlifting.Services.ProgramLogRepSchemes.Model;
+using Powerlifting.Services.TemplatePrograms.DTO;
+using Powerlifting.Services.TemplatePrograms.Model;
 using Powerlifting.Services.Users.DTO;
 using Powerlifting.Services.Users.Model;
-using PowerLifting.Entities.DTOs;
 using PowerLifting.Entities.DTOs.Lookups;
-using PowerLifting.ExerciseMarkups.Model;
-using PowerLifting.Services.ProgramRepSchemes.DTO;
-using PowerLifting.Services.ProgramRepSchemes.Model;
+using PowerLifting.ProgramLogExercises.Model;
+using Powerlifting.Service.TemplateExercises.DTO;
+using PowerLifting.Services.ProgramLogExercises.DTO;
+using Powerlifting.Services.ProgramLogRepSchemess.DTO;
+using PowerLifting.Services.TemplateRepSchemes.DTO;
+using PowerLifting.Services.TemplateRepSchemes.Model;
+using Powerlifting.Services.TemplateExercises.Model;
 using PowerLifting.Services.Users.DTO;
 
 namespace PowerLifting.API
@@ -34,21 +35,21 @@ namespace PowerLifting.API
             CreateMap<NewUserDTO, User>();
 
             //Program Templates
-            CreateMap<ProgramTemplate, ProgramTemplateDTO>();
-            CreateMap<ProgramTemplateDTO, ProgramTemplate>();
-            CreateMap<ProgramTemplate, TopLevelProgramTemplateDTO>();
+            CreateMap<TemplateProgram, TemplateProgramDTO>();
+            CreateMap<TemplateProgramDTO, TemplateProgram>();
+            CreateMap<TemplateProgram, TopLevelTemplateProgramDTO>();
 
             CreateMap<Exercise, ExerciseDTO>();
             CreateMap<ExerciseDTO, Exercise>();
-            CreateMap<TopLevelProgramTemplateDTO, Exercise>();
+            CreateMap<TopLevelTemplateProgramDTO, Exercise>();
 
-            CreateMap<ProgramLogSet, ProgramLogSetDTO>();
-            CreateMap<ProgramLogSetDTO, ProgramLogSet>();
-            CreateMap<MarkupProgramLogSetDTO, ProgramLogSet>();
-            CreateMap<ProgramLogSet, MarkupProgramLogSetDTO>();
+            CreateMap<ProgramLogRepScheme, ProgramLogRepSchemeDTO>();
+            CreateMap<ProgramLogRepSchemeDTO, ProgramLogRepScheme>();
+            CreateMap<MarkupProgramLogRepSchemeDTO, ProgramLogRepScheme>();
+            CreateMap<ProgramLogRepScheme, MarkupProgramLogRepSchemeDTO>();
 
-            CreateMap<ProgramRepScheme, ProgramRepSchemeDTO>();
-            CreateMap<ProgramRepSchemeDTO, ProgramRepScheme>();
+            CreateMap<TemplateRepScheme, TemplateRepSchemeDTO>();
+            CreateMap<TemplateRepSchemeDTO, TemplateRepScheme>();
 
             CreateMap<LiftingStat, LiftingStatDTO>();
 
@@ -56,9 +57,9 @@ namespace PowerLifting.API
             CreateMap<ProgramLog, ProgramLogDTO>();
 
       
-            CreateMap<ExerciseMarkup, ExerciseMarkupDTO>();
+            CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>();
             
-            CreateMap<ProgramExercise, ProgramExerciseDTO>();
+            CreateMap<TemplateExercise, TemplateExerciseDTO>();
 
             
             CreateMap<LiftingStatDTO, LiftingStat>();
@@ -66,9 +67,9 @@ namespace PowerLifting.API
             CreateMap<ExerciseCategoryDTO, ExerciseCategory>();
             CreateMap<ProgramLogDTO, ProgramLog>();
             
-            CreateMap<ExerciseMarkupDTO, ExerciseMarkup>();
+            CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>();
             
-            CreateMap<ProgramExerciseDTO, ProgramExercise>();
+            CreateMap<TemplateExerciseDTO, TemplateExercise>();
         }
     }
 }

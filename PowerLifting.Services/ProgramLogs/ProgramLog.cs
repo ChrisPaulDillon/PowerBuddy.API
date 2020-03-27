@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerLifting.ExerciseMarkups.Model;
+using PowerLifting.ProgramLogExercises.Model;
 
 namespace Powerlifting.Services.ProgramLogs
 {
@@ -12,7 +12,7 @@ namespace Powerlifting.Services.ProgramLogs
     {
         public int ProgramLogId { get; set; }
         public int UserId { get; set; }
-        public int ProgramTemplateId { get; set; }
+        public int TemplateProgramId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NoOfDaysLifting { get; set; }
@@ -25,7 +25,7 @@ namespace Powerlifting.Services.ProgramLogs
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
 
-        public ICollection<ExerciseMarkup> ExeciseMarkups { get; set; }
+        public ICollection<ProgramLogExercise> ExeciseMarkups { get; set; }
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Powerlifting.Services.ProgramTemplates.DTO;
-using PowerLifting.Entities.DTOs;
+using Powerlifting.Services.TemplatePrograms.DTO;
+using PowerLifting.Services.ProgramLogExercises.DTO;
 
 namespace Powerlifting.Services.ProgramLogs.DTO
 {
@@ -21,8 +21,8 @@ namespace Powerlifting.Services.ProgramLogs.DTO
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
 
-        public virtual ProgramTemplateDTO ProgramTemplate { get; set; }
-        public ICollection<ExerciseMarkupDTO> ExeciseMarkups { get; set; }
+        public virtual TemplateProgramDTO TemplateProgram { get; set; }
+        public ICollection<ProgramLogExerciseDTO> ProgramLogExercises { get; set; }
 
     }
 }

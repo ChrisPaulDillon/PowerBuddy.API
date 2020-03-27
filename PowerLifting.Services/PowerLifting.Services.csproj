@@ -13,31 +13,16 @@
     <Folder Include="Exercises\" />
     <Folder Include="LiftingStats\" />
     <Folder Include="ProgramLogs\" />
-    <Folder Include="ProgramTemplates\" />
     <Folder Include="Users\" />
     <Folder Include="ExerciseCategories\Model\" />
     <Folder Include="ServiceWrappers\" />
     <Folder Include="ExerciseCategories\DTO\" />
     <Folder Include="LiftingStats\DTO\" />
     <Folder Include="ProgramLogs\DTO\" />
-    <Folder Include="ProgramTemplates\DTO\" />
     <Folder Include="Users\DTO\" />
     <Folder Include="Users\Model\" />
-    <Folder Include="ExerciseMarkups\" />
-    <Folder Include="ExerciseMarkups\Model\" />
-    <Folder Include="ProgramLogSets\" />
-    <Folder Include="ProgramLogSets\DTO\" />
-    <Folder Include="ProgramExercises\" />
-    <Folder Include="ProgramExercises\DTO\" />
-    <Folder Include="ExerciseMarkups\DTO\" />
     <Folder Include="Exercises\Model\" />
     <Folder Include="LiftingStats\Model\" />
-    <Folder Include="ProgramLogSets\Model\" />
-    <Folder Include="ProgramExercises\Model\" />
     <Folder Include="ProgramLogs\Model\" />
-    <Folder Include="ProgramTemplates\Model\" />
-    <Folder Include="ProgramRepSchemes\" />
-    <Folder Include="ProgramRepSchemes\Model\" />
-    <Folder Include="ProgramRepSchemes\DTO\" />
   </ItemGroup>
 </Project>

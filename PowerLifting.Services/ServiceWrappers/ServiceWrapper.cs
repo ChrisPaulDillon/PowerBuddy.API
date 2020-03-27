@@ -2,7 +2,7 @@
 using Powerlifting.Services.Users;
 using Powerlifting.Service.ExerciseCategories;
 using Powerlifting.Services.ProgramLogs;
-using Powerlifting.Services.ProgramTemplates;
+using Powerlifting.Services.TemplatePrograms;
 using Powerlifting.Service.Exercises;
 using Powerlifting.Service.LiftingStats;
 using PowerLifting.Services.Users;
@@ -10,7 +10,7 @@ using PowerLifting.Services.LiftingStats;
 using PowerLifting.Services.Exercises;
 using PowerLifting.Services.ExerciseCategories;
 using PowerLifting.Services.ProgramLogs;
-using PowerLifting.Services.ProgramTemplates;
+using PowerLifting.Services.TemplatePrograms;
 using PowerLifting.Repositorys.RepositoryWrappers;
 
 namespace Powerlifting.Services.ServiceWrappers
@@ -22,7 +22,7 @@ namespace Powerlifting.Services.ServiceWrappers
         private IExerciseService _exercise;
         private IExerciseCategoryService _exerciseCategory;
         private IProgramLogService _programLogs;
-        private IProgramTemplateService _programTemplate;
+        private ITemplateProgramService _programTemplate;
 
         private IMapper _mapper;
         private IRepositoryWrapper _repoWrapper;
@@ -99,13 +99,13 @@ namespace Powerlifting.Services.ServiceWrappers
             }
         }
 
-        public IProgramTemplateService ProgramTemplate
+        public ITemplateProgramService TemplateProgram
         {
             get
             {
                 if (_programTemplate == null)
                 {
-                    _programTemplate = new ProgramTemplateService(_repoWrapper, _mapper);
+                    _programTemplate = new TemplateProgramService(_repoWrapper, _mapper);
                 }
 
                 return _programTemplate;
