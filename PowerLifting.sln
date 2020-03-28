@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.LoggerService"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Powerlifting.Persistence", "Powerlifting.Persistence\Powerlifting.Persistence.csproj", "{352A99D0-53A8-44ED-8EB0-F2633F607EDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Repository", "PowerLifting.Repository\PowerLifting.Repository.csproj", "{432C55C6-B82E-4C37-8833-F5803EAF6B6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Powerlifting.Repository", "Powerlifting.Repository\Powerlifting.Repository.csproj", "{432C55C6-B82E-4C37-8833-F5803EAF6B6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Services", "PowerLifting.Services\PowerLifting.Services.csproj", "{CAA123BA-96DB-478E-B9ED-7DCD039FC695}"
 EndProject
