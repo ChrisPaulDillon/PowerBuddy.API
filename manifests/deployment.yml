@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: powerbuddyapi 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: powerbuddyapi 
+    spec:
+      containers:
+        - name: powerbuddyapi 
+          image: chrisd01.azurecr.io/powerbuddyapi
+          ports:
+          - containerPort: 80
