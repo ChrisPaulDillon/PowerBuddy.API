@@ -12,6 +12,7 @@ using PowerLifting.Services.ExerciseCategories;
 using PowerLifting.Services.ProgramLogs;
 using PowerLifting.Services.TemplatePrograms;
 using PowerLifting.Repositorys.RepositoryWrappers;
+using Powerlifting.Services.Exercises;
 
 namespace Powerlifting.Services.ServiceWrappers
 {

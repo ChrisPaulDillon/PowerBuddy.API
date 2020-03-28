@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using PowerLifting.Persistence;
 using Powerlifting.Repository;
 using Powerlifting.Services.ExerciseCategories.Model;
-using PowerLifting.Persistence;
 using PowerLifting.Services.ExerciseCategories;
+using Microsoft.EntityFrameworkCore;
 
 namespace PowerLifting.Repository.Repositories
 {

@@ -5,8 +5,9 @@ using System.Collections.Concurrent;
 using AutoMapper;
 using Powerlifting.Service.Exercises.DTO;
 using PowerLifting.Repositorys.RepositoryWrappers;
+using Powerlifting.Service.Exercises;
 
-namespace Powerlifting.Service.Exercises
+namespace Powerlifting.Services.Exercises
 {
     public class ExerciseService : IExerciseService
     {

@@ -5,16 +5,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PowerLifting.Persistence;
 using Microsoft.OpenApi.Models;
 using NLog;
 using System;
 using System.IO;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using PowerLifting.LoggerService;
 using Powerlifting.Services.ServiceWrappers;
 using PowerLifting.Repository.Repositories;
 using PowerLifting.Repositorys.RepositoryWrappers;
 using PowerLifting.Cypto;
+using PowerLifting.Persistence;
 
 namespace PowerLifting.API
 {
@@ -38,9 +39,6 @@ namespace PowerLifting.API
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
-
-            //var connectionString = "Server=localhost;Database=PowerLiftingDbV3.24;User Id=sa;Password=<Chippydog201060@>";
-            var connectionString = "Server=localhost;Database=PowerLiftingDbV3.24;User Id=sa;Password=Chippydog201060@";
 
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddControllers();
@@ -69,8 +67,11 @@ namespace PowerLifting.API
 
           
             services.AddDbContext<PowerliftingContext>(options =>
-                options.UseSqlServer(connectionString));
-    
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<IdentityDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

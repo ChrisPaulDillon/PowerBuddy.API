@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>c3b0cbdf-6e53-4e12-966d-0d5c853fa39f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	<IsPackable>true</IsPackable>
   </PropertyGroup>
 
@@ -24,10 +24,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Cypto\PowerLifting.Cypto.csproj" />
-    <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
+    <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
+    <ProjectReference Include="..\PowerLifting.Repository\PowerLifting.Repository.csproj" />
     <ProjectReference Include="..\PowerLifting.Services\PowerLifting.Services.csproj" />
     <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj" />
-    <ProjectReference Include="..\Powerlifting.Repository\Powerlifting.Repository.csproj" />
   </ItemGroup>
 
 
