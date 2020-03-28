@@ -26,8 +26,8 @@
     <ProjectReference Include="..\PowerLifting.Cypto\PowerLifting.Cypto.csproj" />
     <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
     <ProjectReference Include="..\PowerLifting.Services\PowerLifting.Services.csproj" />
-    <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj"/>
-    <ProjectReference Include="..\Powerlifting.Repository\Powerlifting.Repository.csproj"/>
+    <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj" />
+    <ProjectReference Include="..\Powerlifting.Repository\Powerlifting.Repository.csproj" />
   </ItemGroup>
 
 

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Powerlifting.Repository", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Services", "PowerLifting.Services\PowerLifting.Services.csproj", "{CAA123BA-96DB-478E-B9ED-7DCD039FC695}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.WebApp", "PowerLifting.WebApp\PowerLifting.WebApp.csproj", "{73D5277E-B1C8-4131-8B51-56FAF64CDC12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{CAA123BA-96DB-478E-B9ED-7DCD039FC695}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAA123BA-96DB-478E-B9ED-7DCD039FC695}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAA123BA-96DB-478E-B9ED-7DCD039FC695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D5277E-B1C8-4131-8B51-56FAF64CDC12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D5277E-B1C8-4131-8B51-56FAF64CDC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D5277E-B1C8-4131-8B51-56FAF64CDC12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D5277E-B1C8-4131-8B51-56FAF64CDC12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
