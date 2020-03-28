@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using PowerLifting.Repositorys.RepositoryWrappers;
-using Powerlifting.Services.TemplatePrograms;
+using PowerLifting.Service.ServiceWrappers;
 
 namespace Powerlifting.Services.TemplateRepSchemes
 {

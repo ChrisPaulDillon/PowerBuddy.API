@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Powerlifting.Service.ExerciseCategories;
-using Powerlifting.Services.ServiceWrappers;
 using PowerLifting.Entities.DTOs.Lookups;
+using PowerLifting.Service.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {

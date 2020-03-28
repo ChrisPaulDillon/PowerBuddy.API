@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Powerlifting.Service.Exercises.DTO;
 using Powerlifting.Service.Exercises.Model;
-using Powerlifting.Services.ServiceWrappers;
-using PowerLifting.Repositorys.RepositoryWrappers;
+using PowerLifting.Service.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {

@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Powerlifting.Services.ServiceWrappers;
-using Powerlifting.Services.Users.DTO;
 using PowerLifting.Cypto;
+using PowerLifting.Service.ServiceWrappers;
+using PowerLifting.Service.Users.DTO;
 using PowerLifting.Services.Service.Users.Exceptions;
 using PowerLifting.Services.Users.Exceptions;
 
@@ -51,7 +51,7 @@ namespace PowerLifting.API.API
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetUser(string id)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace PowerLifting.API.API
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
             try
             {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Powerlifting.Service.LiftingStats.Model;
-using PowerLifting.Repositorys.RepositoryWrappers;
+using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Services.LiftingStats;
 
 namespace Powerlifting.Service.LiftingStats

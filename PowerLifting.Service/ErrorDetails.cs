@@ -1,7 +1,7 @@
 ﻿
 using Newtonsoft.Json;
 
-namespace PowerLifting.Services
+namespace PowerLifting.Service
 {
     public class ErrorDetails
     {

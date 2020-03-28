@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PowerLifting.Service.ServiceWrappers;
 using Powerlifting.Services.TemplatePrograms.DTO;
-using Powerlifting.Services.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {
@@ -51,7 +51,7 @@ namespace PowerLifting.API.API
 
 
         [HttpGet("Calculate/{id}")]
-        public async Task<IActionResult> GetTemplateProgramByIdIncludeLiftingStats(int userId, int programTemplateId)
+        public async Task<IActionResult> GetTemplateProgramByIdIncludeLiftingStats(string userId, int programTemplateId)
         {
             try
             {

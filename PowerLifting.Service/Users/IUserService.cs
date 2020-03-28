@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Powerlifting.Services.Users.DTO;
+using PowerLifting.Service.Users.DTO;
 
-namespace PowerLifting.Services.Users
+namespace PowerLifting.Service.Users
 {
     public interface IUserService
     {
         Task<IEnumerable<UserDTO>> GetAllUsers();
-        Task<UserDTO> GetUserById(int programTemplateId);
+        Task<UserDTO> GetUserById(string id);
         Task<UserDTO> GetUserByEmail(string programType);
         Task<UserDTO> CreateUser(UserDTO user);
         Task UpdateUser(UserDTO userDTO);
-        Task DeleteUser(int id);
+        Task DeleteUser(string id);
     }
 }
 

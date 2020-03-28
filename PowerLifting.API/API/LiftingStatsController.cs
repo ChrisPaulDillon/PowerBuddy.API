@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Powerlifting.Service.LiftingStats.DTO;
-using Powerlifting.Services.ServiceWrappers;
+using PowerLifting.Service.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {

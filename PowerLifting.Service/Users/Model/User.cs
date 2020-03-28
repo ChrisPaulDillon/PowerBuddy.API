@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using Powerlifting.Service.LiftingStats.Model;
 using Powerlifting.Services.ProgramLogs;
+using Microsoft.AspNetCore.Identity;
 
-namespace Powerlifting.Services.Users.Model
+namespace PowerLifting.Service.Users.Model
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int UserId { get; set; }
         public int LiftingStatId { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
         public virtual LiftingStat LiftingStats { get; set; }
         public ICollection<ProgramLog> ProgramLogs { get; set; }
     }

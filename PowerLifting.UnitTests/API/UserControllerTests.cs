@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Powerlifting.Services.ServiceWrappers;
-using Powerlifting.Services.Users.DTO;
-using Powerlifting.Services.Users.Model;
 using PowerLifting.API.API;
+using PowerLifting.Service.ServiceWrappers;
+using PowerLifting.Service.Users.DTO;
+using PowerLifting.Service.Users.Model;
 using Xunit;
 
 namespace PowerLifting.UnitTests.API
@@ -88,7 +88,7 @@ namespace PowerLifting.UnitTests.API
         [Trait("UserController", "Unit")]
         public async Task GetUserById_ExceptionIsThrown_ReturnsInternalServerError()
         {
-            _userService.Setup(x => x.User.GetUserById(It.IsAny<int>())).Throws(new Exception());
+            _userService.Setup(x => x.User.GetUserById(It.IsAny<string>())).Throws(new Exception());
             _controller = new UserController(_userService.Object, _logger.Object);
 
             //Act
@@ -106,9 +106,9 @@ namespace PowerLifting.UnitTests.API
         public async Task GetUserbyId_NoUsersFound_ReturnsNotFound()
         {
             //Arrange
-            int userId = _rand.Next();
+            string userId = Guid.NewGuid().ToString();
 
-            _userService.Setup(x => x.User.GetUserById(It.IsAny<int>())).Returns(Task.FromResult<UserDTO>(null));
+            _userService.Setup(x => x.User.GetUserById(It.IsAny<string>())).Returns(Task.FromResult<UserDTO>(null));
             _controller = new UserController(_userService.Object, _logger.Object);
 
             //Act
@@ -125,10 +125,10 @@ namespace PowerLifting.UnitTests.API
         {
             //Arrange
             var user = new UserDTO();
-            int userId = _rand.Next();
-            user.UserId = userId;
+            string userId = Guid.NewGuid().ToString();
+            user.Id = userId;
 
-            _userService.Setup(x => x.User.GetUserById(It.IsAny<int>())).Returns(Task.FromResult<UserDTO>(user));
+            _userService.Setup(x => x.User.GetUserById(It.IsAny<string>())).Returns(Task.FromResult<UserDTO>(user));
             _controller = new UserController(_userService.Object, _logger.Object);
 
             //Act

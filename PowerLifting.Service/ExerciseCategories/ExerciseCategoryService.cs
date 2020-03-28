@@ -4,8 +4,7 @@ using AutoMapper;
 using PowerLifting.Entities.DTOs.Lookups;
 using System.Collections.Concurrent;
 using Powerlifting.Services.ExerciseCategories.Model;
-using PowerLifting.Services.ExerciseCategories;
-using PowerLifting.Repositorys.RepositoryWrappers;
+using PowerLifting.Service.ServiceWrappers;
 
 namespace Powerlifting.Service.ExerciseCategories
 {

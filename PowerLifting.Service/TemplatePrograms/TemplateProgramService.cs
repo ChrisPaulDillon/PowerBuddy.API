@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using AutoMapper;
 using Powerlifting.Services.TemplatePrograms.DTO;
-using PowerLifting.Repositorys.RepositoryWrappers;
+using PowerLifting.Service.ServiceWrappers;
+using Powerlifting.Services.TemplatePrograms;
 using Powerlifting.Services.TemplatePrograms.Model;
 
-namespace Powerlifting.Services.TemplatePrograms
+namespace PowerLifting.Service.TemplatePrograms
 {
     public class TemplateProgramService : ITemplateProgramService
     {
@@ -33,7 +34,7 @@ namespace Powerlifting.Services.TemplatePrograms
             return programTemplateDTO;
         }
 
-        public async Task<TemplateProgramDTO> GetTemplateProgramByIdIncludeLiftingStats(int userId, int programTemplateId)
+        public async Task<TemplateProgramDTO> GetTemplateProgramByIdIncludeLiftingStats(string userId, int programTemplateId)
         {
             var user = await _repo.User.GetUserByIdIncludeLiftingStats(userId);
             var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);

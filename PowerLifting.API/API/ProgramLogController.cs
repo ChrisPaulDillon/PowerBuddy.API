@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PowerLifting.Service.ServiceWrappers;
 using Powerlifting.Services.ProgramLogs.DTO;
-using Powerlifting.Services.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {

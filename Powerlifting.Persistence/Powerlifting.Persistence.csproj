@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerLifting.Services\PowerLifting.Services.csproj" />
+    <ProjectReference Include="..\PowerLifting.Service\PowerLifting.Service.csproj" />
   </ItemGroup>
 
 </Project>

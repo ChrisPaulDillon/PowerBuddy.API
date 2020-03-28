@@ -6,8 +6,8 @@ using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogRepSchemes.Model;
 using Powerlifting.Services.TemplatePrograms.Model;
 using Powerlifting.Services.TemplateExercises.Model;
-using Powerlifting.Services.Users.Model;
 using PowerLifting.ProgramLogExercises.Model;
+using PowerLifting.Service.Users.Model;
 using PowerLifting.Services.TemplateRepSchemes.Model;
 
 namespace PowerLifting.Persistence

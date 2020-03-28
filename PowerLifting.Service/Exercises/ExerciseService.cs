@@ -4,10 +4,10 @@ using System;
 using System.Collections.Concurrent;
 using AutoMapper;
 using Powerlifting.Service.Exercises.DTO;
-using PowerLifting.Repositorys.RepositoryWrappers;
 using Powerlifting.Service.Exercises;
+using PowerLifting.Service.ServiceWrappers;
 
-namespace Powerlifting.Services.Exercises
+namespace PowerLifting.Service.Exercises
 {
     public class ExerciseService : IExerciseService
     {

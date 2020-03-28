@@ -1,5 +1,6 @@
 ﻿using PowerLifting.Persistence;
-using PowerLifting.Repositorys.RepositoryWrappers;
+using PowerLifting.Service.ServiceWrappers;
+using PowerLifting.Service.Users;
 using PowerLifting.Services.ExerciseCategories;
 using PowerLifting.Services.Exercises;
 using PowerLifting.Services.LiftingStats;

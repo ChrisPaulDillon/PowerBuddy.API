@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Repository;
-using Powerlifting.Services.Users.Model;
 using PowerLifting.Persistence;
+using PowerLifting.Service.Users;
+using PowerLifting.Service.Users.Model;
 using PowerLifting.Services.Users;
 
 namespace PowerLifting.Repository.Repositories
@@ -27,14 +28,14 @@ namespace PowerLifting.Repository.Repositories
             return await PowerliftingContext.Set<User>().Where(u => u.Email == username).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<User> GetUserById(string id)
         {
-            return await PowerliftingContext.Set<User>().Where(u => u.UserId == id).FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<User>().Where(u => u.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<User> GetUserByIdIncludeLiftingStats(int id)
+        public async Task<User> GetUserByIdIncludeLiftingStats(string id)
         {
-            return await PowerliftingContext.Set<User>().Where(u => u.UserId == id).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<User>().Where(u => u.Id == id).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task CreateUser(User user)
@@ -44,7 +45,7 @@ namespace PowerLifting.Repository.Repositories
 
         public void UpdateUser(User user)
         {
-            PowerliftingContext.Set<User>().Where(u => u.UserId == user.UserId).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
+            PowerliftingContext.Set<User>().Where(u => u.Id == user.Id).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
             Save();
         }
 

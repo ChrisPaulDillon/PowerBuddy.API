@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Powerlifting.Services.ProgramLogs.DTO;
-using PowerLifting.Repositorys.RepositoryWrappers;
-using PowerLifting.Services.ProgramLogs;
+using PowerLifting.Service.ServiceWrappers;
+using Powerlifting.Services.ProgramLogs;
 
-namespace Powerlifting.Services.ProgramLogs
+namespace Powerlifting.Service.ProgramLogs
 {
     public class ProgramLogService : IProgramLogService
     {

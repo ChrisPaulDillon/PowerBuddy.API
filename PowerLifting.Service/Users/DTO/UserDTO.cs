@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 using Powerlifting.Service.LiftingStats.DTO;
 using Powerlifting.Services.ProgramLogs.DTO;
 
-namespace Powerlifting.Services.Users.DTO
+namespace PowerLifting.Service.Users.DTO
 {
-    public class UserDTO
+    public class UserDTO : IdentityUser
     {
         public int UserId { get; set; }
         public int LiftingStatId { get; set; }

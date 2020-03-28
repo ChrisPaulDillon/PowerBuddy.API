@@ -9,13 +9,12 @@ using Microsoft.OpenApi.Models;
 using NLog;
 using System;
 using System.IO;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using PowerLifting.LoggerService;
-using Powerlifting.Services.ServiceWrappers;
 using PowerLifting.Repository.Repositories;
-using PowerLifting.Repositorys.RepositoryWrappers;
-using PowerLifting.Cypto;
 using PowerLifting.Persistence;
+using PowerLifting.Service.ServiceWrappers;
+using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.API
 {
@@ -69,8 +68,8 @@ namespace PowerLifting.API
             services.AddDbContext<PowerliftingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<IdentityDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
         }
 

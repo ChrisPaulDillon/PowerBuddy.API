@@ -7,8 +7,8 @@ using Powerlifting.Services.ExerciseCategories.Model;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogRepSchemes.Model;
 using Powerlifting.Services.TemplatePrograms.Model;
-using Powerlifting.Services.Users.Model;
 using PowerLifting.ProgramLogExercises.Model;
+using PowerLifting.Service.Users.Model;
 using PowerLifting.Services.TemplateRepSchemes.Model;
 using Powerlifting.Services.TemplateExercises.Model;
 
@@ -175,7 +175,7 @@ namespace PowerLifting.Persistence
             {
                 var users = new User[]
                 {
-                    new User{ Email="chrispauldillon@live.com", Password="test123",
+                    new User{ Email="chrispauldillon@live.com", PasswordHash = "test123",
                         LiftingStats= new LiftingStat { BenchWeight=100, DeadliftWeight=170, SquatWeight=200 },
                         ProgramLogs= new List<ProgramLog> {
                             new ProgramLog { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), TemplateProgramId = 1, NoOfDaysLifting = 4,

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.LoggerService;
-using PowerLifting.Services;
+using PowerLifting.Service;
 
 public static class ExceptionMiddlewareExtensions
 {

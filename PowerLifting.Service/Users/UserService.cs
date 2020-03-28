@@ -1,14 +1,14 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
-using Powerlifting.Services.Users.DTO;
+using PowerLifting.Service.ServiceWrappers;
+using PowerLifting.Service.Users.DTO;
 using PowerLifting.Services.Service.Users.Exceptions;
-using Powerlifting.Services.Users.Model;
 using PowerLifting.Services.Users;
 using PowerLifting.Services.Users.Exceptions;
-using PowerLifting.Repositorys.RepositoryWrappers;
+using PowerLifting.Service.Users.Model;
 
-namespace Powerlifting.Services.Users
+namespace PowerLifting.Service.Users
 {
     public class UserService : IUserService
     {
@@ -28,7 +28,7 @@ namespace Powerlifting.Services.Users
             return usersDTO;
         }
 
-        public async Task<UserDTO> GetUserById(int id)
+        public async Task<UserDTO> GetUserById(string id)
         {
             var user = await _repo.User.GetUserById(id);
             if (user == null)
@@ -48,7 +48,7 @@ namespace Powerlifting.Services.Users
 
         public async Task CreateUser(UserDTO userDTO)
         {
-            var user = await _repo.User.GetUserById(userDTO.UserId);
+            var user = await _repo.User.GetUserById(userDTO.Id);
             if (user != null)
             {
                 throw new EmailInUserException();
@@ -59,7 +59,7 @@ namespace Powerlifting.Services.Users
 
         public async Task UpdateUser(UserDTO userDTO)
         {
-            var user = await _repo.User.GetUserById(userDTO.UserId);
+            var user = await _repo.User.GetUserById(userDTO.Id);
             if(user == null)
             {
                 throw new UserNotFoundException();
@@ -68,7 +68,7 @@ namespace Powerlifting.Services.Users
             _repo.User.UpdateUser(user);
         }
 
-        public async Task DeleteUser(int id)
+        public async Task DeleteUser(string id)
         {
             var user = await _repo.User.GetUserById(id);
             if (user == null)

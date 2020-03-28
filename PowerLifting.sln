@@ -11,13 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.UnitTests", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.LoggerService", "PowerLifting.LoggerService\PowerLifting.LoggerService.csproj", "{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Services", "PowerLifting.Services\PowerLifting.Services.csproj", "{CAA123BA-96DB-478E-B9ED-7DCD039FC695}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.WebApp", "PowerLifting.WebApp\PowerLifting.WebApp.csproj", "{73D5277E-B1C8-4131-8B51-56FAF64CDC12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Persistence", "PowerLifting.Persistence\PowerLifting.Persistence.csproj", "{08EA0B37-5ECF-45AA-8819-17DEB128AAB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Persistence", "PowerLifting.Persistence\PowerLifting.Persistence.csproj", "{08EA0B37-5ECF-45AA-8819-17DEB128AAB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Repository", "PowerLifting.Repository\PowerLifting.Repository.csproj", "{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Repository", "PowerLifting.Repository\PowerLifting.Repository.csproj", "{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Service", "PowerLifting.Service\PowerLifting.Service.csproj", "{1A8AF880-EA60-4F15-9C05-B0F0D9744945}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,6 @@ Global
 		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CAA123BA-96DB-478E-B9ED-7DCD039FC695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CAA123BA-96DB-478E-B9ED-7DCD039FC695}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CAA123BA-96DB-478E-B9ED-7DCD039FC695}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CAA123BA-96DB-478E-B9ED-7DCD039FC695}.Release|Any CPU.Build.0 = Release|Any CPU
 		{73D5277E-B1C8-4131-8B51-56FAF64CDC12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{73D5277E-B1C8-4131-8B51-56FAF64CDC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73D5277E-B1C8-4131-8B51-56FAF64CDC12}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +53,10 @@ Global
 		{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A8AF880-EA60-4F15-9C05-B0F0D9744945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A8AF880-EA60-4F15-9C05-B0F0D9744945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A8AF880-EA60-4F15-9C05-B0F0D9744945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A8AF880-EA60-4F15-9C05-B0F0D9744945}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

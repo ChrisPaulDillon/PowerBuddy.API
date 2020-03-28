@@ -1,20 +1,15 @@
 ﻿using AutoMapper;
-using Powerlifting.Services.Users;
 using Powerlifting.Service.ExerciseCategories;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.TemplatePrograms;
 using Powerlifting.Service.Exercises;
 using Powerlifting.Service.LiftingStats;
-using PowerLifting.Services.Users;
-using PowerLifting.Services.LiftingStats;
-using PowerLifting.Services.Exercises;
-using PowerLifting.Services.ExerciseCategories;
-using PowerLifting.Services.ProgramLogs;
-using PowerLifting.Services.TemplatePrograms;
-using PowerLifting.Repositorys.RepositoryWrappers;
-using Powerlifting.Services.Exercises;
+using Powerlifting.Service.ProgramLogs;
+using PowerLifting.Service.Users;
+using PowerLifting.Service.Exercises;
+using PowerLifting.Service.TemplatePrograms;
 
-namespace Powerlifting.Services.ServiceWrappers
+namespace PowerLifting.Service.ServiceWrappers
 {
     public class ServiceWrapper : IServiceWrapper
     {
