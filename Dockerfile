@@ -5,13 +5,12 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 COPY ["PowerLifting.API/PowerLifting.API.csproj", "PowerLifting.API/"]
-COPY ["PowerLifting.Repository/PowerLifting.Repository.csproj", "PowerLifting.Repository/"]
-COPY ["PowerLifting.Persistence/PowerLifting.Persistence.csproj", "PowerLifting.Persistence/"]
+COPY ["Powerlifting.Repository/Powerlifting.Repository.csproj", "Powerlifting.Repository/"]
+COPY ["Powerlifting.Persistence/Powerlifting.Persistence.csproj", "Powerlifting.Persistence/"]
 COPY ["PowerLifting.Cypto/PowerLifting.Cypto.csproj", "PowerLifting.Cypto/"]
 COPY ["PowerLifting.Service/PowerLifting.Service.csproj", "PowerLifting.Service/"]
 COPY ["PowerLifting.LoggerService/PowerLifting.LoggerService.csproj", "PowerLifting.LoggerService/"]
-COPY ["PowerLifting.WebApp/PowerLifting.WebApp.csproj", "PowerLifting.LoggerService/"]
-COPY ["PowerLifting.UnitTests/PowerLifting.UnitTests.csproj", "PowerLifting.WebApp/"]
+COPY ["PowerLifting.UnitTests/PowerLifting.UnitTests.csproj", "PowerLifting.UnitTests/"]
 RUN dotnet restore "PowerLifting.API/PowerLifting.API.csproj"
 COPY . .
 RUN dotnet build "PowerLifting.API/PowerLifting.API.csproj" -c Release -o /app
