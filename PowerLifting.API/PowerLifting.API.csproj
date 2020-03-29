@@ -20,14 +20,21 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Cypto\PowerLifting.Cypto.csproj" />
-    <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
-    <ProjectReference Include="..\Powerlifting.Repository\Powerlifting.Repository.csproj" />
     <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj" />
     <ProjectReference Include="..\PowerLifting.Service\PowerLifting.Service.csproj" />
+    <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerLifting.Repository\PowerLifting.Repository.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 
