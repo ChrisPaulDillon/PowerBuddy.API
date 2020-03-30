@@ -39,6 +39,9 @@ namespace PowerLifting.API
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
+            services.AddDbContext<PowerliftingContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
@@ -63,17 +66,6 @@ namespace PowerLifting.API
                             "http://www.contoso.com");
                     });
             });
-
-           
-          
-            services.AddDbContext<PowerliftingContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-               .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
 
         }
 

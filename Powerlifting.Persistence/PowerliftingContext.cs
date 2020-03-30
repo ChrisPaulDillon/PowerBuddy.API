@@ -37,13 +37,13 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<ExerciseCategory>().HasAlternateKey(e => e.CategoryName);
             modelBuilder.Entity<ExerciseCategory>().ToTable("ExerciseCategory");
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
-            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("IndividualSet");
-            modelBuilder.Entity<LiftingStat>().ToTable("ProgramLogRepScheme");
+            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
+            modelBuilder.Entity<LiftingStat>().ToTable("LiftingStat");
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
-            modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
+            modelBuilder.Entity<User>().HasAlternateKey(u => u.Email); //This is a unique value two emails can't have the same email
             modelBuilder.Entity<User>().ToTable("User");
         }
     }
