@@ -10,7 +10,6 @@ using Powerlifting.Services.TemplateExercises.Model;
 using PowerLifting.ProgramLogExercises.Model;
 using PowerLifting.Service.Users.Model;
 using PowerLifting.Services.TemplateRepSchemes.Model;
-using PowerLifting.Service.UserRoles.Model;
 
 namespace PowerLifting.Persistence
 {
