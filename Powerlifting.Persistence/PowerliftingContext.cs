@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Powerlifting.Service.Exercises.Model;
 using Powerlifting.Service.LiftingStats.Model;
 using Powerlifting.Services.ExerciseCategories.Model;
@@ -30,8 +31,10 @@ namespace PowerLifting.Persistence
         public DbSet<TemplateExercise> TemplateExercise { get; set; }
         public DbSet<TemplateRepScheme> TemplateRepScheme { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<PowerBuddyRole> PowerBuddyRole { get; set; }
-        public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<IdentityRole> Role { get; set; }
+        public DbSet<IdentityUserClaim<string>> UserClaim { get; set; }
+        public DbSet<IdentityUserRole<string>> UserRole { get; set; }
+        public DbSet<IdentityUserToken<string>> UserToken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,10 +49,11 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
-            modelBuilder.Entity<User>().HasAlternateKey(u => u.Email); //This is a unique value two emails can't have the same email
-            modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<UserRole>().ToTable("UserRole");
-            modelBuilder.Entity<PowerBuddyRole>().ToTable("Role");
+            modelBuilder.Entity<User>().HasAlternateKey(u => u.Email); //This is a unique value two emails can't have the same email//modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey().ToTable("UserRole");
+            modelBuilder.Entity<IdentityRole>().ToTable("Role");
+            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim");
+            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("UserToken");
         }
     }
 }

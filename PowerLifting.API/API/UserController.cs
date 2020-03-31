@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using PowerLifting.Cypto;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Services.Service.Users.Exceptions;
@@ -17,14 +14,11 @@ namespace PowerLifting.API.API
     [ApiController]
     public class UserController : ControllerBase
     {
-        private ILogger<UserController> _logger;
         private IServiceWrapper _service;
-        private IMapper _mapper;
 
-        public UserController(IServiceWrapper service, IMapper mapper)
+        public UserController(IServiceWrapper service)
         {
             _service = service;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -45,7 +39,6 @@ namespace PowerLifting.API.API
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -121,28 +114,6 @@ namespace PowerLifting.API.API
             catch(UserNotFoundException)
             {
                 return NotFound();
-            }
-        }
-
-        // GET: api/User/5
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login(string username, string password)
-        {
-            var user = await _service.User.GetUserByEmail(username);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                bool verifyPassword = PasswordHandler.Instance.VerifyHash(password, user.Password);
-                if (!verifyPassword)
-                {
-                    return Unauthorized(); //Change in future?
-                }
-
-                return Ok(user);
             }
         }
     }

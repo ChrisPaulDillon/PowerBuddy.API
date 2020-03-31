@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.API\PowerLifting.API.csproj" />
-    <ProjectReference Include="..\PowerLifting.Cypto\PowerLifting.Cypto.csproj" />
   </ItemGroup>
 
 </Project>

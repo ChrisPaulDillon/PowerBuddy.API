@@ -22,9 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.API\PowerLifting.API.csproj" />
-    <ProjectReference Include="..\PowerLifting.Cypto\PowerLifting.Cypto.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
     <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

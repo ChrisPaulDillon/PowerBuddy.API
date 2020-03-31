@@ -27,8 +27,8 @@ namespace PowerLifting.WebApp
             services.AddDbContext<PowerliftingContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, PowerBuddyRole>()
-                .AddRoles<PowerBuddyRole>()
+            services.AddIdentity<User, IdentityRole>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<PowerliftingContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();

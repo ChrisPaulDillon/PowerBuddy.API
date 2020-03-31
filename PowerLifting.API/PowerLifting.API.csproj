@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerLifting.Cypto\PowerLifting.Cypto.csproj" />
     <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj" />
     <ProjectReference Include="..\PowerLifting.Service\PowerLifting.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj">
