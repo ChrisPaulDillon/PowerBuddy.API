@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PowerLifting.Service.Users.Model;
 using PowerLifting.Persistence;
-using PowerLifting.Service.UserRoles.Model;
 using AutoMapper;
 
 namespace PowerLifting.WebApp
