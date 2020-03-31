@@ -6,7 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PowerLifting.Service.Users.Model;
-using PowerLifting.WebApp.Data;
+using PowerLifting.Persistence;
+using PowerLifting.Service.UserRoles.Model;
+using AutoMapper;
 
 namespace PowerLifting.WebApp
 {
@@ -22,14 +24,18 @@ namespace PowerLifting.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDbContext<PowerliftingContext>(options =>
+              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentity<User, PowerBuddyRole>()
+                .AddRoles<PowerBuddyRole>()
+                .AddEntityFrameworkStores<PowerliftingContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,13 +2,11 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PowerLifting.Cypto;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.DTO;
-using PowerLifting.Service.Users.Model;
 using PowerLifting.Services.Service.Users.Exceptions;
 using PowerLifting.Services.Users.DTO;
 using PowerLifting.Services.Users.Exceptions;
@@ -23,9 +21,8 @@ namespace PowerLifting.API.API
         private IServiceWrapper _service;
         private IMapper _mapper;
 
-        public UserController(IServiceWrapper service, IMapper mapper, ILogger<UserController> logger)
+        public UserController(IServiceWrapper service, IMapper mapper)
         {
-            _logger = logger;
             _service = service;
             _mapper = mapper;
         }

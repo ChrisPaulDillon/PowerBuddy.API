@@ -6,7 +6,7 @@ namespace PowerLifting.Service.UserRoles.Model
 {
     public class UserRole : IdentityUserRole<string>
     {
-        public string ApplicationUserRoleId { get; set; }
+        public string UserRoleId { get; set; }
         public virtual User User { get; set; }
         public virtual PowerBuddyRole Role { get; set; }
     }
