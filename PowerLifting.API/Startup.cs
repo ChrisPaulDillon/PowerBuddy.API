@@ -42,6 +42,12 @@ namespace PowerLifting.API
             services.AddDbContext<PowerliftingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentity<User, ApplicationRole>()
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<PowerliftingContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));

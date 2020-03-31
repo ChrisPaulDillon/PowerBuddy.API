@@ -11,4 +11,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UserClaims\" />
+    <Folder Include="UserClaims\Model\" />
+    <Folder Include="UserRoles\" />
+    <Folder Include="UserRoles\Model\" />
+  </ItemGroup>
 </Project>
