@@ -8,6 +8,8 @@ using Powerlifting.Service.ProgramLogs;
 using PowerLifting.Service.Users;
 using PowerLifting.Service.Exercises;
 using PowerLifting.Service.TemplatePrograms;
+using Microsoft.AspNetCore.Identity;
+using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.Service.ServiceWrappers
 {
@@ -22,11 +24,13 @@ namespace PowerLifting.Service.ServiceWrappers
 
         private IMapper _mapper;
         private IRepositoryWrapper _repoWrapper;
+        private UserManager<User> _userManager;
 
-        public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper)
+        public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper, UserManager<User> userManager)
         {
             _mapper = mapper;
             _repoWrapper = repoWrapper;
+            _userManager = userManager;
         }
 
         public IUserService User
@@ -35,7 +39,7 @@ namespace PowerLifting.Service.ServiceWrappers
             {
                 if (_user == null)
                 {
-                    _user = new UserService(_repoWrapper, _mapper);
+                    _user = new UserService(_repoWrapper, _mapper, _userManager);
                 }
 
                 return _user;

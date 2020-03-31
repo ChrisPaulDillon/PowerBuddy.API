@@ -12,8 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UserClaims\" />
-    <Folder Include="UserClaims\Model\" />
     <Folder Include="UserRoles\" />
     <Folder Include="UserRoles\Model\" />
   </ItemGroup>

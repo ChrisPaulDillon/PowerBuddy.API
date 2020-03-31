@@ -1,9 +1,9 @@
 ﻿using System;
 namespace PowerLifting.Services.Users.Exceptions
 {
-    public class EmailInUserException : Exception
+    public class EmailInUseException : Exception
     {
-        public EmailInUserException()
+        public EmailInUseException()
         {
         }
     }

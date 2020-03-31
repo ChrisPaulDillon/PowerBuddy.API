@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
+
 namespace PowerLifting.Services.Users.DTO
 {
-    public class RegisterUserDTO
+    public class RegisterUserDTO : IdentityUser
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public int LiftingStatId { get; set; }
     }
 }

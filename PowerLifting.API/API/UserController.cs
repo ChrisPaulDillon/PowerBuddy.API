@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PowerLifting.Cypto;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.DTO;
+using PowerLifting.Service.Users.Model;
 using PowerLifting.Services.Service.Users.Exceptions;
+using PowerLifting.Services.Users.DTO;
 using PowerLifting.Services.Users.Exceptions;
 
 namespace PowerLifting.API.API
@@ -17,11 +21,13 @@ namespace PowerLifting.API.API
     {
         private ILogger<UserController> _logger;
         private IServiceWrapper _service;
+        private IMapper _mapper;
 
-        public UserController(IServiceWrapper service, ILogger<UserController> logger)
+        public UserController(IServiceWrapper service, IMapper mapper, ILogger<UserController> logger)
         {
             _logger = logger;
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -68,7 +74,7 @@ namespace PowerLifting.API.API
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> CreateUser([FromBody] UserDTO user)
+        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO user, string password)
         {
             try
             {
@@ -76,10 +82,10 @@ namespace PowerLifting.API.API
 
                 if (!ModelState.IsValid) return BadRequest("Invalid model object");
 
-                await _service.User.CreateUser(user);
+                await _service.User.RegisterUser(user, password);
                 return Ok(user);
             }
-            catch(EmailInUserException)
+            catch(EmailInUseException)
             {
                 return Conflict();
             }   

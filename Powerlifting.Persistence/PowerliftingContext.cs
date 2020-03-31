@@ -30,9 +30,8 @@ namespace PowerLifting.Persistence
         public DbSet<TemplateExercise> TemplateExercise { get; set; }
         public DbSet<TemplateRepScheme> TemplateRepScheme { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<ApplicationRole> ApplicationRole { get; set; }
-        public DbSet<ApplicationUserRole> ApplicationUserRole { get; set; }
-        //public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<PowerBuddyRole> PowerBuddyRole { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,8 +48,8 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email); //This is a unique value two emails can't have the same email
             modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<ApplicationUserRole>().ToTable("ApplicationUserRole");
-            modelBuilder.Entity<ApplicationRole>().ToTable("ApplicationRole");
+            modelBuilder.Entity<UserRole>().ToTable("UserRole");
+            modelBuilder.Entity<PowerBuddyRole>().ToTable("Role");
         }
     }
 }

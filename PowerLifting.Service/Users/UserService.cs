@@ -4,9 +4,10 @@ using AutoMapper;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Services.Service.Users.Exceptions;
-using PowerLifting.Services.Users;
 using PowerLifting.Services.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
+using Microsoft.AspNetCore.Identity;
+using PowerLifting.Services.Users.DTO;
 
 namespace PowerLifting.Service.Users
 {
@@ -14,11 +15,13 @@ namespace PowerLifting.Service.Users
     {
         private IMapper _mapper;
         private IRepositoryWrapper _repo;
+        private UserManager<User> _userManager;
 
-        public UserService(IRepositoryWrapper repo, IMapper mapper)
+        public UserService(IRepositoryWrapper repo, IMapper mapper, UserManager<User> userManager)
         {
             _repo = repo;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsers()
@@ -46,15 +49,15 @@ namespace PowerLifting.Service.Users
             return userDTO;
         }
 
-        public async Task CreateUser(UserDTO userDTO)
+        public async Task RegisterUser(RegisterUserDTO userDTO, string password)
         {
             var user = await _repo.User.GetUserById(userDTO.Id);
             if (user != null)
             {
-                throw new EmailInUserException();
+                throw new EmailInUseException();
             }
             var userEntity = _mapper.Map<User>(userDTO);
-            await _repo.User.CreateUser(userEntity);
+            await _userManager.CreateAsync(userEntity, password);
         }
 
         public async Task UpdateUser(UserDTO userDTO)
@@ -76,11 +79,6 @@ namespace PowerLifting.Service.Users
                 throw new UserNotFoundException();
             }
             _repo.User.DeleteUser(user);
-        }
-
-        Task<UserDTO> IUserService.CreateUser(UserDTO user)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
