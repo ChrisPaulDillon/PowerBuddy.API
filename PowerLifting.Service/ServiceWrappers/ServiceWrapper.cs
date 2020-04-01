@@ -52,7 +52,7 @@ namespace PowerLifting.Service.ServiceWrappers
             {
                 if (_liftingStats == null)
                 {
-                    _liftingStats = new LiftingStatService(_repoWrapper, _mapper);
+                    _liftingStats = new LiftingStatService(_repoWrapper, _mapper, _userManager);
                 }
 
                 return _liftingStats;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using PowerLifting.Service.ServiceWrappers;
 using Powerlifting.Services.TemplatePrograms.DTO;
 
@@ -11,27 +10,21 @@ namespace PowerLifting.API.API
     [ApiController]
     public class TemplateProgramController : ControllerBase
     {
-        private ILogger<TemplateProgramController> _logger;
         private IServiceWrapper _service;
 
-        public TemplateProgramController(IServiceWrapper service, ILogger<TemplateProgramController> logger)
+        public TemplateProgramController(IServiceWrapper service)
         {
-            _logger = logger;
             _service = service;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProgramTypes()
+        public async Task<IActionResult> GetAllTemplatePrograms()
         {
             var programTemplates = await _service.TemplateProgram.GetAllTemplatePrograms();
-            if (programTemplates == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(programTemplates);
-            }
+
+            if (programTemplates == null) return NotFound();
+
+            return Ok(programTemplates);
         }
 
         [HttpGet("{id}")]
@@ -39,16 +32,10 @@ namespace PowerLifting.API.API
         {
             var programType = await _service.TemplateProgram.GetTemplateProgramById(templateId);
 
-            if (programType == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(programType);
-            }
+            if (programType == null) return NotFound();
+            
+            return Ok(programType);
         }
-
 
         [HttpGet("Calculate/{id}")]
         public async Task<IActionResult> GetTemplateProgramByIdIncludeLiftingStats(string userId, int programTemplateId)
@@ -57,14 +44,9 @@ namespace PowerLifting.API.API
             {
                 var programType = await _service.TemplateProgram.GetTemplateProgramByIdIncludeLiftingStats(userId, programTemplateId);
 
-                if (programType == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(programType);
-                }
+                if (programType == null) return NotFound();
+
+                return Ok(programType);
             }
             catch(Exception e)
             {
@@ -76,24 +58,13 @@ namespace PowerLifting.API.API
         [HttpPost]
         public async Task<IActionResult> CreateProgramType([FromBody] TemplateProgramDTO programTemplate)
         {
-            if (programTemplate == null)
-            {
-                return BadRequest("ProgramType object is null");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Invalid ProgramType model object");
-            }
-
+            if (programTemplate == null) return BadRequest("TemplateProgram object is null");
+            if (!ModelState.IsValid) return BadRequest("Invalid TemplateProgram model object");
+           
             var ProgramTypeCheck = await _service.TemplateProgram.GetTemplateProgramByName(programTemplate.Name);
-            if (ProgramTypeCheck != null)
-            {
-                return Conflict("Exercise Category is already been added");
-            }
-
-            //await _service.TemplateProgram.AddAsync(programTemplate);
-            //TODO FIX
+            if (ProgramTypeCheck != null) return Conflict("Exercise Category has already been added");
+           
+            await _service.TemplateProgram.CreateTemplateProgram(programTemplate);
             return Ok(programTemplate);
         }
     }

@@ -28,16 +28,11 @@ namespace PowerLifting.API.API
             try
             {
                 var users = await _service.User.GetAllUsers();
-                if (users == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(users);
-                }
+                if (users == null) return NotFound();
+
+                return Ok(users);
             }
-            catch (Exception ex)
+            catch (UserNotFoundException)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
@@ -54,7 +49,7 @@ namespace PowerLifting.API.API
                 var user = await _service.User.GetUserById(id);
                 return Ok(user);
             }
-            catch(UserNotFoundException e)
+            catch(UserNotFoundException)
             {
                 return NotFound();
             }
@@ -69,7 +64,6 @@ namespace PowerLifting.API.API
             try
             {
                 if (user == null) return BadRequest("User object is null");
-
                 if (!ModelState.IsValid) return BadRequest("Invalid model object");
 
                 await _service.User.RegisterUser(user, password);
@@ -89,7 +83,6 @@ namespace PowerLifting.API.API
             try
             {
                 if (user == null) return BadRequest("User object is null");
-
                 if (!ModelState.IsValid) return BadRequest("Invalid model object");
 
                 _service.User.UpdateUser(user);

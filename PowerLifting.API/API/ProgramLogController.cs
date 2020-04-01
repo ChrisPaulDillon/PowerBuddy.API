@@ -10,18 +10,14 @@ namespace PowerLifting.API.API
     [ApiController]
     public class ProgramLogController : ControllerBase
     {
-        private ILogger<ProgramLogController> _logger;
         private IServiceWrapper _service;
 
-        public ProgramLogController(IServiceWrapper service, ILogger<ProgramLogController> logger)
+        public ProgramLogController(IServiceWrapper service)
         {
-            _logger = logger;
             _service = service;
-         
         }
 
-        [HttpGet("Activate")]
-        public async Task<IActionResult> GetAllProgramLogsByUserId(int userId)
+        public async Task<IActionResult> GetAllActiveProgramLogsByUserId(int userId)
         {
 
             var programLogs = await _service.ProgramLog.GetAllProgramLogsByUserId(userId);
@@ -32,15 +28,13 @@ namespace PowerLifting.API.API
             }
             else
             {
-                _logger.LogInformation($"Returned all Program Logs");
                 return Ok(programLogs);
             }
         }
 
-        [HttpGet("Active")]
+        [HttpGet("Active/{userId:int}")]
         public async Task<IActionResult> GetActiveProgramLogsByUserId(int userId)
         {
-
             var programLogs = await _service.ProgramLog.GetActiveProgramLogsByUserId(userId);
             if (programLogs == null)
             {
@@ -52,12 +46,10 @@ namespace PowerLifting.API.API
             }
         }
 
-
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProgramLog(int id)
+        public async Task<IActionResult> GetProgramLogByUserId(int userId)
         {
-
-            var programLog = await _service.ProgramLog.GetProgramLogById(id);
+            var programLog = await _service.ProgramLog.GetProgramLogById(userId);
 
             if (programLog == null)
             {
@@ -72,27 +64,14 @@ namespace PowerLifting.API.API
         [HttpPost]
         public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
         {
-            if (programLog == null)
-            {
-                _logger.LogError("ProgramLog object sent from client is null.");
-                return BadRequest("ProgramLog object is null");
-            }
+            if (programLog == null) return BadRequest("ProgramLog object is null");
 
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError("Invalid ProgramLog object sent from client.");
-                return BadRequest("Invalid ProgramLog object");
-            }
+            if (!ModelState.IsValid) return BadRequest("Invalid ProgramLog object");
 
-            //var programLogCheck = await _service.ProgramLog.GetProgramLog(programLog.ProgramLogName);
-            var programLogCheck = programLog;
+            var programLogCheck = await _service.ProgramLog.GetProgramLogById(programLog.ProgramLogId);
 
-            if (programLogCheck != null)
-            {
-                _logger.LogError("ProgramLog is already been added");
-                return Conflict("ProgramLog is already been added");
-            }
-
+            if (programLogCheck != null) return Conflict("ProgramLog is already been added");
+          
             //await _service.ProgramLog.AddAsync(programLogEntity);
             //TODO fix
             return Ok(programLog);
@@ -102,13 +81,9 @@ namespace PowerLifting.API.API
         public async Task<IActionResult> DeleteProgramLog(int id)
         {
             var programLog = await _service.ProgramLog.GetProgramLogById(id);
-            if (programLog == null)
-            {
-                return NotFound();
-            }
-
-            //_service.ProgramLog.DeleteProgramLog(programLog);
-            //TODO fix
+            if (programLog == null) return NotFound();
+          
+            _service.ProgramLog.DeleteProgramLog(programLog);
             return NoContent();
         }
     }

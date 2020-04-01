@@ -4,7 +4,8 @@ using Powerlifting.Service.LiftingStats;
 using PowerLifting.Service.Users;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.TemplatePrograms;
-using PowerLifting.Services.Users;
+using Microsoft.AspNetCore.Identity;
+using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.Service.ServiceWrappers
 {

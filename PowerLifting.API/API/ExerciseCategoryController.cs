@@ -12,12 +12,10 @@ namespace PowerLifting.API.API
     [ApiController]
     public class ExerciseCategoryController : ControllerBase
     {
-        private ILogger<ExerciseCategoryController> _logger;
         private IServiceWrapper _service;
 
-        public ExerciseCategoryController(IServiceWrapper Service, ILogger<ExerciseCategoryController> logger)
+        public ExerciseCategoryController(IServiceWrapper Service)
         {
-            _logger = logger;
             _service = Service;
         }
 
@@ -27,16 +25,11 @@ namespace PowerLifting.API.API
             try
             {
                 var exerciseCategories =  _service.ExerciseCategory.GetAllCategories();
-                if (exerciseCategories == null)
-                {
-                    return NotFound();
-                }
-                else
-                {  
-                    return Ok(exerciseCategories);
-                }
+                if (exerciseCategories == null) return NotFound();
+          
+                return Ok(exerciseCategories);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
@@ -47,93 +40,50 @@ namespace PowerLifting.API.API
         {
             var category = await _service.ExerciseCategory.GetExerciseCategoryById(id);
 
-            if (category == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(category);
-            }
-        }
+            if (category == null) return NotFound();
 
+            return Ok(category);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateExerciseCategory([FromBody] ExerciseCategoryDTO exerciseCategory)
         {
-           
-            if (exerciseCategory == null)
-            {
-                _logger.LogError("ExerciseCategory object sent from client is null.");
-                return BadRequest("ExerciseCategory object is null");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError("Invalid ExerciseCategory object sent from client.");
-                return BadRequest("Invalid ExerciseCategory model object");
-            }
-
+            if (exerciseCategory == null) return BadRequest("ExerciseCategory object is null");
+            if (!ModelState.IsValid) return BadRequest("Invalid ExerciseCategory model object");
+            
             var exerciseCategoryCheck = await _service.ExerciseCategory.GetExerciseCategoryByName(exerciseCategory.CategoryName);
-            if (exerciseCategoryCheck != null)
-            {
-                _logger.LogError("Exercise Category is already been added");
-                return Conflict("Exercise Category is already been added");
-            }
+            if (exerciseCategoryCheck != null) return Conflict("Exercise Category is already been added");
 
-
-            //await _service.ExerciseCategory.AddAsync(exerciseCategory);
+            //await _service.ExerciseCategory.(exerciseCategory);
               //TODO Fix
             return Ok(exerciseCategory);
-            
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateExerciseCategoryAsync(int id, [FromBody]ExerciseCategoryDTO exerciseCategory)
+        public async Task<IActionResult> UpdateExerciseCategory(int id, [FromBody]ExerciseCategoryDTO exerciseCategory)
         {
-
-            if (exerciseCategory == null)
-            {
-                _logger.LogError("Exercise Category object sent from client is null.");
-                return BadRequest("Exercise Category object is null");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError("Invalid Exercise Category object sent from client.");
-                return BadRequest("Invalid model object");
-            }
+            if (exerciseCategory == null) return BadRequest("Exercise Category object is null");
+            
+            if (!ModelState.IsValid) return BadRequest("Invalid model object");
 
             var exerciseCategoryEntity = await _service.ExerciseCategory.GetExerciseCategoryById(id);
-            if (exerciseCategoryEntity == null)
-            {
-                _logger.LogError($"Exercise with id: {id}, hasn't been found in db.");
-                return NotFound();
-            }
-
+            if (exerciseCategoryEntity == null) return NotFound();
+        
             exerciseCategory.ExerciseCategoryId = exerciseCategoryEntity.ExerciseCategoryId;
 
             //_service.ExerciseCategory.UpdateExerciseCategory(exerciseCategoryEntity);
 
             return NoContent();
-            
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExerciseCategoryAsync(int id)
         {
-
             var exercise = await _service.ExerciseCategory.GetExerciseCategoryById(id);
-            if (exercise == null)
-            {
-                _logger.LogError($"Exercise Category with id: {id}, hasn't been found in db.");
-                return NotFound();
-            }
-
-            //_service.ExerciseCategory.DeleteExerciseCategory(exercise);
-            //TODO fix
+            if (exercise == null) return NotFound();
+        
+            _service.ExerciseCategory.DeleteExerciseCategory(exercise);
             return NoContent();
-
         }
     }
 }

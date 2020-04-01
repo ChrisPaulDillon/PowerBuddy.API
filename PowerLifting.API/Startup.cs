@@ -15,6 +15,7 @@ using PowerLifting.Repository.Repositories;
 using PowerLifting.Persistence;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.Model;
+using Microsoft.AspNetCore.Http;
 
 namespace PowerLifting.API
 {
@@ -53,9 +54,10 @@ namespace PowerLifting.API
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //services.AddScoped<IExerciseService, ExerciseService>();
-            
+
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
