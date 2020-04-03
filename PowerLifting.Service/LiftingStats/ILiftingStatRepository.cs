@@ -18,6 +18,6 @@ namespace PowerLifting.Services.LiftingStats
         /// Updates lifting stats for a given user
         /// </summary>
         /// <param name="liftingStats"></param>
-        UpdateLiftingStats(LiftingStat liftingStats);
+        void UpdateLiftingStats(LiftingStat liftingStats);
     }
 }

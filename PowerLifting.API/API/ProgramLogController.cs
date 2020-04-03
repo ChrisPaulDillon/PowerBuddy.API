@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PowerLifting.Service.ServiceWrappers;
 using Powerlifting.Services.ProgramLogs.DTO;
+using PowerLifting.Service.ProgramLogs.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace PowerLifting.API.API
 {
@@ -17,58 +19,68 @@ namespace PowerLifting.API.API
             _service = service;
         }
 
-        public async Task<IActionResult> GetAllActiveProgramLogsByUserId(int userId)
+        [HttpGet("Today/{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetTodaysProgramLogByUserId(string userId)
         {
-
-            var programLogs = await _service.ProgramLog.GetAllProgramLogsByUserId(userId);
-            if (programLogs == null)
+            try
             {
-
+                var programLogs = await _service.ProgramLog.GetActiveProgramLogByUserId(userId);
+                return Ok(programLogs);
+            }
+            catch(ProgramLogNotFoundException)
+            {
                 return NotFound();
             }
-            else
+            catch(UserDoesNotMatchProgramLogException)
             {
-                return Ok(programLogs);
+                return Unauthorized();
             }
         }
 
-        [HttpGet("Active/{userId:int}")]
-        public async Task<IActionResult> GetActiveProgramLogsByUserId(int userId)
+        [HttpGet("Week/{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetWeeklyProgramLogByUserId(string userId)
         {
-            var programLogs = await _service.ProgramLog.GetActiveProgramLogsByUserId(userId);
-            if (programLogs == null)
+            try
+            {
+                var programLogs = await _service.ProgramLog.GetWeeklyProgramLogByUserId(userId);
+                return Ok(programLogs);
+            }
+            catch (ProgramLogNotFoundException)
             {
                 return NotFound();
-            }
-            else
-            {
-                return Ok(programLogs);
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetProgramLogByUserId(int userId)
+        [HttpGet("Active/{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetActiveProgramLogByUserId(string userId)
         {
-            var programLog = await _service.ProgramLog.GetProgramLogById(userId);
-
-            if (programLog == null)
+            try
+            {
+                var programLogs = await _service.ProgramLog.GetWeeklyProgramLogByUserId(userId);
+                return Ok(programLogs);
+            }
+            catch (ProgramLogNotFoundException)
             {
                 return NotFound();
-            }
-            else
-            {
-                return Ok(programLog);
             }
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
         {
             if (programLog == null) return BadRequest("ProgramLog object is null");
 
             if (!ModelState.IsValid) return BadRequest("Invalid ProgramLog object");
 
-            var programLogCheck = await _service.ProgramLog.GetProgramLogById(programLog.ProgramLogId);
+            var programLogCheck = await _service.ProgramLog.GetProgramLogByProgramLogId(programLog.ProgramLogId);
 
             if (programLogCheck != null) return Conflict("ProgramLog is already been added");
           
@@ -77,14 +89,20 @@ namespace PowerLifting.API.API
             return Ok(programLog);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProgramLog(int id)
+        [HttpDelete("{userId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeleteProgramLog(string userId, [FromBody] ProgramLogDTO programLog)
         {
-            var programLog = await _service.ProgramLog.GetProgramLogById(id);
-            if (programLog == null) return NotFound();
-          
-            _service.ProgramLog.DeleteProgramLog(programLog);
-            return NoContent();
+            try
+            {
+                _service.ProgramLog.DeleteProgramLog(userId, programLog);
+                return NoContent();
+            }
+            catch(ProgramLogNotFoundException)
+            {
+                return NotFound();
+            }
         }
     }
 }

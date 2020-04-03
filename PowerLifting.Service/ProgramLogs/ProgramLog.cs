@@ -11,7 +11,7 @@ namespace Powerlifting.Services.ProgramLogs
     public class ProgramLog
     {
         public int ProgramLogId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int TemplateProgramId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

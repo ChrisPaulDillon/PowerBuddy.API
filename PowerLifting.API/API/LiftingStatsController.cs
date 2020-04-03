@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Powerlifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.ServiceWrappers;
-using PowerLifting.Service.Users.Model;
+using PowerLifting.Services.Service.Users.Exceptions;
 
 namespace PowerLifting.API.API
 {
@@ -13,26 +13,44 @@ namespace PowerLifting.API.API
     {
         private readonly IServiceWrapper _service;
 
-        public LiftingStatsController(IServiceWrapper service, UserManager<User> userManager)
+        public LiftingStatsController(IServiceWrapper service)
         {
             _service = service;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateLiftingStats(int id, [FromBody]LiftingStatDTO liftingStats)
+        [HttpGet("{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetUserLiftingStats(string userId)
         {
-            if (liftingStats == null) return BadRequest("liftingStats object is null");
-            if (!ModelState.IsValid) return BadRequest("Invalid liftingStats model object");
-         
-            liftingStats.LiftingStatId = id;
-            //var liftingStatsEntity = await _repository.LiftingStat.GetLiftingStatsByIdAsync(id);
-            //if (liftingStatsEntity == null)
-            //{
-            //    return NotFound();
-            //}
+            try
+            {
+                var liftingStats = await _service.LiftingStat.GetLiftingStatByUserId(userId);
+                return Ok(liftingStats);
+            }
+            catch (UserNotFoundException)
+            {
+                return NotFound();
+            }
+        }
 
-            //_repository.LiftingStat.UpdateLiftingStats(liftingStats);
+        [HttpPut("{userId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateLiftingStats(int userId, [FromBody]LiftingStatDTO liftingStats)
+        {
+            try
+            {
+                if (liftingStats == null) return BadRequest("liftingStats object is null");
+                if (!ModelState.IsValid) return BadRequest("Invalid liftingStats model object");
+
+                _service.LiftingStat.UpdateLiftingStats(liftingStats);
+            }
+            catch(UserNotFoundException)
+            {
+                NotFound();
+            }
             return NoContent();
-        }  
+        }
     }
 }

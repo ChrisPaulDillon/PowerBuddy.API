@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +6,6 @@ using Powerlifting.Repository;
 using PowerLifting.Persistence;
 using PowerLifting.Service.Users;
 using PowerLifting.Service.Users.Model;
-using PowerLifting.Services.Users;
 
 namespace PowerLifting.Repository.Repositories
 {

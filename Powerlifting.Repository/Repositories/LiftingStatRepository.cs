@@ -23,6 +23,7 @@ namespace PowerLifting.Repository.Repositories
         public void UpdateLiftingStats(LiftingStat liftingStats)
         {
             Update(liftingStats);
+            Save();
         }
     }
 }

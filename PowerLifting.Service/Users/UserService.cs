@@ -15,13 +15,11 @@ namespace PowerLifting.Service.Users
     {
         private IMapper _mapper;
         private IRepositoryWrapper _repo;
-        private UserManager<User> _userManager;
 
-        public UserService(IRepositoryWrapper repo, IMapper mapper, UserManager<User> userManager)
+        public UserService(IRepositoryWrapper repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
-            _userManager = userManager;
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsers()
@@ -57,7 +55,7 @@ namespace PowerLifting.Service.Users
                 throw new EmailInUseException();
             }
             var userEntity = _mapper.Map<User>(userDTO);
-            await _userManager.CreateAsync(userEntity, password);
+            //await _userManager.CreateAsync(userEntity, password);
         }
 
         public async Task UpdateUser(UserDTO userDTO)

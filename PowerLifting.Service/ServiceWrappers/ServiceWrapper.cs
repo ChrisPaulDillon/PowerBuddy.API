@@ -24,13 +24,11 @@ namespace PowerLifting.Service.ServiceWrappers
 
         private IMapper _mapper;
         private IRepositoryWrapper _repoWrapper;
-        private UserManager<User> _userManager;
 
-        public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper, UserManager<User> userManager)
+        public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper)
         {
             _mapper = mapper;
             _repoWrapper = repoWrapper;
-            _userManager = userManager;
         }
 
         public IUserService User
@@ -39,7 +37,7 @@ namespace PowerLifting.Service.ServiceWrappers
             {
                 if (_user == null)
                 {
-                    _user = new UserService(_repoWrapper, _mapper, _userManager);
+                    _user = new UserService(_repoWrapper, _mapper);
                 }
 
                 return _user;
@@ -52,7 +50,7 @@ namespace PowerLifting.Service.ServiceWrappers
             {
                 if (_liftingStats == null)
                 {
-                    _liftingStats = new LiftingStatService(_repoWrapper, _mapper, _userManager);
+                    _liftingStats = new LiftingStatService(_repoWrapper, _mapper);
                 }
 
                 return _liftingStats;
