@@ -11,4 +11,7 @@
   <ItemGroup>
     <Folder Include="Util\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="3.0.45" />
+  </ItemGroup>
 </Project>

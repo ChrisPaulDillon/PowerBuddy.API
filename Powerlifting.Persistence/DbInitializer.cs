@@ -180,11 +180,13 @@ namespace PowerLifting.Persistence
                         ProgramLogs= new List<ProgramLog> {
                             new ProgramLog { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), TemplateProgramId = 1, NoOfDaysLifting = 4,
                                 Monday = true, Tuesday = true,
-                                ExeciseMarkups = new List<ProgramLogExercise> {
-                                                    new ProgramLogExercise { LiftingDate = DateTime.Now, NumOfSets = 5,
-                                                                         Exercise = new Exercise { ExerciseName = "Standing Press" },
+                                ProgramLogExercises = new List<ProgramLogExercise> {
+                                                    new ProgramLogExercise { LiftingDate = DateTime.Now, NumOfSets = 5, ExerciseName = "Squat",
                                                                          ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
-                                                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 }}}},
+                                                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
+                                                                         }}},
                         
                             }
                         }

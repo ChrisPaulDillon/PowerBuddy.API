@@ -21,7 +21,7 @@ namespace Powerlifting.Services.ProgramLogs.DTO
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
 
-        public ICollection<ProgramLogExerciseDTO> ExeciseMarkups { get; set; }
+        public ICollection<ProgramLogExerciseDTO> ProgramLogExercises { get; set; }
 
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Powerlifting.Service.LiftingStats.DTO;
+using PowerLifting.Service.LiftingStats.Exceptions;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Services.Service.Users.Exceptions;
 
@@ -37,18 +38,22 @@ namespace PowerLifting.API.API
         [HttpPut("{userId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateLiftingStats(int userId, [FromBody]LiftingStatDTO liftingStats)
+        public IActionResult UpdateLiftingStats(string userId, [FromBody]LiftingStatDTO liftingStats)
         {
             try
             {
                 if (liftingStats == null) return BadRequest("liftingStats object is null");
                 if (!ModelState.IsValid) return BadRequest("Invalid liftingStats model object");
 
-                _service.LiftingStat.UpdateLiftingStats(liftingStats);
+                _service.LiftingStat.UpdateLiftingStatsAsync(userId, liftingStats);
             }
-            catch(UserNotFoundException)
+            catch(LiftingStatNotFoundException e)
             {
-                NotFound();
+                return NotFound(e);
+            }
+            catch(UserDoesNotMatchLiftingStatException e)
+            {
+                return NotFound(e);
             }
             return NoContent();
         }

@@ -27,16 +27,16 @@ namespace PowerLifting.API.API
         {
             try
             {
-                var programLogs = await _service.ProgramLog.GetActiveProgramLogByUserId(userId);
+                var programLogs = await _service.ProgramLog.GetTodaysProgramLogByUserId(userId);
                 return Ok(programLogs);
             }
-            catch(ProgramLogNotFoundException)
+            catch(ProgramLogNotFoundException e)
             {
-                return NotFound();
+                return NotFound(e);
             }
-            catch(UserDoesNotMatchProgramLogException)
+            catch(UserDoesNotMatchProgramLogException e)
             {
-                return Unauthorized();
+                return Unauthorized(e);
             }
         }
 
@@ -50,9 +50,9 @@ namespace PowerLifting.API.API
                 var programLogs = await _service.ProgramLog.GetWeeklyProgramLogByUserId(userId);
                 return Ok(programLogs);
             }
-            catch (ProgramLogNotFoundException)
+            catch (ProgramLogNotFoundException e)
             {
-                return NotFound();
+                return NotFound(e);
             }
         }
 
@@ -63,12 +63,12 @@ namespace PowerLifting.API.API
         {
             try
             {
-                var programLogs = await _service.ProgramLog.GetWeeklyProgramLogByUserId(userId);
+                var programLogs = await _service.ProgramLog.GetActiveProgramLogByUserId(userId);
                 return Ok(programLogs);
             }
-            catch (ProgramLogNotFoundException)
+            catch (ProgramLogNotFoundException e)
             {
-                return NotFound();
+                return NotFound(e);
             }
         }
 
@@ -99,9 +99,9 @@ namespace PowerLifting.API.API
                 _service.ProgramLog.DeleteProgramLog(userId, programLog);
                 return NoContent();
             }
-            catch(ProgramLogNotFoundException)
+            catch(ProgramLogNotFoundException e)
             {
-                return NotFound();
+                return NotFound(e);
             }
         }
     }

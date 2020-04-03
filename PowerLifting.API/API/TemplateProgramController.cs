@@ -48,7 +48,7 @@ namespace PowerLifting.API.API
 
                 return Ok(programType);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 //TODO
                 return NotFound();
@@ -56,7 +56,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProgramType([FromBody] TemplateProgramDTO programTemplate)
+        public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO programTemplate)
         {
             if (programTemplate == null) return BadRequest("TemplateProgram object is null");
             if (!ModelState.IsValid) return BadRequest("Invalid TemplateProgram model object");

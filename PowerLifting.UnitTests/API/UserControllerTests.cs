@@ -141,24 +141,6 @@ namespace PowerLifting.UnitTests.API
 
         [Fact]
         [Trait("UserController", "Unit")]
-        public async Task CreateUser_ExceptionIsThrown_ReturnsInternalServerError()
-        {
-            _userService.Setup(x => x.User.GetUserByEmail(It.IsAny<string>())).Throws(new Exception());
-            _controller = new UserController(_userService.Object);
-
-            //Act
-            //var result = await _controller.CreateUser(new UserDTO());
-            //var result = "";
-            //var statusCodeResult = result as StatusCodeResult;
-
-            ////Assert
-            //Assert.NotNull(result);
-            //Assert.IsType<StatusCodeResult>(result);
-            //Assert.Equal(StatusCodes.Status500InternalServerError, statusCodeResult.StatusCode);
-        }
-
-        [Fact]
-        [Trait("UserController", "Unit")]
         public async Task CreateUser_UserIsNull_ReturnsBadRequest()
         {
             //Arrange
@@ -208,7 +190,7 @@ namespace PowerLifting.UnitTests.API
             Assert.NotNull(result);
             Assert.IsType<ConflictObjectResult>(result);
         }
-
+ 
         [Fact]
         [Trait("UserController", "Unit")]
         public async Task CreateUser_UserIsAvailable_ReturnsCreatedAtRoute()

@@ -13,8 +13,7 @@ namespace PowerLifting.Services.ProgramLogExercises.DTO
     {
         public int ProgramLogExerciseId { get; set; }
         public int ProgramLogId { get; set; }
-        public int ExerciseId { get; set; }
-        public virtual Exercise Exercise { get; set; }
+        public string ExerciseName { get; set; }
         public DateTime LiftingDate { get; set; }
         public int NumOfSets { get; set; }
         public ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; }  //Stores the number of reps for each set

@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ProgramLogs\Exceptions\" />
+    <Folder Include="LiftingStats\Exceptions\" />
   </ItemGroup>
 </Project>

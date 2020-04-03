@@ -2,6 +2,7 @@
 using AutoMapper;
 using Powerlifting.Service.LiftingStats.DTO;
 using Powerlifting.Service.LiftingStats.Model;
+using PowerLifting.Service.LiftingStats.Exceptions;
 using PowerLifting.Service.ServiceWrappers;
 
 namespace Powerlifting.Service.LiftingStats
@@ -24,8 +25,17 @@ namespace Powerlifting.Service.LiftingStats
             return liftingStatDTO;
         }
 
-        public void UpdateLiftingStats(LiftingStatDTO stats)
+        public async Task UpdateLiftingStatsAsync(string userId, LiftingStatDTO stats)
         {
+            var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
+            if(liftingStat == null)
+            {
+                throw new LiftingStatNotFoundException("Lifting stat not found");
+            }
+            if(liftingStat.UserId != userId)
+            {
+                throw new UserDoesNotMatchLiftingStatException("You are not authorised to modify these lifting stats!");
+            }
             var liftingStats = _mapper.Map<LiftingStat>(stats);
             _repo.LiftingStat.UpdateLiftingStats(liftingStats);
         }
