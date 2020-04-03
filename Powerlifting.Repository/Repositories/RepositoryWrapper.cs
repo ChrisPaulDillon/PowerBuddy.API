@@ -1,9 +1,9 @@
 ﻿using PowerLifting.Persistence;
+using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users;
-using PowerLifting.Services.ExerciseCategories;
-using PowerLifting.Services.Exercises;
+using PowerLifting.Services.Exercises.Contracts;
 using PowerLifting.Services.LiftingStats;
 using PowerLifting.Services.ProgramLogExercises;
 using PowerLifting.Services.ProgramLogRepSchemes;
@@ -11,7 +11,6 @@ using PowerLifting.Services.ProgramLogs;
 using PowerLifting.Services.TemplateExercises;
 using PowerLifting.Services.TemplatePrograms;
 using PowerLifting.Services.TemplateRepSchemes;
-using PowerLifting.Services.Users;
 
 namespace PowerLifting.Repository.Repositories
 {
@@ -21,7 +20,8 @@ namespace PowerLifting.Repository.Repositories
         private ILiftingStatRepository _liftingStatRepo;
         private ILiftingStatAuditRepository _liftingStatAuditRepo;
         private IExerciseRepository _exerciseRepo;
-        private IExerciseCategoryRepository _exerciseCategoryRepo;
+        private IExerciseTypeRepository _exerciseTypeRepo;
+        private IExerciseMuscleGroupRepository _exerciseMuscleGroupRepo;
         private IProgramLogRepository _programLogRepo;
         private IProgramLogExerciseRepository _programLogExerciseRepo;
         private IProgramLogRepSchemeRepository _programLogRepSchemeRepo;
@@ -88,19 +88,31 @@ namespace PowerLifting.Repository.Repositories
             }
         }
 
-        public IExerciseCategoryRepository ExerciseCategory
+        public IExerciseTypeRepository ExerciseType
         {
             get
             {
-                if (_exerciseCategoryRepo == null)
+                if (_exerciseTypeRepo == null)
                 {
-                    _exerciseCategoryRepo = new ExerciseCategoryRepository(_context);
+                    _exerciseTypeRepo = new ExerciseTypeRepository(_context);
                 }
 
-                return _exerciseCategoryRepo;
+                return _exerciseTypeRepo;
             }
         }
 
+        public IExerciseMuscleGroupRepository ExerciseMuscleGroup
+        {
+            get
+            {
+                if (_exerciseMuscleGroupRepo == null)
+                {
+                    _exerciseMuscleGroupRepo = new ExerciseMuscleGroupRepository(_context);
+                }
+
+                return _exerciseMuscleGroupRepo;
+            }
+        }
 
         public IProgramLogRepository ProgramLog
         {

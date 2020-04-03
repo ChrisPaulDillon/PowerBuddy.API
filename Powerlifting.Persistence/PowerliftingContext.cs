@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Service.Exercises.Model;
 using Powerlifting.Service.LiftingStats.Model;
-using Powerlifting.Services.ExerciseCategories.Model;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogRepSchemes.Model;
 using Powerlifting.Services.TemplatePrograms.Model;
@@ -10,6 +9,8 @@ using Powerlifting.Services.TemplateExercises.Model;
 using PowerLifting.ProgramLogExercises.Model;
 using PowerLifting.Service.Users.Model;
 using PowerLifting.Services.TemplateRepSchemes.Model;
+using PowerLifting.Service.LiftingStatsAudit.Model;
+using PowerLifting.Service.Exercises.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -21,10 +22,12 @@ namespace PowerLifting.Persistence
         }
 
         public DbSet<Exercise> Exercise { get; set; }
-        public DbSet<ExerciseCategory> ExerciseCategory { get; set; }
+        public DbSet<ExerciseType> ExerciseType { get; set; }
+        public DbSet<ExerciseMuscleGroup> ExerciseMuscleGroup { get; set; }
         public DbSet<ProgramLogExercise> ProgramLogExercise { get; set; }
         public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
         public DbSet<LiftingStat> LiftingStat{ get; set; }
+        public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
         public DbSet<ProgramLog> ProgramLog { get; set; }
         public DbSet<TemplateProgram> TemplateProgram { get; set; }
         public DbSet<TemplateExercise> TemplateExercise { get; set; }
@@ -39,20 +42,24 @@ namespace PowerLifting.Persistence
         {
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
             modelBuilder.Entity<Exercise>().ToTable("Exercise");
-            modelBuilder.Entity<ExerciseCategory>().HasAlternateKey(e => e.CategoryName);
-            modelBuilder.Entity<ExerciseCategory>().ToTable("ExerciseCategory");
+            modelBuilder.Entity<ExerciseType>().HasAlternateKey(e => e.ExerciseTypeName);
+            modelBuilder.Entity<ExerciseType>().ToTable("ExerciseCategory");
+            modelBuilder.Entity<ExerciseMuscleGroup>().HasAlternateKey(e => e.ExerciseMuscleGroupName);
+            modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("ExerciseMuscleGroupName");
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
             modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
             modelBuilder.Entity<LiftingStat>().ToTable("LiftingStat");
+            modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
-            modelBuilder.Entity<User>().HasAlternateKey(u => u.Email); //This is a unique value two emails can't have the same email//modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey().ToTable("UserRole");
-            modelBuilder.Entity<IdentityRole>().ToTable("Role");
-            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim");
-            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("UserToken");
+            modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey().ToTable("IdentityUserRole");
+            modelBuilder.Entity<IdentityRole>().ToTable("IdentityRole");
+            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
+            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
         }
     }
 }

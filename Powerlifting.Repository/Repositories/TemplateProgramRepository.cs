@@ -17,7 +17,6 @@ namespace PowerLifting.Repository.Repositories
 
         public async Task<IEnumerable<TemplateProgram>> GetAllTemplatePrograms()
         {
-            //return await PowerliftingContext.Set<TemplateProgram>().Include(x => x.TemplateExercises).ThenInclude(s => s.IndividualSets).ToListAsync();
             return await PowerliftingContext.Set<TemplateProgram>().ToListAsync();
         }
 

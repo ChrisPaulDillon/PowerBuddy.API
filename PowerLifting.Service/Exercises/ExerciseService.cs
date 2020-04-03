@@ -4,8 +4,8 @@ using System;
 using System.Collections.Concurrent;
 using AutoMapper;
 using Powerlifting.Service.Exercises.DTO;
-using Powerlifting.Service.Exercises;
 using PowerLifting.Service.ServiceWrappers;
+using Powerlifting.Service.Exercises.Contracts;
 
 namespace PowerLifting.Service.Exercises
 {

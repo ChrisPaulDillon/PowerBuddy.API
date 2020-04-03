@@ -1,6 +1,4 @@
-﻿using Powerlifting.Service.ExerciseCategories;
-using Powerlifting.Service.Exercises;
-using Powerlifting.Service.LiftingStats;
+﻿using Powerlifting.Service.LiftingStats;
 using PowerLifting.Service.Users;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.TemplatePrograms;
@@ -9,6 +7,8 @@ using PowerLifting.Services.ProgramLogExercises;
 using PowerLifting.Services.ProgramLogRepSchemes;
 using PowerLifting.Services.TemplateExercises;
 using Powerlifting.Services.TemplateRepSchemes;
+using PowerLifting.Service.Exercises.Contracts;
+using Powerlifting.Service.Exercises.Contracts;
 
 namespace PowerLifting.Service.ServiceWrappers
 {
@@ -18,7 +18,8 @@ namespace PowerLifting.Service.ServiceWrappers
         ILiftingStatService LiftingStat { get; }
         ILiftingStatAuditService LiftingStatAudit{ get; }
         IExerciseService Exercise { get; }
-        IExerciseCategoryService ExerciseCategory { get; }
+        IExerciseTypeService ExerciseType { get; }
+        IExerciseMuscleGroupService ExerciseMuscleGroup { get; }
         IProgramLogService ProgramLog { get; }
         IProgramLogExerciseService ProgramLogExercise { get; }
         IProgramLogRepSchemeService ProgramLogRepScheme { get; }

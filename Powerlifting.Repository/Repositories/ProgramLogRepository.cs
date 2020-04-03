@@ -8,7 +8,6 @@ using Powerlifting.Services.ProgramLogs;
 using PowerLifting.Persistence;
 using PowerLifting.Repository.Util;
 using PowerLifting.Services.ProgramLogs;
-using Z.EntityFramework.Plus;
 
 namespace PowerLifting.Repository.Repositories
 {
@@ -21,16 +20,29 @@ namespace PowerLifting.Repository.Repositories
 
         public async Task<ProgramLog> GetTodaysProgramLogByUserId(string userId)
         {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId && x.StartDate >= DateTime.Now)
+            var programLog =  await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId && x.StartDate >= DateTime.Now)
                                                                         .Include(k => k.ProgramLogExercises)     
                                                                         .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();
+
+            programLog.ProgramLogExercises = programLog.ProgramLogExercises.Where(x => x.LiftingDate.Date == DateTime.Now.Date);
+            return programLog;
         }
 
         public async Task<ProgramLog> GetWeeklyProgramLogByUserId(string userId)
         {
             List<DateTime> weeklyRange = DateHelper.Instance.GetWeekRangeOfCurrentWeek();
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId).Include(k => k.ProgramLogExercises
-                                                                        .Where(x => x.LiftingDate.Date > weeklyRange[0] && x.LiftingDate.Date < weeklyRange[1]))
+            var programLog = await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId && x.StartDate >= DateTime.Now)
+                                                                        .Include(k => k.ProgramLogExercises)
+                                                                        .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();
+
+            programLog.ProgramLogExercises = programLog.ProgramLogExercises.Where(x => x.LiftingDate.Date > weeklyRange[0] && x.LiftingDate.Date < weeklyRange[1]);
+            return programLog;
+        }
+
+        public async Task<ProgramLog> GetActiveProgramLogByUserId(string userId)
+        {
+            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId && x.StartDate >= DateTime.Now)
+                                                                        .Include(k => k.ProgramLogExercises)
                                                                         .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();
         }
 
@@ -40,12 +52,7 @@ namespace PowerLifting.Repository.Repositories
                                                                         .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();
         }
 
-        public async Task<ProgramLog> GetActiveProgramLogByUserId(string userId)
-        {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.EndDate < DateTime.Now && x.UserId == userId).
-                                                                                                Include(k => k.ProgramLogExercises.Select(c => c.ProgramLogRepSchemes)).
-                                                                                                FirstOrDefaultAsync();
-        }
+   
 
         public void UpdateProgramLog(ProgramLog log)
         {

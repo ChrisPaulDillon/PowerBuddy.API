@@ -38,11 +38,11 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("Calculate/{id}")]
-        public async Task<IActionResult> GetTemplateProgramByIdIncludeLiftingStats(string userId, int programTemplateId)
+        public async Task<IActionResult> GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
         {
             try
             {
-                var programType = await _service.TemplateProgram.GetTemplateProgramByIdIncludeLiftingStats(userId, programTemplateId);
+                var programType = await _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId);
 
                 if (programType == null) return NotFound();
 

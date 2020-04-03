@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Powerlifting.Service.Exercises.Model;
 using Powerlifting.Service.LiftingStats.Model;
-using Powerlifting.Services.ExerciseCategories.Model;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogRepSchemes.Model;
 using Powerlifting.Services.TemplatePrograms.Model;
@@ -11,6 +10,7 @@ using PowerLifting.ProgramLogExercises.Model;
 using PowerLifting.Service.Users.Model;
 using PowerLifting.Services.TemplateRepSchemes.Model;
 using Powerlifting.Services.TemplateExercises.Model;
+using PowerLifting.Service.Exercises.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -21,18 +21,19 @@ namespace PowerLifting.Persistence
             context.Database.EnsureCreated();
 
 
-            if (!context.ExerciseCategory.Any())
+            if (!context.ExerciseType.Any())
             {
-                var exerciseCategories = new ExerciseCategory[]
+                var exerciseCategories = new ExerciseType[]
                 {
-                    new ExerciseCategory{CategoryName="Dumbbells"},
-                    new ExerciseCategory{CategoryName="Barbells"},
-                    new ExerciseCategory{CategoryName="Bodyweight"},
+                    new ExerciseType{ExerciseTypeName="Dumbbells"},
+                    new ExerciseType{ExerciseTypeName="Barbells"},
+                    new ExerciseType{ExerciseTypeName="Bodyweight"},
+                    new ExerciseType{ExerciseTypeName="Machine"},
                 };
 
-                foreach (ExerciseCategory e in exerciseCategories)
+                foreach (ExerciseType e in exerciseCategories)
                 {
-                    context.ExerciseCategory.Add(e);
+                    context.ExerciseType.Add(e);
                 }
                 context.SaveChanges();
             }
@@ -66,6 +67,36 @@ namespace PowerLifting.Persistence
                     new Exercise{ExerciseName="Hang Clean", ExerciseCategoryId = 2},
                     new Exercise{ExerciseName="Power Clean", ExerciseCategoryId = 2},
                     new Exercise{ExerciseName="Jerk", ExerciseCategoryId = 2}, 
+                    new Exercise{ExerciseName="Power Jerk", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Barbell Row", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Penlay Row", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="T-Bar Row", ExerciseCategoryId = 2},
+
+                    new Exercise{ExerciseName="Dumbbell Lateral Raises", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Conventional Deadlift", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Overhead Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Front Squat", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Overhead Squat", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Barbell Lunge", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Wide Grip Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Narrow Grip Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Floor Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Incline Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Decline Bench Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Barbell Bicep Curl", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Good Morning", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Stiff Leg Deadlift", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Sumo Deadlift", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Snatch", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Hang Snatch", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Power Snatch", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Clean & Press", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Clean & Jerk", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Clean", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Hang Clean", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Power Clean", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Jerk", ExerciseCategoryId = 2},
                     new Exercise{ExerciseName="Power Jerk", ExerciseCategoryId = 2},
                     new Exercise{ExerciseName="Barbell Row", ExerciseCategoryId = 2},
                     new Exercise{ExerciseName="Penlay Row", ExerciseCategoryId = 2},
@@ -178,16 +209,70 @@ namespace PowerLifting.Persistence
                     new User{ Email="chrispauldillon@live.com", PasswordHash = "test123",
                         LiftingStats= new LiftingStat { BenchWeight=100, DeadliftWeight=170, SquatWeight=200 },
                         ProgramLogs= new List<ProgramLog> {
-                            new ProgramLog { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), TemplateProgramId = 1, NoOfDaysLifting = 4,
-                                Monday = true, Tuesday = true,
+                            new ProgramLog { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), TemplateProgramId = 1, NoOfDaysLifting = 4, Monday = true, Tuesday = true,
                                 ProgramLogExercises = new List<ProgramLogExercise> {
                                                     new ProgramLogExercise { LiftingDate = DateTime.Now, NumOfSets = 5, ExerciseName = "Squat",
                                                                          ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
                                                                                 new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
                                                                                 new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
                                                                                 new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
-                                                                         }}},
-                        
+                                                                         }},
+                                                    new ProgramLogExercise { LiftingDate = DateTime.Now.AddDays(5), NumOfSets = 5, ExerciseName = "Deadlift",
+                                                                         ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
+                                                                         }},
+                                                    new ProgramLogExercise { LiftingDate = DateTime.Now.AddDays(15), NumOfSets = 5, ExerciseName = "Squat",
+                                                                         ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
+                                                                         }},
+                                                     new ProgramLogExercise { LiftingDate = DateTime.Now.AddDays(25), NumOfSets = 5, ExerciseName = "Overhead Press",
+                                                                         ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
+                                                                         }}
+
+                                },
+                            }
+                        }
+                    },
+
+                    new User{ Email="dealdalzell@live.com", PasswordHash = "verystronkpw",
+                        LiftingStats= new LiftingStat { BenchWeight=100, DeadliftWeight=170, SquatWeight=200 },
+                        ProgramLogs= new List<ProgramLog> {
+                            new ProgramLog { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), TemplateProgramId = 1, NoOfDaysLifting = 4, Monday = true, Tuesday = true,
+                                ProgramLogExercises = new List<ProgramLogExercise> {
+                                                    new ProgramLogExercise { LiftingDate = DateTime.Now, NumOfSets = 5, ExerciseName = "Squat",
+                                                                         ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
+                                                                         }},
+                                                    new ProgramLogExercise { LiftingDate = DateTime.Now.AddDays(5), NumOfSets = 5, ExerciseName = "Deadlift",
+                                                                         ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
+                                                                         }},
+                                                    new ProgramLogExercise { LiftingDate = DateTime.Now.AddDays(15), NumOfSets = 5, ExerciseName = "Squat",
+                                                                         ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
+                                                                         }},
+                                                     new ProgramLogExercise { LiftingDate = DateTime.Now.AddDays(25), NumOfSets = 5, ExerciseName = "Overhead Press",
+                                                                         ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
+                                                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
+                                                                         }}
+
+                                },
+
                             }
                         }
                         }

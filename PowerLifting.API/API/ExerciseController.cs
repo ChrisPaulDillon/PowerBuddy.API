@@ -25,16 +25,6 @@ namespace PowerLifting.API.API
             return Ok(exercises);
         }
 
-        [HttpGet("Name/{name}")]
-        public async Task<IActionResult> GetExercise(string exerciseName)
-        {
-            var exercise = await _service.Exercise.GetExerciseByName(exerciseName);
-
-            if (exercise == null) return NotFound();
-
-            return Ok(exercise);
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateExercise([FromBody] ExerciseDTO exercise)
         {
@@ -42,7 +32,7 @@ namespace PowerLifting.API.API
 
             if (!ModelState.IsValid) return BadRequest("Invalid model object");
 
-            var exerciseCheck = await _service.Exercise.GetExerciseByName(exercise.ExerciseName);
+            var exerciseCheck = await _service.Exercise.GetExerciseById(exercise.ExerciseId);
             if (exerciseCheck != null) return Conflict("Exercise is already been added");
           
             //var exerciseEntity = _mapper.Map<Exercise>(exercise);

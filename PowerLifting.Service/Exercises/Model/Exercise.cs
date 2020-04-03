@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Powerlifting.Services.ExerciseCategories.Model;
+﻿using PowerLifting.Service.Exercises.Model;
 
 namespace Powerlifting.Service.Exercises.Model
 {
@@ -12,8 +8,9 @@ namespace Powerlifting.Service.Exercises.Model
     public class Exercise
     {
         public int ExerciseId { get; set; }
-        public String ExerciseName { get; set; }
-        public int? ExerciseCategoryId { get; set; }
-        public virtual ExerciseCategory ExerciseCategory { get; set; }
+        public string ExerciseName { get; set; }
+        public int ExerciseCategoryId { get; set; }
+        public int ExerciseMuscleGroupId { get; set; }
+        public virtual ExerciseType ExerciseType { get; set; }
     }
 }

@@ -1,22 +1,19 @@
 ﻿using AutoMapper;
-using Powerlifting.Service.ExerciseCategories;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.TemplatePrograms;
-using Powerlifting.Service.Exercises;
 using Powerlifting.Service.LiftingStats;
 using Powerlifting.Service.ProgramLogs;
 using PowerLifting.Service.Users;
 using PowerLifting.Service.Exercises;
 using PowerLifting.Service.TemplatePrograms;
-using Microsoft.AspNetCore.Identity;
-using PowerLifting.Service.Users.Model;
 using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Services.ProgramLogExercises;
-using Powerlifting.Services.ProgramLogRepSchemes.Model;
 using PowerLifting.Services.TemplateExercises;
 using Powerlifting.Services.TemplateRepSchemes;
 using PowerLifting.Services.ProgramLogRepSchemes;
 using PowerLifting.Services.ProgramLogRepSchemess;
+using PowerLifting.Service.Exercises.Contracts;
+using Powerlifting.Service.Exercises.Contracts;
 
 namespace PowerLifting.Service.ServiceWrappers
 {
@@ -26,7 +23,8 @@ namespace PowerLifting.Service.ServiceWrappers
         private ILiftingStatService _liftingStats;
         private ILiftingStatAuditService _liftingStatAudit;
         private IExerciseService _exercise;
-        private IExerciseCategoryService _exerciseCategory;
+        private IExerciseTypeService _exerciseType;
+        private IExerciseMuscleGroupService _exerciseMuscleGroup;
         private IProgramLogService _programLog;
         private IProgramLogExerciseService _programLogExercise;
         private ProgramLogRepSchemeService _programLogRepScheme;
@@ -95,19 +93,31 @@ namespace PowerLifting.Service.ServiceWrappers
             }
         }
 
-        public IExerciseCategoryService ExerciseCategory
+        public IExerciseTypeService ExerciseType
         {
             get
             {
-                if (_exerciseCategory == null)
+                if (_exerciseType == null)
                 {
-                    _exerciseCategory = new ExerciseCategoryService(_repoWrapper, _mapper);
+                    _exerciseType = new ExerciseTypeService(_repoWrapper, _mapper);
                 }
 
-                return _exerciseCategory;
+                return _exerciseType;
             }
         }
 
+        public IExerciseMuscleGroupService ExerciseMuscleGroup
+        {
+            get
+            {
+                if (_exerciseMuscleGroup == null)
+                {
+                    _exerciseMuscleGroup = new ExerciseMuscleGroupService(_repoWrapper, _mapper);
+                }
+
+                return _exerciseMuscleGroup;
+            }
+        }
 
         public IProgramLogService ProgramLog
         {

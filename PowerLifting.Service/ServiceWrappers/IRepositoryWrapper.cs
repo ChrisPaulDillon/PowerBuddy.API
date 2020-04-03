@@ -1,7 +1,7 @@
-﻿using PowerLifting.Service.LiftingStatsAudit;
+﻿using PowerLifting.Service.Exercises.Contracts;
+using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Service.Users;
-using PowerLifting.Services.ExerciseCategories;
-using PowerLifting.Services.Exercises;
+using PowerLifting.Services.Exercises.Contracts;
 using PowerLifting.Services.LiftingStats;
 using PowerLifting.Services.ProgramLogExercises;
 using PowerLifting.Services.ProgramLogRepSchemes;
@@ -18,7 +18,8 @@ namespace PowerLifting.Service.ServiceWrappers
         ILiftingStatRepository LiftingStat { get; }
         ILiftingStatAuditRepository LiftingStatAudit { get; }
         IExerciseRepository Exercise { get; }
-        IExerciseCategoryRepository ExerciseCategory { get; }
+        IExerciseTypeRepository ExerciseType { get; }
+        IExerciseMuscleGroupRepository ExerciseMuscleGroup { get; }
         IProgramLogRepository ProgramLog { get; }
         IProgramLogExerciseRepository ProgramLogExercise { get; }
         IProgramLogRepSchemeRepository ProgramLogRepScheme { get; }

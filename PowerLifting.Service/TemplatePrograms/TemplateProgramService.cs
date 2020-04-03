@@ -34,7 +34,7 @@ namespace PowerLifting.Service.TemplatePrograms
             return programTemplateDTO;
         }
 
-        public async Task<TemplateProgramDTO> GetTemplateProgramByIdIncludeLiftingStats(string userId, int programTemplateId)
+        public async Task<TemplateProgramDTO> GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
         {
             var user = await _repo.User.GetUserByIdIncludeLiftingStats(userId);
             var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);

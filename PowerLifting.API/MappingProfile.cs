@@ -3,14 +3,12 @@ using Powerlifting.Service.Exercises.DTO;
 using Powerlifting.Service.Exercises.Model;
 using Powerlifting.Service.LiftingStats.DTO;
 using Powerlifting.Service.LiftingStats.Model;
-using Powerlifting.Services.ExerciseCategories.Model;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogs.DTO;
 using Powerlifting.Services.ProgramLogRepSchemes.DTO;
 using Powerlifting.Services.ProgramLogRepSchemes.Model;
 using Powerlifting.Services.TemplatePrograms.DTO;
 using Powerlifting.Services.TemplatePrograms.Model;
-using PowerLifting.Entities.DTOs.Lookups;
 using PowerLifting.ProgramLogExercises.Model;
 using Powerlifting.Service.TemplateExercises.DTO;
 using PowerLifting.Service.Users.DTO;
@@ -21,6 +19,8 @@ using PowerLifting.Services.TemplateRepSchemes.DTO;
 using PowerLifting.Services.TemplateRepSchemes.Model;
 using Powerlifting.Services.TemplateExercises.Model;
 using PowerLifting.Services.Users.DTO;
+using PowerLifting.Service.Exercises.Model;
+using PowerLifting.Service.Exercises.DTO;
 
 namespace PowerLifting.API
 {
@@ -53,7 +53,9 @@ namespace PowerLifting.API
 
             CreateMap<LiftingStat, LiftingStatDTO>();
 
-            CreateMap<ExerciseCategory, ExerciseCategoryDTO>();
+            CreateMap<ExerciseType, ExerciseTypeDTO>();
+            CreateMap<ExerciseType, ExerciseTypeDTO>();
+
             CreateMap<ProgramLog, ProgramLogDTO>();
 
       
@@ -64,7 +66,7 @@ namespace PowerLifting.API
             
             CreateMap<LiftingStatDTO, LiftingStat>();
 
-            CreateMap<ExerciseCategoryDTO, ExerciseCategory>();
+            
             CreateMap<ProgramLogDTO, ProgramLog>();
             
             CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>();
