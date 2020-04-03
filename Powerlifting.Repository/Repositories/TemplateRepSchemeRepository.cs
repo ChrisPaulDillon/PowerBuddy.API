@@ -1,36 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using PowerLifting.Services.TemplateRepSchemes.Model;
+﻿using PowerLifting.Services.TemplateRepSchemes.Model;
 using PowerLifting.Services.TemplateRepSchemes;
+using Powerlifting.Repository;
+using PowerLifting.Persistence;
 
 namespace PowerLifting.Repository.Repositories
 {
-    public class TemplateRepSchemeRepository : ITemplateRepSchemeRepository
+    public class TemplateRepSchemeRepository : RepositoryBase<TemplateRepScheme>, ITemplateRepSchemeRepository
     {
-        public void Create(TemplateRepScheme entity)
+        public TemplateRepSchemeRepository(PowerliftingContext context) : base(context)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(TemplateRepScheme entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<TemplateRepScheme> FindAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<TemplateRepScheme> FindByCondition(Expression<Func<TemplateRepScheme, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(TemplateRepScheme entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,16 +1,15 @@
 ﻿using System;
 using AutoMapper;
 using PowerLifting.Service.ServiceWrappers;
-using PowerLifting.Services.TemplateExercises;
 
-namespace PowerLifting.Services.TemplateExercises
+namespace PowerLifting.Service.LiftingStatsAudit
 {
-    public class TemplateExerciseService : ITemplateExerciseService
+    public class LiftingStatAuditService : ILiftingStatAuditService
     {
         private IMapper _mapper;
         private IRepositoryWrapper _repo;
 
-        public TemplateExerciseService(IRepositoryWrapper repo, IMapper mapper)
+        public LiftingStatAuditService(IRepositoryWrapper repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;

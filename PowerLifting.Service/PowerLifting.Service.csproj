@@ -13,5 +13,8 @@
   <ItemGroup>
     <Folder Include="ProgramLogs\Exceptions\" />
     <Folder Include="LiftingStats\Exceptions\" />
+    <Folder Include="LiftingStatsAudit\" />
+    <Folder Include="LiftingStatsAudit\Model\" />
+    <Folder Include="LiftingStatsAudit\DTO\" />
   </ItemGroup>
 </Project>

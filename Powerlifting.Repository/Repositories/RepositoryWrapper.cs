@@ -1,11 +1,16 @@
 ﻿using PowerLifting.Persistence;
+using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users;
 using PowerLifting.Services.ExerciseCategories;
 using PowerLifting.Services.Exercises;
 using PowerLifting.Services.LiftingStats;
+using PowerLifting.Services.ProgramLogExercises;
+using PowerLifting.Services.ProgramLogRepSchemes;
 using PowerLifting.Services.ProgramLogs;
+using PowerLifting.Services.TemplateExercises;
 using PowerLifting.Services.TemplatePrograms;
+using PowerLifting.Services.TemplateRepSchemes;
 using PowerLifting.Services.Users;
 
 namespace PowerLifting.Repository.Repositories
@@ -14,10 +19,15 @@ namespace PowerLifting.Repository.Repositories
     {
         private IUserRepository _userRepo;
         private ILiftingStatRepository _liftingStatRepo;
+        private ILiftingStatAuditRepository _liftingStatAuditRepo;
         private IExerciseRepository _exerciseRepo;
         private IExerciseCategoryRepository _exerciseCategoryRepo;
         private IProgramLogRepository _programLogRepo;
-        private ITemplateProgramRepository _programTemplateRepo;
+        private IProgramLogExerciseRepository _programLogExerciseRepo;
+        private IProgramLogRepSchemeRepository _programLogRepSchemeRepo;
+        private ITemplateProgramRepository _templateProgramRepo;
+        private ITemplateExerciseRepository _templateExerciseRepo;
+        private ITemplateRepSchemeRepository _templateRepSchemeRepo;
 
         private PowerliftingContext _context;
 
@@ -49,6 +59,19 @@ namespace PowerLifting.Repository.Repositories
                 }
 
                 return _liftingStatRepo;
+            }
+        }
+
+        public ILiftingStatAuditRepository LiftingStatAudit
+        {
+            get
+            {
+                if (_liftingStatAuditRepo == null)
+                {
+                    _liftingStatAuditRepo = new LiftingStatAuditRepository(_context);
+                }
+
+                return _liftingStatAuditRepo;
             }
         }
 
@@ -92,16 +115,68 @@ namespace PowerLifting.Repository.Repositories
             }
         }
 
+        public IProgramLogExerciseRepository ProgramLogExercise
+        {
+            get
+            {
+                if (_programLogExerciseRepo == null)
+                {
+                    _programLogExerciseRepo = new ProgramLogExerciseRepository(_context);
+                }
+
+                return _programLogExerciseRepo;
+            }
+        }
+
+        public IProgramLogRepSchemeRepository ProgramLogRepScheme
+        {
+            get
+            {
+                if (_programLogRepSchemeRepo == null)
+                {
+                    _programLogRepSchemeRepo = new ProgramLogRepSchemeRepository(_context);
+                }
+
+                return _programLogRepSchemeRepo;
+            }
+        }
+
         public ITemplateProgramRepository TemplateProgram
         {
             get
             {
-                if (_programTemplateRepo == null)
+                if (_templateProgramRepo == null)
                 {
-                    _programTemplateRepo = new TemplateProgramRepository(_context);
+                    _templateProgramRepo = new TemplateProgramRepository(_context);
                 }
 
-                return _programTemplateRepo;
+                return _templateProgramRepo;
+            }
+        }
+
+        public ITemplateExerciseRepository TemplateExercise
+        {
+            get
+            {
+                if (_templateExerciseRepo == null)
+                {
+                    _templateExerciseRepo = new TemplateExerciseRepository(_context);
+                }
+
+                return _templateExerciseRepo;
+            }
+        }
+
+        public ITemplateRepSchemeRepository TemplateRepScheme
+        {
+            get
+            {
+                if (_templateRepSchemeRepo == null)
+                {
+                    _templateRepSchemeRepo = new TemplateRepSchemeRepository(_context);
+                }
+
+                return _templateRepSchemeRepo;
             }
         }
     }

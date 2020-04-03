@@ -10,6 +10,13 @@ using PowerLifting.Service.Exercises;
 using PowerLifting.Service.TemplatePrograms;
 using Microsoft.AspNetCore.Identity;
 using PowerLifting.Service.Users.Model;
+using PowerLifting.Service.LiftingStatsAudit;
+using PowerLifting.Services.ProgramLogExercises;
+using Powerlifting.Services.ProgramLogRepSchemes.Model;
+using PowerLifting.Services.TemplateExercises;
+using Powerlifting.Services.TemplateRepSchemes;
+using PowerLifting.Services.ProgramLogRepSchemes;
+using PowerLifting.Services.ProgramLogRepSchemess;
 
 namespace PowerLifting.Service.ServiceWrappers
 {
@@ -17,10 +24,15 @@ namespace PowerLifting.Service.ServiceWrappers
     {
         private IUserService _user;
         private ILiftingStatService _liftingStats;
+        private ILiftingStatAuditService _liftingStatAudit;
         private IExerciseService _exercise;
         private IExerciseCategoryService _exerciseCategory;
-        private IProgramLogService _programLogs;
-        private ITemplateProgramService _programTemplate;
+        private IProgramLogService _programLog;
+        private IProgramLogExerciseService _programLogExercise;
+        private ProgramLogRepSchemeService _programLogRepScheme;
+        private ITemplateProgramService _templateProgram;
+        private ITemplateExerciseService _templateExercise;
+        private ITemplateRepSchemeService _templateRepScheme;
 
         private IMapper _mapper;
         private IRepositoryWrapper _repoWrapper;
@@ -57,6 +69,19 @@ namespace PowerLifting.Service.ServiceWrappers
             }
         }
 
+        public ILiftingStatAuditService LiftingStatAudit
+        {
+            get
+            {
+                if(_liftingStatAudit == null)
+                {
+                    _liftingStatAudit = new LiftingStatAuditService(_repoWrapper, _mapper);
+                }
+
+                return _liftingStatAudit;
+            }
+        }
+
         public IExerciseService Exercise
         {
             get
@@ -88,12 +113,38 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_programLogs == null)
+                if (_programLog == null)
                 {
-                    _programLogs = new ProgramLogService(_repoWrapper, _mapper);
+                    _programLog = new ProgramLogService(_repoWrapper, _mapper);
                 }
 
-                return _programLogs;
+                return _programLog;
+            }
+        }
+
+        public IProgramLogExerciseService ProgramLogExercise
+        {
+            get
+            {
+                if (_programLogExercise == null)
+                {
+                    _programLogExercise = new ProgramLogExerciseService(_repoWrapper, _mapper);
+                }
+
+                return _programLogExercise;
+            }
+        }
+
+        public IProgramLogRepSchemeService ProgramLogRepScheme
+        {
+            get
+            {
+                if (_programLogRepScheme == null)
+                {
+                    _programLogRepScheme = new ProgramLogRepSchemeService(_repoWrapper, _mapper);
+                }
+
+                return _programLogRepScheme;
             }
         }
 
@@ -101,12 +152,38 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_programTemplate == null)
+                if (_templateProgram == null)
                 {
-                    _programTemplate = new TemplateProgramService(_repoWrapper, _mapper);
+                    _templateProgram = new TemplateProgramService(_repoWrapper, _mapper);
                 }
 
-                return _programTemplate;
+                return _templateProgram;
+            }
+        }
+
+        public ITemplateExerciseService TemplateExercise
+        {
+            get
+            {
+                if (_templateExercise == null)
+                {
+                    _templateExercise = new TemplateExerciseService(_repoWrapper, _mapper);
+                }
+
+                return _templateExercise;
+            }
+        }
+
+        public ITemplateRepSchemeService TemplateRepScheme
+        {
+            get
+            {
+                if (_templateRepScheme == null)
+                {
+                    _templateRepScheme = new TemplateRepSchemeService(_repoWrapper, _mapper);
+                }
+
+                return _templateRepScheme;
             }
         }
     }
