@@ -17,23 +17,18 @@ namespace PowerLifting.Repository.Repositories
 
         }
 
-        public async Task<IEnumerable<ProgramLog>> GetAllProgramLogsByUserId(int userId)
+        public async Task<ProgramLog> GetCurrentProgramLogByUserId(int userId)
         {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId).Include(k => k.ExeciseMarkups).ToListAsync();
+            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId).Include(k => k.ExeciseMarkups).FirstOrDefaultAsync();
         }
 
-        public async Task<ProgramLog> GetProgramLogById(int id)
-        {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == id).Include(k => k.ExeciseMarkups.Select(c => c.ProgramLogRepSchemes)).
-                                                                                                FirstOrDefaultAsync();
-        }
-
-        public async Task<IEnumerable<ProgramLog>> GetActiveProgramLogsByUserId(int userId)
+        public async Task<ProgramLog> GetActiveProgramLogByUserId(int userId)
         {
             return await PowerliftingContext.Set<ProgramLog>().Where(x => x.EndDate < DateTime.Now && x.UserId == userId).
                                                                                                 Include(k => k.ExeciseMarkups.Select(c => c.ProgramLogRepSchemes)).
-                                                                                                ToListAsync();
+                                                                                                FirstOrDefaultAsync();
         }
+
         public void UpdateProgramLog(ProgramLog log)
         {
             PowerliftingContext.Set<ProgramLog>().Where(u => u.ProgramLogId == log.ProgramLogId).AsNoTracking().FirstOrDefaultAsync();

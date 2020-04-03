@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Powerlifting.Service.LiftingStats.DTO;
@@ -13,15 +12,10 @@ namespace PowerLifting.API.API
     public class LiftingStatsController : ControllerBase
     {
         private readonly IServiceWrapper _service;
-        private readonly UserManager<User> _userManager;
-        private readonly User _userLoggedIn;
 
         public LiftingStatsController(IServiceWrapper service, UserManager<User> userManager)
         {
             _service = service;
-            _userManager = userManager
-                var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            _userLoggedIn = await _userManager.GetUserAsync(HttpContext.User);
         }
 
         [HttpPut("{id}")]

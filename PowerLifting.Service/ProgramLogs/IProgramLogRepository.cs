@@ -7,9 +7,8 @@ namespace PowerLifting.Services.ProgramLogs
 {
     public interface IProgramLogRepository : IRepositoryBase<ProgramLog>
     {
-        Task<IEnumerable<ProgramLog>> GetAllProgramLogsByUserId(int userId);
-        Task<IEnumerable<ProgramLog>> GetActiveProgramLogsByUserId(int userId);
-        Task<ProgramLog> GetProgramLogById(int id);
+        Task<ProgramLog> GetCurrentProgramLogByUserId(int userId);
+        Task<ProgramLog> GetActiveProgramLogByUserId(int userId);
         void UpdateProgramLog(ProgramLog log);
         void DeleteProgramLog(ProgramLog log);
     }

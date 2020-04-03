@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Powerlifting.Persistence\Powerlifting.Persistence.csproj" />
+    <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
