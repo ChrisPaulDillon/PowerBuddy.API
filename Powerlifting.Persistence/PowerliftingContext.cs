@@ -44,8 +44,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<Exercise>().ToTable("Exercise");
             modelBuilder.Entity<ExerciseType>().HasAlternateKey(e => e.ExerciseTypeName);
             modelBuilder.Entity<ExerciseType>().ToTable("ExerciseCategory");
-            modelBuilder.Entity<ExerciseMuscleGroup>().HasAlternateKey(e => e.ExerciseMuscleGroupName);
-            modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("ExerciseMuscleGroupName");
+            modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("ExerciseMuscleGroup");
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
             modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
             modelBuilder.Entity<LiftingStat>().ToTable("LiftingStat");
@@ -55,7 +54,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().ToTable("IdentityUser");
             modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey().ToTable("IdentityUserRole");
             modelBuilder.Entity<IdentityRole>().ToTable("IdentityRole");
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");

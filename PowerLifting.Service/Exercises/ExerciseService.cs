@@ -70,10 +70,5 @@ namespace PowerLifting.Service.Exercises
             }
             _repo.Exercise.DeleteExercise(exercise);
         }
-
-        public Task<ExerciseDTO> GetExerciseByName(string name)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

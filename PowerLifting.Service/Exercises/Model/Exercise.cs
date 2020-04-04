@@ -1,4 +1,5 @@
-﻿using PowerLifting.Service.Exercises.Model;
+﻿using System.Collections.Generic;
+using PowerLifting.Service.Exercises.Model;
 
 namespace Powerlifting.Service.Exercises.Model
 {
@@ -12,5 +13,6 @@ namespace Powerlifting.Service.Exercises.Model
         public int ExerciseCategoryId { get; set; }
         public int ExerciseMuscleGroupId { get; set; }
         public virtual ExerciseType ExerciseType { get; set; }
+        public virtual ICollection<ExerciseMuscleGroup> ExerciseMuscleGroups { get; set; }
     }
 }

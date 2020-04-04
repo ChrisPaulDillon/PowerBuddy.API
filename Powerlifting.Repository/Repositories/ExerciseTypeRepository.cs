@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Powerlifting.Repository;
 using PowerLifting.Persistence;
 using PowerLifting.Service.Exercises.Contracts;
@@ -14,24 +16,26 @@ namespace PowerLifting.Repository.Repositories
         {
         }
 
-        public void DeleteExerciseType(ExerciseType exerciseCategory)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<ExerciseType> GetAllExerciseTypes()
         {
-            throw new NotImplementedException();
+            return PowerliftingContext.Set<ExerciseType>().ToList();
         }
 
-        public Task<ExerciseType> GetExerciseTypeById(int exerciseTypeId)
+        public async Task<ExerciseType> GetExerciseTypeById(int exerciseTypeId)
         {
-            throw new NotImplementedException();
+            return await PowerliftingContext.Set<ExerciseType>().Where(c => c.ExerciseTypeId == exerciseTypeId).FirstOrDefaultAsync();
         }
 
-        public void UpdateExerciseType(ExerciseType exerciseCategory)
+        public void UpdateExerciseType(ExerciseType exerciseType)
         {
-            throw new NotImplementedException();
+            Update(exerciseType);
+            Save();
+        }
+
+        public void DeleteExerciseType(ExerciseType exerciseType)
+        {
+            Delete(exerciseType);
+            Save();
         }
     }
 }

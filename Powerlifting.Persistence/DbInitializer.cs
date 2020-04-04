@@ -42,8 +42,15 @@ namespace PowerLifting.Persistence
             {
                 var exercises = new Exercise[]
                 {
-                    new Exercise{ExerciseName="Back Squat", ExerciseCategoryId = 2},
-                    new Exercise{ExerciseName="Conventional Deadlift", ExerciseCategoryId = 2},
+                    new Exercise{ExerciseName="Back Squat", ExerciseCategoryId = 2, ExerciseMuscleGroups = { new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Quads" },
+                                                                                                             new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Hamstrings" },
+                                                                                                             new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Lower Back" },
+                        }, },
+                    new Exercise{ExerciseName="Conventional Deadlift", ExerciseCategoryId = 2, ExerciseMuscleGroups = { new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Lower Back" },
+                                                                                                                        new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Upper Back" },
+                                                                                                                        new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Hamstrings" },
+
+                        }, },
                     new Exercise{ExerciseName="Bench Press", ExerciseCategoryId = 2},
                     new Exercise{ExerciseName="Overhead Press", ExerciseCategoryId = 2},
                     new Exercise{ExerciseName="Front Squat", ExerciseCategoryId = 2},

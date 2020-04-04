@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using PowerLifting.Service.Exercises.Model;
 
 namespace PowerLifting.Services
 {
