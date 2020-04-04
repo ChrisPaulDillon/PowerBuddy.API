@@ -26,6 +26,17 @@ namespace PowerLifting.Repository.Repositories
                                                                                            .Include(t => t.ExerciseType).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Exercise>> GetExerciseByExerciseTypeId(int exerciseTypeId)
+        {
+            return await PowerliftingContext.Set<Exercise>().Where(c => c.ExerciseTypeId == exerciseTypeId).Include(m => m.ExerciseMuscleGroups)
+                                                                                           .Include(t => t.ExerciseType).ToListAsync();
+        }
+
+        public Task<IEnumerable<Exercise>> GetExerciseByExerciseMuscleGroupId(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void UpdateExercise(Exercise exercise)
         {
             Update(exercise);

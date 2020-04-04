@@ -42,6 +42,22 @@ namespace PowerLifting.API.API
             }
         }
 
+        [HttpGet("ExerciseType/{exerciseTypeId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllExercisesByExerciseType(int exerciseTypeId)
+        {
+            try
+            {
+                var exercises = await _service.Exercise.GetAllExercisesByExerciseTypeId(exerciseTypeId);
+                return Ok(exercises);
+            }
+            catch (ExerciseNotFoundException e)
+            {
+                return NotFound(e);
+            }    
+        }
+
         [HttpGet("ExerciseType")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAllExerciseTypes()
@@ -49,15 +65,6 @@ namespace PowerLifting.API.API
             var exerciseTypes = _service.ExerciseType.GetAllExerciseTypes();
             if (exerciseTypes == null) return NotFound();
             return Ok(exerciseTypes);
-        }
-
-        [HttpGet("ExerciseMuscleGroup")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetAllExerciseMuscleGroups()
-        {
-            var exerciseMuscleGroups = _service.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
-            if (exerciseMuscleGroups == null) return NotFound();
-            return Ok(exerciseMuscleGroups);
         }
     }
 }

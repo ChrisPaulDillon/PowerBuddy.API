@@ -73,5 +73,21 @@ namespace PowerLifting.Service.Exercises
             }
             _repo.Exercise.DeleteExercise(exercise);
         }
+
+        public Task<IEnumerable<ExerciseDTO>> GetAllExercisesByMuscleGroupId(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<IEnumerable<ExerciseDTO>> GetAllExercisesByExerciseTypeId(int exerciseTypeId)
+        {
+            var exercises = await _repo.Exercise.GetExerciseByExerciseTypeId(exerciseTypeId);
+            if (exercises == null)
+            {
+                throw new ExerciseNotFoundException("No exercises found under this category!");
+            }
+            var exerciseDTO = _mapper.Map<IEnumerable<ExerciseDTO>>(exercises);
+            return exerciseDTO;
+        }
     }
 }
