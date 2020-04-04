@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.Exercises.DTO;
+using PowerLifting.Service.Exercises.Exceptions;
 using PowerLifting.Service.Exercises.Model;
 using PowerLifting.Service.ServiceWrappers;
 
@@ -49,16 +50,26 @@ namespace PowerLifting.Service.Exercises
             return exerciseTypeDTO;
         }
 
-        public void UpdateExerciseType(ExerciseTypeDTO exerciseType)
+        public async void UpdateExerciseType(ExerciseTypeDTO exerciseTypeDTO)
         {
-            var exerciseEntity = _mapper.Map<ExerciseType>(exerciseType);
-            _repo.ExerciseType.UpdateExerciseType(exerciseEntity);
+            var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeDTO.ExerciseTypeId);
+            
+            if (exerciseTypeEntity == null)
+            {
+                throw new ExerciseTypeNotFoundException("The ExerciseType associated with the given Id cannot be found");
+            }
+            _mapper.Map(exerciseTypeDTO, exerciseTypeEntity);
+            _repo.ExerciseType.UpdateExerciseType(exerciseTypeEntity);
         }
 
-        public void DeleteExerciseType(ExerciseTypeDTO exerciseType)
+        public async void DeleteExerciseType(ExerciseTypeDTO exerciseTypeDTO)
         {
-            var exerciseEntity = _mapper.Map<ExerciseType>(exerciseType);
-            _repo.ExerciseType.UpdateExerciseType(exerciseEntity);
+            var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeDTO.ExerciseTypeId);
+            if (exerciseTypeEntity == null)
+            {
+                throw new ExerciseTypeNotFoundException("The ExerciseType associated with the given Id cannot be found");
+            }
+            _repo.ExerciseType.Delete(exerciseTypeEntity);
         }
     }
 }

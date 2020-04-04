@@ -22,7 +22,8 @@ namespace PowerLifting.Repository.Repositories
 
         public async Task<Exercise> GetExerciseById(int id)
         {
-            return await PowerliftingContext.Set<Exercise>().Where(c => c.ExerciseId == id).FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<Exercise>().Where(c => c.ExerciseId == id).Include(m => m.ExerciseMuscleGroups)
+                                                                                           .Include(t => t.ExerciseType).FirstOrDefaultAsync();
         }
 
         public void UpdateExercise(Exercise exercise)

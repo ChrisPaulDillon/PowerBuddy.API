@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Powerlifting.Service.Exercises.DTO;
+using PowerLifting.Service.Exercises.Exceptions;
 using PowerLifting.Service.ServiceWrappers;
 
 namespace PowerLifting.API.API
@@ -17,55 +18,46 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
-        public ActionResult GetAllExercises()
-        {
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetAllExercises()
+        {       
             var exercises = _service.Exercise.GetAllExercises();
             if (exercises == null) return NotFound();
-            
             return Ok(exercises);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateExercise([FromBody] ExerciseDTO exercise)
+        [HttpGet("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetExerciseById(int id)
         {
-            if (exercise == null) return BadRequest("Exercise object is null");
-
-            if (!ModelState.IsValid) return BadRequest("Invalid model object");
-
-            var exerciseCheck = await _service.Exercise.GetExerciseById(exercise.ExerciseId);
-            if (exerciseCheck != null) return Conflict("Exercise is already been added");
-          
-            //var exerciseEntity = _mapper.Map<Exercise>(exercise);
-
-            //await _service.Exercise.AddAsync(exerciseEntity);
-            //_service.Save();
-            return Ok(exercise);
+            try
+            {
+                var exercise = await _service.Exercise.GetExerciseById(id);
+                return Ok(exercise);
+            }
+            catch (ExerciseNotFoundException e)
+            {
+                return NotFound(e);
+            }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateExercise(int id, [FromBody]ExerciseDTO exercise)
+        [HttpGet("ExerciseType")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetAllExerciseTypes()
         {
-            if (exercise == null) return BadRequest("Exercise object is null");
-
-            if (!ModelState.IsValid) return BadRequest("Invalid model object");
-
-            var ExerciseEntity = await _service.Exercise.GetExerciseById(id);
-            if (ExerciseEntity == null) return NotFound();
-           
-            //_mapper.Map(exercise, ExerciseEntity);
-
-            //_service.Exercise.Update(exercise);
-            return NoContent();
+            var exerciseTypes = _service.ExerciseType.GetAllExerciseTypes();
+            if (exerciseTypes == null) return NotFound();
+            return Ok(exerciseTypes);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteExerciseAsync(int id)
+        [HttpGet("ExerciseMuscleGroup")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetAllExerciseMuscleGroups()
         {
-            var exercise = await _service.Exercise.GetExerciseById(id);
-            if (exercise == null) return NotFound();
-           
-            _service.Exercise.DeleteExercise(exercise);
-            return NoContent();
+            var exerciseMuscleGroups = _service.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
+            if (exerciseMuscleGroups == null) return NotFound();
+            return Ok(exerciseMuscleGroups);
         }
     }
 }

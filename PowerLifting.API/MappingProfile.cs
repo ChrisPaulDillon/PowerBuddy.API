@@ -39,9 +39,19 @@ namespace PowerLifting.API
             CreateMap<TemplateProgramDTO, TemplateProgram>();
             CreateMap<TemplateProgram, TopLevelTemplateProgramDTO>();
 
+            //Exercises
             CreateMap<Exercise, ExerciseDTO>();
             CreateMap<ExerciseDTO, Exercise>();
             CreateMap<TopLevelTemplateProgramDTO, Exercise>();
+            CreateMap<Exercise, TopLevelExerciseDTO>();
+
+            //Exercises types
+            CreateMap<ExerciseType, ExerciseTypeDTO>();
+            CreateMap<ExerciseType, ExerciseTypeDTO>();
+
+            //Exercise muscle groups
+            CreateMap<ExerciseMuscleGroupDTO, ExerciseMuscleGroup>();
+            CreateMap<ExerciseMuscleGroup, ExerciseMuscleGroupDTO>();
 
             CreateMap<ProgramLogRepScheme, ProgramLogRepSchemeDTO>();
             CreateMap<ProgramLogRepSchemeDTO, ProgramLogRepScheme>();
@@ -52,26 +62,21 @@ namespace PowerLifting.API
             CreateMap<TemplateRepSchemeDTO, TemplateRepScheme>();
 
             CreateMap<LiftingStat, LiftingStatDTO>();
+            CreateMap<LiftingStatDTO, LiftingStat>();
 
-            CreateMap<ExerciseType, ExerciseTypeDTO>();
-            CreateMap<ExerciseType, ExerciseTypeDTO>();
 
             CreateMap<ProgramLog, ProgramLogDTO>();
 
-      
             CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>();
-            
+            CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>();
+
             CreateMap<TemplateExercise, TemplateExerciseDTO>();
+            CreateMap<TemplateExerciseDTO, TemplateExercise>();
 
-            
-            CreateMap<LiftingStatDTO, LiftingStat>();
-
-            
             CreateMap<ProgramLogDTO, ProgramLog>();
             
-            CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>();
             
-            CreateMap<TemplateExerciseDTO, TemplateExercise>();
+           
         }
     }
 }

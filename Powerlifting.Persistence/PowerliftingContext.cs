@@ -43,7 +43,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
             modelBuilder.Entity<Exercise>().ToTable("Exercise");
             modelBuilder.Entity<ExerciseType>().HasAlternateKey(e => e.ExerciseTypeName);
-            modelBuilder.Entity<ExerciseType>().ToTable("ExerciseCategory");
+            modelBuilder.Entity<ExerciseType>().ToTable("ExerciseType");
             modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("ExerciseMuscleGroup");
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
             modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");

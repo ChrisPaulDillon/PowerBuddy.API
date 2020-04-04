@@ -1,4 +1,6 @@
-﻿using PowerLifting.Service.Exercises.Model;
+﻿using System.Collections.Generic;
+using PowerLifting.Service.Exercises.DTO;
+using PowerLifting.Service.Exercises.Model;
 
 namespace Powerlifting.Service.Exercises.DTO
 {
@@ -9,7 +11,7 @@ namespace Powerlifting.Service.Exercises.DTO
     {
         public int ExerciseId { get; set; }
         public string ExerciseName { get; set; }
-        public int? ExerciseCategoryId { get; set; }
         public virtual ExerciseType ExerciseType { get; set; }
+        public virtual ICollection<ExerciseMuscleGroupDTO> ExerciseMuscleGroups { get; set; }
     }
 }

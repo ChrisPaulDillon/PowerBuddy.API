@@ -1,28 +1,28 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using System;
 using System.Collections.Concurrent;
 using AutoMapper;
 using Powerlifting.Service.Exercises.DTO;
 using PowerLifting.Service.ServiceWrappers;
 using Powerlifting.Service.Exercises.Contracts;
+using PowerLifting.Service.Exercises.Exceptions;
 
 namespace PowerLifting.Service.Exercises
 {
     public class ExerciseService : IExerciseService
     {
-        private ConcurrentDictionary<int, ExerciseDTO> _store;
+        private ConcurrentDictionary<int, TopLevelExerciseDTO> _store;
         private IMapper _mapper;
         private IRepositoryWrapper _repo;
 
         public ExerciseService(IRepositoryWrapper repo, IMapper mapper)
         {
             _repo = repo;
-            _store = new ConcurrentDictionary<int, ExerciseDTO>();
+            _store = new ConcurrentDictionary<int, TopLevelExerciseDTO>();
             _mapper = mapper;
         }
 
-        public IEnumerable<ExerciseDTO> GetAllExercises()
+        public IEnumerable<TopLevelExerciseDTO> GetAllExercises()
         {
             RefreshExerciseStore();
             return _store.Values;
@@ -34,7 +34,7 @@ namespace PowerLifting.Service.Exercises
                 return;
 
             var exercises = _repo.Exercise.GetAllExercises();
-            var exerciseDTOs = _mapper.Map<IEnumerable<ExerciseDTO>>(exercises);
+            var exerciseDTOs = _mapper.Map<IEnumerable<TopLevelExerciseDTO>>(exercises);
 
             foreach(var exerciseDTO in exerciseDTOs)
             {
@@ -45,6 +45,10 @@ namespace PowerLifting.Service.Exercises
         public async Task<ExerciseDTO> GetExerciseById(int id)
         {
             var exercise = await _repo.Exercise.GetExerciseById(id);
+            if (exercise == null)
+            {
+                throw new ExerciseNotFoundException("The Exercise associated with the given Id cannot be found");
+            }
             var exerciseDTO = _mapper.Map<ExerciseDTO>(exercise);
             return exerciseDTO;
         }
@@ -54,8 +58,7 @@ namespace PowerLifting.Service.Exercises
             var exercise = await _repo.Exercise.GetExerciseById(exerciseDTO.ExerciseId);
             if (exercise == null)
             {
-                //throw new UserNotFoundException();
-                //TODO
+                throw new ExerciseNotFoundException("The Exercise associated with the given Id cannot be found");
             }
             _mapper.Map(exerciseDTO, exercise);
             _repo.Exercise.UpdateExercise(exercise);
@@ -66,7 +69,7 @@ namespace PowerLifting.Service.Exercises
             var exercise = await _repo.Exercise.GetExerciseById(exerciseDTO.ExerciseId);
             if (exercise == null)
             {
-                //throw new UserNotFoundException();
+                throw new ExerciseNotFoundException("The Exercise associated with the given Id cannot be found");
             }
             _repo.Exercise.DeleteExercise(exercise);
         }

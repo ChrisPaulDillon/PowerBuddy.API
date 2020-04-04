@@ -6,7 +6,7 @@ namespace Powerlifting.Service.Exercises.Contracts
 {
     public interface IExerciseService 
     {
-        IEnumerable<ExerciseDTO> GetAllExercises();
+        IEnumerable<TopLevelExerciseDTO> GetAllExercises();
         Task<ExerciseDTO> GetExerciseById(int id);
         void UpdateExercise(ExerciseDTO exercise);
         void DeleteExercise(ExerciseDTO exercise);
