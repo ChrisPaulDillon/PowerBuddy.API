@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PowerLifting.Services.TemplateExercises
+namespace PowerLifting.Service.TemplateExercises
 {
     public interface ITemplateExerciseService
     {

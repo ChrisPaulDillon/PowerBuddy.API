@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Powerlifting.Repository;
 using Powerlifting.Service.LiftingStats.Model;
 using PowerLifting.Persistence;
-using PowerLifting.Services.LiftingStats;
+using PowerLifting.Service.LiftingStats;
 
 namespace PowerLifting.Repository.Repositories
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Powerlifting.Service.TemplateExercises.DTO;
 
-namespace Powerlifting.Services.TemplatePrograms.DTO
+namespace Powerlifting.Service.TemplatePrograms.DTO
 {
     public class TemplateProgramDTO
     {

@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
-using Powerlifting.Services.TemplatePrograms.DTO;
 using PowerLifting.Service.ServiceWrappers;
+using Powerlifting.Service.TemplatePrograms.DTO;
+using Powerlifting.Service.TemplatePrograms.Model;
 using Powerlifting.Services.TemplatePrograms;
-using Powerlifting.Services.TemplatePrograms.Model;
 
 namespace PowerLifting.Service.TemplatePrograms
 {

@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Repository;
-using Powerlifting.Services.TemplatePrograms.Model;
 using PowerLifting.Persistence;
-using PowerLifting.Services.TemplatePrograms;
+using PowerLifting.Service.TemplatePrograms;
+using Powerlifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.Repository.Repositories
 {

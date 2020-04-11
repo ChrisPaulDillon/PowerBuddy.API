@@ -1,6 +1,7 @@
-﻿using PowerLifting.Services.TemplateRepSchemes.Model;
+﻿using PowerLifting.Service;
+using PowerLifting.Services.TemplateRepSchemes.Model;
 
-namespace PowerLifting.Services.TemplateRepSchemes
+namespace PowerLifting.Service.TemplateRepSchemes
 {
     public interface ITemplateRepSchemeRepository : IRepositoryBase<TemplateRepScheme>
     {

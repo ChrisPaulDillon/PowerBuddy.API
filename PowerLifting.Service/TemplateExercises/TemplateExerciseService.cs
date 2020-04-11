@@ -1,9 +1,7 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using PowerLifting.Service.ServiceWrappers;
-using PowerLifting.Services.TemplateExercises;
 
-namespace PowerLifting.Services.TemplateExercises
+namespace PowerLifting.Service.TemplateExercises
 {
     public class TemplateExerciseService : ITemplateExerciseService
     {

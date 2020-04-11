@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Persistence;
-using PowerLifting.Services;
+using PowerLifting.Service;
 
 namespace Powerlifting.Repository
 {

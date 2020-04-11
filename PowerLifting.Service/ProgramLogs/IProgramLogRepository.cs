@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PowerLifting.Service;
 using Powerlifting.Services.ProgramLogs;
 
 namespace PowerLifting.Services.ProgramLogs

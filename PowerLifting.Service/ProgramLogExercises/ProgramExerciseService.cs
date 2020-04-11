@@ -1,8 +1,7 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using PowerLifting.Service.ServiceWrappers;
 
-namespace PowerLifting.Services.ProgramLogExercises
+namespace PowerLifting.Service.ProgramLogExercises
 {
     public class ProgramLogExerciseService : IProgramLogExerciseService
     {

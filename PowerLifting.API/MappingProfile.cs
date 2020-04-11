@@ -7,8 +7,6 @@ using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogs.DTO;
 using Powerlifting.Services.ProgramLogRepSchemes.DTO;
 using Powerlifting.Services.ProgramLogRepSchemes.Model;
-using Powerlifting.Services.TemplatePrograms.DTO;
-using Powerlifting.Services.TemplatePrograms.Model;
 using PowerLifting.ProgramLogExercises.Model;
 using Powerlifting.Service.TemplateExercises.DTO;
 using PowerLifting.Service.Users.DTO;
@@ -17,10 +15,12 @@ using PowerLifting.Services.ProgramLogExercises.DTO;
 using Powerlifting.Services.ProgramLogRepSchemess.DTO;
 using PowerLifting.Services.TemplateRepSchemes.DTO;
 using PowerLifting.Services.TemplateRepSchemes.Model;
-using Powerlifting.Services.TemplateExercises.Model;
 using PowerLifting.Services.Users.DTO;
 using PowerLifting.Service.Exercises.Model;
 using PowerLifting.Service.Exercises.DTO;
+using Powerlifting.Service.TemplateExercises.Model;
+using Powerlifting.Service.TemplatePrograms.DTO;
+using Powerlifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.API
 {

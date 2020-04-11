@@ -1,7 +1,7 @@
 ﻿using Powerlifting.Repository;
 using PowerLifting.Persistence;
-using PowerLifting.Services.TemplateExercises;
-using Powerlifting.Services.TemplateExercises.Model;
+using PowerLifting.Service.TemplateExercises;
+using Powerlifting.Service.TemplateExercises.Model;
 
 namespace PowerLifting.Repository.Repositories
 {

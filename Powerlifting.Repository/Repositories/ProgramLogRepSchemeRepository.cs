@@ -1,7 +1,7 @@
 ﻿using Powerlifting.Repository;
 using Powerlifting.Services.ProgramLogRepSchemes.Model;
 using PowerLifting.Persistence;
-using PowerLifting.Services.ProgramLogRepSchemes;
+using PowerLifting.Service.ProgramLogRepSchemes;
 
 namespace PowerLifting.Repository.Repositories
 {

@@ -3,12 +3,12 @@ using PowerLifting.Service.Users;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.TemplatePrograms;
 using PowerLifting.Service.LiftingStatsAudit;
-using PowerLifting.Services.ProgramLogExercises;
 using PowerLifting.Services.ProgramLogRepSchemes;
-using PowerLifting.Services.TemplateExercises;
-using Powerlifting.Services.TemplateRepSchemes;
 using PowerLifting.Service.Exercises.Contracts;
 using Powerlifting.Service.Exercises.Contracts;
+using PowerLifting.Service.ProgramLogExercises;
+using PowerLifting.Service.TemplateExercises;
+using Powerlifting.Service.TemplateRepSchemes;
 
 namespace PowerLifting.Service.ServiceWrappers
 {

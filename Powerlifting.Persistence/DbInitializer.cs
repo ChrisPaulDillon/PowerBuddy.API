@@ -5,12 +5,12 @@ using Powerlifting.Service.Exercises.Model;
 using Powerlifting.Service.LiftingStats.Model;
 using Powerlifting.Services.ProgramLogs;
 using Powerlifting.Services.ProgramLogRepSchemes.Model;
-using Powerlifting.Services.TemplatePrograms.Model;
 using PowerLifting.ProgramLogExercises.Model;
 using PowerLifting.Service.Users.Model;
 using PowerLifting.Services.TemplateRepSchemes.Model;
-using Powerlifting.Services.TemplateExercises.Model;
 using PowerLifting.Service.Exercises.Model;
+using Powerlifting.Service.TemplateExercises.Model;
+using Powerlifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.Persistence
 {

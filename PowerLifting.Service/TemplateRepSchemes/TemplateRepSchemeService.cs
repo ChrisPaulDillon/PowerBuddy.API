@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using PowerLifting.Service.ServiceWrappers;
 
-namespace Powerlifting.Services.TemplateRepSchemes
+namespace Powerlifting.Service.TemplateRepSchemes
 {
     public class TemplateRepSchemeService : ITemplateRepSchemeService
     {

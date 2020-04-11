@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using PowerLifting.Services.TemplateRepSchemes.Model;
 
-namespace Powerlifting.Services.TemplateExercises.Model
+namespace Powerlifting.Service.TemplateExercises.Model
 {
     /// <summary>
     /// TemplateExercise reprents on a fixed program template, a given exercise, its set, rep and percentage scemema

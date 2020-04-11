@@ -1,7 +1,7 @@
 ﻿using PowerLifting.Services.TemplateRepSchemes.Model;
-using PowerLifting.Services.TemplateRepSchemes;
 using Powerlifting.Repository;
 using PowerLifting.Persistence;
+using PowerLifting.Service.TemplateRepSchemes;
 
 namespace PowerLifting.Repository.Repositories
 {

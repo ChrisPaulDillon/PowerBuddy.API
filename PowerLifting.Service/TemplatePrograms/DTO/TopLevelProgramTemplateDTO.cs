@@ -1,6 +1,8 @@
-﻿namespace Powerlifting.Services.TemplatePrograms.DTO
+﻿namespace Powerlifting.Service.TemplatePrograms.DTO
 {
-    //Used for showing all program templates as a general overview
+    /// <summary>
+    /// Used for showing all program templates as a general overview
+    /// </summary>
     public class TopLevelTemplateProgramDTO
     {
         public int TemplateProgramId { get; set; }
@@ -9,3 +11,4 @@
         public int NoOfWeeks { get; set; }
     }
 }
+    

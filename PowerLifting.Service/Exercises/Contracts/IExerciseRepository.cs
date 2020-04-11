@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PowerLifting.Service;
 using Powerlifting.Service.Exercises.Model;
 
-namespace PowerLifting.Services.Exercises.Contracts
+namespace PowerLifting.Service.Exercises.Contracts
 {
     public interface IExerciseRepository : IRepositoryBase<Exercise>
     {

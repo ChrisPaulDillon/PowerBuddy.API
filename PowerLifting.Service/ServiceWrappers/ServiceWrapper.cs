@@ -8,12 +8,13 @@ using PowerLifting.Service.Exercises;
 using PowerLifting.Service.TemplatePrograms;
 using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Services.ProgramLogExercises;
-using PowerLifting.Services.TemplateExercises;
-using Powerlifting.Services.TemplateRepSchemes;
 using PowerLifting.Services.ProgramLogRepSchemes;
 using PowerLifting.Services.ProgramLogRepSchemess;
 using PowerLifting.Service.Exercises.Contracts;
 using Powerlifting.Service.Exercises.Contracts;
+using PowerLifting.Service.ProgramLogExercises;
+using PowerLifting.Service.TemplateExercises;
+using Powerlifting.Service.TemplateRepSchemes;
 
 namespace PowerLifting.Service.ServiceWrappers
 {

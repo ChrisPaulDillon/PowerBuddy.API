@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Powerlifting.Service.LiftingStats.Model;
-using Powerlifting.Services.ProgramLogs;
+using PowerLifting.Services;
 
-namespace PowerLifting.Services.LiftingStats
+namespace PowerLifting.Service.LiftingStats
 {
     public interface ILiftingStatRepository : IRepositoryBase<LiftingStat>
     {

@@ -65,14 +65,20 @@ namespace PowerLifting.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PowerBuddy API", Version = "v1" });
             });
 
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(MyAllowSpecificOrigins,
+            //        builder =>
+            //        {
+            //            builder.WithOrigins("https://localhost:44329/",
+            //                "https://localhost:5001/");
+            //        });
+            //});
+
             services.AddCors(options =>
             {
-                options.AddPolicy(MyAllowSpecificOrigins,
-                    builder =>
-                    {
-                        builder.WithOrigins("https://localhost:44349/",
-                            "http://www.contoso.com");
-                    });
+                options.AddPolicy("AllowOrigin",
+                    builder => builder.AllowAnyOrigin());
             });
 
         }
@@ -100,7 +106,8 @@ namespace PowerLifting.API
 
             app.UseRouting();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(builder =>
+                builder.WithOrigins("https://localhost:5001"));
 
             app.UseAuthorization();
 

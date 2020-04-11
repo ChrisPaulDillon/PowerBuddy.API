@@ -1,7 +1,6 @@
-﻿using System;
-using PowerLifting.ProgramLogExercises.Model;
+﻿using PowerLifting.ProgramLogExercises.Model;
 
-namespace PowerLifting.Services.ProgramLogExercises
+namespace PowerLifting.Service.ProgramLogExercises
 {
     public interface IProgramLogExerciseRepository : IRepositoryBase<ProgramLogExercise>
     {

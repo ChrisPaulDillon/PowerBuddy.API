@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Powerlifting.Services.TemplatePrograms.DTO;
+using Powerlifting.Service.TemplatePrograms.DTO;
 
 namespace Powerlifting.Services.TemplatePrograms
 {

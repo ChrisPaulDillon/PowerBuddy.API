@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Powerlifting.Services.TemplatePrograms.Model;
+using Powerlifting.Service.TemplatePrograms.Model;
+using PowerLifting.Services;
 
-namespace PowerLifting.Services.TemplatePrograms
+namespace PowerLifting.Service.TemplatePrograms
 {
     public interface ITemplateProgramRepository : IRepositoryBase<TemplateProgram>
     {

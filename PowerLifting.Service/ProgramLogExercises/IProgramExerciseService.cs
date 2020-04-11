@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PowerLifting.Services.ProgramLogExercises
+namespace PowerLifting.Service.ProgramLogExercises
 {
     public interface IProgramLogExerciseService
     { 
