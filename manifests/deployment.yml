@@ -1,16 +1,20 @@
 apiVersion : apps/v1beta1
 kind: Deployment
 metadata:
-  name: powerbuddyapi 
+  name: powerbuddyapi-deployment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: powerbuddyapi 
+        app: powerbuddyapi-pod
     spec:
       containers:
-        - name: powerbuddyapi 
-          image: chrisd01.azurecr.io/powerbuddyapi
+        - name: powerbuddyapi-containerv2
+          image: chrisd01.azurecr.io/powerbuddyapi:v2
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           ports:
           - containerPort: 80
