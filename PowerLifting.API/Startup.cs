@@ -9,13 +9,12 @@ using Microsoft.OpenApi.Models;
 using NLog;
 using System;
 using System.IO;
-using Microsoft.AspNetCore.Identity;
 using PowerLifting.LoggerService;
 using PowerLifting.Repository.Repositories;
-using PowerLifting.Persistence;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.Model;
 using Microsoft.AspNetCore.Http;
+using PowerLifting.Persistence;
 
 namespace PowerLifting.API
 {
@@ -41,13 +40,20 @@ namespace PowerLifting.API
             );
 
             services.AddDbContext<PowerliftingContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<PowerliftingContext>()
-                .AddDefaultUI()
-                .AddDefaultTokenProviders();
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<PowerliftingContext>();
+
+            // services.AddDbContext<PowerliftingContext>(options =>
+            //     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddIdentity<User, IdentityRole>()
+            //   .AddRoles<IdentityRole>()
+            //   .AddEntityFrameworkStores<PowerliftingContext>()
+            //  .AddDefaultUI()
+            //  .AddDefaultTokenProviders();
 
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddControllers();
