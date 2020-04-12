@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.API", "PowerLifting.API\PowerLifting.API.csproj", "{AD37FAC0-554C-40BC-A91D-D5FAFF732211}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.API", "PowerLifting.API\PowerLifting.API.csproj", "{AD37FAC0-554C-40BC-A91D-D5FAFF732211}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.UnitTests", "PowerLifting.UnitTests\PowerLifting.UnitTests.csproj", "{40715765-DD96-4BB6-8FBD-E142DBBA044D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.LoggerService", "PowerLifting.LoggerService\PowerLifting.LoggerService.csproj", "{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Persistence", "PowerLifting.Persistence\PowerLifting.Persistence.csproj", "{08EA0B37-5ECF-45AA-8819-17DEB128AAB1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Repository", "PowerLifting.Repository\PowerLifting.Repository.csproj", "{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Service", "PowerLifting.Service\PowerLifting.Service.csproj", "{1A8AF880-EA60-4F15-9C05-B0F0D9744945}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Repository", "PowerLifting.Repository\PowerLifting.Repository.csproj", "{DFB23616-94FA-492C-892B-E1120D816892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Persistence", "PowerLifting.Persistence\PowerLifting.Persistence.csproj", "{5A8CA09E-D1E6-487A-B57A-070F24FD89F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,18 +33,18 @@ Global
 		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08EA0B37-5ECF-45AA-8819-17DEB128AAB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08EA0B37-5ECF-45AA-8819-17DEB128AAB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08EA0B37-5ECF-45AA-8819-17DEB128AAB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08EA0B37-5ECF-45AA-8819-17DEB128AAB1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FB46E75-F949-4A3D-ACD9-B92D133CBA75}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A8AF880-EA60-4F15-9C05-B0F0D9744945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A8AF880-EA60-4F15-9C05-B0F0D9744945}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A8AF880-EA60-4F15-9C05-B0F0D9744945}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A8AF880-EA60-4F15-9C05-B0F0D9744945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB23616-94FA-492C-892B-E1120D816892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB23616-94FA-492C-892B-E1120D816892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB23616-94FA-492C-892B-E1120D816892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB23616-94FA-492C-892B-E1120D816892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A8CA09E-D1E6-487A-B57A-070F24FD89F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A8CA09E-D1E6-487A-B57A-070F24FD89F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A8CA09E-D1E6-487A-B57A-070F24FD89F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A8CA09E-D1E6-487A-B57A-070F24FD89F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

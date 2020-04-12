@@ -19,7 +19,11 @@ namespace PowerLifting.Persistence
         public PowerliftingContext(DbContextOptions<PowerliftingContext> options) : base(options)
         {
 
+
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+            => options.UseSqlite("Data Source=app.db");
 
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }

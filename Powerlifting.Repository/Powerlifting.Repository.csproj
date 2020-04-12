@@ -7,8 +7,4 @@
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Util\" />
-  </ItemGroup>
 </Project>
