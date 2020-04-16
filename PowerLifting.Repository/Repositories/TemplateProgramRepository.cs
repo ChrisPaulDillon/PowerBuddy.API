@@ -17,15 +17,20 @@ namespace PowerLifting.Repository.Repositories
 
         public async Task<IEnumerable<TemplateProgram>> GetAllTemplatePrograms()
         {
-            return await PowerliftingContext.Set<TemplateProgram>().ToListAsync();
+            return await PowerliftingContext.Set<TemplateProgram>().Include(x => x.TemplateWeeks)
+                                                                   .ThenInclude(x => x.TemplateDays)
+                                                                   .ThenInclude(x => x.TemplateExercises)
+                                                                   .ThenInclude(x => x.TemplateRepSchemes)
+                                                                   .ToListAsync();
         }
 
         public async Task<TemplateProgram> GetTemplateProgramById(int programTemplateId)
         {
-            return await PowerliftingContext.Set<TemplateProgram>().Where(x => x.TemplateProgramId == programTemplateId)
-                                                                                    .Include(x => x.TemplateExercises)
-                                                                                    .ThenInclude(x => x.TemplateRepSchemes)
-                                                                                    .FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<TemplateProgram>().Include(x => x.TemplateWeeks)
+                                                                   .ThenInclude(x => x.TemplateDays)
+                                                                   .ThenInclude(x => x.TemplateExercises)
+                                                                   .ThenInclude(x => x.TemplateRepSchemes)
+                                                                   .FirstOrDefaultAsync();
         }
 
         public async Task<TemplateProgram> GetTemplateProgramByName(string programTemplate)

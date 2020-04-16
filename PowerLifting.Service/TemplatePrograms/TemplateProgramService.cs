@@ -19,10 +19,10 @@ namespace PowerLifting.Service.TemplatePrograms
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TopLevelTemplateProgramDTO>> GetAllTemplatePrograms()
+        public async Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms()
         {
             var programTemplates = await _repo.TemplateProgram.GetAllTemplatePrograms();
-            var programTemplateDTO = _mapper.Map<IEnumerable<TopLevelTemplateProgramDTO>>(programTemplates);
+            var programTemplateDTO = _mapper.Map<IEnumerable<TemplateProgramDTO>>(programTemplates);
             return programTemplateDTO;
         }
 
@@ -39,22 +39,28 @@ namespace PowerLifting.Service.TemplatePrograms
             var user = await _repo.User.GetUserByIdIncludeLiftingStats(userId);
             var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
 
-            foreach (var exercise in programTemplate.TemplateExercises)
+            foreach (var templateWeek in programTemplate.TemplateWeeks)
             {
-                foreach (var set in exercise.TemplateRepSchemes)
+                foreach (var templateDay in templateWeek.TemplateDays)
                 {
-                    var percentage = (double)set.Percentage / 100;
-                    if (exercise.ExerciseName == "Squat")
+                    foreach (var templateExercise in templateDay.TemplateExercises)
                     {
-                        set.WeightLifted =  percentage * user.LiftingStats.SquatWeight;
-                    }
-                    else if (exercise.ExerciseName == "Deadlift")
-                    {
-                        set.WeightLifted =  percentage * user.LiftingStats.DeadliftWeight;
-                    }
-                    else if (exercise.ExerciseName == "Bench Press")
-                    {
-                        set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
+                        foreach (var set in templateExercise.TemplateRepSchemes)
+                        {
+                            var percentage = (double)set.Percentage / 100;
+                            if (templateExercise.ExerciseName == "Squat")
+                            {
+                                set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
+                            }
+                            else if (templateExercise.ExerciseName == "Deadlift")
+                            {
+                                set.WeightLifted = percentage * user.LiftingStats.DeadliftWeight;
+                            }
+                            else if (templateExercise.ExerciseName == "Bench Press")
+                            {
+                                set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
+                            }
+                        }
                     }
                 }
             }

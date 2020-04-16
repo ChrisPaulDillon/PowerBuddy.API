@@ -21,6 +21,10 @@ using PowerLifting.Service.Exercises.DTO;
 using Powerlifting.Service.TemplateExercises.Model;
 using Powerlifting.Service.TemplatePrograms.DTO;
 using Powerlifting.Service.TemplatePrograms.Model;
+using PowerLifting.Service.TemplateWeek.Model;
+using PowerLifting.Service.TemplateWeeks.DTO;
+using PowerLifting.Service.TemplateDays.DTO;
+using PowerLifting.Service.TemplateDays.Model;
 
 namespace PowerLifting.API
 {
@@ -33,11 +37,6 @@ namespace PowerLifting.API
             CreateMap<UserDTO, User>();
             CreateMap<RegisterUserDTO, User>();
             CreateMap<NewUserDTO, User>();
-
-            //Program Templates
-            CreateMap<TemplateProgram, TemplateProgramDTO>();
-            CreateMap<TemplateProgramDTO, TemplateProgram>();
-            CreateMap<TemplateProgram, TopLevelTemplateProgramDTO>();
 
             //Exercises
             CreateMap<Exercise, ExerciseDTO>();
@@ -53,27 +52,38 @@ namespace PowerLifting.API
             CreateMap<ExerciseMuscleGroupDTO, ExerciseMuscleGroup>();
             CreateMap<ExerciseMuscleGroup, ExerciseMuscleGroupDTO>();
 
-            CreateMap<ProgramLogRepScheme, ProgramLogRepSchemeDTO>();
-            CreateMap<ProgramLogRepSchemeDTO, ProgramLogRepScheme>();
-            CreateMap<MarkupProgramLogRepSchemeDTO, ProgramLogRepScheme>();
-            CreateMap<ProgramLogRepScheme, MarkupProgramLogRepSchemeDTO>();
-
-            CreateMap<TemplateRepScheme, TemplateRepSchemeDTO>();
-            CreateMap<TemplateRepSchemeDTO, TemplateRepScheme>();
-
             CreateMap<LiftingStat, LiftingStatDTO>();
             CreateMap<LiftingStatDTO, LiftingStat>();
 
-
+            CreateMap<ProgramLogDTO, ProgramLog>();
             CreateMap<ProgramLog, ProgramLogDTO>();
 
             CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>();
             CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>();
 
+            CreateMap<ProgramLogRepScheme, ProgramLogRepSchemeDTO>();
+            CreateMap<ProgramLogRepSchemeDTO, ProgramLogRepScheme>();
+            CreateMap<MarkupProgramLogRepSchemeDTO, ProgramLogRepScheme>();
+            CreateMap<ProgramLogRepScheme, MarkupProgramLogRepSchemeDTO>();
+
+            //Program Templates
+            CreateMap<TemplateProgram, TemplateProgramDTO>();
+            CreateMap<TemplateProgramDTO, TemplateProgram>();
+            CreateMap<TemplateProgram, TopLevelTemplateProgramDTO>();
+
+            CreateMap<TemplateWeek, TemplateWeekDTO>();
+            CreateMap<TemplateWeekDTO, TemplateWeek>();
+
+            CreateMap<TemplateDay, TemplateDayDTO>();
+            CreateMap<TemplateDayDTO, TemplateDay>();
+
             CreateMap<TemplateExercise, TemplateExerciseDTO>();
             CreateMap<TemplateExerciseDTO, TemplateExercise>();
 
-            CreateMap<ProgramLogDTO, ProgramLog>();
+            CreateMap<TemplateRepScheme, TemplateRepSchemeDTO>();
+            CreateMap<TemplateRepSchemeDTO, TemplateRepScheme>();
+
+
             
             
            

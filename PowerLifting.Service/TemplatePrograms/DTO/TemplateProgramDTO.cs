@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Powerlifting.Service.TemplateExercises.DTO;
+using PowerLifting.Service.TemplateWeeks.DTO;
 
 namespace Powerlifting.Service.TemplatePrograms.DTO
 {
@@ -9,6 +9,6 @@ namespace Powerlifting.Service.TemplatePrograms.DTO
         public string Name { get; set; }
         public string Difficulty { get; set; }
         public int NoOfWeeks { get; set; }
-        public ICollection<TemplateExerciseDTO> TemplateExercises { get; set; }
+        public ICollection<TemplateWeekDTO> TemplateWeeks { get; set; }
     }
 }

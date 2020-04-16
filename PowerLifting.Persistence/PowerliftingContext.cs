@@ -11,6 +11,8 @@ using PowerLifting.Service.LiftingStatsAudit.Model;
 using PowerLifting.Service.Exercises.Model;
 using Powerlifting.Service.TemplateExercises.Model;
 using Powerlifting.Service.TemplatePrograms.Model;
+using PowerLifting.Service.TemplateWeek.Model;
+using PowerLifting.Service.TemplateDays.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -22,8 +24,8 @@ namespace PowerLifting.Persistence
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=app.db");
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+          //  => options.UseSqlite("Data Source=app.db");
 
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }
@@ -34,6 +36,8 @@ namespace PowerLifting.Persistence
         public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
         public DbSet<ProgramLog> ProgramLog { get; set; }
         public DbSet<TemplateProgram> TemplateProgram { get; set; }
+        public DbSet<TemplateWeek> TemplateWeek { get; set; }
+        public DbSet<TemplateDay> TemplateDay { get; set; }
         public DbSet<TemplateExercise> TemplateExercise { get; set; }
         public DbSet<TemplateRepScheme> TemplateRepScheme { get; set; }
         public DbSet<User> User { get; set; }
@@ -55,6 +59,8 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
+            modelBuilder.Entity<TemplateWeek>().ToTable("TemplateWeek");
+            modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);

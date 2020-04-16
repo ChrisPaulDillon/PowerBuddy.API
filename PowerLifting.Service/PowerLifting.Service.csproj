@@ -18,5 +18,11 @@
     <Folder Include="LiftingStatsAudit\DTO\" />
     <Folder Include="Exercises\Contracts\" />
     <Folder Include="Exercises\Exceptions\" />
+    <Folder Include="TemplateWeeks\" />
+    <Folder Include="TemplateWeeks\DTO\" />
+    <Folder Include="TemplateWeeks\Model\" />
+    <Folder Include="TemplateDays\" />
+    <Folder Include="TemplateDays\Model\" />
+    <Folder Include="TemplateDays\DTO\" />
   </ItemGroup>
 </Project>

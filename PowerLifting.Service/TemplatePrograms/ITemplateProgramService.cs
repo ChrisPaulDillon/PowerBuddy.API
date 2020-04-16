@@ -10,7 +10,7 @@ namespace Powerlifting.Services.TemplatePrograms
         /// Gets a top level view of all program templates such as program title, difficulty, number of weeks
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<TopLevelTemplateProgramDTO>> GetAllTemplatePrograms();
+        Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms();
 
         /// <summary>
         /// Gets the template program by Id

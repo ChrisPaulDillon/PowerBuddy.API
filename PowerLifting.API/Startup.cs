@@ -39,15 +39,15 @@ namespace PowerLifting.API
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
-            services.AddDbContext<PowerliftingContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<PowerliftingContext>(options =>
+             //   options.UseSqlite(
+             //       Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PowerliftingContext>();
 
-            // services.AddDbContext<PowerliftingContext>(options =>
-            //     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+             services.AddDbContext<PowerliftingContext>(options =>
+                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddIdentity<User, IdentityRole>()
             //   .AddRoles<IdentityRole>()
@@ -112,8 +112,10 @@ namespace PowerLifting.API
 
             app.UseRouting();
 
-            app.UseCors(builder =>
-                builder.WithOrigins("https://localhost:5001"));
+            app.UseCors(builder => builder
+                 .AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader());
 
             app.UseAuthorization();
 
