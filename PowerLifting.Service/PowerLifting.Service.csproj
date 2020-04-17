@@ -24,5 +24,11 @@
     <Folder Include="TemplateDays\" />
     <Folder Include="TemplateDays\Model\" />
     <Folder Include="TemplateDays\DTO\" />
+    <Folder Include="ProgramLogWeeks\" />
+    <Folder Include="ProgramLogWeeks\Model\" />
+    <Folder Include="ProgramLogWeeks\DTO\" />
+    <Folder Include="ProgramLogDays\" />
+    <Folder Include="ProgramLogDays\Model\" />
+    <Folder Include="ProgramLogDays\DTO\" />
   </ItemGroup>
 </Project>

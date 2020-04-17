@@ -21,7 +21,8 @@ namespace Powerlifting.Service.ProgramLogs
 
         public async Task<ProgramLogDTO> GetTodaysProgramLogByUserId(string userId)
         {
-            var programLog = await _repo.ProgramLog.GetTodaysProgramLogByUserId(userId);
+            //var programLog = await _repo.ProgramLog.GetTodaysProgramLogByUserId(userId);
+            ProgramLogDTO programLog = null;
             if (programLog == null)
             {
                 throw new ProgramLogNotFoundException("The program log for this specific day cannot be found!");
@@ -32,7 +33,8 @@ namespace Powerlifting.Service.ProgramLogs
 
         public async Task<ProgramLogDTO> GetWeeklyProgramLogByUserId(string userId)
         {
-            var programLog = await _repo.ProgramLog.GetWeeklyProgramLogByUserId(userId);
+            //var programLog = await _repo.ProgramLog.GetWeeklyProgramLogByUserId(userId);
+            ProgramLogDTO programLog = null;
             if (programLog == null)
             {
                 throw new ProgramLogNotFoundException("The program log for this specific week cannot be found!");
@@ -54,18 +56,20 @@ namespace Powerlifting.Service.ProgramLogs
 
         public async Task<ProgramLogDTO> GetProgramLogByProgramLogId(int programLogId)
         {
-            var logs = await _repo.ProgramLog.GetProgramLogByProgramLogId(programLogId);
-            if (logs == null)
+            //var logs = await _repo.ProgramLog.GetProgramLogByProgramLogId(programLogId);
+            ProgramLogDTO programLog = null;
+            if (programLog == null)
             {
                 throw new ProgramLogNotFoundException("This specific program log cannot be found!");
             }
-            var logsDTO = _mapper.Map<ProgramLogDTO>(logs);
+            var logsDTO = _mapper.Map<ProgramLogDTO>(programLog);
             return logsDTO;
         }
 
         public async void UpdateProgramLog(string userId, ProgramLogDTO programLogDTO)
         {
-            var programLog = await _repo.ProgramLog.GetProgramLogByProgramLogId(programLogDTO.ProgramLogId);
+            //var programLog = await _repo.ProgramLog.GetProgramLogByProgramLogId(programLogDTO.ProgramLogId);
+            ProgramLog programLog = null;
             if (programLog.UserId != userId)
             {
                 throw new UserDoesNotMatchProgramLogException("UserId does match the user associated with this program log!");
@@ -80,7 +84,8 @@ namespace Powerlifting.Service.ProgramLogs
    
         public async void DeleteProgramLog(string userId, ProgramLogDTO programLogDTO)
         {
-            var programLog = await _repo.ProgramLog.GetProgramLogByProgramLogId(programLogDTO.ProgramLogId);
+            //var programLog = await _repo.ProgramLog.GetProgramLogByProgramLogId(programLogDTO.ProgramLogId);
+            ProgramLog programLog = null;
             if (programLog.UserId != userId)
             {
                 throw new UserDoesNotMatchProgramLogException("UserId does match the user associated with this program log!");

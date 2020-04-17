@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerLifting.Services.ProgramLogExercises.DTO;
+using PowerLifting.Service.ProgramWeeks.DTO;
 
 namespace Powerlifting.Services.ProgramLogs.DTO
 {
@@ -11,8 +11,6 @@ namespace Powerlifting.Services.ProgramLogs.DTO
         public int TemplateProgramId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int NoOfDaysLifting { get; set; }
-
         public bool Monday { get; set; }
         public bool Tuesday { get; set; }
         public bool Wednesday { get; set; }
@@ -21,7 +19,7 @@ namespace Powerlifting.Services.ProgramLogs.DTO
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
 
-        public ICollection<ProgramLogExerciseDTO> ProgramLogExercises { get; set; }
+        public ICollection<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
 
     }
 }

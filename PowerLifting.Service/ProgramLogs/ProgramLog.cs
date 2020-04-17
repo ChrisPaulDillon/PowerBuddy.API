@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PowerLifting.ProgramLogExercises.Model;
+using PowerLifting.Service.ProgramLogWeeks.Model;
 
 namespace Powerlifting.Services.ProgramLogs
 {
@@ -15,8 +16,6 @@ namespace Powerlifting.Services.ProgramLogs
         public int TemplateProgramId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int NoOfDaysLifting { get; set; }
-
         public bool Monday { get; set; }
         public bool Tuesday { get; set; }
         public bool Wednesday { get; set; }
@@ -25,7 +24,7 @@ namespace Powerlifting.Services.ProgramLogs
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
 
-        public IEnumerable<ProgramLogExercise> ProgramLogExercises { get; set; }
+        public IEnumerable<ProgramLogWeek> ProgramLogWeeks { get; set; }
 
     }
 }

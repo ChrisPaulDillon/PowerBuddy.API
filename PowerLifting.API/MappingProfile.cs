@@ -25,6 +25,10 @@ using PowerLifting.Service.TemplateWeek.Model;
 using PowerLifting.Service.TemplateWeeks.DTO;
 using PowerLifting.Service.TemplateDays.DTO;
 using PowerLifting.Service.TemplateDays.Model;
+using PowerLifting.Service.ProgramWeeks.DTO;
+using PowerLifting.Service.ProgramLogWeeks.Model;
+using PowerLifting.Service.ProgramLogDays.Model;
+using PowerLifting.Service.ProgramLogDays.DTO;
 
 namespace PowerLifting.API
 {
@@ -57,6 +61,12 @@ namespace PowerLifting.API
 
             CreateMap<ProgramLogDTO, ProgramLog>();
             CreateMap<ProgramLog, ProgramLogDTO>();
+
+            CreateMap<ProgramLogWeek, ProgramLogWeekDTO>();
+            CreateMap<ProgramLogWeekDTO, ProgramLogWeek>();
+
+            CreateMap<ProgramLogDay, ProgramLogDayDTO>();
+            CreateMap<ProgramLogDayDTO, ProgramLogDay>();
 
             CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>();
             CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>();

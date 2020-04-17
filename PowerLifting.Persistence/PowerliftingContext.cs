@@ -13,6 +13,8 @@ using Powerlifting.Service.TemplateExercises.Model;
 using Powerlifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.TemplateWeek.Model;
 using PowerLifting.Service.TemplateDays.Model;
+using PowerLifting.Service.ProgramLogWeeks.Model;
+using PowerLifting.Service.ProgramLogDays.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -30,11 +32,13 @@ namespace PowerLifting.Persistence
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }
         public DbSet<ExerciseMuscleGroup> ExerciseMuscleGroup { get; set; }
+        public DbSet<ProgramLog> ProgramLog { get; set; }
+        public DbSet<ProgramLogWeek> ProgramLogWeek { get; set; }
+        public DbSet<ProgramLogDay> ProgramLogDay { get; set; }
         public DbSet<ProgramLogExercise> ProgramLogExercise { get; set; }
         public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
         public DbSet<LiftingStat> LiftingStat{ get; set; }
         public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
-        public DbSet<ProgramLog> ProgramLog { get; set; }
         public DbSet<TemplateProgram> TemplateProgram { get; set; }
         public DbSet<TemplateWeek> TemplateWeek { get; set; }
         public DbSet<TemplateDay> TemplateDay { get; set; }
@@ -53,16 +57,22 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<ExerciseType>().HasAlternateKey(e => e.ExerciseTypeName);
             modelBuilder.Entity<ExerciseType>().ToTable("ExerciseType");
             modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("ExerciseMuscleGroup");
+
+            modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
+            modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");
+            modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay");
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
             modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
+
             modelBuilder.Entity<LiftingStat>().ToTable("LiftingStat");
             modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
-            modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
+
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
             modelBuilder.Entity<TemplateWeek>().ToTable("TemplateWeek");
             modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
+
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
             modelBuilder.Entity<User>().ToTable("IdentityUser");
             modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey().ToTable("IdentityUserRole");

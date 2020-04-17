@@ -10,5 +10,6 @@ namespace Powerlifting.Services.ProgramLogRepSchemes.Model
         public int SetNo { get; set; }
         public int NumOfReps { get; set; }
         public double WeightLifted { get; set; }
+        public string Comment { get; set; }
     }
 }

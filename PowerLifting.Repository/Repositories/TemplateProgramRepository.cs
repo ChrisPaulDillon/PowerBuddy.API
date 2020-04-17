@@ -42,7 +42,5 @@ namespace PowerLifting.Repository.Repositories
         {
             throw new System.NotImplementedException();
         }
-
-      
     }
 }

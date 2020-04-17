@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.UnitTests", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.LoggerService", "PowerLifting.LoggerService\PowerLifting.LoggerService.csproj", "{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Service", "PowerLifting.Service\PowerLifting.Service.csproj", "{1A8AF880-EA60-4F15-9C05-B0F0D9744945}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Service", "PowerLifting.Service\PowerLifting.Service.csproj", "{1A8AF880-EA60-4F15-9C05-B0F0D9744945}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Repository", "PowerLifting.Repository\PowerLifting.Repository.csproj", "{D8A03545-CC3F-4606-9042-FB9CB988AD00}"
 EndProject
