@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using Powerlifting.Service.TemplateExercises.Model;
-using PowerLifting.Service.TemplateWeek.Model;
 
-namespace Powerlifting.Service.TemplatePrograms.Model
+namespace PowerLifting.Service.TemplatePrograms.Model
 {
     public class TemplateProgram
     {

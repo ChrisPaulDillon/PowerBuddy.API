@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.DTO;
-using PowerLifting.Services.Service.Users.Exceptions;
-using PowerLifting.Services.Users.DTO;
-using PowerLifting.Services.Users.Exceptions;
+using PowerLifting.Service.Users.Exceptions;
 
 namespace PowerLifting.API.API
 {

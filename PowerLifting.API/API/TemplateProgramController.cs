@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.Service.ServiceWrappers;
-using Powerlifting.Service.TemplatePrograms.DTO;
+using PowerLifting.Service.TemplatePrograms.DTO;
 
 namespace PowerLifting.API.API
 {

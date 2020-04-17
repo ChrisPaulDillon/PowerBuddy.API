@@ -1,16 +1,16 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using Powerlifting.Service.LiftingStats.DTO;
-using Powerlifting.Service.LiftingStats.Model;
+using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Exceptions;
+using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.ServiceWrappers;
 
-namespace Powerlifting.Service.LiftingStats
+namespace PowerLifting.Service.LiftingStats
 {
     public class LiftingStatService : ILiftingStatService
     {
-        private IMapper _mapper;
-        private IRepositoryWrapper _repo;
+        private readonly IMapper _mapper;
+        private readonly IRepositoryWrapper _repo;
 
         public LiftingStatService(IRepositoryWrapper repo, IMapper mapper)
         {
@@ -28,14 +28,9 @@ namespace Powerlifting.Service.LiftingStats
         public async Task UpdateLiftingStatsAsync(string userId, LiftingStatDTO stats)
         {
             var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
-            if(liftingStat == null)
-            {
-                throw new LiftingStatNotFoundException("Lifting stat not found");
-            }
-            if(liftingStat.UserId != userId)
-            {
+            if (liftingStat == null) throw new LiftingStatNotFoundException("Lifting stat not found");
+            if (liftingStat.UserId != userId)
                 throw new UserDoesNotMatchLiftingStatException("You are not authorised to modify these lifting stats!");
-            }
             var liftingStats = _mapper.Map<LiftingStat>(stats);
             _repo.LiftingStat.UpdateLiftingStats(liftingStats);
         }

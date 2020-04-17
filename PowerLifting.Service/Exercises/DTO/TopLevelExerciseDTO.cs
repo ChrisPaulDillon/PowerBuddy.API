@@ -1,7 +1,7 @@
-﻿namespace Powerlifting.Service.Exercises.DTO
+﻿namespace PowerLifting.Service.Exercises.DTO
 {
     /// <summary>
-    /// Used to display exercises at a glance within a list
+    ///     Used to display exercises at a glance within a list
     /// </summary>
     public class TopLevelExerciseDTO
     {

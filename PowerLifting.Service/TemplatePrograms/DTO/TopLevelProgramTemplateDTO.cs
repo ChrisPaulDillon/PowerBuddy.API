@@ -1,7 +1,7 @@
-﻿namespace Powerlifting.Service.TemplatePrograms.DTO
+﻿namespace PowerLifting.Service.TemplatePrograms.DTO
 {
     /// <summary>
-    /// Used for showing all program templates as a general overview
+    ///     Used for showing all program templates as a general overview
     /// </summary>
     public class TopLevelTemplateProgramDTO
     {
@@ -11,4 +11,3 @@
         public int NoOfWeeks { get; set; }
     }
 }
-    

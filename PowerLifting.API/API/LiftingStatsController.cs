@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Powerlifting.Service.LiftingStats.DTO;
+using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Exceptions;
 using PowerLifting.Service.ServiceWrappers;
-using PowerLifting.Services.Service.Users.Exceptions;
+using PowerLifting.Service.Users.Exceptions;
 
 namespace PowerLifting.API.API
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using PowerLifting.Service.ServiceWrappers;
 
 namespace PowerLifting.Service.LiftingStatsAudit

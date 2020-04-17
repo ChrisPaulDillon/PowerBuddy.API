@@ -1,10 +1,8 @@
 ﻿using System;
-namespace PowerLifting.Services.Users.Exceptions
+
+namespace PowerLifting.Service.Users.Exceptions
 {
     public class EmailInUseException : Exception
     {
-        public EmailInUseException()
-        {
-        }
     }
 }

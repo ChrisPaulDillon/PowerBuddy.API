@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Powerlifting.Service.LiftingStats.DTO
+namespace PowerLifting.Service.LiftingStats.DTO
 {
     public class LiftingStatDTO
     {

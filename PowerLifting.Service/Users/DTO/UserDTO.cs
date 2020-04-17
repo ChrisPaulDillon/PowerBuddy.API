@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
-using Powerlifting.Service.LiftingStats.DTO;
-using Powerlifting.Services.ProgramLogs.DTO;
+using PowerLifting.Service.LiftingStats.DTO;
+using PowerLifting.Service.ProgramLogs.DTO;
 
 namespace PowerLifting.Service.Users.DTO
 {
@@ -13,6 +12,5 @@ namespace PowerLifting.Service.Users.DTO
         public string Password { get; set; }
         public virtual LiftingStatDTO LiftingStats { get; set; }
         public ICollection<ProgramLogDTO> ProgramLogs { get; set; }
-
     }
 }

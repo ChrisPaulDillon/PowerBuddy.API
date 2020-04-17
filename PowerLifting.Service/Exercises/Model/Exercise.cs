@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using PowerLifting.Service.Exercises.Model;
 
-namespace Powerlifting.Service.Exercises.Model
+namespace PowerLifting.Service.Exercises.Model
 {
     /// <summary>
-    /// Used for a lookups table for each individual lift
+    ///     Used for a lookups table for each individual lift
     /// </summary>
     public class Exercise
     {

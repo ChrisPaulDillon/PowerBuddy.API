@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Powerlifting.Service.LiftingStats.DTO;
+using PowerLifting.Service.LiftingStats.DTO;
 
-namespace Powerlifting.Service.LiftingStats
+namespace PowerLifting.Service.LiftingStats
 {
     public interface ILiftingStatService
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace PowerLifting.Service.LiftingStatsAudit.DTO
 {
     public class LiftingStatAuditDTO

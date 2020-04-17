@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using PowerLifting.Service.TemplateWeeks.DTO;
 
-namespace Powerlifting.Service.TemplatePrograms.DTO
+namespace PowerLifting.Service.TemplatePrograms.DTO
 {
     public class TemplateProgramDTO
     {

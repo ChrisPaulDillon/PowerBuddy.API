@@ -1,7 +1,6 @@
-﻿using System;
-using Powerlifting.Service.LiftingStats.DTO;
+﻿using PowerLifting.Service.LiftingStats.DTO;
 
-namespace PowerLifting.Services.Users.DTO
+namespace PowerLifting.Service.Users.DTO
 {
     public class NewUserDTO
     {

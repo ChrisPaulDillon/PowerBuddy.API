@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Service.Users.Model;
-using PowerLifting.Services;
 
 namespace PowerLifting.Service.Users
 {

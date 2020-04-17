@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PowerLifting.Service
 {
@@ -13,5 +12,5 @@ namespace PowerLifting.Service
         {
             return JsonConvert.SerializeObject(this);
         }
-    }   
+    }
 }

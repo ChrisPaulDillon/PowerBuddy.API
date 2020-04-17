@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerLifting.Service.ProgramWeeks.DTO;
 
-namespace Powerlifting.Services.ProgramLogs.DTO
+namespace PowerLifting.Service.ProgramLogs.DTO
 {
     public class ProgramLogDTO
     {
@@ -20,6 +19,5 @@ namespace Powerlifting.Services.ProgramLogs.DTO
         public bool Sunday { get; set; }
 
         public ICollection<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
-
     }
 }

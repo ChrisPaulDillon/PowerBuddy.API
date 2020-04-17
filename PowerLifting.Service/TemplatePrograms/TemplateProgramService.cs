@@ -1,17 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.ServiceWrappers;
-using Powerlifting.Service.TemplatePrograms.DTO;
-using Powerlifting.Service.TemplatePrograms.Model;
-using Powerlifting.Services.TemplatePrograms;
+using PowerLifting.Service.TemplatePrograms.Contracts.Services;
+using PowerLifting.Service.TemplatePrograms.DTO;
 
 namespace PowerLifting.Service.TemplatePrograms
 {
     public class TemplateProgramService : ITemplateProgramService
     {
-        private IMapper _mapper;
-        private IRepositoryWrapper _repo;
+        private readonly IMapper _mapper;
+        private readonly IRepositoryWrapper _repo;
 
         public TemplateProgramService(IRepositoryWrapper repo, IMapper mapper)
         {
@@ -29,7 +29,7 @@ namespace PowerLifting.Service.TemplatePrograms
         public async Task<TemplateProgramDTO> GetTemplateProgramById(int programTemplateId)
         {
             //var user = await _repo.User.get(programTemplateId);
-            TemplateProgram programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
+            var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
             var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(programTemplate);
             return programTemplateDTO;
         }
@@ -40,30 +40,19 @@ namespace PowerLifting.Service.TemplatePrograms
             var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
 
             foreach (var templateWeek in programTemplate.TemplateWeeks)
+            foreach (var templateDay in templateWeek.TemplateDays)
+            foreach (var templateExercise in templateDay.TemplateExercises)
+            foreach (var set in templateExercise.TemplateRepSchemes)
             {
-                foreach (var templateDay in templateWeek.TemplateDays)
-                {
-                    foreach (var templateExercise in templateDay.TemplateExercises)
-                    {
-                        foreach (var set in templateExercise.TemplateRepSchemes)
-                        {
-                            var percentage = (double)set.Percentage / 100;
-                            if (templateExercise.ExerciseName == "Squat")
-                            {
-                                set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
-                            }
-                            else if (templateExercise.ExerciseName == "Deadlift")
-                            {
-                                set.WeightLifted = percentage * user.LiftingStats.DeadliftWeight;
-                            }
-                            else if (templateExercise.ExerciseName == "Bench Press")
-                            {
-                                set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
-                            }
-                        }
-                    }
-                }
+                var percentage = set.Percentage / 100;
+                if (templateExercise.ExerciseName == "Squat")
+                    set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
+                else if (templateExercise.ExerciseName == "Deadlift")
+                    set.WeightLifted = percentage * user.LiftingStats.DeadliftWeight;
+                else if (templateExercise.ExerciseName == "Bench Press")
+                    set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
             }
+
             var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(programTemplate);
             return programTemplateDTO;
         }
@@ -77,7 +66,7 @@ namespace PowerLifting.Service.TemplatePrograms
 
         public Task<TemplateProgramDTO> CreateTemplateProgram(TemplateProgramDTO programType)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

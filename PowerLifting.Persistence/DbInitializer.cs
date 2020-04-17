@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Powerlifting.Service.Exercises.Model;
-using Powerlifting.Service.LiftingStats.Model;
-using Powerlifting.Services.ProgramLogs;
-using Powerlifting.Services.ProgramLogRepSchemes.Model;
-using PowerLifting.ProgramLogExercises.Model;
 using PowerLifting.Service.Users.Model;
-using PowerLifting.Services.TemplateRepSchemes.Model;
 using PowerLifting.Service.Exercises.Model;
-using Powerlifting.Service.TemplateExercises.Model;
-using Powerlifting.Service.TemplatePrograms.Model;
-using PowerLifting.Service.TemplateWeek.Model;
-using PowerLifting.Service.TemplateDays.Model;
-using PowerLifting.Service.ProgramLogWeeks.Model;
-using PowerLifting.Service.ProgramLogDays.Model;
+using PowerLifting.Service.LiftingStats.Model;
+using PowerLifting.Service.ProgramLogs.Model;
+using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.Persistence
 {

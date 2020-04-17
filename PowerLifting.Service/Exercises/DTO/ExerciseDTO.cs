@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using PowerLifting.Service.Exercises.DTO;
 using PowerLifting.Service.Exercises.Model;
 
-namespace Powerlifting.Service.Exercises.DTO
+namespace PowerLifting.Service.Exercises.DTO
 {
     /// <summary>
-    /// Used for a lookups table for each individual lift
+    ///     Used for a lookups table for each individual lift
     /// </summary>
     public class ExerciseDTO
     {

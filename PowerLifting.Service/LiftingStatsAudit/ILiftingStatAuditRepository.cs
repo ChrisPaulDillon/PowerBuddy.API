@@ -1,8 +1,6 @@
-﻿using System;
-namespace PowerLifting.Service.LiftingStatsAudit
+﻿namespace PowerLifting.Service.LiftingStatsAudit
 {
     public interface ILiftingStatAuditRepository
     {
-      
     }
 }

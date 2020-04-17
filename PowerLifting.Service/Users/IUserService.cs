@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Service.Users.DTO;
-using PowerLifting.Services.Users.DTO;
 
 namespace PowerLifting.Service.Users
 {
@@ -15,4 +14,3 @@ namespace PowerLifting.Service.Users
         Task DeleteUser(string id);
     }
 }
-

@@ -1,40 +1,33 @@
 ﻿using AutoMapper;
-using Powerlifting.Services.ProgramLogs;
-using Powerlifting.Services.TemplatePrograms;
-using Powerlifting.Service.LiftingStats;
-using Powerlifting.Service.ProgramLogs;
-using PowerLifting.Service.Users;
 using PowerLifting.Service.Exercises;
-using PowerLifting.Service.TemplatePrograms;
-using PowerLifting.Service.LiftingStatsAudit;
-using PowerLifting.Services.ProgramLogExercises;
-using PowerLifting.Services.ProgramLogRepSchemes;
-using PowerLifting.Services.ProgramLogRepSchemess;
 using PowerLifting.Service.Exercises.Contracts;
-using Powerlifting.Service.Exercises.Contracts;
-using PowerLifting.Service.ProgramLogExercises;
-using PowerLifting.Service.TemplateExercises;
-using Powerlifting.Service.TemplateRepSchemes;
+using PowerLifting.Service.LiftingStats;
+using PowerLifting.Service.LiftingStatsAudit;
+using PowerLifting.Service.ProgramLogs;
+using PowerLifting.Service.ProgramLogs.Contracts.Services;
+using PowerLifting.Service.TemplatePrograms;
+using PowerLifting.Service.TemplatePrograms.Contracts.Services;
+using PowerLifting.Service.Users;
 
 namespace PowerLifting.Service.ServiceWrappers
 {
     public class ServiceWrapper : IServiceWrapper
     {
-        private IUserService _user;
-        private ILiftingStatService _liftingStats;
-        private ILiftingStatAuditService _liftingStatAudit;
         private IExerciseService _exercise;
-        private IExerciseTypeService _exerciseType;
         private IExerciseMuscleGroupService _exerciseMuscleGroup;
+        private IExerciseTypeService _exerciseType;
+        private ILiftingStatAuditService _liftingStatAudit;
+        private ILiftingStatService _liftingStats;
+
+        private readonly IMapper _mapper;
         private IProgramLogService _programLog;
         private IProgramLogExerciseService _programLogExercise;
         private ProgramLogRepSchemeService _programLogRepScheme;
-        private ITemplateProgramService _templateProgram;
+        private readonly IRepositoryWrapper _repoWrapper;
         private ITemplateExerciseService _templateExercise;
+        private ITemplateProgramService _templateProgram;
         private ITemplateRepSchemeService _templateRepScheme;
-
-        private IMapper _mapper;
-        private IRepositoryWrapper _repoWrapper;
+        private IUserService _user;
 
         public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper)
         {
@@ -46,10 +39,7 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_user == null)
-                {
-                    _user = new UserService(_repoWrapper, _mapper);
-                }
+                if (_user == null) _user = new UserService(_repoWrapper, _mapper);
 
                 return _user;
             }
@@ -59,10 +49,7 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_liftingStats == null)
-                {
-                    _liftingStats = new LiftingStatService(_repoWrapper, _mapper);
-                }
+                if (_liftingStats == null) _liftingStats = new LiftingStatService(_repoWrapper, _mapper);
 
                 return _liftingStats;
             }
@@ -72,10 +59,7 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if(_liftingStatAudit == null)
-                {
-                    _liftingStatAudit = new LiftingStatAuditService(_repoWrapper, _mapper);
-                }
+                if (_liftingStatAudit == null) _liftingStatAudit = new LiftingStatAuditService(_repoWrapper, _mapper);
 
                 return _liftingStatAudit;
             }
@@ -85,10 +69,7 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_exercise == null)
-                {
-                    _exercise = new ExerciseService(_repoWrapper, _mapper);
-                }
+                if (_exercise == null) _exercise = new ExerciseService(_repoWrapper, _mapper);
 
                 return _exercise;
             }
@@ -98,10 +79,7 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_exerciseType == null)
-                {
-                    _exerciseType = new ExerciseTypeService(_repoWrapper, _mapper);
-                }
+                if (_exerciseType == null) _exerciseType = new ExerciseTypeService(_repoWrapper, _mapper);
 
                 return _exerciseType;
             }
@@ -112,9 +90,7 @@ namespace PowerLifting.Service.ServiceWrappers
             get
             {
                 if (_exerciseMuscleGroup == null)
-                {
                     _exerciseMuscleGroup = new ExerciseMuscleGroupService(_repoWrapper, _mapper);
-                }
 
                 return _exerciseMuscleGroup;
             }
@@ -124,10 +100,7 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_programLog == null)
-                {
-                    _programLog = new ProgramLogService(_repoWrapper, _mapper);
-                }
+                if (_programLog == null) _programLog = new ProgramLogService(_repoWrapper, _mapper);
 
                 return _programLog;
             }
@@ -138,9 +111,7 @@ namespace PowerLifting.Service.ServiceWrappers
             get
             {
                 if (_programLogExercise == null)
-                {
                     _programLogExercise = new ProgramLogExerciseService(_repoWrapper, _mapper);
-                }
 
                 return _programLogExercise;
             }
@@ -151,9 +122,7 @@ namespace PowerLifting.Service.ServiceWrappers
             get
             {
                 if (_programLogRepScheme == null)
-                {
                     _programLogRepScheme = new ProgramLogRepSchemeService(_repoWrapper, _mapper);
-                }
 
                 return _programLogRepScheme;
             }
@@ -163,10 +132,7 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_templateProgram == null)
-                {
-                    _templateProgram = new TemplateProgramService(_repoWrapper, _mapper);
-                }
+                if (_templateProgram == null) _templateProgram = new TemplateProgramService(_repoWrapper, _mapper);
 
                 return _templateProgram;
             }
@@ -176,10 +142,7 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_templateExercise == null)
-                {
-                    _templateExercise = new TemplateExerciseService(_repoWrapper, _mapper);
-                }
+                if (_templateExercise == null) _templateExercise = new TemplateExerciseService(_repoWrapper, _mapper);
 
                 return _templateExercise;
             }
@@ -190,9 +153,7 @@ namespace PowerLifting.Service.ServiceWrappers
             get
             {
                 if (_templateRepScheme == null)
-                {
                     _templateRepScheme = new TemplateRepSchemeService(_repoWrapper, _mapper);
-                }
 
                 return _templateRepScheme;
             }

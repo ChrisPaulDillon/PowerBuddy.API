@@ -1,13 +1,9 @@
 ﻿using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.LiftingStats;
 using PowerLifting.Service.LiftingStatsAudit;
-using PowerLifting.Service.ProgramLogExercises;
-using PowerLifting.Service.ProgramLogRepSchemes;
-using PowerLifting.Service.TemplateExercises;
-using PowerLifting.Service.TemplatePrograms;
-using PowerLifting.Service.TemplateRepSchemes;
+using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
+using PowerLifting.Service.TemplatePrograms.Contracts.Repositories;
 using PowerLifting.Service.Users;
-using PowerLifting.Services.ProgramLogs;
 
 namespace PowerLifting.Service.ServiceWrappers
 {
@@ -20,9 +16,13 @@ namespace PowerLifting.Service.ServiceWrappers
         IExerciseTypeRepository ExerciseType { get; }
         IExerciseMuscleGroupRepository ExerciseMuscleGroup { get; }
         IProgramLogRepository ProgramLog { get; }
+        IProgramLogWeekRepository ProgramLogWeek { get; }
+        IProgramLogDayRepository ProgramLogDay { get; }
         IProgramLogExerciseRepository ProgramLogExercise { get; }
         IProgramLogRepSchemeRepository ProgramLogRepScheme { get; }
         ITemplateProgramRepository TemplateProgram { get; }
+        ITemplateWeekRepository TemplateWeek { get; }
+        ITemplateDayRepository TemplateDay { get; }
         ITemplateExerciseRepository TemplateExercise { get; }
         ITemplateRepSchemeRepository TemplateRepScheme { get; }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Service.Exercises.DTO
+﻿namespace PowerLifting.Service.Exercises.DTO
 {
     public class ExerciseMuscleGroupDTO
     {

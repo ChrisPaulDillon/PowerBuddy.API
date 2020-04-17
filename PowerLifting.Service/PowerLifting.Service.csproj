@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
@@ -18,17 +17,6 @@
     <Folder Include="LiftingStatsAudit\DTO\" />
     <Folder Include="Exercises\Contracts\" />
     <Folder Include="Exercises\Exceptions\" />
-    <Folder Include="TemplateWeeks\" />
-    <Folder Include="TemplateWeeks\DTO\" />
-    <Folder Include="TemplateWeeks\Model\" />
-    <Folder Include="TemplateDays\" />
-    <Folder Include="TemplateDays\Model\" />
-    <Folder Include="TemplateDays\DTO\" />
-    <Folder Include="ProgramLogWeeks\" />
-    <Folder Include="ProgramLogWeeks\Model\" />
-    <Folder Include="ProgramLogWeeks\DTO\" />
-    <Folder Include="ProgramLogDays\" />
-    <Folder Include="ProgramLogDays\Model\" />
-    <Folder Include="ProgramLogDays\DTO\" />
+    <Folder Include="TemplatePrograms\Exceptions\" />
   </ItemGroup>
 </Project>

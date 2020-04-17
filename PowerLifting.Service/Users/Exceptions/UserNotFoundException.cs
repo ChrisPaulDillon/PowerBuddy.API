@@ -1,10 +1,8 @@
 ﻿using System;
-namespace PowerLifting.Services.Service.Users.Exceptions
+
+namespace PowerLifting.Service.Users.Exceptions
 {
     public class UserNotFoundException : Exception
     {
-        public UserNotFoundException()
-        {
-        }
     }
 }

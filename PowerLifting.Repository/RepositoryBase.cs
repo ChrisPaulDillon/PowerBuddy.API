@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using PowerLifting.Persistence;
+using PowerLifting.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using PowerLifting.Persistence;
-using PowerLifting.Service;
 
 namespace Powerlifting.Repository
 {

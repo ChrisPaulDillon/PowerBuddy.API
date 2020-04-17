@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace PowerLifting.Services.Users.DTO
+namespace PowerLifting.Service.Users.DTO
 {
     public class RegisterUserDTO : IdentityUser
     {
