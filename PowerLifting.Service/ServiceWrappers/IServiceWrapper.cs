@@ -16,9 +16,7 @@ namespace PowerLifting.Service.ServiceWrappers
         IExerciseTypeService ExerciseType { get; }
         IExerciseMuscleGroupService ExerciseMuscleGroup { get; }
         IProgramLogService ProgramLog { get; }
-        IProgramLogExerciseService ProgramLogExercise { get; }
-        IProgramLogRepSchemeService ProgramLogRepScheme { get; }
-        ITemplateProgramService TemplateProgram { get; }
+        ITemplateProgramService TemplateProgram { get;  }
         ITemplateExerciseService TemplateExercise { get; }
         ITemplateRepSchemeService TemplateRepScheme { get; }
     }

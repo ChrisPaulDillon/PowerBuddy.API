@@ -4,6 +4,7 @@ using PowerLifting.Persistence;
 using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
 using PowerLifting.Service.ProgramLogs.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,14 +17,20 @@ namespace PowerLifting.Repository.ProgramLogs
 
         }
 
-        public async Task<ProgramLog> GetActiveProgramLogByUserId(string userId)
+        public async Task<IEnumerable<ProgramLog>> GetAllProgramLogsByUserId(string userId)
         {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId && DateTime.Now <= x.EndDate)
+            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId)
                                                                         .Include(x => x.ProgramLogWeeks)
                                                                         .ThenInclude(x => x.ProgramLogDays)
                                                                         .ThenInclude(x => x.ProgramLogExercises)
                                                                         .ThenInclude(x => x.ProgramLogRepSchemes)
-                                                                        .FirstOrDefaultAsync();
+                                                                        .ToListAsync();
+        }
+
+
+        public async Task<ProgramLog> CreateProgramLog(ProgramLog programLog)
+        {
+            await Create(programLog);
         }
 
         public void UpdateProgramLog(ProgramLog log)
@@ -36,6 +43,11 @@ namespace PowerLifting.Repository.ProgramLogs
         {
             PowerliftingContext.Set<ProgramLog>().Remove(log);
             Save();
+        }
+
+        public Task<ProgramLog> GetProgramLogById(int programLogId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Powerlifting.Repository
 
         public void Save()
         {
-            PowerliftingContext.SaveChanges();
+            PowerliftingContext.SaveChangesAsync();
         }
 
         public IQueryable<T> FindAll()
@@ -63,9 +63,9 @@ namespace Powerlifting.Repository
             throw new NotImplementedException();
         }
 
-        public void Create(T entity)
+        public async Task Create(T entity)
         {
-            throw new NotImplementedException();
+            await this.PowerliftingContext.Set<T>().AddAsync(entity);
         }
     }
 }

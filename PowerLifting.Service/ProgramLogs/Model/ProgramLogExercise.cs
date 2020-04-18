@@ -16,7 +16,6 @@ namespace PowerLifting.Service.ProgramLogs.Model
         public int NumOfSets { get; set; }
         public string Comment { get; set; }
 
-        public ICollection<ProgramLogRepScheme>
-            ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
+        public ICollection<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
     }
 }

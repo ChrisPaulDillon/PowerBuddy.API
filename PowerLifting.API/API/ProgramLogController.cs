@@ -18,7 +18,43 @@ namespace PowerLifting.API.API
             _service = service;
         }
 
-        [HttpGet("Today/{userId}")]
+        [HttpGet("{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetAllProgramLogsByUserId(string userId)
+        {
+            try
+            {
+                var programLogs = await _service.ProgramLog.GetAllProgramLogsByUserId(userId);
+                return Ok(programLogs);
+            }
+            catch (ProgramLogNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            catch (UserDoesNotMatchProgramLogException e)
+            {
+                return Unauthorized(e);
+            }
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
+        {
+            if (programLog == null) return BadRequest("ProgramLog object is null");
+
+            if (!ModelState.IsValid) return BadRequest("Invalid ProgramLog object");
+
+
+            await _service.ProgramLog.CreateProgramLogExercise(programLogEntity);
+            //TODO fix
+            return Ok(programLog);
+        }
+
+
+        [HttpGet("Day/Today/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -26,7 +62,7 @@ namespace PowerLifting.API.API
         {
             try
             {
-                var programLogs = await _service.ProgramLog.GetTodaysProgramLogByUserId(userId);
+                var programLogs = await _service.ProgramLog.GetTodaysProgramLogDayByUserId(userId);
                 return Ok(programLogs);
             }
             catch(ProgramLogNotFoundException e)
@@ -46,7 +82,7 @@ namespace PowerLifting.API.API
         {
             try
             {
-                var programLogs = await _service.ProgramLog.GetWeeklyProgramLogByUserId(userId);
+                var programLogs = await _service.ProgramLog.GetActiveProgramLogWeekByUserId(userId);
                 return Ok(programLogs);
             }
             catch (ProgramLogNotFoundException e)
@@ -69,23 +105,6 @@ namespace PowerLifting.API.API
             {
                 return NotFound(e);
             }
-        }
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
-        {
-            if (programLog == null) return BadRequest("ProgramLog object is null");
-
-            if (!ModelState.IsValid) return BadRequest("Invalid ProgramLog object");
-
-            var programLogCheck = await _service.ProgramLog.GetProgramLogByProgramLogId(programLog.ProgramLogId);
-
-            if (programLogCheck != null) return Conflict("ProgramLog is already been added");
-          
-            //await _service.ProgramLog.AddAsync(programLogEntity);
-            //TODO fix
-            return Ok(programLog);
         }
 
         [HttpDelete("{userId}")]

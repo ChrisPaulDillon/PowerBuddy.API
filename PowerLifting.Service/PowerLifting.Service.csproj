@@ -12,11 +12,9 @@
   <ItemGroup>
     <Folder Include="ProgramLogs\Exceptions\" />
     <Folder Include="LiftingStats\Exceptions\" />
-    <Folder Include="LiftingStatsAudit\" />
-    <Folder Include="LiftingStatsAudit\Model\" />
-    <Folder Include="LiftingStatsAudit\DTO\" />
     <Folder Include="Exercises\Contracts\" />
     <Folder Include="Exercises\Exceptions\" />
     <Folder Include="TemplatePrograms\Exceptions\" />
+    <Folder Include="LiftingStats\Contracts\" />
   </ItemGroup>
 </Project>

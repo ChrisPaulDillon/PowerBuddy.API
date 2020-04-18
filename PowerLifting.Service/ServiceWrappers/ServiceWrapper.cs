@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using PowerLifting.Service.Exercises;
 using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.LiftingStats;
@@ -8,6 +9,7 @@ using PowerLifting.Service.ProgramLogs.Contracts.Services;
 using PowerLifting.Service.TemplatePrograms;
 using PowerLifting.Service.TemplatePrograms.Contracts.Services;
 using PowerLifting.Service.Users;
+using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.Service.ServiceWrappers
 {
@@ -21,18 +23,19 @@ namespace PowerLifting.Service.ServiceWrappers
 
         private readonly IMapper _mapper;
         private IProgramLogService _programLog;
-        private IProgramLogExerciseService _programLogExercise;
-        private ProgramLogRepSchemeService _programLogRepScheme;
         private readonly IRepositoryWrapper _repoWrapper;
         private ITemplateExerciseService _templateExercise;
         private ITemplateProgramService _templateProgram;
         private ITemplateRepSchemeService _templateRepScheme;
         private IUserService _user;
 
-        public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper)
+        private UserManager<User> _userManager;
+
+        public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper, UserManager<User> userManager)
         {
             _mapper = mapper;
             _repoWrapper = repoWrapper;
+            _userManager = userManager;
         }
 
         public IUserService User
@@ -100,31 +103,9 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_programLog == null) _programLog = new ProgramLogService(_repoWrapper, _mapper);
+                if (_programLog == null) _programLog = new ProgramLogService(_repoWrapper, _mapper, _userManager);
 
                 return _programLog;
-            }
-        }
-
-        public IProgramLogExerciseService ProgramLogExercise
-        {
-            get
-            {
-                if (_programLogExercise == null)
-                    _programLogExercise = new ProgramLogExerciseService(_repoWrapper, _mapper);
-
-                return _programLogExercise;
-            }
-        }
-
-        public IProgramLogRepSchemeService ProgramLogRepScheme
-        {
-            get
-            {
-                if (_programLogRepScheme == null)
-                    _programLogRepScheme = new ProgramLogRepSchemeService(_repoWrapper, _mapper);
-
-                return _programLogRepScheme;
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace PowerLifting.Service
 {
@@ -8,7 +9,7 @@ namespace PowerLifting.Service
     {
         IQueryable<T> FindAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
-        void Create(T entity);
+        Task Create(T entity);
         void Update(T entity);
         void Delete(T entity);
     }
