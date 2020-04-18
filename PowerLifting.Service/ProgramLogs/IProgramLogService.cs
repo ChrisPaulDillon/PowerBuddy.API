@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using PowerLifting.Service.ProgramLogs.DTO;
 
 namespace PowerLifting.Service.ProgramLogs.Contracts.Services
@@ -11,7 +12,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<ProgramLogDTO> GetAllProgramLogsByUserId(string userId);
+        Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId);
 
         /// <summary>
         /// Gets the whole program log cycle the user is currently running
@@ -20,17 +21,19 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// <returns></returns>
         //Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId);
 
+        Task<ProgramLogDTO> CreateProgramLog(ProgramLogDTO programLog);
+
         /// <summary>
         /// Updates the program log accordingly
         /// </summary>
         /// <param name="programLog"></param>
-        void UpdateProgramLog(string userId, ProgramLogDTO programLog);
+        Task<ProgramLogDTO> UpdateProgramLog(string userId, ProgramLogDTO programLog);
 
         /// <summary>
         /// Allows a user to delete the current log selected
         /// </summary>
         /// <param name="programLog"></param>
-        void DeleteProgramLog(string userId, ProgramLogDTO programLog);
+        Task DeleteProgramLog(string userId, ProgramLogDTO programLog);
 
         #endregion
 

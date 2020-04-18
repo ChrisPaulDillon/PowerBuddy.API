@@ -7,7 +7,7 @@ namespace PowerLifting.Service
 {
     public interface IRepositoryBase<T> where T : class
     {
-        IQueryable<T> FindAll();
+        IQueryable<T> GetAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
         Task Create(T entity);
         void Update(T entity);

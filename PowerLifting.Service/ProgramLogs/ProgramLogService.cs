@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using PowerLifting.Service.ProgramLogs.Contracts.Services;
@@ -25,12 +27,26 @@ namespace PowerLifting.Service.ProgramLogs
 
         #region ProgramLogServices
 
-        public Task<ProgramLogDTO> GetAllProgramLogsByUserId(string userId)
+        public async Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId)
         {
-            throw new System.NotImplementedException();
+            var userProgramLogs = await _repo.ProgramLog.GetAllProgramLogsByUserId(userId);
+            var userProgramLogsDTO = _mapper.Map<IEnumerable<ProgramLogDTO>>(userProgramLogs);
+            return userProgramLogsDTO;
         }
 
-        public async void UpdateProgramLog(string userId, ProgramLogDTO programLogDTO)
+        public async Task<ProgramLogDTO> CreateProgramLog(ProgramLogDTO programLog)
+        {
+            var log = await _repo.ProgramLog.GetProgramLogById(programLog.ProgramLogId);
+            if(log != null)
+            {
+                throw new ProgramLogAlreadyExistsException();
+            }
+            var newProgramLog = _mapper.Map<ProgramLog>(programLog);
+            await _repo.ProgramLog.CreateProgramLog(newProgramLog);
+            return programLog;
+        }
+
+        public async Task<ProgramLogDTO> UpdateProgramLog(string userId, ProgramLogDTO programLogDTO)
         {
             var programLog = await _repo.ProgramLog.GetProgramLogById(programLogDTO.ProgramLogId);
 
@@ -43,9 +59,10 @@ namespace PowerLifting.Service.ProgramLogs
 
             _mapper.Map(programLogDTO, programLog);
             _repo.ProgramLog.UpdateProgramLog(programLog);
+            return programLogDTO;
         }
 
-        public async void DeleteProgramLog(string userId, ProgramLogDTO programLogDTO)
+        public async Task DeleteProgramLog(string userId, ProgramLogDTO programLogDTO)
         {
             var programLog = await _repo.ProgramLog.GetProgramLogById(programLogDTO.ProgramLogId);
 
@@ -61,29 +78,68 @@ namespace PowerLifting.Service.ProgramLogs
 
         #endregion
 
-        public Task<ProgramLogWeekDTO> GetActiveProgramLogWeekByUserId(string userId)
+        #region ProgramLogWeekServices
+
+        public async Task<ProgramLogWeekDTO> GetActiveProgramLogWeekByUserId(string userId)
         {
-            throw new System.NotImplementedException();
+            var programLogWeek =  await _repo.ProgramLogWeek.GetActiveProgramLogWeekByUserId(userId);
+            var programLogWeekDTO = _mapper.Map<ProgramLogWeekDTO>(programLogWeek);
+            return programLogWeekDTO;
         }
 
-        public Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId)
+        #endregion
+
+        #region ProgramLogDayServices
+
+        public async Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId)
         {
-            throw new System.NotImplementedException();
+            var programLogDay = await _repo.ProgramLogDay.GetProgramLogDay(userId, DateTime.Now);
+            var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
+            return programLogDayDTO;
         }
 
-        public Task CreateProgramLogExercise(ProgramLogExerciseDTO programLogExercise)
+        #endregion
+
+        #region ProgramLogExerciseServices
+
+        public async Task CreateProgramLogExercise(ProgramLogExerciseDTO programLogExercise)
         {
-            throw new System.NotImplementedException();
+            var newProgramLogExercise = _mapper.Map<ProgramLogExercise>(programLogExercise);
+            await _repo.ProgramLogExercise.CreateProgramLogExercise(newProgramLogExercise);
         }
 
-        public Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExercise)
+        public async Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
         {
-            throw new System.NotImplementedException();
+            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseDTO.ProgramLogExerciseId);
+
+            //TODO user management logic
+            //if (programLog.UserId != userId)
+            //{
+            //    throw new UserDoesNotMatchProgramLogException("UserId does match the user associated with this program log!");
+            //}
+
+            if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
+
+            _mapper.Map(programLogExerciseDTO, programLogExercise);
+            _repo.ProgramLogExercise.UpdateProgramLogExercise(programLogExercise);
         }
 
-        public Task DeleteProgramLogExercise(ProgramLogExerciseDTO programLogExercise)
+        public async Task DeleteProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
         {
-            throw new System.NotImplementedException();
+            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseDTO.ProgramLogExerciseId);
+
+            //TODO user management logic
+            //if (programLog.UserId != userId)
+            //{
+            //    throw new UserDoesNotMatchProgramLogException("UserId does match the user associated with this program log!");
+            //}
+
+            if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
+
+            _mapper.Map(programLogExerciseDTO, programLogExercise);
+            _repo.ProgramLogExercise.DeleteProgramLogExercise(programLogExercise);
         }
+
+        #endregion
     }
 }

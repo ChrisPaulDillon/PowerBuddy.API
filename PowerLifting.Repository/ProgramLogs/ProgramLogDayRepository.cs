@@ -17,7 +17,7 @@ namespace PowerLifting.Repository.ProgramLogs
 
         public async Task<ProgramLogDay> GetProgramLogDay(string userId, DateTime dateSelected)
         {
-            return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId && x.Date == dateSelected).FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0).FirstOrDefaultAsync();
         }
 
         public void UpdateProgramLogDay(ProgramLogDay programLogDay)

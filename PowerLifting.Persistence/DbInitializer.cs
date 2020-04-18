@@ -13,7 +13,7 @@ namespace PowerLifting.Persistence
     {
         public static void Initialize(PowerliftingContext context)
          {
-            var curDate = DateTime.Now;
+            var curDate = DateTime.Now.Date;
             context.Database.EnsureCreated();
 
             if (!context.ExerciseType.Any())

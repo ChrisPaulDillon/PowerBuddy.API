@@ -23,21 +23,6 @@ namespace Powerlifting.Repository
             return await PowerliftingContext.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public async Task<IList<T>> GetAllByCondition(Expression<Func<T, bool>> expression)
-        {
-            return await PowerliftingContext.Set<T>().Where(expression).AsNoTracking().ToListAsync();
-        }
-
-        public async Task<T> GetByCondition(Expression<Func<T, bool>> expression)
-        {
-            return await PowerliftingContext.Set<T>().Where(expression).AsNoTracking().FirstOrDefaultAsync();
-        }
-
-        public async Task AddAsync(T entity)
-        {
-            await this.PowerliftingContext.Set<T>().AddAsync(entity);
-        }
-
         public void Update(T entity)
         {
             PowerliftingContext.Set<T>().Update(entity);
@@ -53,7 +38,12 @@ namespace Powerlifting.Repository
             PowerliftingContext.SaveChangesAsync();
         }
 
-        public IQueryable<T> FindAll()
+        public async Task Create(T entity)
+        {
+            await this.PowerliftingContext.Set<T>().AddAsync(entity);
+        }
+
+        IQueryable<T> IRepositoryBase<T>.GetAll()
         {
             throw new NotImplementedException();
         }
@@ -61,11 +51,6 @@ namespace Powerlifting.Repository
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task Create(T entity)
-        {
-            await this.PowerliftingContext.Set<T>().AddAsync(entity);
         }
     }
 }

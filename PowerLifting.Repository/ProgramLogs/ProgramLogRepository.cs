@@ -28,7 +28,12 @@ namespace PowerLifting.Repository.ProgramLogs
         }
 
 
-        public async Task<ProgramLog> CreateProgramLog(ProgramLog programLog)
+        public async Task<ProgramLog> GetProgramLogById(int programLogId)
+        {
+            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == programLogId).FirstOrDefaultAsync();
+        }
+
+        public async Task CreateProgramLog(ProgramLog programLog)
         {
             await Create(programLog);
         }
@@ -43,11 +48,6 @@ namespace PowerLifting.Repository.ProgramLogs
         {
             PowerliftingContext.Set<ProgramLog>().Remove(log);
             Save();
-        }
-
-        public Task<ProgramLog> GetProgramLogById(int programLogId)
-        {
-            throw new NotImplementedException();
         }
     }
 }

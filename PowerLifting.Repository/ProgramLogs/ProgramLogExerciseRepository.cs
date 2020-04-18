@@ -1,7 +1,9 @@
-﻿using Powerlifting.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using Powerlifting.Repository;
 using PowerLifting.Persistence;
 using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
 using PowerLifting.Service.ProgramLogs.Model;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PowerLifting.Repository.ProgramLogs
@@ -12,15 +14,20 @@ namespace PowerLifting.Repository.ProgramLogs
         {
         }
 
-        public async Task CreateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
+        public async Task CreateProgramLogExercise(ProgramLogExercise programLogExercise)
         {
-            await PowerliftingContext.Set<ProgramLogRepScheme>().AddAsync(programLogRepScheme);
+            await Create(programLogExercise);
         }
 
         public void DeleteProgramLogExercise(ProgramLogExercise programLogExercise)
         {
             Delete(programLogExercise);
             Save();
+        }
+
+        public async Task<ProgramLogExercise> GetProgramLogExercise(int programLogExerciseId)
+        {
+            return await PowerliftingContext.Set<ProgramLogExercise>().Where(x => x.ProgramLogExerciseId == programLogExerciseId).FirstOrDefaultAsync();                
         }
 
         public void UpdateProgramLogExercise(ProgramLogExercise programLogExercise)

@@ -39,6 +39,28 @@ namespace PowerLifting.API.API
             }
         }
 
+        [HttpPut("{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateProgramLogByUserId(string userId, ProgramLogDTO programLogDTO)
+        {
+            try
+            {
+                await _service.ProgramLog.UpdateProgramLog(userId, programLogDTO);
+                return Ok(programLogDTO);
+            }
+            catch (ProgramLogNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            catch (UserDoesNotMatchProgramLogException e)
+            {
+                return Unauthorized(e);
+            }
+        }
+
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
@@ -47,9 +69,7 @@ namespace PowerLifting.API.API
 
             if (!ModelState.IsValid) return BadRequest("Invalid ProgramLog object");
 
-
-            await _service.ProgramLog.CreateProgramLogExercise(programLogEntity);
-            //TODO fix
+            await _service.ProgramLog.CreateProgramLog(programLog);
             return Ok(programLog);
         }
 
@@ -98,8 +118,8 @@ namespace PowerLifting.API.API
         {
             try
             {
-                var programLogs = await _service.ProgramLog.GetActiveProgramLogByUserId(userId);
-                return Ok(programLogs);
+                //var programLogs = await _service.ProgramLog.GetActiveProgramLogByUserId(userId);
+                return Ok();
             }
             catch (ProgramLogNotFoundException e)
             {
