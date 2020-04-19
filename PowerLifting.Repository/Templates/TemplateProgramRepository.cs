@@ -34,14 +34,14 @@ namespace PowerLifting.Repository.Templates
                                                                    .FirstOrDefaultAsync();
         }
 
-        public async Task<TemplateProgram> GetTemplateProgramByName(string programTemplate)
+        public async Task<bool> GetTemplateProgramByName(string programTemplate)
         {
-            return await PowerliftingContext.Set<TemplateProgram>().Where(x => x.Name == programTemplate).FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<TemplateProgram>().AnyAsync(x => x.Name == programTemplate);
         }
 
-        public Task<TemplateProgram> CreateTemplateProgram(TemplateProgram programType)
+        public void CreateTemplateProgram(TemplateProgram templateProgram)
         {
-            throw new System.NotImplementedException();
+            Create(templateProgram);
         }
     }
 }

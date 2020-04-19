@@ -27,7 +27,11 @@ namespace PowerLifting.Service.TemplatePrograms.Contracts.Services
         /// <returns></returns>
         Task<TemplateProgramDTO> GenerateProgramTemplateForIndividual(string userId, int programTemplateId);
 
-        Task<TemplateProgramDTO> GetTemplateProgramByName(string programType);
-        Task<TemplateProgramDTO> CreateTemplateProgram(TemplateProgramDTO programType);
+        /// <summary>
+        /// Creates a new program template, possibly to be used by an admin or custom program creation
+        /// </summary>
+        /// <param name="programTemplateDTO"></param>
+        /// <returns></returns>
+        Task CreateTemplateProgram(TemplateProgramDTO programTemplateDTO);
     }
 }

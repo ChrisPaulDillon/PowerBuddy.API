@@ -5,6 +5,8 @@ using AutoMapper;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.TemplatePrograms.Contracts.Services;
 using PowerLifting.Service.TemplatePrograms.DTO;
+using PowerLifting.Service.TemplatePrograms.Exceptions;
+using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.Service.TemplatePrograms
 {
@@ -48,7 +50,7 @@ namespace PowerLifting.Service.TemplatePrograms
                 if (templateExercise.ExerciseName == "Squat")
                     set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
                 else if (templateExercise.ExerciseName == "Deadlift")
-                    set.WeightLifted = percentage * user.LiftingStats.DeadliftWeight;
+                    set.WeightLifted = percentage * user.LiftingStats.DeadLiftWeight;
                 else if (templateExercise.ExerciseName == "Bench Press")
                     set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
             }
@@ -57,16 +59,13 @@ namespace PowerLifting.Service.TemplatePrograms
             return programTemplateDTO;
         }
 
-        public async Task<TemplateProgramDTO> GetTemplateProgramByName(string programName)
+        public async Task CreateTemplateProgram(TemplateProgramDTO templateProgramDTO)
         {
-            var programTemplate = await _repo.TemplateProgram.GetTemplateProgramByName(programName);
-            var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(programTemplate);
-            return programTemplateDTO;
-        }
+            var isTaken = await _repo.TemplateProgram.GetTemplateProgramByName(templateProgramDTO.Name);
+            if(isTaken) throw new TemplateProgramNameAlreadyExistsException();
 
-        public Task<TemplateProgramDTO> CreateTemplateProgram(TemplateProgramDTO programType)
-        {
-            throw new NotImplementedException();
+            var newTemplateProgram = _mapper.Map<TemplateProgram>(templateProgramDTO);
+            _repo.TemplateProgram.CreateTemplateProgram(newTemplateProgram);
         }
     }
 }

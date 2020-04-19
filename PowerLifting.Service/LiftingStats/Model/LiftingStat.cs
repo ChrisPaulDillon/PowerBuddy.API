@@ -9,8 +9,10 @@ namespace PowerLifting.Service.LiftingStats.Model
         public DateTime LastUpdated { get; set; }
         public double BenchWeight { get; set; } = 0;
         public double SquatWeight { get; set; } = 0;
+        public double DeadLiftWeight { get; set; } = 0;
+        public double OverHeadPressWeight { get; set; }
+        public double FrontSquatWeight { get; set; }
 
-        public double DeadliftWeight { get; set; } = 0;
-        //public virtual User User { get; set; }
+
     }
 }

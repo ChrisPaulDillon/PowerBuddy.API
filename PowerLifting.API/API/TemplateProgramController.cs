@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.TemplatePrograms.DTO;
+using PowerLifting.Service.TemplatePrograms.Exceptions;
 
 namespace PowerLifting.API.API
 {
@@ -69,13 +70,17 @@ namespace PowerLifting.API.API
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO programTemplate)
+        public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO templateProgramDTO)
         {
-            var ProgramTypeCheck = await _service.TemplateProgram.GetTemplateProgramByName(programTemplate.Name);
-            if (ProgramTypeCheck != null) return Conflict("Exercise Category has already been added");
-           
-            await _service.TemplateProgram.CreateTemplateProgram(programTemplate);
-            return Ok(programTemplate);
+            try
+            {
+                await _service.TemplateProgram.CreateTemplateProgram(templateProgramDTO);
+                return Ok();
+            }
+            catch (TemplateProgramNameAlreadyExistsException e)
+            {
+                return Conflict(e);
+            }
         }
     }
 }
