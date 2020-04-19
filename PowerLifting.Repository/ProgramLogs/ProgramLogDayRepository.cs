@@ -23,6 +23,11 @@ namespace PowerLifting.Repository.ProgramLogs
                                                                         .FirstOrDefaultAsync();
         }
 
+        public void CreateProgramLogDay(ProgramLogDay programLogDay)
+        {
+            Create(programLogDay);
+        }
+
         public void UpdateProgramLogDay(ProgramLogDay programLogDay)
         {
             Update(programLogDay);

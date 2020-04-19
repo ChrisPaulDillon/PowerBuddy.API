@@ -22,7 +22,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// <returns></returns>
         //Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId);
 
-        void CreateProgramLog(ProgramLogDTO programLog);
+        Task CreateProgramLog(ProgramLogDTO programLog);
 
         /// <summary>
         /// Updates the program log accordingly
@@ -65,6 +65,12 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId, int programLogId);
+
+        /// <summary>
+        /// Creates a new program log day, used for customising program logs
+        /// </summary>
+        /// <param name="programLogDay"></param>
+        Task CreateProgramLogDay(ProgramLogDayDTO programLogDay);
 
 
         #endregion

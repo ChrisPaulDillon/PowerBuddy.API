@@ -130,6 +130,8 @@ namespace PowerLifting.API.API
             }
         }
 
+        #region ProgramDays
+
         [HttpGet("Day/Today/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -151,6 +153,16 @@ namespace PowerLifting.API.API
             }
         }
 
+        [HttpPost("Day")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> CreateProgramLogDay([FromBody] ProgramLogDayDTO programLogDayDTO)
+        {
+            await _service.ProgramLog.CreateProgramLogDay(programLogDayDTO);
+            return Ok();
+        }
+
+        #endregion
+
         [HttpGet("Week/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -167,16 +179,22 @@ namespace PowerLifting.API.API
             }
         }
 
+        #region ProgramDays
+
         [HttpPost("Exercise")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CreateProgramLogExercise([FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
         {
-            if (programLogExerciseDTO == null) return BadRequest("ProgramLogExercise object is null");
-
-            if (!ModelState.IsValid) return BadRequest("Invalid ProgramLogExercise object");
-
-            _service.ProgramLog.CreateProgramLogExercise(programLogExerciseDTO);
-            return Ok();
+            try
+            {
+                _service.ProgramLog.CreateProgramLogExercise(programLogExerciseDTO);
+                return Ok();
+            }
+            catch(ProgramLogDayNotWithWeekRangeException e)
+            {
+                return Unauthorized(e);
+            }
         }
 
         [HttpPut("Exercise")]
@@ -200,7 +218,6 @@ namespace PowerLifting.API.API
             }
         }
 
-
         [HttpDelete("Exercise")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -216,5 +233,7 @@ namespace PowerLifting.API.API
                 return NotFound(e);
             }
         }
+
+        #endregion
     }
 }

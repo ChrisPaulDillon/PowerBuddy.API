@@ -15,9 +15,17 @@ namespace PowerLifting.Repository.ProgramLogs
         {
         }
 
-        public async Task<ProgramLogWeek> GetCurrentProgramLogWeekByUserId(string userId, int programLogId)
+        public async Task<ProgramLogWeek> GetCurrentProgramLogWeekByUserId(string userId, int programLogWeekId)
         {
-            return await PowerliftingContext.Set<ProgramLogWeek>().Where(x => x.UserId == userId && DateTime.Now <= x.EndDate && x.ProgramLogId == x.ProgramLogId)
+            return await PowerliftingContext.Set<ProgramLogWeek>().Where(x => x.UserId == userId && DateTime.Now <= x.EndDate && x.ProgramLogId == programLogWeekId)
+                                                                        .Include(k => k.ProgramLogDays)
+                                                                        .ThenInclude(e => e.ProgramLogExercises)
+                                                                        .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();
+        }
+
+        public async Task<ProgramLogWeek> GetProgramLogWeekById(int programLogWeekId)
+        {
+            return await PowerliftingContext.Set<ProgramLogWeek>().Where(x => x.ProgramLogWeekId == programLogWeekId)
                                                                         .Include(k => k.ProgramLogDays)
                                                                         .ThenInclude(e => e.ProgramLogExercises)
                                                                         .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();

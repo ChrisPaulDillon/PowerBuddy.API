@@ -34,7 +34,7 @@ namespace PowerLifting.Service.ProgramLogs
             return userProgramLogsDTO;
         }
 
-        public async void CreateProgramLog(ProgramLogDTO programLog)
+        public async Task CreateProgramLog(ProgramLogDTO programLog)
         {
             var log = await _repo.ProgramLog.GetProgramLogById(programLog.ProgramLogId);
             if(log != null)
@@ -105,6 +105,17 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogDayDTO;
         }
 
+        public async Task CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
+        {
+            var programLogWeek = await _repo.ProgramLog.GetProgramLogById(programLogDayDTO.ProgramLogId);
+            var isWithinWeekRange = programLogDayDTO.Date >= programLogWeek.StartDate && programLogDayDTO.Date < programLogWeek.EndDate;
+
+            if (!isWithinWeekRange) throw new ProgramLogDayNotWithWeekRangeException();
+
+            var newProgramLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
+            _repo.ProgramLogDay.CreateProgramLogDay(newProgramLogDay);
+        }
+
         #endregion
 
         #region ProgramLogExerciseServices
@@ -118,12 +129,6 @@ namespace PowerLifting.Service.ProgramLogs
         public async Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
         {
             var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseDTO.ProgramLogExerciseId);
-
-            //TODO user management logic
-            //if (programLog.UserId != userId)
-            //{
-            //    throw new UserDoesNotMatchProgramLogException("UserId does match the user associated with this program log!");
-            //}
 
             if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
 
