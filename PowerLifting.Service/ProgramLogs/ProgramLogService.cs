@@ -8,6 +8,8 @@ using PowerLifting.Service.ProgramLogs.DTO;
 using PowerLifting.Service.ProgramLogs.Exceptions;
 using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.ServiceWrappers;
+using PowerLifting.Service.TemplatePrograms.Exceptions;
+using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.Service.ProgramLogs
@@ -44,6 +46,61 @@ namespace PowerLifting.Service.ProgramLogs
             var newProgramLog = _mapper.Map<ProgramLog>(programLog);
             _repo.ProgramLog.CreateProgramLog(newProgramLog);
             //return programLog;
+        }
+
+        public async Task CreateProgramLogFromTemplate(int programTemplateId, DaySelected daySelected)
+        {
+            var templateProgram = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
+
+            if (templateProgram == null) throw new TemplateProgramDoesNotExistException();
+
+            var dayCounter = CountDaysSelected(daySelected);
+            if (templateProgram.MaxLiftDaysPerWeek != dayCounter) throw new ProgramDaysDoesNotMatchTemplateDaysException();
+
+            var newProgramLog = _mapper.Map<ProgramLog>(templateProgram);
+            _repo.ProgramLog.CreateProgramLog(newProgramLog);
+            //return programLog;
+        }
+
+        public int CountDaysSelected(DaySelected ds)
+        {
+            var counter = 0;
+            if (ds.Monday) counter++;
+            if (ds.Tuesday) counter++;
+            if (ds.Wednesday) counter++;
+            if (ds.Thursday) counter++;
+            if (ds.Friday) counter++;
+            if (ds.Saturday) counter++;
+            if (ds.Sunday) counter++;
+            return counter;
+        }
+
+        public ProgramLog MapTemplateToProgramLog(TemplateProgram templateProgram, DaySelected ds)
+        {
+          
+            var log = new ProgramLog()
+            {
+                 Monday = ds.Monday,
+                 Tuesday = ds.Tuesday,
+                 Wednesday = ds.Wednesday,
+                 Thursday = ds.Thursday,
+                 Friday = ds.Friday,
+                 Saturday = ds.Saturday,
+                 Sunday = ds.Sunday,
+                 StartDate = DateTime.Now.Date
+            };
+
+            //TODO log.UserId = 
+
+            foreach(var templateWeek in templateProgram.TemplateWeeks)
+            {
+                foreach(var templateDay in templateWeek.TemplateDays)
+                {
+                   
+                }
+            }
+
+            return log;
         }
 
         public async Task<ProgramLogDTO> UpdateProgramLog(string userId, ProgramLogDTO programLogDTO)

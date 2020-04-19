@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Service.ProgramLogs.DTO;
+using PowerLifting.Service.ProgramLogs.Model;
 
 namespace PowerLifting.Service.ProgramLogs.Contracts.Services
 {
@@ -16,13 +17,19 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId);
 
         /// <summary>
-        /// Gets the whole program log cycle the user is currently running
+        /// Creates a new generic program log
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="programLog"></param>
         /// <returns></returns>
-        //Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId);
-
         Task CreateProgramLog(ProgramLogDTO programLog);
+
+        /// <summary>
+        /// Creates a new program log based on the selected program templates details and what days
+        /// the program is to be carried out on
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        Task CreateProgramLogFromTemplate(int templateId, DaySelected daySelected);
 
         /// <summary>
         /// Updates the program log accordingly

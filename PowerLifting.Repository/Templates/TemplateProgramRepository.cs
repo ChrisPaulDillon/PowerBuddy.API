@@ -24,9 +24,10 @@ namespace PowerLifting.Repository.Templates
                                                                    .ToListAsync();
         }
 
-        public async Task<TemplateProgram> GetTemplateProgramById(int programTemplateId)
+        public async Task<TemplateProgram> GetTemplateProgramById(int templateProgramId)
         {
-            return await PowerliftingContext.Set<TemplateProgram>().Include(x => x.TemplateWeeks)
+            return await PowerliftingContext.Set<TemplateProgram>().Where(x => x.TemplateProgramId == templateProgramId)
+                                                                   .Include(x => x.TemplateWeeks)
                                                                    .ThenInclude(x => x.TemplateDays)
                                                                    .ThenInclude(x => x.TemplateExercises)
                                                                    .ThenInclude(x => x.TemplateRepSchemes)

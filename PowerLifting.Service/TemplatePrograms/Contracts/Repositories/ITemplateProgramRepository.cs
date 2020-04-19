@@ -12,7 +12,7 @@ namespace PowerLifting.Service.TemplatePrograms.Contracts.Repositories
         /// <returns></returns>
         Task<IEnumerable<TemplateProgram>> GetAllTemplatePrograms();
 
-        Task<TemplateProgram> GetTemplateProgramById(int programTemplateId);
+        Task<TemplateProgram> GetTemplateProgramById(int templateProgramId);
         Task<TemplateProgram> GetTemplateProgramByName(string programType);
         Task<TemplateProgram> CreateTemplateProgram(TemplateProgram programType);
     }

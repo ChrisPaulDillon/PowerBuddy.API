@@ -5,6 +5,8 @@ using PowerLifting.Service.ProgramLogs.Exceptions;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.Service.ProgramLogs.DTO;
 using System;
+using PowerLifting.API.API.Models;
+using PowerLifting.Service.ProgramLogs.Model;
 
 namespace PowerLifting.API.API
 {
@@ -81,15 +83,20 @@ namespace PowerLifting.API.API
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult CreateProgramLog([FromBody] ProgramLogDTO programLog)
+        public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
         {
-            if (programLog == null) return BadRequest("ProgramLog object is null");
-
-            if (!ModelState.IsValid) return BadRequest("Invalid ProgramLog object");
-
-            _service.ProgramLog.CreateProgramLog(programLog);
+            await _service.ProgramLog.CreateProgramLog(programLog);
             return Ok(programLog);
         }
+
+        [HttpPost("FromTemplate")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody]DaySelected daySelected)
+        {
+            await _service.ProgramLog.CreateProgramLogFromTemplate(templateProgramId, daySelected);
+            return Ok();
+        }
+
 
         [HttpGet("Day/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

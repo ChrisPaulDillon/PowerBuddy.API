@@ -16,5 +16,6 @@
     <Folder Include="Exercises\Exceptions\" />
     <Folder Include="TemplatePrograms\Exceptions\" />
     <Folder Include="LiftingStats\Contracts\" />
+    <Folder Include="ProgramLogs\Validator\" />
   </ItemGroup>
 </Project>
