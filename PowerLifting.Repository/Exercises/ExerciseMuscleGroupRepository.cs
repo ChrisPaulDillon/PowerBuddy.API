@@ -29,13 +29,11 @@ namespace PowerLifting.Repository.Exercises
         public void UpdateExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup)
         {
             Update(exerciseMuscleGroup);
-            Save();
         }
 
         public void DeleteExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup)
         {
             Delete(exerciseMuscleGroup);
-            Save();
         }
     }
 }

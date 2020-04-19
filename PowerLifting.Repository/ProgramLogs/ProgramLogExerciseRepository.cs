@@ -22,7 +22,6 @@ namespace PowerLifting.Repository.ProgramLogs
         public void DeleteProgramLogExercise(ProgramLogExercise programLogExercise)
         {
             Delete(programLogExercise);
-            Save();
         }
 
         public async Task<ProgramLogExercise> GetProgramLogExercise(int programLogExerciseId)
@@ -33,7 +32,6 @@ namespace PowerLifting.Repository.ProgramLogs
         public void UpdateProgramLogExercise(ProgramLogExercise programLogExercise)
         {
             Update(programLogExercise);
-            Save();
         }
     }
 }

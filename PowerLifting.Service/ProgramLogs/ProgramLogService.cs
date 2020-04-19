@@ -131,19 +131,12 @@ namespace PowerLifting.Service.ProgramLogs
             _repo.ProgramLogExercise.UpdateProgramLogExercise(programLogExercise);
         }
 
-        public async Task DeleteProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
+        public async void DeleteProgramLogExercise(int programLogExerciseId)
         {
-            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseDTO.ProgramLogExerciseId);
-
-            //TODO user management logic
-            //if (programLog.UserId != userId)
-            //{
-            //    throw new UserDoesNotMatchProgramLogException("UserId does match the user associated with this program log!");
-            //}
+            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseId);
 
             if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
 
-            _mapper.Map(programLogExerciseDTO, programLogExercise);
             _repo.ProgramLogExercise.DeleteProgramLogExercise(programLogExercise);
         }
 

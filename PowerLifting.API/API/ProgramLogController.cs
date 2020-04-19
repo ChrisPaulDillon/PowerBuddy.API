@@ -113,6 +113,23 @@ namespace PowerLifting.API.API
             }
         }
 
+
+        [HttpDelete("{userId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeleteProgramLog(string userId, [FromBody] ProgramLogDTO programLog)
+        {
+            try
+            {
+                _service.ProgramLog.DeleteProgramLog(userId, programLog);
+                return NoContent();
+            }
+            catch (ProgramLogNotFoundException e)
+            {
+                return NotFound(e);
+            }
+        }
+
         [HttpGet("Day/Today/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -162,22 +179,42 @@ namespace PowerLifting.API.API
             return Ok();
         }
 
-        [HttpDelete("{userId}")]
+        [HttpPut("Exercise")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteProgramLog(string userId, [FromBody] ProgramLogDTO programLog)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateProgramLogExercise([FromBody]ProgramLogExerciseDTO programLogDTO)
         {
             try
             {
-                _service.ProgramLog.DeleteProgramLog(userId, programLog);
+                await _service.ProgramLog.UpdateProgramLogExercise(programLogDTO);
                 return NoContent();
             }
-            catch(ProgramLogNotFoundException e)
+            catch (ProgramLogNotFoundException e)
             {
                 return NotFound(e);
+            }
+            catch (UserDoesNotMatchProgramLogException e)
+            {
+                return Unauthorized(e);
             }
         }
 
 
+        [HttpDelete("Exercise")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeleteProgramLogExercise(int programLogExerciseId)
+        {
+            try
+            {
+                _service.ProgramLog.DeleteProgramLogExercise(programLogExerciseId);
+                return NoContent();
+            }
+            catch (ProgramLogExerciseNotFoundException e)
+            {
+                return NotFound(e);
+            }
+        }
     }
 }

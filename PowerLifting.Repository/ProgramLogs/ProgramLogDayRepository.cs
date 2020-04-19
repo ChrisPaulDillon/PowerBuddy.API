@@ -26,13 +26,11 @@ namespace PowerLifting.Repository.ProgramLogs
         public void UpdateProgramLogDay(ProgramLogDay programLogDay)
         {
             Update(programLogDay);
-            Save();
         }
 
         public void DeleteProgramLogDay(ProgramLogDay programLogDay)
         {
             Delete(programLogDay);
-            Save();
         }
     }
 }

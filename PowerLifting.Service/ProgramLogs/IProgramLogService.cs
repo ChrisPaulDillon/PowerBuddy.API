@@ -89,9 +89,9 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// <summary>
         /// Deletes a given program log exercise
         /// </summary>
-        /// <param name="programLogExercise"></param>
+        /// <param name="programLogExerciseId"></param>
         /// <returns></returns>
-        Task DeleteProgramLogExercise(ProgramLogExerciseDTO programLogExercise);
+        void DeleteProgramLogExercise(int programLogExerciseId);
 
 
         #endregion

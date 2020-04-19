@@ -40,13 +40,11 @@ namespace PowerLifting.Repository.Exercises
         public void UpdateExercise(Exercise exercise)
         {
             Update(exercise);
-            Save();
         }
 
         public void DeleteExercise(Exercise exercise)
         {
             Delete(exercise);
-            Save();
         }
     }
 }

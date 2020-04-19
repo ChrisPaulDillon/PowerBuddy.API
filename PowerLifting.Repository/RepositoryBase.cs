@@ -15,27 +15,17 @@ namespace Powerlifting.Repository
 
         public RepositoryBase(PowerliftingContext repositoryContext)
         {
-            this.PowerliftingContext = repositoryContext;
+            PowerliftingContext = repositoryContext;
         }
 
-        public async Task<IList<T>> GetAll()
+        public IQueryable<T> FindAll()
         {
-            return await PowerliftingContext.Set<T>().AsNoTracking().ToListAsync();
+            return this.PowerliftingContext.Set<T>().AsNoTracking();
         }
 
-        public void Update(T entity)
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            PowerliftingContext.Set<T>().Update(entity);
-        }
-
-        public void Delete(T entity)
-        {
-            PowerliftingContext.Set<T>().Remove(entity);
-        }
-
-        public void Save()
-        {
-            PowerliftingContext.SaveChanges();
+            return PowerliftingContext.Set<T>().Where(expression).AsNoTracking();
         }
 
         public void Create(T entity)
@@ -44,14 +34,21 @@ namespace Powerlifting.Repository
             Save();
         }
 
-        IQueryable<T> IRepositoryBase<T>.GetAll()
+        public void Update(T entity)
         {
-            throw new NotImplementedException();
+            PowerliftingContext.Set<T>().Update(entity);
+            Save();
         }
 
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            PowerliftingContext.Set<T>().Remove(entity);
+            Save();
+        }
+
+        public void Save()
+        {
+            PowerliftingContext.SaveChanges();
         }
     }
 }
