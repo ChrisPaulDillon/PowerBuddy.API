@@ -33,9 +33,9 @@ namespace PowerLifting.Repository.ProgramLogs
             return await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == programLogId).FirstOrDefaultAsync();
         }
 
-        public async Task CreateProgramLog(ProgramLog programLog)
+        public void CreateProgramLog(ProgramLog programLog)
         {
-            await Create(programLog);
+            Create(programLog);
         }
 
         public void UpdateProgramLog(ProgramLog log)

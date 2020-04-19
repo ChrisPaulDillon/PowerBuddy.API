@@ -5,6 +5,6 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Repositories
 {
     public interface IProgramLogWeekRepository : IRepositoryBase<ProgramLogWeek>
     {
-        Task<ProgramLogWeek> GetActiveProgramLogWeekByUserId(string userId);
+        Task<ProgramLogWeek> GetCurrentProgramLogWeekByUserId(string userId, int programLogId);
     }
 }

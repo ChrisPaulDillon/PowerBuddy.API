@@ -17,7 +17,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Repositories
         /// Creates a new program exercise for a given log, used for customisation of programs
         /// </summary>
         /// <param name="programLogExercise"></param>
-        Task CreateProgramLogExercise(ProgramLogExercise programLogExercise);
+        void CreateProgramLogExercise(ProgramLogExercise programLogExercise);
 
         /// <summary>
         /// Updates a program log exercise, this could be updating the number of sets,

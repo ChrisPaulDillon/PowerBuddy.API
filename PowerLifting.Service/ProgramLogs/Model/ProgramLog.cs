@@ -22,6 +22,6 @@ namespace PowerLifting.Service.ProgramLogs.Model
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
 
-        public IEnumerable<ProgramLogWeek> ProgramLogWeeks { get; set; }
+        public ICollection<ProgramLogWeek> ProgramLogWeeks { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Repositories
         /// </summary>
         /// <param name="programLog"></param>
         /// <returns></returns>
-        Task CreateProgramLog(ProgramLog programLog);
+        void CreateProgramLog(ProgramLog programLog);
 
         /// <summary>
         /// Updates the program log accordingly

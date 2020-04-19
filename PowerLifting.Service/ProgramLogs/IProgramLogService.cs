@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Service.ProgramLogs.DTO;
 
@@ -21,7 +22,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// <returns></returns>
         //Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId);
 
-        Task<ProgramLogDTO> CreateProgramLog(ProgramLogDTO programLog);
+        void CreateProgramLog(ProgramLogDTO programLog);
 
         /// <summary>
         /// Updates the program log accordingly
@@ -44,18 +45,26 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<ProgramLogWeekDTO> GetActiveProgramLogWeekByUserId(string userId);
+        Task<ProgramLogWeekDTO> GetCurrentProgramLogWeekByUserId(string userId, int programLogId);
 
         #endregion
 
         #region ProgramLogDay Services
 
         /// <summary>
+        /// Gets a program log day overview for a given user on a given date
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date);
+
+        /// <summary>
         /// Gets the present day program log for a given user
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId);
+        Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId, int programLogId);
 
 
         #endregion
@@ -67,7 +76,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="programLogExercise"></param>
         /// <returns></returns>
-        Task CreateProgramLogExercise(ProgramLogExerciseDTO programLogExercise);
+        void CreateProgramLogExercise(ProgramLogExerciseDTO programLogExercise);
 
         /// <summary>
         /// Updates a given program log exercise, this could be the number of sets,

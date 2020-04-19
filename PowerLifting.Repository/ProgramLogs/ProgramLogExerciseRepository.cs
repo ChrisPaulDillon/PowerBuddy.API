@@ -14,9 +14,9 @@ namespace PowerLifting.Repository.ProgramLogs
         {
         }
 
-        public async Task CreateProgramLogExercise(ProgramLogExercise programLogExercise)
+        public void CreateProgramLogExercise(ProgramLogExercise programLogExercise)
         {
-            await Create(programLogExercise);
+            Create(programLogExercise);
         }
 
         public void DeleteProgramLogExercise(ProgramLogExercise programLogExercise)

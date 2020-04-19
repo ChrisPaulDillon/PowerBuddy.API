@@ -34,7 +34,7 @@ namespace PowerLifting.Service.ProgramLogs
             return userProgramLogsDTO;
         }
 
-        public async Task<ProgramLogDTO> CreateProgramLog(ProgramLogDTO programLog)
+        public async void CreateProgramLog(ProgramLogDTO programLog)
         {
             var log = await _repo.ProgramLog.GetProgramLogById(programLog.ProgramLogId);
             if(log != null)
@@ -42,8 +42,8 @@ namespace PowerLifting.Service.ProgramLogs
                 throw new ProgramLogAlreadyExistsException();
             }
             var newProgramLog = _mapper.Map<ProgramLog>(programLog);
-            await _repo.ProgramLog.CreateProgramLog(newProgramLog);
-            return programLog;
+            _repo.ProgramLog.CreateProgramLog(newProgramLog);
+            //return programLog;
         }
 
         public async Task<ProgramLogDTO> UpdateProgramLog(string userId, ProgramLogDTO programLogDTO)
@@ -80,9 +80,9 @@ namespace PowerLifting.Service.ProgramLogs
 
         #region ProgramLogWeekServices
 
-        public async Task<ProgramLogWeekDTO> GetActiveProgramLogWeekByUserId(string userId)
+        public async Task<ProgramLogWeekDTO> GetCurrentProgramLogWeekByUserId(string userId, int programLogId)
         {
-            var programLogWeek =  await _repo.ProgramLogWeek.GetActiveProgramLogWeekByUserId(userId);
+            var programLogWeek =  await _repo.ProgramLogWeek.GetCurrentProgramLogWeekByUserId(userId, programLogId);
             var programLogWeekDTO = _mapper.Map<ProgramLogWeekDTO>(programLogWeek);
             return programLogWeekDTO;
         }
@@ -91,9 +91,16 @@ namespace PowerLifting.Service.ProgramLogs
 
         #region ProgramLogDayServices
 
-        public async Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId)
+        public async Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date)
         {
-            var programLogDay = await _repo.ProgramLogDay.GetProgramLogDay(userId, DateTime.Now);
+            var programLogDay = await _repo.ProgramLogDay.GetProgramLogDay(userId, programLogId, date);
+            var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
+            return programLogDayDTO;
+        }
+
+        public async Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId, int programLogId)
+        {
+            var programLogDay = await _repo.ProgramLogDay.GetProgramLogDay(userId, programLogId, DateTime.Now);
             var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
             return programLogDayDTO;
         }
@@ -102,10 +109,10 @@ namespace PowerLifting.Service.ProgramLogs
 
         #region ProgramLogExerciseServices
 
-        public async Task CreateProgramLogExercise(ProgramLogExerciseDTO programLogExercise)
+        public void CreateProgramLogExercise(ProgramLogExerciseDTO programLogExercise)
         {
             var newProgramLogExercise = _mapper.Map<ProgramLogExercise>(programLogExercise);
-            await _repo.ProgramLogExercise.CreateProgramLogExercise(newProgramLogExercise);
+            _repo.ProgramLogExercise.CreateProgramLogExercise(newProgramLogExercise);
         }
 
         public async Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)

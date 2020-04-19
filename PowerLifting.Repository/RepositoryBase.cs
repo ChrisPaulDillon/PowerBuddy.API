@@ -35,12 +35,13 @@ namespace Powerlifting.Repository
 
         public void Save()
         {
-            PowerliftingContext.SaveChangesAsync();
+            PowerliftingContext.SaveChanges();
         }
 
-        public async Task Create(T entity)
+        public void Create(T entity)
         {
-            await this.PowerliftingContext.Set<T>().AddAsync(entity);
+            PowerliftingContext.Set<T>().Add(entity);
+            Save();
         }
 
         IQueryable<T> IRepositoryBase<T>.GetAll()
