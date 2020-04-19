@@ -20,6 +20,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{userId}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserLiftingStats(string userId)
@@ -36,15 +37,13 @@ namespace PowerLifting.API.API
         }
 
         [HttpPut("{userId}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult UpdateLiftingStats(string userId, [FromBody]LiftingStatDTO liftingStats)
         {
             try
             {
-                if (liftingStats == null) return BadRequest("liftingStats object is null");
-                if (!ModelState.IsValid) return BadRequest("Invalid liftingStats model object");
-
                 _service.LiftingStat.UpdateLiftingStatsAsync(userId, liftingStats);
             }
             catch(LiftingStatNotFoundException e)

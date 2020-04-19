@@ -18,7 +18,9 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllExercises()
         {       
             var exercises = _service.Exercise.GetAllExercises();
@@ -27,6 +29,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{id:int}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int id)
@@ -43,6 +46,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("ExerciseType/{exerciseTypeId:int}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExercisesByExerciseType(int exerciseTypeId)
@@ -58,8 +62,14 @@ namespace PowerLifting.API.API
             }    
         }
 
+        /// <summary>
+        /// Test test test
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("ExerciseType")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllExerciseTypes()
         {
             var exerciseTypes = _service.ExerciseType.GetAllExerciseTypes();

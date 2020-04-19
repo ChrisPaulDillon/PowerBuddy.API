@@ -111,83 +111,83 @@ namespace PowerLifting.Persistence
             {
                 var templates = new TemplateProgram[]
                 {
-                    new TemplateProgram {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4,
+                    new TemplateProgram {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4,
                         TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNumber = 1,TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { DayOfWeek = "Monday", TemplateExercises = new List<TemplateExercise> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
                                         new TemplateExercise { ExerciseName = "Squat", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
                                           new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5}
                                                                                                           } } } },
-                                    new TemplateDay { DayOfWeek = "Tuesday", TemplateExercises = new List<TemplateExercise>{
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise>{
                                           new TemplateExercise { ExerciseName = "Bench Press", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5}
                                                                                                           } } } },
-                                    new TemplateDay { DayOfWeek = "Thursday", TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Deadlift", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseName = "DeadLift", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5}
                                                                                                           } } } } } },
                             //Week 2
                             new TemplateWeek { WeekNumber = 2, TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { DayOfWeek = "Monday", TemplateExercises = new List<TemplateExercise> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
                                           new TemplateExercise { ExerciseName = "Squat", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3}
                                                                                                           } } } },
-                                    new TemplateDay { DayOfWeek = "Tuesday", TemplateExercises = new List<TemplateExercise> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
                                           new TemplateExercise { ExerciseName = "Bench Press", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3}
                                                                                                           } } } },
-                                    new TemplateDay { DayOfWeek = "Tuesday", TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Deadlift", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseName = "DeadLift", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3}
                                                                                                           } } } } } },
                              //Week 3
                             new TemplateWeek { WeekNumber = 3, TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { DayOfWeek = "Monday", TemplateExercises = new List<TemplateExercise> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
                                           new TemplateExercise { ExerciseName = "Squat", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1}
                                                                                                           } } } },
-                                    new TemplateDay { DayOfWeek = "Tuesday", TemplateExercises = new List<TemplateExercise> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
                                           new TemplateExercise { ExerciseName = "Bench Press", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5}
                                                                                                           } } } },
-                                    new TemplateDay { DayOfWeek = "Thursday", TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Deadlift", NoOfSets = 3,TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseName = "DeadLift", NoOfSets = 3,TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5}
                                                                                                           } } } } } },
                                           //Week 4
                             new TemplateWeek { WeekNumber = 4, TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { DayOfWeek = "Monday", TemplateExercises = new List<TemplateExercise> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
                                           new TemplateExercise { ExerciseName = "Squat", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } },
-                                    new TemplateDay { DayOfWeek = "Tuesday", TemplateExercises = new List<TemplateExercise> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
                                           new TemplateExercise { ExerciseName = "Bench Press", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } },
-                                    new TemplateDay { DayOfWeek = "Thursday", TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Deadlift", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseName = "DeadLift", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}

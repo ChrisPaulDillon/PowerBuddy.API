@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.TemplatePrograms.DTO;
@@ -18,6 +19,9 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllTemplatePrograms()
         {
             var programTemplates = await _service.TemplateProgram.GetAllTemplatePrograms();
@@ -28,6 +32,9 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTemplateProgramById(int templateId)
         {
             var programType = await _service.TemplateProgram.GetTemplateProgramById(templateId);
@@ -38,6 +45,9 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("Calculate/{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
         {
             try
@@ -56,11 +66,11 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO programTemplate)
         {
-            if (programTemplate == null) return BadRequest("TemplateProgram object is null");
-            if (!ModelState.IsValid) return BadRequest("Invalid TemplateProgram model object");
-           
             var ProgramTypeCheck = await _service.TemplateProgram.GetTemplateProgramByName(programTemplate.Name);
             if (ProgramTypeCheck != null) return Conflict("Exercise Category has already been added");
            

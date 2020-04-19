@@ -5,8 +5,8 @@ using PowerLifting.Service.ProgramLogs.Exceptions;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.Service.ProgramLogs.DTO;
 using System;
-using PowerLifting.API.API.Models;
 using PowerLifting.Service.ProgramLogs.Model;
+using PowerLifting.Service.TemplatePrograms.Exceptions;
 
 namespace PowerLifting.API.API
 {
@@ -14,7 +14,7 @@ namespace PowerLifting.API.API
     [ApiController]
     public class ProgramLogController : ControllerBase
     {
-        private IServiceWrapper _service;
+        private readonly IServiceWrapper _service;
 
         public ProgramLogController(IServiceWrapper service)
         {
@@ -22,6 +22,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{userId}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -44,6 +45,7 @@ namespace PowerLifting.API.API
 
 
         [HttpGet("Active/{userId}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetActiveProgramLogByUserId(string userId)
@@ -60,6 +62,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpPut("{userId}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -82,6 +85,7 @@ namespace PowerLifting.API.API
 
 
         [HttpPost]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
         {
@@ -90,15 +94,29 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost("FromTemplate")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody]DaySelected daySelected)
         {
-            await _service.ProgramLog.CreateProgramLogFromTemplate(templateProgramId, daySelected);
-            return Ok();
+            try
+            {
+                await _service.ProgramLog.CreateProgramLogFromTemplate(templateProgramId, daySelected);
+                return Ok();
+            }
+            catch (TemplateProgramDoesNotExistException e)
+            {
+                return BadRequest(e);
+            }
+            catch (ProgramDaysDoesNotMatchTemplateDaysException e)
+            {
+                return BadRequest(e);
+            }
         }
 
 
         [HttpGet("Day/{userId}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -120,8 +138,8 @@ namespace PowerLifting.API.API
             }
         }
 
-
         [HttpDelete("{userId}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteProgramLog(string userId, [FromBody] ProgramLogDTO programLog)
@@ -140,6 +158,7 @@ namespace PowerLifting.API.API
         #region ProgramDays
 
         [HttpGet("Day/Today/{userId}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -161,6 +180,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost("Day")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateProgramLogDay([FromBody] ProgramLogDayDTO programLogDayDTO)
         {
@@ -171,6 +191,7 @@ namespace PowerLifting.API.API
         #endregion
 
         [HttpGet("Week/{userId}")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCurrentProgramLogWeekByUserId(string userId, int programLogId)
@@ -189,6 +210,7 @@ namespace PowerLifting.API.API
         #region ProgramDays
 
         [HttpPost("Exercise")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CreateProgramLogExercise([FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
@@ -205,6 +227,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpPut("Exercise")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -226,6 +249,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpDelete("Exercise")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteProgramLogExercise(int programLogExerciseId)

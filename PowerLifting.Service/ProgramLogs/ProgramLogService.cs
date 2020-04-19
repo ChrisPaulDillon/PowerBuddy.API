@@ -56,13 +56,13 @@ namespace PowerLifting.Service.ProgramLogs
 
             var dayCounter = CountDaysSelected(daySelected);
             if (templateProgram.MaxLiftDaysPerWeek != dayCounter) throw new ProgramDaysDoesNotMatchTemplateDaysException();
-
-            var newProgramLog = _mapper.Map<ProgramLog>(templateProgram);
+            var newProgramLog = MapTemplateToProgramLog(templateProgram, daySelected);
+            //var newProgramLog = _mapper.Map<ProgramLog>(templateProgram);
             _repo.ProgramLog.CreateProgramLog(newProgramLog);
             //return programLog;
         }
 
-        public int CountDaysSelected(DaySelected ds)
+        private int CountDaysSelected(DaySelected ds)
         {
             var counter = 0;
             if (ds.Monday) counter++;
@@ -75,9 +75,8 @@ namespace PowerLifting.Service.ProgramLogs
             return counter;
         }
 
-        public ProgramLog MapTemplateToProgramLog(TemplateProgram templateProgram, DaySelected ds)
-        {
-          
+        private ProgramLog MapTemplateToProgramLog(TemplateProgram tp, DaySelected ds)
+        { 
             var log = new ProgramLog()
             {
                  Monday = ds.Monday,
@@ -87,12 +86,15 @@ namespace PowerLifting.Service.ProgramLogs
                  Friday = ds.Friday,
                  Saturday = ds.Saturday,
                  Sunday = ds.Sunday,
-                 StartDate = DateTime.Now.Date
+                 StartDate = DateTime.Now.Date,
+                 NoOfWeeks = tp.NoOfWeeks
             };
 
+            if (log.Monday)
+                //GetNextWeekday(DateTime.Now.Date, DayOfWeek.Monday);
             //TODO log.UserId = 
 
-            foreach(var templateWeek in templateProgram.TemplateWeeks)
+            foreach (var templateWeek in tp.TemplateWeeks)
             {
                 foreach(var templateDay in templateWeek.TemplateDays)
                 {
@@ -101,6 +103,13 @@ namespace PowerLifting.Service.ProgramLogs
             }
 
             return log;
+        }
+
+        private static DateTime GetNextWeekday(ProgramLog pl, DateTime start, DayOfWeek day)
+        {
+            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+            int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
+            return start.AddDays(daysToAdd);
         }
 
         public async Task<ProgramLogDTO> UpdateProgramLog(string userId, ProgramLogDTO programLogDTO)
