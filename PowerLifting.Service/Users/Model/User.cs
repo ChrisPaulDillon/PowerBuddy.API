@@ -7,8 +7,8 @@ namespace PowerLifting.Service.Users.Model
 {
     public class User : IdentityUser
     {
-        public virtual LiftingStat LiftingStats { get; set; }
-        public ICollection<ProgramLog> ProgramLogs { get; set; }
+        public virtual ICollection<LiftingStat> LiftingStats { get; set; }
+        public virtual ICollection<ProgramLog> ProgramLogs { get; set; }
         public virtual ICollection<IdentityRole> UserRoles { get; set; }
     }
 }

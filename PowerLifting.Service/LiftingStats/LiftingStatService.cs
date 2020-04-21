@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Exceptions;
 using PowerLifting.Service.LiftingStats.Model;
+using PowerLifting.Service.LiftingStatsAudit.Model;
 using PowerLifting.Service.ServiceWrappers;
 
 namespace PowerLifting.Service.LiftingStats
@@ -25,14 +27,29 @@ namespace PowerLifting.Service.LiftingStats
             return liftingStatDTO;
         }
 
-        public async Task UpdateLiftingStatsAsync(string userId, LiftingStatDTO stats)
+        public async Task UpdateLiftingStats(string userId, LiftingStatDTO stats)
         {
             var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
+
             if (liftingStat == null) throw new LiftingStatNotFoundException("Lifting stat not found");
+
             if (liftingStat.UserId != userId)
+            {
                 throw new UserDoesNotMatchLiftingStatException("You are not authorised to modify these lifting stats!");
+            }
+
             var liftingStats = _mapper.Map<LiftingStat>(stats);
             _repo.LiftingStat.UpdateLiftingStats(liftingStats);
+
+            var liftingStatAudit = new LiftingStatAudit()
+            {
+                DateChange = DateTime.Now.Date,
+                RepRange = stats.RepRange,
+                UserId = stats.UserId,
+
+            };
+
+            _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
         }
     }
 }

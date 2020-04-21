@@ -11,7 +11,6 @@ namespace PowerLifting.Service.ServiceWrappers
     {
         IUserService User { get; }
         ILiftingStatService LiftingStat { get; }
-        ILiftingStatAuditService LiftingStatAudit { get; }
         IExerciseService Exercise { get; }
         IExerciseTypeService ExerciseType { get; }
         IExerciseMuscleGroupService ExerciseMuscleGroup { get; }

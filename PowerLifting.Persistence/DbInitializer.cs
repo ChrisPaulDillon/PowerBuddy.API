@@ -207,7 +207,10 @@ namespace PowerLifting.Persistence
                 var users = new User[]
                 {
                     new User{ Email="chrispauldillon@live.com", PasswordHash = "test123",
-                        LiftingStats= new LiftingStat { BenchWeight=100, DeadLiftWeight=170, SquatWeight=200 },
+                        LiftingStats= new List<LiftingStat> {
+                            new LiftingStat { RepRange=1, BenchWeight=100, DeadLiftWeight=170, SquatWeight=200 },
+                            new LiftingStat { RepRange=2, BenchWeight=80, DeadLiftWeight=150, SquatWeight=170 },
+                        },
                         ProgramLogs= new List<ProgramLog> {
                             new ProgramLog { StartDate = curDate, EndDate = curDate.AddDays(30), TemplateProgramId = 1, Monday = true, Tuesday = true, ProgramLogWeeks = new List<ProgramLogWeek> {
                                     new ProgramLogWeek { StartDate = curDate, EndDate = curDate.AddDays(7), ProgramLogDays = new List<ProgramLogDay> {

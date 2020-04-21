@@ -40,11 +40,12 @@ namespace PowerLifting.API.API
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult UpdateLiftingStats(string userId, [FromBody]LiftingStatDTO liftingStats)
         {
             try
             {
-                _service.LiftingStat.UpdateLiftingStatsAsync(userId, liftingStats);
+                _service.LiftingStat.UpdateLiftingStats(userId, liftingStats);
             }
             catch(LiftingStatNotFoundException e)
             {
@@ -52,7 +53,7 @@ namespace PowerLifting.API.API
             }
             catch(UserDoesNotMatchLiftingStatException e)
             {
-                return NotFound(e);
+                return Unauthorized(e);
             }
             return NoContent();
         }

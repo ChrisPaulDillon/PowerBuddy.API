@@ -49,12 +49,12 @@ namespace PowerLifting.Service.TemplatePrograms
             foreach (var set in templateExercise.TemplateRepSchemes)
             {
                 var percentage = set.Percentage / 100;
-                if (templateExercise.ExerciseId == 1)
-                    set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
-                else if (templateExercise.ExerciseId == 26)
-                    set.WeightLifted = percentage * user.LiftingStats.DeadLiftWeight;
-                else if (templateExercise.ExerciseId == 27)
-                    set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
+                //if (templateExercise.ExerciseId == 1)
+                    //set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
+                //else if (templateExercise.ExerciseId == 26)
+                    //set.WeightLifted = percentage * user.LiftingStats.DeadLiftWeight;
+                //else if (templateExercise.ExerciseId == 27)
+                    //set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
             }
 
             var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(programTemplate);

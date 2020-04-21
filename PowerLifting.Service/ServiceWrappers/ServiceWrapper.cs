@@ -18,7 +18,6 @@ namespace PowerLifting.Service.ServiceWrappers
         private IExerciseService _exercise;
         private IExerciseMuscleGroupService _exerciseMuscleGroup;
         private IExerciseTypeService _exerciseType;
-        private ILiftingStatAuditService _liftingStatAudit;
         private ILiftingStatService _liftingStats;
 
         private readonly IMapper _mapper;
@@ -53,16 +52,6 @@ namespace PowerLifting.Service.ServiceWrappers
                 if (_liftingStats == null) _liftingStats = new LiftingStatService(_repoWrapper, _mapper);
 
                 return _liftingStats;
-            }
-        }
-
-        public ILiftingStatAuditService LiftingStatAudit
-        {
-            get
-            {
-                if (_liftingStatAudit == null) _liftingStatAudit = new LiftingStatAuditService(_repoWrapper, _mapper);
-
-                return _liftingStatAudit;
             }
         }
 
