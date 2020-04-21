@@ -12,6 +12,6 @@ namespace PowerLifting.Service.ProgramLogs.DTO
         public int WeekNumber { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public ICollection<ProgramLogDay> ProgramLogDays { get; set; }
+        public ICollection<ProgramLogDayDTO> ProgramLogDays { get; set; }
     }
 }

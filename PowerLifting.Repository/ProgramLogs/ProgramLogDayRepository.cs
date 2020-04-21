@@ -19,7 +19,7 @@ namespace PowerLifting.Repository.ProgramLogs
         {
             return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
                                                                         && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0
-                                                                        && x.ProgramLogId == programLogId)
+                                                                        && x.ProgramLogWeekId == programLogId) //TODO FIX
                                                                         .FirstOrDefaultAsync();
         }
 

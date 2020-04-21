@@ -11,8 +11,8 @@ namespace PowerLifting.Service.ProgramLogs.Model
     {
         public int ProgramLogExerciseId { get; set; }
         public int ProgramLogDayId { get; set; }
-        public string ExerciseName { get; set; }
-        public int NumOfSets { get; set; }
+        public int ExerciseId { get; set; }
+        public int NoOfSets { get; set; }
         public string Comment { get; set; }
 
         public ICollection<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set

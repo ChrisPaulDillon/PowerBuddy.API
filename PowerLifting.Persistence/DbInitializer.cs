@@ -215,25 +215,25 @@ namespace PowerLifting.Persistence
                             new ProgramLog { StartDate = curDate, EndDate = curDate.AddDays(30), TemplateProgramId = 1, Monday = true, Tuesday = true, ProgramLogWeeks = new List<ProgramLogWeek> {
                                     new ProgramLogWeek { StartDate = curDate, EndDate = curDate.AddDays(7), ProgramLogDays = new List<ProgramLogDay> {
                                         new ProgramLogDay { DayOfWeek = "Monday", Date = curDate, ProgramLogExercises = new List<ProgramLogExercise> {
-                                             new ProgramLogExercise { NumOfSets = 5, ExerciseName = "Squat", ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                             new ProgramLogExercise { NoOfSets = 5, ExerciseId = 1, ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
                                                 new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
                                                 new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
                                                 new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
                                                }}}},
                                          new ProgramLogDay { DayOfWeek = "Tuesday", Date = curDate.AddDays(1), ProgramLogExercises = new List<ProgramLogExercise> {
-                                              new ProgramLogExercise {  NumOfSets = 5, ExerciseName = "Deadlift", ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                              new ProgramLogExercise {  NoOfSets = 5, ExerciseId = 27, ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
                                                 new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
                                                 new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
                                                 new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
                                                 }}}},
                                          new ProgramLogDay { DayOfWeek = "Wednesday", Date = curDate.AddDays(2), ProgramLogExercises = new List<ProgramLogExercise> {
-                                                new ProgramLogExercise {  NumOfSets = 5, ExerciseName = "Squat", ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                                new ProgramLogExercise {  NoOfSets = 5, ExerciseId = 1, ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
                                                 new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
                                                 new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
                                                 new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },
                                                 }}}},
                                          new ProgramLogDay { DayOfWeek = "Wednesday", Date = curDate.AddDays(3), ProgramLogExercises = new List<ProgramLogExercise> {
-                                                new ProgramLogExercise {  NumOfSets = 5, ExerciseName = "Overhead Press", ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
+                                                new ProgramLogExercise {  NoOfSets = 5, ExerciseId = 26, ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
                                                 new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NumOfReps =5 },
                                                 new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NumOfReps =5 },
                                                 new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NumOfReps =5 },

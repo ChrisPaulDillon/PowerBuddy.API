@@ -61,7 +61,8 @@ namespace PowerLifting.Service.ProgramLogs
             }
 
             var newProgramLog = MapTemplateToProgramLog(templateProgram, daySelected);
-            _repo.ProgramLog.CreateProgramLog(newProgramLog);
+            var programLog = _mapper.Map<ProgramLog>(newProgramLog);
+            _repo.ProgramLog.CreateProgramLog(programLog);
         }
 
         private int CountDaysSelected(DaySelected ds)
@@ -77,9 +78,9 @@ namespace PowerLifting.Service.ProgramLogs
             return counter;
         }
 
-        private ProgramLog MapTemplateToProgramLog(TemplateProgram tp, DaySelected ds)
+        private ProgramLogDTO MapTemplateToProgramLog(TemplateProgram tp, DaySelected ds)
         { 
-            var log = new ProgramLog()
+            var log = new ProgramLogDTO()
             {
                  TemplateProgramId = tp.TemplateProgramId,
                  Monday = ds.Monday,
@@ -94,77 +95,116 @@ namespace PowerLifting.Service.ProgramLogs
             };
 
             log.ProgramLogWeeks = GenerateProgramWeekDates(ds, tp.NoOfWeeks);
+            log.ProgramLogWeeks = GenerateProgramExercises(tp.TemplateWeeks, (List<ProgramLogWeekDTO>)log.ProgramLogWeeks);
             return log;
         }
 
-        private List<ProgramLogWeek> GenerateProgramWeekDates(DaySelected ds, int noOfWeeks)
+        private List<ProgramLogWeekDTO> GenerateProgramExercises(ICollection<TemplateWeek> templateWeeks, List<ProgramLogWeekDTO> programLogWeeks)
         {
-            var listOfProgramWeeks = new List<ProgramLogWeek>();
-            
-            for (int i = 0; i < noOfWeeks; i++)
+            foreach (var week in templateWeeks)
             {
-                var programLogWeek = new ProgramLogWeek()
+                foreach (var logWeek in programLogWeeks)
+                {
+                    foreach (var day in week.TemplateDays)
+                    {
+                        foreach (var logDay in logWeek.ProgramLogDays)
+                        {
+                            logDay.ProgramLogExercises = new List<ProgramLogExerciseDTO>();
+                            foreach (var temExercise in day.TemplateExercises)
+                            {
+                                var programLogExercise = new ProgramLogExerciseDTO()
+                                {
+                                    NoOfSets = temExercise.NoOfSets,
+                                    ExerciseId = temExercise.ExerciseId,
+                                    ProgramLogRepSchemes = new List<ProgramLogRepSchemeDTO>()
+                                };
+                                foreach(var temReps in temExercise.TemplateRepSchemes)
+                                {
+                                    var programLogReps = new ProgramLogRepSchemeDTO()
+                                    {
+                                        SetNo = temReps.SetNo,
+                                        NumOfReps = temReps.NumOfReps,
+                                        //TODO Weight lifted    
+                                    };
+                                    programLogExercise.ProgramLogRepSchemes.Add(programLogReps);
+                                }
+                                logDay.ProgramLogExercises.Add(programLogExercise);
+                            }
+                        }
+                    }
+                }
+            }
+            return programLogWeeks;
+        }
+
+        private List<ProgramLogWeekDTO> GenerateProgramWeekDates(DaySelected ds, int noOfWeeks)
+        {
+            var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
+            
+            for (int i = 1; i < noOfWeeks + 1; i++)
+            {
+                var programLogWeek = new ProgramLogWeekDTO()
                 {
                     StartDate = ds.StartDate,
                     EndDate = ds.StartDate.AddDays(7),
                     WeekNumber = i
                 };
-                listOfProgramWeeks.Add(GenerateProgramLogDaysForWeek(programLogWeek, ds));
+                var programLogWeekWithDays = GenerateProgramLogDaysForWeek(programLogWeek, ds);
+                listOfProgramWeeks.Add(programLogWeekWithDays);
                 ds.StartDate = ds.StartDate.AddDays(7);
             }
 
             return listOfProgramWeeks;
         }
 
-        private ProgramLogWeek GenerateProgramLogDaysForWeek(ProgramLogWeek programLogWeek, DaySelected ds)
+        private ProgramLogWeekDTO GenerateProgramLogDaysForWeek(ProgramLogWeekDTO programLogWeek, DaySelected ds)
         {
-            
-                var listOfProgramDays = new List<ProgramLogDay>();
-                var startDate = programLogWeek.StartDate;
-                if(ds.Monday)
-                {
-                    var programLogDay = GenerateProgramLogDay("Monday", startDate);
-                    listOfProgramDays.Add(programLogDay);
-                }
-                if (ds.Tuesday)
-                {
-                    var programLogDay = GenerateProgramLogDay("Tuesday", startDate);
-                    listOfProgramDays.Add(programLogDay);
-                }
-                if (ds.Wednesday)
-                {
-                    var programLogDay = GenerateProgramLogDay("Wednesday", startDate);
-                    listOfProgramDays.Add(programLogDay);
-                }
-                if (ds.Thursday)
-                {
-                    var programLogDay = GenerateProgramLogDay("Thursday", startDate);
-                    listOfProgramDays.Add(programLogDay);
-                }
-                if (ds.Friday)
-                {
-                    var programLogDay = GenerateProgramLogDay("Friday", startDate);
-                    listOfProgramDays.Add(programLogDay);
-                }
-                if (ds.Saturday)
-                {
-                    var programLogDay = GenerateProgramLogDay("Saturday", startDate);
-                    listOfProgramDays.Add(programLogDay);
-                }
-                if (ds.Sunday)
-                {
-                    var programLogDay = GenerateProgramLogDay("Sunday", startDate);
-                    listOfProgramDays.Add(programLogDay);
-                }
+            var listOfProgramDays = new List<ProgramLogDayDTO>();
+            var startDate = programLogWeek.StartDate;
+            if(ds.Monday)
+            {
+                var programLogDay = GenerateProgramLogDay("Monday", startDate);
+                listOfProgramDays.Add(programLogDay);
+            }
+            if (ds.Tuesday)
+            {
+                var programLogDay = GenerateProgramLogDay("Tuesday", startDate);
+                listOfProgramDays.Add(programLogDay);
+            }
+            if (ds.Wednesday)
+            {
+                var programLogDay = GenerateProgramLogDay("Wednesday", startDate);
+                listOfProgramDays.Add(programLogDay);
+            }
+            if (ds.Thursday)
+            {
+                var programLogDay = GenerateProgramLogDay("Thursday", startDate);
+                listOfProgramDays.Add(programLogDay);
+            }
+            if (ds.Friday)
+            {
+                var programLogDay = GenerateProgramLogDay("Friday", startDate);
+                listOfProgramDays.Add(programLogDay);
+            }
+            if (ds.Saturday)
+            {
+                var programLogDay = GenerateProgramLogDay("Saturday", startDate);
+                listOfProgramDays.Add(programLogDay);
+            }
+            if (ds.Sunday)
+            {
+                var programLogDay = GenerateProgramLogDay("Sunday", startDate);
+                listOfProgramDays.Add(programLogDay);
+            }
             programLogWeek.ProgramLogDays = listOfProgramDays;
             return programLogWeek;
         }
 
-        private ProgramLogDay GenerateProgramLogDay(string dayOfWeek, DateTime startDate)
+        private ProgramLogDayDTO GenerateProgramLogDay(string dayOfWeek, DateTime startDate)
         {
             int daysUntilSpecificDay = ((int)DayOfWeek.Monday - (int)startDate.DayOfWeek + 7) % 7;
             DateTime nextMon = startDate.AddDays(daysUntilSpecificDay);
-            var programLogDay = new ProgramLogDay()
+            var programLogDay = new ProgramLogDayDTO()
             {
                 Date = nextMon,
                 DayOfWeek = dayOfWeek,
@@ -234,7 +274,7 @@ namespace PowerLifting.Service.ProgramLogs
 
         public async Task CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
         {
-            var programLogWeek = await _repo.ProgramLog.GetProgramLogById(programLogDayDTO.ProgramLogId);
+            var programLogWeek = await _repo.ProgramLog.GetProgramLogById(programLogDayDTO.ProgramLogDayId); //TODO FIX
             var isWithinWeekRange = programLogDayDTO.Date >= programLogWeek.StartDate && programLogDayDTO.Date < programLogWeek.EndDate;
 
             if (!isWithinWeekRange) throw new ProgramLogDayNotWithWeekRangeException();
