@@ -34,6 +34,15 @@ namespace PowerLifting.Service.LiftingStats
 
             var newLiftingStat = _mapper.Map<LiftingStat>(liftingStatsDTO);
             _repo.LiftingStat.CreateLiftingStat(newLiftingStat);
+
+            var liftingStatAudit = new LiftingStatAudit()
+            {
+                DateChange = DateTime.Now.Date,
+                RepRange = liftingStatsDTO.RepRange,
+                UserId = liftingStatsDTO.UserId,
+
+            };
+            _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
         }
 
         public async Task<LiftingStatDTO> GetLiftingStatByUserId(string userId)
