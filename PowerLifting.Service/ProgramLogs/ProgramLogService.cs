@@ -55,14 +55,13 @@ namespace PowerLifting.Service.ProgramLogs
             if (templateProgram == null) throw new TemplateProgramDoesNotExistException();
 
             var dayCounter = CountDaysSelected(daySelected);
-            if (templateProgram.MaxLiftDaysPerWeek != dayCounter) throw new ProgramDaysDoesNotMatchTemplateDaysException();
+            if (templateProgram.MaxLiftDaysPerWeek != dayCounter)
+            {
+                throw new ProgramDaysDoesNotMatchTemplateDaysException();
+            }
+
             var newProgramLog = MapTemplateToProgramLog(templateProgram, daySelected);
-            var testDate = DateTime.Now;
-            var programLogWeeks = GenerateProgramWeekDates(testDate, 8);
-            var programLogWeeksv2 = GenerateProgramLogDaysForEachWeek(programLogWeeks, daySelected);
-            //var newProgramLog = _mapper.Map<ProgramLog>(templateProgram);
             _repo.ProgramLog.CreateProgramLog(newProgramLog);
-            //return programLog;
         }
 
         private int CountDaysSelected(DaySelected ds)
@@ -82,6 +81,7 @@ namespace PowerLifting.Service.ProgramLogs
         { 
             var log = new ProgramLog()
             {
+                 TemplateProgramId = tp.TemplateProgramId,
                  Monday = ds.Monday,
                  Tuesday = ds.Tuesday,
                  Wednesday = ds.Wednesday,
@@ -89,26 +89,15 @@ namespace PowerLifting.Service.ProgramLogs
                  Friday = ds.Friday,
                  Saturday = ds.Saturday,
                  Sunday = ds.Sunday,
-                 StartDate = DateTime.Now.Date,
+                 StartDate = ds.StartDate,
                  NoOfWeeks = tp.NoOfWeeks
             };
 
-            if (log.Monday)
-                //GetNextWeekday(DateTime.Now.Date, DayOfWeek.Monday);
-            //TODO log.UserId = 
-
-            foreach (var templateWeek in tp.TemplateWeeks)
-            {
-                foreach(var templateDay in templateWeek.TemplateDays)
-                {
-                   
-                }
-            }
-
+            log.ProgramLogWeeks = GenerateProgramWeekDates(ds, tp.NoOfWeeks);
             return log;
         }
 
-        private List<ProgramLogWeek> GenerateProgramWeekDates(DateTime startDate, int noOfWeeks)
+        private List<ProgramLogWeek> GenerateProgramWeekDates(DaySelected ds, int noOfWeeks)
         {
             var listOfProgramWeeks = new List<ProgramLogWeek>();
             
@@ -116,23 +105,22 @@ namespace PowerLifting.Service.ProgramLogs
             {
                 var programLogWeek = new ProgramLogWeek()
                 {
-                    StartDate = startDate,
-                    EndDate = startDate.AddDays(7),
+                    StartDate = ds.StartDate,
+                    EndDate = ds.StartDate.AddDays(7),
                     WeekNumber = i
                 };
-                listOfProgramWeeks.Add(programLogWeek);
-                startDate = startDate.AddDays(7);
+                listOfProgramWeeks.Add(GenerateProgramLogDaysForWeek(programLogWeek, ds));
+                ds.StartDate = ds.StartDate.AddDays(7);
             }
 
             return listOfProgramWeeks;
         }
 
-        private List<ProgramLogWeek> GenerateProgramLogDaysForEachWeek(List<ProgramLogWeek> programLogWeeks, DaySelected ds)
+        private ProgramLogWeek GenerateProgramLogDaysForWeek(ProgramLogWeek programLogWeek, DaySelected ds)
         {
-            foreach(var programWeek in programLogWeeks)
-            {
+            
                 var listOfProgramDays = new List<ProgramLogDay>();
-                var startDate = programWeek.StartDate;
+                var startDate = programLogWeek.StartDate;
                 if(ds.Monday)
                 {
                     var programLogDay = GenerateProgramLogDay("Monday", startDate);
@@ -168,9 +156,8 @@ namespace PowerLifting.Service.ProgramLogs
                     var programLogDay = GenerateProgramLogDay("Sunday", startDate);
                     listOfProgramDays.Add(programLogDay);
                 }
-                programWeek.ProgramLogDays = listOfProgramDays;
-            }
-            return programLogWeeks;
+            programLogWeek.ProgramLogDays = listOfProgramDays;
+            return programLogWeek;
         }
 
         private ProgramLogDay GenerateProgramLogDay(string dayOfWeek, DateTime startDate)
@@ -184,19 +171,6 @@ namespace PowerLifting.Service.ProgramLogs
                 //Add teh stoof
             };
             return programLogDay;
-        }
-        private  DateTime GetNextWeekday(ProgramLog pl, DateTime start, DayOfWeek day)
-        {
-            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
-            List<ProgramLogWeek> listOfProgramWeeks = new List<ProgramLogWeek>();
-
-            for (int i = 0; i <= pl.NoOfWeeks; i++)
-            {
-                int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
-                var dateToAdd = start.AddDays(daysToAdd);
-            }
-            return start;
-     
         }
 
         public async Task<ProgramLogDTO> UpdateProgramLog(string userId, ProgramLogDTO programLogDTO)
