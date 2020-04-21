@@ -20,6 +20,10 @@ namespace PowerLifting.Repository.Templates
             return await PowerliftingContext.Set<TemplateProgram>().Include(x => x.TemplateWeeks)
                                                                    .ThenInclude(x => x.TemplateDays)
                                                                    .ThenInclude(x => x.TemplateExercises)
+                                                                   .ThenInclude(x => x.Exercise)
+                                                                   .Include(x => x.TemplateWeeks)
+                                                                   .ThenInclude(x => x.TemplateDays)
+                                                                   .ThenInclude(x => x.TemplateExercises)
                                                                    .ThenInclude(x => x.TemplateRepSchemes)
                                                                    .ToListAsync();
         }
@@ -27,6 +31,10 @@ namespace PowerLifting.Repository.Templates
         public async Task<TemplateProgram> GetTemplateProgramById(int templateProgramId)
         {
             return await PowerliftingContext.Set<TemplateProgram>().Where(x => x.TemplateProgramId == templateProgramId)
+                                                                   .Include(x => x.TemplateWeeks)
+                                                                   .ThenInclude(x => x.TemplateDays)
+                                                                   .ThenInclude(x => x.TemplateExercises)
+                                                                   .ThenInclude(x => x.Exercise)
                                                                    .Include(x => x.TemplateWeeks)
                                                                    .ThenInclude(x => x.TemplateDays)
                                                                    .ThenInclude(x => x.TemplateExercises)

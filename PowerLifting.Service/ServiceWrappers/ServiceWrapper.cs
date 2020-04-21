@@ -24,9 +24,7 @@ namespace PowerLifting.Service.ServiceWrappers
         private readonly IMapper _mapper;
         private IProgramLogService _programLog;
         private readonly IRepositoryWrapper _repoWrapper;
-        private ITemplateExerciseService _templateExercise;
         private ITemplateProgramService _templateProgram;
-        private ITemplateRepSchemeService _templateRepScheme;
         private IUserService _user;
 
         private UserManager<User> _userManager;
@@ -116,27 +114,6 @@ namespace PowerLifting.Service.ServiceWrappers
                 if (_templateProgram == null) _templateProgram = new TemplateProgramService(_repoWrapper, _mapper);
 
                 return _templateProgram;
-            }
-        }
-
-        public ITemplateExerciseService TemplateExercise
-        {
-            get
-            {
-                if (_templateExercise == null) _templateExercise = new TemplateExerciseService(_repoWrapper, _mapper);
-
-                return _templateExercise;
-            }
-        }
-
-        public ITemplateRepSchemeService TemplateRepScheme
-        {
-            get
-            {
-                if (_templateRepScheme == null)
-                    _templateRepScheme = new TemplateRepSchemeService(_repoWrapper, _mapper);
-
-                return _templateRepScheme;
             }
         }
     }

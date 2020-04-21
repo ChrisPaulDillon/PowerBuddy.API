@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.ServiceWrappers;
@@ -41,22 +42,28 @@ namespace PowerLifting.Service.TemplatePrograms
             var user = await _repo.User.GetUserByIdIncludeLiftingStats(userId);
             var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
 
+            //var programmableExercises = GetProgrammableExercises()
             foreach (var templateWeek in programTemplate.TemplateWeeks)
             foreach (var templateDay in templateWeek.TemplateDays)
             foreach (var templateExercise in templateDay.TemplateExercises)
             foreach (var set in templateExercise.TemplateRepSchemes)
             {
                 var percentage = set.Percentage / 100;
-                if (templateExercise.ExerciseName == "Squat")
+                if (templateExercise.ExerciseId == 1)
                     set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
-                else if (templateExercise.ExerciseName == "Deadlift")
+                else if (templateExercise.ExerciseId == 26)
                     set.WeightLifted = percentage * user.LiftingStats.DeadLiftWeight;
-                else if (templateExercise.ExerciseName == "Bench Press")
+                else if (templateExercise.ExerciseId == 27)
                     set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
             }
 
             var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(programTemplate);
             return programTemplateDTO;
+        }
+
+        private IEnumerable<TemplateExercise> GetProgrammableExercises(IEnumerable<TemplateExercise> templateExercises)
+        {
+            return templateExercises.Where(x => x.Exercise.IsProgrammable);
         }
 
         public async Task CreateTemplateProgram(TemplateProgramDTO templateProgramDTO)

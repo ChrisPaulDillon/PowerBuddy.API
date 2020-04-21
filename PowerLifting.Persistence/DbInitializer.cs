@@ -38,38 +38,38 @@ namespace PowerLifting.Persistence
                 var exercises = new Exercise[]
                 {
                     new Exercise{ExerciseName="Back Squat", ExerciseTypeId = 2,
-                            ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                        IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Quads" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Hamstrings" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Lower Back" },
                         }, },
                     new Exercise{ExerciseName="Conventional Deadlift", ExerciseTypeId = 2,
-                            ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                        IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Lower Back" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Upper Back" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Hamstring" },
                         }, },
                     new Exercise{ExerciseName="Bench Press", ExerciseTypeId = 2,
-                            ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                        IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Chest" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Tricep" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Anterior Deltoid" },
                         }, },
                     new Exercise{ExerciseName="Overhead Press", ExerciseTypeId = 2,
-                            ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                            IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Anterior Deltoid" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Tricep" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Trapezius" },
                         }, },
                     new Exercise{ExerciseName="Front Squat", ExerciseTypeId = 2,
-                            ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                            IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Quadricep" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Glute" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Abdominal" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Upper Back" },
                         }, },
                     new Exercise{ExerciseName="Overhead Squat", ExerciseTypeId = 2,
-                            ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                            IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Shoulder" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Quadricep" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Glute" },
@@ -115,19 +115,19 @@ namespace PowerLifting.Persistence
                         TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNumber = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseName = "Squat", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
                                           new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise>{
-                                          new TemplateExercise { ExerciseName = "Bench Press", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "DeadLift", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5}
@@ -135,19 +135,19 @@ namespace PowerLifting.Persistence
                             //Week 2
                             new TemplateWeek { WeekNumber = 2, TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Squat", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3}
                                                                                                           } } } },
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Bench Press", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3}
                                                                                                           } } } },
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "DeadLift", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3}
@@ -155,19 +155,19 @@ namespace PowerLifting.Persistence
                              //Week 3
                             new TemplateWeek { WeekNumber = 3, TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Squat", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1}
                                                                                                           } } } },
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Bench Press", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "DeadLift", NoOfSets = 3,TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3,TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5}
@@ -175,19 +175,19 @@ namespace PowerLifting.Persistence
                                           //Week 4
                             new TemplateWeek { WeekNumber = 4, TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Squat", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "Bench Press", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseName = "DeadLift", NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
@@ -207,7 +207,7 @@ namespace PowerLifting.Persistence
                 var users = new User[]
                 {
                     new User{ Email="chrispauldillon@live.com", PasswordHash = "test123",
-                        LiftingStats= new LiftingStat { BenchWeight=100, DeadliftWeight=170, SquatWeight=200 },
+                        LiftingStats= new LiftingStat { BenchWeight=100, DeadLiftWeight=170, SquatWeight=200 },
                         ProgramLogs= new List<ProgramLog> {
                             new ProgramLog { StartDate = curDate, EndDate = curDate.AddDays(30), TemplateProgramId = 1, Monday = true, Tuesday = true, ProgramLogWeeks = new List<ProgramLogWeek> {
                                     new ProgramLogWeek { StartDate = curDate, EndDate = curDate.AddDays(7), ProgramLogDays = new List<ProgramLogDay> {
