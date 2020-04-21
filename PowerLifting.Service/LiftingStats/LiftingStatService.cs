@@ -20,6 +20,22 @@ namespace PowerLifting.Service.LiftingStats
             _mapper = mapper;
         }
 
+        public async Task CreateLiftingStats(LiftingStatDTO liftingStatsDTO)
+        {
+            var userId = liftingStatsDTO.UserId;
+            var repRange = liftingStatsDTO.RepRange;
+
+            var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, repRange);
+
+            if(liftingStat != null)
+            {
+                throw new LiftingStatRepRangeAlreadyExistsException();
+            }
+
+            var newLiftingStat = _mapper.Map<LiftingStat>(liftingStatsDTO);
+            _repo.LiftingStat.CreateLiftingStat(newLiftingStat);
+        }
+
         public async Task<LiftingStatDTO> GetLiftingStatByUserId(string userId)
         {
             var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);

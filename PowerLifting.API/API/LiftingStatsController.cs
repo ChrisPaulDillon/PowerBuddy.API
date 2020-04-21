@@ -36,6 +36,23 @@ namespace PowerLifting.API.API
             }
         }
 
+        [HttpPost]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateLiftingStat([FromBody] LiftingStatDTO liftingStat)
+        {
+            try
+            {
+                await _service.LiftingStat.CreateLiftingStats(liftingStat);
+                return Ok();
+            }
+            catch (LiftingStatRepRangeAlreadyExistsException e)
+            {
+                return BadRequest(e);
+            }
+        }
+
         [HttpPut("{userId}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
