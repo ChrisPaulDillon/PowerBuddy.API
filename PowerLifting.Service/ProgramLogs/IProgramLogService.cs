@@ -108,5 +108,17 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
 
 
         #endregion
+
+        #region ProgramLogRepSchemes
+
+        /// <summary>
+        /// Allows a user to update weight lifted, comment etc on a given program rep
+        /// </summary>
+        /// <param name="programLogRepSchemeDTO"></param>
+        /// <returns></returns>
+        Task UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
+        
+
+        #endregion
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Powerlifting.Repository;
 using PowerLifting.Persistence;
 using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
@@ -12,9 +14,26 @@ namespace PowerLifting.Repository.ProgramLogs
         {
         }
 
-        public async Task CreateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
+        public async Task<ProgramLogRepScheme> GetProgramLogRepScheme(int programLogRepSchemeId)
         {
-            await PowerliftingContext.Set<ProgramLogRepScheme>().AddAsync(programLogRepScheme);
+            return await PowerliftingContext.Set<ProgramLogRepScheme>().Where(x => x.ProgramLogRepSchemeId
+                                                                                == programLogRepSchemeId)
+                                                                                .FirstOrDefaultAsync();
+        }
+
+        public void CreateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
+        {
+            Create(programLogRepScheme);
+        }
+
+        public void UpdateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
+        {
+            Update(programLogRepScheme);
+        }
+
+        public void DeleteProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
+        {
+            Delete(programLogRepScheme);
         }
     }
 }

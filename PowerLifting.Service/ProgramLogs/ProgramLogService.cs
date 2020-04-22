@@ -41,7 +41,7 @@ namespace PowerLifting.Service.ProgramLogs
         public async Task CreateProgramLog(ProgramLogDTO programLog)
         {
             var log = await _repo.ProgramLog.GetProgramLogById(programLog.ProgramLogId);
-            if(log != null)
+            if (log != null)
             {
                 throw new ProgramLogAlreadyExistsException();
             }
@@ -92,25 +92,25 @@ namespace PowerLifting.Service.ProgramLogs
         }
 
         private ProgramLogDTO CreateProgramLog(TemplateProgram tp, DaySelected ds, IEnumerable<LiftingStat> liftingStats)
-        { 
+        {
             var log = new ProgramLogDTO()
             {
-                 TemplateProgramId = tp.TemplateProgramId,
-                 Monday = ds.Monday,
-                 Tuesday = ds.Tuesday,
-                 Wednesday = ds.Wednesday,
-                 Thursday = ds.Thursday,
-                 Friday = ds.Friday,
-                 Saturday = ds.Saturday,
-                 Sunday = ds.Sunday,
-                 StartDate = ds.StartDate,
-                 NoOfWeeks = tp.NoOfWeeks
+                TemplateProgramId = tp.TemplateProgramId,
+                Monday = ds.Monday,
+                Tuesday = ds.Tuesday,
+                Wednesday = ds.Wednesday,
+                Thursday = ds.Thursday,
+                Friday = ds.Friday,
+                Saturday = ds.Saturday,
+                Sunday = ds.Sunday,
+                StartDate = ds.StartDate,
+                NoOfWeeks = tp.NoOfWeeks
             };
 
             log.ProgramLogWeeks = GenerateProgramWeekDates(ds, tp.NoOfWeeks);
             log.ProgramLogWeeks = GenerateProgramExercises(tp.TemplateWeeks,
                                                            (List<ProgramLogWeekDTO>)log.ProgramLogWeeks,
-                                                           (List<LiftingStat>) liftingStats);
+                                                           (List<LiftingStat>)liftingStats);
             return log;
         }
 
@@ -162,7 +162,7 @@ namespace PowerLifting.Service.ProgramLogs
         private List<ProgramLogWeekDTO> GenerateProgramWeekDates(DaySelected ds, int noOfWeeks)
         {
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
-            
+
             for (int i = 1; i < noOfWeeks + 1; i++)
             {
                 var programLogWeek = new ProgramLogWeekDTO()
@@ -183,7 +183,7 @@ namespace PowerLifting.Service.ProgramLogs
         {
             var listOfProgramDays = new List<ProgramLogDayDTO>();
             var startDate = programLogWeek.StartDate;
-            if(ds.Monday)
+            if (ds.Monday)
             {
                 var programLogDay = GenerateProgramLogDay("Monday", startDate);
                 listOfProgramDays.Add(programLogDay);
@@ -271,7 +271,7 @@ namespace PowerLifting.Service.ProgramLogs
 
         public async Task<ProgramLogWeekDTO> GetCurrentProgramLogWeekByUserId(string userId, int programLogId)
         {
-            var programLogWeek =  await _repo.ProgramLogWeek.GetCurrentProgramLogWeekByUserId(userId, programLogId);
+            var programLogWeek = await _repo.ProgramLogWeek.GetCurrentProgramLogWeekByUserId(userId, programLogId);
             var programLogWeekDTO = _mapper.Map<ProgramLogWeekDTO>(programLogWeek);
             return programLogWeekDTO;
         }
@@ -332,6 +332,22 @@ namespace PowerLifting.Service.ProgramLogs
             if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
 
             _repo.ProgramLogExercise.DeleteProgramLogExercise(programLogExercise);
+        }
+
+        #endregion
+
+        #region ProgramLogRepScheme
+
+
+        public async Task UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        {
+            var programLogRepScheme = await _repo.ProgramLogRepScheme.GetProgramLogRepScheme
+                                                                    (programLogRepSchemeDTO.ProgramLogExerciseId);
+
+            if (programLogRepScheme == null) throw new ProgramLogExerciseNotFoundException();
+
+            _mapper.Map(programLogRepSchemeDTO, programLogRepScheme);
+            _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(programLogRepScheme);
         }
 
         #endregion

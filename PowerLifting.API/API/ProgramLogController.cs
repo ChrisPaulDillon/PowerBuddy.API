@@ -266,5 +266,31 @@ namespace PowerLifting.API.API
         }
 
         #endregion
+
+        #region ProgramLogRepSchemes
+
+        [HttpPut("RepScheme")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateProgramLogRepScheme([FromBody]ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        {
+            try
+            {
+                await _service.ProgramLog.UpdateProgramLogRepScheme(programLogRepSchemeDTO);
+                return NoContent();
+            }
+            catch (ProgramLogNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            catch (UserDoesNotMatchProgramLogException e)
+            {
+                return Unauthorized(e);
+            }
+        }
+
+        #endregion
     }
 }
