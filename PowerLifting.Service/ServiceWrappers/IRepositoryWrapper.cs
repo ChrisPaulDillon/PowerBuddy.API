@@ -2,6 +2,7 @@
 using PowerLifting.Service.LiftingStats;
 using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
+using PowerLifting.Service.TemplatePrograms.Contracts;
 using PowerLifting.Service.TemplatePrograms.Contracts.Repositories;
 using PowerLifting.Service.Users;
 
@@ -25,5 +26,6 @@ namespace PowerLifting.Service.ServiceWrappers
         ITemplateDayRepository TemplateDay { get; }
         ITemplateExerciseRepository TemplateExercise { get; }
         ITemplateRepSchemeRepository TemplateRepScheme { get; }
+        ITemplateExerciseCollectionRepository TemplateExerciseCollection { get; }
     }
 }

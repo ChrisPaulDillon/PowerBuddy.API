@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.ProgramLogs.Contracts.Services;
 using PowerLifting.Service.ProgramLogs.DTO;
 using PowerLifting.Service.ProgramLogs.Exceptions;
@@ -48,9 +50,12 @@ namespace PowerLifting.Service.ProgramLogs
             //return programLog;
         }
 
-        public async Task CreateProgramLogFromTemplate(int programTemplateId, DaySelected daySelected)
+        public async Task CreateProgramLogFromTemplate(int templateProgramId, DaySelected daySelected)
         {
-            var templateProgram = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
+            string userId = "61bb0905-ce12-4720-af51-363a3579ab27";
+            var templateProgram = await _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
+            var templateExerciseCollection = await _repo.TemplateExerciseCollection
+                                    .GetTemplateExerciseCollectionByTemplateId(templateProgramId);
 
             if (templateProgram == null) throw new TemplateProgramDoesNotExistException();
 
@@ -60,7 +65,15 @@ namespace PowerLifting.Service.ProgramLogs
                 throw new ProgramDaysDoesNotMatchTemplateDaysException();
             }
 
-            var newProgramLog = MapTemplateToProgramLog(templateProgram, daySelected);
+            var userLiftingStats = await _repo.LiftingStat
+                .GetLiftingStatsByUserIdAndRepRange(userId, 1);
+
+            var checkLiftingStats = userLiftingStats.Where(item1 =>
+                    templateExerciseCollection.Any(item2 => item1.ExerciseId == item2.ExerciseId));
+
+            //TODO user must have 1RM for each lift in the program before proceeding!
+
+            var newProgramLog = CreateProgramLog(templateProgram, daySelected, userLiftingStats);
             var programLog = _mapper.Map<ProgramLog>(newProgramLog);
             _repo.ProgramLog.CreateProgramLog(programLog);
         }
@@ -78,7 +91,7 @@ namespace PowerLifting.Service.ProgramLogs
             return counter;
         }
 
-        private ProgramLogDTO MapTemplateToProgramLog(TemplateProgram tp, DaySelected ds)
+        private ProgramLogDTO CreateProgramLog(TemplateProgram tp, DaySelected ds, IEnumerable<LiftingStat> liftingStats)
         { 
             var log = new ProgramLogDTO()
             {
@@ -95,11 +108,15 @@ namespace PowerLifting.Service.ProgramLogs
             };
 
             log.ProgramLogWeeks = GenerateProgramWeekDates(ds, tp.NoOfWeeks);
-            log.ProgramLogWeeks = GenerateProgramExercises(tp.TemplateWeeks, (List<ProgramLogWeekDTO>)log.ProgramLogWeeks);
+            log.ProgramLogWeeks = GenerateProgramExercises(tp.TemplateWeeks,
+                                                           (List<ProgramLogWeekDTO>)log.ProgramLogWeeks,
+                                                           (List<LiftingStat>) liftingStats);
             return log;
         }
 
-        private List<ProgramLogWeekDTO> GenerateProgramExercises(ICollection<TemplateWeek> templateWeeks, List<ProgramLogWeekDTO> programLogWeeks)
+        private List<ProgramLogWeekDTO> GenerateProgramExercises(ICollection<TemplateWeek> templateWeeks,
+                                                                 List<ProgramLogWeekDTO> programLogWeeks,
+                                                                 List<LiftingStat> liftingStats)
         {
             foreach (var week in templateWeeks)
             {
@@ -118,13 +135,18 @@ namespace PowerLifting.Service.ProgramLogs
                                     ExerciseId = temExercise.ExerciseId,
                                     ProgramLogRepSchemes = new List<ProgramLogRepSchemeDTO>()
                                 };
-                                foreach(var temReps in temExercise.TemplateRepSchemes)
+                                var userPBOnLift = liftingStats.Where(x => x.ExerciseId == temExercise.ExerciseId).SingleOrDefault();
+
+                                foreach (var temReps in temExercise.TemplateRepSchemes)
                                 {
+                                    var percentage = temReps.Percentage / 100;
+                                    var weightToLift = userPBOnLift.Weight * percentage;
                                     var programLogReps = new ProgramLogRepSchemeDTO()
                                     {
                                         SetNo = temReps.SetNo,
                                         NumOfReps = temReps.NumOfReps,
-                                        //TODO Weight lifted    
+                                        Percentage = temReps.Percentage,
+                                        WeightLifted = weightToLift
                                     };
                                     programLogExercise.ProgramLogRepSchemes.Add(programLogReps);
                                 }

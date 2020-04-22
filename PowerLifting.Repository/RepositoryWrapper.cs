@@ -9,6 +9,7 @@ using PowerLifting.Service.LiftingStats;
 using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
 using PowerLifting.Service.ServiceWrappers;
+using PowerLifting.Service.TemplatePrograms.Contracts;
 using PowerLifting.Service.TemplatePrograms.Contracts.Repositories;
 using PowerLifting.Service.Users;
 
@@ -32,6 +33,7 @@ namespace PowerLifting.Repository
         private ITemplateDayRepository _templateDayRepo;
         private ITemplateExerciseRepository _templateExerciseRepo;
         private ITemplateRepSchemeRepository _templateRepSchemeRepo;
+        private ITemplateExerciseCollectionRepository _templateExerciseCollectionRepo;
 
         private PowerliftingContext _context;
 
@@ -247,6 +249,19 @@ namespace PowerLifting.Repository
                 }
 
                 return _templateRepSchemeRepo;
+            }
+        }
+
+        public ITemplateExerciseCollectionRepository TemplateExerciseCollection
+        {
+            get
+            {
+                if (_templateExerciseCollectionRepo == null)
+                {
+                    _templateExerciseCollectionRepo = new TemplateExerciseCollectionRepository(_context);
+                }
+
+                return _templateExerciseCollectionRepo;
             }
         }
     }

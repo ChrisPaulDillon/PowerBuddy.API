@@ -9,6 +9,8 @@ namespace PowerLifting.Service.TemplatePrograms.Model
         public string Difficulty { get; set; }
         public int NoOfWeeks { get; set; }
         public int MaxLiftDaysPerWeek { get; set; }
-        public ICollection<TemplateWeek> TemplateWeeks { get; set; }
+
+        public virtual ICollection<TemplateWeek> TemplateWeeks { get; set; }
+        public virtual ICollection<TemplateExerciseCollection> TemplateExerciseCollection { get; set; }
     }
 }

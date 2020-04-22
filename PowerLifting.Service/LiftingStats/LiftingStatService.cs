@@ -23,9 +23,11 @@ namespace PowerLifting.Service.LiftingStats
         public async Task CreateLiftingStats(LiftingStatDTO liftingStatsDTO)
         {
             var userId = liftingStatsDTO.UserId;
+            var exerciseId = liftingStatsDTO.ExerciseId;
             var repRange = liftingStatsDTO.RepRange;
 
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, repRange);
+            var liftingStat = await _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(
+                                                      userId, exerciseId, repRange);
 
             if(liftingStat != null)
             {
@@ -39,6 +41,7 @@ namespace PowerLifting.Service.LiftingStats
             {
                 DateChange = DateTime.Now.Date,
                 RepRange = liftingStatsDTO.RepRange,
+                ExerciseId = liftingStatsDTO.ExerciseId,
                 UserId = liftingStatsDTO.UserId,
 
             };
@@ -58,10 +61,10 @@ namespace PowerLifting.Service.LiftingStats
 
             if (liftingStat == null) throw new LiftingStatNotFoundException("Lifting stat not found");
 
-            if (liftingStat.UserId != userId)
-            {
-                throw new UserDoesNotMatchLiftingStatException("You are not authorised to modify these lifting stats!");
-            }
+            //if (liftingStat.UserId != userId)
+            //{
+            //    throw new UserDoesNotMatchLiftingStatException("You are not authorised to modify these lifting stats!");
+            //}
 
             var liftingStats = _mapper.Map<LiftingStat>(stats);
             _repo.LiftingStat.UpdateLiftingStats(liftingStats);
@@ -71,7 +74,7 @@ namespace PowerLifting.Service.LiftingStats
                 DateChange = DateTime.Now.Date,
                 RepRange = stats.RepRange,
                 UserId = stats.UserId,
-
+                ExerciseId = stats.ExerciseId
             };
 
             _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);

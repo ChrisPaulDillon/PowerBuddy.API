@@ -4,8 +4,8 @@ using PowerLifting.Service.Exercises.Model;
 namespace PowerLifting.Service.TemplatePrograms.Model
 {
     /// <summary>
-    ///     TemplateExercise represents on a fixed program template, a given exercise,
-    ///     its set, rep and percentage schema
+    /// TemplateExercise represents on a fixed program template, a given exercise,
+    /// its set, rep and percentage schema
     /// </summary>
     public class TemplateExercise
     {

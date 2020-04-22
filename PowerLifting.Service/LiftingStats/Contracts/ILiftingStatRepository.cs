@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using PowerLifting.Service.LiftingStats.Model;
 
 namespace PowerLifting.Service.LiftingStats
@@ -11,13 +12,23 @@ namespace PowerLifting.Service.LiftingStats
         /// <param name="userId"></param>
         /// <param name="repRange"></param>
         /// <returns></returns>
-        Task<LiftingStat> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange);
+        Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange);
+
         /// <summary>
         /// Gets the lifting stats associated with a given user
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<LiftingStat> GetLiftingStatsByUserId(string userId);
+        Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserId(string userId);
+
+        /// <summary>
+        /// Used to determine if the user already has a lifting stat for this exercise and rep range
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="exerciseId"></param>
+        /// <param name="repRange"></param>
+        /// <returns></returns>
+        Task<LiftingStat> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange);
 
         /// <summary>
         /// Creates a new lifting stat for a given rep range for a specific user

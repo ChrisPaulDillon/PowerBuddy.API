@@ -112,7 +112,11 @@ namespace PowerLifting.Persistence
                 var templates = new TemplateProgram[]
                 {
                     new TemplateProgram {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4,
-                        TemplateWeeks = new List<TemplateWeek> {
+                         TemplateExerciseCollection = new List<TemplateExerciseCollection> {
+                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 1 },
+                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 26 },
+                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 27 } },
+                            TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNumber = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
                                         new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
@@ -208,8 +212,9 @@ namespace PowerLifting.Persistence
                 {
                     new User{ Email="chrispauldillon@live.com", PasswordHash = "test123",
                         LiftingStats= new List<LiftingStat> {
-                            new LiftingStat { RepRange=1, BenchWeight=100, DeadLiftWeight=170, SquatWeight=200 },
-                            new LiftingStat { RepRange=2, BenchWeight=80, DeadLiftWeight=150, SquatWeight=170 },
+                            new LiftingStat { RepRange=1, ExerciseId=1, Weight=100, LastUpdated=curDate},
+                            new LiftingStat { RepRange=1, ExerciseId=26, Weight=120, LastUpdated=curDate},
+                            new LiftingStat { RepRange=1, ExerciseId=27, Weight=130, LastUpdated=curDate}
                         },
                         ProgramLogs= new List<ProgramLog> {
                             new ProgramLog { StartDate = curDate, EndDate = curDate.AddDays(30), TemplateProgramId = 1, Monday = true, Tuesday = true, ProgramLogWeeks = new List<ProgramLogWeek> {

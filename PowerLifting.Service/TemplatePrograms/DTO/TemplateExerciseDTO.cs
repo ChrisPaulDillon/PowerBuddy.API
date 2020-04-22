@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using PowerLifting.Service.Exercises.DTO;
-using PowerLifting.Service.Exercises.Model;
 using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.Service.TemplatePrograms.DTO

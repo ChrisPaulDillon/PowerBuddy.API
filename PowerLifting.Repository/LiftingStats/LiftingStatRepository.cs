@@ -5,6 +5,7 @@ using PowerLifting.Service.LiftingStats;
 using System.Linq;
 using System.Threading.Tasks;
 using PowerLifting.Service.LiftingStats.Model;
+using System.Collections.Generic;
 
 namespace PowerLifting.Repository.LiftingStats
 {
@@ -19,14 +20,23 @@ namespace PowerLifting.Repository.LiftingStats
             Create(liftingStat);
         }
 
-        public async Task<LiftingStat> GetLiftingStatsByUserId(string userId)
+        public async Task<LiftingStat> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange)
         {
-            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId).FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId &&
+                                                                      u.RepRange == repRange &&
+                                                                      u.ExerciseId == exerciseId).
+                                                                      FirstOrDefaultAsync();
         }
 
-        public async Task<LiftingStat> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
+        public async Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserId(string userId)
         {
-            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId && u.RepRange == repRange).FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
+        {
+            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId && u.RepRange == repRange)
+                                                               .ToListAsync();
         }
 
         public void UpdateLiftingStats(LiftingStat liftingStats)

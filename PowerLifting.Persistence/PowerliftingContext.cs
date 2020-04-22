@@ -35,6 +35,7 @@ namespace PowerLifting.Persistence
         public DbSet<TemplateDay> TemplateDay { get; set; }
         public DbSet<TemplateExercise> TemplateExercise { get; set; }
         public DbSet<TemplateRepScheme> TemplateRepScheme { get; set; }
+        public DbSet<TemplateExerciseCollection> TemplateExerciseCollection { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<IdentityRole> Role { get; set; }
         public DbSet<IdentityUserClaim<string>> UserClaim { get; set; }
@@ -63,6 +64,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
+            modelBuilder.Entity<TemplateExerciseCollection>().ToTable("TemplateExerciseCollection");
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
             modelBuilder.Entity<User>().ToTable("IdentityUser");
