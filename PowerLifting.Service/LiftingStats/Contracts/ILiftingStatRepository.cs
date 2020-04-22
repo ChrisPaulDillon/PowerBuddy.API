@@ -22,11 +22,15 @@ namespace PowerLifting.Service.LiftingStats
         Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserId(string userId);
 
         /// <summary>
+        /// Used to get a specific lifting stat for deletion or update
+        /// </summary>
+        /// <param name="liftingStatId"></param>
+        /// <returns></returns>
+        Task<LiftingStat> GetLiftingStatById(int liftingStatId);
+
+        /// <summary>
         /// Used to determine if the user already has a lifting stat for this exercise and rep range
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="exerciseId"></param>
-        /// <param name="repRange"></param>
         /// <returns></returns>
         Task<LiftingStat> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange);
 
@@ -40,6 +44,12 @@ namespace PowerLifting.Service.LiftingStats
         /// Updates lifting stats for a given user
         /// </summary>
         /// <param name="liftingStats"></param>
-        void UpdateLiftingStats(LiftingStat liftingStats);
+        void UpdateLiftingStat(LiftingStat liftingStat);
+
+        /// <summary>
+        /// Deletes a given lifting stat
+        /// </summary>
+        /// <param name="liftingStat"></param>
+        void DeleteLiftingStat(LiftingStat liftingStat);
     }
 }

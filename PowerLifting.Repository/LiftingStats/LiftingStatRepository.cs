@@ -15,11 +15,6 @@ namespace PowerLifting.Repository.LiftingStats
         {
         }
 
-        public void CreateLiftingStat(LiftingStat liftingStat)
-        {
-            Create(liftingStat);
-        }
-
         public async Task<LiftingStat> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange)
         {
             return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId &&
@@ -39,9 +34,24 @@ namespace PowerLifting.Repository.LiftingStats
                                                                .ToListAsync();
         }
 
-        public void UpdateLiftingStats(LiftingStat liftingStats)
+        public async Task<LiftingStat> GetLiftingStatById(int liftingStatId)
         {
-            Update(liftingStats);
+            return await PowerliftingContext.Set<LiftingStat>().Where(x => x.LiftingStatId == liftingStatId).FirstOrDefaultAsync();
+        }
+
+        public void CreateLiftingStat(LiftingStat liftingStat)
+        {
+            Create(liftingStat);
+        }
+
+        public void UpdateLiftingStat(LiftingStat liftingStat)
+        {
+            Update(liftingStat);
+        }
+
+        public void DeleteLiftingStat(LiftingStat liftingStat)
+        {
+            Delete(liftingStat);
         }
     }
 }

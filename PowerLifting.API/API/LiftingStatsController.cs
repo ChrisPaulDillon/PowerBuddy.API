@@ -23,11 +23,11 @@ namespace PowerLifting.API.API
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetUserLiftingStats(string userId)
+        public async Task<IActionResult> GetAllUserLiftingStats(string userId)
         {
             try
             {
-                var liftingStats = await _service.LiftingStat.GetLiftingStatByUserId(userId);
+                var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserId(userId);
                 return Ok(liftingStats);
             }
             catch (UserNotFoundException)
@@ -53,16 +53,16 @@ namespace PowerLifting.API.API
             }
         }
 
-        [HttpPut("{userId}")]
+        [HttpPut]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public IActionResult UpdateLiftingStats(string userId, [FromBody]LiftingStatDTO liftingStats)
+        public IActionResult UpdateLiftingStats ([FromBody]LiftingStatDTO liftingStats)
         {
             try
             {
-                _service.LiftingStat.UpdateLiftingStats(userId, liftingStats);
+                _service.LiftingStat.UpdateLiftingStat(liftingStats);
             }
             catch(LiftingStatNotFoundException e)
             {
@@ -71,6 +71,24 @@ namespace PowerLifting.API.API
             catch(UserDoesNotMatchLiftingStatException e)
             {
                 return Unauthorized(e);
+            }
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult DeleteLiftingStat([FromBody]LiftingStatDTO liftingStats)
+        {
+            try
+            {
+                _service.LiftingStat.DeleteLiftingStat(liftingStats);
+            }
+            catch (LiftingStatNotFoundException e)
+            {
+                return NotFound(e);
             }
             return NoContent();
         }

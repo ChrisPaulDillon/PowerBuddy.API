@@ -48,16 +48,16 @@ namespace PowerLifting.Service.LiftingStats
             _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
         }
 
-        public async Task<LiftingStatDTO> GetLiftingStatByUserId(string userId)
+        public async Task<LiftingStatDTO> GetLiftingStatsByUserId(string userId)
         {
             var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
             var liftingStatDTO = _mapper.Map<LiftingStatDTO>(liftingStat);
             return liftingStatDTO;
         }
 
-        public async Task UpdateLiftingStats(string userId, LiftingStatDTO stats)
+        public async Task UpdateLiftingStat(LiftingStatDTO stats)
         {
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
+            var liftingStat = await _repo.LiftingStat.GetLiftingStatById(stats.LiftingStatId);
 
             if (liftingStat == null) throw new LiftingStatNotFoundException("Lifting stat not found");
 
@@ -67,7 +67,7 @@ namespace PowerLifting.Service.LiftingStats
             //}
 
             var liftingStats = _mapper.Map<LiftingStat>(stats);
-            _repo.LiftingStat.UpdateLiftingStats(liftingStats);
+            _repo.LiftingStat.UpdateLiftingStat(liftingStats);
 
             var liftingStatAudit = new LiftingStatAudit()
             {
@@ -78,6 +78,16 @@ namespace PowerLifting.Service.LiftingStats
             };
 
             _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
+        }
+
+        public async Task DeleteLiftingStat(LiftingStatDTO liftingStatDTO)
+        {
+            var liftingStat = await _repo.LiftingStat.GetLiftingStatById(liftingStatDTO.LiftingStatId);
+
+            if (liftingStat == null) throw new LiftingStatNotFoundException("Lifting stat not found");
+
+            var liftingStatToDelete = _mapper.Map<LiftingStat>(liftingStatDTO);
+            _repo.LiftingStat.Delete(liftingStatToDelete);
         }
     }
 }
