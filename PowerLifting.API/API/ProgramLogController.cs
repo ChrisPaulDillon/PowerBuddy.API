@@ -269,6 +269,23 @@ namespace PowerLifting.API.API
 
         #region ProgramLogRepSchemes
 
+        [HttpPost("RepScheme")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult CreateProgramLogRepScheme([FromBody] ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        {
+            try
+            {
+                _service.ProgramLog.CreateProgramLogRepScheme(programLogRepSchemeDTO);
+                return Ok();
+            }
+            catch (ProgramLogDayNotWithWeekRangeException e)
+            {
+                return Unauthorized(e);
+            }
+        }
+
         [HttpPut("RepScheme")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -286,6 +303,23 @@ namespace PowerLifting.API.API
                 return NotFound(e);
             }
             catch (UserDoesNotMatchProgramLogException e)
+            {
+                return Unauthorized(e);
+            }
+        }
+
+        [HttpDelete("RepScheme")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult DeleteProgramLogRepScheme([FromBody] ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        {
+            try
+            {
+                _service.ProgramLog.DeleteProgramLogRepScheme(programLogRepSchemeDTO);
+                return NoContent();
+            }
+            catch (ProgramLogDayNotWithWeekRangeException e)
             {
                 return Unauthorized(e);
             }

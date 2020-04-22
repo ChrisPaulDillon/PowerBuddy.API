@@ -338,6 +338,11 @@ namespace PowerLifting.Service.ProgramLogs
 
         #region ProgramLogRepScheme
 
+        public void CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        {
+            var newProgramLogRepScheme = _mapper.Map<ProgramLogRepScheme>(programLogRepSchemeDTO);
+            _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(newProgramLogRepScheme);
+        }
 
         public async Task UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
         {
@@ -348,6 +353,15 @@ namespace PowerLifting.Service.ProgramLogs
 
             _mapper.Map(programLogRepSchemeDTO, programLogRepScheme);
             _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(programLogRepScheme);
+        }
+
+        public async Task DeleteProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        {
+            var programLogRepScheme = await _repo.ProgramLogRepScheme.GetProgramLogRepScheme(programLogRepSchemeDTO.ProgramLogRepSchemeId);
+
+            if (programLogRepScheme == null) throw new ProgramLogExerciseNotFoundException();
+
+            _repo.ProgramLogRepScheme.DeleteProgramLogRepScheme(programLogRepScheme);
         }
 
         #endregion
