@@ -49,5 +49,10 @@ namespace PowerLifting.Repository.ProgramLogs
             PowerliftingContext.Set<ProgramLog>().Remove(log);
             Save();
         }
+
+        public bool DoesProgramLogAfterTodayExist(string userId)
+        {
+            return PowerliftingContext.Set<ProgramLog>().Any(x => x.StartDate >= DateTime.Now && x.UserId == userId);
+        }
     }
 }

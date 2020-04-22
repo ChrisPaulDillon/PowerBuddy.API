@@ -124,14 +124,14 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="programLogRepSchemeDTO"></param>
         /// <returns></returns>
-        void UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
+        Task UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
 
         /// <summary>
         /// Deletes a program log rep scheme, assuming the user did not finish a prescribed set?
         /// </summary>
         /// <param name="programLogRepSchemeDTO"></param>
         /// <returns></returns>
-        void DeleteProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
+        Task DeleteProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
 
         #endregion
     }

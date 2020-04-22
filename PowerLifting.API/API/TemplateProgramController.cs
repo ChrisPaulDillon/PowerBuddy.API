@@ -48,21 +48,17 @@ namespace PowerLifting.API.API
         [HttpGet("Calculate/{id}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
         {
             try
             {
                 var programType = await _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId);
-
-                if (programType == null) return NotFound();
-
                 return Ok(programType);
             }
-            catch(Exception)
+            catch(UserDoesNotHaveLiftingStatSetForExerciseException e)
             {
-                //TODO
-                return NotFound();
+                return Unauthorized(e);
             }
         }
 

@@ -21,6 +21,12 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Repositories
         Task<ProgramLog> GetProgramLogById(int programLogId);
 
         /// <summary>
+        /// Determines if the user already has an active program log
+        /// </summary>
+        /// <returns></returns>
+        bool DoesProgramLogAfterTodayExist(string userId);
+
+        /// <summary>
         /// Creates a new program log for the user
         /// </summary>
         /// <param name="programLog"></param>

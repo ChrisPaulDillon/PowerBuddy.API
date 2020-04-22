@@ -39,11 +39,19 @@ namespace PowerLifting.Service.TemplatePrograms
 
         public async Task<TemplateProgramDTO> GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
         {
-            var user = await _repo.User.GetUserByIdIncludeLiftingStats(userId);
-            var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
+            var liftingStats1RM = await _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
+            var templateProgram = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
+            var tpExerciseCollection = await _repo.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateId(programTemplateId);
 
+            var lsExerciseCount = liftingStats1RM.Where(x => tpExerciseCollection.Any(i => i == x.ExerciseId)).Count();
+            var tpExerciseCount = tpExerciseCollection.Count();
+
+            if(lsExerciseCount != tpExerciseCount) //User does not have all the lifting stat filled out to create this program
+            {
+                throw new UserDoesNotHaveLiftingStatSetForExerciseException();
+            }
             //var programmableExercises = GetProgrammableExercises()
-            foreach (var templateWeek in programTemplate.TemplateWeeks)
+            foreach (var templateWeek in templateProgram.TemplateWeeks)
             foreach (var templateDay in templateWeek.TemplateDays)
             foreach (var templateExercise in templateDay.TemplateExercises)
             foreach (var set in templateExercise.TemplateRepSchemes)
@@ -57,7 +65,7 @@ namespace PowerLifting.Service.TemplatePrograms
                     //set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
             }
 
-            var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(programTemplate);
+            var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(templateProgram);
             return programTemplateDTO;
         }
 

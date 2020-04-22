@@ -8,10 +8,9 @@ namespace PowerLifting.Service.TemplatePrograms.Contracts
     public interface ITemplateExerciseCollectionRepository : IRepositoryBase<TemplateExerciseCollection>
     {
         /// <summary>
-        /// Used to retrieve all exercises associated with a given template
+        /// Used to retrieve all exerciseIds associated with a given template
         /// </summary>
-        /// <param name="templateId"></param>
         /// <returns></returns>
-        Task<IEnumerable<TemplateExerciseCollection>> GetTemplateExerciseCollectionByTemplateId(int templateId);
+        Task<IEnumerable<int>> GetTemplateExerciseCollectionByTemplateId(int templateId);
     }
 }

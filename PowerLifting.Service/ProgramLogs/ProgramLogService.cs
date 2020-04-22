@@ -50,30 +50,36 @@ namespace PowerLifting.Service.ProgramLogs
             //return programLog;
         }
 
+        private bool DoesProgramLogAlreadyExist(string userId)
+        {
+            return _repo.ProgramLog.DoesProgramLogAfterTodayExist(userId);
+        }
+
         public async Task CreateProgramLogFromTemplate(int templateProgramId, DaySelected daySelected)
         {
             string userId = "61bb0905-ce12-4720-af51-363a3579ab27";
-            var templateProgram = await _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
-            var templateExerciseCollection = await _repo.TemplateExerciseCollection
-                                    .GetTemplateExerciseCollectionByTemplateId(templateProgramId);
+            var programLogAlreadyActivate = DoesProgramLogAlreadyExist(userId);
 
-            if (templateProgram == null) throw new TemplateProgramDoesNotExistException();
+            if (programLogAlreadyActivate) throw new ProgramLogAlreadyActiveException();
+
+            var tp = await _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
+            if (tp == null) throw new TemplateProgramDoesNotExistException();
+
+            var tec = await _repo.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateId(templateProgramId);
 
             var dayCounter = CountDaysSelected(daySelected);
-            if (templateProgram.MaxLiftDaysPerWeek != dayCounter)
-            {
+            if (tp.MaxLiftDaysPerWeek != dayCounter)
                 throw new ProgramDaysDoesNotMatchTemplateDaysException();
-            }
-
+           
             var userLiftingStats = await _repo.LiftingStat
                 .GetLiftingStatsByUserIdAndRepRange(userId, 1);
 
             var checkLiftingStats = userLiftingStats.Where(item1 =>
-                    templateExerciseCollection.Any(item2 => item1.ExerciseId == item2.ExerciseId));
+                    tec.Any(item2 => item1.ExerciseId == item2));
 
             //TODO user must have 1RM for each lift in the program before proceeding!
 
-            var newProgramLog = CreateProgramLog(templateProgram, daySelected, userLiftingStats);
+            var newProgramLog = CreateProgramLog(tp, daySelected, userLiftingStats);
             var programLog = _mapper.Map<ProgramLog>(newProgramLog);
             _repo.ProgramLog.CreateProgramLog(programLog);
         }
