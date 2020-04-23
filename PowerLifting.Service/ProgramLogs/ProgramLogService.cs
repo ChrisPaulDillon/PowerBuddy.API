@@ -114,17 +114,17 @@ namespace PowerLifting.Service.ProgramLogs
             };
 
             log.ProgramLogWeeks = GenerateProgramWeekDates(ds, tp.NoOfWeeks);
-            log.ProgramLogWeeks = GenerateProgramExercises(tp.TemplateWeeks,
+            log.ProgramLogWeeks = GenerateProgramExercises(tp,
                                                            (List<ProgramLogWeekDTO>)log.ProgramLogWeeks,
                                                            (List<LiftingStat>)liftingStats);
             return log;
         }
 
-        private List<ProgramLogWeekDTO> GenerateProgramExercises(ICollection<TemplateWeek> templateWeeks,
+        private List<ProgramLogWeekDTO> GenerateProgramExercises(TemplateProgram templateProgram,
                                                                  List<ProgramLogWeekDTO> programLogWeeks,
                                                                  List<LiftingStat> liftingStats)
         {
-            foreach (var week in templateWeeks)
+            foreach (var week in templateProgram.TemplateWeeks)
             {
                 foreach (var logWeek in programLogWeeks)
                 {
@@ -145,16 +145,8 @@ namespace PowerLifting.Service.ProgramLogs
 
                                 foreach (var temReps in temExercise.TemplateRepSchemes)
                                 {
-                                    var percentage = temReps.Percentage / 100;
-                                    var weightToLift = userPBOnLift.Weight * percentage;
-                                    var programLogReps = new ProgramLogRepSchemeDTO()
-                                    {
-                                        SetNo = temReps.SetNo,
-                                        NumOfReps = temReps.NumOfReps,
-                                        Percentage = temReps.Percentage,
-                                        WeightLifted = weightToLift
-                                    };
-                                    programLogExercise.ProgramLogRepSchemes.Add(programLogReps);
+                                    var programRepSchema = GenerateProgramLogRepScheme(templateProgram.TemplateType, userPBOnLift.Weight, temReps);
+                                    programLogExercise.ProgramLogRepSchemes.Add(programRepSchema);
                                 }
                                 logDay.ProgramLogExercises.Add(programLogExercise);
                             }
@@ -163,6 +155,28 @@ namespace PowerLifting.Service.ProgramLogs
                 }
             }
             return programLogWeeks;
+        }
+
+        private ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string templateType, double user1RM, TemplateRepScheme repSchema)
+        {
+            var weightToLift = 0.0;
+            if (templateType == Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE))
+            {
+                var percent = repSchema.Percentage / 100;
+                weightToLift = Convert.ToDouble(user1RM * percent);
+            }
+            if (templateType == Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL))
+            {
+
+            }
+
+            return new ProgramLogRepSchemeDTO()
+            {
+                SetNo = repSchema.SetNo,
+                NumOfReps = repSchema.NumOfReps,
+                Percentage = repSchema.Percentage,
+                WeightLifted = weightToLift
+            };
         }
 
         private List<ProgramLogWeekDTO> GenerateProgramWeekDates(DaySelected ds, int noOfWeeks)

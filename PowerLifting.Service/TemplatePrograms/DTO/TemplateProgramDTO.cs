@@ -10,6 +10,7 @@ namespace PowerLifting.Service.TemplatePrograms.DTO
         public int NoOfWeeks { get; set; }
         public int MaxLiftDaysPerWeek { get; set; }
         public string TemplateType { get; set; } //incremental, percentage based
+        public string WeightProgressionType { get; set; } //incremental, percentage based
 
         public virtual ICollection<TemplateWeekDTO> TemplateWeeks { get; set; }
     }

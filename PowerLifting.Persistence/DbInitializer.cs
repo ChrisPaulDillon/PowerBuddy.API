@@ -111,7 +111,7 @@ namespace PowerLifting.Persistence
             {
                 var templates = new TemplateProgram[]
                 {
-                    new TemplateProgram {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4,
+                    new TemplateProgram {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, TemplateType="Block", WeightProgressionType="Percentage",
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 1 },
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 26 },
@@ -197,7 +197,7 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } } } },
                     } },
-                    new TemplateProgram {Name="5/3/1 Boring But Big", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4,
+                    new TemplateProgram {Name="5/3/1 Boring But Big", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 1 },
                             new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 26 },
@@ -329,7 +329,7 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } } } },
                     } },
-                    new TemplateProgram { Name="Stronglifts 5x5", Difficulty="Beginner", NoOfWeeks = 12, MaxLiftDaysPerWeek = 3, TemplateType="Iterative",
+                    new TemplateProgram { Name="Stronglifts 5x5", Difficulty="Beginner", NoOfWeeks = 12, MaxLiftDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL), 
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 1 },
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 25},
