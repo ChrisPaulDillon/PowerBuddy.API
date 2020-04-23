@@ -196,7 +196,287 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } } } },
-                    } }
+                    } },
+                    new TemplateProgram {Name="5/3/1 Boring But Big", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4,
+                         TemplateExerciseCollection = new List<TemplateExerciseCollection> {
+                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 1 },
+                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 26 },
+                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 27 },
+                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 25 } },
+                            TemplateWeeks = new List<TemplateWeek> {
+                            new TemplateWeek { WeekNumber = 1,TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 25, NoOfSets = 8, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                          new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
+                                          new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
+                                          new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5},
+                                          new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
+                                          new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
+                                          new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
+                                          new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
+                                          new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                                                                          } } } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise>{
+                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                                                                          } } } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                                                                          } } } } } },
+                            //Week 2
+                            new TemplateWeek { WeekNumber = 2, TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                                                                          } } } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                                                                          } } } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                                                                          } } } } } },
+                             //Week 3
+                            new TemplateWeek { WeekNumber = 3, TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                                                                          } } } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                                                                          } } } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3,TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                                                                          } } } } } },
+                                          //Week 4
+                            new TemplateWeek { WeekNumber = 4, TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                 new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
+                                                 new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
+                                                 new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
+                                                                                                          } } } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                 new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
+                                                 new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
+                                                 new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
+                                                                                                          } } } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                 new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
+                                                 new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
+                                                 new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
+                                                                                                          } } } } } },
+                    } },
+                    new TemplateProgram { Name="Stronglifts 5x5", Difficulty="Beginner", NoOfWeeks = 12, MaxLiftDaysPerWeek = 3, TemplateType="Iterative",
+                         TemplateExerciseCollection = new List<TemplateExerciseCollection> {
+                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 1 },
+                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 25},
+                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 26 },
+                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 27 },
+                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 2 } },
+                            TemplateWeeks = new List<TemplateWeek> {
+                            new TemplateWeek { WeekNumber = 1,TemplateDays = new List<TemplateDay> {
+                                   new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                       new TemplateExercise { ExerciseId = 26, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                        new TemplateExercise { ExerciseId = 2, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                    } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                       new TemplateExercise { ExerciseId = 25, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                        new TemplateExercise { ExerciseId = 27, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                    } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                       new TemplateExercise { ExerciseId = 26, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                        new TemplateExercise { ExerciseId = 2, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, Percentage = 0, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                    } } } },
+                            new TemplateWeek { WeekNumber = 2,TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                       new TemplateExercise { ExerciseId = 25, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                        new TemplateExercise { ExerciseId = 27, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                    } },
+                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                       new TemplateExercise { ExerciseId = 26, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                        new TemplateExercise { ExerciseId = 2, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                    } },
+                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                       new TemplateExercise { ExerciseId = 25, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                        new TemplateExercise { ExerciseId = 27, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } }
+                                    } } } } } }
                 };
 
                 foreach (TemplateProgram e in templates)
