@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,27 +22,31 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<TemplateProgramDTO>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllTemplatePrograms()
         {
-            var programTemplates = await _service.TemplateProgram.GetAllTemplatePrograms();
+            var templatePrograms = await _service.TemplateProgram.GetAllTemplatePrograms();
 
-            if (programTemplates == null) return NotFound();
+            if (templatePrograms == null) return NotFound();
 
-            return Ok(programTemplates);
+            return Ok(templatePrograms);
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TemplateProgramDTO),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTemplateProgramById(int templateId)
         {
-            var programType = await _service.TemplateProgram.GetTemplateProgramById(templateId);
-
-            if (programType == null) return NotFound();
-            
-            return Ok(programType);
+            try
+            {
+                var templateProgram = await _service.TemplateProgram.GetTemplateProgramById(templateId);
+                return Ok(templateProgram);
+            }
+            catch (TemplateProgramDoesNotExistException e)
+            {
+                return NotFound(e);
+            }
         }
 
         [HttpGet("Calculate/{id}")]

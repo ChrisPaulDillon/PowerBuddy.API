@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.Service.Exercises.DTO;
 using PowerLifting.Service.Exercises.Exceptions;
 using PowerLifting.Service.ServiceWrappers;
 
@@ -19,7 +21,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<TopLevelExerciseDTO>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllExercises()
         {       
@@ -30,7 +32,7 @@ namespace PowerLifting.API.API
 
         [HttpGet("{id:int}")]
         [Produces("application/json")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExerciseDTO),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int id)
         {
@@ -46,7 +48,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("ExerciseType/{exerciseTypeId:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExercisesByExerciseType(int exerciseTypeId)
         {
@@ -62,7 +64,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("ExerciseType")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExerciseTypeDTO),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllExerciseTypes()
         {

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.Service.LiftingStats.DTO;
@@ -21,7 +22,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{userId}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatDTO>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats(string userId)
         {
@@ -30,9 +31,9 @@ namespace PowerLifting.API.API
                 var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserId(userId);
                 return Ok(liftingStats);
             }
-            catch (UserNotFoundException)
+            catch (UserNotFoundException e)
             {
-                return NotFound();
+                return NotFound(e);
             }
         }
 

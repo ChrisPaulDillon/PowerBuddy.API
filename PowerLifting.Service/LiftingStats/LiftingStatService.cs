@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.LiftingStats.DTO;
@@ -48,10 +49,10 @@ namespace PowerLifting.Service.LiftingStats
             _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
         }
 
-        public async Task<LiftingStatDTO> GetLiftingStatsByUserId(string userId)
+        public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserId(string userId)
         {
             var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
-            var liftingStatDTO = _mapper.Map<LiftingStatDTO>(liftingStat);
+            var liftingStatDTO = _mapper.Map<IEnumerable<LiftingStatDTO>>(liftingStat);
             return liftingStatDTO;
         }
 

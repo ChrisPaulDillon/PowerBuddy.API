@@ -5,6 +5,8 @@ using PowerLifting.Service.Exercises.Model;
 using PowerLifting.Service.Exercises.DTO;
 using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Model;
+using PowerLifting.Service.LiftingStatsAudit.DTO;
+using PowerLifting.Service.LiftingStatsAudit.Model;
 using PowerLifting.Service.ProgramLogs.DTO;
 using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.TemplatePrograms.DTO;
@@ -38,6 +40,9 @@ namespace PowerLifting.API
 
             CreateMap<LiftingStat, LiftingStatDTO>();
             CreateMap<LiftingStatDTO, LiftingStat>();
+
+            CreateMap<LiftingStatAudit, LiftingStatAuditDTO>();
+            CreateMap<LiftingStatAuditDTO, LiftingStatAudit>();
 
             CreateMap<ProgramLogDTO, ProgramLog>();
             CreateMap<ProgramLog, ProgramLogDTO>();

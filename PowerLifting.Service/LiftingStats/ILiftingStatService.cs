@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using PowerLifting.Service.LiftingStats.DTO;
 
 namespace PowerLifting.Service.LiftingStats
@@ -11,7 +12,7 @@ namespace PowerLifting.Service.LiftingStats
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<LiftingStatDTO> GetLiftingStatsByUserId(string userId);
+        Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserId(string userId);
 
         /// <summary>
         /// Creates a new lifting stat entry for the user for a given rep range.
