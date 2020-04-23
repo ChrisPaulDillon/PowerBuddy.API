@@ -10,6 +10,7 @@ namespace PowerLifting.API.API
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class LiftingStatsController : ControllerBase
     {
         private readonly IServiceWrapper _service;
@@ -20,7 +21,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{userId}")]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats(string userId)
@@ -37,7 +37,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateLiftingStat([FromBody] LiftingStatDTO liftingStat)
@@ -54,7 +53,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpPut]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -76,7 +74,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpDelete]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

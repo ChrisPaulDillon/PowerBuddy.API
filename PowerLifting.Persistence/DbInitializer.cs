@@ -26,7 +26,7 @@ namespace PowerLifting.Persistence
                     new ExerciseType{ExerciseTypeName="Machine"},
                 };
 
-                foreach (ExerciseType e in exerciseCategories)
+                foreach (var e in exerciseCategories)
                 {
                     context.ExerciseType.Add(e);
                 }
@@ -111,7 +111,7 @@ namespace PowerLifting.Persistence
             {
                 var templates = new TemplateProgram[]
                 {
-                    new TemplateProgram {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, TemplateType="Block", WeightProgressionType="Percentage",
+                    new TemplateProgram {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 1 },
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 26 },

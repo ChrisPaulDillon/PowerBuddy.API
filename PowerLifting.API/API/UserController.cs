@@ -10,9 +10,10 @@ namespace PowerLifting.API.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class UserController : ControllerBase
     {
-        private IServiceWrapper _service;
+        private readonly IServiceWrapper _service;
 
         public UserController(IServiceWrapper service)
         {
@@ -20,7 +21,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -37,9 +37,7 @@ namespace PowerLifting.API.API
             }
         }
 
-        // GET: api/User/5
         [HttpGet("{id}")]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUser(string id)
@@ -56,7 +54,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -77,7 +74,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpPut("{id}")]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public ActionResult UpdateUser(int id, [FromBody]UserDTO user)
@@ -97,7 +93,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpDelete("{id}")]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteUser(string id)

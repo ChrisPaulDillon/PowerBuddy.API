@@ -10,9 +10,10 @@ namespace PowerLifting.API.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class TemplateProgramController : ControllerBase
     {
-        private IServiceWrapper _service;
+        private readonly IServiceWrapper _service;
 
         public TemplateProgramController(IServiceWrapper service)
         {
@@ -20,7 +21,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllTemplatePrograms()
@@ -33,7 +33,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{id}")]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTemplateProgramById(int templateId)
@@ -46,7 +45,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("Calculate/{id}")]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
@@ -63,7 +61,6 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
-        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO templateProgramDTO)

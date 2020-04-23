@@ -57,27 +57,34 @@ namespace PowerLifting.Service.ProgramLogs
 
         public async Task CreateProgramLogFromTemplate(int templateProgramId, DaySelected daySelected)
         {
-            string userId = "61bb0905-ce12-4720-af51-363a3579ab27";
+            const string userId = "20ea3a83-72f0-46ea-9637-d4168d1e1d85";
             var programLogAlreadyActivate = DoesProgramLogAlreadyExist(userId);
 
             if (programLogAlreadyActivate) throw new ProgramLogAlreadyActiveException();
 
             var tp = await _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
+
             if (tp == null) throw new TemplateProgramDoesNotExistException();
 
             var tec = await _repo.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateId(templateProgramId);
 
             var dayCounter = CountDaysSelected(daySelected);
             if (tp.MaxLiftDaysPerWeek != dayCounter)
+            {
                 throw new ProgramDaysDoesNotMatchTemplateDaysException();
-           
+            }
+
             var userLiftingStats = await _repo.LiftingStat
                 .GetLiftingStatsByUserIdAndRepRange(userId, 1);
 
-            var checkLiftingStats = userLiftingStats.Where(item1 =>
-                    tec.Any(item2 => item1.ExerciseId == item2));
+            if (userLiftingStats == null || !userLiftingStats.Any()) throw new TemplateExercise1RMNotSetForUserException();
 
-            //TODO user must have 1RM for each lift in the program before proceeding!
+            var checkLiftingStats = userLiftingStats.Where(item1 => tec.Any(item2 => item1.ExerciseId == item2));
+
+            var userLiftingStatsCount = userLiftingStats.Count();
+            var programLiftingStats = checkLiftingStats.Count();
+
+            if (userLiftingStatsCount != programLiftingStats) throw new TemplateExercise1RMNotSetForUserException();
 
             var newProgramLog = CreateProgramLog(tp, daySelected, userLiftingStats);
             var programLog = _mapper.Map<ProgramLog>(newProgramLog);
@@ -99,7 +106,7 @@ namespace PowerLifting.Service.ProgramLogs
 
         private ProgramLogDTO CreateProgramLog(TemplateProgram tp, DaySelected ds, IEnumerable<LiftingStat> liftingStats)
         {
-            var log = new ProgramLogDTO()
+            var log = new ProgramLogDTO
             {
                 TemplateProgramId = tp.TemplateProgramId,
                 Monday = ds.Monday,
@@ -110,10 +117,10 @@ namespace PowerLifting.Service.ProgramLogs
                 Saturday = ds.Saturday,
                 Sunday = ds.Sunday,
                 StartDate = ds.StartDate,
-                NoOfWeeks = tp.NoOfWeeks
+                NoOfWeeks = tp.NoOfWeeks,
+                ProgramLogWeeks = GenerateProgramWeekDates(ds, tp.NoOfWeeks)
             };
 
-            log.ProgramLogWeeks = GenerateProgramWeekDates(ds, tp.NoOfWeeks);
             log.ProgramLogWeeks = GenerateProgramExercises(tp,
                                                            (List<ProgramLogWeekDTO>)log.ProgramLogWeeks,
                                                            (List<LiftingStat>)liftingStats);
@@ -132,7 +139,6 @@ namespace PowerLifting.Service.ProgramLogs
                     {
                         foreach (var logDay in logWeek.ProgramLogDays)
                         {
-                            logDay.ProgramLogExercises = new List<ProgramLogExerciseDTO>();
                             foreach (var temExercise in day.TemplateExercises)
                             {
                                 var programLogExercise = new ProgramLogExerciseDTO()
@@ -141,11 +147,11 @@ namespace PowerLifting.Service.ProgramLogs
                                     ExerciseId = temExercise.ExerciseId,
                                     ProgramLogRepSchemes = new List<ProgramLogRepSchemeDTO>()
                                 };
-                                var userPBOnLift = liftingStats.Where(x => x.ExerciseId == temExercise.ExerciseId).SingleOrDefault();
+                                var user1RMOnLift = liftingStats.SingleOrDefault(x => x.ExerciseId == temExercise.ExerciseId);
 
                                 foreach (var temReps in temExercise.TemplateRepSchemes)
                                 {
-                                    var programRepSchema = GenerateProgramLogRepScheme(templateProgram.TemplateType, userPBOnLift.Weight, temReps);
+                                    var programRepSchema = GenerateProgramLogRepScheme(templateProgram.TemplateType, user1RMOnLift.Weight, temReps);
                                     programLogExercise.ProgramLogRepSchemes.Add(programRepSchema);
                                 }
                                 logDay.ProgramLogExercises.Add(programLogExercise);
@@ -157,7 +163,7 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogWeeks;
         }
 
-        private ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string templateType, double user1RM, TemplateRepScheme repSchema)
+        private static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string templateType, double user1RM, TemplateRepScheme repSchema)
         {
             var weightToLift = 0.0;
             if (templateType == Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE))
@@ -183,7 +189,7 @@ namespace PowerLifting.Service.ProgramLogs
         {
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
 
-            for (int i = 1; i < noOfWeeks + 1; i++)
+            for (var i = 1; i < noOfWeeks + 1; i++)
             {
                 var programLogWeek = new ProgramLogWeekDTO()
                 {
@@ -242,15 +248,15 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogWeek;
         }
 
-        private ProgramLogDayDTO GenerateProgramLogDay(string dayOfWeek, DateTime startDate)
+        private static ProgramLogDayDTO GenerateProgramLogDay(string dayOfWeek, DateTime startDate)
         {
-            int daysUntilSpecificDay = ((int)DayOfWeek.Monday - (int)startDate.DayOfWeek + 7) % 7;
-            DateTime nextMon = startDate.AddDays(daysUntilSpecificDay);
+            var daysUntilSpecificDay = ((int)DayOfWeek.Monday - (int)startDate.DayOfWeek + 7) % 7;
+            var nextMon = startDate.AddDays(daysUntilSpecificDay);
             var programLogDay = new ProgramLogDayDTO()
             {
                 Date = nextMon,
                 DayOfWeek = dayOfWeek,
-                //Add teh stoof
+                ProgramLogExercises = new List<ProgramLogExerciseDTO>()
             };
             return programLogDay;
         }
