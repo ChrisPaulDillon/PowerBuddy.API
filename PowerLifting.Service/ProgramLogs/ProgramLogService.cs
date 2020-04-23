@@ -77,21 +77,22 @@ namespace PowerLifting.Service.ProgramLogs
             var userLiftingStats = await _repo.LiftingStat
                 .GetLiftingStatsByUserIdAndRepRange(userId, 1);
 
-            if (userLiftingStats == null || !userLiftingStats.Any()) throw new TemplateExercise1RMNotSetForUserException();
+            var liftingStats = userLiftingStats.ToList();
+            if (userLiftingStats == null || !liftingStats.Any()) throw new TemplateExercise1RMNotSetForUserException();
 
-            var checkLiftingStats = userLiftingStats.Where(item1 => tec.Any(item2 => item1.ExerciseId == item2));
+            var checkLiftingStats = liftingStats.Where(item1 => tec.Any(item2 => item1.ExerciseId == item2));
 
-            var userLiftingStatsCount = userLiftingStats.Count();
+            var userLiftingStatsCount = liftingStats.Count();
             var programLiftingStats = checkLiftingStats.Count();
 
             if (userLiftingStatsCount != programLiftingStats) throw new TemplateExercise1RMNotSetForUserException();
 
-            var newProgramLog = CreateProgramLog(tp, daySelected, userLiftingStats);
+            var newProgramLog = CreateProgramLog(tp, daySelected, liftingStats);
             var programLog = _mapper.Map<ProgramLog>(newProgramLog);
             _repo.ProgramLog.CreateProgramLog(programLog);
         }
 
-        private int CountDaysSelected(DaySelected ds)
+        private static int CountDaysSelected(DaySelected ds)
         {
             var counter = 0;
             if (ds.Monday) counter++;
@@ -127,9 +128,8 @@ namespace PowerLifting.Service.ProgramLogs
             return log;
         }
 
-        private List<ProgramLogWeekDTO> GenerateProgramExercises(TemplateProgram templateProgram,
-                                                                 List<ProgramLogWeekDTO> programLogWeeks,
-                                                                 List<LiftingStat> liftingStats)
+        private static List<ProgramLogWeekDTO> GenerateProgramExercises(TemplateProgram templateProgram, List<ProgramLogWeekDTO> programLogWeeks,
+                                                                    IReadOnlyCollection<LiftingStat> liftingStats)
         {
             foreach (var week in templateProgram.TemplateWeeks)
             {
@@ -205,7 +205,7 @@ namespace PowerLifting.Service.ProgramLogs
             return listOfProgramWeeks;
         }
 
-        private ProgramLogWeekDTO GenerateProgramLogDaysForWeek(ProgramLogWeekDTO programLogWeek, DaySelected ds)
+        private static ProgramLogWeekDTO GenerateProgramLogDaysForWeek(ProgramLogWeekDTO programLogWeek, DaySelected ds)
         {
             var listOfProgramDays = new List<ProgramLogDayDTO>();
             var startDate = programLogWeek.StartDate;

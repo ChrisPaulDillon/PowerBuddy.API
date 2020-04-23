@@ -22,7 +22,7 @@ namespace PowerLifting.Persistence
                 {
                     new ExerciseType{ExerciseTypeName="Dumbbells"},
                     new ExerciseType{ExerciseTypeName="Barbells"},
-                    new ExerciseType{ExerciseTypeName="Bodyweight"},
+                    new ExerciseType{ExerciseTypeName="BodyWeight"},
                     new ExerciseType{ExerciseTypeName="Machine"},
                 };
 
@@ -43,7 +43,7 @@ namespace PowerLifting.Persistence
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Hamstrings" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Lower Back" },
                         }, },
-                    new Exercise{ExerciseName="Conventional Deadlift", ExerciseTypeId = 2,
+                    new Exercise{ExerciseName="Conventional DeadLift", ExerciseTypeId = 2,
                         IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Lower Back" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Upper Back" },
@@ -96,11 +96,11 @@ namespace PowerLifting.Persistence
                     new Exercise{ExerciseName="Jerk", ExerciseTypeId = 2}, 
                     new Exercise{ExerciseName="Power Jerk", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Barbell Row", ExerciseTypeId = 2},
-                    new Exercise{ExerciseName="Penlay Row", ExerciseTypeId = 2},
+                    new Exercise{ExerciseName="Pendlay Row", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="T-Bar Row", ExerciseTypeId = 2}
                 };
 
-                foreach (Exercise e in exercises)
+                foreach (var e in exercises)
                 {
                     context.Exercise.Add(e);
                 }
@@ -111,7 +111,8 @@ namespace PowerLifting.Persistence
             {
                 var templates = new TemplateProgram[]
                 {
-                    new TemplateProgram {Name="5/3/1", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
+                    new TemplateProgram {Name="5/3/1", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, 
+                        TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 1 },
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 26 },
@@ -197,7 +198,8 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } } } },
                     } },
-                    new TemplateProgram {Name="5/3/1 Boring But Big", Difficulty="Beginner", NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
+                    new TemplateProgram {Name="5/3/1 Boring But Big", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), 
+                        NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 1 },
                             new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 26 },
@@ -329,7 +331,8 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } } } },
                     } },
-                    new TemplateProgram { Name="Stronglifts 5x5", Difficulty="Beginner", NoOfWeeks = 12, MaxLiftDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL), 
+                    new TemplateProgram { Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), NoOfWeeks = 12, 
+                        MaxLiftDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL), 
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 1 },
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 25},
@@ -479,7 +482,7 @@ namespace PowerLifting.Persistence
                                     } } } } } }
                 };
 
-                foreach (TemplateProgram e in templates)
+                foreach (var e in templates)
                 {
                     context.TemplateProgram.Add(e);
                 }
@@ -531,14 +534,14 @@ namespace PowerLifting.Persistence
                     }
                 };                   
 
-                foreach (User e in users)
+                foreach (var e in users)
                 {
                     context.User.Add(e);
                 }
 
                 context.SaveChanges();
             }
-        }
+         }
     }
 }
  
