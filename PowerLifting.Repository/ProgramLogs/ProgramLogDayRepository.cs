@@ -23,6 +23,13 @@ namespace PowerLifting.Repository.ProgramLogs
                                                                         .FirstOrDefaultAsync();
         }
 
+        public async Task<ProgramLogDay> GetProgramLogTodayDay(string userId, DateTime dateSelected)
+        {
+            return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
+                                                                        && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0)
+                                                                        .FirstOrDefaultAsync();
+        }
+
         public void CreateProgramLogDay(ProgramLogDay programLogDay)
         {
             Create(programLogDay);

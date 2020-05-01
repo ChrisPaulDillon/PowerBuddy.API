@@ -81,14 +81,13 @@ namespace PowerLifting.Service.LiftingStats
             _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
         }
 
-        public async Task DeleteLiftingStat(LiftingStatDTO liftingStatDTO)
+        public async Task DeleteLiftingStat(int liftingStatId)
         {
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatById(liftingStatDTO.LiftingStatId);
+            var liftingStat = await _repo.LiftingStat.GetLiftingStatById(liftingStatId);
 
             if (liftingStat == null) throw new LiftingStatNotFoundException("Lifting stat not found");
 
-            var liftingStatToDelete = _mapper.Map<LiftingStat>(liftingStatDTO);
-            _repo.LiftingStat.Delete(liftingStatToDelete);
+            _repo.LiftingStat.Delete(liftingStat);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using PowerLifting.Service.Exercises.Model;
 
 namespace PowerLifting.Service.LiftingStats.Model
 {
@@ -14,5 +15,7 @@ namespace PowerLifting.Service.LiftingStats.Model
         public int RepRange { get; set; }
         public double Weight { get; set; } 
         public DateTime LastUpdated { get; set; }
+
+        public virtual Exercise Exercise { get; set; }
     }
 }

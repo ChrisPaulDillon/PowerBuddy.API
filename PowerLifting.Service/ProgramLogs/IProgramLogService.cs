@@ -17,6 +17,13 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId);
 
         /// <summary>
+        /// Gets the most recent / active program log of a given user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<ProgramLogDTO> GetProgramLogByUserId(string userId);
+
+        /// <summary>
         /// Creates a new generic program log
         /// </summary>
         /// <param name="programLog"></param>
@@ -71,7 +78,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId, int programLogId);
+        Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId);
 
         /// <summary>
         /// Creates a new program log day, used for customising program logs

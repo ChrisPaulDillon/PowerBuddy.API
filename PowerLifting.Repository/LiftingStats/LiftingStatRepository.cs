@@ -25,7 +25,7 @@ namespace PowerLifting.Repository.LiftingStats
 
         public async Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserId(string userId)
         {
-            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId).ToListAsync();
+            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId).Include(x => x.Exercise).ToListAsync();
         }
 
         public async Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)

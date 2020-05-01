@@ -118,81 +118,93 @@ namespace PowerLifting.Persistence
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 26 },
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 27 } },
                             TemplateWeeks = new List<TemplateWeek> {
-                            new TemplateWeek { WeekNumber = 1,TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
-                                          new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5}
+                                          new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5, AMRAP = true},
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise>{
-                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise>{
+                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5}
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5, AMRAP = true},
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5}
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5, AMRAP = true},
                                                                                                           } } } } } },
                             //Week 2
-                            new TemplateWeek { WeekNumber = 2, TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 2, TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { DayNo = 1,TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3}
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3, AMRAP = true},
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3}
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3, AMRAP = true},
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3}
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3, AMRAP = true},
                                                                                                           } } } } } },
                              //Week 3
-                            new TemplateWeek { WeekNumber = 3, TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 3, TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { DayNo=1, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1}
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1, AMRAP = true},
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo=2, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5}
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1, AMRAP = true},
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3,TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo=3, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5}
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1, AMRAP = true}
                                                                                                           } } } } } },
                                           //Week 4
-                            new TemplateWeek { WeekNumber = 4, TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 4, TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { DayNo=1, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo=2, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo=3, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
@@ -206,126 +218,138 @@ namespace PowerLifting.Persistence
                             new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 27 },
                             new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 25 } },
                             TemplateWeeks = new List<TemplateWeek> {
-                            new TemplateWeek { WeekNumber = 1,TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 25, NoOfSets = 8, TemplateRepSchemes = new List<TemplateRepScheme> {
-                                          new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
-                                          new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
-                                          new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5},
-                                          new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
-                                          new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
-                                          new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
-                                          new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
-                                          new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
-                                                                                                          } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise>{
-                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { DayNo=1, TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5, AMRAP = true},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo=2, TemplateExercises = new List<TemplateExercise>{
+                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 8, RepSchemeFormat = "3x3", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5, AMRAP = true},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10, IsBackOffSet = true}
+                                                                                                          } } } },
+                                    new TemplateDay { DayNo=3, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 8, RepSchemeFormat = "1x5, 1x3, 1x1", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 65, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 75, NumOfReps = 5},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 85, NumOfReps = 5, AMRAP = true},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } } } },
                             //Week 2
-                            new TemplateWeek { WeekNumber = 2, TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 2, TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3, AMRAP = true},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3, AMRAP = true},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NumOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 90, NumOfReps = 3, AMRAP = true},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } } } },
                              //Week 3
-                            new TemplateWeek { WeekNumber = 3, TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 3, TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 3},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1},
-                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1, AMRAP = true},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 8, RepSchemeFormat = "3x3", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1, AMRAP = true},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3,TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 8, RepSchemeFormat = "1x5, 1x3, 1x1", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 5},
-                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10},
-                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10},
+                                                new TemplateRepScheme { SetNo = 2, Percentage = 85, NumOfReps = 3},
+                                                new TemplateRepScheme { SetNo = 3, Percentage = 95, NumOfReps = 1, AMRAP = true},
+                                                new TemplateRepScheme { SetNo = 4, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 5, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 6, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 7, Percentage = 50, NumOfReps = 10, IsBackOffSet = true},
+                                                new TemplateRepScheme { SetNo = 8, Percentage = 50, NumOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } } } },
                                           //Week 4
-                            new TemplateWeek { WeekNumber = 4, TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 1, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 4, TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
                                                                                                           } } } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, NoOfSets = 3, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
+                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.RAMPED),
+                                            NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NumOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NumOfReps = 5}
@@ -340,46 +364,26 @@ namespace PowerLifting.Persistence
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 27 },
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 2 } },
                             TemplateWeeks = new List<TemplateWeek> {
-                            new TemplateWeek { WeekNumber = 1,TemplateDays = new List<TemplateDay> {
-                                   new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
+                                   new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 26, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                       new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
-                                        new TemplateExercise { ExerciseId = 2, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
-                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
-                                        } },
-                                    } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
-                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
-                                        } },
-                                       new TemplateExercise { ExerciseId = 25, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
-                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
-                                        } },
-                                        new TemplateExercise { ExerciseId = 27, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                        new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
@@ -387,22 +391,50 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
                                     } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 26, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                       new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
-                                        new TemplateExercise { ExerciseId = 2, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                        new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                    } },
+                                    new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1,RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                       new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                        new TemplateExercise { ExerciseId = 2,RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, Percentage = 0, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
@@ -410,46 +442,26 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
                                     } } } },
-                            new TemplateWeek { WeekNumber = 2,TemplateDays = new List<TemplateDay> {
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                            new TemplateWeek { WeekNo = 2,TemplateDays = new List<TemplateDay> {
+                                    new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 25, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                       new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
-                                        new TemplateExercise { ExerciseId = 27, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
-                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
-                                        } },
-                                    } },
-                                    new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
-                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
-                                        } },
-                                       new TemplateExercise { ExerciseId = 26, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
-                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
-                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
-                                        } },
-                                        new TemplateExercise { ExerciseId = 2, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                        new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
@@ -457,22 +469,50 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
                                     } },
-                                     new TemplateDay { TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 1, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                       new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 25, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                        new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
                                         } },
-                                        new TemplateExercise { ExerciseId = 27, NoOfSets = 5, TemplateRepSchemes = new List<TemplateRepScheme> {
+                                    } },
+                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
+                                        new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                       new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
+                                            new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 3, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 4, NumOfReps = 5},
+                                            new TemplateRepScheme { SetNo = 5, NumOfReps = 5}
+                                        } },
+                                        new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(TemplateRepSchemeTypeEnum), TemplateRepSchemeTypeEnum.FIXED),
+                                            NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NumOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NumOfReps = 5},

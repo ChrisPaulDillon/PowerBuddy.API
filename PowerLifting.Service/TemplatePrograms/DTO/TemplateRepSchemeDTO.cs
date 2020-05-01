@@ -8,5 +8,7 @@
         public int SetNo { get; set; }
         public int NumOfReps { get; set; }
         public double WeightLifted { get; set; }
+        public bool IsBackOffSet { get; set; }
+        public bool AMRAP { get; set; } //As many reps as possible for this set
     }
 }

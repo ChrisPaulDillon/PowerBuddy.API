@@ -38,6 +38,13 @@ namespace PowerLifting.Service.ProgramLogs
             return userProgramLogsDTO;
         }
 
+        public async Task<ProgramLogDTO> GetProgramLogByUserId(string userId)
+        {
+            var userProgramLog = await _repo.ProgramLog.GetProgramLogByUserId(userId);
+            var userProgramLogDTO = _mapper.Map<ProgramLogDTO>(userProgramLog);
+            return userProgramLogDTO;
+        }
+
         public async Task CreateProgramLog(ProgramLogDTO programLog)
         {
             var log = await _repo.ProgramLog.GetProgramLogById(programLog.ProgramLogId);
@@ -47,7 +54,6 @@ namespace PowerLifting.Service.ProgramLogs
             }
             var newProgramLog = _mapper.Map<ProgramLog>(programLog);
             _repo.ProgramLog.CreateProgramLog(newProgramLog);
-            //return programLog;
         }
 
         private bool DoesProgramLogAlreadyExist(string userId)
@@ -313,9 +319,9 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogDayDTO;
         }
 
-        public async Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId, int programLogId)
+        public async Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId)
         {
-            var programLogDay = await _repo.ProgramLogDay.GetProgramLogDay(userId, programLogId, DateTime.Now);
+            var programLogDay = await _repo.ProgramLogDay.GetProgramLogTodayDay(userId, DateTime.Now);
             var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
             return programLogDayDTO;
         }

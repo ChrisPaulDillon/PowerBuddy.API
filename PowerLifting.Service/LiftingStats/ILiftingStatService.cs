@@ -26,16 +26,11 @@ namespace PowerLifting.Service.LiftingStats
         /// Updates a given lifting stat and logs the new result
         /// and date in the liftingstataudit table
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="stats"></param>
-        /// <returns></returns>
         Task UpdateLiftingStat(LiftingStatDTO liftingStatDTO);
 
         /// <summary>
         /// Deletes a given lifting stat and the audit associated with it
         /// </summary>
-        /// <param name="liftingStatDTO"></param>
-        /// <returns></returns>
-        Task DeleteLiftingStat(LiftingStatDTO liftingStatDTO);
+        Task DeleteLiftingStat(int liftingStatId);
     }
 }

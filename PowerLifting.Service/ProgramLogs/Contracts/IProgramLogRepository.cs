@@ -14,6 +14,13 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Repositories
         Task<IEnumerable<ProgramLog>> GetAllProgramLogsByUserId(string userId);
 
         /// <summary>
+        /// Gets the users current program log
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<ProgramLog> GetProgramLogByUserId(string userId);
+
+        /// <summary>
         /// Gets a given program log by id, presumably the one the user is currently on
         /// </summary>
         /// <param name="programLogId"></param>

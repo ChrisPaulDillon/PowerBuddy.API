@@ -74,15 +74,15 @@ namespace PowerLifting.API.API
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{liftingStatId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public IActionResult DeleteLiftingStat([FromBody]LiftingStatDTO liftingStats)
+        public IActionResult DeleteLiftingStat(int liftingStatId)
         {
             try
             {
-                _service.LiftingStat.DeleteLiftingStat(liftingStats);
+                _service.LiftingStat.DeleteLiftingStat(liftingStatId);
             }
             catch (LiftingStatNotFoundException e)
             {

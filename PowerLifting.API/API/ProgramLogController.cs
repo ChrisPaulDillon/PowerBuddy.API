@@ -23,7 +23,7 @@ namespace PowerLifting.API.API
             _service = service;
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("All/{userId}")]
         [ProducesResponseType(typeof(IEnumerable<ProgramLogDTO>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -33,6 +33,28 @@ namespace PowerLifting.API.API
             {
                 var programLogs = await _service.ProgramLog.GetAllProgramLogsByUserId(userId);
                 return Ok(programLogs);
+            }
+            catch (ProgramLogNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            catch (UserDoesNotMatchProgramLogException e)
+            {
+                return Unauthorized(e);
+            }
+        }
+
+
+        [HttpGet("{userId}")]
+        [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetProgramLogByUserId(string userId)
+        {
+            try
+            {
+                var programLog = await _service.ProgramLog.GetProgramLogByUserId(userId);
+                return Ok(programLog);
             }
             catch (ProgramLogNotFoundException e)
             {
@@ -122,6 +144,28 @@ namespace PowerLifting.API.API
                 //TODO Comeback to
                 var programLogs = await _service.ProgramLog.GetProgramLogDayByUserId(userId, programLogId, dateSelected);
                 return Ok(programLogs);
+            }
+            catch (ProgramLogNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            catch (UserDoesNotMatchProgramLogException e)
+            {
+                return Unauthorized(e);
+            }
+        }
+
+
+        [HttpGet("Day/Today/{userId}")]
+        [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetProgramLogDayToday(string userId)
+        {
+            try
+            {
+                var programLogDay = await _service.ProgramLog.GetTodaysProgramLogDayByUserId(userId);
+                return Ok(programLogDay);
             }
             catch (ProgramLogNotFoundException e)
             {

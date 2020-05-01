@@ -1,4 +1,5 @@
 ﻿using System;
+using PowerLifting.Service.Exercises.DTO;
 
 namespace PowerLifting.Service.LiftingStats.DTO
 {
@@ -14,5 +15,7 @@ namespace PowerLifting.Service.LiftingStats.DTO
         public int RepRange { get; set; }
         public double Weight { get; set; }
         public DateTime LastUpdated { get; set; }
+
+        public virtual ExerciseDTO Exercise { get; set; }
     }
 }
