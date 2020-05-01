@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PowerLifting.Service.ServiceWrappers;
+using PowerLifting.Service;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 

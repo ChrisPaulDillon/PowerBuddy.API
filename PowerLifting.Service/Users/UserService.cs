@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;

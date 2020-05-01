@@ -11,6 +11,8 @@ using PowerLifting.Service.ProgramLogs.DTO;
 using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Model;
+using PowerLifting.Service.UserSettings.DTO;
+using PowerLifting.Service.UserSettings.Model;
 
 namespace PowerLifting.API
 {
@@ -18,12 +20,6 @@ namespace PowerLifting.API
     {
         public MappingProfile()
         {
-            //Users
-            CreateMap<User, UserDTO>();
-            CreateMap<UserDTO, User>();
-            CreateMap<RegisterUserDTO, User>();
-            CreateMap<NewUserDTO, User>();
-
             //Exercises
             CreateMap<Exercise, ExerciseDTO>();
             CreateMap<ExerciseDTO, Exercise>();
@@ -78,10 +74,16 @@ namespace PowerLifting.API
             CreateMap<TemplateRepScheme, TemplateRepSchemeDTO>();
             CreateMap<TemplateRepSchemeDTO, TemplateRepScheme>();
 
+            //Users
+            CreateMap<User, UserDTO>();
+            CreateMap<UserDTO, User>();
+            CreateMap<RegisterUserDTO, User>();
+            CreateMap<NewUserDTO, User>();
 
-            
-            
-           
+            //UserSettings
+            CreateMap<UserSetting, UserSettingDTO>();
+            CreateMap<UserSettingDTO, UserSetting>();
+
         }
     }
 }

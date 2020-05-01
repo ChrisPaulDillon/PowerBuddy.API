@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using PowerLifting.API.API;
-using PowerLifting.Service.ServiceWrappers;
+using PowerLifting.Service;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Model;
 using Xunit;

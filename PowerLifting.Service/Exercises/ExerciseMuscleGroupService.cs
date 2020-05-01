@@ -5,7 +5,6 @@ using AutoMapper;
 using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.Exercises.DTO;
 using PowerLifting.Service.Exercises.Exceptions;
-using PowerLifting.Service.ServiceWrappers;
 
 namespace PowerLifting.Service.Exercises
 {
