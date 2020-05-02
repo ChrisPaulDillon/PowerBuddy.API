@@ -39,7 +39,7 @@ namespace PowerLifting.Service.ServiceWrappers
         {
             get
             {
-                if (_user == null) _user = new UserService(_repoWrapper, _mapper);
+                if (_user == null) _user = new UserService(_repoWrapper, _mapper, _userManager);
 
                 return _user;
             }

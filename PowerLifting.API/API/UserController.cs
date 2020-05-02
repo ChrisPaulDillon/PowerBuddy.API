@@ -57,14 +57,15 @@ namespace PowerLifting.API.API
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO user, string password)
+        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO user)
         {
             try
             {
+                user.UserName = user.Email;
                 if (user == null) return BadRequest("User object is null");
                 if (!ModelState.IsValid) return BadRequest("Invalid model object");
 
-                await _service.User.RegisterUser(user, password);
+                await _service.User.RegisterUser(user);
                 return Ok(user);
             }
             catch(EmailInUseException)
