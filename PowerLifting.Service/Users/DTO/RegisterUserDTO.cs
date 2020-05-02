@@ -4,6 +4,6 @@ namespace PowerLifting.Service.Users.DTO
 {
     public class RegisterUserDTO : IdentityUser
     {
-        public string Password { get; set; }
+        public int LiftingStatId { get; set; }
     }
 }

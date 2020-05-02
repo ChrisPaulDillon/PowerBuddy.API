@@ -6,6 +6,7 @@ using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Exceptions;
 using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.LiftingStatsAudit.Model;
+using PowerLifting.Service.ServiceWrappers;
 
 namespace PowerLifting.Service.LiftingStats
 {
@@ -20,33 +21,30 @@ namespace PowerLifting.Service.LiftingStats
             _mapper = mapper;
         }
 
-        public async Task CreateLiftingStats(LiftingStatDTO liftingStatDTO)
+        public async Task CreateLiftingStats(LiftingStatDTO liftingStatsDTO)
         {
-            var userId = liftingStatDTO.UserId;
-            var exerciseId = liftingStatDTO.ExerciseId;
-            var repRange = liftingStatDTO.RepRange;
+            var userId = liftingStatsDTO.UserId;
+            var exerciseId = liftingStatsDTO.ExerciseId;
+            var repRange = liftingStatsDTO.RepRange;
 
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(userId, exerciseId, repRange);
+            var liftingStat = await _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(
+                                                      userId, exerciseId, repRange);
 
             if(liftingStat != null)
             {
                 throw new LiftingStatRepRangeAlreadyExistsException();
             }
 
-            if (liftingStatDTO.GoalWeight != null)
-            {
-                liftingStatDTO.PercentageToGoal = (liftingStatDTO.Weight / liftingStatDTO.GoalWeight) * 100;
-            }
-
-            var newLiftingStat = _mapper.Map<LiftingStat>(liftingStatDTO);
+            var newLiftingStat = _mapper.Map<LiftingStat>(liftingStatsDTO);
             _repo.LiftingStat.CreateLiftingStat(newLiftingStat);
 
             var liftingStatAudit = new LiftingStatAudit()
             {
                 DateChange = DateTime.Now.Date,
-                RepRange = liftingStatDTO.RepRange,
-                ExerciseId = liftingStatDTO.ExerciseId,
-                UserId = liftingStatDTO.UserId,
+                RepRange = liftingStatsDTO.RepRange,
+                ExerciseId = liftingStatsDTO.ExerciseId,
+                UserId = liftingStatsDTO.UserId,
+
             };
             _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
         }

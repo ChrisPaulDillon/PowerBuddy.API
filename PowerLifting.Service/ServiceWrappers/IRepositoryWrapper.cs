@@ -5,12 +5,12 @@ using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
 using PowerLifting.Service.TemplatePrograms.Contracts;
 using PowerLifting.Service.TemplatePrograms.Contracts.Repositories;
 using PowerLifting.Service.Users;
-using PowerLifting.Service.UserSettings;
 
-namespace PowerLifting.Service
+namespace PowerLifting.Service.ServiceWrappers
 {
     public interface IRepositoryWrapper
     {
+        IUserRepository User { get; }
         ILiftingStatRepository LiftingStat { get; }
         ILiftingStatAuditRepository LiftingStatAudit { get; }
         IExerciseRepository Exercise { get; }
@@ -27,7 +27,5 @@ namespace PowerLifting.Service
         ITemplateExerciseRepository TemplateExercise { get; }
         ITemplateRepSchemeRepository TemplateRepScheme { get; }
         ITemplateExerciseCollectionRepository TemplateExerciseCollection { get; }
-        IUserRepository User { get; }
-        IUserSettingRepository UserSetting { get; }
     }
 }

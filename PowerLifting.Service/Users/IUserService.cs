@@ -9,7 +9,7 @@ namespace PowerLifting.Service.Users
         Task<IEnumerable<UserDTO>> GetAllUsers();
         Task<UserDTO> GetUserById(string id);
         Task<UserDTO> GetUserByEmail(string programType);
-        Task RegisterUser(RegisterUserDTO userDTO);
+        Task RegisterUser(RegisterUserDTO userDTO, string password);
         Task UpdateUser(UserDTO userDTO);
         Task DeleteUser(string id);
     }

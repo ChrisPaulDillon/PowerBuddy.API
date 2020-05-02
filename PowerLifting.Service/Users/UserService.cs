@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
@@ -12,13 +12,11 @@ namespace PowerLifting.Service.Users
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryWrapper _repo;
-        private UserManager<User> _userManager;
 
-        public UserService(IRepositoryWrapper repo, IMapper mapper, UserManager<User> userManager)
+        public UserService(IRepositoryWrapper repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
-            _userManager = userManager;
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsers()
@@ -43,13 +41,12 @@ namespace PowerLifting.Service.Users
             return userDTO;
         }
 
-        public async Task RegisterUser(RegisterUserDTO userDTO)
+        public async Task RegisterUser(RegisterUserDTO userDTO, string password)
         {
             var user = await _repo.User.GetUserById(userDTO.Id);
             if (user != null) throw new EmailInUseException();
             var userEntity = _mapper.Map<User>(userDTO);
-
-            await _userManager.CreateAsync(userEntity, userDTO.Password);
+            //await _userManager.CreateAsync(userEntity, password);
         }
 
         public async Task UpdateUser(UserDTO userDTO)

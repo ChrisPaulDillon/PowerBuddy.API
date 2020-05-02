@@ -15,6 +15,12 @@ using Microsoft.AspNetCore.Http;
 using PowerLifting.Persistence;
 using PowerLifting.Repository;
 using PowerLifting.Service;
+using PowerLifting.Service.Exercises.AutoMapper;
+using PowerLifting.Service.LiftingStats.AutoMapper;
+using PowerLifting.Service.ProgramLogs.AutoMapper;
+using PowerLifting.Service.TemplatePrograms.AutoMapper;
+using PowerLifting.Service.Users.AutoMapper;
+using PowerLifting.Service.UserSettings.AutoMapper;
 
 namespace PowerLifting.API
 {
@@ -39,14 +45,16 @@ namespace PowerLifting.API
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
+
             //services.AddDbContext<PowerliftingContext>(options =>
-            //   options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<PowerliftingContext>(options =>
+               options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PowerliftingContext>();
 
-             services.AddDbContext<PowerliftingContext>(options =>
-                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddIdentity<User, IdentityRole>()
             //   .AddRoles<IdentityRole>()
@@ -56,13 +64,24 @@ namespace PowerLifting.API
 
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddControllers();
-            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            //services.AddScoped<IExerciseService, ExerciseService>();
 
+            var mappingConfig = new MapperConfiguration(mc =>
+             {
+                 mc.AddProfile(new ExerciseServiceMappingProfile());
+                 mc.AddProfile(new LiftingStatServiceMappingProfile());
+                 mc.AddProfile(new ProgramLogMappingProfile());
+                 mc.AddProfile(new TemplateProgramMappingProfile());
+                 mc.AddProfile(new UserMappingProfile());
+                 mc.AddProfile(new UserSettingMappingProfile());
+             });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>

@@ -4,21 +4,20 @@ using PowerLifting.Repository.LiftingStats;
 using PowerLifting.Repository.ProgramLogs;
 using PowerLifting.Repository.Templates;
 using PowerLifting.Repository.Users;
-using PowerLifting.Repository.UserSettings;
-using PowerLifting.Service;
 using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.LiftingStats;
 using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
+using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.TemplatePrograms.Contracts;
 using PowerLifting.Service.TemplatePrograms.Contracts.Repositories;
 using PowerLifting.Service.Users;
-using PowerLifting.Service.UserSettings;
 
 namespace PowerLifting.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
+        private IUserRepository _userRepo;
         private ILiftingStatRepository _liftingStatRepo;
         private ILiftingStatAuditRepository _liftingStatAuditRepo;
         private IExerciseRepository _exerciseRepo;
@@ -35,14 +34,25 @@ namespace PowerLifting.Repository
         private ITemplateExerciseRepository _templateExerciseRepo;
         private ITemplateRepSchemeRepository _templateRepSchemeRepo;
         private ITemplateExerciseCollectionRepository _templateExerciseCollectionRepo;
-        private IUserRepository _userRepo;
-        private IUserSettingRepository _userSettingRepo;
 
         private PowerliftingContext _context;
 
         public RepositoryWrapper(PowerliftingContext repositoryContext)
         {
             _context = repositoryContext;
+        }
+
+        public IUserRepository User
+        {
+            get
+            {
+                if (_userRepo == null)
+                {
+                    _userRepo = new UserRepository(_context);
+                }
+
+                return _userRepo;
+            }
         }
 
         public ILiftingStatRepository LiftingStat
@@ -252,31 +262,6 @@ namespace PowerLifting.Repository
                 }
 
                 return _templateExerciseCollectionRepo;
-            }
-        }
-        public IUserRepository User
-        {
-            get
-            {
-                if (_userRepo == null)
-                {
-                    _userRepo = new UserRepository(_context);
-                }
-
-                return _userRepo;
-            }
-        }
-
-        public IUserSettingRepository UserSetting
-        {
-            get
-            {
-                if (_userSettingRepo == null)
-                {
-                    _userSettingRepo = new UserSettingRepository(_context);
-                }
-
-                return _userSettingRepo;
             }
         }
     }
