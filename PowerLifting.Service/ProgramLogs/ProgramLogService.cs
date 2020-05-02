@@ -9,7 +9,6 @@ using PowerLifting.Service.ProgramLogs.Contracts.Services;
 using PowerLifting.Service.ProgramLogs.DTO;
 using PowerLifting.Service.ProgramLogs.Exceptions;
 using PowerLifting.Service.ProgramLogs.Model;
-using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.Users.Model;

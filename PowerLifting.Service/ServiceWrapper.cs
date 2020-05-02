@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Identity;
 using PowerLifting.Service.Exercises;
 using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.LiftingStats;
-using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Service.ProgramLogs;
 using PowerLifting.Service.ProgramLogs.Contracts.Services;
 using PowerLifting.Service.TemplatePrograms;
 using PowerLifting.Service.TemplatePrograms.Contracts.Services;
 using PowerLifting.Service.Users;
 using PowerLifting.Service.Users.Model;
+using PowerLifting.Service.UserSettings;
 
-namespace PowerLifting.Service.ServiceWrappers
+namespace PowerLifting.Service
 {
     public class ServiceWrapper : IServiceWrapper
     {
@@ -25,6 +25,7 @@ namespace PowerLifting.Service.ServiceWrappers
         private readonly IRepositoryWrapper _repoWrapper;
         private ITemplateProgramService _templateProgram;
         private IUserService _user;
+        private IUserSettingService _userSetting;
 
         private UserManager<User> _userManager;
 
@@ -33,16 +34,6 @@ namespace PowerLifting.Service.ServiceWrappers
             _mapper = mapper;
             _repoWrapper = repoWrapper;
             _userManager = userManager;
-        }
-
-        public IUserService User
-        {
-            get
-            {
-                if (_user == null) _user = new UserService(_repoWrapper, _mapper);
-
-                return _user;
-            }
         }
 
         public ILiftingStatService LiftingStat
@@ -103,6 +94,26 @@ namespace PowerLifting.Service.ServiceWrappers
                 if (_templateProgram == null) _templateProgram = new TemplateProgramService(_repoWrapper, _mapper);
 
                 return _templateProgram;
+            }
+        }
+
+        public IUserService User
+        {
+            get
+            {
+                if (_user == null) _user = new UserService(_repoWrapper, _mapper, _userManager);
+
+                return _user;
+            }
+        }
+
+        public IUserSettingService UserSetting
+        {
+            get
+            {
+                if (_userSetting == null) _userSetting = new UserSettingService(_repoWrapper, _mapper);
+
+                return _userSetting;
             }
         }
     }

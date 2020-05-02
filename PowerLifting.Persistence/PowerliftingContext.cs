@@ -6,6 +6,7 @@ using PowerLifting.Service.Exercises.Model;
 using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.TemplatePrograms.Model;
+using PowerLifting.Service.UserSettings.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -17,8 +18,8 @@ namespace PowerLifting.Persistence
 
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder options)
-         //   => options.UseSqlite("Data Source=app.db");
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+            => options.UseSqlite("Data Source=app.db");
 
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }
@@ -41,6 +42,7 @@ namespace PowerLifting.Persistence
         public DbSet<IdentityUserClaim<string>> UserClaim { get; set; }
         public DbSet<IdentityUserRole<string>> UserRole { get; set; }
         public DbSet<IdentityUserToken<string>> UserToken { get; set; }
+        public DbSet<UserSetting> UserSetting { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -72,6 +74,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<IdentityRole>().ToTable("IdentityRole");
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
+            modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
         }
     }
 }
