@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.ProgramLogs.Exceptions;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.Service.ProgramLogs.DTO;
 using System;
 using System.Collections.Generic;
+using PowerLifting.Service;
 using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 

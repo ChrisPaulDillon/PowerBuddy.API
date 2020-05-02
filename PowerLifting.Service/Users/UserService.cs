@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
@@ -49,6 +48,7 @@ namespace PowerLifting.Service.Users
             var user = await _repo.User.GetUserById(userDTO.Id);
             if (user != null) throw new EmailInUseException();
             var userEntity = _mapper.Map<User>(userDTO);
+
             await _userManager.CreateAsync(userEntity, userDTO.Password);
         }
 

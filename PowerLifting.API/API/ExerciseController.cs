@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.Service;
 using PowerLifting.Service.Exercises.DTO;
 using PowerLifting.Service.Exercises.Exceptions;
-using PowerLifting.Service.ServiceWrappers;
 
 namespace PowerLifting.API.API
 {

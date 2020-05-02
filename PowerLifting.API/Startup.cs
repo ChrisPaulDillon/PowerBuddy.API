@@ -10,11 +10,11 @@ using NLog;
 using System;
 using System.IO;
 using PowerLifting.LoggerService;
-using PowerLifting.Service.ServiceWrappers;
 using PowerLifting.Service.Users.Model;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.Persistence;
 using PowerLifting.Repository;
+using PowerLifting.Service;
 
 namespace PowerLifting.API
 {
