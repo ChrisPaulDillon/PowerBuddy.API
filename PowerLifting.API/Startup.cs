@@ -50,7 +50,7 @@ namespace PowerLifting.API
                 //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<PowerliftingContext>(options =>
-               options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+               options.UseSqlite("DataSource = app.db"));
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PowerliftingContext>();

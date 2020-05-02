@@ -12,6 +12,8 @@ namespace PowerLifting.API
     {
         public static void Main(string[] args)
         {
+            //var host = CreateHostBuilder(args).Build();
+
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseUrls("http://*:80")
@@ -45,7 +47,7 @@ namespace PowerLifting.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                
+                 
                 });
     }
 }
