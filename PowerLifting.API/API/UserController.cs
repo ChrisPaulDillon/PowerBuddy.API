@@ -1,10 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.Service;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
+using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.API.API
 {
@@ -14,42 +15,28 @@ namespace PowerLifting.API.API
     public class UserController : ControllerBase
     {
         private readonly IServiceWrapper _service;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserController(IServiceWrapper service)
+        public UserController(IServiceWrapper service, SignInManager<User> signInManager)
         {
             _service = service;
+            _signInManager = signInManager;
         }
 
-        [HttpGet]
+        [HttpPost("Login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllUsers()
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> LoginUser(LoginModel loginModel)
         {
             try
             {
-                var users = await _service.User.GetAllUsers();
-                if (users == null) return NotFound();
 
-                return Ok(users);
-            }
-            catch (UserNotFoundException)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-        }
-
-        [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetUser(string id)
-        {
-            try
-            {
-                var user = await _service.User.GetUserById(id);
+                var user = await _service.User.LoginUser(loginModel);
                 return Ok(user);
             }
-            catch(UserNotFoundException)
+            catch(InvalidCredentialsException e)
             {
-                return NotFound();
+                return Unauthorized(e);
             }
         }
 
@@ -68,9 +55,9 @@ namespace PowerLifting.API.API
                 await _service.User.RegisterUser(user);
                 return Ok(user);
             }
-            catch(EmailInUseException)
+            catch(EmailInUseException e)
             {
-                return Conflict();
+                return Conflict(e);
             }   
         }
 

@@ -18,8 +18,8 @@ namespace PowerLifting.Persistence
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=app.db");
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+         //   => options.UseSqlite("Data Source=app.db");
 
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }

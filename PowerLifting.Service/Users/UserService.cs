@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -27,6 +28,17 @@ namespace PowerLifting.Service.Users
             var users = await _repo.User.GetAllUsers();
             var usersDTO = _mapper.Map<List<UserDTO>>(users);
             return usersDTO;
+        }
+
+        public async Task<UserDTO> LoginUser(LoginModel loginModel)
+        {
+            var user = await _userManager.FindByNameAsync(loginModel.Email);
+            if(user != null && await _userManager.CheckPasswordAsync(user, loginModel.Password))
+            {
+                var userDTO = _mapper.Map<UserDTO>(user);
+                return userDTO;
+            }
+            throw new InvalidCredentialsException();
         }
 
         public async Task<UserDTO> GetUserById(string id)

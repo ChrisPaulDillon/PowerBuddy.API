@@ -46,11 +46,11 @@ namespace PowerLifting.API
             );
 
 
-            //services.AddDbContext<PowerliftingContext>(options =>
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddDbContext<PowerliftingContext>(options =>
-               options.UseSqlite("DataSource = app.db"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddDbContext<PowerliftingContext>(options =>
+             //  options.UseSqlite("DataSource = app.db"));
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PowerliftingContext>();
@@ -62,13 +62,13 @@ namespace PowerLifting.API
             //  .AddDefaultUI()
             //  .AddDefaultTokenProviders();
 
-            services.AddSingleton<ILoggerManager, LoggerManager>();
+    
             services.AddControllers();
-            //services.AddAutoMapper(typeof(Startup));
+
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            services.AddSingleton<ILoggerManager, LoggerManager>();
 
             var mappingConfig = new MapperConfiguration(mc =>
              {

@@ -12,15 +12,15 @@ namespace PowerLifting.API
     {
         public static void Main(string[] args)
         {
-            //var host = CreateHostBuilder(args).Build();
+            var host = CreateHostBuilder(args).Build();
 
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseUrls("http://*:80")
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
+            //var host = new WebHostBuilder()
+             //   .UseKestrel()
+             //   .UseUrls("http://*:80")
+              //  .UseContentRoot(Directory.GetCurrentDirectory())
+             //   .UseIISIntegration()
+             //   .UseStartup<Startup>()
+             //   .Build();
 
             using (var scope = host.Services.CreateScope())
             {
