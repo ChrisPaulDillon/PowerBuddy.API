@@ -118,11 +118,11 @@ namespace PowerLifting.API.API
         [HttpDelete("{userId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteProgramLog(string userId, [FromBody] ProgramLogDTO programLog)
+        public IActionResult DeleteProgramLog(string userId, int programLogId)
         {
             try
             {
-                _service.ProgramLog.DeleteProgramLog(userId, programLog);
+                _service.ProgramLog.DeleteProgramLog(userId, programLogId);
                 return NoContent();
             }
             catch (ProgramLogNotFoundException e)
@@ -306,11 +306,11 @@ namespace PowerLifting.API.API
         [HttpDelete("RepScheme")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public IActionResult DeleteProgramLogRepScheme([FromBody] ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        public IActionResult DeleteProgramLogRepScheme(int programLogRepSchemeId)
         {
             try
             {
-                _service.ProgramLog.DeleteProgramLogRepScheme(programLogRepSchemeDTO);
+                _service.ProgramLog.DeleteProgramLogRepScheme(programLogRepSchemeId);
                 return NoContent();
             }
             catch (ProgramLogDayNotWithWeekRangeException e)

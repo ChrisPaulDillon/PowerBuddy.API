@@ -10,6 +10,14 @@ namespace PowerLifting.Service.LiftingStats.Validators
         {
         }
 
+        public void ValidateLiftingStatId(int liftingStatId)
+        {
+            if (liftingStatId < 1)
+            {
+                throw new LiftingStatNotFoundException();
+            }
+        }
+
         public void ValidateLiftingStatDoesNotAlreadyExist(LiftingStat liftingStat)
         {
             if(liftingStat != null)
@@ -22,7 +30,7 @@ namespace PowerLifting.Service.LiftingStats.Validators
         {
             if (liftingStat == null)
             {
-                throw new LiftingStatNotFoundException("Lifting stat not found");
+                throw new LiftingStatNotFoundException();
             }
         }
     }

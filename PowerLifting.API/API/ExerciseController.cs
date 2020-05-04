@@ -47,14 +47,14 @@ namespace PowerLifting.API.API
             }
         }
 
-        [HttpGet("ExerciseType/{exerciseTypeId:int}")]
+        [HttpGet("ExerciseMuscleGroup")]
         [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAllExercisesByExerciseType(int exerciseTypeId)
+        public IActionResult GetAllExerciseMuscleGroups()
         {
             try
             {
-                var exercises = await _service.Exercise.GetAllExercisesByExerciseTypeId(exerciseTypeId);
+                var exercises = _service.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
                 return Ok(exercises);
             }
             catch (ExerciseNotFoundException e)
@@ -64,7 +64,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("ExerciseType")]
-        [ProducesResponseType(typeof(ExerciseTypeDTO),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseTypeDTO>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllExerciseTypes()
         {

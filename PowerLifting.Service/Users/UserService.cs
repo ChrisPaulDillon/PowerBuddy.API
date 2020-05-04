@@ -29,7 +29,7 @@ namespace PowerLifting.Service.Users
         public async Task<IEnumerable<UserDTO>> GetAllUsers()
         {
             var users = await _repo.User.GetAllUsers();
-            var usersDTO = _mapper.Map<List<UserDTO>>(users);
+            var usersDTO = _mapper.Map<IEnumerable<UserDTO>>(users);
             return usersDTO;
         }
 

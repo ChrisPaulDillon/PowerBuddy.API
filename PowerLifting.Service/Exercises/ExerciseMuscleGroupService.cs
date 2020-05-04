@@ -34,22 +34,23 @@ namespace PowerLifting.Service.Exercises
             return exerciseDTO;
         }
 
-        public async void UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)
+        public async Task UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)
         {
             var exerciseMuscleGroup =
-                await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupDTO
-                    .ExerciseMuscleGroupId);
+                await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
+
             if (exerciseMuscleGroup == null)
                 throw new ExerciseMuscleGroupNotFoundException(
                     "The specific ExerciseMuscleGroup object could not be found");
+
             _mapper.Map(exerciseMuscleGroupDTO, exerciseMuscleGroup);
             _repo.ExerciseMuscleGroup.UpdateExerciseMuscleGroup(exerciseMuscleGroup);
         }
 
-        public async void DeleteExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)
+        public async Task DeleteExerciseMuscleGroup(int exerciseMuscleGroupId)
         {
-            var exerciseMuscleGroup =
-                await _repo.Exercise.GetExerciseById(exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
+            var exerciseMuscleGroup = await _repo.Exercise.GetExerciseById(exerciseMuscleGroupId);
+
             if (exerciseMuscleGroup == null)
                 throw new ExerciseMuscleGroupNotFoundException("The specific ExerciseMuscleGroupId could not be found");
             _repo.Exercise.DeleteExercise(exerciseMuscleGroup);

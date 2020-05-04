@@ -8,7 +8,7 @@ namespace PowerLifting.Service.Exercises.Contracts
     {
         IEnumerable<ExerciseTypeDTO> GetAllExerciseTypes();
         Task<ExerciseTypeDTO> GetExerciseTypeById(int exerciseTypeId);
-        void UpdateExerciseType(ExerciseTypeDTO exerciseTypeDTO);
-        void DeleteExerciseType(ExerciseTypeDTO exerciseTypeDTO);
+        Task UpdateExerciseType(ExerciseTypeDTO exerciseTypeDTO);
+        Task DeleteExerciseType(int exerciseTypeId);
     }
 }

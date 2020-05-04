@@ -34,23 +34,19 @@ namespace PowerLifting.Service.Exercises
             return exerciseTypeDTO;
         }
 
-        public async void UpdateExerciseType(ExerciseTypeDTO exerciseTypeDTO)
+        public async Task UpdateExerciseType(ExerciseTypeDTO exerciseTypeDTO)
         {
             var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeDTO.ExerciseTypeId);
+            if (exerciseTypeEntity == null) throw new ExerciseTypeNotFoundException();
 
-            if (exerciseTypeEntity == null)
-                throw new ExerciseTypeNotFoundException(
-                    "The ExerciseType associated with the given Id cannot be found");
             _mapper.Map(exerciseTypeDTO, exerciseTypeEntity);
             _repo.ExerciseType.UpdateExerciseType(exerciseTypeEntity);
         }
 
-        public async void DeleteExerciseType(ExerciseTypeDTO exerciseTypeDTO)
+        public async Task DeleteExerciseType(int exerciseTypeId)
         {
-            var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeDTO.ExerciseTypeId);
-            if (exerciseTypeEntity == null)
-                throw new ExerciseTypeNotFoundException(
-                    "The ExerciseType associated with the given Id cannot be found");
+            var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeId);
+            if (exerciseTypeEntity == null) throw new ExerciseTypeNotFoundException();
             _repo.ExerciseType.Delete(exerciseTypeEntity);
         }
 
@@ -60,9 +56,9 @@ namespace PowerLifting.Service.Exercises
                 return;
 
             var categories = _repo.ExerciseType.GetAllExerciseTypes();
-            var TypeDTOs = _mapper.Map<IEnumerable<ExerciseTypeDTO>>(categories);
+            var exerciseTypeDTOs = _mapper.Map<IEnumerable<ExerciseTypeDTO>>(categories);
 
-            foreach (var exerciseDTO in TypeDTOs)
+            foreach (var exerciseDTO in exerciseTypeDTOs)
                 _store.AddOrUpdate(exerciseDTO.ExerciseTypeId, exerciseDTO, (key, olValue) => exerciseDTO);
         }
     }

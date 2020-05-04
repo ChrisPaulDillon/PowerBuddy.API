@@ -30,7 +30,6 @@ namespace PowerLifting.API.API
         {
             try
             {
-
                 var user = await _service.User.LoginUser(loginModel);
                 return Ok(user);
             }
@@ -68,9 +67,6 @@ namespace PowerLifting.API.API
         {
             try
             {
-                if (user == null) return BadRequest("User object is null");
-                if (!ModelState.IsValid) return BadRequest("Invalid model object");
-
                 _service.User.UpdateUser(user);
                 return NoContent();
             }

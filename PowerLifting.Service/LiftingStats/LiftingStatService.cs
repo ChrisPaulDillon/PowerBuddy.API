@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.LiftingStats.Exceptions;
 using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.LiftingStats.Validators;
 using PowerLifting.Service.LiftingStatsAudit.Model;
@@ -60,8 +59,8 @@ namespace PowerLifting.Service.LiftingStats
 
         public async Task UpdateLiftingStat(LiftingStatDTO stats)
         {
+            _validator.ValidateLiftingStatId(stats.LiftingStatId);
             var liftingStat = await _repo.LiftingStat.GetLiftingStatById(stats.LiftingStatId);
-
             _validator.ValidateLiftingStatExists(liftingStat);
 
             var liftingStats = _mapper.Map<LiftingStat>(stats);
@@ -80,8 +79,8 @@ namespace PowerLifting.Service.LiftingStats
 
         public async Task DeleteLiftingStat(int liftingStatId)
         {
+            _validator.ValidateLiftingStatId(liftingStatId);
             var liftingStat = await _repo.LiftingStat.GetLiftingStatById(liftingStatId);
-
             _validator.ValidateLiftingStatExists(liftingStat);
 
             _repo.LiftingStat.Delete(liftingStat);

@@ -3,10 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Localization;
 using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.Exercises.DTO;
-using PowerLifting.Service.Exercises.Exceptions;
 using PowerLifting.Service.Exercises.Validators;
 
 namespace PowerLifting.Service.Exercises
@@ -46,6 +44,7 @@ namespace PowerLifting.Service.Exercises
 
         public async Task<ExerciseDTO> GetExerciseById(int id)
         {
+            _validator.ValidateExerciseId(id);
             var exercise = await _repo.Exercise.GetExerciseById(id);
             _validator.ValidateExerciseExists(exercise);
 
