@@ -6,6 +6,7 @@ using PowerLifting.Service.TemplatePrograms.Contracts.Services;
 using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 using PowerLifting.Service.TemplatePrograms.Model;
+using PowerLifting.Service.TemplatePrograms.Validators;
 
 namespace PowerLifting.Service.TemplatePrograms
 {
@@ -13,11 +14,13 @@ namespace PowerLifting.Service.TemplatePrograms
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryWrapper _repo;
+        private TemplateProgramValidator _validator;
 
         public TemplateProgramService(IRepositoryWrapper repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
+            _validator = new TemplateProgramValidator();
         }
 
         public async Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms()
@@ -27,10 +30,10 @@ namespace PowerLifting.Service.TemplatePrograms
             return programTemplateDTO;
         }
 
-        public async Task<TemplateProgramDTO> GetTemplateProgramById(int programTemplateId)
+        public async Task<TemplateProgramDTO> GetTemplateProgramById(int templateProgramId)
         {
-            //var user = await _repo.User.get(programTemplateId);
-            var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
+            _validator.ValidateTemplateProgramId(templateProgramId);
+            var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
             var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(programTemplate);
             return programTemplateDTO;
         }

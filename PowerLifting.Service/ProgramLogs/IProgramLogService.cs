@@ -9,6 +9,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
     public interface IProgramLogService
     {
         #region ProgramLog Services
+
         /// <summary>
         /// Gets all program log to show to the user what their workout will be
         /// </summary>
@@ -48,7 +49,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// Allows a user to delete the current log selected
         /// </summary>
         /// <param name="programLog"></param>
-        Task DeleteProgramLog(string userId, ProgramLogDTO programLog);
+        Task DeleteProgramLog(string userId, int programLogId);
 
         #endregion
 
@@ -111,7 +112,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="programLogExerciseId"></param>
         /// <returns></returns>
-        void DeleteProgramLogExercise(int programLogExerciseId);
+        Task DeleteProgramLogExercise(int programLogExerciseId);
 
 
         #endregion
@@ -136,9 +137,9 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// <summary>
         /// Deletes a program log rep scheme, assuming the user did not finish a prescribed set?
         /// </summary>
-        /// <param name="programLogRepSchemeDTO"></param>
+        /// <param name="programLogRepSchemeId"></param>
         /// <returns></returns>
-        Task DeleteProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
+        Task DeleteProgramLogRepScheme(int programLogRepSchemeId);
 
         #endregion
     }

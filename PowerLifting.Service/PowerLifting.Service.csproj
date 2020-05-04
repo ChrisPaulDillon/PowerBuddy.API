@@ -19,5 +19,7 @@
     <Folder Include="ProgramLogs\Validator\" />
     <Folder Include="Exercises\Validators\" />
     <Folder Include="LiftingStats\Validators\" />
+    <Folder Include="TemplatePrograms\Validators\" />
+    <Folder Include="Users\Validators\" />
   </ItemGroup>
 </Project>

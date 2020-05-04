@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
+using PowerLifting.Service.Users.Validators;
 using PowerLifting.Service.UserSettings.Model;
 
 namespace PowerLifting.Service.Users
@@ -15,12 +16,14 @@ namespace PowerLifting.Service.Users
         private readonly IMapper _mapper;
         private readonly IRepositoryWrapper _repo;
         private UserManager<User> _userManager;
+        private readonly UserValidation _validator;
 
         public UserService(IRepositoryWrapper repo, IMapper mapper, UserManager<User> userManager)
         {
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
+            _validator = new UserValidation();
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsers()

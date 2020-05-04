@@ -16,7 +16,15 @@ namespace PowerLifting.Service.ProgramLogs.Validator
 
         }
 
-        public void ValidateProgramLogsExist(IEnumerable<ProgramLog> programLogs)
+        public void ValidateProgramLogId(int programLogId)
+        {
+            if (programLogId < 1)
+            {
+                throw new ProgramLogsDoNotExistException();
+            }
+        }
+
+        public void ValidateProgramLogsExists(IEnumerable<ProgramLog> programLogs)
         {
             if (programLogs == null)
             {
@@ -24,7 +32,7 @@ namespace PowerLifting.Service.ProgramLogs.Validator
             }
         }
 
-        public void ValidateProgramLogExist(ProgramLog programLog)
+        public void ValidateProgramLogExists(ProgramLog programLog)
         {
             if (programLog == null)
             {
@@ -100,6 +108,15 @@ namespace PowerLifting.Service.ProgramLogs.Validator
             {
                 throw new ProgramLogDayDoesNotExistException();
             }
+        }
+
+        public void ValidateProgramLogDayWithinProgramLogWeek(DateTime startWeek, DateTime endWeek, DateTime dateSelected)
+        {
+            if(dateSelected >= startWeek && dateSelected < endWeek)
+            {
+                return;
+            }
+            throw new ProgramLogDayNotWithWeekRangeException();
         }
 
         #endregion
