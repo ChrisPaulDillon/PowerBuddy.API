@@ -12,12 +12,12 @@ namespace PowerLifting.API.API
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class UserController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly IServiceWrapper _service;
         private readonly SignInManager<User> _signInManager;
 
-        public UserController(IServiceWrapper service, SignInManager<User> signInManager)
+        public AccountController(IServiceWrapper service, SignInManager<User> signInManager)
         {
             _service = service;
             _signInManager = signInManager;
@@ -33,7 +33,7 @@ namespace PowerLifting.API.API
                 var user = await _service.User.LoginUser(loginModel);
                 return Ok(user);
             }
-            catch(InvalidCredentialsException e)
+            catch (InvalidCredentialsException e)
             {
                 return Unauthorized(e);
             }
@@ -54,10 +54,10 @@ namespace PowerLifting.API.API
                 await _service.User.RegisterUser(user);
                 return Ok(user);
             }
-            catch(EmailInUseException e)
+            catch (EmailInUseException e)
             {
                 return Conflict(e);
-            }   
+            }
         }
 
         [HttpPut("{id}")]
@@ -70,7 +70,7 @@ namespace PowerLifting.API.API
                 _service.User.UpdateUser(user);
                 return NoContent();
             }
-            catch(UserNotFoundException)
+            catch (UserNotFoundException)
             {
                 return NotFound();
             }
@@ -86,7 +86,22 @@ namespace PowerLifting.API.API
                 await _service.User.DeleteUser(id);
                 return NoContent();
             }
-            catch(UserNotFoundException)
+            catch (UserNotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("Settings/{userId}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> GetUserSettings(string userId)
+        {
+            try
+            {
+                return NoContent();
+            }
+            catch (UserNotFoundException)
             {
                 return NotFound();
             }

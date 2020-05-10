@@ -1,6 +1,6 @@
 ﻿namespace PowerLifting.Service.TemplatePrograms.Model
 {
-    public enum TemplateRepSchemeTypeEnum
+    public enum RepSchemeTypeEnum
     {
        FIXED = 0,
        RAMPED = 1

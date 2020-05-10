@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
+using PowerLifting.Service.UserSettings.DTO;
 
 namespace PowerLifting.Service.UserSettings
 {
@@ -11,6 +14,11 @@ namespace PowerLifting.Service.UserSettings
         {
             _repo = repo;
             _mapper = mapper;
+        }
+
+        public Task<IEnumerable<UserSettingDTO>> GetUserSettingsByUserId(string userId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

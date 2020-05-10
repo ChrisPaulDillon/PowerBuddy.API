@@ -8,7 +8,6 @@ namespace PowerLifting.Service.LiftingStats
     {
         /// <summary>
         /// Gets all lifting stats associated with a user.
-        /// This 
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
@@ -20,7 +19,7 @@ namespace PowerLifting.Service.LiftingStats
         /// </summary>
         /// <param name="liftingStats"></param>
         /// <returns></returns>
-        Task CreateLiftingStats(LiftingStatDTO liftingStats);
+        void CreateLiftingStat(LiftingStatDTO liftingStats);
 
         /// <summary>
         /// Updates a given lifting stat and logs the new result

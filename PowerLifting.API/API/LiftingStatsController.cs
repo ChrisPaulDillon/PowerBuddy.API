@@ -40,11 +40,11 @@ namespace PowerLifting.API.API
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateLiftingStat([FromBody] LiftingStatDTO liftingStat)
+        public IActionResult CreateLiftingStat([FromBody] LiftingStatDTO liftingStat)
         {
             try
             {
-                await _service.LiftingStat.CreateLiftingStats(liftingStat);
+                _service.LiftingStat.CreateLiftingStat(liftingStat);
                 return Ok();
             }
             catch (LiftingStatRepRangeAlreadyExistsException e)
@@ -57,7 +57,7 @@ namespace PowerLifting.API.API
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public IActionResult UpdateLiftingStats ([FromBody]LiftingStatDTO liftingStats)
+        public IActionResult UpdateLiftingStat([FromBody]LiftingStatDTO liftingStats)
         {
             try
             {

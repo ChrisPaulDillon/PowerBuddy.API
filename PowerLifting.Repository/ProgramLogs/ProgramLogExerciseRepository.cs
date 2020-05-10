@@ -3,6 +3,7 @@ using Powerlifting.Repository;
 using PowerLifting.Persistence;
 using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
 using PowerLifting.Service.ProgramLogs.Model;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,11 @@ namespace PowerLifting.Repository.ProgramLogs
         {
         }
 
+        public async Task<IEnumerable<ProgramLogExercise>> GetProgramExercisesByProgramLogDayId(int programLogDayId)
+        {
+            return await PowerliftingContext.Set<ProgramLogExercise>().Where(x => x.ProgramLogDayId == programLogDayId).ToListAsync();
+        }
+
         public void CreateProgramLogExercise(ProgramLogExercise programLogExercise)
         {
             Create(programLogExercise);
@@ -23,6 +29,8 @@ namespace PowerLifting.Repository.ProgramLogs
         {
             Delete(programLogExercise);
         }
+
+
 
         public async Task<ProgramLogExercise> GetProgramLogExercise(int programLogExerciseId)
         {

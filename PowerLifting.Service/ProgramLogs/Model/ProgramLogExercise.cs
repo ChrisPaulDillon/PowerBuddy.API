@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PowerLifting.Service.Exercises.Model;
 
 namespace PowerLifting.Service.ProgramLogs.Model
 {
@@ -15,6 +16,12 @@ namespace PowerLifting.Service.ProgramLogs.Model
         public int NoOfSets { get; set; }
         public string Comment { get; set; }
 
-        public ICollection<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
+        public string RepSchemeFormat { get; set; } // 3x5, 4x5
+        public string RepSchemeType { get; set; } //ramped, fixed
+        public bool HasBackOffSets { get; set; }
+        public string BackOffSetFormat { get; set; }
+
+        public virtual Exercise Exercise { get; set; }
+        public virtual ICollection<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
     }
 }

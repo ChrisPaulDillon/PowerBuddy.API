@@ -7,6 +7,6 @@ namespace PowerLifting.Service.TemplatePrograms.DTO
         public int TemplateWeekId { get; set; }
         public int TemplateId { get; set; }
         public int WeekNo { get; set; }
-        public IEnumerable<TemplateDayDTO> TemplateDays { get; set; }
+        public ICollection<TemplateDayDTO> TemplateDays { get; set; }
     }
 }

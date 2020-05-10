@@ -22,13 +22,15 @@ namespace PowerLifting.Service.LiftingStats
             _validator = new LiftingStatValidator();
         }
 
-        public async Task CreateLiftingStats(LiftingStatDTO liftingStatDTO)
+        public void CreateLiftingStat(LiftingStatDTO liftingStatDTO)
         {
             var userId = liftingStatDTO.UserId;
             var exerciseId = liftingStatDTO.ExerciseId;
             var repRange = liftingStatDTO.RepRange;
 
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(userId, exerciseId, repRange);
+            liftingStatDTO.Exercise = null;
+
+            var liftingStat = _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(userId, exerciseId, repRange);
 
             _validator.ValidateLiftingStatDoesNotAlreadyExist(liftingStat);
 

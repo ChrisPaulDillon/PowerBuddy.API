@@ -182,7 +182,7 @@ namespace PowerLifting.Service.ProgramLogs
             return new ProgramLogRepSchemeDTO()
             {
                 SetNo = repSchema.SetNo,
-                NumOfReps = repSchema.NumOfReps,
+                NoOfReps = repSchema.NoOfReps,
                 Percentage = repSchema.Percentage,
                 WeightLifted = weightToLift
             };
@@ -343,6 +343,13 @@ namespace PowerLifting.Service.ProgramLogs
         #endregion
 
         #region ProgramLogExerciseServices
+
+        public async Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId)
+        {
+            var programLogExercises = await _repo.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId);
+            var programLogExercisesDTO = _mapper.Map<IEnumerable<ProgramLogExerciseDTO>>(programLogExercises);
+            return programLogExercisesDTO;
+        }
 
         public void CreateProgramLogExercise(ProgramLogExerciseDTO programLogExercise)
         {

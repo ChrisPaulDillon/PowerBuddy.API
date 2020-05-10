@@ -32,7 +32,7 @@ namespace PowerLifting.Service.LiftingStats
         /// Used to determine if the user already has a lifting stat for this exercise and rep range
         /// </summary>
         /// <returns></returns>
-        Task<LiftingStat> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange);
+        LiftingStat GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange);
 
         /// <summary>
         /// Creates a new lifting stat for a given rep range for a specific user

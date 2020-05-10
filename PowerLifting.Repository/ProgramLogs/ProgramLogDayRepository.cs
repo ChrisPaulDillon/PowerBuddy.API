@@ -20,6 +20,10 @@ namespace PowerLifting.Repository.ProgramLogs
             return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
                                                                         && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0
                                                                         && x.ProgramLogWeekId == programLogId) //TODO FIX
+                                                                        .Include(x => x.ProgramLogExercises)
+                                                                        .ThenInclude(x => x.ProgramLogRepSchemes)
+                                                                        .Include(x => x.ProgramLogExercises)
+                                                                        .ThenInclude(x => x.Exercise)
                                                                         .FirstOrDefaultAsync();
         }
 
@@ -27,6 +31,10 @@ namespace PowerLifting.Repository.ProgramLogs
         {
             return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
                                                                         && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0)
+                                                                        .Include(x => x.ProgramLogExercises)
+                                                                        .ThenInclude(x => x.ProgramLogRepSchemes)
+                                                                        .Include(x => x.ProgramLogExercises)
+                                                                        .ThenInclude(x => x.Exercise)
                                                                         .FirstOrDefaultAsync();
         }
 

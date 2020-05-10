@@ -93,6 +93,13 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         #region ProgramLogExercise Services
 
         /// <summary>
+        /// Gets all exercises for a given program log day
+        /// </summary>
+        /// <param name="programLogDayId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId);
+
+        /// <summary>
         /// Creates a new program exercise for a specific log
         /// </summary>
         /// <param name="programLogExercise"></param>

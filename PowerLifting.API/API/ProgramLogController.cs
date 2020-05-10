@@ -209,6 +209,14 @@ namespace PowerLifting.API.API
 
         #region ProgramExercises
 
+        [HttpGet("Exercise/{programLogDayId}")]
+        [ProducesResponseType(typeof(IEnumerable<ProgramLogExerciseDTO>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetProgramLogDayExercises(int programLogDayId)
+        {
+            var programLogExercises = await _service.ProgramLog.GetProgramExercisesByProgramLogDayId(programLogDayId);
+            return Ok(programLogExercises);
+        }
+
         [HttpPost("Exercise")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

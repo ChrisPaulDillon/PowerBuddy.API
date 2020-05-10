@@ -1,10 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using PowerLifting.Service.ProgramLogs.Model;
 
 namespace PowerLifting.Service.ProgramLogs.Contracts.Repositories
 {
     public interface IProgramLogExerciseRepository : IRepositoryBase<ProgramLogExercise>
     {
+
+        /// <summary>
+        /// Gets a list of program log exercises for a given day
+        /// </summary>
+        /// <param name="programLogDayId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ProgramLogExercise>> GetProgramExercisesByProgramLogDayId(int programLogDayId);
 
         /// <summary>
         /// Gets a given program log exercise

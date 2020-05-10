@@ -15,12 +15,12 @@ namespace PowerLifting.Repository.LiftingStats
         {
         }
 
-        public async Task<LiftingStat> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange)
+        public LiftingStat GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange)
         {
-            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId &&
+            return PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId &&
                                                                       u.RepRange == repRange &&
                                                                       u.ExerciseId == exerciseId).
-                                                                      FirstOrDefaultAsync();
+                                                                      FirstOrDefault();
         }
 
         public async Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserId(string userId)

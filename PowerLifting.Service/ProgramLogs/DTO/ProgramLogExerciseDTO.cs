@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PowerLifting.Service.Exercises.DTO;
 
 namespace PowerLifting.Service.ProgramLogs.DTO
 {
@@ -14,6 +15,12 @@ namespace PowerLifting.Service.ProgramLogs.DTO
         public int NoOfSets { get; set; }
         public string Comment { get; set; }
 
-        public ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
+        public string RepSchemeFormat { get; set; } // 3x5, 4x5
+        public string RepSchemeType { get; set; } //ramped, fixed
+        public bool HasBackOffSets { get; set; }
+        public string BackOffSetFormat { get; set; }
+
+        public virtual ExerciseDTO Exercise { get; set; }
+        public virtual ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
     }
 }
