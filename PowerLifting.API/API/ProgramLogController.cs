@@ -189,17 +189,17 @@ namespace PowerLifting.API.API
 
         #region ProgramLogWeek
 
-        [HttpGet("Week/{userId}")]
+        [HttpGet("Week/Current/{userId}")]
         [ProducesResponseType(typeof(ProgramLogWeekDTO),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProgramLogWeekByUserId(string userId, int programLogId)
+        public async Task<IActionResult> GetProgramLogWeekByUserId(string userId)
         {
             try
             {
-                var programLogWeek = await _service.ProgramLog.GetCurrentProgramLogWeekByUserId(userId, programLogId);
+                var programLogWeek = await _service.ProgramLog.GetCurrentProgramLogWeekByUserId(userId);
                 return Ok(programLogWeek);
             }
-            catch (ProgramLogNotFoundException e)
+            catch (ProgramLogWeekDoesNotExistException e)
             {
                 return NotFound(e);
             }

@@ -299,10 +299,10 @@ namespace PowerLifting.Service.ProgramLogs
 
         #region ProgramLogWeekServices
 
-        public async Task<ProgramLogWeekDTO> GetCurrentProgramLogWeekByUserId(string userId, int programLogWeekId)
+        public async Task<ProgramLogWeekDTO> GetCurrentProgramLogWeekByUserId(string userId)
         {
-            _validator.ValidateProgramLogWeekId(programLogWeekId);
-            var programLogWeek = await _repo.ProgramLogWeek.GetCurrentProgramLogWeekByUserId(userId, programLogWeekId);
+            //_validator.ValidateProgramLogWeekId(programLogWeekId);
+            var programLogWeek = await _repo.ProgramLogWeek.GetCurrentProgramLogWeekByUserId(userId);
             _validator.ValidateProgramLogWeekExists(programLogWeek);
 
             var programLogWeekDTO = _mapper.Map<ProgramLogWeekDTO>(programLogWeek);

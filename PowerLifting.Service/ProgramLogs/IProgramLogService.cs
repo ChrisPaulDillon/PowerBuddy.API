@@ -60,7 +60,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<ProgramLogWeekDTO> GetCurrentProgramLogWeekByUserId(string userId, int programLogId);
+        Task<ProgramLogWeekDTO> GetCurrentProgramLogWeekByUserId(string userId);
 
         #endregion
 
