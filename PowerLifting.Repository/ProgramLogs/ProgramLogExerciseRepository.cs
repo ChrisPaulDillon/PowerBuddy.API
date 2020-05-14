@@ -30,8 +30,6 @@ namespace PowerLifting.Repository.ProgramLogs
             Delete(programLogExercise);
         }
 
-
-
         public async Task<ProgramLogExercise> GetProgramLogExercise(int programLogExerciseId)
         {
             return await PowerliftingContext.Set<ProgramLogExercise>().Where(x => x.ProgramLogExerciseId == programLogExerciseId).FirstOrDefaultAsync();                

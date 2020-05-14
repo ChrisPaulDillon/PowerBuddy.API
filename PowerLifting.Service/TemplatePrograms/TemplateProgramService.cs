@@ -30,19 +30,19 @@ namespace PowerLifting.Service.TemplatePrograms
             return programTemplateDTO;
         }
 
-        public async Task<TemplateProgramDTO> GetTemplateProgramById(int templateProgramId)
+        public TemplateProgramDTO GetTemplateProgramById(int templateProgramId)
         {
             _validator.ValidateTemplateProgramId(templateProgramId);
-            var programTemplate = await _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
+            var programTemplate = _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
             var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(programTemplate);
             return programTemplateDTO;
         }
 
-        public async Task<TemplateProgramDTO> GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
+        public TemplateProgramDTO GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
         {
-            var liftingStats1RM = await _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
-            var templateProgram = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
-            var tpExerciseCollection = await _repo.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateId(programTemplateId);
+            var liftingStats1RM = _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
+            var templateProgram = _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
+            var tpExerciseCollection = _repo.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateId(programTemplateId);
 
             var lsExerciseCount = liftingStats1RM.Where(x => tpExerciseCollection.Any(i => i == x.ExerciseId)).Count();
             var tpExerciseCount = tpExerciseCollection.Count();

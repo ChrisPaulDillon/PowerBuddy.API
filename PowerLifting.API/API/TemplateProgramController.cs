@@ -36,11 +36,11 @@ namespace PowerLifting.API.API
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(TemplateProgramDTO),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetTemplateProgramById(int templateId)
+        public IActionResult GetTemplateProgramById(int templateId)
         {
             try
             {
-                var templateProgram = await _service.TemplateProgram.GetTemplateProgramById(templateId);
+                var templateProgram = _service.TemplateProgram.GetTemplateProgramById(templateId);
                 return Ok(templateProgram);
             }
             catch (TemplateProgramDoesNotExistException e)
@@ -52,11 +52,11 @@ namespace PowerLifting.API.API
         [HttpGet("Calculate/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
+        public IActionResult GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
         {
             try
             {
-                var programType = await _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId);
+                var programType = _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId);
                 return Ok(programType);
             }
             catch(UserDoesNotHaveLiftingStatSetForExerciseException e)

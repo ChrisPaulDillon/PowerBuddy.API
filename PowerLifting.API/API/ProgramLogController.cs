@@ -95,15 +95,15 @@ namespace PowerLifting.API.API
             return Ok(programLog);
         }
 
-        [HttpPost("FromTemplate")]
+        [HttpPost("FromTemplate/{templateProgramId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody]DaySelected daySelected)
+        public IActionResult CreateProgramLogFromTemplate(int templateProgramId, [FromBody]DaySelected daySelected)
         {
             try
             {
-                await _service.ProgramLog.CreateProgramLogFromTemplate(templateProgramId, daySelected);
-                return Ok();
+                var programLog = _service.ProgramLog.CreateProgramLogFromTemplate(templateProgramId, daySelected);
+                return Ok(programLog);
             }
             catch (TemplateProgramDoesNotExistException e)
             {

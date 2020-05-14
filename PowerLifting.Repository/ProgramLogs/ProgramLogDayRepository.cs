@@ -27,10 +27,10 @@ namespace PowerLifting.Repository.ProgramLogs
                                                                         .FirstOrDefaultAsync();
         }
 
-        public async Task<ProgramLogDay> GetProgramLogTodayDay(string userId, DateTime dateSelected)
-        {
+        public async Task<ProgramLogDay> GetProgramLogTodayDay(string userId)
+        { 
             return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
-                                                                        && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0)
+                                                                        && DateTime.Compare(DateTime.Now.Date, x.Date.Date) == 0)
                                                                         .Include(x => x.ProgramLogExercises)
                                                                         .ThenInclude(x => x.ProgramLogRepSchemes)
                                                                         .Include(x => x.ProgramLogExercises)

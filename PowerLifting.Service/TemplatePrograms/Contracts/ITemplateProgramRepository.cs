@@ -12,7 +12,12 @@ namespace PowerLifting.Service.TemplatePrograms.Contracts.Repositories
         /// <returns></returns>
         Task<IEnumerable<TemplateProgram>> GetAllTemplatePrograms();
 
-        Task<TemplateProgram> GetTemplateProgramById(int templateProgramId);
+        /// <summary>
+        /// Gets a singular template program by id
+        /// </summary>
+        /// <param name="templateProgramId"></param>
+        /// <returns></returns>
+        TemplateProgram GetTemplateProgramById(int templateProgramId);
 
         /// <summary>
         /// Used to determine if the name of the program already exists
@@ -20,6 +25,11 @@ namespace PowerLifting.Service.TemplatePrograms.Contracts.Repositories
         /// <param name="programName"></param>
         /// <returns></returns>
         Task<bool> GetTemplateProgramByName(string programName);
+
+        /// <summary>
+        /// Creates a new template program
+        /// </summary>
+        /// <param name="templateProgram"></param>
         void CreateTemplateProgram(TemplateProgram templateProgram);
     }
 }

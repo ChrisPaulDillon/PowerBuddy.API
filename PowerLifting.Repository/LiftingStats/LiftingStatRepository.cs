@@ -28,10 +28,10 @@ namespace PowerLifting.Repository.LiftingStats
             return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId).Include(x => x.Exercise).ToListAsync();
         }
 
-        public async Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
+        public IEnumerable<LiftingStat> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
         {
-            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId && u.RepRange == repRange)
-                                                               .ToListAsync();
+            return PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId && u.RepRange == repRange)
+                                                               .ToList();
         }
 
         public async Task<LiftingStat> GetLiftingStatById(int liftingStatId)

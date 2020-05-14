@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerLifting.Service.ProgramLogs.Model;
 
 namespace PowerLifting.Service.ProgramLogs.DTO
 {

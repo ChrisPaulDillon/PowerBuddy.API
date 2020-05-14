@@ -66,7 +66,7 @@ namespace PowerLifting.Service.ProgramLogs.Validator
 
         public void ValiateUserHasLiftingStatSetForTemplateExercises(IEnumerable<LiftingStat> liftingStat)
         {
-            if(liftingStat != null || !liftingStat.Any())
+            if(liftingStat == null || !liftingStat.Any())
             {
                 throw new TemplateExercise1RMNotSetForUserException();
             }

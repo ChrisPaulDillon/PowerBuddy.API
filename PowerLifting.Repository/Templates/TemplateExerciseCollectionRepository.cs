@@ -17,11 +17,11 @@ namespace PowerLifting.Repository.Templates
         {
         }
 
-        public async Task<IEnumerable<int>> GetTemplateExerciseCollectionByTemplateId(int templateId)
+        public IEnumerable<int> GetTemplateExerciseCollectionByTemplateId(int templateId)
         {
-            return await PowerliftingContext.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == templateId)
+            return PowerliftingContext.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == templateId)
                                                                               .Select(x => x.ExerciseId)
-                                                                              .ToListAsync();
+                                                                              .ToList();
             
         }
     }

@@ -37,7 +37,7 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="templateId"></param>
         /// <returns></returns>
-        Task CreateProgramLogFromTemplate(int templateId, DaySelected daySelected);
+        ProgramLogDTO CreateProgramLogFromTemplate(int templateId, DaySelected daySelected);
 
         /// <summary>
         /// Updates the program log accordingly

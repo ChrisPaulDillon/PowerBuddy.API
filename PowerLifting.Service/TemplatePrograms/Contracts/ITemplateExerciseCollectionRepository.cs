@@ -11,6 +11,6 @@ namespace PowerLifting.Service.TemplatePrograms.Contracts
         /// Used to retrieve all exerciseIds associated with a given template
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<int>> GetTemplateExerciseCollectionByTemplateId(int templateId);
+        IEnumerable<int> GetTemplateExerciseCollectionByTemplateId(int templateId);
     }
 }

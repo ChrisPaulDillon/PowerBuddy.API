@@ -12,9 +12,8 @@ namespace PowerLifting.Service.ProgramLogs.Contracts.Repositories
         /// Used for grabbing the users present workout routine for today
         /// </summary>
         /// <param name="userId"></param>
-        /// <param name="dateSelected"></param>
         /// <returns></returns>
-        Task<ProgramLogDay> GetProgramLogTodayDay(string userId, DateTime dateSelected);
+        Task<ProgramLogDay> GetProgramLogTodayDay(string userId);
 
         /// <summary>
         /// Creates a new program day if its within the confinements of the program week

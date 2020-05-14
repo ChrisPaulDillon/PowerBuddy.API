@@ -12,7 +12,7 @@ namespace PowerLifting.Service.LiftingStats
         /// <param name="userId"></param>
         /// <param name="repRange"></param>
         /// <returns></returns>
-        Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange);
+        IEnumerable<LiftingStat> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange);
 
         /// <summary>
         /// Gets the lifting stats associated with a given user
