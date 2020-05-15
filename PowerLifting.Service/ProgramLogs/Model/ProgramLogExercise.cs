@@ -20,6 +20,7 @@ namespace PowerLifting.Service.ProgramLogs.Model
         public string RepSchemeType { get; set; } //ramped, fixed
         public bool HasBackOffSets { get; set; }
         public string BackOffSetFormat { get; set; }
+        public bool Completed { get; set; }
 
         public virtual Exercise Exercise { get; set; }
         public virtual ICollection<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set

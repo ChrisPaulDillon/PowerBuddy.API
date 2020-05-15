@@ -19,6 +19,7 @@ namespace PowerLifting.Service.ProgramLogs.DTO
         public string RepSchemeType { get; set; } //ramped, fixed
         public bool HasBackOffSets { get; set; }
         public string BackOffSetFormat { get; set; }
+        public bool Completed { get; set; }
 
         public virtual ExerciseDTO Exercise { get; set; }
         public virtual ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set

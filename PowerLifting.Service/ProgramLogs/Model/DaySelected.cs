@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PowerLifting.Service.ProgramLogs.Model
 {
@@ -15,6 +16,8 @@ namespace PowerLifting.Service.ProgramLogs.Model
         public bool Friday { get; set; }
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
+        public int Counter { get; set; }
+        public Dictionary<int,string> ProgramOrder { get; set; }
     }
 }
 
