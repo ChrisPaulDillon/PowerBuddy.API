@@ -1,6 +1,4 @@
-﻿using System;
-using PowerLifting.Service.LiftingStats.Exceptions;
-using PowerLifting.Service.LiftingStats.Model;
+﻿using PowerLifting.Service.LiftingStats.Exceptions;
 
 namespace PowerLifting.Service.LiftingStats.Validators
 {
@@ -13,22 +11,6 @@ namespace PowerLifting.Service.LiftingStats.Validators
         public void ValidateLiftingStatId(int liftingStatId)
         {
             if (liftingStatId < 1)
-            {
-                throw new LiftingStatNotFoundException();
-            }
-        }
-
-        public void ValidateLiftingStatDoesNotAlreadyExist(LiftingStat liftingStat)
-        {
-            if(liftingStat != null)
-            {
-                throw new LiftingStatRepRangeAlreadyExistsException();
-            }
-        }
-
-        public void ValidateLiftingStatExists(LiftingStat liftingStat)
-        {
-            if (liftingStat == null)
             {
                 throw new LiftingStatNotFoundException();
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.LiftingStats.DTO;
+using PowerLifting.Service.LiftingStats.Exceptions;
 using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.LiftingStats.Validators;
 using PowerLifting.Service.LiftingStatsAudit.Model;
@@ -13,13 +14,11 @@ namespace PowerLifting.Service.LiftingStats
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryWrapper _repo;
-        private readonly LiftingStatValidator _validator;
 
         public LiftingStatService(IRepositoryWrapper repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
-            _validator = new LiftingStatValidator();
         }
 
         public void CreateLiftingStat(LiftingStatDTO liftingStatDTO)
@@ -32,7 +31,7 @@ namespace PowerLifting.Service.LiftingStats
 
             var liftingStat = _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(userId, exerciseId, repRange);
 
-            _validator.ValidateLiftingStatDoesNotAlreadyExist(liftingStat);
+            if (liftingStat != null) throw new LiftingStatAlreadyExistsException();
 
             if (liftingStatDTO.GoalWeight != null)
             {
@@ -61,9 +60,11 @@ namespace PowerLifting.Service.LiftingStats
 
         public async Task UpdateLiftingStat(LiftingStatDTO stats)
         {
-            _validator.ValidateLiftingStatId(stats.LiftingStatId);
+            var validator = new LiftingStatValidator();
+            validator.ValidateLiftingStatId(stats.LiftingStatId);
+
             var liftingStat = await _repo.LiftingStat.GetLiftingStatById(stats.LiftingStatId);
-            _validator.ValidateLiftingStatExists(liftingStat);
+            if (liftingStat == null) throw new LiftingStatNotFoundException();
 
             var liftingStats = _mapper.Map<LiftingStat>(stats);
             _repo.LiftingStat.UpdateLiftingStat(liftingStats);
@@ -81,9 +82,11 @@ namespace PowerLifting.Service.LiftingStats
 
         public async Task DeleteLiftingStat(int liftingStatId)
         {
-            _validator.ValidateLiftingStatId(liftingStatId);
+            var validator = new LiftingStatValidator();
+            validator.ValidateLiftingStatId(liftingStatId);
+
             var liftingStat = await _repo.LiftingStat.GetLiftingStatById(liftingStatId);
-            _validator.ValidateLiftingStatExists(liftingStat);
+            if (liftingStat == null) throw new LiftingStatNotFoundException();
 
             _repo.LiftingStat.Delete(liftingStat);
         }

@@ -9,6 +9,7 @@ using PowerLifting.Service;
 using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 using PowerLifting.API.Models;
+using PowerLifting.Service.Users.Exceptions;
 
 namespace PowerLifting.API.API
 {
@@ -39,7 +40,7 @@ namespace PowerLifting.API.API
             {
                 return NotFound(Responses.Error(ex));
             }
-            catch (UserDoesNotMatchProgramLogException ex)
+            catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
@@ -61,7 +62,7 @@ namespace PowerLifting.API.API
             {
                 return NotFound(Responses.Error(ex));
             }
-            catch (UserDoesNotMatchProgramLogException ex)
+            catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
@@ -82,7 +83,7 @@ namespace PowerLifting.API.API
             {
                 return NotFound(Responses.Error(ex));
             }
-            catch (UserDoesNotMatchProgramLogException ex)
+            catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
@@ -106,7 +107,7 @@ namespace PowerLifting.API.API
                 var programLogDTO = _service.ProgramLog.CreateProgramLogFromTemplate(templateProgramId, daySelected);
                 return Ok(Responses.Success(programLogDTO));
             }
-            catch (TemplateProgramDoesNotExistException ex)
+            catch (TemplateProgramNotFoundException ex)
             {
                 return BadRequest(Responses.Error(ex));
             }
@@ -146,11 +147,11 @@ namespace PowerLifting.API.API
                 var programLogs = await _service.ProgramLog.GetProgramLogDayByUserId(userId, programLogId, dateSelected);
                 return Ok(Responses.Success(programLogs));
             }
-            catch (ProgramLogDayDoesNotExistException ex)
+            catch (ProgramLogDayNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
             }
-            catch (UserDoesNotMatchProgramLogException ex)
+            catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
@@ -168,11 +169,11 @@ namespace PowerLifting.API.API
                 var programLogDay = await _service.ProgramLog.GetTodaysProgramLogDayByUserId(userId);
                 return Ok(Responses.Success(programLogDay));
             }
-            catch (ProgramLogDayDoesNotExistException ex)
+            catch (ProgramLogDayNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
             }
-            catch (UserDoesNotMatchProgramLogException ex)
+            catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
@@ -200,7 +201,7 @@ namespace PowerLifting.API.API
                 var programLogWeek = await _service.ProgramLog.GetCurrentProgramLogWeekByUserId(userId);
                 return Ok(programLogWeek);
             }
-            catch (ProgramLogWeekDoesNotExistException ex)
+            catch (ProgramLogWeekNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
             }
@@ -249,7 +250,7 @@ namespace PowerLifting.API.API
             {
                 return NotFound(Responses.Error(ex));
             }
-            catch (UserDoesNotMatchProgramLogException ex)
+            catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
@@ -285,7 +286,7 @@ namespace PowerLifting.API.API
                 _service.ProgramLog.CreateProgramLogRepScheme(programLogRepSchemeDTO);
                 return Ok(Responses.Success());
             }
-            catch (ProgramLogRepSchemeDoesNotExistException ex)
+            catch (ProgramLogRepSchemeNotFoundException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
@@ -306,7 +307,7 @@ namespace PowerLifting.API.API
             {
                 return NotFound(e);
             }
-            catch (UserDoesNotMatchProgramLogException e)
+            catch (UnauthorisedUserException e)
             {
                 return Unauthorized(e);
             }

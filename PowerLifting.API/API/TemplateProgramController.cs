@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Models;
 using PowerLifting.Service;
 using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
@@ -22,62 +23,62 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<TemplateProgramDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<TemplateProgramDTO>>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllTemplatePrograms()
         {
             var templatePrograms = await _service.TemplateProgram.GetAllTemplatePrograms();
 
-            if (templatePrograms == null) return NotFound();
+            if (templatePrograms == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Template Programs found!"));
 
-            return Ok(templatePrograms);
+            return Ok(Responses.Success(templatePrograms));
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(TemplateProgramDTO),StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
         public IActionResult GetTemplateProgramById(int templateId)
         {
             try
             {
                 var templateProgram = _service.TemplateProgram.GetTemplateProgramById(templateId);
-                return Ok(templateProgram);
+                return Ok(Responses.Success(templateProgram));
             }
-            catch (TemplateProgramDoesNotExistException e)
+            catch (TemplateProgramNotFoundException ex)
             {
-                return NotFound(e);
+                return NotFound(Responses.Error(ex));
             }
         }
 
         [HttpGet("Calculate/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
         public IActionResult GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
         {
             try
             {
-                var programType = _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId);
-                return Ok(programType);
+                var templateProgramDTO = _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId);
+                return Ok(templateProgramDTO);
             }
-            catch(UserDoesNotHaveLiftingStatSetForExerciseException e)
+            catch(UserDoesNotHaveLiftingStatSetForExerciseException ex)
             {
-                return Unauthorized(e);
+                return Unauthorized(Responses.Error(ex));
             }
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO templateProgramDTO)
         {
             try
             {
                 await _service.TemplateProgram.CreateTemplateProgram(templateProgramDTO);
-                return Ok();
+                return Ok(Responses.Success());
             }
-            catch (TemplateProgramNameAlreadyExistsException e)
+            catch (TemplateProgramNameAlreadyExistsException ex)
             {
-                return Conflict(e);
+                return Conflict(Responses.Error(ex));
             }
         }
     }

@@ -1,9 +1,9 @@
 ﻿using System;
 namespace PowerLifting.Service.ProgramLogs.Exceptions
 {
-    public class ProgramLogValidationException
+    public class ProgramLogValidationException : Exception
     {
-        public ProgramLogValidationException()
+        public ProgramLogValidationException(string message) : base(message)
         {
         }
     }

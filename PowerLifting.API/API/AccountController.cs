@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Models;
 using PowerLifting.Service;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
@@ -24,39 +25,35 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost("Login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<UserDTO>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> LoginUser(LoginModel loginModel)
         {
             try
             {
                 var user = await _service.User.LoginUser(loginModel);
-                return Ok(user);
+                return Ok(Responses.Success(user));
             }
-            catch (InvalidCredentialsException e)
+            catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(e);
+                return Unauthorized(Responses.Error(ex));
             }
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO user)
+        [ProducesResponseType(typeof(ApiResponse<UserDTO>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO userDTO)
         {
             try
             {
-                user.UserName = user.Email;
-                if (user == null) return BadRequest("User object is null");
-                if (!ModelState.IsValid) return BadRequest("Invalid model object");
-
-                await _service.User.RegisterUser(user);
-                return Ok(user);
+                userDTO.UserName = userDTO.Email;
+                await _service.User.RegisterUser(userDTO);
+                return Ok(Responses.Success(userDTO));
             }
-            catch (EmailInUseException e)
+            catch (EmailInUseException ex)
             {
-                return Conflict(e);
+                return Conflict(Responses.Error(ex));
             }
         }
 

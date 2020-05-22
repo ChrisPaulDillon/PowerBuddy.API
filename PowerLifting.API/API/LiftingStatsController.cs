@@ -48,7 +48,7 @@ namespace PowerLifting.API.API
                 _service.LiftingStat.CreateLiftingStat(liftingStat);
                 return Ok(Responses.Success());
             }
-            catch (LiftingStatRepRangeAlreadyExistsException ex)
+            catch (LiftingStatAlreadyExistsException ex)
             {
                 return BadRequest(Responses.Error(ex));
             }
@@ -68,7 +68,7 @@ namespace PowerLifting.API.API
             {
                 return NotFound(Responses.Error(ex));
             }
-            catch(UserDoesNotMatchLiftingStatException ex)
+            catch(UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }

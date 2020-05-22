@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.ProgramLogs.Exceptions;
-using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
-using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.Service.ProgramLogs.Validator
 {
@@ -46,15 +44,7 @@ namespace PowerLifting.Service.ProgramLogs.Validator
         {
             if (programLogWeekId < 1)
             {
-                throw new ProgramLogValidationException("ProgramLogWeekId cannot be null");
-            }
-        }
-
-        public void ValidateProgramLogWeekExists(ProgramLogWeek programWeek)
-        {
-            if (programWeek == null)
-            {
-                throw new ProgramLogWeekDoesNotExistException();
+                throw new ProgramLogValidationException("The following ProgramLogWeekId must be greater than zero: " + programLogWeekId);
             }
         }
 
@@ -66,15 +56,7 @@ namespace PowerLifting.Service.ProgramLogs.Validator
         {
             if (programLogDayId < 1)
             {
-                throw new ProgramLogDayDoesNotExistException();
-            }
-        }
-
-        public void ValidateProgramLogDayExists(ProgramLogDay programDay)
-        {
-            if (programDay == null)
-            {
-                throw new ProgramLogDayDoesNotExistException();
+                throw new ProgramLogValidationException("The following ProgramLogDayId must be greater than zero: " + programLogDayId);
             }
         }
 
@@ -95,15 +77,7 @@ namespace PowerLifting.Service.ProgramLogs.Validator
         {
             if (programLogExerciseId < 1)
             {
-                throw new ProgramLogExerciseNotFoundException();
-            }
-        }
-
-        public void ValidateProgramExerciseExists(ProgramLogExercise programExercise)
-        {
-            if(programExercise == null)
-            {
-                throw new ProgramLogExerciseNotFoundException();
+                throw new ProgramLogValidationException("The supplied parameter of 'programLogExerciseId' must be greater than zero: " + programLogExerciseId);
             }
         }
 
@@ -115,15 +89,7 @@ namespace PowerLifting.Service.ProgramLogs.Validator
         {
             if (programLogRepSchemeId < 1)
             {
-                throw new ProgramLogRepSchemeDoesNotExistException();
-            }
-        }
-
-        public void ValidateProgramRepSchemeExists(ProgramLogRepScheme programLogRepScheme)
-        {
-            if (programLogRepScheme == null)
-            {
-                throw new ProgramLogExerciseNotFoundException();
+                throw new ProgramLogValidationException("The supplied parameter of 'programLogRepSchemeId' must be greater than zero: " + programLogRepSchemeId);
             }
         }
 

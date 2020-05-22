@@ -12,6 +12,7 @@ using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.ProgramLogs.Validator;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 using PowerLifting.Service.TemplatePrograms.Model;
+using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.Service.ProgramLogs
@@ -21,14 +22,12 @@ namespace PowerLifting.Service.ProgramLogs
         private readonly IMapper _mapper;
         private readonly IRepositoryWrapper _repo;
         private readonly UserManager<User> _userManager;
-        private readonly ProgramLogValidator _validator;
 
         public ProgramLogService(IRepositoryWrapper repo, IMapper mapper, UserManager<User> userManager)
         {
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
-            _validator = new ProgramLogValidator();
         }
 
         #region ProgramLogServices
@@ -36,7 +35,8 @@ namespace PowerLifting.Service.ProgramLogs
         public async Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId)
         {
             var userProgramLogs = await _repo.ProgramLog.GetAllProgramLogsByUserId(userId);
-            _validator.ValidateProgramLogsExists(userProgramLogs);
+
+            if (userProgramLogs == null) throw new ProgramLogNotFoundException();
 
             var userProgramLogsDTO = _mapper.Map<IEnumerable<ProgramLogDTO>>(userProgramLogs);
             return userProgramLogsDTO;
@@ -45,7 +45,7 @@ namespace PowerLifting.Service.ProgramLogs
         public async Task<ProgramLogDTO> GetProgramLogByUserId(string userId)
         {
             var userProgramLog = await _repo.ProgramLog.GetProgramLogByUserId(userId);
-            _validator.ValidateProgramLogExists(userProgramLog);
+            if (userProgramLog == null) throw new ProgramLogNotFoundException();
 
             var userProgramLogDTO = _mapper.Map<ProgramLogDTO>(userProgramLog);
             return userProgramLogDTO;
@@ -53,9 +53,6 @@ namespace PowerLifting.Service.ProgramLogs
 
         public async Task CreateProgramLog(ProgramLogDTO programLog)
         {
-            var log = await _repo.ProgramLog.GetProgramLogById(programLog.ProgramLogId);
-            _validator.ValiateProgramLogDoesNotAlreadyExist(log);
-
             var newProgramLog = _mapper.Map<ProgramLog>(programLog);
             _repo.ProgramLog.CreateProgramLog(newProgramLog);
         }
@@ -68,19 +65,21 @@ namespace PowerLifting.Service.ProgramLogs
         public ProgramLogDTO CreateProgramLogFromTemplate(int templateProgramId, DaySelected daySelected)
         {
             const string userId = "b6b44a7c-30f4-4c3f-bd0e-955e3e12e571";
+            var validator = new ProgramLogValidator();
 
             if (DoesProgramLogAlreadyExist(userId)) throw new ProgramLogAlreadyActiveException(); //doesnt work lul
 
             var tp = _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
-            _validator.ValidateTemplateProgramExists(tp);
+          
+            if (tp == null) throw new TemplateProgramNotFoundException();
 
             var tec = _repo.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateId(templateProgramId);
 
             daySelected = CountDaysSelected(daySelected);
-            _validator.ValidateProgramLogDaysMatchTemplateDaysCount(daySelected.Counter, tp.MaxLiftDaysPerWeek);
+            validator.ValidateProgramLogDaysMatchTemplateDaysCount(daySelected.Counter, tp.MaxLiftDaysPerWeek);
 
             var userLiftingStats = _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
-            _validator.ValiateUserHasLiftingStatSetForTemplateExercises(userLiftingStats);
+            validator.ValiateUserHasLiftingStatSetForTemplateExercises(userLiftingStats);
 
             var checkLiftingStats = userLiftingStats.ToList().Where(item1 => tec.Any(item2 => item1.ExerciseId == item2));
 
@@ -354,12 +353,11 @@ namespace PowerLifting.Service.ProgramLogs
         {
             var programLog = await _repo.ProgramLog.GetProgramLogById(programLogDTO.ProgramLogId);
 
+            if (programLog == null) throw new ProgramLogNotFoundException();
             if (programLog.UserId != userId)
             {
-                throw new UserDoesNotMatchProgramLogException("UserId does match the user associated with this program log!");
+                throw new UnauthorisedUserException("UserId does match the user associated with this program log!");
             }
-
-            _validator.ValidateProgramLogExists(programLog);
 
             _mapper.Map(programLogDTO, programLog);
             _repo.ProgramLog.UpdateProgramLog(programLog);
@@ -368,15 +366,16 @@ namespace PowerLifting.Service.ProgramLogs
 
         public async Task DeleteProgramLog(string userId, int programLogId)
         {
-            _validator.ValidateProgramLogId(programLogId);
+            var validator = new ProgramLogValidator();
+            validator.ValidateProgramLogId(programLogId);
+
             var programLog = await _repo.ProgramLog.GetProgramLogById(programLogId);
 
+            if (programLog == null) throw new ProgramLogNotFoundException();
             if (programLog.UserId != userId)
             {
-                throw new UserDoesNotMatchProgramLogException("UserId does match the user associated with this program log!");
+                throw new UnauthorisedUserException("UserId does match the user associated with this program log!");
             }
-
-            _validator.ValidateProgramLogExists(programLog);
 
             _repo.ProgramLog.DeleteProgramLog(programLog);
         }
@@ -389,7 +388,7 @@ namespace PowerLifting.Service.ProgramLogs
         {
             //_validator.ValidateProgramLogWeekId(programLogWeekId);
             var programLogWeek = await _repo.ProgramLogWeek.GetCurrentProgramLogWeekByUserId(userId);
-            _validator.ValidateProgramLogWeekExists(programLogWeek);
+            if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
 
             var programLogWeekDTO = _mapper.Map<ProgramLogWeekDTO>(programLogWeek);
             return programLogWeekDTO;
@@ -401,9 +400,12 @@ namespace PowerLifting.Service.ProgramLogs
 
         public async Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date)
         {
-            _validator.ValidateProgramLogDayId(programLogId);
+            var validator = new ProgramLogValidator();
+            validator.ValidateProgramLogDayId(programLogId);
+
             var programLogDay = await _repo.ProgramLogDay.GetProgramLogDay(userId, programLogId, date);
-            _validator.ValidateProgramLogDayExists(programLogDay);
+
+            if (programLogDay == null) throw new ProgramLogDayNotFoundException();
 
             var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
             return programLogDayDTO;
@@ -412,7 +414,8 @@ namespace PowerLifting.Service.ProgramLogs
         public async Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId)
         {
             var programLogDay = await _repo.ProgramLogDay.GetProgramLogTodayDay(userId);
-            _validator.ValidateProgramLogDayExists(programLogDay);
+            if (programLogDay == null) throw new ProgramLogDayNotFoundException();
+
             var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
             return programLogDayDTO;
         }
@@ -420,7 +423,8 @@ namespace PowerLifting.Service.ProgramLogs
         public async Task CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
         {
             var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekById(programLogDayDTO.ProgramLogWeekId);
-            _validator.ValidateProgramLogDayWithinProgramLogWeek(programLogWeek.StartDate, programLogWeek.EndDate, programLogDayDTO.Date);
+            var validator = new ProgramLogValidator();
+            validator.ValidateProgramLogDayWithinProgramLogWeek(programLogWeek.StartDate, programLogWeek.EndDate, programLogDayDTO.Date);
 
             var newProgramLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
             _repo.ProgramLogDay.CreateProgramLogDay(newProgramLogDay);
@@ -446,18 +450,20 @@ namespace PowerLifting.Service.ProgramLogs
         public async Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
         {
             var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseDTO.ProgramLogExerciseId);
-            _validator.ValidateProgramExerciseExists(programLogExercise);
-
+            if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
+            
             _mapper.Map(programLogExerciseDTO, programLogExercise);
             _repo.ProgramLogExercise.UpdateProgramLogExercise(programLogExercise);
         }
 
         public async Task DeleteProgramLogExercise(int programLogExerciseId)
         {
-            _validator.ValidateProgramLogExerciseId(programLogExerciseId);
-            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseId);
-            _validator.ValidateProgramExerciseExists(programLogExercise);
+            var validator = new ProgramLogValidator();
+            validator.ValidateProgramLogExerciseId(programLogExerciseId);
 
+            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseId);
+
+            if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
             _repo.ProgramLogExercise.DeleteProgramLogExercise(programLogExercise);
         }
 
@@ -474,7 +480,7 @@ namespace PowerLifting.Service.ProgramLogs
         public async Task UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
         {
             var programLogRepScheme = await _repo.ProgramLogRepScheme.GetProgramLogRepScheme(programLogRepSchemeDTO.ProgramLogRepSchemeId);
-            _validator.ValidateProgramRepSchemeExists(programLogRepScheme);
+            if (programLogRepScheme == null) throw new ProgramLogRepSchemeNotFoundException();
 
             _mapper.Map(programLogRepSchemeDTO, programLogRepScheme);
             _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(programLogRepScheme);
@@ -482,10 +488,11 @@ namespace PowerLifting.Service.ProgramLogs
 
         public async Task DeleteProgramLogRepScheme(int programLogRepSchemeId)
         {
-            _validator.ValidateProgramLogRepSchemeId(programLogRepSchemeId);
+            var validator = new ProgramLogValidator();
+            validator.ValidateProgramLogRepSchemeId(programLogRepSchemeId);
 
             var programLogRepScheme = await _repo.ProgramLogRepScheme.GetProgramLogRepScheme(programLogRepSchemeId);
-            _validator.ValidateProgramRepSchemeExists(programLogRepScheme);
+            if (programLogRepScheme == null) throw new ProgramLogRepSchemeNotFoundException();
 
             _repo.ProgramLogRepScheme.DeleteProgramLogRepScheme(programLogRepScheme);
         }

@@ -15,7 +15,7 @@ namespace PowerLifting.Service.TemplatePrograms.Validators
         {
             if (templateProgramId < 1)
             {
-                throw new TemplateProgramDoesNotExistException();
+                throw new TemplateProgramNotFoundException();
             }
         }
 
