@@ -133,6 +133,26 @@ namespace PowerLifting.API.API
             }
         }
 
+        #region ProgramLogWeek
+
+        [HttpGet("Week/{programLogId:int}")]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetProgramLogWeekByUserId(int programLogId, [FromBody]DateTime date)
+        {
+            try
+            {
+                var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByProgramLogId(programLogId, date);
+                return Ok(programLogWeek);
+            }
+            catch (ProgramLogWeekNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+        }
+
+        #endregion
+
         #region ProgramDays
 
         [HttpGet("Day/{userId}")]
@@ -185,26 +205,6 @@ namespace PowerLifting.API.API
         {
             await _service.ProgramLog.CreateProgramLogDay(programLogDayDTO);
             return Ok(Responses.Success());
-        }
-
-        #endregion
-
-        #region ProgramLogWeek
-
-        [HttpGet("Week/Current/{userId}")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProgramLogWeekByUserId(string userId)
-        {
-            try
-            {
-                var programLogWeek = await _service.ProgramLog.GetCurrentProgramLogWeekByUserId(userId);
-                return Ok(programLogWeek);
-            }
-            catch (ProgramLogWeekNotFoundException ex)
-            {
-                return NotFound(Responses.Error(ex));
-            }
         }
 
         #endregion

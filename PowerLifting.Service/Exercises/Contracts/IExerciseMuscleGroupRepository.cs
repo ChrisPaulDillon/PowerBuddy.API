@@ -10,7 +10,7 @@ namespace PowerLifting.Service.Exercises.Contracts
         ///     Gets all muscle groups such as quads, shoulders, arms etc.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<ExerciseMuscleGroup> GetAllExerciseMuscleGroups();
+        Task<IEnumerable<ExerciseMuscleGroup>> GetAllExerciseMuscleGroups();
 
         /// <summary>
         ///     Get a specific exercise muscle group by id

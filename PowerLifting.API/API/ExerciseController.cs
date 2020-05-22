@@ -54,11 +54,11 @@ namespace PowerLifting.API.API
         [HttpGet("ExerciseMuscleGroup")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ExerciseDTO>>),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
-        public IActionResult GetAllExerciseMuscleGroups()
+        public async Task<IActionResult> GetAllExerciseMuscleGroupsAsync()
         {
             try
             {
-                var exercises = _service.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
+                var exercises = await _service.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
                 return Ok(Responses.Success(exercises));
             }
             catch (ExerciseMuscleGroupNotFoundException ex)
@@ -70,9 +70,9 @@ namespace PowerLifting.API.API
         [HttpGet("ExerciseType")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ExerciseTypeDTO>>),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
-        public IActionResult GetAllExerciseTypes()
+        public async Task<IActionResult> GetAllExerciseTypesAsync()
         {
-            var exerciseTypes = _service.ExerciseType.GetAllExerciseTypes();
+            var exerciseTypes = await _service.ExerciseType.GetAllExerciseTypes();
             if (exerciseTypes == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Exercise Types Found"));
             return Ok(Responses.Success(exerciseTypes));
         }

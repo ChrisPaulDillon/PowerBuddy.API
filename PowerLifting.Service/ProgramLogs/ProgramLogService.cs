@@ -384,10 +384,10 @@ namespace PowerLifting.Service.ProgramLogs
 
         #region ProgramLogWeekServices
 
-        public async Task<ProgramLogWeekDTO> GetCurrentProgramLogWeekByUserId(string userId)
+        public async Task<ProgramLogWeekDTO> GetProgramLogWeekByProgramLogId(int programLogId, DateTime date)
         {
             //_validator.ValidateProgramLogWeekId(programLogWeekId);
-            var programLogWeek = await _repo.ProgramLogWeek.GetCurrentProgramLogWeekByUserId(userId);
+            var programLogWeek = await _repo.ProgramLogWeek.GetCurrentProgramLogWeekByUserId("test lmfao");
             if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
 
             var programLogWeekDTO = _mapper.Map<ProgramLogWeekDTO>(programLogWeek);

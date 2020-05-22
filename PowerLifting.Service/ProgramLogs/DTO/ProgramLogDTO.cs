@@ -19,6 +19,6 @@ namespace PowerLifting.Service.ProgramLogs.DTO
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
         public bool IsCompleted { get; set; }
-        public ICollection<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
+        public IEnumerable<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
     }
 }

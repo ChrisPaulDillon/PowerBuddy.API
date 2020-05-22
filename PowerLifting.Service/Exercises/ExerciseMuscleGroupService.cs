@@ -21,10 +21,22 @@ namespace PowerLifting.Service.Exercises
             _mapper = mapper;
         }
 
-        public IEnumerable<ExerciseMuscleGroupDTO> GetAllExerciseMuscleGroups()
+        public async Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups()
         {
-            RefreshExerciseStore();
+            await RefreshExerciseStore();
             return _store.Values;
+        }
+
+        private async Task RefreshExerciseStore()
+        {
+            if (!_store.IsEmpty)
+                return;
+
+            var exercises = await _repo.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
+            var exerciseDTOs = _mapper.Map<IEnumerable<ExerciseMuscleGroupDTO>>(exercises);
+
+            foreach (var exerciseMuscleGroupDTO in exerciseDTOs)
+                _store.AddOrUpdate(exerciseMuscleGroupDTO.ExerciseMuscleGroupId, exerciseMuscleGroupDTO,(key, olValue) => exerciseMuscleGroupDTO);
         }
 
         public async Task<ExerciseMuscleGroupDTO> GetExerciseMuscleGroupById(int exerciseMuscleGroupId)
@@ -56,17 +68,5 @@ namespace PowerLifting.Service.Exercises
             _repo.Exercise.DeleteExercise(exerciseMuscleGroup);
         }
 
-        public void RefreshExerciseStore()
-        {
-            if (!_store.IsEmpty)
-                return;
-
-            var exercises = _repo.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
-            var exerciseDTOs = _mapper.Map<IEnumerable<ExerciseMuscleGroupDTO>>(exercises);
-
-            foreach (var exerciseMuscleGroupDTO in exerciseDTOs)
-                _store.AddOrUpdate(exerciseMuscleGroupDTO.ExerciseMuscleGroupId, exerciseMuscleGroupDTO,
-                    (key, olValue) => exerciseMuscleGroupDTO);
-        }
     }
 }

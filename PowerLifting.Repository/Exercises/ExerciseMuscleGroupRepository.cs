@@ -16,9 +16,9 @@ namespace PowerLifting.Repository.Exercises
         {
         }
 
-        public IEnumerable<ExerciseMuscleGroup> GetAllExerciseMuscleGroups()
+        public async Task<IEnumerable<ExerciseMuscleGroup>> GetAllExerciseMuscleGroups()
         {
-            return PowerliftingContext.Set<ExerciseMuscleGroup>().ToList();
+            return await PowerliftingContext.Set<ExerciseMuscleGroup>().ToListAsync();
         }
 
         public async Task<ExerciseMuscleGroup> GetExerciseMuscleGroupById(int exerciseTypeId)

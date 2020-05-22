@@ -21,10 +21,22 @@ namespace PowerLifting.Service.Exercises
             _mapper = mapper;
         }
 
-        public IEnumerable<ExerciseTypeDTO> GetAllExerciseTypes()
+        public async Task<IEnumerable<ExerciseTypeDTO>> GetAllExerciseTypes()
         {
-            RefreshExerciseStore();
+            await RefreshExerciseStore();
             return _store.Values;
+        }
+
+        private async Task RefreshExerciseStore()
+        {
+            if (!_store.IsEmpty)
+                return;
+
+            var categories = await _repo.ExerciseType.GetAllExerciseTypes();
+            var exerciseTypeDTOs = _mapper.Map<IEnumerable<ExerciseTypeDTO>>(categories);
+
+            foreach (var exerciseDTO in exerciseTypeDTOs)
+                _store.AddOrUpdate(exerciseDTO.ExerciseTypeId, exerciseDTO, (key, olValue) => exerciseDTO);
         }
 
         public async Task<ExerciseTypeDTO> GetExerciseTypeById(int id)
@@ -48,18 +60,6 @@ namespace PowerLifting.Service.Exercises
             var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeId);
             if (exerciseTypeEntity == null) throw new ExerciseTypeNotFoundException();
             _repo.ExerciseType.Delete(exerciseTypeEntity);
-        }
-
-        private void RefreshExerciseStore()
-        {
-            if (!_store.IsEmpty)
-                return;
-
-            var categories = _repo.ExerciseType.GetAllExerciseTypes();
-            var exerciseTypeDTOs = _mapper.Map<IEnumerable<ExerciseTypeDTO>>(categories);
-
-            foreach (var exerciseDTO in exerciseTypeDTOs)
-                _store.AddOrUpdate(exerciseDTO.ExerciseTypeId, exerciseDTO, (key, olValue) => exerciseDTO);
         }
     }
 }

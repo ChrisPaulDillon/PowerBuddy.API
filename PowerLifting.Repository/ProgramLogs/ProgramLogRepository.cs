@@ -29,15 +29,17 @@ namespace PowerLifting.Repository.ProgramLogs
 
         public async Task<ProgramLog> GetProgramLogByUserId(string userId)
         {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId)
-                                                                         .OrderByDescending(x => x.StartDate)
+            var programLog = await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId && x.NoOfWeeks > 1)
+                                                                         .OrderBy(x => x.StartDate)
                                                                          .Include(x => x.ProgramLogWeeks)
-                                                                       
                                                                          .ThenInclude(x => x.ProgramLogDays)
-                                                                     
                                                                          .ThenInclude(x => x.ProgramLogExercises)
                                                                          .ThenInclude(x => x.ProgramLogRepSchemes)
                                                                          .FirstAsync();
+
+            //programLog.ProgramLogWeeks = programLog.ProgramLogWeeks.OrderBy(x => x.WeekNo).Select(x => x.ProgramLogDays.OrderBy(x => x.DayNo));
+            programLog.ProgramLogWeeks = programLog.ProgramLogWeeks.OrderBy(x => x.WeekNo);
+            return programLog;
         }
 
 

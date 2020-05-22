@@ -10,7 +10,7 @@ namespace PowerLifting.Service.Exercises.Contracts
         /// Gets all the exercise muscle groups depending if the result has already been cached or not
         /// </summary>
         /// <returns></returns>
-        IEnumerable<ExerciseMuscleGroupDTO> GetAllExerciseMuscleGroups();
+        Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups();
 
         /// <summary>
         /// Gets a speific ExerciseMuscleGroup by id, checks if it exists
