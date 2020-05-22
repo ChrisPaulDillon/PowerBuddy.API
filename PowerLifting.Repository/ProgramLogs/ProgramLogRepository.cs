@@ -30,8 +30,11 @@ namespace PowerLifting.Repository.ProgramLogs
         public async Task<ProgramLog> GetProgramLogByUserId(string userId)
         {
             return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId)
+                                                                         .OrderByDescending(x => x.StartDate)
                                                                          .Include(x => x.ProgramLogWeeks)
+                                                                       
                                                                          .ThenInclude(x => x.ProgramLogDays)
+                                                                     
                                                                          .ThenInclude(x => x.ProgramLogExercises)
                                                                          .ThenInclude(x => x.ProgramLogRepSchemes)
                                                                          .FirstAsync();

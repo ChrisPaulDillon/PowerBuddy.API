@@ -3,7 +3,7 @@
     public class TemplateRepScheme
     {
         public int TemplateRepSchemeId { get; set; }
-        public int TemplateExerciseId { get; set; } //Is this set for a fixed program or a user?
+        public int TemplateExerciseId { get; set; }
         public double? Percentage { get; set; }
         public int SetNo { get; set; }
         public int NoOfReps { get; set; } //minimum number of reps to be performed

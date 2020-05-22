@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.Exercises.DTO;
+using PowerLifting.Service.Exercises.Exceptions;
 using PowerLifting.Service.Exercises.Validators;
 
 namespace PowerLifting.Service.Exercises
@@ -14,28 +15,26 @@ namespace PowerLifting.Service.Exercises
         private readonly IMapper _mapper;
         private readonly IRepositoryWrapper _repo;
         private readonly ConcurrentDictionary<int, TopLevelExerciseDTO> _store;
-        private readonly ExerciseValidator _validator;
 
         public ExerciseService(IRepositoryWrapper repo, IMapper mapper)
         {
             _repo = repo;
             _store = new ConcurrentDictionary<int, TopLevelExerciseDTO>();
             _mapper = mapper;
-            _validator = new ExerciseValidator();
         }
 
-        public IEnumerable<TopLevelExerciseDTO> GetAllExercises()
+        public async Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercises()
         {
-            RefreshExerciseStore();
+            await RefreshExerciseStore();
             return _store.Values;
         }
 
-        public void RefreshExerciseStore()
+        private async Task RefreshExerciseStore()
         {
             if (!_store.IsEmpty)
                 return;
 
-            var exercises = _repo.Exercise.GetAllExercises();
+            var exercises = await _repo.Exercise.GetAllExercises();
             var exerciseDTOs = _mapper.Map<IEnumerable<TopLevelExerciseDTO>>(exercises);
 
             foreach (var exerciseDTO in exerciseDTOs)
@@ -44,9 +43,10 @@ namespace PowerLifting.Service.Exercises
 
         public async Task<ExerciseDTO> GetExerciseById(int id)
         {
-            _validator.ValidateExerciseId(id);
+            var validator = new ExerciseValidator();
+            validator.ValidateExerciseId(id);
             var exercise = await _repo.Exercise.GetExerciseById(id);
-            _validator.ValidateExerciseExists(exercise);
+            validator.ValidateExerciseExists(exercise);
 
             var exerciseDTO = _mapper.Map<ExerciseDTO>(exercise);
             return exerciseDTO;
@@ -55,7 +55,7 @@ namespace PowerLifting.Service.Exercises
         public async void UpdateExercise(ExerciseDTO exerciseDTO)
         {
             var exercise = await _repo.Exercise.GetExerciseById(exerciseDTO.ExerciseId);
-            _validator.ValidateExerciseExists(exercise);
+            if (exercise == null) throw new ExerciseNotFoundException();
 
             _mapper.Map(exerciseDTO, exercise);
             _repo.Exercise.UpdateExercise(exercise);
@@ -64,7 +64,7 @@ namespace PowerLifting.Service.Exercises
         public async void DeleteExercise(ExerciseDTO exerciseDTO)
         {
             var exercise = await _repo.Exercise.GetExerciseById(exerciseDTO.ExerciseId);
-            _validator.ValidateExerciseExists(exercise);
+            if (exercise == null) throw new ExerciseNotFoundException();
 
             _repo.Exercise.DeleteExercise(exercise);
         }

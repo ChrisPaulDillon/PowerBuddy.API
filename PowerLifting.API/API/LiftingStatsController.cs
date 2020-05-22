@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Models;
 using PowerLifting.Service;
 using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Exceptions;
@@ -22,73 +23,73 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{userId}")]
-        [ProducesResponseType(typeof(IEnumerable<LiftingStatDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<LiftingStatDTO>>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats(string userId)
         {
             try
             {
                 var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserId(userId);
-                return Ok(liftingStats);
+                return Ok(Responses.Success(liftingStats));
             }
-            catch (UserNotFoundException e)
+            catch (LiftingStatNotFoundException ex)
             {
-                return NotFound(e);
+                return NotFound(Responses.Error(ex));
             }
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status400BadRequest)]
         public IActionResult CreateLiftingStat([FromBody] LiftingStatDTO liftingStat)
         {
             try
             {
                 _service.LiftingStat.CreateLiftingStat(liftingStat);
-                return Ok();
+                return Ok(Responses.Success());
             }
-            catch (LiftingStatRepRangeAlreadyExistsException e)
+            catch (LiftingStatRepRangeAlreadyExistsException ex)
             {
-                return BadRequest(e);
+                return BadRequest(Responses.Error(ex));
             }
         }
 
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
         public IActionResult UpdateLiftingStat([FromBody]LiftingStatDTO liftingStats)
         {
             try
             {
                 _service.LiftingStat.UpdateLiftingStat(liftingStats);
             }
-            catch(LiftingStatNotFoundException e)
+            catch(LiftingStatNotFoundException ex)
             {
-                return NotFound(e);
+                return NotFound(Responses.Error(ex));
             }
-            catch(UserDoesNotMatchLiftingStatException e)
+            catch(UserDoesNotMatchLiftingStatException ex)
             {
-                return Unauthorized(e);
+                return Unauthorized(Responses.Error(ex));
             }
-            return NoContent();
+            return Ok(Responses.Success());
         }
 
         [HttpDelete("{liftingStatId}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
         public IActionResult DeleteLiftingStat(int liftingStatId)
         {
             try
             {
                 _service.LiftingStat.DeleteLiftingStat(liftingStatId);
             }
-            catch (LiftingStatNotFoundException e)
+            catch (LiftingStatNotFoundException ex)
             {
-                return NotFound(e);
+                return NotFound(Responses.Error(ex));
             }
-            return NoContent();
+            return Ok(Responses.Success());
         }
     }
 }

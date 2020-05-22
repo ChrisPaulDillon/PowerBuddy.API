@@ -20,39 +20,7 @@ namespace PowerLifting.Service.ProgramLogs.Validator
         {
             if (programLogId < 1)
             {
-                throw new ProgramLogsDoNotExistException();
-            }
-        }
-
-        public void ValidateProgramLogsExists(IEnumerable<ProgramLog> programLogs)
-        {
-            if (programLogs == null)
-            {
-                throw new ProgramLogsDoNotExistException();
-            }
-        }
-
-        public void ValidateProgramLogExists(ProgramLog programLog)
-        {
-            if (programLog == null)
-            {
-                throw new ProgramLogNotFoundException();
-            }
-        }
-
-        public void ValiateProgramLogDoesNotAlreadyExist(ProgramLog programLog)
-        {
-            if(programLog != null)
-            {
-                throw new ProgramLogAlreadyExistsException();
-            }
-        }
-
-        public void ValidateTemplateProgramExists(TemplateProgram tp)
-        {
-            if(tp == null)
-            {
-                throw new TemplateProgramDoesNotExistException();
+                throw new ProgramLogValidationException("ProgramLogId cannot be negative");
             }
         }
 
@@ -78,7 +46,7 @@ namespace PowerLifting.Service.ProgramLogs.Validator
         {
             if (programLogWeekId < 1)
             {
-                throw new ProgramLogWeekDoesNotExistException();
+                throw new ProgramLogValidationException("ProgramLogWeekId cannot be null");
             }
         }
 

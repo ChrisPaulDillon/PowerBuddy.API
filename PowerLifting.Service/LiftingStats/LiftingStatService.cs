@@ -44,7 +44,7 @@ namespace PowerLifting.Service.LiftingStats
 
             var liftingStatAudit = new LiftingStatAudit()
             {
-                DateChange = DateTime.Now.Date,
+                DateChanged = DateTime.Now.Date,
                 RepRange = liftingStatDTO.RepRange,
                 ExerciseId = liftingStatDTO.ExerciseId,
                 UserId = liftingStatDTO.UserId,
@@ -70,7 +70,7 @@ namespace PowerLifting.Service.LiftingStats
 
             var liftingStatAudit = new LiftingStatAudit()
             {
-                DateChange = DateTime.Now.Date,
+                DateChanged = DateTime.Now.Date,
                 RepRange = stats.RepRange,
                 UserId = stats.UserId,
                 ExerciseId = stats.ExerciseId

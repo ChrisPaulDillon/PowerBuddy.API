@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Models;
 using PowerLifting.Service;
 using PowerLifting.Service.Exercises.DTO;
 using PowerLifting.Service.Exercises.Exceptions;
@@ -21,56 +22,59 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<TopLevelExerciseDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetAllExercises()
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<TopLevelExerciseDTO>>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllExercises()
         {       
-            var exercises = _service.Exercise.GetAllExercises();
-            if (exercises == null) return NotFound();
-            return Ok(exercises);
+            var exercises = await _service.Exercise.GetAllExercises();
+            if (exercises == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Exercises Found"));
+            return Ok(Responses.Success(exercises));
         }
 
         [HttpGet("{id:int}")]
-        [Produces("application/json")]
-        [ProducesResponseType(typeof(ExerciseDTO),StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ExerciseDTO>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int id)
         {
             try
             {
-                var exercise = await _service.Exercise.GetExerciseById(id);
-                return Ok(exercise);
+                var exercise = await _service.Exercise.GetExerciseById(id).ConfigureAwait(true);
+                return Ok(Responses.Success(exercise));
             }
-            catch (ExerciseNotFoundException e)
+            catch (ExerciseValidationException ex)
             {
-                return NotFound(e);
+                return NotFound(Responses.Error(ex));
+            }
+            catch (ExerciseNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
             }
         }
 
         [HttpGet("ExerciseMuscleGroup")]
-        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ExerciseDTO>>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
         public IActionResult GetAllExerciseMuscleGroups()
         {
             try
             {
                 var exercises = _service.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
-                return Ok(exercises);
+                return Ok(Responses.Success(exercises));
             }
-            catch (ExerciseNotFoundException e)
+            catch (ExerciseMuscleGroupNotFoundException ex)
             {
-                return NotFound(e);
+                return NotFound(Responses.Error(ex));
             }    
         }
 
         [HttpGet("ExerciseType")]
-        [ProducesResponseType(typeof(IEnumerable<ExerciseTypeDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ExerciseTypeDTO>>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
         public IActionResult GetAllExerciseTypes()
         {
             var exerciseTypes = _service.ExerciseType.GetAllExerciseTypes();
-            if (exerciseTypes == null) return NotFound();
-            return Ok(exerciseTypes);
+            if (exerciseTypes == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Exercise Types Found"));
+            return Ok(Responses.Success(exerciseTypes));
         }
     }
 }
