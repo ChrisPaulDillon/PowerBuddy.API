@@ -5,6 +5,8 @@ using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.LiftingStats;
 using PowerLifting.Service.ProgramLogs;
 using PowerLifting.Service.ProgramLogs.Contracts.Services;
+using PowerLifting.Service.SystemServices.RepSchemeTypes;
+using PowerLifting.Service.SystemServices.TemplateDifficultys;
 using PowerLifting.Service.TemplatePrograms;
 using PowerLifting.Service.TemplatePrograms.Contracts.Services;
 using PowerLifting.Service.Users;
@@ -18,6 +20,8 @@ namespace PowerLifting.Service
         private IExerciseService _exercise;
         private IExerciseMuscleGroupService _exerciseMuscleGroup;
         private IExerciseTypeService _exerciseType;
+        private ITemplateDifficultyService _templateDifficultyService;
+        private IRepSchemeTypeService _repSchemeTypeService;
         private ILiftingStatService _liftingStats;
 
         private readonly IMapper _mapper;
@@ -74,6 +78,28 @@ namespace PowerLifting.Service
                     _exerciseMuscleGroup = new ExerciseMuscleGroupService(_repoWrapper, _mapper);
 
                 return _exerciseMuscleGroup;
+            }
+        }
+
+        public ITemplateDifficultyService TemplateDifficulty
+        {
+            get
+            {
+                if (_templateDifficultyService == null)
+                    _templateDifficultyService = new TemplateDifficultyService(_repoWrapper, _mapper);
+
+                return _templateDifficultyService;
+            }
+        }
+
+        public IRepSchemeTypeService RepSchemeType
+        {
+            get
+            {
+                if (_repSchemeTypeService == null)
+                    _repSchemeTypeService = new RepSchemeTypeService(_repoWrapper, _mapper);
+
+                return _repSchemeTypeService;
             }
         }
 

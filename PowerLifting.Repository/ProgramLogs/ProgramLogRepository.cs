@@ -35,6 +35,10 @@ namespace PowerLifting.Repository.ProgramLogs
                                                                          .ThenInclude(x => x.ProgramLogDays)
                                                                          .ThenInclude(x => x.ProgramLogExercises)
                                                                          .ThenInclude(x => x.ProgramLogRepSchemes)
+                                                                         .Include(x => x.ProgramLogWeeks)
+                                                                         .ThenInclude(x => x.ProgramLogDays)
+                                                                         .ThenInclude(x => x.ProgramLogExercises)
+                                                                         .ThenInclude(x => x.Exercise)
                                                                          .FirstAsync();
 
             //programLog.ProgramLogWeeks = programLog.ProgramLogWeeks.OrderBy(x => x.WeekNo).Select(x => x.ProgramLogDays.OrderBy(x => x.DayNo));

@@ -7,6 +7,8 @@ using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.UserSettings.Model;
+using PowerLifting.Service.SystemServices.TemplateDifficulty.Model;
+using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -24,6 +26,9 @@ namespace PowerLifting.Persistence
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }
         public DbSet<ExerciseMuscleGroup> ExerciseMuscleGroup { get; set; }
+        public DbSet<TemplateDifficulty> TemplateDifficulty { get; set; }
+        public DbSet<RepSchemeType> RepSchemeType { get; set; }
+
         public DbSet<ProgramLog> ProgramLog { get; set; }
         public DbSet<ProgramLogWeek> ProgramLogWeek { get; set; }
         public DbSet<ProgramLogDay> ProgramLogDay { get; set; }
@@ -47,10 +52,12 @@ namespace PowerLifting.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
-            modelBuilder.Entity<Exercise>().ToTable("Exercise");
+            modelBuilder.Entity<Exercise>().ToTable("sysExercise");
             modelBuilder.Entity<ExerciseType>().HasAlternateKey(e => e.ExerciseTypeName);
-            modelBuilder.Entity<ExerciseType>().ToTable("ExerciseType");
-            modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("ExerciseMuscleGroup");
+            modelBuilder.Entity<ExerciseType>().ToTable("sysExerciseType");
+            modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("sysExerciseMuscleGroup");
+            modelBuilder.Entity<TemplateDifficulty>().ToTable("sysTemplateDifficulty");
+            modelBuilder.Entity<RepSchemeType>().ToTable("sysRepSchemeType");
 
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
             modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");

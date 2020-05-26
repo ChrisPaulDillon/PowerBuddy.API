@@ -10,6 +10,8 @@ using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.LiftingStats;
 using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
+using PowerLifting.Service.SystemServices.RepSchemeTypes;
+using PowerLifting.Service.SystemServices.TemplateDifficultys;
 using PowerLifting.Service.TemplatePrograms.Contracts;
 using PowerLifting.Service.TemplatePrograms.Contracts.Repositories;
 using PowerLifting.Service.Users;
@@ -24,6 +26,8 @@ namespace PowerLifting.Repository
         private IExerciseRepository _exerciseRepo;
         private IExerciseTypeRepository _exerciseTypeRepo;
         private IExerciseMuscleGroupRepository _exerciseMuscleGroupRepo;
+        private ITemplateDifficultyRepository _templateDifficultyRepo;
+        private IRepSchemeTypeRepository _repSchemeTypeRepo;
         private IProgramLogRepository _programLogRepo;
         private IProgramLogWeekRepository _programLogWeekRepo;
         private IProgramLogDayRepository _programLogDayRepo;

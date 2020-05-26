@@ -13,13 +13,37 @@
   <ItemGroup>
     <Folder Include="ProgramLogs\Exceptions\" />
     <Folder Include="LiftingStats\Exceptions\" />
-    <Folder Include="Exercises\Contracts\" />
-    <Folder Include="Exercises\Exceptions\" />
     <Folder Include="LiftingStats\Contracts\" />
     <Folder Include="ProgramLogs\Validator\" />
-    <Folder Include="Exercises\Validators\" />
     <Folder Include="LiftingStats\Validators\" />
     <Folder Include="TemplatePrograms\Validators\" />
     <Folder Include="Users\Validators\" />
+    <Folder Include="SystemServices\" />
+    <Folder Include="SystemServices\Exercises\" />
+    <Folder Include="SystemServices\ExerciseTypes\" />
+    <Folder Include="SystemServices\ExerciseMuscleGroups\" />
+    <Folder Include="SystemServices\TemplateDifficultys\" />
+    <Folder Include="SystemServices\Exercises\DTO\" />
+    <Folder Include="SystemServices\Exercises\Model\" />
+    <Folder Include="SystemServices\Exercises\Validation\" />
+    <Folder Include="SystemServices\Exercises\Exceptions\" />
+    <Folder Include="SystemServices\ExerciseTypes\DTO\" />
+    <Folder Include="SystemServices\ExerciseTypes\Exceptions\" />
+    <Folder Include="SystemServices\ExerciseTypes\Model\" />
+    <Folder Include="SystemServices\ExerciseTypes\Validation\" />
+    <Folder Include="SystemServices\ExerciseMuscleGroups\DTO\" />
+    <Folder Include="SystemServices\ExerciseMuscleGroups\Model\" />
+    <Folder Include="SystemServices\ExerciseMuscleGroups\Exceptions\" />
+    <Folder Include="SystemServices\ExerciseMuscleGroups\Validation\" />
+    <Folder Include="SystemServices\AutoMapper\" />
+    <Folder Include="SystemServices\TemplateDifficultys\Model\" />
+    <Folder Include="SystemServices\TemplateDifficultys\Exceptions\" />
+    <Folder Include="SystemServices\TemplateDifficultys\DTO\" />
+    <Folder Include="SystemServices\TemplateDifficultys\Validation\" />
+    <Folder Include="SystemServices\RepSchemeTypes\" />
+    <Folder Include="SystemServices\RepSchemeTypes\DTO\" />
+    <Folder Include="SystemServices\RepSchemeTypes\Model\" />
+    <Folder Include="SystemServices\RepSchemeTypes\Exceptions\" />
+    <Folder Include="SystemServices\RepSchemeTypes\Validation\" />
   </ItemGroup>
 </Project>
