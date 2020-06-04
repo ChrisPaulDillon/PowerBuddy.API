@@ -6,7 +6,7 @@ using PowerLifting.Repository.ProgramLogs;
 
 namespace PowerLifting.ProgramLogs.Service
 {
-    public class ProgramLogWrapper
+    public class ProgramLogWrapper : IProgramLogWrapper
     {
         private IProgramLogRepository _programLogRepo;
         private IProgramLogWeekRepository _programLogWeekRepo;

@@ -17,7 +17,6 @@ using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Service;
 using PowerLifting.Repository;
 using PowerLifting.RepositoryMediator;
-using PowerLifting.Service;
 using PowerLifting.Service.Exercises.AutoMapper;
 using PowerLifting.Service.LiftingStats.AutoMapper;
 using PowerLifting.Service.ProgramLogs.AutoMapper;
