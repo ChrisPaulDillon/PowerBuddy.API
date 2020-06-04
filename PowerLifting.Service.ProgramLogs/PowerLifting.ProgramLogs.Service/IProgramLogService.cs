@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
+using PowerLifting.Service.LiftingStats.DTO;
+using PowerLifting.Service.LiftingStats.Model;
+using PowerLifting.Service.TemplatePrograms.DTO;
+using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts
 {
@@ -37,7 +41,7 @@ namespace PowerLifting.ProgramLogs.Contracts
         /// </summary>
         /// <param name="templateId"></param>
         /// <returns></returns>
-        ProgramLogDTO CreateProgramLogFromTemplate(int templateId, DaySelected daySelected);
+        ProgramLogDTO CreateProgramLogFromTemplate(TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected);
 
         /// <summary>
         /// Updates the program log accordingly

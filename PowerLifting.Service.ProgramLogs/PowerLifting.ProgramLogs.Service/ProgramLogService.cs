@@ -4,13 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using PowerLifting.Common.Exceptions;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.ProgramLogs.Contracts;
 using PowerLifting.ProgramLogs.Service;
 using PowerLifting.ProgramLogs.Service.Exceptions;
 using PowerLifting.ProgramLogs.Service.Validator;
+using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Model;
+using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.Users.Model;
 
@@ -61,32 +64,20 @@ namespace PowerLifting.Service.ProgramLogs
             return _repo.ProgramLog.DoesProgramLogAfterTodayExist(userId);
         }
 
-        public ProgramLogDTO CreateProgramLogFromTemplate(int templateProgramId, DaySelected daySelected)
+        public ProgramLogDTO CreateProgramLogFromTemplate(TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats,  DaySelected daySelected)
         {
             const string userId = "370676cf-ed1b-420a-a1e7-cfbf43b9605d";
             var validator = new ProgramLogValidator();
 
             if (DoesProgramLogAlreadyExist(userId)) throw new ProgramLogAlreadyActiveException(); //doesnt work lul
 
-            var tp = _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
-          
-            if (tp == null) throw new TemplateProgramNotFoundException();
-
-            var tec = _repo.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateId(templateProgramId);
-
             daySelected = CountDaysSelected(daySelected);
-            validator.ValidateProgramLogDaysMatchTemplateDaysCount(daySelected.Counter, tp.MaxLiftDaysPerWeek);
+            validator.ValidateProgramLogDaysMatchTemplateDaysCount(daySelected.Counter, templateProgram.MaxLiftDaysPerWeek);
 
-            var userLiftingStats = _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
-            validator.ValiateUserHasLiftingStatSetForTemplateExercises(userLiftingStats);
-
-            var checkLiftingStats = userLiftingStats.ToList().Where(item1 => tec.Any(item2 => item1.ExerciseId == item2));
-
-            if (tec.Count() != checkLiftingStats.Count()) throw new TemplateExercise1RMNotSetForUserException();
-
-            var newProgramLog = CreateProgramLog(tp, daySelected, userLiftingStats.ToList(), userId);
+            var newProgramLog = CreateProgramLog(templateProgram, daySelected, liftingStats.ToList(), userId);
             var programLog = _mapper.Map<ProgramLog>(newProgramLog);
             _repo.ProgramLog.CreateProgramLog(programLog);
+
             return newProgramLog;
         }
 
@@ -173,7 +164,7 @@ namespace PowerLifting.Service.ProgramLogs
             return ds;
         }
 
-        private ProgramLogDTO CreateProgramLog(TemplateProgram tp, DaySelected ds, List<LiftingStat> liftingStats, string userId)
+        private ProgramLogDTO CreateProgramLog(TemplateProgramDTO tp, DaySelected ds, List<LiftingStatDTO> liftingStats, string userId)
         {
             var log = new ProgramLogDTO
             {
@@ -196,7 +187,7 @@ namespace PowerLifting.Service.ProgramLogs
             return log;
         }
 
-        private List<ProgramLogWeekDTO> GenerateProgramWeekDates(DaySelected ds, TemplateProgram tp, string userId, List<LiftingStat> liftingStats)
+        private List<ProgramLogWeekDTO> GenerateProgramWeekDates(DaySelected ds, TemplateProgramDTO tp, string userId, List<LiftingStatDTO> liftingStats)
         {
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
 
@@ -210,7 +201,7 @@ namespace PowerLifting.Service.ProgramLogs
             return listOfProgramWeeks;
         }
 
-        private static ProgramLogWeekDTO CreateProgramLogWeek(TemplateWeek templateWeek, DaySelected ds, string userId, List<LiftingStat> liftingStats)
+        private static ProgramLogWeekDTO CreateProgramLogWeek(TemplateWeekDTO templateWeek, DaySelected ds, string userId, List<LiftingStatDTO> liftingStats)
         {
             var programLogWeek = new ProgramLogWeekDTO()
             {
@@ -278,7 +269,7 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogWeek;
         }
 
-        private static ProgramLogDayDTO GenerateProgramLogDay(DayOfWeek day, TemplateDay templateDay, DateTime startDate, List<LiftingStat> liftingStats)
+        private static ProgramLogDayDTO GenerateProgramLogDay(DayOfWeek day, TemplateDayDTO templateDay, DateTime startDate, List<LiftingStatDTO> liftingStats)
         {
             var daysUntilSpecificDay = ((int)day - (int)startDate.DayOfWeek + 7) % 7;
             var nextMon = startDate.AddDays(daysUntilSpecificDay);
@@ -292,7 +283,7 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogDay;
         }
 
-        private static List<ProgramLogExerciseDTO> CreateProgramLogExercises(TemplateDay templateDay, List<LiftingStat> liftingStats)
+        private static List<ProgramLogExerciseDTO> CreateProgramLogExercises(TemplateDayDTO templateDay, List<LiftingStatDTO> liftingStats)
         {
             var programLogExercises = new List<ProgramLogExerciseDTO>();
 
@@ -320,7 +311,7 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogExercises;
         }
 
-        private static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string weightProgressionType, double user1RM, TemplateRepScheme templateRepScheme)
+        private static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string weightProgressionType, double user1RM, TemplateRepSchemeDTO templateRepScheme)
         {
             var weightToLift = 0.0;
 

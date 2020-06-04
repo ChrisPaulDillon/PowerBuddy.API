@@ -3,6 +3,7 @@ using PowerLifting.ProgramLogs.Contracts;
 using PowerLifting.Service.LiftingStats;
 using PowerLifting.Service.SystemServices.TemplateDifficultys;
 using PowerLifting.Service.TemplatePrograms.Contracts.Services;
+using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.API.Wrappers
 {
@@ -16,6 +17,7 @@ namespace PowerLifting.API.Wrappers
         IExerciseMuscleGroupService ExerciseMuscleGroup { get; }
         IProgramLogService ProgramLog { get; }
         ITemplateProgramService TemplateProgram { get; }
+        ITemplateExerciseCollectionService TemplateExerciseCollection { get; }
         IUserService User { get; }
         IUserSettingService UserSetting { get; }
     }

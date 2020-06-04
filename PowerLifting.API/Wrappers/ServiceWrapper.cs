@@ -4,6 +4,7 @@ using PowerLifting.API.Wrappers;
 using PowerLifting.Contracts.Contracts;
 using PowerLifting.ProgramLogs.Contracts;
 using PowerLifting.ProgramLogs.Service;
+using PowerLifting.Repository.Templates;
 using PowerLifting.RepositoryMediator;
 using PowerLifting.Service.Exercises;
 using PowerLifting.Service.LiftingStats;
@@ -16,18 +17,19 @@ using PowerLifting.Service.Users;
 using PowerLifting.Service.Users.Model;
 using PowerLifting.Service.UserSettings;
 
-namespace PowerLifting.Service
+namespace PowerLifting.API.Wrappers
 {
     public class ServiceWrapper : IServiceWrapper
     {
         private IExerciseService _exercise;
         private IExerciseMuscleGroupService _exerciseMuscleGroup;
         private IExerciseTypeService _exerciseType;
-        private ITemplateDifficultyService _templateDifficultyService;
         private IRepSchemeTypeService _repSchemeTypeService;
         private ILiftingStatService _liftingStats;
         private IProgramLogService _programLog;
         private ITemplateProgramService _templateProgram;
+        private ITemplateDifficultyService _templateDifficultyService;
+        private ITemplateExerciseCollectionService _templateExerciseCollection;
         private IUserService _user;
         private IUserSettingService _userSetting;
 
@@ -96,6 +98,17 @@ namespace PowerLifting.Service
                     _templateDifficultyService = new TemplateDifficultyService(_repoWrapper, _mapper);
 
                 return _templateDifficultyService;
+            }
+        }
+
+        public ITemplateExerciseCollectionService TemplateExerciseCollection
+        {
+            get
+            {
+                if (_templateExerciseCollection == null)
+                    _templateExerciseCollection = new TemplateExerciseCollectionService(_repoWrapper, _mapper);
+
+                return _templateExerciseCollection;
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PowerLifting.Service.Users.Exceptions
+namespace PowerLifting.Common.Exceptions
 {
     public class UnauthorisedUserException : Exception
     {

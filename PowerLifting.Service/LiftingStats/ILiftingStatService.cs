@@ -13,6 +13,8 @@ namespace PowerLifting.Service.LiftingStats
         /// <returns></returns>
         Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserId(string userId);
 
+        Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange);
+
         /// <summary>
         /// Creates a new lifting stat entry for the user for a given rep range.
         /// Checks if the rep range already exists for the user before creating.

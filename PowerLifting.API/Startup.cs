@@ -14,6 +14,7 @@ using PowerLifting.Service.Users.Model;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Persistence;
+using PowerLifting.ProgramLogs.Service;
 using PowerLifting.Repository;
 using PowerLifting.RepositoryMediator;
 using PowerLifting.Service;
@@ -69,6 +70,7 @@ namespace PowerLifting.API
 
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IProgramLogWrapper, ProgramLogWrapper>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<ILoggerManager, LoggerManager>();
 

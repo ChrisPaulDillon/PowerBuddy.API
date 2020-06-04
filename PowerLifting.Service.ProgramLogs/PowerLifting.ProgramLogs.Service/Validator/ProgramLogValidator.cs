@@ -30,14 +30,6 @@ namespace PowerLifting.ProgramLogs.Service.Validator
             }
         }
 
-        public void ValiateUserHasLiftingStatSetForTemplateExercises(IEnumerable<LiftingStat> liftingStat)
-        {
-            if(liftingStat == null || !liftingStat.Any())
-            {
-                throw new TemplateExercise1RMNotSetForUserException();
-            }
-        }
-
         #region ProgramLogWeekValidation
 
         public void ValidateProgramLogWeekId(int programLogWeekId)

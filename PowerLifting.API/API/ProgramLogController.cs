@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using PowerLifting.Service;
+using System.Linq;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
-using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.ProgramLogs.Service.Exceptions;
 using PowerLifting.Service.ProgramLogs.Exceptions;
+using PowerLifting.Common.Exceptions;
 
 namespace PowerLifting.API.API
 {
@@ -103,11 +103,24 @@ namespace PowerLifting.API.API
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public IActionResult CreateProgramLogFromTemplate(int templateProgramId, [FromBody]DaySelected daySelected)
+        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody]DaySelected daySelected)
         {
             try
             {
-                var programLogDTO = _service.ProgramLog.CreateProgramLogFromTemplate(templateProgramId, daySelected);
+                var userId = "370676cf-ed1b-420a-a1e7-cfbf43b9605d";
+
+                var template = _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
+                if (template == null) throw new TemplateProgramNotFoundException();
+
+                var tec = _service.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateProgramId(templateProgramId);
+                var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
+
+                var checkLiftingStats = liftingStats.ToList().Where(item1 => tec.Any(item2 => item1.ExerciseId == item2));
+
+                if (tec.Count() != checkLiftingStats.Count()) throw new TemplateExercise1RMNotSetForUserException();
+
+                var programLogDTO =
+                    _service.ProgramLog.CreateProgramLogFromTemplate(template, liftingStats, daySelected);
                 return Ok(Responses.Success(programLogDTO));
             }
             catch (TemplateProgramNotFoundException ex)

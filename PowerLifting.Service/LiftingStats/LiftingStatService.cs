@@ -23,6 +23,20 @@ namespace PowerLifting.Service.LiftingStats
             _mapper = mapper;
         }
 
+        public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserId(string userId)
+        {
+            var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
+            var liftingStatDTO = _mapper.Map<IEnumerable<LiftingStatDTO>>(liftingStat);
+            return liftingStatDTO;
+        }
+
+        public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
+        {
+            var liftingStats = _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, repRange);
+            var liftingStatsDTO = _mapper.Map<IEnumerable<LiftingStatDTO>>(liftingStats);
+            return liftingStatsDTO;
+        }
+
         public async Task<LiftingStatDTO> CreateLiftingStat(CreateLiftingStatDTO createLiftingStatDTO)
         {
             var userId = createLiftingStatDTO.UserId;
@@ -57,13 +71,6 @@ namespace PowerLifting.Service.LiftingStats
                 UserId = liftingStatDTO.UserId,
             };
             _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
-            return liftingStatDTO;
-        }
-
-        public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserId(string userId)
-        {
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
-            var liftingStatDTO = _mapper.Map<IEnumerable<LiftingStatDTO>>(liftingStat);
             return liftingStatDTO;
         }
 
