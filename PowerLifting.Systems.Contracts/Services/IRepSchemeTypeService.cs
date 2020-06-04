@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PowerLifting.Systems.Contracts
+namespace PowerLifting.Systems.Contracts.Services
 {
     public interface IRepSchemeTypeService
     {

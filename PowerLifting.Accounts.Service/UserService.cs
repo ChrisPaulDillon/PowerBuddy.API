@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using PowerLifting.Accounts.Contracts;
+using PowerLifting.Accounts.Contracts.Services;
 using PowerLifting.Accounts.Service;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
@@ -11,7 +12,7 @@ using PowerLifting.Service.Users.Model;
 using PowerLifting.Service.Users.Validators;
 using PowerLifting.Service.UserSettings.Model;
 
-namespace PowerLifting.Service.Users
+namespace PowerLifting.Accounts.Service
 {
     public class UserService : IUserService
     {

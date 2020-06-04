@@ -5,6 +5,7 @@ using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Contracts;
+using PowerLifting.ProgramLogs.Contracts.Repositories;
 
 namespace PowerLifting.ProgramLogs.Repository
 {

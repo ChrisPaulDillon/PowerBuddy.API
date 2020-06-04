@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Accounts.Contracts;
+using PowerLifting.Accounts.Contracts.Services;
 using PowerLifting.Accounts.Service;
 using PowerLifting.Service.UserSettings.DTO;
 
-namespace PowerLifting.Service.UserSettings
+namespace PowerLifting.Accounts.Service
 {
     public class UserSettingService : IUserSettingService
     {

@@ -1,4 +1,5 @@
 ﻿using PowerLifting.Accounts.Contracts;
+using PowerLifting.Accounts.Contracts.Repositories;
 using Powerlifting.Common;
 using PowerLifting.Persistence;
 using PowerLifting.Service.UserSettings.Model;

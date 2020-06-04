@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Powerlifting.Common;
 using PowerLifting.TemplatePrograms.Contracts;
+using PowerLifting.TemplatePrograms.Contracts.Repositories;
 
 namespace PowerLifting.TemplatePrograms.Repository
 {

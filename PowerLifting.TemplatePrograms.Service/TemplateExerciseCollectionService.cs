@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using PowerLifting.TemplatePrograms.Contracts;
+using PowerLifting.TemplatePrograms.Contracts.Services;
 
 namespace PowerLifting.TemplatePrograms.Service
 {

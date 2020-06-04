@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using PowerLifting.Service.UserSettings.DTO;
 
-namespace PowerLifting.Accounts.Contracts
+namespace PowerLifting.Accounts.Contracts.Services
 { 
     public interface IUserSettingService
     {

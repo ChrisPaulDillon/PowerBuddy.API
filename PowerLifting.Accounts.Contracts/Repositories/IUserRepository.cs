@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Powerlifting.Common;
 using PowerLifting.Service.Users.Model;
 
-namespace PowerLifting.Accounts.Contracts
+namespace PowerLifting.Accounts.Contracts.Repositories
 {
     public interface IUserRepository : IRepositoryBase<User>
     {

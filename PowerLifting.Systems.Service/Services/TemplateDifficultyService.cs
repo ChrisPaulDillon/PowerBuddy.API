@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.SystemServices.TemplateDifficultys;
 using PowerLifting.Service.SystemServices.TemplateDifficultys.DTO;
+using PowerLifting.Systems.Contracts.Services;
 
 namespace PowerLifting.Systems.Service.Services
 {

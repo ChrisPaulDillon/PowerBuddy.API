@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PowerLifting.Accounts.Contracts;
+using PowerLifting.Accounts.Contracts.Repositories;
 using Powerlifting.Common;
 
 namespace PowerLifting.Accounts.Repository

@@ -6,6 +6,7 @@ using PowerLifting.ProgramLogs.Contracts;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using PowerLifting.ProgramLogs.Contracts.Repositories;
 
 namespace PowerLifting.ProgramLogs.Repository
 {

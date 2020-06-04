@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Powerlifting.Common;
 using PowerLifting.Persistence;
 using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
-using PowerLifting.TemplatePrograms.Contracts;
+using PowerLifting.Systems.Contracts.Repositories;
 
 namespace PowerLifting.Systems.Repository
 {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Powerlifting.Common;
 using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
 
-namespace PowerLifting.TemplatePrograms.Contracts
+namespace PowerLifting.Systems.Contracts.Repositories
 {
     public interface ITemplateDifficultyRepository : IRepositoryBase<TemplateDifficulty>
     {

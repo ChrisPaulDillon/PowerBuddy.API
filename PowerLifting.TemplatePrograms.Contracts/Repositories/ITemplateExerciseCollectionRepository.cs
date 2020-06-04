@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Powerlifting.Common;
 using PowerLifting.Service.TemplatePrograms.Model;
 
-namespace PowerLifting.TemplatePrograms.Contracts
+namespace PowerLifting.TemplatePrograms.Contracts.Repositories
 {
     public interface ITemplateExerciseCollectionRepository : IRepositoryBase<TemplateExerciseCollection>
     {

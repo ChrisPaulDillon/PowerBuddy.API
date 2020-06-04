@@ -1,5 +1,6 @@
 ﻿using PowerLifting.Persistence;
 using PowerLifting.TemplatePrograms.Contracts;
+using PowerLifting.TemplatePrograms.Contracts.Repositories;
 using PowerLifting.TemplatePrograms.Repository;
 
 namespace PowerLifting.TemplatePrograms.Service

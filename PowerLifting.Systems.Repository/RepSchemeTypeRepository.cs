@@ -5,6 +5,7 @@ using Powerlifting.Common;
 using PowerLifting.Persistence;
 using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
 using PowerLifting.Systems.Contracts;
+using PowerLifting.Systems.Contracts.Repositories;
 
 namespace PowerLifting.Systems.Repository
 {

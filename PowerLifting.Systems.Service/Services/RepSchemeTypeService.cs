@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.SystemServices.RepSchemeTypes.DTO;
 using PowerLifting.Systems.Contracts;
+using PowerLifting.Systems.Contracts.Services;
 
 namespace PowerLifting.Systems.Service
 {

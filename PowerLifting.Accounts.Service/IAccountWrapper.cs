@@ -1,4 +1,5 @@
 ﻿using PowerLifting.Accounts.Contracts;
+using PowerLifting.Accounts.Contracts.Repositories;
 
 namespace PowerLifting.Accounts.Service
 {

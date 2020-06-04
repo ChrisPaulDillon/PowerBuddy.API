@@ -6,8 +6,9 @@ using PowerLifting.ProgramLogs.Contracts;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using PowerLifting.ProgramLogs.Contracts.Repositories;
 
-namespace PowerLifting.Repository.ProgramLogs
+namespace PowerLifting.ProgramLogs.Repository
 {
     public class ProgramLogWeekRepository : RepositoryBase<ProgramLogWeek>, IProgramLogWeekRepository
     {

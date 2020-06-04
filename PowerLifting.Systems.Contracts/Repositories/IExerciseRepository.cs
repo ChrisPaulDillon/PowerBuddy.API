@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Powerlifting.Common;
 using PowerLifting.Entity.System.Exercises.Models;
 
-namespace PowerLifting.Systems.Contracts
+namespace PowerLifting.Systems.Contracts.Repositories
 {
     public interface IExerciseRepository : IRepositoryBase<Exercise>
     {

@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Accounts.Contracts
+﻿namespace PowerLifting.Accounts.Contracts.Repositories
 {
     public interface IUserSettingRepository
     {

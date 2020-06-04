@@ -1,8 +1,6 @@
-﻿using System;
-using PowerLifting.Persistence;
-using PowerLifting.ProgramLogs.Contracts;
+﻿using PowerLifting.Persistence;
+using PowerLifting.ProgramLogs.Contracts.Repositories;
 using PowerLifting.ProgramLogs.Repository;
-using PowerLifting.Repository.ProgramLogs;
 
 namespace PowerLifting.ProgramLogs.Service
 {

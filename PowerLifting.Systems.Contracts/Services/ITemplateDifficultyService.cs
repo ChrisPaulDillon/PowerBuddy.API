@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Service.SystemServices.TemplateDifficultys.DTO;
 
-namespace PowerLifting.Service.SystemServices.TemplateDifficultys
+namespace PowerLifting.Systems.Contracts.Services
 {
     public interface ITemplateDifficultyService 
     {

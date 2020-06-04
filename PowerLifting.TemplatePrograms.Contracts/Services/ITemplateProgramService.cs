@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.TemplatePrograms.DTO;
 
-namespace PowerLifting.TemplatePrograms.Contracts
+namespace PowerLifting.TemplatePrograms.Contracts.Services
 {
     public interface ITemplateProgramService
     {

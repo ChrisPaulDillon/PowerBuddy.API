@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using PowerLifting.Entity.System.ExerciseTypes.DTOs;
 
-namespace PowerLifting.Systems.Contracts
+namespace PowerLifting.Systems.Contracts.Services
 {
     public interface IExerciseTypeService
     {

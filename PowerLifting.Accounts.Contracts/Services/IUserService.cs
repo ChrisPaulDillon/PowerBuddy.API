@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Model;
 
-namespace PowerLifting.Accounts.Contracts
+namespace PowerLifting.Accounts.Contracts.Services
 {
     public interface IUserService
     {

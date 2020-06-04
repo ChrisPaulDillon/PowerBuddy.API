@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using PowerLifting.Persistence;
 using PowerLifting.Systems.Contracts;
+using PowerLifting.Systems.Contracts.Repositories;
 using PowerLifting.Systems.Repository;
-using PowerLifting.TemplatePrograms.Contracts;
 
 namespace PowerLifting.Systems.Service
 {

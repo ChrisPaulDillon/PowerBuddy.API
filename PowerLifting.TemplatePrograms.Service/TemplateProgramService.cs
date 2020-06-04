@@ -8,6 +8,7 @@ using PowerLifting.Service.TemplatePrograms.Exceptions;
 using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.TemplatePrograms.Validators;
 using PowerLifting.TemplatePrograms.Contracts;
+using PowerLifting.TemplatePrograms.Contracts.Services;
 
 namespace PowerLifting.TemplatePrograms.Service
 {

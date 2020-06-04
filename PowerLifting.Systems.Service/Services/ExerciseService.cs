@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Entity.System.Exercises.DTOs;
 using PowerLifting.Systems.Contracts;
+using PowerLifting.Systems.Contracts.Services;
 using PowerLifting.Systems.Service.Exceptions;
 
 namespace PowerLifting.Systems.Service.Services

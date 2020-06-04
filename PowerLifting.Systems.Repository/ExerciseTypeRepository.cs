@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Powerlifting.Common;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
 using PowerLifting.Systems.Contracts;
+using PowerLifting.Systems.Contracts.Repositories;
 
 namespace PowerLifting.Systems.Repository
 {

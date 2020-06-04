@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Powerlifting.Common;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 
-namespace PowerLifting.Systems.Contracts
+namespace PowerLifting.Systems.Contracts.Repositories
 {
     public interface IExerciseMuscleGroupRepository : IRepositoryBase<ExerciseMuscleGroup>
     {
