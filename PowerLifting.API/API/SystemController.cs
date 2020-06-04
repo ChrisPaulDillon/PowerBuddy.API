@@ -23,7 +23,7 @@ namespace PowerLifting.API.API
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("Exercise")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<TopLevelExerciseDTO>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExercises()
@@ -31,26 +31,6 @@ namespace PowerLifting.API.API
             var exercises = await _service.Exercise.GetAllExercises();
             if (exercises == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Exercises Found"));
             return Ok(Responses.Success(exercises));
-        }
-
-        [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(ApiResponse<ExerciseDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetExerciseById(int id)
-        {
-            try
-            {
-                var exercise = await _service.Exercise.GetExerciseById(id).ConfigureAwait(true);
-                return Ok(Responses.Success(exercise));
-            }
-            catch (ExerciseValidationException ex)
-            {
-                return NotFound(Responses.Error(ex));
-            }
-            catch (ExerciseNotFoundException ex)
-            {
-                return NotFound(Responses.Error(ex));
-            }
         }
 
         [HttpGet("ExerciseMuscleGroup")]

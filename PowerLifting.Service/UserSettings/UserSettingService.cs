@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using PowerLifting.Contracts.Contracts;
+using PowerLifting.RepositoryMediator;
 using PowerLifting.Service.UserSettings.DTO;
 
 namespace PowerLifting.Service.UserSettings

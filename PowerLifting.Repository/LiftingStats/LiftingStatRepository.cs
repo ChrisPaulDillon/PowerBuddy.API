@@ -17,7 +17,7 @@ namespace PowerLifting.Repository.LiftingStats
 
         public LiftingStat GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange)
         {
-            return PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId &&
+            return PowerliftingContext.Set<LiftingStat>().AsNoTracking().Where(u => u.UserId == userId &&
                                                                       u.RepRange == repRange &&
                                                                       u.ExerciseId == exerciseId).
                                                                       FirstOrDefault();

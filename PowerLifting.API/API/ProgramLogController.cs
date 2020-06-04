@@ -100,6 +100,7 @@ namespace PowerLifting.API.API
         [HttpPost("FromTemplate/{templateProgramId:int}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public IActionResult CreateProgramLogFromTemplate(int templateProgramId, [FromBody]DaySelected daySelected)
         {
             try
@@ -109,7 +110,7 @@ namespace PowerLifting.API.API
             }
             catch (TemplateProgramNotFoundException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return NotFound(Responses.Error(ex));
             }
             catch (ProgramDaysDoesNotMatchTemplateDaysException ex)
             {

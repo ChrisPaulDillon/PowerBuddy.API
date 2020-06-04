@@ -1,7 +1,5 @@
-﻿using System.Threading.Tasks;
-using Powerlifting.Repository;
+﻿using Powerlifting.Common;
 using PowerLifting.Persistence;
-using PowerLifting.Service.LiftingStatsAudit;
 using PowerLifting.Service.LiftingStatsAudit.Model;
 
 namespace PowerLifting.Repository.LiftingStats

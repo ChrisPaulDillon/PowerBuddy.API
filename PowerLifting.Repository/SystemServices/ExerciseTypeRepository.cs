@@ -17,7 +17,7 @@ namespace PowerLifting.Repository.Exercises
 
         public async Task<IEnumerable<ExerciseType>> GetAllExerciseTypes()
         {
-            return await PowerliftingContext.Set<ExerciseType>().ToListAsync();
+            return await PowerliftingContext.Set<ExerciseType>().AsNoTracking().ToListAsync();
         }
 
         public async Task<ExerciseType> GetExerciseTypeById(int exerciseTypeId)

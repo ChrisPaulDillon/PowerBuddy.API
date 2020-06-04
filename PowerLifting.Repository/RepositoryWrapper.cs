@@ -1,20 +1,11 @@
-﻿using PowerLifting.Persistence;
+﻿using PowerLifting.Contracts.Contracts;
+using PowerLifting.Persistence;
 using PowerLifting.Repository.Exercises;
 using PowerLifting.Repository.LiftingStats;
-using PowerLifting.Repository.ProgramLogs;
+using PowerLifting.Repository.SystemServices;
 using PowerLifting.Repository.Templates;
 using PowerLifting.Repository.Users;
 using PowerLifting.Repository.UserSettings;
-using PowerLifting.Service;
-using PowerLifting.Service.Exercises.Contracts;
-using PowerLifting.Service.LiftingStats;
-using PowerLifting.Service.LiftingStatsAudit;
-using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
-using PowerLifting.Service.SystemServices.RepSchemeTypes;
-using PowerLifting.Service.SystemServices.TemplateDifficultys;
-using PowerLifting.Service.TemplatePrograms.Contracts;
-using PowerLifting.Service.TemplatePrograms.Contracts.Repositories;
-using PowerLifting.Service.Users;
 using PowerLifting.Service.UserSettings;
 
 namespace PowerLifting.Repository
@@ -28,11 +19,7 @@ namespace PowerLifting.Repository
         private IExerciseMuscleGroupRepository _exerciseMuscleGroupRepo;
         private ITemplateDifficultyRepository _templateDifficultyRepo;
         private IRepSchemeTypeRepository _repSchemeTypeRepo;
-        private IProgramLogRepository _programLogRepo;
-        private IProgramLogWeekRepository _programLogWeekRepo;
-        private IProgramLogDayRepository _programLogDayRepo;
-        private IProgramLogExerciseRepository _programLogExerciseRepo;
-        private IProgramLogRepSchemeRepository _programLogRepSchemeRepo;
+
         private ITemplateProgramRepository _templateProgramRepo;
         private ITemplateWeekRepository _templateWeekRepo;
         private ITemplateDayRepository _templateDayRepo;
@@ -114,68 +101,29 @@ namespace PowerLifting.Repository
             }
         }
 
-        public IProgramLogRepository ProgramLog
+        public ITemplateDifficultyRepository TemplateDifficulty
         {
             get
             {
-                if (_programLogRepo == null)
+                if (_templateDifficultyRepo == null)
                 {
-                    _programLogRepo = new ProgramLogRepository(_context);
+                    _templateDifficultyRepo = new TemplateDifficultyRepository(_context);
                 }
 
-                return _programLogRepo;
+                return _templateDifficultyRepo;
             }
         }
 
-        public IProgramLogWeekRepository ProgramLogWeek
+        public IRepSchemeTypeRepository RepSchemeType
         {
             get
             {
-                if (_programLogWeekRepo == null)
+                if (_repSchemeTypeRepo == null)
                 {
-                    _programLogWeekRepo = new ProgramLogWeekRepository(_context);
+                    _repSchemeTypeRepo = new RepSchemeTypeRepository(_context);
                 }
 
-                return _programLogWeekRepo;
-            }
-        }
-
-        public IProgramLogDayRepository ProgramLogDay
-        {
-            get
-            {
-                if (_programLogDayRepo == null)
-                {
-                    _programLogDayRepo = new ProgramLogDayRepository(_context);
-                }
-
-                return _programLogDayRepo;
-            }
-        }
-
-        public IProgramLogExerciseRepository ProgramLogExercise
-        {
-            get
-            {
-                if (_programLogExerciseRepo == null)
-                {
-                    _programLogExerciseRepo = new ProgramLogExerciseRepository(_context);
-                }
-
-                return _programLogExerciseRepo;
-            }
-        }
-
-        public IProgramLogRepSchemeRepository ProgramLogRepScheme
-        {
-            get
-            {
-                if (_programLogRepSchemeRepo == null)
-                {
-                    _programLogRepSchemeRepo = new ProgramLogRepSchemeRepository(_context);
-                }
-
-                return _programLogRepSchemeRepo;
+                return _repSchemeTypeRepo;
             }
         }
 

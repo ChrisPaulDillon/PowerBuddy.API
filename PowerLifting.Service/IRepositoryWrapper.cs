@@ -1,15 +1,7 @@
-﻿using PowerLifting.Service.Exercises.Contracts;
-using PowerLifting.Service.LiftingStats;
-using PowerLifting.Service.LiftingStatsAudit;
-using PowerLifting.Service.ProgramLogs.Contracts.Repositories;
-using PowerLifting.Service.SystemServices.RepSchemeTypes;
-using PowerLifting.Service.SystemServices.TemplateDifficultys;
-using PowerLifting.Service.TemplatePrograms.Contracts;
-using PowerLifting.Service.TemplatePrograms.Contracts.Repositories;
-using PowerLifting.Service.Users;
+﻿using PowerLifting.Contracts.Contracts;
 using PowerLifting.Service.UserSettings;
 
-namespace PowerLifting.Service
+namespace PowerLifting.RepositoryMediator
 {
     public interface IRepositoryWrapper
     {
@@ -19,12 +11,7 @@ namespace PowerLifting.Service
         IExerciseTypeRepository ExerciseType { get; }
         IExerciseMuscleGroupRepository ExerciseMuscleGroup { get; }
         ITemplateDifficultyRepository TemplateDifficulty { get; }
-        IRepSchemeTypeRepository RepSchemeRepository { get; }
-        IProgramLogRepository ProgramLog { get; }
-        IProgramLogWeekRepository ProgramLogWeek { get; }
-        IProgramLogDayRepository ProgramLogDay { get; }
-        IProgramLogExerciseRepository ProgramLogExercise { get; }
-        IProgramLogRepSchemeRepository ProgramLogRepScheme { get; }
+        IRepSchemeTypeRepository RepSchemeType { get; }
         ITemplateProgramRepository TemplateProgram { get; }
         ITemplateWeekRepository TemplateWeek { get; }
         ITemplateDayRepository TemplateDay { get; }

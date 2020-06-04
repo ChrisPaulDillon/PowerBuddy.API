@@ -41,12 +41,12 @@ namespace PowerLifting.API.API
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status400BadRequest)]
-        public IActionResult CreateLiftingStat([FromBody] LiftingStatDTO liftingStat)
+        public async Task<IActionResult> CreateLiftingStatAsync([FromBody] CreateLiftingStatDTO liftingStatDTO)
         {
             try
             {
-                _service.LiftingStat.CreateLiftingStat(liftingStat);
-                return Ok(Responses.Success());
+                var liftingStat = await _service.LiftingStat.CreateLiftingStat(liftingStatDTO);
+                return Ok(Responses.Success(liftingStat));
             }
             catch (LiftingStatAlreadyExistsException ex)
             {

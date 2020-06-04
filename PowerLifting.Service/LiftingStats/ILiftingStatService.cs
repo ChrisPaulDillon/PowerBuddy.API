@@ -19,7 +19,7 @@ namespace PowerLifting.Service.LiftingStats
         /// </summary>
         /// <param name="liftingStats"></param>
         /// <returns></returns>
-        void CreateLiftingStat(LiftingStatDTO liftingStats);
+        Task<LiftingStatDTO> CreateLiftingStat(CreateLiftingStatDTO liftingStats);
 
         /// <summary>
         /// Updates a given lifting stat and logs the new result

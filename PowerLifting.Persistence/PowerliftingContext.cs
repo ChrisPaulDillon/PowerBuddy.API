@@ -2,13 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Service.Users.Model;
 using PowerLifting.Service.LiftingStatsAudit.Model;
-using PowerLifting.Service.Exercises.Model;
 using PowerLifting.Service.LiftingStats.Model;
-using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.UserSettings.Model;
-using PowerLifting.Service.SystemServices.TemplateDifficulty.Model;
+using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
 using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
+using PowerLifting.Entity.ProgramLogs.Model;
+using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
+using PowerLifting.Entity.System.ExerciseTypes.Models;
+using PowerLifting.Entity.System.Exercises.Models;
 
 namespace PowerLifting.Persistence
 {

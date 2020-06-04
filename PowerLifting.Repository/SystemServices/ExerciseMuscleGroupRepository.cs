@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Powerlifting.Repository;
+using Powerlifting.Common;
+using PowerLifting.Contracts.Contracts;
+using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 using PowerLifting.Persistence;
-using PowerLifting.Service.Exercises.Contracts;
-using PowerLifting.Service.Exercises.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +18,7 @@ namespace PowerLifting.Repository.Exercises
 
         public async Task<IEnumerable<ExerciseMuscleGroup>> GetAllExerciseMuscleGroups()
         {
-            return await PowerliftingContext.Set<ExerciseMuscleGroup>().ToListAsync();
+            return await PowerliftingContext.Set<ExerciseMuscleGroup>().AsNoTracking().ToListAsync();
         }
 
         public async Task<ExerciseMuscleGroup> GetExerciseMuscleGroupById(int exerciseTypeId)

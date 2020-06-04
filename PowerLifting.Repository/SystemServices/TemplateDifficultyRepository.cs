@@ -17,7 +17,7 @@ namespace PowerLifting.Repository.SystemServices
 
         public async Task<IEnumerable<TemplateDifficulty>> GetAllTemplateDifficulties()
         {
-            return await PowerliftingContext.Set<TemplateDifficulty>().ToListAsync();
+            return await PowerliftingContext.Set<TemplateDifficulty>().AsNoTracking().ToListAsync();
         }
     }
 }

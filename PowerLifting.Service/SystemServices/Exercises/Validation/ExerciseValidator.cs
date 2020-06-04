@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.Service.Exercises.Exceptions;
-using PowerLifting.Service.Exercises.Model;
 
 namespace PowerLifting.Service.Exercises.Validators
 {

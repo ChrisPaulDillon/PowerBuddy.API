@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
-using PowerLifting.Service.Exercises.DTO;
-using PowerLifting.Service.Exercises.Model;
+using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
+using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
+using PowerLifting.Entity.System.Exercises.DTOs;
+using PowerLifting.Entity.System.Exercises.Models;
+using PowerLifting.Entity.System.ExerciseTypes.DTOs;
+using PowerLifting.Entity.System.ExerciseTypes.Models;
 using PowerLifting.Service.TemplatePrograms.DTO;
 
 namespace PowerLifting.Service.Exercises.AutoMapper

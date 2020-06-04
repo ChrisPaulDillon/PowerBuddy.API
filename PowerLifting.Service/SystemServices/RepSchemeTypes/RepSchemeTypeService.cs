@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using PowerLifting.Contracts.Contracts;
+using PowerLifting.RepositoryMediator;
 using PowerLifting.Service.SystemServices.RepSchemeTypes.DTO;
 
 namespace PowerLifting.Service.SystemServices.RepSchemeTypes

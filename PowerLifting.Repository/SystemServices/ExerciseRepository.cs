@@ -17,19 +17,26 @@ namespace PowerLifting.Repository.Exercises
 
         public async Task<IEnumerable<Exercise>> GetAllExercises()
         {
-            return await PowerliftingContext.Set<Exercise>().ToListAsync();
+            return await PowerliftingContext.Set<Exercise>().AsNoTracking().Include(m => m.ExerciseMuscleGroups)
+                                                                                           .Include(t => t.ExerciseType).ToListAsync();
         }
 
         public async Task<Exercise> GetExerciseById(int id)
         {
             return await PowerliftingContext.Set<Exercise>().Where(c => c.ExerciseId == id).Include(m => m.ExerciseMuscleGroups)
-                                                                                           .Include(t => t.ExerciseType).FirstOrDefaultAsync();
+                                                                                           .Include(t => t.ExerciseType).AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public async Task<Exercise> GetExerciseByName(string exerciseName)
+        {
+            return await PowerliftingContext.Set<Exercise>().Where(c => c.ExerciseName == exerciseName).Include(m => m.ExerciseMuscleGroups)
+                                                                                           .Include(t => t.ExerciseType).AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Exercise>> GetExerciseByExerciseTypeId(int exerciseTypeId)
         {
             return await PowerliftingContext.Set<Exercise>().Where(c => c.ExerciseTypeId == exerciseTypeId).Include(m => m.ExerciseMuscleGroups)
-                                                                                           .Include(t => t.ExerciseType).ToListAsync();
+                                                                                           .Include(t => t.ExerciseType).AsNoTracking().ToListAsync();
         }
 
         public Task<IEnumerable<Exercise>> GetExerciseByExerciseMuscleGroupId(int id)

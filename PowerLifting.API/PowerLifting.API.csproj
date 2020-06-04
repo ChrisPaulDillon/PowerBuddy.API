@@ -39,11 +39,15 @@
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\PowerLifting.Service.ProgramLogs\PowerLifting.ProgramLogs.Service\PowerLifting.ProgramLogs.Contracts\PowerLifting.ProgramLogs.Contracts.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 
   <ItemGroup>
     <Folder Include="Middleware\" />
     <Folder Include="Models\" />
+    <Folder Include="Wrappers\" />
   </ItemGroup>
 </Project>

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using PowerLifting.Service.Exercises.Contracts;
-using PowerLifting.Service.Exercises.DTO;
+using PowerLifting.Contracts.Contracts;
+using PowerLifting.Entity.System.ExerciseTypes.DTOs;
+using PowerLifting.RepositoryMediator;
 using PowerLifting.Service.Exercises.Exceptions;
 
 namespace PowerLifting.Service.Exercises

@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="ProgramLogs\" />
+    <Folder Include="ProgramLogs\DTO\" />
+    <Folder Include="ProgramLogs\Model\" />
+    <Folder Include="System\" />
+    <Folder Include="System\Exercises\" />
+    <Folder Include="System\Exercises\DTO\" />
+    <Folder Include="System\Exercises\Models\" />
+    <Folder Include="System\ExerciseTypes\" />
+    <Folder Include="System\ExerciseTypes\DTOs\" />
+    <Folder Include="System\ExerciseTypes\Models\" />
+    <Folder Include="System\ExerciseMuscleGroups\" />
+    <Folder Include="System\ExerciseMuscleGroups\DTOs\" />
+    <Folder Include="System\ExerciseMuscleGroups\Models\" />
+    <Folder Include="LiftingStats\" />
+    <Folder Include="Users\" />
+    <Folder Include="Users\DTO\" />
+    <Folder Include="Users\Model\" />
+    <Folder Include="Templates\" />
+    <Folder Include="Templates\DTO\" />
+    <Folder Include="Templates\Model\" />
+    <Folder Include="LiftingStats\Model\" />
+    <Folder Include="LiftingStats\DTO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
+  </ItemGroup>
+</Project>

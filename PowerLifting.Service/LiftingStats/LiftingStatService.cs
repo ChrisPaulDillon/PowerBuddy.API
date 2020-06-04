@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using PowerLifting.Entity.System.Exercises.DTOs;
+using PowerLifting.RepositoryMediator;
 using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Exceptions;
 using PowerLifting.Service.LiftingStats.Model;
@@ -21,22 +23,28 @@ namespace PowerLifting.Service.LiftingStats
             _mapper = mapper;
         }
 
-        public void CreateLiftingStat(LiftingStatDTO liftingStatDTO)
+        public async Task<LiftingStatDTO> CreateLiftingStat(CreateLiftingStatDTO createLiftingStatDTO)
         {
-            var userId = liftingStatDTO.UserId;
-            var exerciseId = liftingStatDTO.ExerciseId;
-            var repRange = liftingStatDTO.RepRange;
+            var userId = createLiftingStatDTO.UserId;
+            var exerciseName = createLiftingStatDTO.ExerciseName;
+            var repRange = createLiftingStatDTO.RepRange;
 
-            liftingStatDTO.Exercise = null;
-
-            var liftingStat = _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(userId, exerciseId, repRange);
+            var exercise = await _repo.Exercise.GetExerciseByName(exerciseName);
+            var liftingStat = _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(userId, exercise.ExerciseId, repRange);
 
             if (liftingStat != null) throw new LiftingStatAlreadyExistsException();
 
-            if (liftingStatDTO.GoalWeight != null)
+            var liftingStatDTO = new LiftingStatDTO()
             {
-                liftingStatDTO.PercentageToGoal = (liftingStatDTO.Weight / liftingStatDTO.GoalWeight) * 100;
-            }
+                UserId = createLiftingStatDTO.UserId,
+                ExerciseId = exercise.ExerciseId,
+                RepRange = createLiftingStatDTO.RepRange,
+                Weight = createLiftingStatDTO.Weight,
+                GoalWeight = createLiftingStatDTO.GoalWeight,
+                PercentageToGoal = createLiftingStatDTO.GoalWeight != null ? (createLiftingStatDTO.Weight / createLiftingStatDTO.GoalWeight) * 100 : null,
+                LastUpdated = createLiftingStatDTO.LastUpdated,
+                Exercise = _mapper.Map<ExerciseDTO>(exercise)
+            };
 
             var newLiftingStat = _mapper.Map<LiftingStat>(liftingStatDTO);
             _repo.LiftingStat.CreateLiftingStat(newLiftingStat);
@@ -49,6 +57,7 @@ namespace PowerLifting.Service.LiftingStats
                 UserId = liftingStatDTO.UserId,
             };
             _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
+            return liftingStatDTO;
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserId(string userId)

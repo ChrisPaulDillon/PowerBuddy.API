@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="ProgramLogs\Exceptions\" />
     <Folder Include="LiftingStats\Exceptions\" />
-    <Folder Include="LiftingStats\Contracts\" />
     <Folder Include="ProgramLogs\Validator\" />
     <Folder Include="LiftingStats\Validators\" />
     <Folder Include="TemplatePrograms\Validators\" />
@@ -23,16 +22,9 @@
     <Folder Include="SystemServices\ExerciseTypes\" />
     <Folder Include="SystemServices\ExerciseMuscleGroups\" />
     <Folder Include="SystemServices\TemplateDifficultys\" />
-    <Folder Include="SystemServices\Exercises\DTO\" />
-    <Folder Include="SystemServices\Exercises\Model\" />
     <Folder Include="SystemServices\Exercises\Validation\" />
     <Folder Include="SystemServices\Exercises\Exceptions\" />
-    <Folder Include="SystemServices\ExerciseTypes\DTO\" />
     <Folder Include="SystemServices\ExerciseTypes\Exceptions\" />
-    <Folder Include="SystemServices\ExerciseTypes\Model\" />
-    <Folder Include="SystemServices\ExerciseTypes\Validation\" />
-    <Folder Include="SystemServices\ExerciseMuscleGroups\DTO\" />
-    <Folder Include="SystemServices\ExerciseMuscleGroups\Model\" />
     <Folder Include="SystemServices\ExerciseMuscleGroups\Exceptions\" />
     <Folder Include="SystemServices\ExerciseMuscleGroups\Validation\" />
     <Folder Include="SystemServices\AutoMapper\" />
@@ -45,5 +37,13 @@
     <Folder Include="SystemServices\RepSchemeTypes\Model\" />
     <Folder Include="SystemServices\RepSchemeTypes\Exceptions\" />
     <Folder Include="SystemServices\RepSchemeTypes\Validation\" />
+    <Folder Include="ProgramLogs\Contracts\" />
+    <Folder Include="TemplatePrograms\Contracts\" />
+    <Folder Include="Users\Model\" />
+    <Folder Include="Users\DTO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Entity\PowerLifting.Entity.csproj" />
+    <ProjectReference Include="..\PowerLifting.Contracts\PowerLifting.Contracts.csproj" />
   </ItemGroup>
 </Project>

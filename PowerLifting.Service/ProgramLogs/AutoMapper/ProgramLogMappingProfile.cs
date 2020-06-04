@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using PowerLifting.Service.ProgramLogs.DTO;
-using PowerLifting.Service.ProgramLogs.Model;
+using PowerLifting.Entity.ProgramLogs.DTO;
+using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.Service.ProgramLogs.AutoMapper
 {

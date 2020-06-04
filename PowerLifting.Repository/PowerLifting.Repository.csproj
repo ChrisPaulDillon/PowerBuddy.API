@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
+    <ProjectReference Include="..\PowerLifting.Common\PowerLifting.Common.csproj" />
+    <ProjectReference Include="..\PowerLifting.Contracts\PowerLifting.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ProgramLogs\" />
