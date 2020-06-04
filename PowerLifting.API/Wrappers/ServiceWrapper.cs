@@ -1,21 +1,20 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using PowerLifting.API.Wrappers;
-using PowerLifting.Contracts.Contracts;
+using PowerLifting.Accounts.Contracts;
+using PowerLifting.Accounts.Service;
+using PowerLifting.LiftingStats.Service;
 using PowerLifting.ProgramLogs.Contracts;
 using PowerLifting.ProgramLogs.Service;
-using PowerLifting.Repository.Templates;
-using PowerLifting.RepositoryMediator;
-using PowerLifting.Service.Exercises;
-using PowerLifting.Service.LiftingStats;
 using PowerLifting.Service.ProgramLogs;
-using PowerLifting.Service.SystemServices.RepSchemeTypes;
 using PowerLifting.Service.SystemServices.TemplateDifficultys;
-using PowerLifting.Service.TemplatePrograms;
-using PowerLifting.Service.TemplatePrograms.Contracts.Services;
 using PowerLifting.Service.Users;
 using PowerLifting.Service.Users.Model;
 using PowerLifting.Service.UserSettings;
+using PowerLifting.Systems.Contracts;
+using PowerLifting.Systems.Service;
+using PowerLifting.Systems.Service.Services;
+using PowerLifting.TemplatePrograms.Contracts;
+using PowerLifting.TemplatePrograms.Service;
 
 namespace PowerLifting.API.Wrappers
 {
@@ -34,18 +33,22 @@ namespace PowerLifting.API.Wrappers
         private IUserSettingService _userSetting;
 
         private readonly IMapper _mapper;
-        private readonly IRepositoryWrapper _repoWrapper;
         private readonly IProgramLogWrapper _programLogWrapper;
-
-
+        private readonly ITemplateProgramWrapper _templateProgramWrapper;
+        private readonly ISystemWrapper _systemWrapper;
+        private readonly IAccountWrapper _accountWrapper;
+        private readonly ILiftingStatsWrapper _liftingStatsWrapper;
 
         private UserManager<User> _userManager;
 
-        public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper, IProgramLogWrapper programLogWrapper, UserManager<User> userManager)
+        public ServiceWrapper(IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper,  UserManager<User> userManager)
         {
             _mapper = mapper;
-            _repoWrapper = repoWrapper;
             _programLogWrapper = programLogWrapper;
+            _templateProgramWrapper = templateProgramWrapper;
+            _systemWrapper = systemWrapper;
+            _accountWrapper = accountWrapper;
+            _liftingStatsWrapper = liftingStatsWrapper;
             _userManager = userManager;
         }
 
@@ -53,7 +56,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_liftingStats == null) _liftingStats = new LiftingStatService(_repoWrapper, _mapper);
+                if (_liftingStats == null) _liftingStats = new LiftingStatService(_liftingStatsWrapper, _mapper);
 
                 return _liftingStats;
             }
@@ -63,7 +66,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_exercise == null) _exercise = new ExerciseService(_repoWrapper, _mapper);
+                if (_exercise == null) _exercise = new ExerciseService(_systemWrapper, _mapper);
 
                 return _exercise;
             }
@@ -73,7 +76,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_exerciseType == null) _exerciseType = new ExerciseTypeService(_repoWrapper, _mapper);
+                if (_exerciseType == null) _exerciseType = new ExerciseTypeService(_systemWrapper, _mapper);
 
                 return _exerciseType;
             }
@@ -84,7 +87,7 @@ namespace PowerLifting.API.Wrappers
             get
             {
                 if (_exerciseMuscleGroup == null)
-                    _exerciseMuscleGroup = new ExerciseMuscleGroupService(_repoWrapper, _mapper);
+                    _exerciseMuscleGroup = new ExerciseMuscleGroupService(_systemWrapper, _mapper);
 
                 return _exerciseMuscleGroup;
             }
@@ -95,20 +98,9 @@ namespace PowerLifting.API.Wrappers
             get
             {
                 if (_templateDifficultyService == null)
-                    _templateDifficultyService = new TemplateDifficultyService(_repoWrapper, _mapper);
+                    _templateDifficultyService = new TemplateDifficultyService(_systemWrapper, _mapper);
 
                 return _templateDifficultyService;
-            }
-        }
-
-        public ITemplateExerciseCollectionService TemplateExerciseCollection
-        {
-            get
-            {
-                if (_templateExerciseCollection == null)
-                    _templateExerciseCollection = new TemplateExerciseCollectionService(_repoWrapper, _mapper);
-
-                return _templateExerciseCollection;
             }
         }
 
@@ -117,7 +109,7 @@ namespace PowerLifting.API.Wrappers
             get
             {
                 if (_repSchemeTypeService == null)
-                    _repSchemeTypeService = new RepSchemeTypeService(_repoWrapper, _mapper);
+                    _repSchemeTypeService = new RepSchemeTypeService(_systemWrapper, _mapper);
 
                 return _repSchemeTypeService;
             }
@@ -132,12 +124,22 @@ namespace PowerLifting.API.Wrappers
                 return _programLog;
             }
         }
+        public ITemplateExerciseCollectionService TemplateExerciseCollection
+        {
+            get
+            {
+                if (_templateExerciseCollection == null)
+                    _templateExerciseCollection = new TemplateExerciseCollectionService(_templateProgramWrapper, _mapper);
+
+                return _templateExerciseCollection;
+            }
+        }
 
         public ITemplateProgramService TemplateProgram
         {
             get
             {
-                if (_templateProgram == null) _templateProgram = new TemplateProgramService(_repoWrapper, _mapper);
+                if (_templateProgram == null) _templateProgram = new TemplateProgramService(_templateProgramWrapper, _mapper);
 
                 return _templateProgram;
             }
@@ -147,7 +149,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_user == null) _user = new UserService(_repoWrapper, _mapper, _userManager);
+                if (_user == null) _user = new UserService(_accountWrapper, _mapper, _userManager);
 
                 return _user;
             }
@@ -157,7 +159,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_userSetting == null) _userSetting = new UserSettingService(_repoWrapper, _mapper);
+                if (_userSetting == null) _userSetting = new UserSettingService(_accountWrapper, _mapper);
 
                 return _userSetting;
             }

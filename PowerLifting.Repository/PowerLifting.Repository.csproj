@@ -5,12 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ProgramLogs\**" />
+    <EmbeddedResource Remove="ProgramLogs\**" />
+    <None Remove="ProgramLogs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.LiftingStats.Contracts\PowerLifting.LiftingStats.Contracts.csproj" />
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
     <ProjectReference Include="..\PowerLifting.Common\PowerLifting.Common.csproj" />
-    <ProjectReference Include="..\PowerLifting.Contracts\PowerLifting.Contracts.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ProgramLogs\" />
-    <Folder Include="SystemServices\" />
+    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Contracts\PowerLifting.TemplatePrograms.Contracts.csproj" />
   </ItemGroup>
 </Project>

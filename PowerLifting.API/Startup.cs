@@ -13,16 +13,18 @@ using PowerLifting.LoggerService;
 using PowerLifting.Service.Users.Model;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.API.Wrappers;
+using PowerLifting.LiftingStats.Service;
 using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Service;
-using PowerLifting.Repository;
-using PowerLifting.RepositoryMediator;
-using PowerLifting.Service.Exercises.AutoMapper;
 using PowerLifting.Service.LiftingStats.AutoMapper;
 using PowerLifting.Service.ProgramLogs.AutoMapper;
 using PowerLifting.Service.TemplatePrograms.AutoMapper;
 using PowerLifting.Service.Users.AutoMapper;
 using PowerLifting.Service.UserSettings.AutoMapper;
+using PowerLifting.Service.Exercises.AutoMapper;
+using PowerLifting.Systems.Service;
+using PowerLifting.Accounts.Service;
+using PowerLifting.TemplatePrograms.Service;
 
 namespace PowerLifting.API
 {
@@ -68,8 +70,11 @@ namespace PowerLifting.API
             services.AddControllers();
 
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<ISystemWrapper, SystemWrapper>();
+            services.AddScoped<ILiftingStatsWrapper, LiftingStatsWrapper>();
+            services.AddScoped<IAccountWrapper, AccountWrapper>();
             services.AddScoped<IProgramLogWrapper, ProgramLogWrapper>();
+            services.AddScoped<ITemplateProgramWrapper, TemplateProgramWrapper>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<ILoggerManager, LoggerManager>();
 

@@ -6,9 +6,8 @@ using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Entity.System.Exercises.DTOs;
 using PowerLifting.Entity.System.ExerciseTypes.DTOs;
-using PowerLifting.Service;
-using PowerLifting.Service.Exercises.Exceptions;
 using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
+using PowerLifting.Systems.Service.Exceptions;
 
 namespace PowerLifting.API.API
 {

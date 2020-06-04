@@ -54,11 +54,12 @@ namespace PowerLifting.API.API
         [HttpGet("Calculate/{id}")]
         [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
-        public IActionResult GenerateProgramTemplateForIndividual(string userId, int programTemplateId)
+        public async Task<IActionResult> GenerateProgramTemplateForIndividualAsync(string userId, int programTemplateId)
         {
             try
             {
-                var templateProgramDTO = _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId);
+                var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
+                var templateProgramDTO = _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId, liftingStats);
                 return Ok(templateProgramDTO);
             }
             catch(UserDoesNotHaveLiftingStatSetForExerciseException ex)

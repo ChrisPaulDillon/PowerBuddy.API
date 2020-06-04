@@ -31,18 +31,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Accounts.Service\PowerLifting.Accounts.Service.csproj" />
+    <ProjectReference Include="..\PowerLifting.LiftingStats.Service\PowerLifting.LiftingStats.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj" />
     <ProjectReference Include="..\PowerLifting.Service.ProgramLogs\PowerLifting.ProgramLogs.Service\PowerLifting.ProgramLogs.Service.csproj" />
-    <ProjectReference Include="..\PowerLifting.Service\PowerLifting.Service.csproj" />
-    <ProjectReference Include="..\PowerLifting.Repository\PowerLifting.Repository.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
     <ProjectReference Include="..\PowerLifting.Service.ProgramLogs\PowerLifting.ProgramLogs.Service\PowerLifting.ProgramLogs.Contracts\PowerLifting.ProgramLogs.Contracts.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\PowerLifting.Systems.Service\PowerLifting.Systems.Service.csproj" />
+    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Contracts\PowerLifting.TemplatePrograms.Contracts.csproj" />
+    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Service\PowerLifting.TemplatePrograms.Service.csproj" />
   </ItemGroup>
 
 

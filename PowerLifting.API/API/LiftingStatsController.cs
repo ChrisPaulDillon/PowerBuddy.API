@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Common.Exceptions;
-using PowerLifting.Service;
+using PowerLifting.LiftingStats.Service.Exceptions;
 using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.LiftingStats.Exceptions;
-using PowerLifting.Service.Users.Exceptions;
 
 namespace PowerLifting.API.API
 {
@@ -43,11 +41,12 @@ namespace PowerLifting.API.API
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateLiftingStatAsync([FromBody] CreateLiftingStatDTO liftingStatDTO)
+        public async Task<IActionResult> CreateLiftingStat([FromBody] CreateLiftingStatDTO liftingStatDTO)
         {
             try
             {
-                var liftingStat = await _service.LiftingStat.CreateLiftingStat(liftingStatDTO);
+                var exercise = await _service.Exercise.GetExerciseByName(liftingStatDTO.ExerciseName);
+                var liftingStat = await _service.LiftingStat.CreateLiftingStat(liftingStatDTO, exercise);
                 return Ok(Responses.Success(liftingStat));
             }
             catch (LiftingStatAlreadyExistsException ex)
