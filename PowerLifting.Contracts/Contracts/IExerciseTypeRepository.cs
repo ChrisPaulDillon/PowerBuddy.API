@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Powerlifting.Common;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
 
 namespace PowerLifting.Contracts.Contracts

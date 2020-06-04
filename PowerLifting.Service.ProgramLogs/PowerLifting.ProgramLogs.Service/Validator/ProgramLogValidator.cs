@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.ProgramLogs.Exceptions;
 
 namespace PowerLifting.ProgramLogs.Service.Validator

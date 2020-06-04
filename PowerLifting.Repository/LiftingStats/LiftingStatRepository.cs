@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Powerlifting.Repository;
 using PowerLifting.Persistence;
-using PowerLifting.Service.LiftingStats;
 using System.Linq;
 using System.Threading.Tasks;
 using PowerLifting.Service.LiftingStats.Model;
 using System.Collections.Generic;
+using Powerlifting.Common;
+using PowerLifting.Contracts.Contracts;
 
 namespace PowerLifting.Repository.LiftingStats
 {

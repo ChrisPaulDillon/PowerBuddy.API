@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
+using PowerLifting.API.Wrappers;
 using PowerLifting.Service;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Entity.ProgramLogs.DTO;
+using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts
 {

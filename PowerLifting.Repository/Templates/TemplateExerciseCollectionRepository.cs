@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Powerlifting.Repository;
+using Powerlifting.Common;
+using PowerLifting.Contracts.Contracts;
 using PowerLifting.Persistence;
-using PowerLifting.Service.TemplatePrograms.Contracts;
 using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.Repository.Templates

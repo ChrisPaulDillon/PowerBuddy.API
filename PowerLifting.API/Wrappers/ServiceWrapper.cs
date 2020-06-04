@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using PowerLifting.API.Wrappers;
+using PowerLifting.Contracts.Contracts;
 using PowerLifting.ProgramLogs.Contracts;
+using PowerLifting.ProgramLogs.Service;
+using PowerLifting.RepositoryMediator;
 using PowerLifting.Service.Exercises;
-using PowerLifting.Service.Exercises.Contracts;
 using PowerLifting.Service.LiftingStats;
+using PowerLifting.Service.ProgramLogs;
 using PowerLifting.Service.SystemServices.RepSchemeTypes;
 using PowerLifting.Service.SystemServices.TemplateDifficultys;
 using PowerLifting.Service.TemplatePrograms;
@@ -23,20 +26,24 @@ namespace PowerLifting.Service
         private ITemplateDifficultyService _templateDifficultyService;
         private IRepSchemeTypeService _repSchemeTypeService;
         private ILiftingStatService _liftingStats;
-
-        private readonly IMapper _mapper;
         private IProgramLogService _programLog;
-        private readonly IRepositoryWrapper _repoWrapper;
         private ITemplateProgramService _templateProgram;
         private IUserService _user;
         private IUserSettingService _userSetting;
 
+        private readonly IMapper _mapper;
+        private readonly IRepositoryWrapper _repoWrapper;
+        private readonly IProgramLogWrapper _programLogWrapper;
+
+
+
         private UserManager<User> _userManager;
 
-        public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper, UserManager<User> userManager)
+        public ServiceWrapper(IMapper mapper, IRepositoryWrapper repoWrapper, IProgramLogWrapper programLogWrapper, UserManager<User> userManager)
         {
             _mapper = mapper;
             _repoWrapper = repoWrapper;
+            _programLogWrapper = programLogWrapper;
             _userManager = userManager;
         }
 
@@ -107,7 +114,7 @@ namespace PowerLifting.Service
         {
             get
             {
-                if (_programLog == null) _programLog = new ProgramLogService(_repoWrapper, _mapper, _userManager);
+                if (_programLog == null) _programLog = new ProgramLogService(_programLogWrapper, _mapper, _userManager);
 
                 return _programLog;
             }

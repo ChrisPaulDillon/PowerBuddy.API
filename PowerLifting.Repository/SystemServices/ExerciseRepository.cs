@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Powerlifting.Repository;
 using PowerLifting.Persistence;
-using PowerLifting.Service.Exercises.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PowerLifting.Service.Exercises.Model;
+using Powerlifting.Common;
+using PowerLifting.Contracts.Contracts;
+using PowerLifting.Entity.System.Exercises.Models;
 
 namespace PowerLifting.Repository.Exercises
 {

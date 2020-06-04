@@ -5,12 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="PowerLifting.ProgramLogs.Contracts\**" />
+    <Compile Remove="PowerLifting.ProgramLogs.Repository\**" />
+    <EmbeddedResource Remove="PowerLifting.ProgramLogs.Contracts\**" />
+    <EmbeddedResource Remove="PowerLifting.ProgramLogs.Repository\**" />
+    <None Remove="PowerLifting.ProgramLogs.Contracts\**" />
+    <None Remove="PowerLifting.ProgramLogs.Repository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="PowerLifting.ProgramLogs.Contracts\PowerLifting.ProgramLogs.Contracts.csproj">
       <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
     </ProjectReference>
+    <ProjectReference Include="PowerLifting.ProgramLogs.Repository\PowerLifting.ProgramLogs.Repository.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
     <Folder Include="Validator\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
 </Project>

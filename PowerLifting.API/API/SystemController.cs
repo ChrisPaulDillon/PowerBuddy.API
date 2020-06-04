@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
+using PowerLifting.API.Wrappers;
+using PowerLifting.Entity.System.Exercises.DTOs;
+using PowerLifting.Entity.System.ExerciseTypes.DTOs;
 using PowerLifting.Service;
-using PowerLifting.Service.Exercises.DTO;
 using PowerLifting.Service.Exercises.Exceptions;
 using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
 

@@ -1,15 +1,17 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PowerLifting.Service.ProgramLogs.Exceptions;
 using Microsoft.AspNetCore.Http;
-using PowerLifting.Service.ProgramLogs.DTO;
 using System;
 using System.Collections.Generic;
 using PowerLifting.Service;
-using PowerLifting.Service.ProgramLogs.Model;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 using PowerLifting.API.Models;
+using PowerLifting.API.Wrappers;
+using PowerLifting.Entity.ProgramLogs.DTO;
+using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Service.Users.Exceptions;
+using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Service.ProgramLogs.Exceptions;
 
 namespace PowerLifting.API.API
 {

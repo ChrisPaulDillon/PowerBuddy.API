@@ -1,13 +1,10 @@
-﻿using PowerLifting.ProgramLogs.Contracts;
-using PowerLifting.Service.Exercises.Contracts;
+﻿using PowerLifting.Contracts.Contracts;
+using PowerLifting.ProgramLogs.Contracts;
 using PowerLifting.Service.LiftingStats;
-using PowerLifting.Service.SystemServices.RepSchemeTypes;
 using PowerLifting.Service.SystemServices.TemplateDifficultys;
 using PowerLifting.Service.TemplatePrograms.Contracts.Services;
-using PowerLifting.Service.Users;
-using PowerLifting.Service.UserSettings;
 
-namespace PowerLifting.Service
+namespace PowerLifting.API.Wrappers
 {
     public interface IServiceWrapper
     { 

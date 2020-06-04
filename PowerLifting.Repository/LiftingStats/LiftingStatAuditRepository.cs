@@ -1,4 +1,5 @@
 ﻿using Powerlifting.Common;
+using PowerLifting.Contracts.Contracts;
 using PowerLifting.Persistence;
 using PowerLifting.Service.LiftingStatsAudit.Model;
 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Powerlifting.Repository;
+using Powerlifting.Common;
+using PowerLifting.Contracts.Contracts;
 using PowerLifting.Persistence;
-using PowerLifting.Service.SystemServices.TemplateDifficultys;
 using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
 
 namespace PowerLifting.Repository.SystemServices

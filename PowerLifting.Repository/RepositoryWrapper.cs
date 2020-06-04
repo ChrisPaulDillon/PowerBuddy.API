@@ -6,6 +6,7 @@ using PowerLifting.Repository.SystemServices;
 using PowerLifting.Repository.Templates;
 using PowerLifting.Repository.Users;
 using PowerLifting.Repository.UserSettings;
+using PowerLifting.RepositoryMediator;
 using PowerLifting.Service.UserSettings;
 
 namespace PowerLifting.Repository

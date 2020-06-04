@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Powerlifting.Repository;
 using PowerLifting.Persistence;
-using PowerLifting.Service.Users;
 using PowerLifting.Service.Users.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Powerlifting.Common;
+using PowerLifting.Contracts.Contracts;
 
 namespace PowerLifting.Repository.Users
 {

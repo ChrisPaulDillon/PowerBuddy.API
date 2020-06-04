@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj" />
+    <ProjectReference Include="..\PowerLifting.Service.ProgramLogs\PowerLifting.ProgramLogs.Service\PowerLifting.ProgramLogs.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.Service\PowerLifting.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.Repository\PowerLifting.Repository.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>

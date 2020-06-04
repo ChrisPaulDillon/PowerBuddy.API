@@ -45,5 +45,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Entity\PowerLifting.Entity.csproj" />
     <ProjectReference Include="..\PowerLifting.Contracts\PowerLifting.Contracts.csproj" />
+    <ProjectReference Include="..\PowerLifting.Repository\PowerLifting.Repository.csproj" />
   </ItemGroup>
 </Project>

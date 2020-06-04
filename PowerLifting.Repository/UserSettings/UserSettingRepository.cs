@@ -1,5 +1,5 @@
-﻿using PowerLifting.Persistence;
-using Powerlifting.Repository;
+﻿using Powerlifting.Common;
+using PowerLifting.Persistence;
 using PowerLifting.Service.UserSettings;
 using PowerLifting.Service.UserSettings.Model;
 
