@@ -7,17 +7,15 @@ using Microsoft.AspNetCore.Identity;
 using PowerLifting.Common.Exceptions;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
-using PowerLifting.ProgramLogs.Contracts;
-using PowerLifting.ProgramLogs.Service;
+using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.ProgramLogs.Service.Exceptions;
 using PowerLifting.ProgramLogs.Service.Validator;
 using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.Users.Model;
 
-namespace PowerLifting.Service.ProgramLogs
+namespace PowerLifting.ProgramLogs.Service.Services
 {
     public class ProgramLogService : IProgramLogService
     {
@@ -377,7 +375,7 @@ namespace PowerLifting.Service.ProgramLogs
         public async Task<ProgramLogWeekDTO> GetProgramLogWeekByProgramLogId(int programLogId, DateTime date)
         {
             //_validator.ValidateProgramLogWeekId(programLogWeekId);
-            var programLogWeek = await _repo.ProgramLogWeek.GetCurrentProgramLogWeekByUserId("test lmfao");
+            var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekByProgramLogIdAndDate(programLogId, date);
             if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
 
             var programLogWeekDTO = _mapper.Map<ProgramLogWeekDTO>(programLogWeek);
@@ -418,43 +416,6 @@ namespace PowerLifting.Service.ProgramLogs
 
             var newProgramLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
             _repo.ProgramLogDay.CreateProgramLogDay(newProgramLogDay);
-        }
-
-        #endregion
-
-        #region ProgramLogExerciseServices
-
-        public async Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId)
-        {
-            var programLogExercises = await _repo.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId);
-            var programLogExercisesDTO = _mapper.Map<IEnumerable<ProgramLogExerciseDTO>>(programLogExercises);
-            return programLogExercisesDTO;
-        }
-
-        public void CreateProgramLogExercise(ProgramLogExerciseDTO programLogExercise)
-        {
-            var newProgramLogExercise = _mapper.Map<ProgramLogExercise>(programLogExercise);
-            _repo.ProgramLogExercise.CreateProgramLogExercise(newProgramLogExercise);
-        }
-
-        public async Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
-        {
-            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseDTO.ProgramLogExerciseId);
-            if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
-            
-            _mapper.Map(programLogExerciseDTO, programLogExercise);
-            _repo.ProgramLogExercise.UpdateProgramLogExercise(programLogExercise);
-        }
-
-        public async Task DeleteProgramLogExercise(int programLogExerciseId)
-        {
-            var validator = new ProgramLogValidator();
-            validator.ValidateProgramLogExerciseId(programLogExerciseId);
-
-            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseId);
-
-            if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
-            _repo.ProgramLogExercise.DeleteProgramLogExercise(programLogExercise);
         }
 
         #endregion

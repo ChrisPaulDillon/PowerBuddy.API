@@ -1,21 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using PowerLifting.Accounts.Contracts;
 using PowerLifting.Accounts.Contracts.Services;
 using PowerLifting.Accounts.Service;
 using PowerLifting.LiftingStats.Service;
-using PowerLifting.ProgramLogs.Contracts;
+using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.ProgramLogs.Service;
-using PowerLifting.Service.ProgramLogs;
-using PowerLifting.Service.SystemServices.TemplateDifficultys;
-using PowerLifting.Service.Users;
+using PowerLifting.ProgramLogs.Service.Services;
 using PowerLifting.Service.Users.Model;
-using PowerLifting.Service.UserSettings;
-using PowerLifting.Systems.Contracts;
 using PowerLifting.Systems.Contracts.Services;
 using PowerLifting.Systems.Service;
 using PowerLifting.Systems.Service.Services;
-using PowerLifting.TemplatePrograms.Contracts;
 using PowerLifting.TemplatePrograms.Contracts.Services;
 using PowerLifting.TemplatePrograms.Service;
 
@@ -29,6 +23,7 @@ namespace PowerLifting.API.Wrappers
         private IRepSchemeTypeService _repSchemeTypeService;
         private ILiftingStatService _liftingStats;
         private IProgramLogService _programLog;
+        private IProgramLogExerciseService _programLogExercise;
         private ITemplateProgramService _templateProgram;
         private ITemplateDifficultyService _templateDifficultyService;
         private ITemplateExerciseCollectionService _templateExerciseCollection;
@@ -127,6 +122,17 @@ namespace PowerLifting.API.Wrappers
                 return _programLog;
             }
         }
+
+        public IProgramLogExerciseService ProgramLogExercise
+        {
+            get
+            {
+                if (_programLogExercise == null) _programLogExercise = new ProgramLogExerciseService(_programLogWrapper, _mapper, _userManager);
+
+                return _programLogExercise;
+            }
+        }
+
         public ITemplateExerciseCollectionService TemplateExerciseCollection
         {
             get

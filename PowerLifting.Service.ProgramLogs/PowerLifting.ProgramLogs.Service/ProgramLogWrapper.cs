@@ -10,6 +10,7 @@ namespace PowerLifting.ProgramLogs.Service
         private IProgramLogWeekRepository _programLogWeekRepo;
         private IProgramLogDayRepository _programLogDayRepo;
         private IProgramLogExerciseRepository _programLogExerciseRepo;
+        private IProgramLogExerciseAuditRepository _programLogExerciseAuditRepo;
         private IProgramLogRepSchemeRepository _programLogRepSchemeRepo;
 
         private PowerliftingContext _context;
@@ -68,6 +69,19 @@ namespace PowerLifting.ProgramLogs.Service
                 }
 
                 return _programLogExerciseRepo;
+            }
+        }
+
+        public IProgramLogExerciseAuditRepository ProgramLogExerciseAudit
+        {
+            get
+            {
+                if (_programLogExerciseAuditRepo == null)
+                {
+                    _programLogExerciseAuditRepo = new ProgramLogExerciseAuditRepository(_context);
+                }
+
+                return _programLogExerciseAuditRepo;
             }
         }
 

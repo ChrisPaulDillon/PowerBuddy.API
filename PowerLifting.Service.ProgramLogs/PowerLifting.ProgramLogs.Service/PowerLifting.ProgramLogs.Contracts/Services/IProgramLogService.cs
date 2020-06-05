@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.TemplatePrograms.DTO;
-using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Services
 {
@@ -90,40 +88,6 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="programLogDay"></param>
         Task CreateProgramLogDay(ProgramLogDayDTO programLogDay);
-
-
-        #endregion
-
-        #region ProgramLogExercise Services
-
-        /// <summary>
-        /// Gets all exercises for a given program log day
-        /// </summary>
-        /// <param name="programLogDayId"></param>
-        /// <returns></returns>
-        Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId);
-
-        /// <summary>
-        /// Creates a new program exercise for a specific log
-        /// </summary>
-        /// <param name="programLogExercise"></param>
-        /// <returns></returns>
-        void CreateProgramLogExercise(ProgramLogExerciseDTO programLogExercise);
-
-        /// <summary>
-        /// Updates a given program log exercise, this could be the number of sets,
-        /// a new comment etc
-        /// </summary>
-        /// <param name="programLogExercise"></param>
-        /// <returns></returns>
-        Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExercise);
-
-        /// <summary>
-        /// Deletes a given program log exercise
-        /// </summary>
-        /// <param name="programLogExerciseId"></param>
-        /// <returns></returns>
-        Task DeleteProgramLogExercise(int programLogExerciseId);
 
 
         #endregion

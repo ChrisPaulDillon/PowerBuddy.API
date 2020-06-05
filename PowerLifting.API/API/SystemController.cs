@@ -73,11 +73,11 @@ namespace PowerLifting.API.API
         [HttpGet("RepSchemeType")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<RepSchemeType>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAllRepSchemeFormats()
+        public async Task<IActionResult> GetAllRepSchemeTypes()
         {
-            var exerciseTypes = await _service.RepSchemeType.GetAllRepSchemeTypes();
-            if (exerciseTypes == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Rep Scheme Types Found"));
-            return Ok(Responses.Success(exerciseTypes));
+            var repSchemeTypes = await _service.RepSchemeType.GetAllRepSchemeTypes();
+            if (repSchemeTypes == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Rep Scheme Types Found"));
+            return Ok(Responses.Success(repSchemeTypes));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using PowerLifting.Accounts.Contracts.Services;
 using PowerLifting.LiftingStats.Service;
 using PowerLifting.ProgramLogs.Contracts;
+using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.Systems.Contracts.Services;
 using PowerLifting.TemplatePrograms.Contracts.Services;
 
@@ -15,6 +16,7 @@ namespace PowerLifting.API.Wrappers
         IRepSchemeTypeService RepSchemeType { get; }
         IExerciseMuscleGroupService ExerciseMuscleGroup { get; }
         IProgramLogService ProgramLog { get; }
+        IProgramLogExerciseService ProgramLogExercise { get; }
         ITemplateProgramService TemplateProgram { get; }
         ITemplateExerciseCollectionService TemplateExerciseCollection { get; }
         IUserService User { get; }

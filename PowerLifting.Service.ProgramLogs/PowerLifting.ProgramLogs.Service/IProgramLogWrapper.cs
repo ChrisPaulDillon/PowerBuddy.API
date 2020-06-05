@@ -8,6 +8,7 @@ namespace PowerLifting.ProgramLogs.Service
         IProgramLogWeekRepository ProgramLogWeek { get; }
         IProgramLogDayRepository ProgramLogDay { get; }
         IProgramLogExerciseRepository ProgramLogExercise { get; }
+        IProgramLogExerciseAuditRepository ProgramLogExerciseAudit { get; }
         IProgramLogRepSchemeRepository ProgramLogRepScheme { get; }
     }
 }

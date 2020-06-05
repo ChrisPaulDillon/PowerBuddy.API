@@ -35,6 +35,7 @@ namespace PowerLifting.Persistence
         public DbSet<ProgramLogWeek> ProgramLogWeek { get; set; }
         public DbSet<ProgramLogDay> ProgramLogDay { get; set; }
         public DbSet<ProgramLogExercise> ProgramLogExercise { get; set; }
+        public DbSet<ProgramLogExerciseAudit> ProgramLogExerciseAudit { get; set; }
         public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
         public DbSet<LiftingStat> LiftingStat{ get; set; }
         public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
@@ -65,6 +66,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");
             modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay");
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
+            modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
             modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
 
             modelBuilder.Entity<LiftingStat>().ToTable("LiftingStat");

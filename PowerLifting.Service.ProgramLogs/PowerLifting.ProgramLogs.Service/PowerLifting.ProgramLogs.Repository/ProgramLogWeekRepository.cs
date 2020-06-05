@@ -34,5 +34,15 @@ namespace PowerLifting.ProgramLogs.Repository
                                                                         .ThenInclude(e => e.ProgramLogExercises)
                                                                         .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();
         }
+
+        public async Task<ProgramLogWeek> GetProgramLogWeekByProgramLogIdAndDate(int programLogId, DateTime date)
+        {
+            return await PowerliftingContext.Set<ProgramLogWeek>().Where(x => x.ProgramLogId == programLogId
+                                                                         && x.StartDate >= date.Date
+                                                                         && date.Date <= x.EndDate)
+                                                                        .Include(k => k.ProgramLogDays)
+                                                                        .ThenInclude(e => e.ProgramLogExercises)
+                                                                        .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();
+        }
     }
 }

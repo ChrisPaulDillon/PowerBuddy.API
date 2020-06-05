@@ -151,14 +151,14 @@ namespace PowerLifting.API.API
 
         #region ProgramLogWeek
 
-        [HttpGet("Week/{programLogId:int}")]
+        [HttpGet("Week/Current/{programLogId:int}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProgramLogWeekByUserId(int programLogId, [FromBody]DateTime date)
+        public async Task<IActionResult> GetProgramLogWeekByUserId(int programLogId)
         {
             try
             {
-                var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByProgramLogId(programLogId, date);
+                var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByProgramLogId(programLogId, DateTime.UtcNow);
                 return Ok(programLogWeek);
             }
             catch (ProgramLogWeekNotFoundException ex)
@@ -231,18 +231,18 @@ namespace PowerLifting.API.API
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogExerciseDTO>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProgramLogDayExercises(int programLogDayId)
         {
-            var programLogExercises = await _service.ProgramLog.GetProgramExercisesByProgramLogDayId(programLogDayId);
+            var programLogExercises = await _service.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId);
             return Ok(Responses.Success(programLogExercises));
         }
 
-        [HttpPost("Exercise")]
+        [HttpPost("Exercise/{userId:string}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public IActionResult CreateProgramLogExercise([FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
+        public IActionResult CreateProgramLogExercise(string userId, [FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
         {
             try
             {
-                _service.ProgramLog.CreateProgramLogExercise(programLogExerciseDTO);
+                _service.ProgramLogExercise.CreateProgramLogExercise(userId, programLogExerciseDTO);
                 return Ok(Responses.Success());
             }
             catch(ProgramLogDayNotWithWeekRangeException ex)
@@ -259,7 +259,7 @@ namespace PowerLifting.API.API
         {
             try
             {
-                await _service.ProgramLog.UpdateProgramLogExercise(programLogDTO);
+                await _service.ProgramLogExercise.UpdateProgramLogExercise(programLogDTO);
                 return Ok(Responses.Success());
             }
             catch (ProgramLogExerciseNotFoundException ex)
@@ -279,7 +279,7 @@ namespace PowerLifting.API.API
         {
             try
             {
-                _service.ProgramLog.DeleteProgramLogExercise(programLogExerciseId);
+                _service.ProgramLogExercise.DeleteProgramLogExercise(programLogExerciseId);
                 return Ok(Responses.Success());
             }
             catch (ProgramLogExerciseNotFoundException ex)
