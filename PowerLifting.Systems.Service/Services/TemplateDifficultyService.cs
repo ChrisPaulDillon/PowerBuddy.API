@@ -32,10 +32,9 @@ namespace PowerLifting.Systems.Service.Services
             if (!_store.IsEmpty)
                 return;
 
-            var exercises = await _repo.Exercise.GetAllExercises();
-            var exerciseDTOs = _mapper.Map<IEnumerable<TemplateDifficultyDTO>>(exercises);
+            var templateDifficulties = await _repo.TemplateDifficulty.GetAllTemplateDifficulties();
 
-            foreach (var templateDifficultyDTO in exerciseDTOs)
+            foreach (var templateDifficultyDTO in templateDifficulties)
                 _store.AddOrUpdate(templateDifficultyDTO.TemplateDifficultyId, templateDifficultyDTO, (key, olValue) => templateDifficultyDTO);
         }
     }

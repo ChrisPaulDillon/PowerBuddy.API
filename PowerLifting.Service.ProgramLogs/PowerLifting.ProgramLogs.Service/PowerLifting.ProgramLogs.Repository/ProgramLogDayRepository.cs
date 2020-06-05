@@ -6,6 +6,7 @@ using PowerLifting.ProgramLogs.Contracts;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 using PowerLifting.ProgramLogs.Contracts.Repositories;
 
 namespace PowerLifting.ProgramLogs.Repository
@@ -20,7 +21,7 @@ namespace PowerLifting.ProgramLogs.Repository
         {
             return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
                                                                         && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0
-                                                                        && x.ProgramLogWeekId == programLogId) //TODO FIX
+                                                                        && x.ProgramLogDayId == programLogId)
                                                                         .Include(x => x.ProgramLogExercises)
                                                                         .ThenInclude(x => x.ProgramLogRepSchemes)
                                                                         .Include(x => x.ProgramLogExercises)

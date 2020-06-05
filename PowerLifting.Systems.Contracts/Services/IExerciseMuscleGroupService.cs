@@ -13,13 +13,6 @@ namespace PowerLifting.Systems.Contracts.Services
         Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups();
 
         /// <summary>
-        /// Gets a speific ExerciseMuscleGroup by id, checks if it exists
-        /// </summary>
-        /// <param name="exerciseTypeId"></param>
-        /// <returns></returns>
-        Task<ExerciseMuscleGroupDTO> GetExerciseMuscleGroupById(int exerciseTypeId);
-
-        /// <summary>
         /// Updates a specific ExerciseMuscleGroup object if it exists
         /// </summary>
         /// <param name="exerciseMuscleGroup"></param>

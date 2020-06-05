@@ -79,5 +79,10 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 _repo.ProgramLogExerciseAudit.UpdateProgramLogExerciseAudit(audit);
             }
         }
+
+        public Task<ProgramLogExerciseAudit> GetProgramLogExerciseAuditCount(string userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

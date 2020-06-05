@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Powerlifting.Common;
+using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 
 namespace PowerLifting.Systems.Contracts.Repositories
@@ -11,14 +12,14 @@ namespace PowerLifting.Systems.Contracts.Repositories
         /// Gets all muscle groups such as quads, shoulders, arms etc.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<ExerciseMuscleGroup>> GetAllExerciseMuscleGroups();
+        Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups();
 
         /// <summary>
         /// Get a specific exercise muscle group by id
         /// </summary>
         /// <param name="exerciseTypeId"></param>
         /// <returns></returns>
-        Task<ExerciseMuscleGroup> GetExerciseMuscleGroupById(int exerciseMuscleGroupId);
+        Task<ExerciseMuscleGroupDTO> GetExerciseMuscleGroupById(int exerciseMuscleGroupId);
 
         /// <summary>
         /// Updates a specific muscle group object

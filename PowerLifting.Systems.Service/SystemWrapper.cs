@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AutoMapper;
 using PowerLifting.Persistence;
 using PowerLifting.Systems.Contracts;
 using PowerLifting.Systems.Contracts.Repositories;
@@ -16,11 +17,12 @@ namespace PowerLifting.Systems.Service
         private IRepSchemeTypeRepository _repSchemeTypeRepo;
         private ITemplateDifficultyRepository _templateDifficultyRepo;
 
-        private PowerliftingContext _context;
-
-        public SystemWrapper(PowerliftingContext repositoryContext)
+        private readonly PowerliftingContext _context;
+        private readonly IMapper _mapper;
+        public SystemWrapper(PowerliftingContext repositoryContext, IMapper mapper)
         {
             _context = repositoryContext;
+            _mapper = mapper;
         }
 
         public ITemplateDifficultyRepository TemplateDifficulty
@@ -29,7 +31,7 @@ namespace PowerLifting.Systems.Service
             {
                 if (_templateDifficultyRepo == null)
                 {
-                    _templateDifficultyRepo = new TemplateDifficultyRepository(_context);
+                    _templateDifficultyRepo = new TemplateDifficultyRepository(_context, _mapper);
                 }
 
                 return _templateDifficultyRepo;
@@ -42,7 +44,7 @@ namespace PowerLifting.Systems.Service
             {
                 if (_exerciseRepo == null)
                 {
-                    _exerciseRepo = new ExerciseRepository(_context);
+                    _exerciseRepo = new ExerciseRepository(_context, _mapper);
                 }
 
                 return _exerciseRepo;
@@ -55,7 +57,7 @@ namespace PowerLifting.Systems.Service
             {
                 if (_exerciseTypeRepo == null)
                 {
-                    _exerciseTypeRepo = new ExerciseTypeRepository(_context);
+                    _exerciseTypeRepo = new ExerciseTypeRepository(_context, _mapper);
                 }
 
                 return _exerciseTypeRepo;
@@ -68,7 +70,7 @@ namespace PowerLifting.Systems.Service
             {
                 if (_exerciseMuscleGroupRepo == null)
                 {
-                    _exerciseMuscleGroupRepo = new ExerciseMuscleGroupRepository(_context);
+                    _exerciseMuscleGroupRepo = new ExerciseMuscleGroupRepository(_context, _mapper);
                 }
 
                 return _exerciseMuscleGroupRepo;
@@ -81,7 +83,7 @@ namespace PowerLifting.Systems.Service
             {
                 if (_repSchemeTypeRepo == null)
                 {
-                    _repSchemeTypeRepo = new RepSchemeTypeRepository(_context);
+                    _repSchemeTypeRepo = new RepSchemeTypeRepository(_context, _mapper);
                 }
 
                 return _repSchemeTypeRepo;

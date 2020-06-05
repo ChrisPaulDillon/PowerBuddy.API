@@ -18,7 +18,9 @@ namespace PowerLifting.ProgramLogs.Repository
 
         public async Task<IEnumerable<ProgramLogExercise>> GetProgramExercisesByProgramLogDayId(int programLogDayId)
         {
-            return await PowerliftingContext.Set<ProgramLogExercise>().Where(x => x.ProgramLogDayId == programLogDayId).ToListAsync();
+            return await PowerliftingContext.Set<ProgramLogExercise>().AsNoTracking()
+                .Where(x => x.ProgramLogDayId == programLogDayId)
+                .ToListAsync();
         }
 
         public void CreateProgramLogExercise(ProgramLogExercise programLogExercise)

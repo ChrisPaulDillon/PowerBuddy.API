@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Entity.ProgramLogs.DTO;
+using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Services
 {
@@ -44,5 +45,12 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <param name="exerciseId"></param>
         /// <returns></returns>
         Task CreateProgramLogExerciseAudit(string userId, int exerciseId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<ProgramLogExerciseAudit> GetProgramLogExerciseAuditCount(string userId);
     }
 }

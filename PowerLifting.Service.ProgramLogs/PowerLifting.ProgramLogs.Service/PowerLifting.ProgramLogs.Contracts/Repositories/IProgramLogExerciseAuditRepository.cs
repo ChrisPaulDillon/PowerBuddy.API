@@ -7,13 +7,12 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
 {
     public interface IProgramLogExerciseAuditRepository : IRepositoryBase<ProgramLogExerciseAudit>
     {
+        Task<ProgramLogExerciseAudit> GetProgramLogExerciseAuditCount(string userId);
+
         /// <summary>
         /// Used to retrieve the potential audit when a user
         /// creates a new program log exercise
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="programLogId"></param>
-        /// <param name="dateSelected"></param>
         /// <returns></returns>
         Task<ProgramLogExerciseAudit> GetProgramLogExerciseAudit(string userId, int exerciseId);
 

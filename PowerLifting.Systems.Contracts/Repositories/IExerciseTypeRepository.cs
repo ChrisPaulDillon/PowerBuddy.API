@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Powerlifting.Common;
+using PowerLifting.Entity.System.ExerciseTypes.DTOs;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
 
 namespace PowerLifting.Systems.Contracts.Repositories
@@ -11,14 +12,14 @@ namespace PowerLifting.Systems.Contracts.Repositories
         /// Gets all exercise types such as bodyweight, dumbbell, barbell etc.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<ExerciseType>> GetAllExerciseTypes();
+        Task<IEnumerable<ExerciseTypeDTO>> GetAllExerciseTypes();
 
         /// <summary>
         /// Gets a specific exercise type by id
         /// </summary>
         /// <param name="exerciseTypeId"></param>
         /// <returns></returns>
-        Task<ExerciseType> GetExerciseTypeById(int exerciseTypeId);
+        Task<ExerciseTypeDTO> GetExerciseTypeById(int exerciseTypeId);
 
         /// <summary>
         /// Updates a given exercise object

@@ -15,13 +15,20 @@ namespace PowerLifting.ProgramLogs.Repository
         {
         }
 
-        public async Task<ProgramLogExerciseAudit> GetProgramLogExerciseAudit(string userId, int exerciseId)
+        public async Task<ProgramLogExerciseAudit> GetProgramLogExerciseAuditCount(string userId)
         {
-            return await PowerliftingContext.Set<ProgramLogExerciseAudit>().Where(x => x.UserId == userId
-                                                              && x.ExerciseId == exerciseId) 
-                                                              .FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<ProgramLogExerciseAudit>().AsNoTracking()
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.SelectedCount).Take(3)
+                .FirstOrDefaultAsync();
         }
 
+        public async Task<ProgramLogExerciseAudit> GetProgramLogExerciseAudit(string userId, int exerciseId)
+        {
+            return await PowerliftingContext.Set<ProgramLogExerciseAudit>()
+                .Where(x => x.UserId == userId && x.ExerciseId == exerciseId) 
+                .FirstOrDefaultAsync();
+        }
 
         public void CreateProgramLogExerciseAudit(ProgramLogExerciseAudit audit)
         {

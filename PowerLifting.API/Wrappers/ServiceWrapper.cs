@@ -37,7 +37,7 @@ namespace PowerLifting.API.Wrappers
         private readonly IAccountWrapper _accountWrapper;
         private readonly ILiftingStatsWrapper _liftingStatsWrapper;
 
-        private UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;
 
         public ServiceWrapper(IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper,  UserManager<User> userManager)
         {

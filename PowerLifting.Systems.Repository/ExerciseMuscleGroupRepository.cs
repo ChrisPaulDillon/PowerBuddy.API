@@ -5,6 +5,9 @@ using PowerLifting.Persistence;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
 using PowerLifting.Systems.Contracts;
 using PowerLifting.Systems.Contracts.Repositories;
 
@@ -12,19 +15,25 @@ namespace PowerLifting.Systems.Repository
 {
     public class ExerciseMuscleGroupRepository : RepositoryBase<ExerciseMuscleGroup>, IExerciseMuscleGroupRepository
     {
-
-        public ExerciseMuscleGroupRepository(PowerliftingContext context) : base(context)
+        private readonly IMapper _mapper;
+        public ExerciseMuscleGroupRepository(PowerliftingContext context, IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ExerciseMuscleGroup>> GetAllExerciseMuscleGroups()
+        public async Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups()
         {
-            return await PowerliftingContext.Set<ExerciseMuscleGroup>().AsNoTracking().ToListAsync();
+            return await PowerliftingContext.Set<ExerciseMuscleGroup>().AsNoTracking()
+                .ProjectTo<ExerciseMuscleGroupDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
-        public async Task<ExerciseMuscleGroup> GetExerciseMuscleGroupById(int exerciseTypeId)
+        public async Task<ExerciseMuscleGroupDTO> GetExerciseMuscleGroupById(int exerciseTypeId)
         {
-            return await PowerliftingContext.Set<ExerciseMuscleGroup>().Where(c => c.ExerciseMuscleGroupId == exerciseTypeId).FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<ExerciseMuscleGroup>()
+                .Where(c => c.ExerciseMuscleGroupId == exerciseTypeId)
+                .ProjectTo<ExerciseMuscleGroupDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
         }
 
         public void UpdateExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup)

@@ -235,7 +235,7 @@ namespace PowerLifting.API.API
             return Ok(Responses.Success(programLogExercises));
         }
 
-        [HttpPost("Exercise/{userId:string}")]
+        [HttpPost("Exercise/{userId}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public IActionResult CreateProgramLogExercise(string userId, [FromBody] ProgramLogExerciseDTO programLogExerciseDTO)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
+using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 using PowerLifting.Systems.Contracts.Services;
 using PowerLifting.Systems.Service.Exceptions;
 
@@ -32,38 +33,30 @@ namespace PowerLifting.Systems.Service.Services
             if (!_store.IsEmpty)
                 return;
 
-            var exercises = await _repo.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
-            var exerciseDTOs = _mapper.Map<IEnumerable<ExerciseMuscleGroupDTO>>(exercises);
+            var exerciseMuscleGroupDTOs = await _repo.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
 
-            foreach (var exerciseMuscleGroupDTO in exerciseDTOs)
+            foreach (var exerciseMuscleGroupDTO in exerciseMuscleGroupDTOs)
                 _store.AddOrUpdate(exerciseMuscleGroupDTO.ExerciseMuscleGroupId, exerciseMuscleGroupDTO,(key, olValue) => exerciseMuscleGroupDTO);
-        }
-
-        public async Task<ExerciseMuscleGroupDTO> GetExerciseMuscleGroupById(int exerciseMuscleGroupId)
-        {
-            var exercise = await _repo.Exercise.GetExerciseById(exerciseMuscleGroupId);
-            var exerciseDTO = _mapper.Map<ExerciseMuscleGroupDTO>(exercise);
-            return exerciseDTO;
         }
 
         public async Task UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)
         {
-            var exerciseMuscleGroup =
-                await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
+            var exerciseMuscleGroup = await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
 
-            if (exerciseMuscleGroup == null)
-                throw new ExerciseMuscleGroupNotFoundException();
-
-            _mapper.Map(exerciseMuscleGroupDTO, exerciseMuscleGroup);
-            _repo.ExerciseMuscleGroup.UpdateExerciseMuscleGroup(exerciseMuscleGroup);
+            if (exerciseMuscleGroup == null) throw new ExerciseMuscleGroupNotFoundException();
+            
+            var exerciseMG = _mapper.Map<ExerciseMuscleGroup>(exerciseMuscleGroupDTO);
+            _repo.ExerciseMuscleGroup.UpdateExerciseMuscleGroup(exerciseMG);
         }
 
         public async Task DeleteExerciseMuscleGroup(int exerciseMuscleGroupId)
         {
-            var exerciseMuscleGroup = await _repo.Exercise.GetExerciseById(exerciseMuscleGroupId);
+            var exerciseMuscleGroup = await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupId);
 
             if (exerciseMuscleGroup == null) throw new ExerciseMuscleGroupNotFoundException();
-            _repo.Exercise.DeleteExercise(exerciseMuscleGroup);
+            var exerciseMG = _mapper.Map<ExerciseMuscleGroup>(exerciseMuscleGroup);
+
+            _repo.ExerciseMuscleGroup.DeleteExerciseMuscleGroup(exerciseMG);
         }
 
     }

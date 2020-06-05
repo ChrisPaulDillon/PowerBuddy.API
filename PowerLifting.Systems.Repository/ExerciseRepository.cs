@@ -3,7 +3,10 @@ using PowerLifting.Persistence;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Powerlifting.Common;
+using PowerLifting.Entity.System.Exercises.DTOs;
 using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.Systems.Contracts;
 using PowerLifting.Systems.Contracts.Repositories;
@@ -12,37 +15,40 @@ namespace PowerLifting.Systems.Repository
 {
     public class ExerciseRepository : RepositoryBase<Exercise>, IExerciseRepository
     {
-        public ExerciseRepository(PowerliftingContext context) : base(context)
+        private readonly IMapper _mapper;
+        public ExerciseRepository(PowerliftingContext context, IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Exercise>> GetAllExercises()
+        public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
         {
-            return await PowerliftingContext.Set<Exercise>().AsNoTracking().Include(m => m.ExerciseMuscleGroups)
-                                                                                           .Include(t => t.ExerciseType).ToListAsync();
+            return await PowerliftingContext.Set<Exercise>().AsNoTracking()
+                .Include(m => m.ExerciseMuscleGroups)
+                .Include(t => t.ExerciseType)
+                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
-        public async Task<Exercise> GetExerciseById(int id)
+        public async Task<ExerciseDTO> GetExerciseById(int id)
         {
-            return await PowerliftingContext.Set<Exercise>().Where(c => c.ExerciseId == id).Include(m => m.ExerciseMuscleGroups)
-                                                                                           .Include(t => t.ExerciseType).AsNoTracking().FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<Exercise>().AsNoTracking()
+                .Where(c => c.ExerciseId == id)
+                .Include(m => m.ExerciseMuscleGroups)
+                .Include(t => t.ExerciseType).AsNoTracking()
+                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
         }
 
-        public async Task<Exercise> GetExerciseByName(string exerciseName)
+        public async Task<ExerciseDTO> GetExerciseByName(string exerciseName)
         {
-            return await PowerliftingContext.Set<Exercise>().Where(c => c.ExerciseName == exerciseName).Include(m => m.ExerciseMuscleGroups)
-                                                                                           .Include(t => t.ExerciseType).AsNoTracking().FirstOrDefaultAsync();
-        }
-
-        public async Task<IEnumerable<Exercise>> GetExerciseByExerciseTypeId(int exerciseTypeId)
-        {
-            return await PowerliftingContext.Set<Exercise>().Where(c => c.ExerciseTypeId == exerciseTypeId).Include(m => m.ExerciseMuscleGroups)
-                                                                                           .Include(t => t.ExerciseType).AsNoTracking().ToListAsync();
-        }
-
-        public Task<IEnumerable<Exercise>> GetExerciseByExerciseMuscleGroupId(int id)
-        {
-            throw new System.NotImplementedException();
+            return await PowerliftingContext.Set<Exercise>()
+                .AsNoTracking()
+                .Where(c => c.ExerciseName == exerciseName)
+                .Include(m => m.ExerciseMuscleGroups)
+                .Include(t => t.ExerciseType)
+                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
         }
 
         public void UpdateExercise(Exercise exercise)
@@ -53,6 +59,11 @@ namespace PowerLifting.Systems.Repository
         public void DeleteExercise(Exercise exercise)
         {
             Delete(exercise);
+        }
+
+        public async Task<bool> DoesExerciseExist(int id)
+        {
+            return await PowerliftingContext.Set<Exercise>().AsNoTracking().Where(x => x.ExerciseId == id).AnyAsync();
         }
     }
 }

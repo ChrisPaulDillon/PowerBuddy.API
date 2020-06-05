@@ -31,10 +31,9 @@ namespace PowerLifting.Systems.Service
             if (!_store.IsEmpty)
                 return;
 
-            var exercises = await _repo.RepSchemeType.GetAllRepSchemeTypes();
-            var exerciseDTOs = _mapper.Map<IEnumerable<RepSchemeTypeDTO>>(exercises);
+            var repSchemeTypes = await _repo.RepSchemeType.GetAllRepSchemeTypes();
 
-            foreach (var repSchemeTypeDTO in exerciseDTOs)
+            foreach (var repSchemeTypeDTO in repSchemeTypes)
                 _store.AddOrUpdate(repSchemeTypeDTO.RepSchemeTypeId, repSchemeTypeDTO, (key, olValue) => repSchemeTypeDTO);
         }
     }
