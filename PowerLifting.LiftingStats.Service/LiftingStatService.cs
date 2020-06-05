@@ -36,25 +36,25 @@ namespace PowerLifting.LiftingStats.Service
             return liftingStatsDTO;
         }
 
-        public async Task<LiftingStatDTO> CreateLiftingStat(CreateLiftingStatDTO createLiftingStatDTO, ExerciseDTO exercise)
+        public async Task<LiftingStatDTO> CreateLiftingStat(LiftingStatDTO liftingStatDTO)
         {
-            var userId = createLiftingStatDTO.UserId;
-            var repRange = createLiftingStatDTO.RepRange;
+            var userId = liftingStatDTO.UserId;
+            var repRange = liftingStatDTO.RepRange;
 
-            var liftingStat = _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(userId, exercise.ExerciseId, repRange);
+            var liftingStat = _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(userId, liftingStatDTO.Exercise.ExerciseId, repRange);
 
             if (liftingStat != null) throw new LiftingStatAlreadyExistsException();
 
-            var liftingStatDTO = new LiftingStatDTO()
+            var createdLiftingStatDTO = new LiftingStatDTO()
             {
-                UserId = createLiftingStatDTO.UserId,
-                ExerciseId = exercise.ExerciseId,
-                RepRange = createLiftingStatDTO.RepRange,
-                Weight = createLiftingStatDTO.Weight,
-                GoalWeight = createLiftingStatDTO.GoalWeight,
-                PercentageToGoal = createLiftingStatDTO.GoalWeight != null ? (createLiftingStatDTO.Weight / createLiftingStatDTO.GoalWeight) * 100 : null,
-                LastUpdated = createLiftingStatDTO.LastUpdated,
-                Exercise = _mapper.Map<ExerciseDTO>(exercise)
+                UserId = liftingStatDTO.UserId,
+                ExerciseId = liftingStatDTO.ExerciseId,
+                RepRange = liftingStatDTO.RepRange,
+                Weight = liftingStatDTO.Weight,
+                GoalWeight = liftingStatDTO.GoalWeight,
+                PercentageToGoal = liftingStatDTO.GoalWeight != null ? (liftingStatDTO.Weight / liftingStatDTO.GoalWeight) * 100 : null,
+                LastUpdated = liftingStatDTO.LastUpdated,
+                Exercise = liftingStatDTO.Exercise
             };
 
             var newLiftingStat = _mapper.Map<LiftingStat>(liftingStatDTO);

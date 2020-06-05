@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Common\PowerLifting.Common.csproj" />
+    <ProjectReference Include="..\PowerLifting.Entity\PowerLifting.Entity.csproj" />
+    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Contracts\PowerLifting.TemplatePrograms.Contracts.csproj" />
+    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Repository\PowerLifting.TemplatePrograms.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

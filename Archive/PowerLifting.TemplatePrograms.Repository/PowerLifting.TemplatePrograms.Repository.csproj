@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Common\PowerLifting.Common.csproj" />
+    <ProjectReference Include="..\PowerLifting.Entity\PowerLifting.Entity.csproj" />
+    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Contracts\PowerLifting.TemplatePrograms.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

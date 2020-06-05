@@ -80,7 +80,7 @@ namespace PowerLifting.API
 
             var mappingConfig = new MapperConfiguration(mc =>
              {
-                 mc.AddProfile(new ExerciseServiceMappingProfile());
+                 mc.AddProfile(new SystemAutoMapperProfile());
                  mc.AddProfile(new LiftingStatServiceMappingProfile());
                  mc.AddProfile(new ProgramLogMappingProfile());
                  mc.AddProfile(new TemplateProgramMappingProfile());

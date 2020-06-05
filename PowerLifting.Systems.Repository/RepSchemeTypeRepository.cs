@@ -15,7 +15,7 @@ namespace PowerLifting.Systems.Repository
         {
         }
 
-        public async Task<IEnumerable<RepSchemeType>> GetAllExerciseTypes()
+        public async Task<IEnumerable<RepSchemeType>> GetAllRepSchemeTypes()
         {
             return await PowerliftingContext.Set<RepSchemeType>().AsNoTracking().ToListAsync();
         }

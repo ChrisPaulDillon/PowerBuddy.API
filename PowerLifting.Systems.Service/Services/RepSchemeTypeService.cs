@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Service.SystemServices.RepSchemeTypes.DTO;
-using PowerLifting.Systems.Contracts;
 using PowerLifting.Systems.Contracts.Services;
 
 namespace PowerLifting.Systems.Service
@@ -21,7 +20,7 @@ namespace PowerLifting.Systems.Service
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<RepSchemeTypeDTO>> GetAllTemplateDifficulties()
+        public async Task<IEnumerable<RepSchemeTypeDTO>> GetAllRepSchemeTypes()
         {
             await RefreshRepSchemeTypeStore();
             return _store.Values;
@@ -32,7 +31,7 @@ namespace PowerLifting.Systems.Service
             if (!_store.IsEmpty)
                 return;
 
-            var exercises = await _repo.Exercise.GetAllExercises();
+            var exercises = await _repo.RepSchemeType.GetAllRepSchemeTypes();
             var exerciseDTOs = _mapper.Map<IEnumerable<RepSchemeTypeDTO>>(exercises);
 
             foreach (var repSchemeTypeDTO in exerciseDTOs)

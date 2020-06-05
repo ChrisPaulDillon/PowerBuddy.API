@@ -6,6 +6,7 @@ using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Entity.System.Exercises.DTOs;
 using PowerLifting.Entity.System.ExerciseTypes.DTOs;
+using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
 using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
 using PowerLifting.Systems.Service.Exceptions;
 
@@ -66,6 +67,16 @@ namespace PowerLifting.API.API
         {
             var exerciseTypes = await _service.ExerciseType.GetAllExerciseTypes();
             if (exerciseTypes == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Exercise Types Found"));
+            return Ok(Responses.Success(exerciseTypes));
+        }
+
+        [HttpGet("RepSchemeType")]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<RepSchemeType>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllRepSchemeFormats()
+        {
+            var exerciseTypes = await _service.RepSchemeType.GetAllRepSchemeTypes();
+            if (exerciseTypes == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Rep Scheme Types Found"));
             return Ok(Responses.Success(exerciseTypes));
         }
     }

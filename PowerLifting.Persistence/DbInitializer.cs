@@ -6,6 +6,7 @@ using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
 using PowerLifting.Service.LiftingStats.Model;
+using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
 using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.Users.Model;
 
@@ -17,6 +18,21 @@ namespace PowerLifting.Persistence
          {
             var curDate = DateTime.Now.Date;
             context.Database.EnsureCreated();
+
+            if (!context.RepSchemeType.Any())
+            {
+                var repSchemeTypes = new RepSchemeType[]
+                {
+                    new RepSchemeType{RepSchemeName="Fixed"},
+                    new RepSchemeType{RepSchemeName="Ramped"},
+                };
+
+                foreach (var e in repSchemeTypes)
+                {
+                    context.RepSchemeType.Add(e);
+                }
+                context.SaveChanges();
+            }
 
             if (!context.ExerciseType.Any())
             {
