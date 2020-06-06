@@ -42,7 +42,7 @@ namespace PowerLifting.ProgramLogs.Service
             {
                 if (_programLogWeekRepo == null)
                 {
-                    _programLogWeekRepo = new ProgramLogWeekRepository(_context);
+                    _programLogWeekRepo = new ProgramLogWeekRepository(_context, _mapper);
                 }
 
                 return _programLogWeekRepo;

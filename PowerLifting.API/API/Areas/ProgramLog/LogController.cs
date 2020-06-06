@@ -147,14 +147,14 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-        [HttpGet("Week/Current/{programLogId:int}")]
+        [HttpGet("Week/Current/{userId}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProgramLogWeekByUserId(int programLogId)
+        public async Task<IActionResult> GetProgramLogWeekByUserId(string userId)
         {
             try
             {
-                var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByProgramLogId(programLogId, DateTime.UtcNow);
+                var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByUserIdAndDate(userId, DateTime.UtcNow);
                 return Ok(programLogWeek);
             }
             catch (ProgramLogWeekNotFoundException ex)

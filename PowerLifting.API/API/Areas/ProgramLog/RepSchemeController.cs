@@ -13,11 +13,11 @@ namespace PowerLifting.API.API.Areas.ProgramLog
     [Route("api/ProgramLog/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class ProgramLogController : ControllerBase
+    public class RepSchemeController : ControllerBase
     {
         private readonly IServiceWrapper _service;
 
-        public ProgramLogController(IServiceWrapper service)
+        public RepSchemeController(IServiceWrapper service)
         {
             _service = service;
         }

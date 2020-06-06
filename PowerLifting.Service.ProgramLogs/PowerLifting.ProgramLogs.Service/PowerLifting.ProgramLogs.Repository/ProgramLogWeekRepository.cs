@@ -7,24 +7,31 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using PowerLifting.ProgramLogs.Contracts.Repositories;
+using AutoMapper;
+using PowerLifting.Entity.ProgramLogs.DTO;
+using AutoMapper.QueryableExtensions;
 
 namespace PowerLifting.ProgramLogs.Repository
 {
     public class ProgramLogWeekRepository : RepositoryBase<ProgramLogWeek>, IProgramLogWeekRepository
     {
-        public ProgramLogWeekRepository(PowerliftingContext context) : base(context)
+        private readonly IMapper _mapper;
+
+        public ProgramLogWeekRepository(PowerliftingContext context, IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
-        public async Task<ProgramLogWeek> GetCurrentProgramLogWeekByUserId(string userId)
+        public async Task<ProgramLogWeekDTO> GetProgramLogWeekByUserIdAndDate(string userId, DateTime date)
         {
             //var currentWeek = DateHelper.Instance.GetWeekRangeOfCurrentWeek();
-            return await PowerliftingContext.Set<ProgramLogWeek>().Where(x => x.UserId == userId
-                                                                         && x.StartDate >= DateTime.Now.Date
-                                                                         && DateTime.Now.Date <= x.EndDate)
-                                                                        .Include(k => k.ProgramLogDays)
-                                                                        .ThenInclude(e => e.ProgramLogExercises)
-                                                                        .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<ProgramLogWeek>().AsNoTracking()
+                .Where(x => x.UserId == userId && x.StartDate >= date.Date && date.Date <= x.EndDate)
+                .Include(k => k.ProgramLogDays)
+                .ThenInclude(e => e.ProgramLogExercises)
+                .ThenInclude(x => x.ProgramLogRepSchemes)
+                .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<ProgramLogWeek> GetProgramLogWeekById(int programLogWeekId)

@@ -57,12 +57,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
 
         #region ProgramLogWeek Services
 
-        /// <summary>
-        /// Gets the current active program log for this present week
-        /// </summary>
-        /// <param name="programLogId"></param>
-        /// <returns></returns>
-        Task<ProgramLogWeekDTO> GetProgramLogWeekByProgramLogId(int programLogId, DateTime date);
+        Task<ProgramLogWeekDTO> GetProgramLogWeekByUserIdAndDate(string userId, DateTime date);
 
         #endregion
 
