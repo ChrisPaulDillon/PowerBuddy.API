@@ -62,7 +62,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return _repo.ProgramLog.DoesProgramLogAfterTodayExist(userId);
         }
 
-        public ProgramLogDTO CreateProgramLogFromTemplate(TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats,  DaySelected daySelected)
+        public ProgramLogDTO CreateProgramLogFromTemplate(TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)
         {
             const string userId = "370676cf-ed1b-420a-a1e7-cfbf43b9605d";
             var validator = new ProgramLogValidator();
@@ -84,18 +84,18 @@ namespace PowerLifting.ProgramLogs.Service.Services
             ds.ProgramOrder = new Dictionary<int, string>();
 
             var startingDay = ds.StartDate.DayOfWeek;
-            var startingNo = (int) ds.StartDate.DayOfWeek;
+            var startingNo = (int)ds.StartDate.DayOfWeek;
 
             var counter = 1;
             ds.ProgramOrder.Add(counter, startingDay.ToString());
 
             foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)).OfType<DayOfWeek>().ToList().Skip(startingNo + 1))
             {
-                if(day == DayOfWeek.Monday)
+                if (day == DayOfWeek.Monday)
                 {
                     if (ds.Monday) ds.ProgramOrder.Add(++counter, day.ToString());
                 }
-                else if(day == DayOfWeek.Tuesday)
+                else if (day == DayOfWeek.Tuesday)
                 {
                     if (ds.Tuesday) ds.ProgramOrder.Add(++counter, day.ToString());
                 }
@@ -189,7 +189,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
         {
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
 
-            foreach(var templateWeek in tp.TemplateWeeks)
+            foreach (var templateWeek in tp.TemplateWeeks)
             {
                 var programLogWeekWithDays = CreateProgramLogWeek(templateWeek, ds, userId, liftingStats);
                 listOfProgramWeeks.Add(programLogWeekWithDays);
@@ -325,7 +325,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
                         break;
                 }
             }
-            
+
             return new ProgramLogRepSchemeDTO()
             {
                 SetNo = templateRepScheme.SetNo,
@@ -416,36 +416,6 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
             var newProgramLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
             _repo.ProgramLogDay.CreateProgramLogDay(newProgramLogDay);
-        }
-
-        #endregion
-
-        #region ProgramLogRepScheme
-
-        public void CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
-        {
-            var newProgramLogRepScheme = _mapper.Map<ProgramLogRepScheme>(programLogRepSchemeDTO);
-            _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(newProgramLogRepScheme);
-        }
-
-        public async Task UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
-        {
-            var programLogRepScheme = await _repo.ProgramLogRepScheme.GetProgramLogRepScheme(programLogRepSchemeDTO.ProgramLogRepSchemeId);
-            if (programLogRepScheme == null) throw new ProgramLogRepSchemeNotFoundException();
-
-            _mapper.Map(programLogRepSchemeDTO, programLogRepScheme);
-            _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(programLogRepScheme);
-        }
-
-        public async Task DeleteProgramLogRepScheme(int programLogRepSchemeId)
-        {
-            var validator = new ProgramLogValidator();
-            validator.ValidateProgramLogRepSchemeId(programLogRepSchemeId);
-
-            var programLogRepScheme = await _repo.ProgramLogRepScheme.GetProgramLogRepScheme(programLogRepSchemeId);
-            if (programLogRepScheme == null) throw new ProgramLogRepSchemeNotFoundException();
-
-            _repo.ProgramLogRepScheme.DeleteProgramLogRepScheme(programLogRepScheme);
         }
 
         #endregion

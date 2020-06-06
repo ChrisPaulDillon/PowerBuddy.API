@@ -1,4 +1,5 @@
-﻿using PowerLifting.Persistence;
+﻿using AutoMapper;
+using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Contracts.Repositories;
 using PowerLifting.ProgramLogs.Repository;
 
@@ -13,11 +14,13 @@ namespace PowerLifting.ProgramLogs.Service
         private IProgramLogExerciseAuditRepository _programLogExerciseAuditRepo;
         private IProgramLogRepSchemeRepository _programLogRepSchemeRepo;
 
-        private PowerliftingContext _context;
+        private readonly PowerliftingContext _context;
+        private readonly IMapper _mapper;
 
-        public ProgramLogWrapper(PowerliftingContext repositoryContext)
+        public ProgramLogWrapper(PowerliftingContext repositoryContext, IMapper mapper)
         {
             _context = repositoryContext;
+            _mapper = mapper;
         }
 
         public IProgramLogRepository ProgramLog
@@ -65,7 +68,7 @@ namespace PowerLifting.ProgramLogs.Service
             {
                 if (_programLogExerciseRepo == null)
                 {
-                    _programLogExerciseRepo = new ProgramLogExerciseRepository(_context);
+                    _programLogExerciseRepo = new ProgramLogExerciseRepository(_context, _mapper);
                 }
 
                 return _programLogExerciseRepo;
@@ -78,7 +81,7 @@ namespace PowerLifting.ProgramLogs.Service
             {
                 if (_programLogExerciseAuditRepo == null)
                 {
-                    _programLogExerciseAuditRepo = new ProgramLogExerciseAuditRepository(_context);
+                    _programLogExerciseAuditRepo = new ProgramLogExerciseAuditRepository(_context, _mapper);
                 }
 
                 return _programLogExerciseAuditRepo;
@@ -91,7 +94,7 @@ namespace PowerLifting.ProgramLogs.Service
             {
                 if (_programLogRepSchemeRepo == null)
                 {
-                    _programLogRepSchemeRepo = new ProgramLogRepSchemeRepository(_context);
+                    _programLogRepSchemeRepo = new ProgramLogRepSchemeRepository(_context, _mapper);
                 }
 
                 return _programLogRepSchemeRepo;

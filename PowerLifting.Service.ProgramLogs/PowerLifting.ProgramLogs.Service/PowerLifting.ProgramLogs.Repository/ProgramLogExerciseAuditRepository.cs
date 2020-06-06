@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.Model;
@@ -11,8 +12,11 @@ namespace PowerLifting.ProgramLogs.Repository
 {
     public class ProgramLogExerciseAuditRepository : RepositoryBase<ProgramLogExerciseAudit>, IProgramLogExerciseAuditRepository
     {
-        public ProgramLogExerciseAuditRepository(PowerliftingContext context) : base(context)
+        private readonly IMapper _mapper;
+
+        public ProgramLogExerciseAuditRepository(PowerliftingContext context, IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
         public async Task<ProgramLogExerciseAudit> GetProgramLogExerciseAuditCount(string userId)
@@ -26,7 +30,7 @@ namespace PowerLifting.ProgramLogs.Repository
         public async Task<ProgramLogExerciseAudit> GetProgramLogExerciseAudit(string userId, int exerciseId)
         {
             return await PowerliftingContext.Set<ProgramLogExerciseAudit>()
-                .Where(x => x.UserId == userId && x.ExerciseId == exerciseId) 
+                .Where(x => x.UserId == userId && x.ExerciseId == exerciseId)
                 .FirstOrDefaultAsync();
         }
 

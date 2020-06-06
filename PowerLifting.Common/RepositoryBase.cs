@@ -17,7 +17,7 @@ namespace Powerlifting.Common
 
         public IQueryable<T> FindAll()
         {
-            return this.PowerliftingContext.Set<T>().AsNoTracking();
+            return PowerliftingContext.Set<T>().AsNoTracking();
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
@@ -45,7 +45,7 @@ namespace Powerlifting.Common
 
         public void Save()
         {
-            PowerliftingContext.SaveChanges();
+            PowerliftingContext.SaveChangesAsync();
         }
     }
 }

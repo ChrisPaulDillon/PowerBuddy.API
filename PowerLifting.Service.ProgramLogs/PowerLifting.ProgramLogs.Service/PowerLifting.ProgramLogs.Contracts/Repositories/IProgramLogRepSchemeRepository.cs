@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Powerlifting.Common;
+using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Repositories
@@ -11,7 +12,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// </summary>
         /// <param name="programLogRepSchemeId"></param>
         /// <returns></returns>
-        Task<ProgramLogRepScheme> GetProgramLogRepScheme(int programLogRepSchemeId);
+        Task<ProgramLogRepSchemeDTO> GetProgramLogRepScheme(int programLogRepSchemeId);
 
         /// <summary>
         /// Allows the user to add another set / rep onto a given exercise
@@ -33,5 +34,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <param name="programLogRepScheme"></param>
         void DeleteProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
 
+
+        Task<bool> DoesRepSchemeExist(int programLogRepSchemeId);
     }
 }

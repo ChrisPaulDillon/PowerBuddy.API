@@ -5,20 +5,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Powerlifting.Common;
-using PowerLifting.TemplatePrograms.Contracts;
 using PowerLifting.TemplatePrograms.Contracts.Repositories;
+using AutoMapper;
+using PowerLifting.Service.TemplatePrograms.DTO;
+using AutoMapper.QueryableExtensions;
 
 namespace PowerLifting.TemplatePrograms.Repository
 {
     public class TemplateProgramRepository : RepositoryBase<TemplateProgram>, ITemplateProgramRepository
     {
-        public TemplateProgramRepository(PowerliftingContext context) : base(context)
+        private readonly IMapper _mapper;
+
+        public TemplateProgramRepository(PowerliftingContext context, IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TemplateProgram>> GetAllTemplatePrograms()
+        public async Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms()
         {
-            return await PowerliftingContext.Set<TemplateProgram>().Include(x => x.TemplateWeeks)
+            return await PowerliftingContext.Set<TemplateProgram>().AsNoTracking()
+                                                                   .Include(x => x.TemplateWeeks)
                                                                    .ThenInclude(x => x.TemplateDays)
                                                                    .ThenInclude(x => x.TemplateExercises)
                                                                    .ThenInclude(x => x.Exercise)
@@ -26,26 +32,29 @@ namespace PowerLifting.TemplatePrograms.Repository
                                                                    .ThenInclude(x => x.TemplateDays)
                                                                    .ThenInclude(x => x.TemplateExercises)
                                                                    .ThenInclude(x => x.TemplateRepSchemes)
+                                                                   .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
                                                                    .ToListAsync();
         }
 
-        public TemplateProgram GetTemplateProgramById(int templateProgramId)
+        public TemplateProgramDTO GetTemplateProgramById(int templateProgramId)
         {
-            return PowerliftingContext.Set<TemplateProgram>().Where(x => x.TemplateProgramId == templateProgramId)
-                                                                   .Include(x => x.TemplateWeeks)
-                                                                   .ThenInclude(x => x.TemplateDays)
-                                                                   .ThenInclude(x => x.TemplateExercises)
-                                                                   .ThenInclude(x => x.Exercise)
-                                                                   .Include(x => x.TemplateWeeks)
-                                                                   .ThenInclude(x => x.TemplateDays)
-                                                                   .ThenInclude(x => x.TemplateExercises)
-                                                                   .ThenInclude(x => x.TemplateRepSchemes)
-                                                                   .FirstOrDefault();
+            return PowerliftingContext.Set<TemplateProgram>().AsNoTracking()
+                                                             .Where(x => x.TemplateProgramId == templateProgramId)
+                                                             .Include(x => x.TemplateWeeks)
+                                                             .ThenInclude(x => x.TemplateDays)
+                                                             .ThenInclude(x => x.TemplateExercises)
+                                                             .ThenInclude(x => x.Exercise)
+                                                             .Include(x => x.TemplateWeeks)
+                                                             .ThenInclude(x => x.TemplateDays)
+                                                             .ThenInclude(x => x.TemplateExercises)
+                                                             .ThenInclude(x => x.TemplateRepSchemes)
+                                                             .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
+                                                             .FirstOrDefault();
         }
 
-        public async Task<bool> GetTemplateProgramByName(string programTemplate)
+        public async Task<bool> DoesNameExist(string programTemplate)
         {
-            return await PowerliftingContext.Set<TemplateProgram>().AnyAsync(x => x.Name == programTemplate);
+            return await PowerliftingContext.Set<TemplateProgram>().AsNoTracking().AnyAsync(x => x.Name == programTemplate);
         }
 
         public void CreateTemplateProgram(TemplateProgram templateProgram)

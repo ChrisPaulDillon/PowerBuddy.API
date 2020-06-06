@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Powerlifting.Common;
+using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Repositories
@@ -13,14 +14,16 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// </summary>
         /// <param name="programLogDayId"></param>
         /// <returns></returns>
-        Task<IEnumerable<ProgramLogExercise>> GetProgramExercisesByProgramLogDayId(int programLogDayId);
+        Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId);
 
         /// <summary>
         /// Gets a given program log exercise
         /// </summary>
         /// <param name="programLogExerciseId"></param>
         /// <returns></returns>
-        Task<ProgramLogExercise> GetProgramLogExercise(int programLogExerciseId);
+        Task<ProgramLogExerciseDTO> GetProgramLogExerciseById(int programLogExerciseId);
+
+        Task<bool> DoesExerciseExist(int programLogExerciseId);
 
         /// <summary>
         /// Creates a new program exercise for a given log, used for customisation of programs

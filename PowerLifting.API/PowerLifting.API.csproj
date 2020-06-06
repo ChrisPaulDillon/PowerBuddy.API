@@ -51,5 +51,7 @@
     <Folder Include="Middleware\" />
     <Folder Include="Models\" />
     <Folder Include="Wrappers\" />
+    <Folder Include="API\Areas\" />
+    <Folder Include="API\Areas\ProgramLog\" />
   </ItemGroup>
 </Project>

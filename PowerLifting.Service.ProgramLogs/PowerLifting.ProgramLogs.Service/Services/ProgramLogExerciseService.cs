@@ -41,10 +41,10 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
         public async Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
         {
-            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseDTO.ProgramLogExerciseId);
-            if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
+            var doesExist = await _repo.ProgramLogExercise.DoesExerciseExist(programLogExerciseDTO.ProgramLogExerciseId);
+            if (!doesExist) throw new ProgramLogExerciseNotFoundException();
 
-            _mapper.Map(programLogExerciseDTO, programLogExercise);
+            var programLogExercise = _mapper.Map<ProgramLogExercise>(programLogExerciseDTO);
             _repo.ProgramLogExercise.UpdateProgramLogExercise(programLogExercise);
         }
 
@@ -53,10 +53,10 @@ namespace PowerLifting.ProgramLogs.Service.Services
             var validator = new ProgramLogValidator();
             validator.ValidateProgramLogExerciseId(programLogExerciseId);
 
-            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExercise(programLogExerciseId);
+            var doesExist = await _repo.ProgramLogExercise.DoesExerciseExist(programLogExerciseId);
+            if (!doesExist) throw new ProgramLogExerciseNotFoundException();
 
-            if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
-            _repo.ProgramLogExercise.DeleteProgramLogExercise(programLogExercise);
+            _repo.ProgramLogExercise.DeleteProgramLogExercise(new ProgramLogExercise() { ProgramLogExerciseId = programLogExerciseId });
         }
 
         public async Task CreateProgramLogExerciseAudit(string userId, int exerciseId)

@@ -7,7 +7,6 @@ using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.Service.TemplatePrograms.Validators;
-using PowerLifting.TemplatePrograms.Contracts;
 using PowerLifting.TemplatePrograms.Contracts.Services;
 
 namespace PowerLifting.TemplatePrograms.Service
@@ -27,17 +26,13 @@ namespace PowerLifting.TemplatePrograms.Service
 
         public async Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms()
         {
-            var programTemplates = await _repo.TemplateProgram.GetAllTemplatePrograms();
-            var programTemplateDTO = _mapper.Map<IEnumerable<TemplateProgramDTO>>(programTemplates);
-            return programTemplateDTO;
+            return await _repo.TemplateProgram.GetAllTemplatePrograms();
         }
 
         public TemplateProgramDTO GetTemplateProgramById(int templateProgramId)
         {
             _validator.ValidateTemplateProgramId(templateProgramId);
-            var programTemplate = _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
-            var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(programTemplate);
-            return programTemplateDTO;
+            return _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
         }
 
         public TemplateProgramDTO GenerateProgramTemplateForIndividual(string userId, int programTemplateId, IEnumerable<LiftingStatDTO> liftingStats)
@@ -48,24 +43,24 @@ namespace PowerLifting.TemplatePrograms.Service
             var lsExerciseCount = liftingStats.Count(x => tpExerciseCollection.Any(i => i == x.ExerciseId));
             var tpExerciseCount = tpExerciseCollection.Count();
 
-            if(lsExerciseCount != tpExerciseCount) //User does not have all the lifting stat filled out to create this program
+            if (lsExerciseCount != tpExerciseCount) //User does not have all the lifting stat filled out to create this program
             {
                 throw new UserDoesNotHaveLiftingStatSetForExerciseException();
             }
             //var programmableExercises = GetProgrammableExercises()
             foreach (var templateWeek in templateProgram.TemplateWeeks)
-            foreach (var templateDay in templateWeek.TemplateDays)
-            foreach (var templateExercise in templateDay.TemplateExercises)
-            foreach (var set in templateExercise.TemplateRepSchemes)
-            {
-                var percentage = set.Percentage / 100;
-                //if (templateExercise.ExerciseId == 1)
-                    //set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
-                //else if (templateExercise.ExerciseId == 26)
-                    //set.WeightLifted = percentage * user.LiftingStats.DeadLiftWeight;
-                //else if (templateExercise.ExerciseId == 27)
-                    //set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
-            }
+                foreach (var templateDay in templateWeek.TemplateDays)
+                    foreach (var templateExercise in templateDay.TemplateExercises)
+                        foreach (var set in templateExercise.TemplateRepSchemes)
+                        {
+                            var percentage = set.Percentage / 100;
+                            //if (templateExercise.ExerciseId == 1)
+                            //set.WeightLifted = percentage * user.LiftingStats.SquatWeight;
+                            //else if (templateExercise.ExerciseId == 26)
+                            //set.WeightLifted = percentage * user.LiftingStats.DeadLiftWeight;
+                            //else if (templateExercise.ExerciseId == 27)
+                            //set.WeightLifted = percentage * user.LiftingStats.BenchWeight;
+                        }
 
             var programTemplateDTO = _mapper.Map<TemplateProgramDTO>(templateProgram);
             return programTemplateDTO;
@@ -78,8 +73,8 @@ namespace PowerLifting.TemplatePrograms.Service
 
         public async Task CreateTemplateProgram(TemplateProgramDTO templateProgramDTO)
         {
-            var isTaken = await _repo.TemplateProgram.GetTemplateProgramByName(templateProgramDTO.Name);
-            if(isTaken) throw new TemplateProgramNameAlreadyExistsException();
+            var isTaken = await _repo.TemplateProgram.DoesNameExist(templateProgramDTO.Name);
+            if (isTaken) throw new TemplateProgramNameAlreadyExistsException();
 
             var newTemplateProgram = _mapper.Map<TemplateProgram>(templateProgramDTO);
             _repo.TemplateProgram.CreateTemplateProgram(newTemplateProgram);

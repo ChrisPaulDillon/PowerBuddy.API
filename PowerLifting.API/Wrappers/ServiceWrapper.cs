@@ -23,6 +23,7 @@ namespace PowerLifting.API.Wrappers
         private IRepSchemeTypeService _repSchemeTypeService;
         private ILiftingStatService _liftingStats;
         private IProgramLogService _programLog;
+        private IProgramLogRepSchemeService _programLogRepScheme;
         private IProgramLogExerciseService _programLogExercise;
         private ITemplateProgramService _templateProgram;
         private ITemplateDifficultyService _templateDifficultyService;
@@ -39,7 +40,7 @@ namespace PowerLifting.API.Wrappers
 
         private readonly UserManager<User> _userManager;
 
-        public ServiceWrapper(IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper,  UserManager<User> userManager)
+        public ServiceWrapper(IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager)
         {
             _mapper = mapper;
             _programLogWrapper = programLogWrapper;
@@ -130,6 +131,16 @@ namespace PowerLifting.API.Wrappers
                 if (_programLogExercise == null) _programLogExercise = new ProgramLogExerciseService(_programLogWrapper, _mapper, _userManager);
 
                 return _programLogExercise;
+            }
+        }
+
+        public IProgramLogRepSchemeService ProgramLogRepScheme
+        {
+            get
+            {
+                if (_programLogRepScheme == null) _programLogRepScheme = new ProgramLogRepSchemeService(_programLogWrapper, _mapper, _userManager);
+
+                return _programLogRepScheme;
             }
         }
 

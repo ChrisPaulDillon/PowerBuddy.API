@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Powerlifting.Common;
+using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.TemplatePrograms.Contracts.Repositories
@@ -11,21 +12,21 @@ namespace PowerLifting.TemplatePrograms.Contracts.Repositories
         /// Gets a top level view of all the template programs such as program name, difficulty etc.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<TemplateProgram>> GetAllTemplatePrograms();
+        Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms();
 
         /// <summary>
         /// Gets a singular template program by id
         /// </summary>
         /// <param name="templateProgramId"></param>
         /// <returns></returns>
-        TemplateProgram GetTemplateProgramById(int templateProgramId);
+        TemplateProgramDTO GetTemplateProgramById(int templateProgramId);
 
         /// <summary>
         /// Used to determine if the name of the program already exists
         /// </summary>
         /// <param name="programName"></param>
         /// <returns></returns>
-        Task<bool> GetTemplateProgramByName(string programName);
+        Task<bool> DoesNameExist(string programName);
 
         /// <summary>
         /// Creates a new template program

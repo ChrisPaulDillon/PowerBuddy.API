@@ -1,7 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Powerlifting.Common;
+using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Contracts;
@@ -11,15 +14,20 @@ namespace PowerLifting.ProgramLogs.Repository
 {
     public class ProgramLogRepSchemeRepository : RepositoryBase<ProgramLogRepScheme>, IProgramLogRepSchemeRepository
     {
-        public ProgramLogRepSchemeRepository(PowerliftingContext context) : base(context)
+        private readonly IMapper _mapper;
+
+        public ProgramLogRepSchemeRepository(PowerliftingContext context, IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
-        public async Task<ProgramLogRepScheme> GetProgramLogRepScheme(int programLogRepSchemeId)
+        public async Task<ProgramLogRepSchemeDTO> GetProgramLogRepScheme(int programLogRepSchemeId)
         {
-            return await PowerliftingContext.Set<ProgramLogRepScheme>().Where(x => x.ProgramLogRepSchemeId
-                                                                                == programLogRepSchemeId)
-                                                                                .FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<ProgramLogRepScheme>()
+                .AsNoTracking()
+                .Where(x => x.ProgramLogRepSchemeId == programLogRepSchemeId)
+                .ProjectTo<ProgramLogRepSchemeDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
         }
 
         public void CreateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
@@ -35,6 +43,14 @@ namespace PowerLifting.ProgramLogs.Repository
         public void DeleteProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
         {
             Delete(programLogRepScheme);
+        }
+
+        public async Task<bool> DoesRepSchemeExist(int programLogRepSchemeId)
+        {
+            return await PowerliftingContext.Set<ProgramLogRepScheme>()
+                .AsNoTracking()
+                .Where(x => x.ProgramLogRepSchemeId == programLogRepSchemeId)
+                .AnyAsync();
         }
     }
 }
