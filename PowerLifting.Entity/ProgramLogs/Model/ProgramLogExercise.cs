@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using PowerLifting.Entity.System.Exercises.Models;
 
 namespace PowerLifting.Entity.ProgramLogs.Model
-{ 
+{
     /// <summary>
     /// Represents a given lift, its sets, weight and reps lifted on a given day for that particular exercise.
     /// Always unique to the user as this will allow customisation

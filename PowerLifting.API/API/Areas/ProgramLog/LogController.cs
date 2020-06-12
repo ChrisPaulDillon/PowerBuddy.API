@@ -150,12 +150,28 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         [HttpGet("Week/Current/{userId}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProgramLogWeekByUserId(string userId)
+        public async Task<IActionResult> GetCurrentProgramLogWeekByUserId(string userId)
         {
             try
             {
                 var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByUserIdAndDate(userId, DateTime.UtcNow);
-                return Ok(programLogWeek);
+                return Ok(Responses.Success(programLogWeek));
+            }
+            catch (ProgramLogWeekNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+        }
+
+        [HttpGet("Week/{userId}")]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetProgramLogWeekByUserId(string userId, DateTime date)
+        {
+            try
+            {
+                var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByUserIdAndDate(userId, date);
+                return Ok(Responses.Success(programLogWeek));
             }
             catch (ProgramLogWeekNotFoundException ex)
             {

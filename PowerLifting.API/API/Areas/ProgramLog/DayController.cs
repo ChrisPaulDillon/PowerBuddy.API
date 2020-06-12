@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             try
             {
                 //TODO Comeback to
-                var programLogs = await _service.ProgramLog.GetProgramLogDayByUserId(userId, programLogId, dateSelected);
+                var programLogs = await _service.ProgramLogDay.GetProgramLogDayByUserId(userId, programLogId, dateSelected);
                 return Ok(Responses.Success(programLogs));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -53,7 +54,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         {
             try
             {
-                var programLogDay = await _service.ProgramLog.GetTodaysProgramLogDayByUserId(userId);
+                var programLogDay = await _service.ProgramLogDay.GetTodaysProgramLogDayByUserId(userId);
                 return Ok(Responses.Success(programLogDay));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -70,8 +71,28 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateProgramLogDay([FromBody] ProgramLogDayDTO programLogDayDTO)
         {
-            await _service.ProgramLog.CreateProgramLogDay(programLogDayDTO);
+            await _service.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
             return Ok(Responses.Success());
+        }
+
+
+        [HttpGet("All/Date/{userId}")]
+        [ProducesResponseType(typeof(IEnumerable<DateTime>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetProgramLogDates(string userId)
+        {
+            try
+            {
+                var programLogDates = await _service.ProgramLogDay.GetAllUserProgramLogDates(userId);
+                return Ok(Responses.Success(programLogDates));
+            }
+            catch (ProgramLogDayNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
+            }
         }
     }
 }

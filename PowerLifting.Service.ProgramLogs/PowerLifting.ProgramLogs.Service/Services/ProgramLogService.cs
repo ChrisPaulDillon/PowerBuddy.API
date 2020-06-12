@@ -38,8 +38,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
             if (userProgramLogs == null) throw new ProgramLogNotFoundException();
 
-            var userProgramLogsDTO = _mapper.Map<IEnumerable<ProgramLogDTO>>(userProgramLogs);
-            return userProgramLogsDTO;
+            return userProgramLogs;
         }
 
         public async Task<ProgramLogDTO> GetProgramLogByUserId(string userId)
@@ -378,42 +377,6 @@ namespace PowerLifting.ProgramLogs.Service.Services
             var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekByUserIdAndDate(userId, date);
             if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
             return programLogWeek;
-        }
-
-        #endregion
-
-        #region ProgramLogDayServices
-
-        public async Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date)
-        {
-            var validator = new ProgramLogValidator();
-            validator.ValidateProgramLogDayId(programLogId);
-
-            var programLogDay = await _repo.ProgramLogDay.GetProgramLogDay(userId, programLogId, date);
-
-            if (programLogDay == null) throw new ProgramLogDayNotFoundException();
-
-            var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
-            return programLogDayDTO;
-        }
-
-        public async Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId)
-        {
-            var programLogDay = await _repo.ProgramLogDay.GetProgramLogTodayDay(userId);
-            if (programLogDay == null) throw new ProgramLogDayNotFoundException();
-
-            var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
-            return programLogDayDTO;
-        }
-
-        public async Task CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
-        {
-            var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekById(programLogDayDTO.ProgramLogWeekId);
-            var validator = new ProgramLogValidator();
-            validator.ValidateProgramLogDayWithinProgramLogWeek(programLogWeek.StartDate, programLogWeek.EndDate, programLogDayDTO.Date);
-
-            var newProgramLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
-            _repo.ProgramLogDay.CreateProgramLogDay(newProgramLogDay);
         }
 
         #endregion

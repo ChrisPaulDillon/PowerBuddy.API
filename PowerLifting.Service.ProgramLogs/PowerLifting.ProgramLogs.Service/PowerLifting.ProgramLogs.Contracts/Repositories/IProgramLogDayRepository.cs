@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.Model;
@@ -33,5 +34,13 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// </summary>
         /// <param name="programLogDay"></param>
         void DeleteProgramLogDay(ProgramLogDay programLogDay);
+
+        /// <summary>
+        /// Gets all the users program log dates
+        /// for calendar population
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId);
     }
 }

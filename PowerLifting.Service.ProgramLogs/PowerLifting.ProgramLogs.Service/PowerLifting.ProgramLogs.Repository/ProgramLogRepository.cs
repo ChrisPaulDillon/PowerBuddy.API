@@ -8,23 +8,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PowerLifting.ProgramLogs.Contracts.Repositories;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using PowerLifting.Entity.ProgramLogs.DTO;
 
 namespace PowerLifting.ProgramLogs.Repository
 {
     public class ProgramLogRepository : RepositoryBase<ProgramLog>, IProgramLogRepository
     {
-        public ProgramLogRepository(PowerliftingContext context) : base(context)
-        {
+        private readonly IMapper _mapper;
 
+        public ProgramLogRepository(PowerliftingContext context, IMapper mapper) : base(context)
+        {
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProgramLog>> GetAllProgramLogsByUserId(string userId)
+        public async Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId)
         {
             return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId)
                                                                         .Include(x => x.ProgramLogWeeks)
                                                                         .ThenInclude(x => x.ProgramLogDays)
-                                                                        .ThenInclude(x => x.ProgramLogExercises)
-                                                                        .ThenInclude(x => x.ProgramLogRepSchemes)
+                                                                        .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider)
                                                                         .ToListAsync();
         }
 

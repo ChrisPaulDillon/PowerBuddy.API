@@ -23,6 +23,7 @@ namespace PowerLifting.API.Wrappers
         private IRepSchemeTypeService _repSchemeTypeService;
         private ILiftingStatService _liftingStats;
         private IProgramLogService _programLog;
+        private IProgramLogDayService _programLogDay;
         private IProgramLogRepSchemeService _programLogRepScheme;
         private IProgramLogExerciseService _programLogExercise;
         private ITemplateProgramService _templateProgram;
@@ -121,6 +122,16 @@ namespace PowerLifting.API.Wrappers
                 if (_programLog == null) _programLog = new ProgramLogService(_programLogWrapper, _mapper, _userManager);
 
                 return _programLog;
+            }
+        }
+
+        public IProgramLogDayService ProgramLogDay
+        {
+            get
+            {
+                if (_programLogDay == null) _programLogDay = new ProgramLogDayService(_programLogWrapper, _mapper, _userManager);
+
+                return _programLogDay;
             }
         }
 

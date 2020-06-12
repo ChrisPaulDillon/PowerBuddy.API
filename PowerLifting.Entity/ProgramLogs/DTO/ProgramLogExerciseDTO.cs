@@ -21,6 +21,9 @@ namespace PowerLifting.Entity.ProgramLogs.DTO
         public string BackOffSetFormat { get; set; }
         public bool Completed { get; set; }
 
+        public decimal? Weight { get; set; } //only used when repSchemeType is set to 'fixed'
+        public int? Reps { get; set; } //only used when repSchemeType is set to 'fixed'
+
         public virtual ExerciseDTO Exercise { get; set; }
         public virtual ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
     }

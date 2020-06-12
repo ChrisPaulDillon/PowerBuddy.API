@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using PowerLifting.ProgramLogs.Contracts.Repositories;
+using System.Collections.Generic;
 
 namespace PowerLifting.ProgramLogs.Repository
 {
@@ -30,7 +31,7 @@ namespace PowerLifting.ProgramLogs.Repository
         }
 
         public async Task<ProgramLogDay> GetProgramLogTodayDay(string userId)
-        { 
+        {
             return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
                                                                         && DateTime.Compare(DateTime.Now.Date, x.Date.Date) == 0)
                                                                         .Include(x => x.ProgramLogExercises)
@@ -53,6 +54,14 @@ namespace PowerLifting.ProgramLogs.Repository
         public void DeleteProgramLogDay(ProgramLogDay programLogDay)
         {
             Delete(programLogDay);
+        }
+
+        public async Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId)
+        {
+            return await PowerliftingContext.Set<ProgramLogDay>()
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Date.Date)
+                .ToListAsync();
         }
     }
 }

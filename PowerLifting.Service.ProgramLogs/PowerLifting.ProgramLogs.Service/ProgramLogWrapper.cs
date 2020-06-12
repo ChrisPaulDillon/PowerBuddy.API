@@ -29,7 +29,7 @@ namespace PowerLifting.ProgramLogs.Service
             {
                 if (_programLogRepo == null)
                 {
-                    _programLogRepo = new ProgramLogRepository(_context);
+                    _programLogRepo = new ProgramLogRepository(_context, _mapper);
                 }
 
                 return _programLogRepo;

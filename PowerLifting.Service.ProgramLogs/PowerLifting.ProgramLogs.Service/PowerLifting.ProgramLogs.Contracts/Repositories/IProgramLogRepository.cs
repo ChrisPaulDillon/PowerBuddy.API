@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Powerlifting.Common;
+using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Repositories
@@ -12,7 +13,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<IEnumerable<ProgramLog>> GetAllProgramLogsByUserId(string userId);
+        Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId);
 
         /// <summary>
         /// Gets the users current program log
