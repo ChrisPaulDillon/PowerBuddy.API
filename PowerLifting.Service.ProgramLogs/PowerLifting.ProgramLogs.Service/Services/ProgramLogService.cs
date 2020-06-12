@@ -61,9 +61,8 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return _repo.ProgramLog.DoesProgramLogAfterTodayExist(userId);
         }
 
-        public ProgramLogDTO CreateProgramLogFromTemplate(TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)
+        public ProgramLogDTO CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)
         {
-            const string userId = "370676cf-ed1b-420a-a1e7-cfbf43b9605d";
             var validator = new ProgramLogValidator();
 
             if (DoesProgramLogAlreadyExist(userId)) throw new ProgramLogAlreadyActiveException(); //doesnt work lul
