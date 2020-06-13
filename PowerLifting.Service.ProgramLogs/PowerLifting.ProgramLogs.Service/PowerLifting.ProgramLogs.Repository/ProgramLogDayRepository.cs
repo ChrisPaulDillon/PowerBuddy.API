@@ -9,36 +9,36 @@ using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using PowerLifting.ProgramLogs.Contracts.Repositories;
 using System.Collections.Generic;
+using PowerLifting.Entity.ProgramLogs.DTO;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace PowerLifting.ProgramLogs.Repository
 {
     public class ProgramLogDayRepository : RepositoryBase<ProgramLogDay>, IProgramLogDayRepository
     {
-        public ProgramLogDayRepository(PowerliftingContext context) : base(context)
+        private readonly IMapper _mapper;
+
+        public ProgramLogDayRepository(PowerliftingContext context, IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
-        public async Task<ProgramLogDay> GetProgramLogDay(string userId, int programLogId, DateTime dateSelected)
+        public async Task<ProgramLogDayDTO> GetProgramLogDay(string userId, int programLogId, DateTime dateSelected)
         {
             return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
                                                                         && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0
                                                                         && x.ProgramLogDayId == programLogId)
-                                                                        .Include(x => x.ProgramLogExercises)
-                                                                        .ThenInclude(x => x.ProgramLogRepSchemes)
-                                                                        .Include(x => x.ProgramLogExercises)
-                                                                        .ThenInclude(x => x.Exercise)
+                                                                        .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
                                                                         .FirstOrDefaultAsync();
         }
 
-        public async Task<ProgramLogDay> GetProgramLogTodayDay(string userId)
+        public async Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId)
         {
-            return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
-                                                                        && DateTime.Compare(DateTime.Now.Date, x.Date.Date) == 0)
-                                                                        .Include(x => x.ProgramLogExercises)
-                                                                        .ThenInclude(x => x.ProgramLogRepSchemes)
-                                                                        .Include(x => x.ProgramLogExercises)
-                                                                        .ThenInclude(x => x.Exercise)
-                                                                        .FirstOrDefaultAsync();
+            return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.ProgramLogDayId == programLogDayId)
+                                                                 .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
+                                                                 .AsNoTracking()
+                                                                 .FirstOrDefaultAsync();
         }
 
         public void CreateProgramLogDay(ProgramLogDay programLogDay)

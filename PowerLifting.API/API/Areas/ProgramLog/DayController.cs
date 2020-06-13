@@ -31,7 +31,6 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         {
             try
             {
-                //TODO Comeback to
                 var programLogs = await _service.ProgramLogDay.GetProgramLogDayByUserId(userId, programLogId, dateSelected);
                 return Ok(Responses.Success(programLogs));
             }
@@ -45,17 +44,16 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-
-        [HttpGet("Today/{userId}")]
+        [HttpGet("{programLogDayId:int}", Name = nameof(GetProgramLogDayById))]
         [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetProgramLogDayToday(string userId)
+        public async Task<IActionResult> GetProgramLogDayById(int programLogDayId)
         {
             try
             {
-                var programLogDay = await _service.ProgramLogDay.GetTodaysProgramLogDayByUserId(userId);
-                return Ok(Responses.Success(programLogDay));
+                var programLogs = await _service.ProgramLogDay.GetProgramLogDayById(programLogDayId);
+                return Ok(Responses.Success(programLogs));
             }
             catch (ProgramLogDayNotFoundException ex)
             {
@@ -68,11 +66,11 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateProgramLogDay([FromBody] ProgramLogDayDTO programLogDayDTO)
         {
-            await _service.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
-            return Ok(Responses.Success());
+            var createdProgramLogDayDTO = await _service.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
+            return CreatedAtRoute(nameof(GetProgramLogDayById), new { programLogDayId = createdProgramLogDayDTO.ProgramLogDayId }, createdProgramLogDayDTO);
         }
 
 

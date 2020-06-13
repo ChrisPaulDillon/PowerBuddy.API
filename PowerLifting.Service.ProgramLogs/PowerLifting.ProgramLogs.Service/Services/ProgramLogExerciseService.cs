@@ -27,22 +27,26 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
         public async Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId)
         {
-            var programLogExercises = await _repo.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId);
-            var programLogExercisesDTO = _mapper.Map<IEnumerable<ProgramLogExerciseDTO>>(programLogExercises);
+            var programLogExercisesDTO = await _repo.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId);
             return programLogExercisesDTO;
         }
 
-        public async Task CreateProgramLogExercise(string userId, ProgramLogExerciseDTO programLogExercise)
+        public async Task<ProgramLogExerciseDTO> GetProgramLogExerciseById(int programLogExerciseId)
+        {
+            return await _repo.ProgramLogExercise.GetProgramLogExerciseById(programLogExerciseId);
+        }
+
+        public async Task<ProgramLogExerciseDTO> CreateProgramLogExercise(string userId, CProgramLogExerciseDTO programLogExercise)
         {
 
             if (programLogExercise.RepSchemeType.Contains("Fixed"))
             {
                 var noOfSets = programLogExercise.NoOfSets;
-                var repSchemeCollection = new List<ProgramLogRepSchemeDTO>();
+                var repSchemeCollection = new List<CProgramLogRepSchemeDTO>();
 
                 for (var i = 1; i < noOfSets; i++)
                 {
-                    var repScheme = new ProgramLogRepSchemeDTO()
+                    var repScheme = new CProgramLogRepSchemeDTO()
                     {
                         SetNo = i,
                         NoOfReps = (int)programLogExercise.Reps,
@@ -53,10 +57,12 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 programLogExercise.ProgramLogRepSchemes = repSchemeCollection;
             }
 
-            var newProgramLogExercise = _mapper.Map<ProgramLogExercise>(programLogExercise);
-
-            _repo.ProgramLogExercise.CreateProgramLogExercise(newProgramLogExercise);
+            var programLogExerciseEntity = _mapper.Map<ProgramLogExercise>(programLogExercise);
+            _repo.ProgramLogExercise.CreateProgramLogExercise(programLogExerciseEntity);
+            var createdExerciseEntity = _mapper.Map<ProgramLogExerciseDTO>(programLogExerciseEntity);
             //await CreateProgramLogExerciseAudit(userId, programLogExercise.ExerciseId);
+
+            return createdExerciseEntity;
         }
 
         public async Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)

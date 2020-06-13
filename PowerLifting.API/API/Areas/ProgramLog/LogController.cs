@@ -91,7 +91,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
         {
             await _service.ProgramLog.CreateProgramLog(programLog);
@@ -99,7 +99,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         }
 
         [HttpPost("FromTemplate/{templateProgramId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] DaySelected daySelected)
@@ -142,22 +142,6 @@ namespace PowerLifting.API.API.Areas.ProgramLog
                 return Ok(Responses.Success());
             }
             catch (ProgramLogNotFoundException ex)
-            {
-                return NotFound(Responses.Error(ex));
-            }
-        }
-
-        [HttpGet("Week/Current/{userId}")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetCurrentProgramLogWeekByUserId(string userId)
-        {
-            try
-            {
-                var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByUserIdAndDate(userId, DateTime.UtcNow);
-                return Ok(Responses.Success(programLogWeek));
-            }
-            catch (ProgramLogWeekNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
             }

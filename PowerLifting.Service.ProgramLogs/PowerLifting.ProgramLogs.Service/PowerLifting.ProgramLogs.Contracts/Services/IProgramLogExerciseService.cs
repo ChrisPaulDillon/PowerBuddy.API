@@ -16,11 +16,14 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId);
 
         /// <summary>
+        /// Gets a specific ProgramLogExercise By Ids
+        /// </summary>
+        Task<ProgramLogExerciseDTO> GetProgramLogExerciseById(int programLogExerciseId);
+
+        /// <summary>
         /// Creates a new program exercise for a specific log
         /// </summary>
-        /// <param name="programLogExercise"></param>
-        /// <returns></returns>
-        Task CreateProgramLogExercise(string userId, ProgramLogExerciseDTO programLogExercise);
+        Task<ProgramLogExerciseDTO> CreateProgramLogExercise(string userId, CProgramLogExerciseDTO programLogExercise);
 
         /// <summary>
         /// Updates a given program log exercise, this could be the number of sets,

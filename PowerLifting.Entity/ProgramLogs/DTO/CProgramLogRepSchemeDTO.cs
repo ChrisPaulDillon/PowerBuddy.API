@@ -1,6 +1,6 @@
 ﻿namespace PowerLifting.Entity.ProgramLogs.DTO
 {
-    public class MarkupProgramLogRepSchemeDTO
+    public class CProgramLogRepSchemeDTO
     {
         public int SetNo { get; set; }
         public int NoOfReps { get; set; }

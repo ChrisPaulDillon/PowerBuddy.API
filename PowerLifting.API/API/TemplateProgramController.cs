@@ -24,8 +24,8 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<TemplateProgramDTO>>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<TemplateProgramDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllTemplatePrograms()
         {
             var templatePrograms = await _service.TemplateProgram.GetAllTemplatePrograms();
@@ -36,8 +36,8 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public IActionResult GetTemplateProgramById(int templateId)
         {
             try
@@ -52,8 +52,8 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("Calculate/{id}")]
-        [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GenerateProgramTemplateForIndividualAsync(string userId, int programTemplateId)
         {
             try
@@ -62,15 +62,15 @@ namespace PowerLifting.API.API
                 var templateProgramDTO = _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId, liftingStats);
                 return Ok(templateProgramDTO);
             }
-            catch(UserDoesNotHaveLiftingStatSetForExerciseException ex)
+            catch (UserDoesNotHaveLiftingStatSetForExerciseException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO templateProgramDTO)
         {
             try

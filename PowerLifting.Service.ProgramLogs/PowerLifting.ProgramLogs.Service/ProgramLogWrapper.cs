@@ -55,7 +55,7 @@ namespace PowerLifting.ProgramLogs.Service
             {
                 if (_programLogDayRepo == null)
                 {
-                    _programLogDayRepo = new ProgramLogDayRepository(_context);
+                    _programLogDayRepo = new ProgramLogDayRepository(_context, _mapper);
                 }
 
                 return _programLogDayRepo;

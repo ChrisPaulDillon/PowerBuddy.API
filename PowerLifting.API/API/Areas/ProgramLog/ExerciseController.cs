@@ -26,21 +26,30 @@ namespace PowerLifting.API.API.Areas.ProgramLog
 
         [HttpGet("{programLogDayId}")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogExerciseDTO>>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProgramLogDayExercises(int programLogDayId)
+        public async Task<IActionResult> GetProgramLogDayExercisesByDay(int programLogDayId)
         {
             var programLogExercises = await _service.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId);
             return Ok(Responses.Success(programLogExercises));
         }
 
+        [HttpGet("{programLogExerciseId:int}", Name = "ProgramLogExerciseById")]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogExerciseDTO>>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetProgramLogDayExerciseById(int programLogExerciseId)
+        {
+            var programLogExercise = await _service.ProgramLogExercise.GetProgramLogExerciseById(programLogExerciseId);
+            return Ok(Responses.Success(programLogExercise));
+        }
+
+
         [HttpPost("{userId}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public IActionResult CreateProgramLogExercise(string userId, [FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
+        public async Task<IActionResult> CreateProgramLogExercise(string userId, [FromBody] CProgramLogExerciseDTO programLogExerciseDTO)
         {
             try
             {
-                _service.ProgramLogExercise.CreateProgramLogExercise(userId, programLogExerciseDTO);
-                return Ok(Responses.Success());
+                var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(userId, programLogExerciseDTO);
+                return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
             }
             catch (ProgramLogDayNotWithWeekRangeException ex)
             {
@@ -70,7 +79,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         }
 
         [HttpDelete]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public IActionResult DeleteProgramLogExercise(int programLogExerciseId)
         {

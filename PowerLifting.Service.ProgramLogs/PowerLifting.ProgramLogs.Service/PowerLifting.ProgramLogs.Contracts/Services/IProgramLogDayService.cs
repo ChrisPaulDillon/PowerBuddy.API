@@ -16,17 +16,14 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date);
 
         /// <summary>
-        /// Gets the present day program log for a given user
+        /// Gets the program Log Day by Id
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId);
+        Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId);
 
         /// <summary>
         /// Creates a new program log day, used for customising program logs
         /// </summary>
-        /// <param name="programLogDay"></param>
-        Task CreateProgramLogDay(ProgramLogDayDTO programLogDay);
+        Task<ProgramLogDayDTO> CreateProgramLogDay(ProgramLogDayDTO programLogDay);
 
         /// <summary>
         /// Gets all the users program log dates

@@ -23,8 +23,8 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("{userId}")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<LiftingStatDTO>>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<LiftingStatDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats(string userId)
         {
             try
@@ -39,8 +39,8 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateLiftingStat([FromBody] LiftingStatDTO liftingStatDTO)
         {
             try
@@ -55,20 +55,20 @@ namespace PowerLifting.API.API
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
-        public IActionResult UpdateLiftingStat([FromBody]LiftingStatDTO liftingStats)
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        public IActionResult UpdateLiftingStat([FromBody] LiftingStatDTO liftingStats)
         {
             try
             {
                 _service.LiftingStat.UpdateLiftingStat(liftingStats);
             }
-            catch(LiftingStatNotFoundException ex)
+            catch (LiftingStatNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
             }
-            catch(UnauthorisedUserException ex)
+            catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
@@ -76,9 +76,9 @@ namespace PowerLifting.API.API
         }
 
         [HttpDelete("{liftingStatId}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public IActionResult DeleteLiftingStat(int liftingStatId)
         {
             try

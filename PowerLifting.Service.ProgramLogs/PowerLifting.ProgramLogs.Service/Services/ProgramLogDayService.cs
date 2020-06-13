@@ -25,29 +25,24 @@ namespace PowerLifting.ProgramLogs.Service.Services
             _userManager = userManager;
         }
 
+        public async Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId)
+        {
+
+            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDayById(programLogDayId);
+
+            if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
+
+            return programLogDayDTO;
+        }
+
         public async Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date)
         {
-            var validator = new ProgramLogValidator();
-            validator.ValidateProgramLogDayId(programLogId);
-
-            var programLogDay = await _repo.ProgramLogDay.GetProgramLogDay(userId, programLogId, date);
-
-            if (programLogDay == null) throw new ProgramLogDayNotFoundException();
-
-            var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
+            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDay(userId, programLogId, date);
+            if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
             return programLogDayDTO;
         }
 
-        public async Task<ProgramLogDayDTO> GetTodaysProgramLogDayByUserId(string userId)
-        {
-            var programLogDay = await _repo.ProgramLogDay.GetProgramLogTodayDay(userId);
-            if (programLogDay == null) throw new ProgramLogDayNotFoundException();
-
-            var programLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
-            return programLogDayDTO;
-        }
-
-        public async Task CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
+        public async Task<ProgramLogDayDTO> CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
         {
             var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekById(programLogDayDTO.ProgramLogWeekId);
             var validator = new ProgramLogValidator();
@@ -55,6 +50,8 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
             var newProgramLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
             _repo.ProgramLogDay.CreateProgramLogDay(newProgramLogDay);
+            var createdEntity = _mapper.Map<ProgramLogDayDTO>(newProgramLogDay);
+            return createdEntity;
         }
 
         public async Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId)
