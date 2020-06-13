@@ -39,7 +39,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="templateId"></param>
         /// <returns></returns>
-        ProgramLogDTO CreateProgramLogFromTemplate(TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected);
+        ProgramLogDTO CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected);
 
         /// <summary>
         /// Updates the program log accordingly

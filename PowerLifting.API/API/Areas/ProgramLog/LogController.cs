@@ -101,12 +101,13 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         [HttpPost("FromTemplate/{templateProgramId:int}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] DaySelected daySelected)
         {
             try
             {
-                var userId = "370676cf-ed1b-420a-a1e7-cfbf43b9605d";
+                var userId = "9a590491-8ee8-4d20-b284-ae1e0b3f2124";
 
                 var template = _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
                 if (template == null) throw new TemplateProgramNotFoundException();
@@ -118,12 +119,16 @@ namespace PowerLifting.API.API.Areas.ProgramLog
 
                 if (tec.Count() != checkLiftingStats.Count()) throw new TemplateExercise1RMNotSetForUserException();
 
-                var programLogDTO = _service.ProgramLog.CreateProgramLogFromTemplate(template, liftingStats, daySelected);
+                var programLogDTO = _service.ProgramLog.CreateProgramLogFromTemplate(userId, template, liftingStats, daySelected);
                 return Ok(Responses.Success(programLogDTO));
             }
             catch (TemplateProgramNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
+            }
+            catch (TemplateExercise1RMNotSetForUserException ex)
+            {
+                return Conflict(Responses.Error(ex));
             }
             catch (ProgramDaysDoesNotMatchTemplateDaysException ex)
             {
