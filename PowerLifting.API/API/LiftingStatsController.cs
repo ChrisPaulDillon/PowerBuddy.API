@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
@@ -22,7 +23,9 @@ namespace PowerLifting.API.API
             _service = service;
         }
 
+
         [HttpGet("{userId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<LiftingStatDTO>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats(string userId)

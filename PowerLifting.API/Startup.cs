@@ -25,13 +25,17 @@ using PowerLifting.Service.Exercises.AutoMapper;
 using PowerLifting.Systems.Service;
 using PowerLifting.Accounts.Service;
 using PowerLifting.TemplatePrograms.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using PowerLifting.API.Models;
 
 namespace PowerLifting.API
 {
     public class Startup
     {
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-      
+
 
         public Startup(IConfiguration configuration)
         {
@@ -44,6 +48,10 @@ namespace PowerLifting.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //Inject app settings
+            services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
+
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -54,11 +62,31 @@ namespace PowerLifting.API
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddDbContext<PowerliftingContext>(options =>
-             //  options.UseSqlite("DataSource = app.db"));
+            //  options.UseSqlite("DataSource = app.db"));
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PowerliftingContext>();
 
+            var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JWT_Secret"].ToString());
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = false;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
             //services.AddIdentity<User, IdentityRole>()
             //   .AddRoles<IdentityRole>()
@@ -66,7 +94,7 @@ namespace PowerLifting.API
             //  .AddDefaultUI()
             //  .AddDefaultTokenProviders();
 
-    
+
             services.AddControllers();
 
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
@@ -110,7 +138,9 @@ namespace PowerLifting.API
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigin",
-                    builder => builder.AllowAnyOrigin());
+                    builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
             });
 
         }
@@ -138,11 +168,11 @@ namespace PowerLifting.API
 
             app.UseRouting();
 
-            app.UseCors(builder => builder
-                 .AllowAnyOrigin()
-                 .AllowAnyMethod()
-                 .AllowAnyHeader());
+            app.UseCors(builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
+                 .AllowAnyHeader()
+                 .AllowAnyMethod());
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

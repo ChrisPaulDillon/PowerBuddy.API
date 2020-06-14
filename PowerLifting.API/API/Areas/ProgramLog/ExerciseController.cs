@@ -78,7 +78,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("programLogExerciseId:int")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public IActionResult DeleteProgramLogExercise(int programLogExerciseId)

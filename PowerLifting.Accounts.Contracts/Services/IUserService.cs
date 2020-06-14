@@ -11,13 +11,12 @@ namespace PowerLifting.Accounts.Contracts.Services
         Task<UserDTO> GetUserById(string id);
         Task<UserDTO> GetUserByEmail(string programType);
 
+        Task<UserDTO> GetUserProfile(string userId);
         /// <summary>
         /// Attempts to login a user using their given email and password
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
         /// <returns></returns>
-        Task<UserDTO> LoginUser(LoginModel user);
+        Task<string> LoginUser(LoginModel user);
 
         Task RegisterUser(RegisterUserDTO userDTO);
         Task UpdateUser(UserDTO userDTO);

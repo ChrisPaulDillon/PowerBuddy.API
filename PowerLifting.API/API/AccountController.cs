@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,13 +27,30 @@ namespace PowerLifting.API.API
         }
 
         [HttpPost("Login")]
-        [ProducesResponseType(typeof(ApiResponse<UserDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> LoginUser(LoginModel loginModel)
         {
             try
             {
-                var user = await _service.User.LoginUser(loginModel);
+                var token = await _service.User.LoginUser(loginModel);
+                return Ok(Responses.Success(token));
+            }
+            catch (InvalidCredentialsException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
+            }
+        }
+
+        [HttpGet("Profile")]
+        [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetLoggedInUsersProfile()
+        {
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var user = await _service.User.GetUserProfile(userId);
                 return Ok(Responses.Success(user));
             }
             catch (InvalidCredentialsException ex)
@@ -41,14 +59,13 @@ namespace PowerLifting.API.API
             }
         }
 
-        [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<UserDTO>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status409Conflict)]
+        [HttpPost("Register")]
+        [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO userDTO)
         {
             try
             {
-                userDTO.UserName = userDTO.Email;
                 await _service.User.RegisterUser(userDTO);
                 return Ok(Responses.Success(userDTO));
             }
@@ -61,7 +78,7 @@ namespace PowerLifting.API.API
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult UpdateUser(int id, [FromBody]UserDTO user)
+        public ActionResult UpdateUser(int id, [FromBody] UserDTO user)
         {
             try
             {

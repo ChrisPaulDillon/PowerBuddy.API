@@ -11,6 +11,11 @@ using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
 using PowerLifting.Service.Users.Validators;
 using PowerLifting.Service.UserSettings.Model;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Options;
 
 namespace PowerLifting.Accounts.Service
 {
@@ -19,14 +24,14 @@ namespace PowerLifting.Accounts.Service
         private readonly IMapper _mapper;
         private readonly IAccountWrapper _repo;
         private UserManager<User> _userManager;
-        private readonly UserValidation _validator;
+        private readonly ApplicationSettings _appSettings;
 
-        public UserService(IAccountWrapper repo, IMapper mapper, UserManager<User> userManager)
+        public UserService(IAccountWrapper repo, IMapper mapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
         {
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
-            _validator = new UserValidation();
+            _appSettings = appSettings.Value;
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsers()
@@ -36,16 +41,41 @@ namespace PowerLifting.Accounts.Service
             return usersDTO;
         }
 
-        public async Task<UserDTO> LoginUser(LoginModel loginModel)
+        public async Task<UserDTO> GetUserProfile(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            var userDTO = new UserDTO()
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+            };
+            return userDTO;
+        }
+
+        public async Task<string> LoginUser(LoginModel loginModel)
         {
             var user = await _userManager.FindByNameAsync(loginModel.Email);
-            if(user != null && await _userManager.CheckPasswordAsync(user, loginModel.Password))
+            if (user != null && await _userManager.CheckPasswordAsync(user, loginModel.Password))
             {
-                var userDTO = _mapper.Map<UserDTO>(user);
-                return userDTO;
+                var key = Encoding.UTF8.GetBytes(_appSettings.JWT_Secret);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim("UserID", user.Id.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(5),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                var token = tokenHandler.WriteToken(securityToken);
+                return token;
             }
             throw new InvalidCredentialsException();
         }
+
 
         public async Task<UserDTO> GetUserById(string id)
         {
@@ -64,9 +94,10 @@ namespace PowerLifting.Accounts.Service
 
         public async Task RegisterUser(RegisterUserDTO userDTO)
         {
-            var user = await _repo.User.GetUserById(userDTO.Id);
+            var user = await _repo.User.GetUserByEmail(userDTO.UserName);
             if (user != null) throw new EmailInUseException();
             var userEntity = _mapper.Map<User>(userDTO);
+            userEntity.Email = userDTO.UserName;
             userEntity.UserSetting = new UserSetting()
             {
                 UserId = userEntity.Id
@@ -77,7 +108,7 @@ namespace PowerLifting.Accounts.Service
 
         public async Task UpdateUser(UserDTO userDTO)
         {
-            var user = await _repo.User.GetUserById(userDTO.Id);
+            var user = await _repo.User.GetUserById(userDTO.UserId);
             if (user == null) throw new UserNotFoundException();
             _mapper.Map(userDTO, user);
             _repo.User.UpdateUser(user);

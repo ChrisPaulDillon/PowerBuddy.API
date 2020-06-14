@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using PowerLifting.Accounts.Contracts.Services;
 using PowerLifting.Accounts.Service;
 using PowerLifting.LiftingStats.Service;
@@ -40,8 +41,9 @@ namespace PowerLifting.API.Wrappers
         private readonly ILiftingStatsWrapper _liftingStatsWrapper;
 
         private readonly UserManager<User> _userManager;
+        private readonly IOptions<ApplicationSettings> _appSettings;
 
-        public ServiceWrapper(IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager)
+        public ServiceWrapper(IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
         {
             _mapper = mapper;
             _programLogWrapper = programLogWrapper;
@@ -50,6 +52,7 @@ namespace PowerLifting.API.Wrappers
             _accountWrapper = accountWrapper;
             _liftingStatsWrapper = liftingStatsWrapper;
             _userManager = userManager;
+            _appSettings = appSettings;
         }
 
         public ILiftingStatService LiftingStat
@@ -180,7 +183,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_user == null) _user = new UserService(_accountWrapper, _mapper, _userManager);
+                if (_user == null) _user = new UserService(_accountWrapper, _mapper, _userManager, _appSettings);
 
                 return _user;
             }
