@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,17 @@ namespace PowerLifting.API.API
     public class SystemController : ControllerBase
     {
         private readonly IServiceWrapper _service;
+        private readonly HttpRequest _request;
 
-        public SystemController(IServiceWrapper service)
+        public SystemController(IServiceWrapper service, IHttpContextAccessor accessor)
         {
             _service = service;
+            _request = accessor.HttpContext.Request;
+        }
+
+        private Uri GetExerciseUri()
+        {
+            return new Uri($"{_request.Scheme}://{_request.Host}/Api/System/Exercise");
         }
 
         [HttpGet("Exercise")]
@@ -32,6 +40,22 @@ namespace PowerLifting.API.API
             var exercises = await _service.Exercise.GetAllExercises();
             if (exercises == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Exercises Found"));
             return Ok(Responses.Success(exercises));
+        }
+
+        [HttpPost("Exercise")]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<TopLevelExerciseDTO>>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> CreateExercise([FromBody] ExerciseDTO exerciseDTO)
+        {
+            try
+            {
+                var exercise = await _service.Exercise.CreateExercise(exerciseDTO);
+                return Ok(Responses.Success(Created(GetExerciseUri(), new IDResponseDTO { Id = exercise.ExerciseId })));
+            }
+            catch (ExerciseAlreadyExistsException e)
+            {
+                return Conflict(e.Message);
+            }
         }
 
         [HttpGet("ExerciseMuscleGroup")]

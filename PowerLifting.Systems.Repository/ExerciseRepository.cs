@@ -40,15 +40,20 @@ namespace PowerLifting.Systems.Repository
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<ExerciseDTO> GetExerciseByName(string exerciseName)
+        public async Task<bool> DoesExerciseExist(int exerciseId)
         {
             return await PowerliftingContext.Set<Exercise>()
+                .Where(x => x.ExerciseId == exerciseId)
                 .AsNoTracking()
-                .Where(c => c.ExerciseName == exerciseName)
-                .Include(m => m.ExerciseMuscleGroups)
-                .Include(t => t.ExerciseType)
-                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync();
+                .AnyAsync();
+        }
+
+        public async Task<bool> DoesExerciseNameExist(string exerciseName)
+        {
+            return await PowerliftingContext.Set<Exercise>()
+                .Where(x => x.ExerciseName == exerciseName)
+                .AsNoTracking()
+                .AnyAsync();
         }
 
         public void UpdateExercise(Exercise exercise)
@@ -59,11 +64,6 @@ namespace PowerLifting.Systems.Repository
         public void DeleteExercise(Exercise exercise)
         {
             Delete(exercise);
-        }
-
-        public async Task<bool> DoesExerciseExist(int id)
-        {
-            return await PowerliftingContext.Set<Exercise>().AsNoTracking().Where(x => x.ExerciseId == id).AnyAsync();
         }
     }
 }

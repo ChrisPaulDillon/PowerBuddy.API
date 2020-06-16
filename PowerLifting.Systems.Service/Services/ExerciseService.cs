@@ -50,15 +50,15 @@ namespace PowerLifting.Systems.Service.Services
             return exercise;
         }
 
-        public async Task<ExerciseDTO> GetExerciseByName(string exerciseName)
+        public async Task<ExerciseDTO> CreateExercise(ExerciseDTO exerciseDTO)
         {
-            //var validator = new ExerciseValidator();
-            //validator.ValidateExerciseId(id);
-            var exercise = await _repo.Exercise.GetExerciseByName(exerciseName);
-            //validator.ValidateExerciseExists(exercise);
+            var doesExist = await _repo.Exercise.DoesExerciseNameExist(exerciseDTO.ExerciseName);
+            if (doesExist) throw new ExerciseAlreadyExistsException();
 
-            var exerciseDTO = _mapper.Map<ExerciseDTO>(exercise);
-            return exerciseDTO;
+            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            _repo.Exercise.Create(exercise);
+            var exerciseDTOCreated = _mapper.Map<ExerciseDTO>(exercise);
+            return exerciseDTOCreated;
         }
 
         public async void UpdateExercise(ExerciseDTO exerciseDTO)

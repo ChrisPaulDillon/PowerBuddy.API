@@ -24,16 +24,9 @@ namespace PowerLifting.Systems.Contracts.Repositories
         /// <summary>
         /// Gets a specific exercise by id and includes muscle groups and type
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<bool> DoesExerciseExist(int id);
 
-        /// <summary>
-        /// Gets a specific exercise by name and includes muscle groups and type
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<ExerciseDTO> GetExerciseByName(string exerciseName);
+        Task<bool> DoesExerciseNameExist(string name);
 
         void UpdateExercise(Exercise exercise);
         void DeleteExercise(Exercise exercise);

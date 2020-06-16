@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Entity.System.Exercises.DTOs;
+using PowerLifting.Entity.System.Exercises.Models;
 
 namespace PowerLifting.Systems.Contracts.Services
 {
@@ -15,11 +16,9 @@ namespace PowerLifting.Systems.Contracts.Services
         /// <summary>
         /// Gets a specific exercise by id and includes its type and muscle groups worked
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<ExerciseDTO> GetExerciseById(int id);
 
-        Task<ExerciseDTO> GetExerciseByName(string exerciseName);
+        Task<ExerciseDTO> CreateExercise(ExerciseDTO exercise);
 
         void UpdateExercise(ExerciseDTO exercise);
         void DeleteExercise(ExerciseDTO exercise);

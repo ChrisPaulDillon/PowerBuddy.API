@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.HttpSys;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Service;
@@ -43,6 +45,7 @@ namespace PowerLifting.API.API
         }
 
         [HttpGet("Profile")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetLoggedInUsersProfile()
