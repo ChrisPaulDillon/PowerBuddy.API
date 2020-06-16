@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using PowerLifting.Entity.System.Exercises.DTO;
 using PowerLifting.Entity.System.Exercises.DTOs;
 using PowerLifting.Entity.System.Exercises.Models;
 
@@ -18,7 +19,7 @@ namespace PowerLifting.Systems.Contracts.Services
         /// </summary>
         Task<ExerciseDTO> GetExerciseById(int id);
 
-        Task<ExerciseDTO> CreateExercise(ExerciseDTO exercise);
+        Task<ExerciseDTO> CreateExercise(CExerciseDTO exercise);
 
         void UpdateExercise(ExerciseDTO exercise);
         void DeleteExercise(ExerciseDTO exercise);

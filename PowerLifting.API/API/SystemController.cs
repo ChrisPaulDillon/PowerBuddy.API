@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
+using PowerLifting.Entity.System.Exercises.DTO;
 using PowerLifting.Entity.System.Exercises.DTOs;
 using PowerLifting.Entity.System.ExerciseTypes.DTOs;
 using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
@@ -42,15 +43,25 @@ namespace PowerLifting.API.API
             return Ok(Responses.Success(exercises));
         }
 
+        [HttpGet("Exercise/{exerciseId:int}", Name = nameof(GetExerciseById))]
+        [ProducesResponseType(typeof(ApiResponse<TopLevelExerciseDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetExerciseById(int exerciseId)
+        {
+            var exercises = await _service.Exercise.GetExerciseById(exerciseId);
+            if (exercises == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Exercises Found"));
+            return Ok(Responses.Success(exercises));
+        }
+
         [HttpPost("Exercise")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<TopLevelExerciseDTO>>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateExercise([FromBody] ExerciseDTO exerciseDTO)
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> CreateExercise([FromBody] CExerciseDTO exerciseDTO)
         {
             try
             {
                 var exercise = await _service.Exercise.CreateExercise(exerciseDTO);
-                return Ok(Responses.Success(Created(GetExerciseUri(), new IDResponseDTO { Id = exercise.ExerciseId })));
+                return CreatedAtRoute(nameof(GetExerciseById), new { exerciseId = exercise.ExerciseId }, exercise);
             }
             catch (ExerciseAlreadyExistsException e)
             {

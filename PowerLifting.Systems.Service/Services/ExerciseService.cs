@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using PowerLifting.Entity.System.Exercises.DTO;
 using PowerLifting.Entity.System.Exercises.DTOs;
 using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.Systems.Contracts;
@@ -50,7 +51,7 @@ namespace PowerLifting.Systems.Service.Services
             return exercise;
         }
 
-        public async Task<ExerciseDTO> CreateExercise(ExerciseDTO exerciseDTO)
+        public async Task<ExerciseDTO> CreateExercise(CExerciseDTO exerciseDTO)
         {
             var doesExist = await _repo.Exercise.DoesExerciseNameExist(exerciseDTO.ExerciseName);
             if (doesExist) throw new ExerciseAlreadyExistsException();
