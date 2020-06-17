@@ -11,15 +11,12 @@ namespace PowerLifting.TemplatePrograms.Contracts.Repositories
         /// <summary>
         /// Gets a top level view of all the template programs such as program name, difficulty etc.
         /// </summary>
-        /// <returns></returns>
         Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms();
 
         /// <summary>
         /// Gets a singular template program by id
         /// </summary>
-        /// <param name="templateProgramId"></param>
-        /// <returns></returns>
-        TemplateProgramDTO GetTemplateProgramById(int templateProgramId);
+        Task<TemplateProgramDTO> GetTemplateProgramById(int templateProgramId);
 
         /// <summary>
         /// Used to determine if the name of the program already exists

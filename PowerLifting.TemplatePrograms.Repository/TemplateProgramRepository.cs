@@ -24,32 +24,16 @@ namespace PowerLifting.TemplatePrograms.Repository
         public async Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms()
         {
             return await PowerliftingContext.Set<TemplateProgram>().AsNoTracking()
-                                                                   .Include(x => x.TemplateWeeks)
-                                                                   .ThenInclude(x => x.TemplateDays)
-                                                                   .ThenInclude(x => x.TemplateExercises)
-                                                                   .ThenInclude(x => x.Exercise)
-                                                                   .Include(x => x.TemplateWeeks)
-                                                                   .ThenInclude(x => x.TemplateDays)
-                                                                   .ThenInclude(x => x.TemplateExercises)
-                                                                   .ThenInclude(x => x.TemplateRepSchemes)
                                                                    .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
                                                                    .ToListAsync();
         }
 
-        public TemplateProgramDTO GetTemplateProgramById(int templateProgramId)
+        public async Task<TemplateProgramDTO> GetTemplateProgramById(int templateProgramId)
         {
-            return PowerliftingContext.Set<TemplateProgram>().AsNoTracking()
+            return await PowerliftingContext.Set<TemplateProgram>().AsNoTracking()
                                                              .Where(x => x.TemplateProgramId == templateProgramId)
-                                                             .Include(x => x.TemplateWeeks)
-                                                             .ThenInclude(x => x.TemplateDays)
-                                                             .ThenInclude(x => x.TemplateExercises)
-                                                             .ThenInclude(x => x.Exercise)
-                                                             .Include(x => x.TemplateWeeks)
-                                                             .ThenInclude(x => x.TemplateDays)
-                                                             .ThenInclude(x => x.TemplateExercises)
-                                                             .ThenInclude(x => x.TemplateRepSchemes)
                                                              .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
-                                                             .FirstOrDefault();
+                                                             .FirstOrDefaultAsync();
         }
 
         public async Task<bool> DoesNameExist(string programTemplate)

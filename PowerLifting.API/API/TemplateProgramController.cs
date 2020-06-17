@@ -35,14 +35,14 @@ namespace PowerLifting.API.API
             return Ok(Responses.Success(templatePrograms));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{templateProgramId:int}")]
         [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public IActionResult GetTemplateProgramById(int templateId)
+        public async Task<IActionResult> GetTemplateProgramById(int templateProgramId)
         {
             try
             {
-                var templateProgram = _service.TemplateProgram.GetTemplateProgramById(templateId);
+                var templateProgram = await _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
                 return Ok(Responses.Success(templateProgram));
             }
             catch (TemplateProgramNotFoundException ex)
@@ -59,7 +59,7 @@ namespace PowerLifting.API.API
             try
             {
                 var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
-                var templateProgramDTO = _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId, liftingStats);
+                var templateProgramDTO = await _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId, liftingStats);
                 return Ok(templateProgramDTO);
             }
             catch (UserDoesNotHaveLiftingStatSetForExerciseException ex)

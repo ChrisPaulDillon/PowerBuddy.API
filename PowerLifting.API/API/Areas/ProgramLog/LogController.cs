@@ -109,7 +109,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             {
                 var userId = "9a590491-8ee8-4d20-b284-ae1e0b3f2124";
 
-                var template = _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
+                var template = await _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
                 if (template == null) throw new TemplateProgramNotFoundException();
 
                 var tec = _service.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateProgramId(templateProgramId);

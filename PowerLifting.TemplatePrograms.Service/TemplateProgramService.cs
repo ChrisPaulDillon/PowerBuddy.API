@@ -6,7 +6,6 @@ using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 using PowerLifting.Service.TemplatePrograms.Model;
-using PowerLifting.Service.TemplatePrograms.Validators;
 using PowerLifting.TemplatePrograms.Contracts.Services;
 
 namespace PowerLifting.TemplatePrograms.Service
@@ -15,13 +14,11 @@ namespace PowerLifting.TemplatePrograms.Service
     {
         private readonly IMapper _mapper;
         private readonly ITemplateProgramWrapper _repo;
-        private TemplateProgramValidator _validator;
 
         public TemplateProgramService(ITemplateProgramWrapper repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
-            _validator = new TemplateProgramValidator();
         }
 
         public async Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms()
@@ -29,15 +26,16 @@ namespace PowerLifting.TemplatePrograms.Service
             return await _repo.TemplateProgram.GetAllTemplatePrograms();
         }
 
-        public TemplateProgramDTO GetTemplateProgramById(int templateProgramId)
+        public async Task<TemplateProgramDTO> GetTemplateProgramById(int templateProgramId)
         {
-            _validator.ValidateTemplateProgramId(templateProgramId);
-            return _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
+            var templateProgram = await _repo.TemplateProgram.GetTemplateProgramById(templateProgramId);
+            if (templateProgram == null) throw new TemplateProgramNotFoundException();
+            return templateProgram;
         }
 
-        public TemplateProgramDTO GenerateProgramTemplateForIndividual(string userId, int programTemplateId, IEnumerable<LiftingStatDTO> liftingStats)
+        public async Task<TemplateProgramDTO> GenerateProgramTemplateForIndividual(string userId, int programTemplateId, IEnumerable<LiftingStatDTO> liftingStats)
         {
-            var templateProgram = _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
+            var templateProgram = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);
             var tpExerciseCollection = _repo.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateId(programTemplateId);
 
             var lsExerciseCount = liftingStats.Count(x => tpExerciseCollection.Any(i => i == x.ExerciseId));
