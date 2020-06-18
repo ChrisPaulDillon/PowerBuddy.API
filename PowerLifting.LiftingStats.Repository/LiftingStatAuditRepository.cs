@@ -1,4 +1,5 @@
-﻿using Powerlifting.Common;
+﻿using System.Threading.Tasks;
+using Powerlifting.Common;
 using PowerLifting.LiftingStats.Contracts;
 using PowerLifting.Persistence;
 using PowerLifting.Service.LiftingStatsAudit.Model;
@@ -11,9 +12,9 @@ namespace PowerLifting.LiftingStats.Repository
         {
         }
 
-        public void CreateLiftingStatAudit(LiftingStatAudit liftingStatAudit)
+        public async Task CreateLiftingStatAudit(LiftingStatAudit liftingStatAudit)
         {
-            Create(liftingStatAudit);
+            await Create(liftingStatAudit);
         }
     }
 }

@@ -45,13 +45,11 @@ namespace PowerLifting.Accounts.Repository
         public void UpdateUser(User user)
         {
             PowerliftingContext.Set<User>().Where(u => u.Id == user.Id).Include(x => x.LiftingStats).AsNoTracking().FirstOrDefaultAsync();
-            Save();
         }
 
         public void DeleteUser(User user)
         {
             PowerliftingContext.Set<User>().Remove(user);
-            Save();
         }
     }
 }

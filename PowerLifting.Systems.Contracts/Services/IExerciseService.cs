@@ -21,7 +21,8 @@ namespace PowerLifting.Systems.Contracts.Services
 
         Task<ExerciseDTO> CreateExercise(CExerciseDTO exercise);
 
-        void UpdateExercise(ExerciseDTO exercise);
-        void DeleteExercise(ExerciseDTO exercise);
+        Task<bool> UpdateExercise(ExerciseDTO exercise);
+
+        Task<bool> DeleteExercise(ExerciseDTO exercise);
     }
 }

@@ -34,14 +34,14 @@ namespace PowerLifting.ProgramLogs.Repository
                 .FirstOrDefaultAsync();
         }
 
-        public void CreateProgramLogExerciseAudit(ProgramLogExerciseAudit audit)
+        public async Task CreateProgramLogExerciseAudit(ProgramLogExerciseAudit audit)
         {
-            Create(audit);
+            await Create(audit);
         }
 
-        public void UpdateProgramLogExerciseAudit(ProgramLogExerciseAudit audit)
+        public async Task<bool> UpdateProgramLogExerciseAudit(ProgramLogExerciseAudit audit)
         {
-            Update(audit);
+            return await Update(audit);
         }
     }
 }

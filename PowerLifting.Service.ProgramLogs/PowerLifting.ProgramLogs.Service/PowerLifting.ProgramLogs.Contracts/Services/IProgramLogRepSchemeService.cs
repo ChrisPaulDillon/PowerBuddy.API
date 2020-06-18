@@ -10,22 +10,21 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// Create a new program log rep scheme, assuming the user has done
         /// an additional set etc
         /// </summary>
-        /// <param name="programLogRepSchemeDTO"></param>
-        /// <returns></returns>
-        void CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
+        Task CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
+
+        /// <summary>
+        /// Marks a program log rep scheme as complete or non complete
+        /// </summary>
+        Task<bool> MarkProgramLogRepSchemeComplete(int programLogRepSchemeId, bool isCompleted);
 
         /// <summary>
         /// Allows a user to update weight lifted, comment etc on a given program rep
         /// </summary>
-        /// <param name="programLogRepSchemeDTO"></param>
-        /// <returns></returns>
-        Task UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
+        Task<bool> UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
 
         /// <summary>
         /// Deletes a program log rep scheme, assuming the user did not finish a prescribed set?
         /// </summary>
-        /// <param name="programLogRepSchemeId"></param>
-        /// <returns></returns>
-        Task DeleteProgramLogRepScheme(int programLogRepSchemeId);
+        Task<bool> DeleteProgramLogRepScheme(int programLogRepSchemeId);
     }
 }

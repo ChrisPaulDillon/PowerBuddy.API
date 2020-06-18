@@ -38,6 +38,27 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
+        [HttpPut("Mark/{programLogRepSchemeId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> MarkProgramLogRepSchemeComplete(int programLogRepSchemeId, [FromBody] bool isCompleted)
+        {
+            try
+            {
+                var result = await _service.ProgramLogRepScheme.MarkProgramLogRepSchemeComplete(programLogRepSchemeId, isCompleted);
+                return Ok(Responses.Success());
+            }
+            catch (ProgramLogNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            catch (UnauthorisedUserException e)
+            {
+                return Unauthorized(e);
+            }
+        }
+
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

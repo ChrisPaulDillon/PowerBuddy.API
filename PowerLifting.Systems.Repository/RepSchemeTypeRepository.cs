@@ -23,8 +23,8 @@ namespace PowerLifting.Systems.Repository
         public async Task<IEnumerable<RepSchemeTypeDTO>> GetAllRepSchemeTypes()
         {
             return await PowerliftingContext.Set<RepSchemeType>()
-                .AsNoTracking()
                 .ProjectTo<RepSchemeTypeDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
                 .ToListAsync();
         }
     }

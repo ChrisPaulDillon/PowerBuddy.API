@@ -22,24 +22,18 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Gets the most recent / active program log of a given user
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         Task<ProgramLogDTO> GetProgramLogByUserId(string userId);
 
         /// <summary>
         /// Creates a new generic program log
         /// </summary>
-        /// <param name="programLog"></param>
-        /// <returns></returns>
         Task CreateProgramLog(ProgramLogDTO programLog);
 
         /// <summary>
         /// Creates a new program log based on the selected program templates details and what days
         /// the program is to be carried out on
         /// </summary>
-        /// <param name="templateId"></param>
-        /// <returns></returns>
-        ProgramLogDTO CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected);
+        Task<ProgramLogDTO> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected);
 
         /// <summary>
         /// Updates the program log accordingly
@@ -50,8 +44,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Allows a user to delete the current log selected
         /// </summary>
-        /// <param name="programLog"></param>
-        Task DeleteProgramLog(string userId, int programLogId);
+        Task<bool> DeleteProgramLog(string userId, int programLogId);
 
         #endregion
 

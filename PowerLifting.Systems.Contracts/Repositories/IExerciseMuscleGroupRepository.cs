@@ -11,26 +11,21 @@ namespace PowerLifting.Systems.Contracts.Repositories
         /// <summary>
         /// Gets all muscle groups such as quads, shoulders, arms etc.
         /// </summary>
-        /// <returns></returns>
         Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups();
 
         /// <summary>
         /// Get a specific exercise muscle group by id
         /// </summary>
-        /// <param name="exerciseTypeId"></param>
-        /// <returns></returns>
         Task<ExerciseMuscleGroupDTO> GetExerciseMuscleGroupById(int exerciseMuscleGroupId);
 
         /// <summary>
         /// Updates a specific muscle group object
         /// </summary>
-        /// <param name="exerciseMuscleGroup"></param>
-        void UpdateExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup);
+        Task<bool> UpdateExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup);
 
         /// <summary>
         /// Deletes a specific muscle group object
         /// </summary>
-        /// <param name="exerciseMuscleGroup"></param>
-        void DeleteExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup);
+        Task<bool> DeleteExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup);
     }
 }

@@ -24,28 +24,27 @@ namespace PowerLifting.Systems.Repository
         public async Task<IEnumerable<ExerciseTypeDTO>> GetAllExerciseTypes()
         {
             return await PowerliftingContext.Set<ExerciseType>()
-                .AsNoTracking()
                 .ProjectTo<ExerciseTypeDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<ExerciseTypeDTO> GetExerciseTypeById(int exerciseTypeId)
         {
             return await PowerliftingContext.Set<ExerciseType>()
-                .AsNoTracking()
                 .Where(c => c.ExerciseTypeId == exerciseTypeId)
                 .ProjectTo<ExerciseTypeDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
         }
 
-        public void UpdateExerciseType(ExerciseType exerciseType)
+        public async Task<bool> UpdateExerciseType(ExerciseType exerciseType)
         {
-            Update(exerciseType);
+            return await Update(exerciseType);
         }
 
-        public void DeleteExerciseType(ExerciseType exerciseType)
+        public async Task<bool> DeleteExerciseType(ExerciseType exerciseType)
         {
-            Delete(exerciseType);
+            return await Delete(exerciseType);
         }
     }
 }

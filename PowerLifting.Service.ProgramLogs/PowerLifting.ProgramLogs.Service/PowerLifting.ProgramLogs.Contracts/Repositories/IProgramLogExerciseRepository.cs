@@ -13,7 +13,6 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// Gets a list of program log exercises for a given day
         /// </summary>
         /// <param name="programLogDayId"></param>
-        /// <returns></returns>
         Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId);
 
         /// <summary>
@@ -28,20 +27,17 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Creates a new program exercise for a given log, used for customisation of programs
         /// </summary>
-        /// <param name="programLogExercise"></param>
-        void CreateProgramLogExercise(ProgramLogExercise programLogExercise);
+        Task CreateProgramLogExercise(ProgramLogExercise programLogExercise);
 
         /// <summary>
         /// Updates a program log exercise, this could be updating the number of sets,
         /// the exercise name or adding a comment
         /// </summary>
-        /// <param name="programLogExercise"></param>
-        void UpdateProgramLogExercise(ProgramLogExercise programLogExercise);
+        Task<bool> UpdateProgramLogExercise(ProgramLogExercise programLogExercise);
 
         /// <summary>
         /// Used to remove an exercise from the users given program day
         /// </summary>
-        /// <param name="programLogExercise"></param>
-        void DeleteProgramLogExercise(ProgramLogExercise programLogExercise);
+        Task<bool> DeleteProgramLogExercise(ProgramLogExercise programLogExercise);
     }
 }

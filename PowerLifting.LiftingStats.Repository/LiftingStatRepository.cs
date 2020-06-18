@@ -15,12 +15,12 @@ namespace PowerLifting.LiftingStats.Repository
         {
         }
 
-        public LiftingStat GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange)
+        public async Task<LiftingStat> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange)
         {
-            return PowerliftingContext.Set<LiftingStat>().AsNoTracking().Where(u => u.UserId == userId &&
+            return await PowerliftingContext.Set<LiftingStat>().AsNoTracking().Where(u => u.UserId == userId &&
                                                                       u.RepRange == repRange &&
                                                                       u.ExerciseId == exerciseId).
-                                                                      FirstOrDefault();
+                                                                      FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserId(string userId)
@@ -28,10 +28,10 @@ namespace PowerLifting.LiftingStats.Repository
             return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId).Include(x => x.Exercise).ToListAsync();
         }
 
-        public IEnumerable<LiftingStat> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
+        public async Task<IEnumerable<LiftingStat>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
         {
-            return PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId && u.RepRange == repRange)
-                                                               .ToList();
+            return await PowerliftingContext.Set<LiftingStat>().Where(u => u.UserId == userId && u.RepRange == repRange)
+                                                               .ToListAsync();
         }
 
         public async Task<LiftingStat> GetLiftingStatById(int liftingStatId)
@@ -39,19 +39,19 @@ namespace PowerLifting.LiftingStats.Repository
             return await PowerliftingContext.Set<LiftingStat>().Where(x => x.LiftingStatId == liftingStatId).FirstOrDefaultAsync();
         }
 
-        public void CreateLiftingStat(LiftingStat liftingStat)
+        public async Task CreateLiftingStat(LiftingStat liftingStat)
         {
-            Create(liftingStat);
+            await Create(liftingStat);
         }
 
-        public void UpdateLiftingStat(LiftingStat liftingStat)
+        public async Task<bool> UpdateLiftingStat(LiftingStat liftingStat)
         {
-            Update(liftingStat);
+            return await Update(liftingStat);
         }
 
-        public void DeleteLiftingStat(LiftingStat liftingStat)
+        public async Task<bool> DeleteLiftingStat(LiftingStat liftingStat)
         {
-            Delete(liftingStat);
+            return await Delete(liftingStat);
         }
     }
 }

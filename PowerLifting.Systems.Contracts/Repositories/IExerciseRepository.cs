@@ -28,7 +28,7 @@ namespace PowerLifting.Systems.Contracts.Repositories
 
         Task<bool> DoesExerciseNameExist(string name);
 
-        void UpdateExercise(Exercise exercise);
-        void DeleteExercise(Exercise exercise);
+        Task<bool> UpdateExercise(Exercise exercise);
+        Task<bool> DeleteExercise(Exercise exercise);
     }
 }

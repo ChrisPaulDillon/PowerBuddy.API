@@ -10,8 +10,6 @@ namespace PowerLifting.LiftingStats.Contracts
         /// <summary>
         /// Gets all lifting stats associated with a user.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserId(string userId);
 
         Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange);

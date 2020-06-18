@@ -21,35 +21,33 @@ namespace PowerLifting.ProgramLogs.Repository
             _mapper = mapper;
         }
 
-        public async Task<ProgramLogRepSchemeDTO> GetProgramLogRepScheme(int programLogRepSchemeId)
+        public async Task<ProgramLogRepScheme> GetProgramLogRepSchemeById(int programLogRepSchemeId)
         {
             return await PowerliftingContext.Set<ProgramLogRepScheme>()
-                .AsNoTracking()
                 .Where(x => x.ProgramLogRepSchemeId == programLogRepSchemeId)
-                .ProjectTo<ProgramLogRepSchemeDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
         }
 
-        public void CreateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
+        public async Task CreateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
         {
-            Create(programLogRepScheme);
+            await Create(programLogRepScheme);
         }
 
-        public void UpdateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
+        public async Task<bool> UpdateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
         {
-            Update(programLogRepScheme);
+            return await Update(programLogRepScheme);
         }
 
-        public void DeleteProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
+        public async Task<bool> DeleteProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme)
         {
-            Delete(programLogRepScheme);
+            return await Delete(programLogRepScheme);
         }
 
         public async Task<bool> DoesRepSchemeExist(int programLogRepSchemeId)
         {
             return await PowerliftingContext.Set<ProgramLogRepScheme>()
-                .AsNoTracking()
                 .Where(x => x.ProgramLogRepSchemeId == programLogRepSchemeId)
+                .AsNoTracking()
                 .AnyAsync();
         }
     }

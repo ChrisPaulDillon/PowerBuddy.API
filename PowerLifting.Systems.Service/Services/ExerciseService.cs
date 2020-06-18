@@ -57,27 +57,27 @@ namespace PowerLifting.Systems.Service.Services
             if (doesExist) throw new ExerciseAlreadyExistsException();
 
             var exercise = _mapper.Map<Exercise>(exerciseDTO);
-            _repo.Exercise.Create(exercise);
+            await _repo.Exercise.Create(exercise);
             var exerciseDTOCreated = _mapper.Map<ExerciseDTO>(exercise);
             return exerciseDTOCreated;
         }
 
-        public async void UpdateExercise(ExerciseDTO exerciseDTO)
+        public async Task<bool> UpdateExercise(ExerciseDTO exerciseDTO)
         {
             var doesExist = await _repo.Exercise.DoesExerciseExist(exerciseDTO.ExerciseId);
             if (!doesExist) throw new ExerciseNotFoundException();
 
             var exercise = _mapper.Map<Exercise>(exerciseDTO);
-            _repo.Exercise.UpdateExercise(exercise);
+            return await _repo.Exercise.UpdateExercise(exercise);
         }
 
-        public async void DeleteExercise(ExerciseDTO exerciseDTO)
+        public async Task<bool> DeleteExercise(ExerciseDTO exerciseDTO)
         {
             var exercise = await _repo.Exercise.GetExerciseById(exerciseDTO.ExerciseId);
             if (exercise == null) throw new ExerciseNotFoundException();
 
             var exerciseToDelete = _mapper.Map<Exercise>(exercise);
-            _repo.Exercise.DeleteExercise(exerciseToDelete);
+            return await _repo.Exercise.DeleteExercise(exerciseToDelete);
         }
     }
 }

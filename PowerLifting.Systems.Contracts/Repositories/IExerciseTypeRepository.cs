@@ -11,26 +11,21 @@ namespace PowerLifting.Systems.Contracts.Repositories
         /// <summary>
         /// Gets all exercise types such as bodyweight, dumbbell, barbell etc.
         /// </summary>
-        /// <returns></returns>
         Task<IEnumerable<ExerciseTypeDTO>> GetAllExerciseTypes();
 
         /// <summary>
         /// Gets a specific exercise type by id
         /// </summary>
-        /// <param name="exerciseTypeId"></param>
-        /// <returns></returns>
         Task<ExerciseTypeDTO> GetExerciseTypeById(int exerciseTypeId);
 
         /// <summary>
         /// Updates a given exercise object
         /// </summary>
-        /// <param name="exerciseCategory"></param>
-        void UpdateExerciseType(ExerciseType exerciseCategory);
+        Task<bool> UpdateExerciseType(ExerciseType exerciseCategory);
 
         /// <summary>
         /// Deletes an exercise type object
         /// </summary>
-        /// <param name="exerciseCategory"></param>
-        void DeleteExerciseType(ExerciseType exerciseCategory);
+        Task<bool> DeleteExerciseType(ExerciseType exerciseCategory);
     }
 }

@@ -41,19 +41,19 @@ namespace PowerLifting.ProgramLogs.Repository
                                                                  .FirstOrDefaultAsync();
         }
 
-        public void CreateProgramLogDay(ProgramLogDay programLogDay)
+        public async Task CreateProgramLogDay(ProgramLogDay programLogDay)
         {
-            Create(programLogDay);
+            await Create(programLogDay);
         }
 
-        public void UpdateProgramLogDay(ProgramLogDay programLogDay)
+        public async Task<bool> UpdateProgramLogDay(ProgramLogDay programLogDay)
         {
-            Update(programLogDay);
+            return await Update(programLogDay);
         }
 
-        public void DeleteProgramLogDay(ProgramLogDay programLogDay)
+        public async Task<bool> DeleteProgramLogDay(ProgramLogDay programLogDay)
         {
-            Delete(programLogDay);
+            return await Delete(programLogDay);
         }
 
         public async Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId)

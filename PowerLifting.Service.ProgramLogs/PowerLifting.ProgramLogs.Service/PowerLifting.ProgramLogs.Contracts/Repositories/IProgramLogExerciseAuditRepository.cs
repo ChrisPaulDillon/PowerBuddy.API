@@ -13,7 +13,6 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// Used to retrieve the potential audit when a user
         /// creates a new program log exercise
         /// </summary>
-        /// <returns></returns>
         Task<ProgramLogExerciseAudit> GetProgramLogExerciseAudit(string userId, int exerciseId);
 
         /// <summary>
@@ -21,9 +20,8 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// when the user does not currently have one
         /// for this exercise
         /// </summary>
-        /// <returns></returns>
-        void CreateProgramLogExerciseAudit(ProgramLogExerciseAudit audit);
+        Task CreateProgramLogExerciseAudit(ProgramLogExerciseAudit audit);
 
-        void UpdateProgramLogExerciseAudit(ProgramLogExerciseAudit audit);
+        Task<bool> UpdateProgramLogExerciseAudit(ProgramLogExerciseAudit audit);
     }
 }

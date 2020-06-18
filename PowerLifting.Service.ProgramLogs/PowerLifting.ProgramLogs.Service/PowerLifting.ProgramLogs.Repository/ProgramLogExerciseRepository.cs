@@ -49,19 +49,19 @@ namespace PowerLifting.ProgramLogs.Repository
                 .AnyAsync();
         }
 
-        public void CreateProgramLogExercise(ProgramLogExercise programLogExercise)
+        public async Task CreateProgramLogExercise(ProgramLogExercise programLogExercise)
         {
-            Create(programLogExercise);
+            await Create(programLogExercise);
         }
 
-        public void DeleteProgramLogExercise(ProgramLogExercise programLogExercise)
+        public async Task<bool> DeleteProgramLogExercise(ProgramLogExercise programLogExercise)
         {
-            Delete(programLogExercise);
+            return await Delete(programLogExercise);
         }
 
-        public void UpdateProgramLogExercise(ProgramLogExercise programLogExercise)
+        public async Task<bool> UpdateProgramLogExercise(ProgramLogExercise programLogExercise)
         {
-            Update(programLogExercise);
+            return await Update(programLogExercise);
         }
     }
 }

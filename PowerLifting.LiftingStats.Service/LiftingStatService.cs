@@ -31,7 +31,7 @@ namespace PowerLifting.LiftingStats.Service
 
         public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
         {
-            var liftingStats = _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, repRange);
+            var liftingStats = await _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, repRange);
             var liftingStatsDTO = _mapper.Map<IEnumerable<LiftingStatDTO>>(liftingStats);
             return liftingStatsDTO;
         }
@@ -57,8 +57,8 @@ namespace PowerLifting.LiftingStats.Service
                 Exercise = liftingStatDTO.Exercise
             };
 
-            var newLiftingStat = _mapper.Map<LiftingStat>(liftingStatDTO);
-            _repo.LiftingStat.CreateLiftingStat(newLiftingStat);
+            var newLiftingStat = _mapper.Map<LiftingStat>(createdLiftingStatDTO);
+            await _repo.LiftingStat.CreateLiftingStat(newLiftingStat);
 
             var liftingStatAudit = new LiftingStatAudit()
             {
@@ -67,11 +67,11 @@ namespace PowerLifting.LiftingStats.Service
                 ExerciseId = liftingStatDTO.ExerciseId,
                 UserId = liftingStatDTO.UserId,
             };
-            _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
+            await _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
             return liftingStatDTO;
         }
 
-        public async Task UpdateLiftingStat(LiftingStatDTO stats)
+        public async Task<bool> UpdateLiftingStat(LiftingStatDTO stats)
         {
             var validator = new LiftingStatValidator();
             validator.ValidateLiftingStatId(stats.LiftingStatId);
@@ -80,7 +80,6 @@ namespace PowerLifting.LiftingStats.Service
             if (liftingStat == null) throw new LiftingStatNotFoundException();
 
             var liftingStats = _mapper.Map<LiftingStat>(stats);
-            _repo.LiftingStat.UpdateLiftingStat(liftingStats);
 
             var liftingStatAudit = new LiftingStatAudit()
             {
@@ -90,10 +89,11 @@ namespace PowerLifting.LiftingStats.Service
                 ExerciseId = stats.ExerciseId
             };
 
-            _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
+            await _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
+            return await _repo.LiftingStat.UpdateLiftingStat(liftingStats);
         }
 
-        public async Task DeleteLiftingStat(int liftingStatId)
+        public async Task<bool> DeleteLiftingStat(int liftingStatId)
         {
             var validator = new LiftingStatValidator();
             validator.ValidateLiftingStatId(liftingStatId);
@@ -101,7 +101,7 @@ namespace PowerLifting.LiftingStats.Service
             var liftingStat = await _repo.LiftingStat.GetLiftingStatById(liftingStatId);
             if (liftingStat == null) throw new LiftingStatNotFoundException();
 
-            _repo.LiftingStat.Delete(liftingStat);
+            return await _repo.LiftingStat.Delete(liftingStat);
         }
     }
 }

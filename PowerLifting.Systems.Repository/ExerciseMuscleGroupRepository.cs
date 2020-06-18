@@ -16,6 +16,7 @@ namespace PowerLifting.Systems.Repository
     public class ExerciseMuscleGroupRepository : RepositoryBase<ExerciseMuscleGroup>, IExerciseMuscleGroupRepository
     {
         private readonly IMapper _mapper;
+
         public ExerciseMuscleGroupRepository(PowerliftingContext context, IMapper mapper) : base(context)
         {
             _mapper = mapper;
@@ -36,14 +37,14 @@ namespace PowerLifting.Systems.Repository
                 .FirstOrDefaultAsync();
         }
 
-        public void UpdateExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup)
+        public async Task<bool> UpdateExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup)
         {
-            Update(exerciseMuscleGroup);
+            return await Update(exerciseMuscleGroup);
         }
 
-        public void DeleteExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup)
+        public async Task<bool> DeleteExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup)
         {
-            Delete(exerciseMuscleGroup);
+            return await Delete(exerciseMuscleGroup);
         }
     }
 }

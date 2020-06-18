@@ -23,27 +23,35 @@ namespace PowerLifting.ProgramLogs.Service.Services
             _userManager = userManager;
         }
 
-        public void CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        public async Task CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
         {
             var newProgramLogRepScheme = _mapper.Map<ProgramLogRepScheme>(programLogRepSchemeDTO);
-            _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(newProgramLogRepScheme);
+            await _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(newProgramLogRepScheme);
         }
 
-        public async Task UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        public async Task<bool> UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
         {
             var doesExist = await _repo.ProgramLogRepScheme.DoesRepSchemeExist(programLogRepSchemeDTO.ProgramLogRepSchemeId);
             if (!doesExist) throw new ProgramLogRepSchemeNotFoundException();
 
             var updatedRepScheme = _mapper.Map<ProgramLogRepScheme>(programLogRepSchemeDTO);
-            _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(updatedRepScheme);
+            return await _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(updatedRepScheme);
         }
 
-        public async Task DeleteProgramLogRepScheme(int programLogRepSchemeId)
+        public async Task<bool> DeleteProgramLogRepScheme(int programLogRepSchemeId)
         {
             var doesExist = await _repo.ProgramLogRepScheme.DoesRepSchemeExist(programLogRepSchemeId);
             if (!doesExist) throw new ProgramLogRepSchemeNotFoundException();
 
-            _repo.ProgramLogRepScheme.DeleteProgramLogRepScheme(new ProgramLogRepScheme() { ProgramLogRepSchemeId = programLogRepSchemeId });
+            return await _repo.ProgramLogRepScheme.DeleteProgramLogRepScheme(new ProgramLogRepScheme() { ProgramLogRepSchemeId = programLogRepSchemeId });
+        }
+
+        public async Task<bool> MarkProgramLogRepSchemeComplete(int programLogRepSchemeId, bool isCompleted)
+        {
+            var programLogRepScheme = await _repo.ProgramLogRepScheme.GetProgramLogRepSchemeById(programLogRepSchemeId);
+            if (programLogRepScheme == null) throw new ProgramLogRepSchemeNotFoundException();
+            programLogRepScheme.Completed = isCompleted;
+            return await _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(programLogRepScheme);
         }
     }
 }

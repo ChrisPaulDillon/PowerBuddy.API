@@ -3,6 +3,7 @@ using PowerLifting.Persistence;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Powerlifting.Common
 {
@@ -25,27 +26,24 @@ namespace Powerlifting.Common
             return PowerliftingContext.Set<T>().Where(expression).AsNoTracking();
         }
 
-        public void Create(T entity)
+        public async Task Create(T entity)
         {
             PowerliftingContext.Set<T>().Add(entity);
-            Save();
+            await PowerliftingContext.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task<bool> Update(T entity)
         {
             PowerliftingContext.Set<T>().Update(entity);
-            Save();
+            var modifiedRows = await PowerliftingContext.SaveChangesAsync();
+            return modifiedRows > 0;
         }
 
-        public void Delete(T entity)
+        public async Task<bool> Delete(T entity)
         {
             PowerliftingContext.Set<T>().Remove(entity);
-            Save();
-        }
-
-        public void Save()
-        {
-            PowerliftingContext.SaveChangesAsync();
+            var modifiedRows = await PowerliftingContext.SaveChangesAsync();
+            return modifiedRows > 0;
         }
     }
 }

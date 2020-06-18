@@ -19,27 +19,22 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Creates a new program day if its within the confinements of the program week
         /// </summary>
-        /// <param name="programLogDay"></param>
-        void CreateProgramLogDay(ProgramLogDay programLogDay);
+        Task CreateProgramLogDay(ProgramLogDay programLogDay);
 
         /// <summary>
         /// Updates a given Program log day, this could be a comment etc
         /// </summary>
-        /// <param name="programLogDay"></param>
-        void UpdateProgramLogDay(ProgramLogDay programLogDay);
+        Task<bool> UpdateProgramLogDay(ProgramLogDay programLogDay);
 
         /// <summary>
         /// Deletes a program day off the program week
         /// </summary>
-        /// <param name="programLogDay"></param>
-        void DeleteProgramLogDay(ProgramLogDay programLogDay);
+        Task<bool> DeleteProgramLogDay(ProgramLogDay programLogDay);
 
         /// <summary>
         /// Gets all the users program log dates
         /// for calendar population
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId);
     }
 }

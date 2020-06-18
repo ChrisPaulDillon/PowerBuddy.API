@@ -27,6 +27,7 @@ namespace PowerLifting.Systems.Repository
                 .Include(m => m.ExerciseMuscleGroups)
                 .Include(t => t.ExerciseType)
                 .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -56,14 +57,14 @@ namespace PowerLifting.Systems.Repository
                 .AnyAsync();
         }
 
-        public void UpdateExercise(Exercise exercise)
+        public async Task<bool> UpdateExercise(Exercise exercise)
         {
-            Update(exercise);
+            return await Update(exercise);
         }
 
-        public void DeleteExercise(Exercise exercise)
+        public async Task<bool> DeleteExercise(Exercise exercise)
         {
-            Delete(exercise);
+            return await Delete(exercise);
         }
     }
 }

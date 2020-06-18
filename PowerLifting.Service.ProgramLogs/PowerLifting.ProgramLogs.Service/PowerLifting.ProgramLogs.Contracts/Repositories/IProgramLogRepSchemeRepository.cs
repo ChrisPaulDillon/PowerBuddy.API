@@ -10,30 +10,23 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Gets a specific program log rep scheme
         /// </summary>
-        /// <param name="programLogRepSchemeId"></param>
-        /// <returns></returns>
-        Task<ProgramLogRepSchemeDTO> GetProgramLogRepScheme(int programLogRepSchemeId);
+        Task<ProgramLogRepScheme> GetProgramLogRepSchemeById(int programLogRepSchemeId);
 
         /// <summary>
         /// Allows the user to add another set / rep onto a given exercise
         /// </summary>
-        /// <param name="programLogRepScheme"></param>
-        /// <returns></returns>
-        void CreateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
+        Task CreateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
 
         /// <summary>
         /// Updates a given program log rep scheme, this could be weight lifted, comments,
         /// rep range etc
         /// </summary>
-        /// <param name="programLogRepScheme"></param>
-        void UpdateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
+        Task<bool> UpdateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
 
         /// <summary>
         /// Deletes a given program log rep scheme, maybe the user did not finish the set
         /// </summary>
-        /// <param name="programLogRepScheme"></param>
-        void DeleteProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
-
+        Task<bool> DeleteProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
 
         Task<bool> DoesRepSchemeExist(int programLogRepSchemeId);
     }

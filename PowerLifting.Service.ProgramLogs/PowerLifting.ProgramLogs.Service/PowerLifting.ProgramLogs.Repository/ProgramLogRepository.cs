@@ -57,26 +57,24 @@ namespace PowerLifting.ProgramLogs.Repository
             return await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == programLogId).FirstOrDefaultAsync();
         }
 
-        public void CreateProgramLog(ProgramLog programLog)
+        public async Task CreateProgramLog(ProgramLog programLog)
         {
-            Create(programLog);
+            await Create(programLog);
         }
 
-        public void UpdateProgramLog(ProgramLog log)
+        public async Task<bool> UpdateProgramLog(ProgramLog log)
         {
-            PowerliftingContext.Set<ProgramLog>().Where(u => u.ProgramLogId == log.ProgramLogId).AsNoTracking().FirstOrDefaultAsync();
-            Save();
+            return await Update(log);
         }
 
-        public void DeleteProgramLog(ProgramLog log)
+        public async Task<bool> DeleteProgramLog(ProgramLog log)
         {
-            PowerliftingContext.Set<ProgramLog>().Remove(log);
-            Save();
+            return await Delete(log);
         }
 
-        public bool DoesProgramLogAfterTodayExist(string userId)
+        public async Task<bool> DoesProgramLogAfterTodayExist(string userId)
         {
-            return PowerliftingContext.Set<ProgramLog>().Any(x => x.StartDate >= DateTime.Now && x.UserId == userId);
+            return await PowerliftingContext.Set<ProgramLog>().AnyAsync(x => x.StartDate >= DateTime.Now && x.UserId == userId);
         }
     }
 }
