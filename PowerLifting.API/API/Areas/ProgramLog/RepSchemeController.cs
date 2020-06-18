@@ -42,7 +42,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> MarkProgramLogRepSchemeComplete(int programLogRepSchemeId, [FromBody] bool isCompleted)
+        public async Task<IActionResult> MarkProgramLogRepSchemeComplete(int programLogRepSchemeId, bool isCompleted)
         {
             try
             {

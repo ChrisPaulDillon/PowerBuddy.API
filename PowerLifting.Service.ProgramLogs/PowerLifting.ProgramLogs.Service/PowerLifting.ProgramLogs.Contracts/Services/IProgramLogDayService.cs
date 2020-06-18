@@ -10,10 +10,12 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Gets a program log day overview for a given user on a given date
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="date"></param>
-        /// <returns></returns>
         Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date);
+
+        /// <summary>
+        /// Gets the upcoming workout closest to the given date
+        /// </summary>
+        Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, int programLogId, DateTime date);
 
         /// <summary>
         /// Gets the program Log Day by Id
@@ -29,8 +31,6 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// Gets all the users program log dates
         /// for calendar population
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId);
     }
 }

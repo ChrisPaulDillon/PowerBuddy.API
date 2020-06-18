@@ -29,10 +29,13 @@ namespace PowerLifting.ProgramLogs.Service.Services
         {
 
             var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDayById(programLogDayId);
-
             if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
-
             return programLogDayDTO;
+        }
+
+        public async Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, int programLogId, DateTime date)
+        {
+            return await _repo.ProgramLogDay.GetClosestProgramLogDayToDate(userId, programLogId, date);
         }
 
         public async Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date)
@@ -49,7 +52,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             validator.ValidateProgramLogDayWithinProgramLogWeek(programLogWeek.StartDate, programLogWeek.EndDate, programLogDayDTO.Date);
 
             var newProgramLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
-            _repo.ProgramLogDay.CreateProgramLogDay(newProgramLogDay);
+            await _repo.ProgramLogDay.CreateProgramLogDay(newProgramLogDay);
             var createdEntity = _mapper.Map<ProgramLogDayDTO>(newProgramLogDay);
             return createdEntity;
         }
