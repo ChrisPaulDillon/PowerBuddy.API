@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Repositories
 {
-    public interface IProgramLogDayRepository : IRepositoryBase<ProgramLogDay>
+    public interface IProgramLogDayRepository
     {
         Task<ProgramLogDayDTO> GetProgramLogDay(string userId, int programLogId, DateTime dateSelected);
 
@@ -24,17 +23,17 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Creates a new program day if its within the confinements of the program week
         /// </summary>
-        Task CreateProgramLogDay(ProgramLogDay programLogDay);
+        Task<ProgramLogDay> CreateProgramLogDay(ProgramLogDayDTO programLogDay);
 
         /// <summary>
         /// Updates a given Program log day, this could be a comment etc
         /// </summary>
-        Task<bool> UpdateProgramLogDay(ProgramLogDay programLogDay);
+        Task<bool> UpdateProgramLogDay(ProgramLogDayDTO programLogDay);
 
         /// <summary>
         /// Deletes a program day off the program week
         /// </summary>
-        Task<bool> DeleteProgramLogDay(ProgramLogDay programLogDay);
+        Task<bool> DeleteProgramLogDay(ProgramLogDayDTO programLogDay);
 
         /// <summary>
         /// Gets all the users program log dates

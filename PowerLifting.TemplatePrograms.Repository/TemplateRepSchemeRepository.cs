@@ -1,15 +1,18 @@
-﻿using Powerlifting.Common;
+﻿using AutoMapper;
 using PowerLifting.Persistence;
-using PowerLifting.Service.TemplatePrograms.Model;
-using PowerLifting.TemplatePrograms.Contracts;
 using PowerLifting.TemplatePrograms.Contracts.Repositories;
 
 namespace PowerLifting.TemplatePrograms.Repository
 {
-    public class TemplateRepSchemeRepository : RepositoryBase<TemplateRepScheme>, ITemplateRepSchemeRepository
+    public class TemplateRepSchemeRepository : ITemplateRepSchemeRepository
     {
-        public TemplateRepSchemeRepository(PowerliftingContext context) : base(context)
+        private readonly PowerliftingContext _context;
+        private readonly IMapper _mapper;
+
+        public TemplateRepSchemeRepository(PowerliftingContext context, IMapper mapper)
         {
+            _context = context;
+            _mapper = mapper;
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Repositories
 {
-    public interface IProgramLogRepSchemeRepository : IRepositoryBase<ProgramLogRepScheme>
+    public interface IProgramLogRepSchemeRepository
     {
         /// <summary>
         /// Gets a specific program log rep scheme
@@ -15,18 +14,24 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Allows the user to add another set / rep onto a given exercise
         /// </summary>
-        Task CreateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
+        Task<ProgramLogRepScheme> CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepScheme);
 
         /// <summary>
         /// Updates a given program log rep scheme, this could be weight lifted, comments,
         /// rep range etc
         /// </summary>
-        Task<bool> UpdateProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
+        Task<bool> UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepScheme);
+
+        /// <summary>
+        /// Updates a given program log rep scheme, this could be weight lifted, comments,
+        /// rep range etc
+        /// </summary>
+        Task<bool> MarkProgramLogRepSchemeComplete(ProgramLogRepScheme programLogRepScheme);
 
         /// <summary>
         /// Deletes a given program log rep scheme, maybe the user did not finish the set
         /// </summary>
-        Task<bool> DeleteProgramLogRepScheme(ProgramLogRepScheme programLogRepScheme);
+        Task<bool> DeleteProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepScheme);
 
         Task<bool> DoesRepSchemeExist(int programLogRepSchemeId);
     }

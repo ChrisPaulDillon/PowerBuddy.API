@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Repositories
 {
-    public interface IProgramLogExerciseAuditRepository : IRepositoryBase<ProgramLogExerciseAudit>
+    public interface IProgramLogExerciseAuditRepository
     {
         Task<ProgramLogExerciseAudit> GetProgramLogExerciseAuditCount(string userId);
 
@@ -20,8 +19,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// when the user does not currently have one
         /// for this exercise
         /// </summary>
-        Task CreateProgramLogExerciseAudit(ProgramLogExerciseAudit audit);
+        Task<int> CreateProgramLogExerciseAudit(ProgramLogExerciseAudit audit);
 
-        Task<bool> UpdateProgramLogExerciseAudit(ProgramLogExerciseAudit audit);
     }
 }

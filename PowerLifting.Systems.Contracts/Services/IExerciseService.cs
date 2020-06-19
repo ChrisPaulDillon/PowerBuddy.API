@@ -19,7 +19,7 @@ namespace PowerLifting.Systems.Contracts.Services
         /// </summary>
         Task<ExerciseDTO> GetExerciseById(int id);
 
-        Task<ExerciseDTO> CreateExercise(CExerciseDTO exercise);
+        Task<Exercise> CreateExercise(CExerciseDTO exercise);
 
         Task<bool> UpdateExercise(ExerciseDTO exercise);
 

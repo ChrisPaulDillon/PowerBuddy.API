@@ -45,16 +45,13 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return programLogDayDTO;
         }
 
-        public async Task<ProgramLogDayDTO> CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
+        public async Task<ProgramLogDay> CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
         {
             var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekById(programLogDayDTO.ProgramLogWeekId);
             var validator = new ProgramLogValidator();
             validator.ValidateProgramLogDayWithinProgramLogWeek(programLogWeek.StartDate, programLogWeek.EndDate, programLogDayDTO.Date);
 
-            var newProgramLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
-            await _repo.ProgramLogDay.CreateProgramLogDay(newProgramLogDay);
-            var createdEntity = _mapper.Map<ProgramLogDayDTO>(newProgramLogDay);
-            return createdEntity;
+            return await _repo.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
         }
 
         public async Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId)

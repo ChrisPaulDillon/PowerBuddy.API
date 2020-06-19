@@ -5,6 +5,7 @@ using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
+using PowerLifting.Entity.System.Quotes.Models;
 using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
 using PowerLifting.Service.TemplatePrograms.Model;
@@ -15,9 +16,25 @@ namespace PowerLifting.Persistence
     public class DbInitializer
     {
         public static void Initialize(PowerliftingContext context)
-         {
+        {
             var curDate = DateTime.Now.Date;
             context.Database.EnsureCreated();
+
+            if (!context.Quote.Any())
+            {
+                var quotes = new Quote[]
+                {
+                    new Quote{QuoteStr="We All Gonna Make It Brahs", Author = "Zyzz", Year = 2011, Active = true},
+                    new Quote{QuoteStr="Non Negotiable", Author = "Jason Blaha", Year = 2015, Active = true},
+                };
+
+                foreach (var e in quotes)
+                {
+                    context.Quote.Add(e);
+                }
+                context.SaveChanges();
+            }
+
 
             if (!context.RepSchemeType.Any())
             {
@@ -111,7 +128,7 @@ namespace PowerLifting.Persistence
                     new Exercise{ExerciseName="Clean", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Hang Clean", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Power Clean", ExerciseTypeId = 2},
-                    new Exercise{ExerciseName="Jerk", ExerciseTypeId = 2}, 
+                    new Exercise{ExerciseName="Jerk", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Power Jerk", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Barbell Row", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Pendlay Row", ExerciseTypeId = 2},
@@ -129,7 +146,7 @@ namespace PowerLifting.Persistence
             {
                 var templates = new TemplateProgram[]
                 {
-                    new TemplateProgram {Name="5/3/1", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, 
+                    new TemplateProgram {Name="5/3/1", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), NoOfWeeks = 4, MaxLiftDaysPerWeek = 4,
                         TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 1 },
@@ -228,7 +245,7 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } } } },
                     } },
-                    new TemplateProgram {Name="5/3/1 Boring But Big", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), 
+                    new TemplateProgram {Name="5/3/1 Boring But Big", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER),
                         NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 1 },
@@ -373,8 +390,8 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } } } },
                     } },
-                    new TemplateProgram { Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), NoOfWeeks = 12, 
-                        MaxLiftDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL), 
+                    new TemplateProgram { Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), NoOfWeeks = 12,
+                        MaxLiftDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 1 },
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 25},
@@ -591,7 +608,7 @@ namespace PowerLifting.Persistence
                             }
                         }
                     }
-                };                   
+                };
 
                 foreach (var e in users)
                 {
@@ -600,7 +617,7 @@ namespace PowerLifting.Persistence
 
                 context.SaveChanges();
             }
-         }
+        }
     }
 }
- 
+

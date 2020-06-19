@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using PowerLifting.Persistence;
 using PowerLifting.LiftingStats.Repository;
+using AutoMapper;
 
 namespace PowerLifting.LiftingStats.Service
 {
@@ -12,12 +13,14 @@ namespace PowerLifting.LiftingStats.Service
         private ILiftingStatRepository _liftingStatRepo;
         private ILiftingStatAuditRepository _liftingStatAuditRepo;
 
+        private readonly IMapper _mapper;
 
         private PowerliftingContext _context;
 
-        public LiftingStatsWrapper(PowerliftingContext repositoryContext)
+        public LiftingStatsWrapper(PowerliftingContext repositoryContext, IMapper mapper)
         {
             _context = repositoryContext;
+            _mapper = mapper;
         }
 
         public ILiftingStatRepository LiftingStat
@@ -26,7 +29,7 @@ namespace PowerLifting.LiftingStats.Service
             {
                 if (_liftingStatRepo == null)
                 {
-                    _liftingStatRepo = new LiftingStatRepository(_context);
+                    _liftingStatRepo = new LiftingStatRepository(_context, _mapper);
                 }
 
                 return _liftingStatRepo;
@@ -39,7 +42,7 @@ namespace PowerLifting.LiftingStats.Service
             {
                 if (_liftingStatAuditRepo == null)
                 {
-                    _liftingStatAuditRepo = new LiftingStatAuditRepository(_context);
+                    _liftingStatAuditRepo = new LiftingStatAuditRepository(_context, _mapper);
                 }
 
                 return _liftingStatAuditRepo;

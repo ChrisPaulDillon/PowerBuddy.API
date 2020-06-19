@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using PowerLifting.Entity.System.Exercises.DTOs;
 using PowerLifting.LiftingStats.Service.Exceptions;
-using PowerLifting.LiftingStats.Service.Validator;
 using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Model;
 using PowerLifting.Service.LiftingStatsAudit.Model;
@@ -57,8 +55,7 @@ namespace PowerLifting.LiftingStats.Service
                 Exercise = liftingStatDTO.Exercise
             };
 
-            var newLiftingStat = _mapper.Map<LiftingStat>(createdLiftingStatDTO);
-            await _repo.LiftingStat.CreateLiftingStat(newLiftingStat);
+            await _repo.LiftingStat.CreateLiftingStat(createdLiftingStatDTO);
 
             var liftingStatAudit = new LiftingStatAudit()
             {
@@ -73,13 +70,8 @@ namespace PowerLifting.LiftingStats.Service
 
         public async Task<bool> UpdateLiftingStat(LiftingStatDTO stats)
         {
-            var validator = new LiftingStatValidator();
-            validator.ValidateLiftingStatId(stats.LiftingStatId);
-
             var liftingStat = await _repo.LiftingStat.GetLiftingStatById(stats.LiftingStatId);
             if (liftingStat == null) throw new LiftingStatNotFoundException();
-
-            var liftingStats = _mapper.Map<LiftingStat>(stats);
 
             var liftingStatAudit = new LiftingStatAudit()
             {
@@ -90,18 +82,15 @@ namespace PowerLifting.LiftingStats.Service
             };
 
             await _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
-            return await _repo.LiftingStat.UpdateLiftingStat(liftingStats);
+            return await _repo.LiftingStat.UpdateLiftingStat(stats);
         }
 
-        public async Task<bool> DeleteLiftingStat(int liftingStatId)
+        public async Task<bool> DeleteLiftingStat(LiftingStatDTO liftingStatDTO)
         {
-            var validator = new LiftingStatValidator();
-            validator.ValidateLiftingStatId(liftingStatId);
-
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatById(liftingStatId);
+            var liftingStat = await _repo.LiftingStat.GetLiftingStatById(liftingStatDTO.LiftingStatId);
             if (liftingStat == null) throw new LiftingStatNotFoundException();
 
-            return await _repo.LiftingStat.Delete(liftingStat);
+            return await _repo.LiftingStat.DeleteLiftingStat(liftingStatDTO);
         }
     }
 }

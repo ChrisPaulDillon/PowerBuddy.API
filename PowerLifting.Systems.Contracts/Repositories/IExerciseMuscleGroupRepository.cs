@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Powerlifting.Common;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 
 namespace PowerLifting.Systems.Contracts.Repositories
 {
-    public interface IExerciseMuscleGroupRepository : IRepositoryBase<ExerciseMuscleGroup>
+    public interface IExerciseMuscleGroupRepository
     {
         /// <summary>
         /// Gets all muscle groups such as quads, shoulders, arms etc.
@@ -21,11 +20,16 @@ namespace PowerLifting.Systems.Contracts.Repositories
         /// <summary>
         /// Updates a specific muscle group object
         /// </summary>
-        Task<bool> UpdateExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup);
+        Task<ExerciseMuscleGroup> CreateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroup);
+
+        /// <summary>
+        /// Updates a specific muscle group object
+        /// </summary>
+        Task<bool> UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroup);
 
         /// <summary>
         /// Deletes a specific muscle group object
         /// </summary>
-        Task<bool> DeleteExerciseMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup);
+        Task<bool> DeleteExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroup);
     }
 }

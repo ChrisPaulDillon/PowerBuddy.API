@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Persistence;
-using PowerLifting.ProgramLogs.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,18 +11,20 @@ using AutoMapper.QueryableExtensions;
 
 namespace PowerLifting.ProgramLogs.Repository
 {
-    public class ProgramLogExerciseRepository : RepositoryBase<ProgramLogExercise>, IProgramLogExerciseRepository
+    public class ProgramLogExerciseRepository : IProgramLogExerciseRepository
     {
+        private readonly PowerliftingContext _context;
         private readonly IMapper _mapper;
 
-        public ProgramLogExerciseRepository(PowerliftingContext context, IMapper mapper) : base(context)
+        public ProgramLogExerciseRepository(PowerliftingContext context, IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId)
         {
-            return await PowerliftingContext.Set<ProgramLogExercise>()
+            return await _context.Set<ProgramLogExercise>()
                 .AsNoTracking()
                 .Where(x => x.ProgramLogDayId == programLogDayId)
                 .ProjectTo<ProgramLogExerciseDTO>(_mapper.ConfigurationProvider)
@@ -33,7 +33,7 @@ namespace PowerLifting.ProgramLogs.Repository
 
         public async Task<ProgramLogExerciseDTO> GetProgramLogExerciseById(int programLogExerciseId)
         {
-            return await PowerliftingContext.Set<ProgramLogExercise>()
+            return await _context.Set<ProgramLogExercise>()
                 .AsNoTracking()
                 .Where(x => x.ProgramLogExerciseId == programLogExerciseId)
                 .ProjectTo<ProgramLogExerciseDTO>(_mapper.ConfigurationProvider)
@@ -42,26 +42,38 @@ namespace PowerLifting.ProgramLogs.Repository
 
         public async Task<bool> DoesExerciseExist(int programLogExerciseId)
         {
-            return await PowerliftingContext.Set<ProgramLogExercise>()
+            return await _context.Set<ProgramLogExercise>()
                 .AsNoTracking()
                 .Where(x => x.ProgramLogExerciseId == programLogExerciseId)
                 .ProjectTo<ProgramLogExerciseDTO>(_mapper.ConfigurationProvider)
                 .AnyAsync();
         }
 
-        public async Task CreateProgramLogExercise(ProgramLogExercise programLogExercise)
+        public async Task<ProgramLogExercise> CreateProgramLogExercise(CProgramLogExerciseDTO programLogExercise)
         {
-            await Create(programLogExercise);
+            var exerciseEntity = _mapper.Map<ProgramLogExercise>(programLogExercise);
+            _context.Add(exerciseEntity);
+
+            await _context.SaveChangesAsync();
+            return exerciseEntity;
         }
 
-        public async Task<bool> DeleteProgramLogExercise(ProgramLogExercise programLogExercise)
+        public async Task<bool> UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
         {
-            return await Delete(programLogExercise);
+            var programLogExercise = _mapper.Map<ProgramLogExercise>(programLogExerciseDTO);
+            _context.Update(programLogExercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
-        public async Task<bool> UpdateProgramLogExercise(ProgramLogExercise programLogExercise)
+        public async Task<bool> DeleteProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
         {
-            return await Update(programLogExercise);
+            var programLogExercise = _mapper.Map<ProgramLogExercise>(programLogExerciseDTO);
+            _context.Remove(programLogExercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
     }
 }

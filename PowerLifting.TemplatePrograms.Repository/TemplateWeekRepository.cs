@@ -1,16 +1,18 @@
-﻿using Powerlifting.Common;
+﻿using AutoMapper;
 using PowerLifting.Persistence;
-using PowerLifting.Service.TemplatePrograms.Model;
-using PowerLifting.TemplatePrograms.Contracts;
 using PowerLifting.TemplatePrograms.Contracts.Repositories;
 
 namespace PowerLifting.TemplatePrograms.Repository
 {
-    public class TemplateWeekRepository : RepositoryBase<TemplateWeek>, ITemplateWeekRepository
+    public class TemplateWeekRepository : ITemplateWeekRepository
     {
-        public TemplateWeekRepository(PowerliftingContext context) : base(context)
-        {
+        private readonly PowerliftingContext _context;
+        private readonly IMapper _mapper;
 
+        public TemplateWeekRepository(PowerliftingContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
         }
     }
 }

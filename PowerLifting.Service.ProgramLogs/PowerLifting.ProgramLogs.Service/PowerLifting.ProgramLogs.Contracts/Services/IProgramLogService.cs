@@ -27,13 +27,13 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Creates a new generic program log
         /// </summary>
-        Task CreateProgramLog(ProgramLogDTO programLog);
+        Task<ProgramLog> CreateProgramLog(ProgramLogDTO programLog);
 
         /// <summary>
         /// Creates a new program log based on the selected program templates details and what days
         /// the program is to be carried out on
         /// </summary>
-        Task<ProgramLogDTO> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected);
+        Task<ProgramLog> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected);
 
         /// <summary>
         /// Updates the program log accordingly

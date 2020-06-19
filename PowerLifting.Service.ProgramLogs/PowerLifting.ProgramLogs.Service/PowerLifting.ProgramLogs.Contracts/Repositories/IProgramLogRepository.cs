@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Repositories
 {
-    public interface IProgramLogRepository : IRepositoryBase<ProgramLog>
+    public interface IProgramLogRepository
     {
         /// <summary>
         /// Gets all the program logs a user owns
@@ -31,16 +30,16 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Creates a new program log for the user
         /// </summary>
-        Task CreateProgramLog(ProgramLog programLog);
+        Task<ProgramLog> CreateProgramLog(ProgramLogDTO programLog);
 
         /// <summary>
         /// Updates the program log accordingly
         /// </summary>
-        Task<bool> UpdateProgramLog(ProgramLog log);
+        Task<bool> UpdateProgramLog(ProgramLogDTO log);
 
         /// <summary>
         /// Allows a user to delete the current log selected
         /// </summary>
-        Task<bool> DeleteProgramLog(ProgramLog log);
+        Task<bool> DeleteProgramLog(ProgramLogDTO log);
     }
 }

@@ -51,15 +51,13 @@ namespace PowerLifting.Systems.Service.Services
             return exercise;
         }
 
-        public async Task<ExerciseDTO> CreateExercise(CExerciseDTO exerciseDTO)
+        public async Task<Exercise> CreateExercise(CExerciseDTO exerciseDTO)
         {
             var doesExist = await _repo.Exercise.DoesExerciseNameExist(exerciseDTO.ExerciseName);
             if (doesExist) throw new ExerciseAlreadyExistsException();
 
-            var exercise = _mapper.Map<Exercise>(exerciseDTO);
-            await _repo.Exercise.Create(exercise);
-            var exerciseDTOCreated = _mapper.Map<ExerciseDTO>(exercise);
-            return exerciseDTOCreated;
+            return new Exercise();
+            //return _repo.Exercise.cre(exerciseDTO);
         }
 
         public async Task<bool> UpdateExercise(ExerciseDTO exerciseDTO)
@@ -67,8 +65,7 @@ namespace PowerLifting.Systems.Service.Services
             var doesExist = await _repo.Exercise.DoesExerciseExist(exerciseDTO.ExerciseId);
             if (!doesExist) throw new ExerciseNotFoundException();
 
-            var exercise = _mapper.Map<Exercise>(exerciseDTO);
-            return await _repo.Exercise.UpdateExercise(exercise);
+            return await _repo.Exercise.UpdateExercise(exerciseDTO);
         }
 
         public async Task<bool> DeleteExercise(ExerciseDTO exerciseDTO)
@@ -76,8 +73,7 @@ namespace PowerLifting.Systems.Service.Services
             var exercise = await _repo.Exercise.GetExerciseById(exerciseDTO.ExerciseId);
             if (exercise == null) throw new ExerciseNotFoundException();
 
-            var exerciseToDelete = _mapper.Map<Exercise>(exercise);
-            return await _repo.Exercise.DeleteExercise(exerciseToDelete);
+            return await _repo.Exercise.DeleteExercise(exerciseDTO);
         }
     }
 }

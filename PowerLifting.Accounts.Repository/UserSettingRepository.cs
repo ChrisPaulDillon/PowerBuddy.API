@@ -1,14 +1,12 @@
-﻿using PowerLifting.Accounts.Contracts;
-using PowerLifting.Accounts.Contracts.Repositories;
-using Powerlifting.Common;
+﻿using PowerLifting.Accounts.Contracts.Repositories;
 using PowerLifting.Persistence;
-using PowerLifting.Service.UserSettings.Model;
+using AutoMapper;
 
 namespace PowerLifting.Accounts.Repository
 {
-    public class UserSettingRepository : RepositoryBase<UserSetting>, IUserSettingRepository
+    public class UserSettingRepository : IUserSettingRepository
     {
-        public UserSettingRepository(PowerliftingContext context) : base(context)
+        public UserSettingRepository(PowerliftingContext context, IMapper mapper)
         {
 
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Entity.ProgramLogs.DTO;
+using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Services
 {
@@ -25,7 +26,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Creates a new program log day, used for customising program logs
         /// </summary>
-        Task<ProgramLogDayDTO> CreateProgramLogDay(ProgramLogDayDTO programLogDay);
+        Task<ProgramLogDay> CreateProgramLogDay(ProgramLogDayDTO programLogDay);
 
         /// <summary>
         /// Gets all the users program log dates

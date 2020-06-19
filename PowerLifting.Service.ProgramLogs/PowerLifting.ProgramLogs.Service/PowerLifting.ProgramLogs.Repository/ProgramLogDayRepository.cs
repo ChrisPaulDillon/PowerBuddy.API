@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Persistence;
 using System;
@@ -15,18 +14,20 @@ using MoreLinq;
 
 namespace PowerLifting.ProgramLogs.Repository
 {
-    public class ProgramLogDayRepository : RepositoryBase<ProgramLogDay>, IProgramLogDayRepository
+    public class ProgramLogDayRepository : IProgramLogDayRepository
     {
+        private readonly PowerliftingContext _context;
         private readonly IMapper _mapper;
 
-        public ProgramLogDayRepository(PowerliftingContext context, IMapper mapper) : base(context)
+        public ProgramLogDayRepository(PowerliftingContext context, IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<ProgramLogDayDTO> GetProgramLogDay(string userId, int programLogId, DateTime dateSelected)
         {
-            return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.UserId == userId
+            return await _context.Set<ProgramLogDay>().Where(x => x.UserId == userId
                                                                         && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0
                                                                         && x.ProgramLogDayId == programLogId)
                                                                         .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
@@ -36,7 +37,7 @@ namespace PowerLifting.ProgramLogs.Repository
 
         public async Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, int programLogId, DateTime date)
         {
-            var result = PowerliftingContext.Set<ProgramLogDay>().Where(x => x.Date > date)
+            var result = _context.Set<ProgramLogDay>().Where(x => x.Date > date)
                                                                         .AsNoTracking()
                                                                         .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
                                                                         .MinBy(x => Math.Abs((x.Date - date).Ticks))
@@ -48,30 +49,42 @@ namespace PowerLifting.ProgramLogs.Repository
 
         public async Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId)
         {
-            return await PowerliftingContext.Set<ProgramLogDay>().Where(x => x.ProgramLogDayId == programLogDayId)
+            return await _context.Set<ProgramLogDay>().Where(x => x.ProgramLogDayId == programLogDayId)
                                                                  .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
                                                                  .AsNoTracking()
                                                                  .FirstOrDefaultAsync();
         }
 
-        public async Task CreateProgramLogDay(ProgramLogDay programLogDay)
+        public async Task<ProgramLogDay> CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
         {
-            await Create(programLogDay);
+            var programLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
+            _context.Add(programLogDay);
+
+            await _context.SaveChangesAsync();
+            return programLogDay;
         }
 
-        public async Task<bool> UpdateProgramLogDay(ProgramLogDay programLogDay)
+        public async Task<bool> UpdateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
         {
-            return await Update(programLogDay);
+            var programLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
+            _context.Update(programLogDay);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
-        public async Task<bool> DeleteProgramLogDay(ProgramLogDay programLogDay)
+        public async Task<bool> DeleteProgramLogDay(ProgramLogDayDTO programLogDayDTO)
         {
-            return await Delete(programLogDay);
+            var programLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
+            _context.Remove(programLogDay);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
         public async Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId)
         {
-            return await PowerliftingContext.Set<ProgramLogDay>()
+            return await _context.Set<ProgramLogDay>()
                 .Where(x => x.UserId == userId)
                 .Select(x => x.Date.Date)
                 .ToListAsync();

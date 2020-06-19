@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Powerlifting.Common;
 using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.Accounts.Contracts.Repositories
 {
-    public interface IUserRepository : IRepositoryBase<User>
+    public interface IUserRepository
     {
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> GetUserById(string id);

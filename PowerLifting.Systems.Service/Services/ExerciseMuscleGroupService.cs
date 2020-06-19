@@ -36,27 +36,26 @@ namespace PowerLifting.Systems.Service.Services
             var exerciseMuscleGroupDTOs = await _repo.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
 
             foreach (var exerciseMuscleGroupDTO in exerciseMuscleGroupDTOs)
-                _store.AddOrUpdate(exerciseMuscleGroupDTO.ExerciseMuscleGroupId, exerciseMuscleGroupDTO,(key, olValue) => exerciseMuscleGroupDTO);
+                _store.AddOrUpdate(exerciseMuscleGroupDTO.ExerciseMuscleGroupId, exerciseMuscleGroupDTO, (key, olValue) => exerciseMuscleGroupDTO);
         }
 
-        public async Task UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)
+        public async Task<bool> UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)
         {
             var exerciseMuscleGroup = await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
 
             if (exerciseMuscleGroup == null) throw new ExerciseMuscleGroupNotFoundException();
-            
-            var exerciseMG = _mapper.Map<ExerciseMuscleGroup>(exerciseMuscleGroupDTO);
-            _repo.ExerciseMuscleGroup.UpdateExerciseMuscleGroup(exerciseMG);
+
+            return await _repo.ExerciseMuscleGroup.UpdateExerciseMuscleGroup(exerciseMuscleGroupDTO);
         }
 
-        public async Task DeleteExerciseMuscleGroup(int exerciseMuscleGroupId)
+        public async Task<bool> DeleteExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)
         {
-            var exerciseMuscleGroup = await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupId);
+            var exerciseMuscleGroup = await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
 
             if (exerciseMuscleGroup == null) throw new ExerciseMuscleGroupNotFoundException();
             var exerciseMG = _mapper.Map<ExerciseMuscleGroup>(exerciseMuscleGroup);
 
-            _repo.ExerciseMuscleGroup.DeleteExerciseMuscleGroup(exerciseMG);
+            return await _repo.ExerciseMuscleGroup.DeleteExerciseMuscleGroup(exerciseMuscleGroupDTO);
         }
 
     }

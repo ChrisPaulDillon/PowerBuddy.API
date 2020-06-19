@@ -1,20 +1,27 @@
 ﻿using System.Threading.Tasks;
-using Powerlifting.Common;
+using AutoMapper;
 using PowerLifting.LiftingStats.Contracts;
 using PowerLifting.Persistence;
 using PowerLifting.Service.LiftingStatsAudit.Model;
 
 namespace PowerLifting.LiftingStats.Repository
 {
-    public class LiftingStatAuditRepository : RepositoryBase<LiftingStatAudit>, ILiftingStatAuditRepository
+    public class LiftingStatAuditRepository : ILiftingStatAuditRepository
     {
-        public LiftingStatAuditRepository(PowerliftingContext context) : base(context)
+        private readonly PowerliftingContext _context;
+        private readonly IMapper _mapper;
+
+        public LiftingStatAuditRepository(PowerliftingContext context, IMapper mapper)
         {
+            _context = context;
+            _mapper = mapper;
         }
 
-        public async Task CreateLiftingStatAudit(LiftingStatAudit liftingStatAudit)
+        public async Task<int> CreateLiftingStatAudit(LiftingStatAudit liftingStatAudit)
         {
-            await Create(liftingStatAudit);
+            _context.Add(liftingStatAudit);
+            await _context.SaveChangesAsync();
+            return liftingStatAudit.LiftingStatAuditId;
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Powerlifting.Common;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Persistence;
-using PowerLifting.ProgramLogs.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +12,20 @@ using PowerLifting.Entity.ProgramLogs.DTO;
 
 namespace PowerLifting.ProgramLogs.Repository
 {
-    public class ProgramLogRepository : RepositoryBase<ProgramLog>, IProgramLogRepository
+    public class ProgramLogRepository : IProgramLogRepository
     {
+        private readonly PowerliftingContext _context;
         private readonly IMapper _mapper;
 
-        public ProgramLogRepository(PowerliftingContext context, IMapper mapper) : base(context)
+        public ProgramLogRepository(PowerliftingContext context, IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId)
         {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId)
+            return await _context.Set<ProgramLog>().Where(x => x.UserId == userId)
                                                                         .Include(x => x.ProgramLogWeeks)
                                                                         .ThenInclude(x => x.ProgramLogDays)
                                                                         .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider)
@@ -34,7 +34,7 @@ namespace PowerLifting.ProgramLogs.Repository
 
         public async Task<ProgramLog> GetProgramLogByUserId(string userId)
         {
-            var programLog = await PowerliftingContext.Set<ProgramLog>().Where(x => x.UserId == userId && x.NoOfWeeks > 1)
+            var programLog = await _context.Set<ProgramLog>().Where(x => x.UserId == userId && x.NoOfWeeks > 1)
                                                                          .OrderBy(x => x.StartDate)
                                                                          .Include(x => x.ProgramLogWeeks)
                                                                          .ThenInclude(x => x.ProgramLogDays)
@@ -54,27 +54,39 @@ namespace PowerLifting.ProgramLogs.Repository
 
         public async Task<ProgramLog> GetProgramLogById(int programLogId)
         {
-            return await PowerliftingContext.Set<ProgramLog>().Where(x => x.ProgramLogId == programLogId).FirstOrDefaultAsync();
+            return await _context.Set<ProgramLog>().Where(x => x.ProgramLogId == programLogId).FirstOrDefaultAsync();
         }
 
-        public async Task CreateProgramLog(ProgramLog programLog)
+        public async Task<ProgramLog> CreateProgramLog(ProgramLogDTO programLogDTO)
         {
-            await Create(programLog);
+            var programLog = _mapper.Map<ProgramLog>(programLogDTO);
+            _context.Add(programLog);
+
+            await _context.SaveChangesAsync();
+            return programLog;
         }
 
-        public async Task<bool> UpdateProgramLog(ProgramLog log)
+        public async Task<bool> UpdateProgramLog(ProgramLogDTO logDTO)
         {
-            return await Update(log);
+            var programLog = _mapper.Map<ProgramLog>(logDTO);
+            _context.Update(programLog);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
-        public async Task<bool> DeleteProgramLog(ProgramLog log)
+        public async Task<bool> DeleteProgramLog(ProgramLogDTO logDTO)
         {
-            return await Delete(log);
+            var programLog = _mapper.Map<ProgramLog>(logDTO);
+            _context.Remove(programLog);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
         public async Task<bool> DoesProgramLogAfterTodayExist(string userId)
         {
-            return await PowerliftingContext.Set<ProgramLog>().AnyAsync(x => x.StartDate >= DateTime.Now && x.UserId == userId);
+            return await _context.Set<ProgramLog>().AnyAsync(x => x.StartDate >= DateTime.Now && x.UserId == userId);
         }
     }
 }

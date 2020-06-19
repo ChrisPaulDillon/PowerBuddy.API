@@ -50,17 +50,14 @@ namespace PowerLifting.Systems.Service.Services
             var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeDTO.ExerciseTypeId);
             if (exerciseTypeEntity == null) throw new ExerciseTypeNotFoundException();
 
-            var exerciseType = _mapper.Map<ExerciseType>(exerciseTypeDTO);
-            return await _repo.ExerciseType.UpdateExerciseType(exerciseType);
+            return await _repo.ExerciseType.UpdateExerciseType(exerciseTypeDTO);
         }
 
-        public async Task<bool> DeleteExerciseType(int exerciseTypeId)
+        public async Task<bool> DeleteExerciseType(ExerciseTypeDTO exerciseTypeDTO)
         {
-            var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeId);
+            var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeDTO.ExerciseTypeId);
             if (exerciseTypeEntity == null) throw new ExerciseTypeNotFoundException();
-
-            var exerciseType = _mapper.Map<ExerciseType>(exerciseTypeEntity);
-            return await _repo.ExerciseType.Delete(exerciseType);
+            return await _repo.ExerciseType.DeleteExerciseType(exerciseTypeDTO);
         }
     }
 }

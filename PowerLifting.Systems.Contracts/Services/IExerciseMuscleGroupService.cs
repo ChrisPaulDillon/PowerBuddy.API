@@ -14,11 +14,11 @@ namespace PowerLifting.Systems.Contracts.Services
         /// <summary>
         /// Updates a specific ExerciseMuscleGroup object if it exists
         /// </summary>
-        Task UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroup);
+        Task<bool> UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO);
 
         /// <summary>
         /// Deletes a specific ExerciseMuscleGroup object if it exists
         /// </summary>
-        Task DeleteExerciseMuscleGroup(int exerciseMuscleGroupId);
+        Task<bool> DeleteExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO);
     }
 }

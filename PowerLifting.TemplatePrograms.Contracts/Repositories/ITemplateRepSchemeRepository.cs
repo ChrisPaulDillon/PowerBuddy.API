@@ -1,9 +1,6 @@
-﻿using Powerlifting.Common;
-using PowerLifting.Service.TemplatePrograms.Model;
-
-namespace PowerLifting.TemplatePrograms.Contracts.Repositories
+﻿namespace PowerLifting.TemplatePrograms.Contracts.Repositories
 {
-    public interface ITemplateRepSchemeRepository : IRepositoryBase<TemplateRepScheme>
+    public interface ITemplateRepSchemeRepository
     {
     }
 }

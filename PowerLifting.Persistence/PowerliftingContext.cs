@@ -11,6 +11,7 @@ using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
 using PowerLifting.Entity.System.Exercises.Models;
+using PowerLifting.Entity.System.Quotes.Models;
 
 namespace PowerLifting.Persistence
 {
@@ -23,13 +24,14 @@ namespace PowerLifting.Persistence
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder options)
-         //   => options.UseSqlite("Data Source=app.db");
+        //   => options.UseSqlite("Data Source=app.db");
 
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }
         public DbSet<ExerciseMuscleGroup> ExerciseMuscleGroup { get; set; }
         public DbSet<TemplateDifficulty> TemplateDifficulty { get; set; }
         public DbSet<RepSchemeType> RepSchemeType { get; set; }
+        public DbSet<Quote> Quote { get; set; }
 
         public DbSet<ProgramLog> ProgramLog { get; set; }
         public DbSet<ProgramLogWeek> ProgramLogWeek { get; set; }
@@ -37,7 +39,7 @@ namespace PowerLifting.Persistence
         public DbSet<ProgramLogExercise> ProgramLogExercise { get; set; }
         public DbSet<ProgramLogExerciseAudit> ProgramLogExerciseAudit { get; set; }
         public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
-        public DbSet<LiftingStat> LiftingStat{ get; set; }
+        public DbSet<LiftingStat> LiftingStat { get; set; }
         public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
         public DbSet<TemplateProgram> TemplateProgram { get; set; }
         public DbSet<TemplateWeek> TemplateWeek { get; set; }
@@ -61,6 +63,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("sysExerciseMuscleGroup");
             modelBuilder.Entity<TemplateDifficulty>().ToTable("sysTemplateDifficulty");
             modelBuilder.Entity<RepSchemeType>().ToTable("sysRepSchemeType");
+            modelBuilder.Entity<Quote>().ToTable("sysQuote");
 
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
             modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");

@@ -1,4 +1,5 @@
-﻿using PowerLifting.Accounts.Contracts;
+﻿using AutoMapper;
+using PowerLifting.Accounts.Contracts;
 using PowerLifting.Accounts.Contracts.Repositories;
 using PowerLifting.Accounts.Repository;
 using PowerLifting.Persistence;
@@ -9,12 +10,14 @@ namespace PowerLifting.Accounts.Service
     {
         private IUserRepository _userRepo;
         private IUserSettingRepository _userSettingRepo;
+        private readonly IMapper _mapper;
 
         private readonly PowerliftingContext _context;
 
-        public AccountWrapper(PowerliftingContext repositoryContext)
+        public AccountWrapper(PowerliftingContext repositoryContext, IMapper mapper)
         {
             _context = repositoryContext;
+            _mapper = mapper;
         }
 
         public IUserRepository User
@@ -23,7 +26,7 @@ namespace PowerLifting.Accounts.Service
             {
                 if (_userRepo == null)
                 {
-                    _userRepo = new UserRepository(_context);
+                    _userRepo = new UserRepository(_context, _mapper);
                 }
 
                 return _userRepo;
@@ -36,7 +39,7 @@ namespace PowerLifting.Accounts.Service
             {
                 if (_userSettingRepo == null)
                 {
-                    _userSettingRepo = new UserSettingRepository(_context);
+                    _userSettingRepo = new UserSettingRepository(_context, _mapper);
                 }
 
                 return _userSettingRepo;

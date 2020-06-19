@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using PowerLifting.Entity.ProgramLogs.DTO;
+using PowerLifting.Entity.ProgramLogs.Model;
 
 namespace PowerLifting.ProgramLogs.Contracts.Services
 {
@@ -10,7 +11,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// Create a new program log rep scheme, assuming the user has done
         /// an additional set etc
         /// </summary>
-        Task CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
+        Task<ProgramLogRepScheme> CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
 
         /// <summary>
         /// Marks a program log rep scheme as complete or non complete

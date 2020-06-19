@@ -86,7 +86,7 @@ namespace PowerLifting.API.API
         {
             try
             {
-                _service.LiftingStat.DeleteLiftingStat(liftingStatId);
+                _service.LiftingStat.DeleteLiftingStat(new LiftingStatDTO() { LiftingStatId = liftingStatId });
             }
             catch (LiftingStatNotFoundException ex)
             {

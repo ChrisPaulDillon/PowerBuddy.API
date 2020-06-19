@@ -5,25 +5,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Powerlifting.Common;
 using PowerLifting.Entity.System.ExerciseTypes.DTOs;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
-using PowerLifting.Systems.Contracts;
 using PowerLifting.Systems.Contracts.Repositories;
 
 namespace PowerLifting.Systems.Repository
 {
-    public class ExerciseTypeRepository : RepositoryBase<ExerciseType>, IExerciseTypeRepository
+    public class ExerciseTypeRepository : IExerciseTypeRepository
     {
+        private readonly PowerliftingContext _context;
         private readonly IMapper _mapper;
-        public ExerciseTypeRepository(PowerliftingContext context, IMapper mapper) : base(context)
+
+        public ExerciseTypeRepository(PowerliftingContext context, IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<ExerciseTypeDTO>> GetAllExerciseTypes()
         {
-            return await PowerliftingContext.Set<ExerciseType>()
+            return await _context.Set<ExerciseType>()
                 .ProjectTo<ExerciseTypeDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .ToListAsync();
@@ -31,20 +32,37 @@ namespace PowerLifting.Systems.Repository
 
         public async Task<ExerciseTypeDTO> GetExerciseTypeById(int exerciseTypeId)
         {
-            return await PowerliftingContext.Set<ExerciseType>()
+            return await _context.Set<ExerciseType>()
                 .Where(c => c.ExerciseTypeId == exerciseTypeId)
                 .ProjectTo<ExerciseTypeDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdateExerciseType(ExerciseType exerciseType)
+        public async Task<ExerciseType> CreateExerciseType(ExerciseTypeDTO exerciseTypeDTO)
         {
-            return await Update(exerciseType);
+            var exerciseType = _mapper.Map<ExerciseType>(exerciseTypeDTO);
+            _context.Update(exerciseType);
+
+            await _context.SaveChangesAsync();
+            return exerciseType;
         }
 
-        public async Task<bool> DeleteExerciseType(ExerciseType exerciseType)
+        public async Task<bool> UpdateExerciseType(ExerciseTypeDTO exerciseTypeDTO)
         {
-            return await Delete(exerciseType);
+            var exerciseType = _mapper.Map<ExerciseType>(exerciseTypeDTO);
+            _context.Update(exerciseType);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
+        }
+
+        public async Task<bool> DeleteExerciseType(ExerciseTypeDTO exerciseTypeDTO)
+        {
+            var exerciseType = _mapper.Map<ExerciseType>(exerciseTypeDTO);
+            _context.Remove(exerciseType);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
     }
 }

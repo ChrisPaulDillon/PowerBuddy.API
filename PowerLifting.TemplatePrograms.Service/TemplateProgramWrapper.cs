@@ -44,7 +44,7 @@ namespace PowerLifting.TemplatePrograms.Service
             {
                 if (_templateWeekRepo == null)
                 {
-                    _templateWeekRepo = new TemplateWeekRepository(_context);
+                    _templateWeekRepo = new TemplateWeekRepository(_context, _mapper);
                 }
 
                 return _templateWeekRepo;
@@ -58,7 +58,7 @@ namespace PowerLifting.TemplatePrograms.Service
             {
                 if (_templateDayRepo == null)
                 {
-                    _templateDayRepo = new TemplateDayRepository(_context);
+                    _templateDayRepo = new TemplateDayRepository(_context, _mapper);
                 }
 
                 return _templateDayRepo;
@@ -71,7 +71,7 @@ namespace PowerLifting.TemplatePrograms.Service
             {
                 if (_templateExerciseRepo == null)
                 {
-                    _templateExerciseRepo = new TemplateExerciseRepository(_context);
+                    _templateExerciseRepo = new TemplateExerciseRepository(_context, _mapper);
                 }
 
                 return _templateExerciseRepo;
@@ -84,7 +84,7 @@ namespace PowerLifting.TemplatePrograms.Service
             {
                 if (_templateRepSchemeRepo == null)
                 {
-                    _templateRepSchemeRepo = new TemplateRepSchemeRepository(_context);
+                    _templateRepSchemeRepo = new TemplateRepSchemeRepository(_context, _mapper);
                 }
 
                 return _templateRepSchemeRepo;
@@ -97,7 +97,7 @@ namespace PowerLifting.TemplatePrograms.Service
             {
                 if (_templateExerciseCollectionRepo == null)
                 {
-                    _templateExerciseCollectionRepo = new TemplateExerciseCollectionRepository(_context);
+                    _templateExerciseCollectionRepo = new TemplateExerciseCollectionRepository(_context, _mapper);
                 }
 
                 return _templateExerciseCollectionRepo;

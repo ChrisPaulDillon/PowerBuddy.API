@@ -50,10 +50,9 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return userProgramLogDTO;
         }
 
-        public async Task CreateProgramLog(ProgramLogDTO programLog)
+        public async Task<ProgramLog> CreateProgramLog(ProgramLogDTO programLog)
         {
-            var newProgramLog = _mapper.Map<ProgramLog>(programLog);
-            await _repo.ProgramLog.CreateProgramLog(newProgramLog);
+            return await _repo.ProgramLog.CreateProgramLog(programLog);
         }
 
         private async Task<bool> DoesProgramLogAlreadyExist(string userId)
@@ -61,7 +60,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return await _repo.ProgramLog.DoesProgramLogAfterTodayExist(userId);
         }
 
-        public async Task<ProgramLogDTO> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)
+        public async Task<ProgramLog> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)
         {
             var validator = new ProgramLogValidator();
 
@@ -71,10 +70,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             validator.ValidateProgramLogDaysMatchTemplateDaysCount(daySelected.Counter, templateProgram.MaxLiftDaysPerWeek);
 
             var newProgramLog = CreateProgramLog(templateProgram, daySelected, liftingStats.ToList(), userId);
-            var programLog = _mapper.Map<ProgramLog>(newProgramLog);
-            await _repo.ProgramLog.CreateProgramLog(programLog);
-
-            return newProgramLog;
+            return await _repo.ProgramLog.CreateProgramLog(newProgramLog);
         }
 
         private static DaySelected CountDaysSelected(DaySelected ds)
@@ -346,7 +342,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             }
 
             _mapper.Map(programLogDTO, programLog);
-            await _repo.ProgramLog.UpdateProgramLog(programLog);
+            var result = await _repo.ProgramLog.UpdateProgramLog(programLogDTO);
             return programLogDTO;
         }
 
@@ -363,7 +359,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 throw new UnauthorisedUserException("UserId does match the user associated with this program log!");
             }
 
-            return await _repo.ProgramLog.DeleteProgramLog(programLog);
+            return await _repo.ProgramLog.DeleteProgramLog(new ProgramLogDTO() { ProgramLogId = programLogId });
         }
 
         #endregion

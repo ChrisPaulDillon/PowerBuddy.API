@@ -23,10 +23,9 @@ namespace PowerLifting.ProgramLogs.Service.Services
             _userManager = userManager;
         }
 
-        public async Task CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        public async Task<ProgramLogRepScheme> CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
         {
-            var newProgramLogRepScheme = _mapper.Map<ProgramLogRepScheme>(programLogRepSchemeDTO);
-            await _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(newProgramLogRepScheme);
+            return await _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(programLogRepSchemeDTO);
         }
 
         public async Task<bool> UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
@@ -34,8 +33,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             var doesExist = await _repo.ProgramLogRepScheme.DoesRepSchemeExist(programLogRepSchemeDTO.ProgramLogRepSchemeId);
             if (!doesExist) throw new ProgramLogRepSchemeNotFoundException();
 
-            var updatedRepScheme = _mapper.Map<ProgramLogRepScheme>(programLogRepSchemeDTO);
-            return await _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(updatedRepScheme);
+            return await _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(programLogRepSchemeDTO);
         }
 
         public async Task<bool> DeleteProgramLogRepScheme(int programLogRepSchemeId)
@@ -43,7 +41,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             var doesExist = await _repo.ProgramLogRepScheme.DoesRepSchemeExist(programLogRepSchemeId);
             if (!doesExist) throw new ProgramLogRepSchemeNotFoundException();
 
-            return await _repo.ProgramLogRepScheme.DeleteProgramLogRepScheme(new ProgramLogRepScheme() { ProgramLogRepSchemeId = programLogRepSchemeId });
+            return await _repo.ProgramLogRepScheme.DeleteProgramLogRepScheme(new ProgramLogRepSchemeDTO() { ProgramLogRepSchemeId = programLogRepSchemeId });
         }
 
         public async Task<bool> MarkProgramLogRepSchemeComplete(int programLogRepSchemeId, bool isCompleted)
@@ -51,7 +49,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             var programLogRepScheme = await _repo.ProgramLogRepScheme.GetProgramLogRepSchemeById(programLogRepSchemeId);
             if (programLogRepScheme == null) throw new ProgramLogRepSchemeNotFoundException();
             programLogRepScheme.Completed = isCompleted;
-            return await _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(programLogRepScheme);
+            return await _repo.ProgramLogRepScheme.MarkProgramLogRepSchemeComplete(programLogRepScheme);
         }
     }
 }

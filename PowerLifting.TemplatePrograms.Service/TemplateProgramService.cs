@@ -69,13 +69,12 @@ namespace PowerLifting.TemplatePrograms.Service
             return templateExercises.Where(x => x.Exercise.IsProgrammable);
         }
 
-        public async Task CreateTemplateProgram(TemplateProgramDTO templateProgramDTO)
+        public async Task<TemplateProgram> CreateTemplateProgram(TemplateProgramDTO templateProgramDTO)
         {
             var isTaken = await _repo.TemplateProgram.DoesNameExist(templateProgramDTO.Name);
             if (isTaken) throw new TemplateProgramNameAlreadyExistsException();
 
-            var newTemplateProgram = _mapper.Map<TemplateProgram>(templateProgramDTO);
-            _repo.TemplateProgram.CreateTemplateProgram(newTemplateProgram);
+            return await _repo.TemplateProgram.CreateTemplateProgram(templateProgramDTO);
         }
     }
 }

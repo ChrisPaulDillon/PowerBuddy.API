@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.TemplatePrograms.DTO;
+using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.TemplatePrograms.Contracts.Services
 {
@@ -26,6 +27,6 @@ namespace PowerLifting.TemplatePrograms.Contracts.Services
         /// <summary>
         /// Creates a new program template, possibly to be used by an admin or custom program creation
         /// </summary>
-        Task CreateTemplateProgram(TemplateProgramDTO programTemplateDTO);
+        Task<TemplateProgram> CreateTemplateProgram(TemplateProgramDTO programTemplateDTO);
     }
 }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Powerlifting.Common;
 using PowerLifting.Service.SystemServices.TemplateDifficultys.DTO;
-using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
 
 namespace PowerLifting.Systems.Contracts.Repositories
 {
-    public interface ITemplateDifficultyRepository : IRepositoryBase<TemplateDifficulty>
+    public interface ITemplateDifficultyRepository
     {
         Task<IEnumerable<TemplateDifficultyDTO>> GetAllTemplateDifficulties();
     }

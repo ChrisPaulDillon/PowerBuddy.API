@@ -29,6 +29,6 @@ namespace PowerLifting.LiftingStats.Service
         /// <summary>
         /// Deletes a given lifting stat and the audit associated with it
         /// </summary>
-        Task<bool> DeleteLiftingStat(int liftingStatId);
+        Task<bool> DeleteLiftingStat(LiftingStatDTO liftingStatId);
     }
 }

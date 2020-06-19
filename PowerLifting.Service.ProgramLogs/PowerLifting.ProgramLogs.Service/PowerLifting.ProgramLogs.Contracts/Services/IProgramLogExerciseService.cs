@@ -23,37 +23,25 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Creates a new program exercise for a specific log
         /// </summary>
-        Task<ProgramLogExerciseDTO> CreateProgramLogExercise(string userId, CProgramLogExerciseDTO programLogExercise);
+        Task<ProgramLogExercise> CreateProgramLogExercise(string userId, CProgramLogExerciseDTO programLogExercise);
 
         /// <summary>
         /// Updates a given program log exercise, this could be the number of sets,
         /// a new comment etc
         /// </summary>
-        /// <param name="programLogExercise"></param>
-        /// <returns></returns>
-        Task UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExercise);
+        Task<bool> UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExercise);
 
         /// <summary>
         /// Deletes a given program log exercise
         /// </summary>
-        /// <param name="programLogExerciseId"></param>
-        /// <returns></returns>
-        Task DeleteProgramLogExercise(int programLogExerciseId);
+        Task<bool> DeleteProgramLogExercise(int programLogExerciseId);
 
         /// <summary>
         /// Checks for an existing audit,
         /// creates a new one or updates the existing
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="exerciseId"></param>
-        /// <returns></returns>
-        Task CreateProgramLogExerciseAudit(string userId, int exerciseId);
+        Task<int> CreateProgramLogExerciseAudit(string userId, int exerciseId);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         Task<ProgramLogExerciseAudit> GetProgramLogExerciseAuditCount(string userId);
     }
 }

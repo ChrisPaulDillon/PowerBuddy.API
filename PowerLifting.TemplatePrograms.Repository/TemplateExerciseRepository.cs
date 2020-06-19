@@ -1,14 +1,12 @@
-﻿using Powerlifting.Common;
+﻿using AutoMapper;
 using PowerLifting.Persistence;
-using PowerLifting.Service.TemplatePrograms.Model;
-using PowerLifting.TemplatePrograms.Contracts;
 using PowerLifting.TemplatePrograms.Contracts.Repositories;
 
 namespace PowerLifting.TemplatePrograms.Repository
 {
-    public class TemplateExerciseRepository : RepositoryBase<TemplateExercise>, ITemplateExerciseRepository
+    public class TemplateExerciseRepository : ITemplateExerciseRepository
     {
-        public TemplateExerciseRepository(PowerliftingContext context) : base(context)
+        public TemplateExerciseRepository(PowerliftingContext context, IMapper mapper)
         {
         }
     }

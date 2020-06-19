@@ -8,6 +8,6 @@ namespace PowerLifting.LiftingStats.Contracts
         /// <summary>
         /// Creates a new lifting stat audit for a specific user with a specific rep range
         /// </summary>
-        Task CreateLiftingStatAudit(LiftingStatAudit liftingStatAudit);
+        Task<int> CreateLiftingStatAudit(LiftingStatAudit liftingStatAudit);
     }
 }
