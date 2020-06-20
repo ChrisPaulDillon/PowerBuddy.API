@@ -14,6 +14,6 @@ namespace PowerLifting.Service.Users.DTO
 
         public int LiftingStatId { get; set; }
         public virtual LiftingStatDTO LiftingStats { get; set; }
-        public ICollection<ProgramLogDTO> ProgramLogs { get; set; }
+        public virtual IEnumerable<ProgramLogDTO> ProgramLogs { get; set; }
     }
 }

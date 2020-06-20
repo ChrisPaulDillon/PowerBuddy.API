@@ -17,6 +17,6 @@ namespace PowerLifting.Service.TemplatePrograms.DTO
         public string BackOffSetFormat { get; set; }
 
         public virtual ExerciseDTO Exercise { get; set; }
-        public virtual ICollection<TemplateRepSchemeDTO> TemplateRepSchemes { get; set; }
+        public virtual IEnumerable<TemplateRepSchemeDTO> TemplateRepSchemes { get; set; }
     }
 }

@@ -22,20 +22,19 @@ namespace PowerLifting.Systems.Repository
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
+        public async Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercises()
         {
             return await _context.Set<Exercise>()
-                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
+        public async Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
         {
             return await _context.Set<Exercise>()
                 .Where(x => x.ExerciseSports.Any(x => x.ExerciseSportStr == exerciseSport))
-                .Select(x => new ExerciseDTO()
-                { ExerciseId = x.ExerciseId })
+                .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .ToListAsync();
         }

@@ -25,7 +25,7 @@ namespace PowerLifting.LiftingStats.Service
         /// <summary>
         /// Creates a batch of lifting stats based on the users sport preferences
         /// </summary>
-        Task CreateLiftingStatsByAthleteType(string userId, IEnumerable<ExerciseDTO> exercises);
+        Task<bool> CreateLiftingStatsByAthleteType(string userId, IEnumerable<TopLevelExerciseDTO> exercises);
 
         /// <summary>
         /// Updates a given lifting stat and logs the new result

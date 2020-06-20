@@ -20,6 +20,6 @@ namespace PowerLifting.Service.TemplatePrograms.Model
         public string BackOffSetFormat { get; set; }
 
         public virtual Exercise Exercise { get; set; }
-        public virtual ICollection<TemplateRepScheme> TemplateRepSchemes { get; set; }
+        public virtual IEnumerable<TemplateRepScheme> TemplateRepSchemes { get; set; }
     }
 }

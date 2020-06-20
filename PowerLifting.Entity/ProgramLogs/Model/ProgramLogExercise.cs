@@ -22,6 +22,6 @@ namespace PowerLifting.Entity.ProgramLogs.Model
         public bool Completed { get; set; }
 
         public virtual Exercise Exercise { get; set; }
-        public virtual ICollection<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
+        public virtual IEnumerable<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
     }
 }

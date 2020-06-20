@@ -33,6 +33,11 @@ namespace PowerLifting.LiftingStats.Contracts
         Task<LiftingStat> CreateLiftingStat(LiftingStatDTO liftingStat);
 
         /// <summary>
+        /// Used for batch creation
+        /// </summary>
+        void CreateLiftingStatNoSave(LiftingStat liftingStat);
+
+        /// <summary>
         /// Updates lifting stats for a given user
         /// </summary>
         Task<bool> UpdateLiftingStat(LiftingStatDTO liftingStat);
@@ -41,5 +46,7 @@ namespace PowerLifting.LiftingStats.Contracts
         /// Deletes a given lifting stat
         /// </summary>
         Task<bool> DeleteLiftingStat(LiftingStatDTO liftingStatId);
+
+        Task<bool> SaveChangesAsync();
     }
 }

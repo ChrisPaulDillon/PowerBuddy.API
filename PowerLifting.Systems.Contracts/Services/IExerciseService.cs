@@ -12,12 +12,12 @@ namespace PowerLifting.Systems.Contracts.Services
         /// Gets a top level overview of all exercises available
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<ExerciseDTO>> GetAllExercises();
+        Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercises();
 
         /// <summary>
         /// Gets all exercises under a given sport title
         /// </summary>
-        Task<IEnumerable<ExerciseDTO>> GetAllExercisesBySport(string exerciseSport);
+        Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercisesBySport(string exerciseSport);
 
         /// <summary>
         /// Gets a specific exercise by id and includes its type and muscle groups worked

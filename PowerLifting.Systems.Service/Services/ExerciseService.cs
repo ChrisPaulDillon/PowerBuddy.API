@@ -23,12 +23,12 @@ namespace PowerLifting.Systems.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
+        public async Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercises()
         {
             return await _repo.Exercise.GetAllExercises();
         }
 
-        public async Task<IEnumerable<ExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
+        public async Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
         {
             return await _repo.Exercise.GetAllExercisesBySport(exerciseSport);
         }

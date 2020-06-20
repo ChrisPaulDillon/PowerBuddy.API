@@ -17,6 +17,6 @@ namespace PowerLifting.Service.LiftingStats.DTO
         public double? GoalWeight { get; set; }
         public double? PercentageToGoal { get; set; }
         public DateTime? LastUpdated { get; set; }
-        public virtual ExerciseDTO Exercise { get; set; }
+        public virtual TopLevelExerciseDTO Exercise { get; set; }
     }
 }

@@ -12,6 +12,6 @@ namespace PowerLifting.Service.TemplatePrograms.DTO
         public string TemplateType { get; set; } //incremental, percentage based
         public string WeightProgressionType { get; set; } //incremental, percentage based
 
-        public virtual ICollection<TemplateWeekDTO> TemplateWeeks { get; set; }
+        public virtual IEnumerable<TemplateWeekDTO> TemplateWeeks { get; set; }
     }
 }

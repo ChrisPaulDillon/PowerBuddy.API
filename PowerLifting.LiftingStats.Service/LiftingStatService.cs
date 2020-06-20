@@ -25,9 +25,7 @@ namespace PowerLifting.LiftingStats.Service
 
         public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserId(string userId)
         {
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
-            var liftingStatDTO = _mapper.Map<IEnumerable<LiftingStatDTO>>(liftingStat);
-            return liftingStatDTO;
+            return await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
@@ -37,20 +35,25 @@ namespace PowerLifting.LiftingStats.Service
             return liftingStatsDTO;
         }
 
-        public async Task CreateLiftingStatsByAthleteType(string userId, IEnumerable<ExerciseDTO> exercises)
+        public async Task<bool> CreateLiftingStatsByAthleteType(string userId, IEnumerable<TopLevelExerciseDTO> exercises)
         {
+            var repRanges = new int[] { 1, 2, 3, 5, 10 };
             var exerciseList = exercises.ToList();
             foreach (var exercise in exerciseList)
             {
-                await _repo.LiftingStat.CreateLiftingStat(
-                    new LiftingStatDTO()
-                    {
-                        UserId = userId,
-                        ExerciseId = exercise.ExerciseId,
-                        RepRange = 1,
-                        LastUpdated = null
-                    });
+                foreach (var repRange in repRanges)
+                {
+                    _repo.LiftingStat.CreateLiftingStatNoSave(
+                        new LiftingStat()
+                        {
+                            UserId = userId,
+                            ExerciseId = exercise.ExerciseId,
+                            RepRange = repRange,
+                            LastUpdated = null
+                        });
+                }
             }
+            return await _repo.LiftingStat.SaveChangesAsync();
         }
 
         public async Task<LiftingStat> CreateLiftingStat(LiftingStatDTO liftingStatDTO)

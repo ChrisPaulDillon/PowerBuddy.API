@@ -11,6 +11,6 @@ namespace PowerLifting.Entity.ProgramLogs.DTO
         public int WeekNo { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public ICollection<ProgramLogDayDTO> ProgramLogDays { get; set; }
+        public virtual ICollection<ProgramLogDayDTO> ProgramLogDays { get; set; }
     }
 }

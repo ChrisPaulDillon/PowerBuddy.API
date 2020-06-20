@@ -12,6 +12,6 @@ namespace PowerLifting.Entity.ProgramLogs.Model
         public int DayNo { get; set; }
         public DateTime Date { get; set; }
         public string Comment { get; set; }
-        public ICollection<ProgramLogExercise> ProgramLogExercises { get; set; }
+        public virtual IEnumerable<ProgramLogExercise> ProgramLogExercises { get; set; }
     }
 }

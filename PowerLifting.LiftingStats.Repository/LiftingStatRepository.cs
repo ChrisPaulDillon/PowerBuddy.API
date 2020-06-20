@@ -62,6 +62,17 @@ namespace PowerLifting.LiftingStats.Repository
             return liftingStatEntity;
         }
 
+        public void CreateLiftingStatNoSave(LiftingStat liftingStat)
+        {
+            _context.Add(liftingStat);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            var modifiedRows = await _context.SaveChangesAsync();
+            return modifiedRows > 0;
+        }
+
         public async Task<bool> UpdateLiftingStat(LiftingStatDTO liftingStat)
         {
             var liftingStatEntity = _mapper.Map<LiftingStat>(liftingStat);

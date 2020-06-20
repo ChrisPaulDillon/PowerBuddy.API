@@ -12,7 +12,7 @@ namespace PowerLifting.Service.TemplatePrograms.Model
         public string TemplateType { get; set; } //block training, autoregulation?
         public string WeightProgressionType { get; set; } //incremental, percentage based
 
-        public virtual ICollection<TemplateWeek> TemplateWeeks { get; set; }
-        public virtual ICollection<TemplateExerciseCollection> TemplateExerciseCollection { get; set; }
+        public virtual IEnumerable<TemplateWeek> TemplateWeeks { get; set; }
+        public virtual IEnumerable<TemplateExerciseCollection> TemplateExerciseCollection { get; set; }
     }
 }
