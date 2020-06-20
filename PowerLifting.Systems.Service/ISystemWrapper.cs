@@ -10,5 +10,6 @@ namespace PowerLifting.Systems.Service
         IExerciseMuscleGroupRepository ExerciseMuscleGroup { get; }
         IRepSchemeTypeRepository RepSchemeType { get; }
         ITemplateDifficultyRepository TemplateDifficulty { get; }
+        IQuoteRepository Quote { get; }
     }
 }

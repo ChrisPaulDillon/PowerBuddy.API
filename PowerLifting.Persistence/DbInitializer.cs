@@ -4,6 +4,7 @@ using System.Linq;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 using PowerLifting.Entity.System.Exercises.Models;
+using PowerLifting.Entity.System.ExerciseSports.Model;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
 using PowerLifting.Entity.System.Quotes.Models;
 using PowerLifting.Service.LiftingStats.Model;
@@ -26,6 +27,8 @@ namespace PowerLifting.Persistence
                 {
                     new Quote{QuoteStr="We All Gonna Make It Brahs", Author = "Zyzz", Year = 2011, Active = true},
                     new Quote{QuoteStr="Non Negotiable", Author = "Jason Blaha", Year = 2015, Active = true},
+                    new Quote{QuoteStr="Everyone wants to be a bodybuilder, but nobody wants to lift no heavy ass weights", Author = "Ronnie Coleman", Year = 2005, Active = true},
+                    new Quote{QuoteStr="Everyone wants to be a bodybuilder, but nobody wants to lift no heavy ass weights", Author = "Ronnie Coleman", Year = 2005, Active = true},
                 };
 
                 foreach (var e in quotes)
@@ -55,8 +58,8 @@ namespace PowerLifting.Persistence
             {
                 var exerciseCategories = new ExerciseType[]
                 {
-                    new ExerciseType{ExerciseTypeName="Dumbbells"},
-                    new ExerciseType{ExerciseTypeName="Barbells"},
+                    new ExerciseType{ExerciseTypeName="Dumbbell"},
+                    new ExerciseType{ExerciseTypeName="Barbell"},
                     new ExerciseType{ExerciseTypeName="BodyWeight"},
                     new ExerciseType{ExerciseTypeName="Machine"},
                 };
@@ -77,39 +80,67 @@ namespace PowerLifting.Persistence
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Quads" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Hamstrings" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Lower Back" },
-                        }, },
+                        },
+                        ExerciseSports = new List<ExerciseSport> {
+                                new ExerciseSport { ExerciseSportStr = "PowerLifting" },
+                                new ExerciseSport { ExerciseSportStr = "Olympic WeightLifting" },
+                        },
+                    },
                     new Exercise{ExerciseName="Conventional DeadLift", ExerciseTypeId = 2,
                         IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Lower Back" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Upper Back" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Hamstring" },
-                        }, },
+                        },
+                        ExerciseSports = new List<ExerciseSport> {
+                                new ExerciseSport { ExerciseSportStr = "PowerLifting" },
+                                new ExerciseSport { ExerciseSportStr = "Olympic WeightLifting" },
+                        },
+                    },
                     new Exercise{ExerciseName="Bench Press", ExerciseTypeId = 2,
                         IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Chest" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Tricep" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Anterior Deltoid" },
-                        }, },
+                        },
+                        ExerciseSports = new List<ExerciseSport> {
+                                new ExerciseSport { ExerciseSportStr = "PowerLifting" },
+                        },
+                    },
                     new Exercise{ExerciseName="Overhead Press", ExerciseTypeId = 2,
                             IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Anterior Deltoid" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Tricep" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Trapezius" },
-                        }, },
+                        },
+                        ExerciseSports = new List<ExerciseSport> {
+                                new ExerciseSport { ExerciseSportStr = "PowerLifting" },
+                                new ExerciseSport { ExerciseSportStr = "Olympic WeightLifting" },
+                        },
+                    },
                     new Exercise{ExerciseName="Front Squat", ExerciseTypeId = 2,
                             IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Quadricep" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Glute" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Abdominal" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Upper Back" },
-                        }, },
+                        },
+                        ExerciseSports = new List<ExerciseSport> {
+                                new ExerciseSport { ExerciseSportStr = "PowerLifting" },
+                                new ExerciseSport { ExerciseSportStr = "Olympic WeightLifting" },
+                        },
+                    },
                     new Exercise{ExerciseName="Overhead Squat", ExerciseTypeId = 2,
-                            IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                         IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Shoulder" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Quadricep" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Glute" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Upper Back" },
-                        }, },
+                        },
+                        ExerciseSports = new List<ExerciseSport> {
+                                new ExerciseSport { ExerciseSportStr = "Olympic WeightLifting" },
+                        },
+                    },
                     new Exercise{ExerciseName="Barbell Lunge", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Wide Grip Bench Press", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Narrow Grip Bench Press", ExerciseTypeId = 2},
@@ -146,7 +177,7 @@ namespace PowerLifting.Persistence
             {
                 var templates = new TemplateProgram[]
                 {
-                    new TemplateProgram {Name="5/3/1", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), NoOfWeeks = 4, MaxLiftDaysPerWeek = 4,
+                    new TemplateProgram {Name="5/3/1", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner), NoOfWeeks = 4, MaxLiftDaysPerWeek = 4,
                         TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 1 },
@@ -245,7 +276,7 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } } } },
                     } },
-                    new TemplateProgram {Name="5/3/1 Boring But Big", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER),
+                    new TemplateProgram {Name="5/3/1 Boring But Big", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                         NoOfWeeks = 4, MaxLiftDaysPerWeek = 4, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 1 },
@@ -390,7 +421,7 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } } } },
                     } },
-                    new TemplateProgram { Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.BEGINNER), NoOfWeeks = 12,
+                    new TemplateProgram { Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner), NoOfWeeks = 12,
                         MaxLiftDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 1 },

@@ -14,6 +14,8 @@ namespace PowerLifting.API.Wrappers
         ITemplateDifficultyService TemplateDifficulty { get; }
         IRepSchemeTypeService RepSchemeType { get; }
         IExerciseMuscleGroupService ExerciseMuscleGroup { get; }
+        IQuoteService Quote { get; }
+
         IProgramLogService ProgramLog { get; }
         IProgramLogDayService ProgramLogDay { get; }
         IProgramLogRepSchemeService ProgramLogRepScheme { get; }

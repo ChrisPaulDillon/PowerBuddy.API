@@ -10,5 +10,6 @@
         public string UserId { get; set; }
         public bool UsingMetric { get; set; }
         public double BodyWeight { get; set; }
+        public bool ActiveQuotes { get; set; } = true;
     }
 }

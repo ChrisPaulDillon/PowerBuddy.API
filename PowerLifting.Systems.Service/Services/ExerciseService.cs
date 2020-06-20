@@ -16,30 +16,21 @@ namespace PowerLifting.Systems.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly ISystemWrapper _repo;
-        private readonly ConcurrentDictionary<int, ExerciseDTO> _store;
 
         public ExerciseService(ISystemWrapper repo, IMapper mapper)
         {
             _repo = repo;
-            _store = new ConcurrentDictionary<int, ExerciseDTO>();
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
         {
-            await RefreshExerciseStore();
-            return _store.Values;
+            return await _repo.Exercise.GetAllExercises();
         }
 
-        private async Task RefreshExerciseStore()
+        public async Task<IEnumerable<ExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
         {
-            if (!_store.IsEmpty)
-                return;
-
-            var exerciseDTOs = await _repo.Exercise.GetAllExercises();
-
-            foreach (var exerciseDTO in exerciseDTOs)
-                _store.AddOrUpdate(exerciseDTO.ExerciseId, exerciseDTO, (key, olValue) => exerciseDTO);
+            return await _repo.Exercise.GetAllExercisesBySport(exerciseSport);
         }
 
         public async Task<ExerciseDTO> GetExerciseById(int id)

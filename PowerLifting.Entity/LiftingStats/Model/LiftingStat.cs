@@ -13,10 +13,10 @@ namespace PowerLifting.Service.LiftingStats.Model
         public string UserId { get; set; }
         public int ExerciseId { get; set; }
         public int RepRange { get; set; }
-        public double Weight { get; set; } 
+        public double? Weight { get; set; }
         public double? GoalWeight { get; set; }
         public double? PercentageToGoal { get; set; }
-        public DateTime LastUpdated { get; set; }
+        public DateTime? LastUpdated { get; set; }
         public virtual Exercise Exercise { get; set; }
     }
 }

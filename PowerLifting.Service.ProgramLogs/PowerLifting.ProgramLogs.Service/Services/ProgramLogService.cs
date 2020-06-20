@@ -295,7 +295,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
                 foreach (var temReps in temExercise.TemplateRepSchemes)
                 {
-                    var programRepSchema = GenerateProgramLogRepScheme("PERCENTAGE", user1RMOnLift.Weight, temReps);
+                    var programRepSchema = GenerateProgramLogRepScheme("PERCENTAGE", (double)(user1RMOnLift.Weight), temReps);
                     programLogExercise.ProgramLogRepSchemes.Add(programRepSchema);
                 }
                 programLogExercises.Add(programLogExercise);

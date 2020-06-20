@@ -10,8 +10,12 @@ namespace PowerLifting.Systems.Contracts.Repositories
         /// <summary>
         /// Gets all exercises from the database without any dependencies
         /// </summary>
-        /// <returns></returns> 
         Task<IEnumerable<ExerciseDTO>> GetAllExercises();
+
+        /// <summary>
+        /// Gets all exercises under a given exercise sport category
+        /// </summary>
+        Task<IEnumerable<ExerciseDTO>> GetAllExercisesBySport(string exerciseSport);
 
         /// <summary>
         /// Gets a specific exercise by id and includes muscle groups and type

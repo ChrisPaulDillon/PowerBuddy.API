@@ -15,6 +15,11 @@ namespace PowerLifting.Systems.Contracts.Services
         Task<IEnumerable<ExerciseDTO>> GetAllExercises();
 
         /// <summary>
+        /// Gets all exercises under a given sport title
+        /// </summary>
+        Task<IEnumerable<ExerciseDTO>> GetAllExercisesBySport(string exerciseSport);
+
+        /// <summary>
         /// Gets a specific exercise by id and includes its type and muscle groups worked
         /// </summary>
         Task<ExerciseDTO> GetExerciseById(int id);

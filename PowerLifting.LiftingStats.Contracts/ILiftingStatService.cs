@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Entity.System.Exercises.DTOs;
+using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.Service.LiftingStats.DTO;
+using PowerLifting.Service.LiftingStats.Model;
 
-namespace PowerLifting.LiftingStats.Contracts
+namespace PowerLifting.LiftingStats.Service
 {
     public interface ILiftingStatService
     {
@@ -18,19 +20,22 @@ namespace PowerLifting.LiftingStats.Contracts
         /// Creates a new lifting stat entry for the user for a given rep range.
         /// Checks if the rep range already exists for the user before creating.
         /// </summary>
-        /// <param name="liftingStats"></param>
-        /// <returns></returns>
-        Task<LiftingStatDTO> CreateLiftingStat(CreateLiftingStatDTO liftingStats, ExerciseDTO exercise);
+        Task<LiftingStat> CreateLiftingStat(LiftingStatDTO liftingStats);
+
+        /// <summary>
+        /// Creates a batch of lifting stats based on the users sport preferences
+        /// </summary>
+        Task CreateLiftingStatsByAthleteType(string userId, IEnumerable<ExerciseDTO> exercises);
 
         /// <summary>
         /// Updates a given lifting stat and logs the new result
         /// and date in the liftingstataudit table
         /// </summary>
-        Task UpdateLiftingStat(LiftingStatDTO liftingStatDTO);
+        Task<bool> UpdateLiftingStat(LiftingStatDTO liftingStatDTO);
 
         /// <summary>
         /// Deletes a given lifting stat and the audit associated with it
         /// </summary>
-        Task DeleteLiftingStat(int liftingStatId);
+        Task<bool> DeleteLiftingStat(LiftingStatDTO liftingStatId);
     }
 }

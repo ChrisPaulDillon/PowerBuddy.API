@@ -8,9 +8,10 @@ namespace PowerLifting.Service.Users.Model
 {
     public class User : IdentityUser
     {
+        public string SportType { get; set; }
         public virtual UserSetting UserSetting { get; set; }
-        public virtual ICollection<LiftingStat> LiftingStats { get; set; }
-        public virtual ICollection<ProgramLog> ProgramLogs { get; set; }
-        public virtual ICollection<IdentityRole> UserRoles { get; set; }
+        public virtual IEnumerable<LiftingStat> LiftingStats { get; set; }
+        public virtual IEnumerable<ProgramLog> ProgramLogs { get; set; }
+        public virtual IEnumerable<IdentityRole> UserRoles { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace PowerLifting.Service.LiftingStats.DTO
         public string UserId { get; set; }
         public int ExerciseId { get; set; }
         public int RepRange { get; set; }
-        public double Weight { get; set; }
+        public double? Weight { get; set; }
         public double? GoalWeight { get; set; }
         public double? PercentageToGoal { get; set; }
-        public DateTime LastUpdated { get; set; }
+        public DateTime? LastUpdated { get; set; }
         public virtual ExerciseDTO Exercise { get; set; }
     }
 }

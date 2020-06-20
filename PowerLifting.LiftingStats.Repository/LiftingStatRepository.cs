@@ -54,12 +54,12 @@ namespace PowerLifting.LiftingStats.Repository
                                                                .FirstOrDefaultAsync();
         }
 
-        public async Task<int> CreateLiftingStat(LiftingStatDTO liftingStat)
+        public async Task<LiftingStat> CreateLiftingStat(LiftingStatDTO liftingStat)
         {
             var liftingStatEntity = _mapper.Map<LiftingStat>(liftingStat);
             _context.Add(liftingStatEntity);
             await _context.SaveChangesAsync();
-            return liftingStatEntity.LiftingStatId;
+            return liftingStatEntity;
         }
 
         public async Task<bool> UpdateLiftingStat(LiftingStatDTO liftingStat)

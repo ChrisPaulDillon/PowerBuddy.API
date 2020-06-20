@@ -12,6 +12,7 @@ using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
 using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.Entity.System.Quotes.Models;
+using PowerLifting.Entity.System.ExerciseSports.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -26,9 +27,11 @@ namespace PowerLifting.Persistence
         //protected override void OnConfiguring(DbContextOptionsBuilder options)
         //   => options.UseSqlite("Data Source=app.db");
 
+        //System
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }
         public DbSet<ExerciseMuscleGroup> ExerciseMuscleGroup { get; set; }
+        public DbSet<ExerciseSport> ExerciseSport { get; set; }
         public DbSet<TemplateDifficulty> TemplateDifficulty { get; set; }
         public DbSet<RepSchemeType> RepSchemeType { get; set; }
         public DbSet<Quote> Quote { get; set; }
@@ -60,6 +63,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<Exercise>().ToTable("sysExercise");
             modelBuilder.Entity<ExerciseType>().HasAlternateKey(e => e.ExerciseTypeName);
             modelBuilder.Entity<ExerciseType>().ToTable("sysExerciseType");
+            modelBuilder.Entity<ExerciseSport>().ToTable("sysExerciseSport");
             modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("sysExerciseMuscleGroup");
             modelBuilder.Entity<TemplateDifficulty>().ToTable("sysTemplateDifficulty");
             modelBuilder.Entity<RepSchemeType>().ToTable("sysRepSchemeType");

@@ -6,6 +6,8 @@ using PowerLifting.Entity.System.Exercises.DTOs;
 using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.Entity.System.ExerciseTypes.DTOs;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
+using PowerLifting.Entity.System.Quotes.DTOs;
+using PowerLifting.Entity.System.Quotes.Models;
 using PowerLifting.Service.SystemServices.RepSchemeTypes.DTO;
 using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
 using PowerLifting.Service.TemplatePrograms.DTO;
@@ -28,6 +30,8 @@ namespace PowerLifting.Service.Exercises.AutoMapper
             CreateMap<ExerciseMuscleGroup, ExerciseMuscleGroupDTO>().ReverseMap();
 
             CreateMap<RepSchemeType, RepSchemeTypeDTO>().ReverseMap();
+
+            CreateMap<Quote, QuoteDTO>().ReverseMap();
         }
     }
 }

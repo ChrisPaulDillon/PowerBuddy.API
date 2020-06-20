@@ -2,8 +2,8 @@
 {
     public enum TemplateDifficultyEnum
     {
-        BEGINNER,
-        INTERMEDIATE,
-        ADVANCED
+        Beginner,
+        Intermediate,
+        Advanced
     }
 }

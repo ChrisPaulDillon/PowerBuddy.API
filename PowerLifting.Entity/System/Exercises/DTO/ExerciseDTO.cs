@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
+using PowerLifting.Entity.System.ExerciseSports.Model;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
 
 namespace PowerLifting.Entity.System.Exercises.DTOs
@@ -15,5 +16,6 @@ namespace PowerLifting.Entity.System.Exercises.DTOs
         public bool IsProgrammable { get; set; } //Is this a main lift / can numbers be generated using this lift
         public virtual ExerciseType ExerciseType { get; set; }
         public virtual IEnumerable<ExerciseMuscleGroupDTO> ExerciseMuscleGroups { get; set; }
+        public virtual IEnumerable<ExerciseSport> ExerciseSports { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace PowerLifting.Systems.Service
         private IExerciseMuscleGroupRepository _exerciseMuscleGroupRepo;
         private IRepSchemeTypeRepository _repSchemeTypeRepo;
         private ITemplateDifficultyRepository _templateDifficultyRepo;
+        private IQuoteRepository _quoteRepo;
 
         private readonly PowerliftingContext _context;
         private readonly IMapper _mapper;
@@ -90,5 +91,17 @@ namespace PowerLifting.Systems.Service
             }
         }
 
+        public IQuoteRepository Quote
+        {
+            get
+            {
+                if (_quoteRepo == null)
+                {
+                    _quoteRepo = new QuoteRepository(_context, _mapper);
+                }
+
+                return _quoteRepo;
+            }
+        }
     }
 }

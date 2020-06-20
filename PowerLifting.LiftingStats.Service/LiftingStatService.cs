@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using PowerLifting.Entity.System.Exercises.DTOs;
+using PowerLifting.LiftingStats.Contracts;
 using PowerLifting.LiftingStats.Service.Exceptions;
 using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.LiftingStats.Model;
@@ -34,7 +37,23 @@ namespace PowerLifting.LiftingStats.Service
             return liftingStatsDTO;
         }
 
-        public async Task<LiftingStatDTO> CreateLiftingStat(LiftingStatDTO liftingStatDTO)
+        public async Task CreateLiftingStatsByAthleteType(string userId, IEnumerable<ExerciseDTO> exercises)
+        {
+            var exerciseList = exercises.ToList();
+            foreach (var exercise in exerciseList)
+            {
+                await _repo.LiftingStat.CreateLiftingStat(
+                    new LiftingStatDTO()
+                    {
+                        UserId = userId,
+                        ExerciseId = exercise.ExerciseId,
+                        RepRange = 1,
+                        LastUpdated = null
+                    });
+            }
+        }
+
+        public async Task<LiftingStat> CreateLiftingStat(LiftingStatDTO liftingStatDTO)
         {
             var userId = liftingStatDTO.UserId;
             var repRange = liftingStatDTO.RepRange;
@@ -55,7 +74,7 @@ namespace PowerLifting.LiftingStats.Service
                 Exercise = liftingStatDTO.Exercise
             };
 
-            await _repo.LiftingStat.CreateLiftingStat(createdLiftingStatDTO);
+            var liftingStatEntity = await _repo.LiftingStat.CreateLiftingStat(createdLiftingStatDTO);
 
             var liftingStatAudit = new LiftingStatAudit()
             {
@@ -65,7 +84,7 @@ namespace PowerLifting.LiftingStats.Service
                 UserId = liftingStatDTO.UserId,
             };
             await _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
-            return liftingStatDTO;
+            return liftingStatEntity;
         }
 
         public async Task<bool> UpdateLiftingStat(LiftingStatDTO stats)

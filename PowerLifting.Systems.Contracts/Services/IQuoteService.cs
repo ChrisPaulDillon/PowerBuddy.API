@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Entity.System.Quotes.DTOs;
+using PowerLifting.Entity.System.Quotes.Models;
 
 namespace PowerLifting.Systems.Contracts.Services
 {
@@ -10,6 +11,6 @@ namespace PowerLifting.Systems.Contracts.Services
 
         Task<QuoteDTO> GetQuoteById(int quoteId);
 
-        Task CreateQuote(QuoteDTO quote);
+        Task<Quote> CreateQuote(QuoteDTO quote);
     }
 }

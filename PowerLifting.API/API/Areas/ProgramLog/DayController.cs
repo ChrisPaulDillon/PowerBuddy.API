@@ -13,6 +13,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
 {
     [Route("api/ProgramLog/[controller]")]
     [ApiController]
+    [Area("ProgramLog")]
     [Produces("application/json")]
     public class DayController : ControllerBase
     {

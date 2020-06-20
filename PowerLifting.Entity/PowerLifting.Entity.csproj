@@ -30,6 +30,9 @@
     <Folder Include="System\Quotes\" />
     <Folder Include="System\Quotes\Models\" />
     <Folder Include="System\Quotes\DTOs\" />
+    <Folder Include="System\ExerciseSports\" />
+    <Folder Include="System\ExerciseSports\Models\" />
+    <Folder Include="System\ExerciseSports\DTOs\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />

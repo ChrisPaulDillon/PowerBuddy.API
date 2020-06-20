@@ -17,5 +17,7 @@ namespace PowerLifting.Systems.Contracts.Repositories
         Task<bool> UpdateQuote(QuoteDTO quote);
 
         Task<bool> DeleteQuote(QuoteDTO quote);
+
+        Task<bool> DoesQuoteExist(int id);
     }
 }

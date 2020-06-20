@@ -25,9 +25,10 @@ namespace PowerLifting.Systems.Repository
         public async Task<IEnumerable<QuoteDTO>> GetAllQuotes()
         {
             return await _context.Set<Quote>()
-            .ProjectTo<QuoteDTO>(_mapper.ConfigurationProvider)
-            .AsNoTracking()
-            .ToListAsync();
+                .Where(x => x.Active)
+                .ProjectTo<QuoteDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<QuoteDTO> GetQuoteById(int quoteId)
@@ -63,6 +64,14 @@ namespace PowerLifting.Systems.Repository
 
             var modifiedRows = await _context.SaveChangesAsync();
             return modifiedRows > 0;
+        }
+
+        public async Task<bool> DoesQuoteExist(int id)
+        {
+            return await _context.Set<Quote>()
+                   .Where(x => x.QuoteId == id)
+                   .AsNoTracking()
+                   .AnyAsync();
         }
     }
 }

@@ -24,10 +24,18 @@ namespace PowerLifting.Systems.Repository
 
         public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
         {
-            return await _context.Set<Exercise>().AsNoTracking()
-                .Include(m => m.ExerciseMuscleGroups)
-                .Include(t => t.ExerciseType)
+            return await _context.Set<Exercise>()
                 .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
+        {
+            return await _context.Set<Exercise>()
+                .Where(x => x.ExerciseSports.Any(x => x.ExerciseSportStr == exerciseSport))
+                .Select(x => new ExerciseDTO()
+                { ExerciseId = x.ExerciseId })
                 .AsNoTracking()
                 .ToListAsync();
         }

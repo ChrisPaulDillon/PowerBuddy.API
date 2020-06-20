@@ -20,12 +20,12 @@ namespace PowerLifting.API.API
     public class AccountController : ControllerBase
     {
         private readonly IServiceWrapper _service;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public AccountController(IServiceWrapper service, SignInManager<User> signInManager)
+        public AccountController(IServiceWrapper service, UserManager<User> userManager)
         {
             _service = service;
-            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpPost("Login")]
@@ -70,6 +70,11 @@ namespace PowerLifting.API.API
             try
             {
                 await _service.User.RegisterUser(userDTO);
+                var user = await _userManager.FindByEmailAsync(userDTO.UserName);
+
+                var exercisesInSport = await _service.Exercise.GetAllExercisesBySport(userDTO.SportType);
+                await _service.LiftingStat.CreateLiftingStatsByAthleteType(user.Id, exercisesInSport);
+
                 return Ok(Responses.Success(userDTO));
             }
             catch (EmailInUseException ex)

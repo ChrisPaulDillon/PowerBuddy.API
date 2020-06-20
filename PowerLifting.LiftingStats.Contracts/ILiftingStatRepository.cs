@@ -30,7 +30,7 @@ namespace PowerLifting.LiftingStats.Contracts
         /// <summary>
         /// Creates a new lifting stat for a given rep range for a specific user
         /// </summary>
-        Task<int> CreateLiftingStat(LiftingStatDTO liftingStat);
+        Task<LiftingStat> CreateLiftingStat(LiftingStatDTO liftingStat);
 
         /// <summary>
         /// Updates lifting stats for a given user

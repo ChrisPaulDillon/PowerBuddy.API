@@ -22,6 +22,8 @@ namespace PowerLifting.API.Wrappers
         private IExerciseMuscleGroupService _exerciseMuscleGroup;
         private IExerciseTypeService _exerciseType;
         private IRepSchemeTypeService _repSchemeTypeService;
+        private IQuoteService _quoteService;
+
         private ILiftingStatService _liftingStats;
         private IProgramLogService _programLog;
         private IProgramLogDayService _programLogDay;
@@ -93,6 +95,17 @@ namespace PowerLifting.API.Wrappers
                     _exerciseMuscleGroup = new ExerciseMuscleGroupService(_systemWrapper, _mapper);
 
                 return _exerciseMuscleGroup;
+            }
+        }
+
+        public IQuoteService Quote
+        {
+            get
+            {
+                if (_quoteService == null)
+                    _quoteService = new QuoteService(_systemWrapper, _mapper);
+
+                return _quoteService;
             }
         }
 
