@@ -9,10 +9,10 @@ namespace PowerLifting.Systems.Contracts.Services
     public interface IExerciseService
     {
         /// <summary>
-        /// Gets a top level overview of all exercises available
+        /// Gets a overview of all exercises available
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercises();
+        Task<IEnumerable<ExerciseDTO>> GetAllExercises();
 
         /// <summary>
         /// Gets all exercises under a given sport title

@@ -21,7 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Validator\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>

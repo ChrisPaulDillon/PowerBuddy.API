@@ -9,7 +9,6 @@ using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.ProgramLogs.Service.Exceptions;
-using PowerLifting.ProgramLogs.Service.Validator;
 using PowerLifting.Service.LiftingStats.DTO;
 using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Model;
@@ -55,20 +54,12 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return await _repo.ProgramLog.CreateProgramLog(programLog);
         }
 
-        private async Task<bool> DoesProgramLogAlreadyExist(string userId)
-        {
-            return await _repo.ProgramLog.DoesProgramLogAfterTodayExist(userId);
-        }
-
         public async Task<ProgramLog> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)
         {
-            var validator = new ProgramLogValidator();
-
-            if (await DoesProgramLogAlreadyExist(userId)) throw new ProgramLogAlreadyActiveException(); //doesnt work lul
+            var doesExist = await _repo.ProgramLog.DoesProgramLogAfterTodayExist(userId);
+            if (doesExist) throw new ProgramLogAlreadyActiveException();
 
             daySelected = CountDaysSelected(daySelected);
-            validator.ValidateProgramLogDaysMatchTemplateDaysCount(daySelected.Counter, templateProgram.MaxLiftDaysPerWeek);
-
             var newProgramLog = CreateProgramLog(templateProgram, daySelected, liftingStats.ToList(), userId);
             return await _repo.ProgramLog.CreateProgramLog(newProgramLog);
         }
@@ -151,8 +142,6 @@ namespace PowerLifting.ProgramLogs.Service.Services
                     if (ds.Sunday) ds.ProgramOrder.Add(++counter, day.ToString());
                 }
             }
-
-            ds.Counter = counter;
             return ds;
         }
 
@@ -348,8 +337,8 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
         public async Task<bool> DeleteProgramLog(string userId, int programLogId)
         {
-            var validator = new ProgramLogValidator();
-            validator.ValidateProgramLogId(programLogId);
+            //var validator = new ProgramLogValidator();
+            //validator.ValidateProgramLogId(programLogId);
 
             var programLog = await _repo.ProgramLog.GetProgramLogById(programLogId);
 

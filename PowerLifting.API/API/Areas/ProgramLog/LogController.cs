@@ -111,8 +111,11 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             try
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
+
                 var template = await _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
                 if (template == null) throw new TemplateProgramNotFoundException();
+
+                if (template.MaxLiftDaysPerWeek != daySelected.Counter) throw new ProgramDaysDoesNotMatchTemplateDaysException();
 
                 var tec = _service.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateProgramId(templateProgramId);
                 var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
