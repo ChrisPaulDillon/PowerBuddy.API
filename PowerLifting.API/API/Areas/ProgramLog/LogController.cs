@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
@@ -17,9 +18,11 @@ namespace PowerLifting.API.API.Areas.ProgramLog
     [Route("api/ProgramLog/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class LogController : ControllerBase
     {
         private readonly IServiceWrapper _service;
+        private string userId = "";
 
         public LogController(IServiceWrapper service)
         {
@@ -107,8 +110,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         {
             try
             {
-                var userId = "9a590491-8ee8-4d20-b284-ae1e0b3f2124";
-
+                userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var template = await _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
                 if (template == null) throw new TemplateProgramNotFoundException();
 

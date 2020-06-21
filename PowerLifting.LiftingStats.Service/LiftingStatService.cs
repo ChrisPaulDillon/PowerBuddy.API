@@ -92,8 +92,8 @@ namespace PowerLifting.LiftingStats.Service
 
         public async Task<bool> UpdateLiftingStat(LiftingStatDTO stats)
         {
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatById(stats.LiftingStatId);
-            if (liftingStat == null) throw new LiftingStatNotFoundException();
+            var liftingStat = await _repo.LiftingStat.DoesLiftingStatExist(stats.LiftingStatId);
+            if (!liftingStat) throw new LiftingStatNotFoundException();
 
             var liftingStatAudit = new LiftingStatAudit()
             {

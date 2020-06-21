@@ -88,5 +88,10 @@ namespace PowerLifting.LiftingStats.Repository
             var changedRows = await _context.SaveChangesAsync();
             return changedRows > 0;
         }
+
+        public async Task<bool> DoesLiftingStatExist(int liftingStatId)
+        {
+            return await _context.LiftingStat.Where(x => x.LiftingStatId == liftingStatId).AnyAsync();
+        }
     }
 }

@@ -57,5 +57,6 @@
     <Folder Include="Wrappers\" />
     <Folder Include="API\Areas\" />
     <Folder Include="API\Areas\ProgramLog\" />
+    <Folder Include="Util\" />
   </ItemGroup>
 </Project>

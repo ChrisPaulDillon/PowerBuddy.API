@@ -29,6 +29,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using PowerLifting.API.Models;
+using System.Net;
+using PowerLifting.API.Util;
 
 namespace PowerLifting.API
 {
@@ -141,6 +143,12 @@ namespace PowerLifting.API
                     builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
                     .AllowAnyHeader()
                     .AllowAnyMethod());
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsAuthorized",
+                    policy => policy.Requirements.Add(new IsAuthorized()));
             });
 
         }

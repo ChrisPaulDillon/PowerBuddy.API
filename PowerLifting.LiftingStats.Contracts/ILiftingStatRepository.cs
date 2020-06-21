@@ -23,6 +23,11 @@ namespace PowerLifting.LiftingStats.Contracts
         Task<LiftingStat> GetLiftingStatById(int liftingStatId);
 
         /// <summary>
+        /// Checks whether a liftingStat exists or not
+        /// </summary>
+        Task<bool> DoesLiftingStatExist(int liftingStatId);
+
+        /// <summary>
         /// Used to determine if the user already has a lifting stat for this exercise and rep range
         /// </summary>
         Task<LiftingStatDTO> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange);

@@ -57,15 +57,16 @@ namespace PowerLifting.API.API
             }
         }
 
-        [HttpPut]
+        [HttpPut("{liftingStatId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public IActionResult UpdateLiftingStat([FromBody] LiftingStatDTO liftingStats)
+        public async Task<IActionResult> UpdateLiftingStat(int liftingStatId, [FromBody] LiftingStatDTO liftingStats)
         {
             try
             {
-                _service.LiftingStat.UpdateLiftingStat(liftingStats);
+                var isUpdated = await _service.LiftingStat.UpdateLiftingStat(liftingStats);
+                return Ok(Responses.Success(isUpdated));
             }
             catch (LiftingStatNotFoundException ex)
             {
@@ -75,7 +76,6 @@ namespace PowerLifting.API.API
             {
                 return Unauthorized(Responses.Error(ex));
             }
-            return Ok(Responses.Success());
         }
 
         [HttpDelete("{liftingStatId}")]
