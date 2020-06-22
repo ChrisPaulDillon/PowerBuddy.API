@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
     public class DayController : ControllerBase
     {
         private readonly IServiceWrapper _service;
+        private string _userId = "";
 
         public DayController(IServiceWrapper service)
         {
@@ -45,15 +47,16 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-        [HttpGet("Closest/{userId}")]
+        [HttpGet("Closest/{programLogWeekId:int}")]
         [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetCloseProgramLogDayToDate(string userId, int programLogId, DateTime dateSelected)
+        public async Task<IActionResult> GetClosestProgramLogDayToDate(int programLogWeekId, DateTime dateSelected)
         {
             try
             {
-                var programLogs = await _service.ProgramLogDay.GetClosestProgramLogDayToDate(userId, programLogId, dateSelected);
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogs = await _service.ProgramLogDay.GetClosestProgramLogDayToDate(programLogWeekId, _userId, dateSelected);
                 return Ok(Responses.Success(programLogs));
             }
             catch (ProgramLogDayNotFoundException ex)

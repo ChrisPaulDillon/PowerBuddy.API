@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,25 +15,26 @@ namespace PowerLifting.API.API
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class LiftingStatsController : ControllerBase
     {
         private readonly IServiceWrapper _service;
+        private string _userId = "";
 
         public LiftingStatsController(IServiceWrapper service)
         {
             _service = service;
         }
 
-
-        [HttpGet("{userId}")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<LiftingStatDTO>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAllUserLiftingStats(string userId)
+        public async Task<IActionResult> GetAllUserLiftingStats()
         {
             try
             {
-                var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserId(userId);
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserId(_userId);
                 return Ok(Responses.Success(liftingStats));
             }
             catch (LiftingStatNotFoundException ex)

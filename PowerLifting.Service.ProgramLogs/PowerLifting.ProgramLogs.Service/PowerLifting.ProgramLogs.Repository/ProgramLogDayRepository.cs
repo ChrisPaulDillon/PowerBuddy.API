@@ -35,16 +35,19 @@ namespace PowerLifting.ProgramLogs.Repository
                                                                         .FirstOrDefaultAsync();
         }
 
-        public async Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, int programLogId, DateTime date)
+        public async Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(int programLogWeekId, string userId, DateTime date)
         {
-            var result = _context.Set<ProgramLogDay>().Where(x => x.Date > date)
+            var result = _context.Set<ProgramLogDay>().Where(x => x.UserId == userId && x.Date >= date && x.ProgramLogWeekId == programLogWeekId)
                                                                         .AsNoTracking()
                                                                         .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
                                                                         .MinBy(x => Math.Abs((x.Date - date).Ticks))
                                                                         .ToList();
-
-            var programLogDay = result[0];
-            return programLogDay;
+            if (result.Any())
+            {
+                var programLogDay = result[0];
+                return programLogDay;
+            }
+            return null;
         }
 
         public async Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId)

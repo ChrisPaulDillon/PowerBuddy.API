@@ -18,7 +18,7 @@ namespace PowerLifting.Entity.ProgramLogs.DTO
         public bool Friday { get; set; }
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
-        public bool IsCompleted { get; set; }
+        public bool Active { get; set; }
         public IEnumerable<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
     }
 }

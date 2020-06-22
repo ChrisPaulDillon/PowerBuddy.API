@@ -22,7 +22,7 @@ namespace PowerLifting.Entity.ProgramLogs.Model
         public bool Friday { get; set; }
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
-        public bool IsCompleted { get; set; }
+        public bool Active { get; set; }
         public IEnumerable<ProgramLogWeek> ProgramLogWeeks { get; set; }
     }
 }

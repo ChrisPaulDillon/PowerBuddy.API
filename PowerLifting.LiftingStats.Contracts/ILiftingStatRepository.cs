@@ -30,7 +30,7 @@ namespace PowerLifting.LiftingStats.Contracts
         /// <summary>
         /// Used to determine if the user already has a lifting stat for this exercise and rep range
         /// </summary>
-        Task<LiftingStatDTO> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange);
+        Task<bool> DoesLiftingStatExistByExerciseAndRep(string userId, int exerciseId, int repRange);
 
         /// <summary>
         /// Creates a new lifting stat for a given rep range for a specific user

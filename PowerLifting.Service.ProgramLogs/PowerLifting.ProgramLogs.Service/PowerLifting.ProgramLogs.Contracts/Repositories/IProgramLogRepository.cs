@@ -15,7 +15,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Gets the users current program log
         /// </summary>
-        Task<ProgramLog> GetProgramLogByUserId(string userId);
+        Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId);
 
         /// <summary>
         /// Gets a given program log by id, presumably the one the user is currently on

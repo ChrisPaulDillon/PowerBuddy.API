@@ -22,6 +22,7 @@ namespace PowerLifting.LiftingStats.Repository
             _mapper = mapper;
         }
 
+        //do we still need this?
         public async Task<LiftingStatDTO> GetLiftingStatByExerciseIdAndRepRange(string userId, int exerciseId, int repRange)
         {
             return await _context.Set<LiftingStat>().Where(u => u.UserId == userId &&
@@ -42,7 +43,7 @@ namespace PowerLifting.LiftingStats.Repository
 
         public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
         {
-            return await _context.Set<LiftingStat>().Where(u => u.UserId == userId && u.RepRange == repRange)
+            return await _context.Set<LiftingStat>().Where(u => u.UserId == userId && u.RepRange == repRange && u.Weight != null)
                                                                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
                                                                .AsNoTracking()
                                                                .ToListAsync();
@@ -91,7 +92,12 @@ namespace PowerLifting.LiftingStats.Repository
 
         public async Task<bool> DoesLiftingStatExist(int liftingStatId)
         {
-            return await _context.LiftingStat.Where(x => x.LiftingStatId == liftingStatId).AnyAsync();
+            return await _context.LiftingStat.Where(x => x.LiftingStatId == liftingStatId).AsNoTracking().AnyAsync();
+        }
+
+        public async Task<bool> DoesLiftingStatExistByExerciseAndRep(string userId, int exerciseId, int repRange)
+        {
+            return await _context.LiftingStat.Where(x => x.UserId == userId && x.ExerciseId == exerciseId && x.RepRange == repRange).AnyAsync();
         }
     }
 }

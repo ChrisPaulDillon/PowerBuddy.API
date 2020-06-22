@@ -51,15 +51,16 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         }
 
 
-        [HttpGet("{userId}")]
+        [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetProgramLogByUserId(string userId)
+        public async Task<IActionResult> GetActiveProgramLog()
         {
             try
             {
-                var programLog = await _service.ProgramLog.GetProgramLogByUserId(userId);
+                userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLog = await _service.ProgramLog.GetActiveProgramLogByUserId(userId);
                 return Ok(Responses.Success(programLog));
             }
             catch (ProgramLogNotFoundException ex)
@@ -124,8 +125,8 @@ namespace PowerLifting.API.API.Areas.ProgramLog
 
                 if (tec.Count() != checkLiftingStats.Count()) throw new TemplateExercise1RMNotSetForUserException();
 
-                var programLogDTO = _service.ProgramLog.CreateProgramLogFromTemplate(userId, template, liftingStats, daySelected);
-                return Ok(Responses.Success(programLogDTO));
+                var programLog = await _service.ProgramLog.CreateProgramLogFromTemplate(userId, template, liftingStats, daySelected);
+                return Ok(Responses.Success(programLog));
             }
             catch (TemplateProgramNotFoundException ex)
             {
@@ -157,13 +158,14 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-        [HttpGet("Week/{userId}")]
+        [HttpGet("Week/{date}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProgramLogWeekByUserId(string userId, DateTime date)
+        public async Task<IActionResult> GetProgramLogWeekByUserId(DateTime date)
         {
             try
             {
+                userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByUserIdAndDate(userId, date);
                 return Ok(Responses.Success(programLogWeek));
             }

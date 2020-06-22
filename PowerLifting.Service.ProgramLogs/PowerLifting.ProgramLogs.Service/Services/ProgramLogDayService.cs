@@ -32,9 +32,9 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return programLogDayDTO;
         }
 
-        public async Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, int programLogId, DateTime date)
+        public async Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(int programLogWeekId, string userId, DateTime date)
         {
-            return await _repo.ProgramLogDay.GetClosestProgramLogDayToDate(userId, programLogId, date);
+            return await _repo.ProgramLogDay.GetClosestProgramLogDayToDate(programLogWeekId, userId, date);
         }
 
         public async Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date)

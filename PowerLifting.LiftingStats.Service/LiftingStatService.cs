@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Entity.System.Exercises.DTOs;
+using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.LiftingStats.Contracts;
 using PowerLifting.LiftingStats.Service.Exceptions;
 using PowerLifting.Service.LiftingStats.DTO;
@@ -49,7 +50,7 @@ namespace PowerLifting.LiftingStats.Service
                             UserId = userId,
                             ExerciseId = exercise.ExerciseId,
                             RepRange = repRange,
-                            LastUpdated = null
+                            LastUpdated = DateTime.UtcNow
                         });
                 }
             }
@@ -61,9 +62,9 @@ namespace PowerLifting.LiftingStats.Service
             var userId = liftingStatDTO.UserId;
             var repRange = liftingStatDTO.RepRange;
 
-            var liftingStat = _repo.LiftingStat.GetLiftingStatByExerciseIdAndRepRange(userId, liftingStatDTO.Exercise.ExerciseId, repRange);
+            var liftingStat = await _repo.LiftingStat.DoesLiftingStatExistByExerciseAndRep(userId, liftingStatDTO.ExerciseId, repRange);
 
-            if (liftingStat != null) throw new LiftingStatAlreadyExistsException();
+            if (liftingStat) throw new LiftingStatAlreadyExistsException();
 
             var createdLiftingStatDTO = new LiftingStatDTO()
             {
@@ -74,19 +75,24 @@ namespace PowerLifting.LiftingStats.Service
                 GoalWeight = liftingStatDTO.GoalWeight,
                 PercentageToGoal = liftingStatDTO.GoalWeight != null ? (liftingStatDTO.Weight / liftingStatDTO.GoalWeight) * 100 : null,
                 LastUpdated = liftingStatDTO.LastUpdated,
-                Exercise = liftingStatDTO.Exercise
             };
 
             var liftingStatEntity = await _repo.LiftingStat.CreateLiftingStat(createdLiftingStatDTO);
 
+            liftingStatEntity.Exercise = new Exercise()
+            {
+                ExerciseId = liftingStatDTO.Exercise.ExerciseId,
+                ExerciseName = liftingStatDTO.Exercise.ExerciseName
+            };
+
             var liftingStatAudit = new LiftingStatAudit()
             {
-                DateChanged = DateTime.Now.Date,
+                DateChanged = DateTime.UtcNow,
                 RepRange = liftingStatDTO.RepRange,
                 ExerciseId = liftingStatDTO.ExerciseId,
                 UserId = liftingStatDTO.UserId,
             };
-            await _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
+            //var createdAudit = await _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
             return liftingStatEntity;
         }
 

@@ -22,7 +22,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Gets the most recent / active program log of a given user
         /// </summary>
-        Task<ProgramLogDTO> GetProgramLogByUserId(string userId);
+        Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId);
 
         /// <summary>
         /// Creates a new generic program log

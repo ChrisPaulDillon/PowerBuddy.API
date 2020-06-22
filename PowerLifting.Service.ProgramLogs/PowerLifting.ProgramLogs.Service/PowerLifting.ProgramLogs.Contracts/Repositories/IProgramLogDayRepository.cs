@@ -18,7 +18,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Gets the closest program log day to a given date
         /// </summary>
-        Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, int programLogId, DateTime date);
+        Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(int programLogWeekId, string userId, DateTime date);
 
         /// <summary>
         /// Creates a new program day if its within the confinements of the program week

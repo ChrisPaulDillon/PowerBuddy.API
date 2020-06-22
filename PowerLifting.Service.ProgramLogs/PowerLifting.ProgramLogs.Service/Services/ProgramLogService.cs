@@ -40,13 +40,11 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return userProgramLogs;
         }
 
-        public async Task<ProgramLogDTO> GetProgramLogByUserId(string userId)
+        public async Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId)
         {
-            var userProgramLog = await _repo.ProgramLog.GetProgramLogByUserId(userId);
-            if (userProgramLog == null) throw new ProgramLogNotFoundException();
-
-            var userProgramLogDTO = _mapper.Map<ProgramLogDTO>(userProgramLog);
-            return userProgramLogDTO;
+            var programLogDTO = await _repo.ProgramLog.GetActiveProgramLogByUserId(userId);
+            if (programLogDTO == null) throw new ProgramLogNotFoundException();
+            return programLogDTO;
         }
 
         public async Task<ProgramLog> CreateProgramLog(ProgramLogDTO programLog)
@@ -161,6 +159,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 StartDate = ds.StartDate,
                 EndDate = ds.StartDate.AddDays(tp.NoOfWeeks * 7),
                 NoOfWeeks = tp.NoOfWeeks,
+                Active = true,
                 ProgramLogWeeks = GenerateProgramWeekDates(ds, tp, userId, liftingStats)
             };
 
