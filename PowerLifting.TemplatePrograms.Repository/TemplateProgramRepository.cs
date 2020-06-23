@@ -31,10 +31,17 @@ namespace PowerLifting.TemplatePrograms.Repository
 
         public async Task<TemplateProgramDTO> GetTemplateProgramById(int templateProgramId)
         {
-            return await _context.Set<TemplateProgram>().AsNoTracking()
+            var templateProgram = await _context.Set<TemplateProgram>().AsNoTracking()
                                                              .Where(x => x.TemplateProgramId == templateProgramId)
                                                              .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
                                                              .FirstOrDefaultAsync();
+
+            if (templateProgram != null && templateProgram.TemplateWeeks != null)
+            {
+                templateProgram.TemplateWeeks = templateProgram.TemplateWeeks.OrderBy(x => x.WeekNo);
+                return templateProgram;
+            }
+            return null;
         }
 
         public async Task<bool> DoesNameExist(string programTemplate)

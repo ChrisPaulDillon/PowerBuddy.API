@@ -594,60 +594,6 @@ namespace PowerLifting.Persistence
                 }
                 context.SaveChanges();
             }
-
-            if (!context.User.Any())
-            {
-                var users = new User[]
-                {
-                    new User{ Email="chrispauldillon@live.com", PasswordHash = "test123",
-                        LiftingStats= new List<LiftingStat> {
-                            new LiftingStat { RepRange = 1, ExerciseId = 1, Weight = 100, LastUpdated = curDate, GoalWeight = 200, PercentageToGoal = 50},
-                            new LiftingStat { RepRange = 1, ExerciseId = 26, Weight = 120, LastUpdated = curDate, GoalWeight = 250, PercentageToGoal = 20},
-                            new LiftingStat { RepRange = 1, ExerciseId = 25, Weight = 100, LastUpdated = curDate, GoalWeight = 300, PercentageToGoal = 58},
-                            new LiftingStat { RepRange = 1, ExerciseId = 27, Weight = 130, LastUpdated = curDate}
-                        },
-                        ProgramLogs= new List<ProgramLog> {
-                            new ProgramLog { StartDate = curDate, EndDate = curDate.AddDays(30), TemplateProgramId = 1, Monday = true, Tuesday = true, ProgramLogWeeks = new List<ProgramLogWeek> {
-                                    new ProgramLogWeek { StartDate = curDate, EndDate = curDate.AddDays(7), ProgramLogDays = new List<ProgramLogDay> {
-                                        new ProgramLogDay { DayOfWeek = "Monday", Date = curDate, ProgramLogExercises = new List<ProgramLogExercise> {
-                                             new ProgramLogExercise { NoOfSets = 5, ExerciseId = 1, ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
-                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NoOfReps =5 },
-                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NoOfReps =5 },
-                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NoOfReps =5 },
-                                               }}}},
-                                         new ProgramLogDay { DayOfWeek = "Tuesday", Date = curDate.AddDays(1), ProgramLogExercises = new List<ProgramLogExercise> {
-                                              new ProgramLogExercise {  NoOfSets = 5, ExerciseId = 27, ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
-                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NoOfReps =5 },
-                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NoOfReps =5 },
-                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NoOfReps =5 },
-                                                }}}},
-                                         new ProgramLogDay { DayOfWeek = "Wednesday", Date = curDate.AddDays(2), ProgramLogExercises = new List<ProgramLogExercise> {
-                                                new ProgramLogExercise {  NoOfSets = 5, ExerciseId = 1, ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
-                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NoOfReps =5 },
-                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NoOfReps =5 },
-                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NoOfReps =5 },
-                                                }}}},
-                                         new ProgramLogDay { DayOfWeek = "Wednesday", Date = curDate.AddDays(3), ProgramLogExercises = new List<ProgramLogExercise> {
-                                                new ProgramLogExercise {  NoOfSets = 5, ExerciseId = 26, ProgramLogRepSchemes = new List<ProgramLogRepScheme> {
-                                                new ProgramLogRepScheme { SetNo = 1, WeightLifted = 100, NoOfReps =5 },
-                                                new ProgramLogRepScheme { SetNo = 2, WeightLifted = 120, NoOfReps =5 },
-                                                new ProgramLogRepScheme { SetNo = 3, WeightLifted = 130, NoOfReps =5 },
-                                                }}}}
-                                    }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                };
-
-                foreach (var e in users)
-                {
-                    context.User.Add(e);
-                }
-
-                context.SaveChanges();
-            }
         }
     }
 }

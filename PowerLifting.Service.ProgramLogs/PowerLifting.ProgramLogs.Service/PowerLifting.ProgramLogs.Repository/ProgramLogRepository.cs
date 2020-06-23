@@ -34,25 +34,18 @@ namespace PowerLifting.ProgramLogs.Repository
 
         public async Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId)
         {
-            var programLog = await _context.Set<ProgramLog>().Where(x => x.UserId == userId && x.NoOfWeeks > 1 && x.Active)
-                                                                         .Select(x => new ProgramLogDTO()
-                                                                         {
-                                                                             ProgramLogId = x.ProgramLogId,
-                                                                             TemplateProgramId = x.TemplateProgramId,
-                                                                             Monday = x.Monday,
-                                                                             Tuesday = x.Tuesday,
-                                                                             Wednesday = x.Wednesday,
-                                                                             Thursday = x.Thursday,
-                                                                             Friday = x.Friday,
-                                                                             Saturday = x.Saturday,
-                                                                             Sunday = x.Sunday
-                                                                         })
+            var programLog = await _context.ProgramLog.Where(x => x.UserId == userId && x.Active == true)
+                                                                         .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider)
                                                                          .AsNoTracking()
-                                                                         .FirstAsync();
+                                                                         .FirstOrDefaultAsync();
 
             //programLog.ProgramLogWeeks = programLog.ProgramLogWeeks.OrderBy(x => x.WeekNo).Select(x => x.ProgramLogDays.OrderBy(x => x.DayNo));
-            programLog.ProgramLogWeeks = programLog.ProgramLogWeeks.OrderBy(x => x.WeekNo);
-            return programLog;
+            if (programLog != null)
+            {
+                programLog.ProgramLogWeeks = programLog.ProgramLogWeeks.OrderBy(x => x.WeekNo);
+                return programLog;
+            }
+            return null;
         }
 
 
