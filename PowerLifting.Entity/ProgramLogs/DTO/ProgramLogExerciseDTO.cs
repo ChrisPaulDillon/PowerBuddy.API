@@ -20,6 +20,7 @@ namespace PowerLifting.Entity.ProgramLogs.DTO
         public bool HasBackOffSets { get; set; }
         public string BackOffSetFormat { get; set; }
         public bool Completed { get; set; }
+        public bool? PersonalBest { get; set; }
 
         public decimal? Weight { get; set; } //only used when repSchemeType is set to 'fixed'
         public int? Reps { get; set; } //only used when repSchemeType is set to 'fixed'

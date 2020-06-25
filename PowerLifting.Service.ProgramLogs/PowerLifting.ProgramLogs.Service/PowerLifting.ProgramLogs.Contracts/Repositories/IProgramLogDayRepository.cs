@@ -8,7 +8,9 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
 {
     public interface IProgramLogDayRepository
     {
-        Task<ProgramLogDayDTO> GetProgramLogDay(string userId, int programLogId, DateTime dateSelected);
+        Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime dateSelected);
+
+        Task<ProgramLogDayDTO> GetProgramLogDayByProgramLogId(string userId, int programLogId, DateTime dateSelected);
 
         /// <summary>
         /// Gets a Program Log Day by a given Id

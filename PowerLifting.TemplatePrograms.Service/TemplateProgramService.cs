@@ -33,6 +33,11 @@ namespace PowerLifting.TemplatePrograms.Service
             return templateProgram;
         }
 
+        public async Task<string> GetTemplateProgramNameById(int templateProgramId)
+        {
+            return await _repo.TemplateProgram.GetTemplateProgramNameById(templateProgramId);
+        }
+
         public async Task<TemplateProgramDTO> GenerateProgramTemplateForIndividual(string userId, int programTemplateId, IEnumerable<LiftingStatDTO> liftingStats)
         {
             var templateProgram = await _repo.TemplateProgram.GetTemplateProgramById(programTemplateId);

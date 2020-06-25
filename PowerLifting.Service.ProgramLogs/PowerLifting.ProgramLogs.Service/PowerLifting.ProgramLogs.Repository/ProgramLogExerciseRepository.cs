@@ -75,5 +75,13 @@ namespace PowerLifting.ProgramLogs.Repository
             var changedRows = await _context.SaveChangesAsync();
             return changedRows > 0;
         }
+
+        public async Task<bool> MarkProgramLogExerciseComplete(ProgramLogExercise programLogExercise)
+        {
+            _context.Update(programLogExercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
+        }
     }
 }

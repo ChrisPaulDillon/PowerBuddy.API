@@ -18,6 +18,11 @@ namespace PowerLifting.TemplatePrograms.Contracts.Repositories
         Task<TemplateProgramDTO> GetTemplateProgramById(int templateProgramId);
 
         /// <summary>
+        /// Gets a singular template program name by id
+        /// </summary>
+        Task<string> GetTemplateProgramNameById(int templateProgramId);
+
+        /// <summary>
         /// Used to determine if the name of the program already exists
         /// </summary>
         Task<bool> DoesNameExist(string programName);

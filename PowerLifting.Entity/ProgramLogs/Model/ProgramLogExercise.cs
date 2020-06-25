@@ -20,7 +20,7 @@ namespace PowerLifting.Entity.ProgramLogs.Model
         public bool HasBackOffSets { get; set; }
         public string BackOffSetFormat { get; set; }
         public bool Completed { get; set; }
-
+        public bool? PersonalBest { get; set; }
         public virtual Exercise Exercise { get; set; }
         public virtual IEnumerable<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
     }

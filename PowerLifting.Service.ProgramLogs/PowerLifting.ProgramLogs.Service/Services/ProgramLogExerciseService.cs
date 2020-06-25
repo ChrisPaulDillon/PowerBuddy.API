@@ -100,5 +100,14 @@ namespace PowerLifting.ProgramLogs.Service.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<bool> MarkProgramLogExerciseComplete(int programLogExerciseId, bool isCompleted)
+        {
+            var programLogExerciseDTO = await _repo.ProgramLogExercise.GetProgramLogExerciseById(programLogExerciseId);
+            var programLogExercise = _mapper.Map<ProgramLogExercise>(programLogExerciseDTO);
+            if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
+            programLogExercise.Completed = isCompleted;
+            return await _repo.ProgramLogExercise.MarkProgramLogExerciseComplete(programLogExercise);
+        }
     }
 }

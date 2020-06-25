@@ -26,16 +26,39 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             _service = service;
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet]
         [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetProgramLogDayByUserId(string userId, int programLogId, DateTime dateSelected)
+        public async Task<IActionResult> GetProgramLogDayByUserId(DateTime dateSelected)
         {
             try
             {
-                var programLogs = await _service.ProgramLogDay.GetProgramLogDayByUserId(userId, programLogId, dateSelected);
-                return Ok(Responses.Success(programLogs));
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogDay = await _service.ProgramLogDay.GetProgramLogDayByDate(_userId, dateSelected);
+                return Ok(Responses.Success(programLogDay));
+            }
+            catch (ProgramLogDayNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
+            }
+        }
+
+        [HttpGet("LogSpecific/{programLogId:int}")]
+        [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetProgramLogDayByProgramLogId(int programLogId, DateTime dateSelected)
+        {
+            try
+            {
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogDay = await _service.ProgramLogDay.GetProgramLogDayByProgramLogId(_userId, programLogId, dateSelected);
+                return Ok(Responses.Success(programLogDay));
             }
             catch (ProgramLogDayNotFoundException ex)
             {
@@ -99,13 +122,14 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         }
 
 
-        [HttpGet("All/Date/{userId}")]
+        [HttpGet("All/Date")]
         [ProducesResponseType(typeof(IEnumerable<DateTime>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProgramLogDates(string userId)
+        public async Task<IActionResult> GetProgramLogDates()
         {
             try
             {
-                var programLogDates = await _service.ProgramLogDay.GetAllUserProgramLogDates(userId);
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogDates = await _service.ProgramLogDay.GetAllUserProgramLogDates(_userId);
                 return Ok(Responses.Success(programLogDates));
             }
             catch (ProgramLogDayNotFoundException ex)

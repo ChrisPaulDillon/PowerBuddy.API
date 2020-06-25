@@ -25,9 +25,18 @@ namespace PowerLifting.ProgramLogs.Repository
             _mapper = mapper;
         }
 
-        public async Task<ProgramLogDayDTO> GetProgramLogDay(string userId, int programLogId, DateTime dateSelected)
+        public async Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime dateSelected)
         {
             return await _context.Set<ProgramLogDay>().Where(x => x.UserId == userId
+                                                             && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0)
+                                                             .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
+                                                             .AsNoTracking()
+                                                             .FirstOrDefaultAsync();
+        }
+
+        public async Task<ProgramLogDayDTO> GetProgramLogDayByProgramLogId(string userId, int programLogId, DateTime dateSelected)
+        {
+            return await _context.Set<ProgramLogDay>().Where(x => x.UserId == userId //wtf is this garbage
                                                                         && DateTime.Compare(dateSelected.Date, x.Date.Date) == 0
                                                                         && x.ProgramLogDayId == programLogId)
                                                                         .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
@@ -92,5 +101,6 @@ namespace PowerLifting.ProgramLogs.Repository
                 .Select(x => x.Date.Date)
                 .ToListAsync();
         }
+
     }
 }

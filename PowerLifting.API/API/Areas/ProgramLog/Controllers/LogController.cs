@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.API.Areas.ProgramLog.Models;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Common.Exceptions;
@@ -52,7 +53,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
 
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogWithTemplateDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetActiveProgramLog()
@@ -61,7 +62,25 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var programLog = await _service.ProgramLog.GetActiveProgramLogByUserId(userId);
-                return Ok(Responses.Success(programLog));
+                var templateName = await _service.TemplateProgram.GetTemplateProgramNameById(programLog.TemplateProgramId);
+
+                var programLogExtended = new ProgramLogWithTemplateDTO()
+                {
+                    ProgramLogId = programLog.ProgramLogId,
+                    TemplateProgramId = programLog.TemplateProgramId,
+                    StartDate = programLog.StartDate,
+                    EndDate = programLog.EndDate,
+                    NoOfWeeks = programLog.NoOfWeeks,
+                    Monday = programLog.Monday,
+                    Tuesday = programLog.Tuesday,
+                    Wednesday = programLog.Wednesday,
+                    Thursday = programLog.Thursday,
+                    Friday = programLog.Friday,
+                    Saturday = programLog.Saturday,
+                    Sunday = programLog.Sunday,
+                    TemplateName = templateName
+                };
+                return Ok(Responses.Success(programLogExtended));
             }
             catch (ProgramLogNotFoundException ex)
             {

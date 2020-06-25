@@ -11,14 +11,11 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Gets a list of program log exercises for a given day
         /// </summary>
-        /// <param name="programLogDayId"></param>
         Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId);
 
         /// <summary>
         /// Gets a given program log exercise
         /// </summary>
-        /// <param name="programLogExerciseId"></param>
-        /// <returns></returns>
         Task<ProgramLogExerciseDTO> GetProgramLogExerciseById(int programLogExerciseId);
 
         Task<bool> DoesExerciseExist(int programLogExerciseId);
@@ -27,6 +24,12 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// Creates a new program exercise for a given log, used for customisation of programs
         /// </summary>
         Task<ProgramLogExercise> CreateProgramLogExercise(CProgramLogExerciseDTO programLogExercise);
+
+        /// <summary>
+        /// Marks programLogExercise as complete
+        /// rep range etc
+        /// </summary>
+        Task<bool> MarkProgramLogExerciseComplete(ProgramLogExercise programLogExercise);
 
         /// <summary>
         /// Updates a program log exercise, this could be updating the number of sets,

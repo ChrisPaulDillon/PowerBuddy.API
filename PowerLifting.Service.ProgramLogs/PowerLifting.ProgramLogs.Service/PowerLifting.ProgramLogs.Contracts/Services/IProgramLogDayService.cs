@@ -9,9 +9,14 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
     public interface IProgramLogDayService
     {
         /// <summary>
+        /// Gets a program log day overview for a given user on a given date regardless of program log 
+        /// </summary>
+        Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime date);
+
+        /// <summary>
         /// Gets a program log day overview for a given user on a given date
         /// </summary>
-        Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date);
+        Task<ProgramLogDayDTO> GetProgramLogDayByProgramLogId(string userId, int programLogId, DateTime date);
 
         /// <summary>
         /// Gets the upcoming workout closest to the given date

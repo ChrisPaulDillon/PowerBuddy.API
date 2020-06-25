@@ -20,6 +20,11 @@ namespace PowerLifting.TemplatePrograms.Contracts.Services
         Task<TemplateProgramDTO> GetTemplateProgramById(int programTemplateId);
 
         /// <summary>
+        /// Gets template program name
+        /// </summary>
+        Task<string> GetTemplateProgramNameById(int templateProgramId);
+
+        /// <summary>
         /// Creates a program template based upon the user viewing the programs lifting stats
         /// </summary>
         Task<TemplateProgramDTO> GenerateProgramTemplateForIndividual(string userId, int programTemplateId, IEnumerable<LiftingStatDTO> liftingStats);

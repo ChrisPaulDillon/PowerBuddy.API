@@ -44,6 +44,14 @@ namespace PowerLifting.TemplatePrograms.Repository
             return null;
         }
 
+        public async Task<string> GetTemplateProgramNameById(int templateProgramId)
+        {
+            return await _context.Set<TemplateProgram>().Where(x => x.TemplateProgramId == templateProgramId)
+                                                        .Select(x => x.Name)
+                                                        .AsNoTracking()
+                                                        .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> DoesNameExist(string programTemplate)
         {
             return await _context.Set<TemplateProgram>().AsNoTracking().AnyAsync(x => x.Name == programTemplate);

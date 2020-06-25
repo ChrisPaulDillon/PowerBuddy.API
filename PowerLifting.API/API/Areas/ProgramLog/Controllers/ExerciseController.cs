@@ -78,6 +78,27 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
+        [HttpPut("Mark/{programLogExerciseId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> MarkProgramLogExerciseComplete(int programLogExerciseId, bool isCompleted)
+        {
+            try
+            {
+                var result = await _service.ProgramLogExercise.MarkProgramLogExerciseComplete(programLogExerciseId, isCompleted);
+                return Ok(Responses.Success());
+            }
+            catch (ProgramLogNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            catch (UnauthorisedUserException e)
+            {
+                return Unauthorized(e);
+            }
+        }
+
         [HttpDelete("programLogExerciseId:int")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]

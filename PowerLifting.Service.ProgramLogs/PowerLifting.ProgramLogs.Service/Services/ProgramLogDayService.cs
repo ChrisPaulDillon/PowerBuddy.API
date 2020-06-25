@@ -32,16 +32,23 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return programLogDayDTO;
         }
 
+        public async Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime date)
+        {
+            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDayByDate(userId, date);
+            if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
+            return programLogDayDTO;
+        }
+
+        public async Task<ProgramLogDayDTO> GetProgramLogDayByProgramLogId(string userId, int programLogId, DateTime date)
+        {
+            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDayByProgramLogId(userId, programLogId, date);
+            if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
+            return programLogDayDTO;
+        }
+
         public async Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(int programLogWeekId, string userId, DateTime date)
         {
             return await _repo.ProgramLogDay.GetClosestProgramLogDayToDate(programLogWeekId, userId, date);
-        }
-
-        public async Task<ProgramLogDayDTO> GetProgramLogDayByUserId(string userId, int programLogId, DateTime date)
-        {
-            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDay(userId, programLogId, date);
-            if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
-            return programLogDayDTO;
         }
 
         public async Task<ProgramLogDay> CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)

@@ -26,6 +26,11 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         Task<ProgramLogExercise> CreateProgramLogExercise(string userId, CProgramLogExerciseDTO programLogExercise);
 
         /// <summary>
+        /// Marks a program log exercise completed
+        /// </summary>
+        Task<bool> MarkProgramLogExerciseComplete(int programLogExerciseId, bool isCompleted);
+
+        /// <summary>
         /// Updates a given program log exercise, this could be the number of sets,
         /// a new comment etc
         /// </summary>

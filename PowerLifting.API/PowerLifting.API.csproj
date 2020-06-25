@@ -58,5 +58,7 @@
     <Folder Include="API\Areas\" />
     <Folder Include="API\Areas\ProgramLog\" />
     <Folder Include="Util\" />
+    <Folder Include="API\Areas\ProgramLog\Controllers\" />
+    <Folder Include="API\Areas\ProgramLog\Models\" />
   </ItemGroup>
 </Project>
