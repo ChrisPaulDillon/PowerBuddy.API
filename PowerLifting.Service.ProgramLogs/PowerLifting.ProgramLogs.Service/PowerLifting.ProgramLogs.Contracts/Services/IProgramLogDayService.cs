@@ -21,7 +21,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Gets the upcoming workout closest to the given date
         /// </summary>
-        Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(int programLogWeekId, string userId, DateTime date);
+        Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, DateTime date);
 
         /// <summary>
         /// Gets the program Log Day by Id

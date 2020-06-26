@@ -252,10 +252,10 @@ namespace PowerLifting.ProgramLogs.Service.Services
         private static ProgramLogDayDTO GenerateProgramLogDay(DayOfWeek day, TemplateDayDTO templateDay, DateTime startDate, List<LiftingStatDTO> liftingStats)
         {
             var daysUntilSpecificDay = ((int)day - (int)startDate.DayOfWeek + 7) % 7;
-            var nextMon = startDate.AddDays(daysUntilSpecificDay);
+            var nextDate = startDate.AddDays(daysUntilSpecificDay);
             var programLogDay = new ProgramLogDayDTO()
             {
-                Date = nextMon,
+                Date = nextDate,
                 DayOfWeek = day.ToString(),
                 DayNo = templateDay.DayNo,
                 ProgramLogExercises = CreateProgramLogExercises(templateDay, liftingStats)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
     public class ExerciseController : ControllerBase
     {
         private readonly IServiceWrapper _service;
+        private string _userId = "";
 
         public ExerciseController(IServiceWrapper service)
         {
@@ -41,14 +43,16 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         }
 
 
-        [HttpPost("{userId}")]
+        [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateProgramLogExercise(string userId, [FromBody] CProgramLogExerciseDTO programLogExerciseDTO)
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> CreateProgramLogExercise([FromBody] CProgramLogExerciseDTO programLogExerciseDTO)
         {
             try
             {
-                var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(userId, programLogExerciseDTO);
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(_userId, programLogExerciseDTO);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
             }
             catch (ProgramLogDayNotWithWeekRangeException ex)
@@ -99,7 +103,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-        [HttpDelete("programLogExerciseId:int")]
+        [HttpDelete("{programLogExerciseId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public IActionResult DeleteProgramLogExercise(int programLogExerciseId)

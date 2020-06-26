@@ -70,17 +70,17 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-        [HttpGet("Closest/{programLogWeekId:int}")]
+        [HttpGet("Closest")]
         [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetClosestProgramLogDayToDate(int programLogWeekId, DateTime dateSelected)
+        public async Task<IActionResult> GetClosestProgramLogDayToDate(DateTime dateSelected)
         {
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogs = await _service.ProgramLogDay.GetClosestProgramLogDayToDate(programLogWeekId, _userId, dateSelected);
-                return Ok(Responses.Success(programLogs));
+                var programLogDay = await _service.ProgramLogDay.GetClosestProgramLogDayToDate(_userId, dateSelected);
+                return Ok(Responses.Success(programLogDay));
             }
             catch (ProgramLogDayNotFoundException ex)
             {
