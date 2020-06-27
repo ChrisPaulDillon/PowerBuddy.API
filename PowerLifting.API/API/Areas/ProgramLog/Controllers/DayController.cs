@@ -121,7 +121,8 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         {
             try
             {
-                var createdProgramLogDayDTO = await _service.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var createdProgramLogDayDTO = await _service.ProgramLogDay.CreateProgramLogDay(_userId, programLogDayDTO);
                 return CreatedAtRoute(nameof(GetProgramLogDayById), new { programLogDayId = createdProgramLogDayDTO.ProgramLogDayId }, createdProgramLogDayDTO);
             }
             catch (ProgramLogDayNotWithinWeekException ex)

@@ -39,13 +39,11 @@ namespace PowerLifting.Systems.Repository
                 .ToListAsync();
         }
 
-        public async Task<ExerciseDTO> GetExerciseById(int id)
+        public async Task<Exercise> GetExerciseById(int id)
         {
-            return await _context.Set<Exercise>().AsNoTracking()
-                .Where(c => c.ExerciseId == id)
-                .Include(m => m.ExerciseMuscleGroups)
-                .Include(t => t.ExerciseType).AsNoTracking()
-                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+            return await _context.Set<Exercise>()
+                .Where(x => x.ExerciseId == id)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
 

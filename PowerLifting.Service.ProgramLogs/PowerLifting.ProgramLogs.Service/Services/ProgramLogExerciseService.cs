@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
+using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.ProgramLogs.Service.Exceptions;
 using PowerLifting.Service.Users.Model;
@@ -35,7 +36,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return await _repo.ProgramLogExercise.GetProgramLogExerciseById(programLogExerciseId);
         }
 
-        public async Task<ProgramLogExercise> CreateProgramLogExercise(string userId, CProgramLogExerciseDTO programLogExercise)
+        public async Task<ProgramLogExercise> CreateProgramLogExercise(string userId, Exercise exercise, CProgramLogExerciseDTO programLogExercise)
         {
 
             if (programLogExercise.RepSchemeType.Contains("Fixed"))
@@ -56,7 +57,9 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 programLogExercise.ProgramLogRepSchemes = repSchemeCollection;
             }
 
-            return await _repo.ProgramLogExercise.CreateProgramLogExercise(programLogExercise);
+            var createdExercise = await _repo.ProgramLogExercise.CreateProgramLogExercise(programLogExercise);
+            createdExercise.Exercise = exercise;
+            return createdExercise;
             //await CreateProgramLogExerciseAudit(userId, programLogExercise.ExerciseId);
         }
 

@@ -52,8 +52,9 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return await _repo.ProgramLogDay.GetClosestProgramLogDayToDate(userId, date);
         }
 
-        public async Task<ProgramLogDay> CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
+        public async Task<ProgramLogDay> CreateProgramLogDay(string userId, ProgramLogDayDTO programLogDayDTO)
         {
+            programLogDayDTO.UserId = userId;
             var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekById(programLogDayDTO.ProgramLogWeekId);
             if (programLogDayDTO.Date >= programLogWeek.StartDate && programLogDayDTO.Date <= programLogWeek.EndDate)
             {

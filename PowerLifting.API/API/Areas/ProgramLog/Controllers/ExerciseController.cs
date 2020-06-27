@@ -52,7 +52,8 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(_userId, programLogExerciseDTO);
+                var exercise = await _service.Exercise.GetExerciseById(programLogExerciseDTO.ExerciseId);
+                var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(_userId, exercise, programLogExerciseDTO);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
             }
             catch (ProgramLogDayNotWithinWeekException ex)

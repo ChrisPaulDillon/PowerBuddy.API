@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
+using PowerLifting.Entity.System.Exercises.Models;
 
 namespace PowerLifting.ProgramLogs.Contracts.Services
 {
@@ -23,7 +24,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Creates a new program exercise for a specific log
         /// </summary>
-        Task<ProgramLogExercise> CreateProgramLogExercise(string userId, CProgramLogExerciseDTO programLogExercise);
+        Task<ProgramLogExercise> CreateProgramLogExercise(string userId, Exercise exercise, CProgramLogExerciseDTO programLogExercise);
 
         /// <summary>
         /// Marks a program log exercise completed

@@ -31,7 +31,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Creates a new program log day, used for customising program logs
         /// </summary>
-        Task<ProgramLogDay> CreateProgramLogDay(ProgramLogDayDTO programLogDay);
+        Task<ProgramLogDay> CreateProgramLogDay(string userId, ProgramLogDayDTO programLogDay);
 
         /// <summary>
         /// Gets all the users program log dates

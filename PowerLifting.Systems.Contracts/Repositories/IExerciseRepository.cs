@@ -22,7 +22,7 @@ namespace PowerLifting.Systems.Contracts.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ExerciseDTO> GetExerciseById(int id);
+        Task<Exercise> GetExerciseById(int id);
 
         /// <summary>
         /// Gets a specific exercise by id and includes muscle groups and type

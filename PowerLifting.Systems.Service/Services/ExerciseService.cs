@@ -33,12 +33,9 @@ namespace PowerLifting.Systems.Service.Services
             return await _repo.Exercise.GetAllExercisesBySport(exerciseSport);
         }
 
-        public async Task<ExerciseDTO> GetExerciseById(int id)
+        public async Task<Exercise> GetExerciseById(int id)
         {
-            //var validator = new ExerciseValidator();
-            //validator.ValidateExerciseId(id);
             var exercise = await _repo.Exercise.GetExerciseById(id);
-            //validator.ValidateExerciseExists(exercise);
             return exercise;
         }
 

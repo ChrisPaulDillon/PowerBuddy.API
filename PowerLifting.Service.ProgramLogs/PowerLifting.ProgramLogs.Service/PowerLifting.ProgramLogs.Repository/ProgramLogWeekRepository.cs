@@ -26,7 +26,7 @@ namespace PowerLifting.ProgramLogs.Repository
         {
             //var currentWeek = DateHelper.Instance.GetWeekRangeOfCurrentWeek();
             return await _context.Set<ProgramLogWeek>()
-                .Where(x => x.UserId == userId && date.Date >= x.StartDate && date.Date <= x.EndDate)
+                .Where(x => x.UserId == userId && date.Date >= x.StartDate.Date && date.Date <= x.EndDate.Date)
                 .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
