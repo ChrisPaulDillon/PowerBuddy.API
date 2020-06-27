@@ -9,6 +9,7 @@ using PowerLifting.API.Wrappers;
 using PowerLifting.Common.Exceptions;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Service.ProgramLogs.Exceptions;
 
 namespace PowerLifting.API.API.Areas.ProgramLog
 {
@@ -115,12 +116,19 @@ namespace PowerLifting.API.API.Areas.ProgramLog
 
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateProgramLogDay([FromBody] ProgramLogDayDTO programLogDayDTO)
         {
-            var createdProgramLogDayDTO = await _service.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
-            return CreatedAtRoute(nameof(GetProgramLogDayById), new { programLogDayId = createdProgramLogDayDTO.ProgramLogDayId }, createdProgramLogDayDTO);
+            try
+            {
+                var createdProgramLogDayDTO = await _service.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
+                return CreatedAtRoute(nameof(GetProgramLogDayById), new { programLogDayId = createdProgramLogDayDTO.ProgramLogDayId }, createdProgramLogDayDTO);
+            }
+            catch (ProgramLogDayNotWithinWeekException ex)
+            {
+                return Conflict(Responses.Error(ex));
+            }
         }
-
 
         [HttpGet("All/Date")]
         [ProducesResponseType(typeof(IEnumerable<DateTime>), StatusCodes.Status200OK)]

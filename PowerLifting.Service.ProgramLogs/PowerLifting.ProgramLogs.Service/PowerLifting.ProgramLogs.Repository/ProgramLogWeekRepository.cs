@@ -25,12 +25,10 @@ namespace PowerLifting.ProgramLogs.Repository
         public async Task<ProgramLogWeekDTO> GetProgramLogWeekByUserIdAndDate(string userId, DateTime date)
         {
             //var currentWeek = DateHelper.Instance.GetWeekRangeOfCurrentWeek();
-            return await _context.Set<ProgramLogWeek>().AsNoTracking()
-                .Where(x => x.UserId == userId && x.StartDate >= date.Date && date.Date <= x.EndDate)
-                .Include(k => k.ProgramLogDays)
-                .ThenInclude(e => e.ProgramLogExercises)
-                .ThenInclude(x => x.ProgramLogRepSchemes)
+            return await _context.Set<ProgramLogWeek>()
+                .Where(x => x.UserId == userId && date.Date >= x.StartDate && date.Date <= x.EndDate)
                 .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
 
@@ -39,7 +37,8 @@ namespace PowerLifting.ProgramLogs.Repository
             return await _context.Set<ProgramLogWeek>().Where(x => x.ProgramLogWeekId == programLogWeekId)
                                                                         .Include(k => k.ProgramLogDays)
                                                                         .ThenInclude(e => e.ProgramLogExercises)
-                                                                        .ThenInclude(x => x.ProgramLogRepSchemes).FirstOrDefaultAsync();
+                                                                        .ThenInclude(x => x.ProgramLogRepSchemes)
+                                                                        .FirstOrDefaultAsync();
         }
 
         public async Task<ProgramLogWeek> GetProgramLogWeekByProgramLogIdAndDate(int programLogId, DateTime date)

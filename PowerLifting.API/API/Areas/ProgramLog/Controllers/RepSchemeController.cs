@@ -90,7 +90,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
                 _service.ProgramLogRepScheme.DeleteProgramLogRepScheme(programLogRepSchemeId);
                 return NoContent();
             }
-            catch (ProgramLogDayNotWithWeekRangeException e)
+            catch (ProgramLogDayNotWithinWeekException e)
             {
                 return Unauthorized(e);
             }

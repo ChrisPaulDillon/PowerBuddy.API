@@ -7,6 +7,7 @@ using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Service.ProgramLogs.Exceptions;
 using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.ProgramLogs.Service.Services
@@ -54,9 +55,14 @@ namespace PowerLifting.ProgramLogs.Service.Services
         public async Task<ProgramLogDay> CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
         {
             var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekById(programLogDayDTO.ProgramLogWeekId);
-            //validator.ValidateProgramLogDayWithinProgramLogWeek(programLogWeek.StartDate, programLogWeek.EndDate, programLogDayDTO.Date);
-            //TODO
-            return await _repo.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
+            if (programLogDayDTO.Date >= programLogWeek.StartDate && programLogDayDTO.Date <= programLogWeek.EndDate)
+            {
+                return await _repo.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
+            }
+            else
+            {
+                throw new ProgramLogDayNotWithinWeekException();
+            }
         }
 
         public async Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId)

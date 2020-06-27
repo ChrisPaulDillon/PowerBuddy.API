@@ -55,7 +55,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
                 var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(_userId, programLogExerciseDTO);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
             }
-            catch (ProgramLogDayNotWithWeekRangeException ex)
+            catch (ProgramLogDayNotWithinWeekException ex)
             {
                 return BadRequest(Responses.Error(ex));
             }
