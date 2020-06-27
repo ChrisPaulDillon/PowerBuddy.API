@@ -86,7 +86,7 @@ namespace PowerLifting.Persistence
                                 new ExerciseSport { ExerciseSportStr = "Olympic WeightLifting" },
                         },
                     },
-                    new Exercise{ExerciseName="Conventional DeadLift", ExerciseTypeId = 2,
+                    new Exercise{ExerciseName="DeadLift", ExerciseTypeId = 2,
                         IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Lower Back" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Upper Back" },
@@ -141,10 +141,30 @@ namespace PowerLifting.Persistence
                                 new ExerciseSport { ExerciseSportStr = "Olympic WeightLifting" },
                         },
                     },
+                    new Exercise{ExerciseName="Floor Press", ExerciseTypeId = 2,
+                         IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                                new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Shoulder" },
+                                new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Chest" },
+                                new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Tricep" },
+                         },
+                    },
+                    new Exercise{ExerciseName="Wide Grip Bench Press", ExerciseTypeId = 2,
+                        IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                                new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Shoulder" },
+                                new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Chest" },
+                                new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Tricep" },
+                         },
+                    },
+                    new Exercise{ExerciseName="Narrow Grip Bench Press", ExerciseTypeId = 2,
+                    IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                                new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Shoulder" },
+                                new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Chest" },
+                                new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Tricep" },
+                         },
+
+                    },
+
                     new Exercise{ExerciseName="Barbell Lunge", ExerciseTypeId = 2},
-                    new Exercise{ExerciseName="Wide Grip Bench Press", ExerciseTypeId = 2},
-                    new Exercise{ExerciseName="Narrow Grip Bench Press", ExerciseTypeId = 2},
-                    new Exercise{ExerciseName="Floor Press", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Incline Bench Press", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Decline Bench Press", ExerciseTypeId = 2},
                     new Exercise{ExerciseName="Barbell Bicep Curl", ExerciseTypeId = 2},
