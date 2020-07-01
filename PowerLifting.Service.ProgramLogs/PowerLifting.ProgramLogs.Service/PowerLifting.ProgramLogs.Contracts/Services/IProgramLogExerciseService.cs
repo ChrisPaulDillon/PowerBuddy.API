@@ -19,7 +19,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// <summary>
         /// Gets a specific ProgramLogExercise By Ids
         /// </summary>
-        Task<ProgramLogExerciseDTO> GetProgramLogExerciseById(int programLogExerciseId);
+        Task<ProgramLogExercise> GetProgramLogExerciseById(int programLogExerciseId);
 
         /// <summary>
         /// Creates a new program exercise for a specific log

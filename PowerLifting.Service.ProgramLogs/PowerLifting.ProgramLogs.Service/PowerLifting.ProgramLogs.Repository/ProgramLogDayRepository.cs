@@ -101,6 +101,5 @@ namespace PowerLifting.ProgramLogs.Repository
                 .Select(x => x.Date.Date)
                 .ToListAsync();
         }
-
     }
 }

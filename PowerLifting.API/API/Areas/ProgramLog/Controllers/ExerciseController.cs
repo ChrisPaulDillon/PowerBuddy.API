@@ -55,6 +55,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
                 var exercise = await _service.Exercise.GetExerciseById(programLogExerciseDTO.ExerciseId);
                 var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(_userId, exercise, programLogExerciseDTO);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
+
             }
             catch (ProgramLogDayNotWithinWeekException ex)
             {
@@ -62,11 +63,11 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-        [HttpPut]
+        [HttpPut("{programLogExerciseId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateProgramLogExercise([FromBody] ProgramLogExerciseDTO programLogDTO)
+        public async Task<IActionResult> UpdateProgramLogExercise(int programlogExerciseId, [FromBody] ProgramLogExerciseDTO programLogDTO)
         {
             try
             {

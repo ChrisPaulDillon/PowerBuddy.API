@@ -31,12 +31,12 @@ namespace PowerLifting.ProgramLogs.Repository
                 .ToListAsync();
         }
 
-        public async Task<ProgramLogExerciseDTO> GetProgramLogExerciseById(int programLogExerciseId)
+        public async Task<ProgramLogExercise> GetProgramLogExerciseById(int programLogExerciseId)
         {
             return await _context.Set<ProgramLogExercise>()
-                .AsNoTracking()
                 .Where(x => x.ProgramLogExerciseId == programLogExerciseId)
-                .ProjectTo<ProgramLogExerciseDTO>(_mapper.ConfigurationProvider)
+                .Include(x => x.ProgramLogRepSchemes)
+                .Include(x => x.Exercise)
                 .FirstOrDefaultAsync();
         }
 
@@ -82,6 +82,21 @@ namespace PowerLifting.ProgramLogs.Repository
 
             var changedRows = await _context.SaveChangesAsync();
             return changedRows > 0;
+        }
+
+        public async Task<int> DoesExerciseExistForDay(int programLogDayId, int exerciseId)
+        {
+            var result = await _context.Set<ProgramLogExercise>()
+                .Where(x => x.ProgramLogDayId == programLogDayId && x.ExerciseId == exerciseId)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+            return result != null ? result.ProgramLogExerciseId : 0;
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

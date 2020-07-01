@@ -16,7 +16,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Gets a given program log exercise
         /// </summary>
-        Task<ProgramLogExerciseDTO> GetProgramLogExerciseById(int programLogExerciseId);
+        Task<ProgramLogExercise> GetProgramLogExerciseById(int programLogExerciseId);
 
         Task<bool> DoesExerciseExist(int programLogExerciseId);
 
@@ -41,5 +41,12 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// Used to remove an exercise from the users given program day
         /// </summary>
         Task<bool> DeleteProgramLogExercise(ProgramLogExerciseDTO programLogExercise);
+
+        /// <summary>
+        /// Checks if a user already has the exercise they are trying to add on the current day log
+        /// </summary>
+        Task<int> DoesExerciseExistForDay(int programLogDayId, int exerciseId);
+
+        Task SaveChangesAsync();
     }
 }

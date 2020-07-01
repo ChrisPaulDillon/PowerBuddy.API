@@ -31,36 +31,60 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return programLogExercisesDTO;
         }
 
-        public async Task<ProgramLogExerciseDTO> GetProgramLogExerciseById(int programLogExerciseId)
+        public async Task<ProgramLogExercise> GetProgramLogExerciseById(int programLogExerciseId)
         {
             return await _repo.ProgramLogExercise.GetProgramLogExerciseById(programLogExerciseId);
         }
 
         public async Task<ProgramLogExercise> CreateProgramLogExercise(string userId, Exercise exercise, CProgramLogExerciseDTO programLogExercise)
         {
-
-            if (programLogExercise.RepSchemeType.Contains("Fixed"))
+            var doesExerciseExist = await _repo.ProgramLogExercise.DoesExerciseExistForDay(programLogExercise.ProgramLogDayId, programLogExercise.ExerciseId);
+            if (doesExerciseExist == 0)
             {
-                var noOfSets = programLogExercise.NoOfSets;
-                var repSchemeCollection = new List<CProgramLogRepSchemeDTO>();
-
-                for (var i = 1; i < noOfSets; i++)
+                if (programLogExercise.RepSchemeType.Contains("Fixed"))
                 {
-                    var repScheme = new CProgramLogRepSchemeDTO()
-                    {
-                        SetNo = i,
-                        NoOfReps = (int)programLogExercise.Reps,
-                        WeightLifted = (double)programLogExercise.Weight,
-                    };
-                    repSchemeCollection.Add(repScheme);
-                }
-                programLogExercise.ProgramLogRepSchemes = repSchemeCollection;
-            }
+                    var noOfSets = programLogExercise.NoOfSets;
+                    var repSchemeCollection = new List<CProgramLogRepSchemeDTO>();
 
-            var createdExercise = await _repo.ProgramLogExercise.CreateProgramLogExercise(programLogExercise);
-            createdExercise.Exercise = exercise;
-            return createdExercise;
-            //await CreateProgramLogExerciseAudit(userId, programLogExercise.ExerciseId);
+                    for (var i = 1; i < noOfSets + 1; i++)
+                    {
+                        var repScheme = new CProgramLogRepSchemeDTO()
+                        {
+                            SetNo = i,
+                            NoOfReps = (int)programLogExercise.Reps,
+                            WeightLifted = (double)programLogExercise.Weight,
+                        };
+                        repSchemeCollection.Add(repScheme);
+                    }
+                    programLogExercise.ProgramLogRepSchemes = repSchemeCollection;
+                }
+
+                var createdExercise = await _repo.ProgramLogExercise.CreateProgramLogExercise(programLogExercise);
+                createdExercise.Exercise = exercise;
+                return createdExercise;
+                //await CreateProgramLogExerciseAudit(userId, programLogExercise.ExerciseId);
+            }
+            else
+            {
+                var exerciseEntity = await _repo.ProgramLogExercise.GetProgramLogExerciseById(doesExerciseExist);
+                if (programLogExercise.RepSchemeType.Contains("Fixed"))
+                {
+                    var noOfSets = programLogExercise.NoOfSets;
+                    for (var i = 1; i < noOfSets + 1; i++)
+                    {
+                        var repScheme = new ProgramLogRepScheme()
+                        {
+                            SetNo = i,
+                            NoOfReps = (int)programLogExercise.Reps,
+                            WeightLifted = (double)programLogExercise.Weight,
+                        };
+                        exerciseEntity.ProgramLogRepSchemes.Add(repScheme);
+                    }
+                }
+                exerciseEntity.NoOfSets += programLogExercise.NoOfSets;
+                await _repo.ProgramLogExercise.SaveChangesAsync();
+                return exerciseEntity;
+            }
         }
 
         public async Task<bool> UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)

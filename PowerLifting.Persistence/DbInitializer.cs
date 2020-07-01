@@ -156,12 +156,11 @@ namespace PowerLifting.Persistence
                          },
                     },
                     new Exercise{ExerciseName="Narrow Grip Bench Press", ExerciseTypeId = 2,
-                    IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
+                        IsProgrammable = true, ExerciseMuscleGroups = new List<ExerciseMuscleGroup> {
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Shoulder" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Chest" },
                                 new ExerciseMuscleGroup { ExerciseMuscleGroupName = "Tricep" },
                          },
-
                     },
 
                     new Exercise{ExerciseName="Barbell Lunge", ExerciseTypeId = 2},
