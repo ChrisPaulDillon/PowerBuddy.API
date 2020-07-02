@@ -78,7 +78,9 @@ namespace PowerLifting.API.API.Areas.ProgramLog
                     Friday = programLog.Friday,
                     Saturday = programLog.Saturday,
                     Sunday = programLog.Sunday,
-                    TemplateName = templateName
+                    TemplateName = templateName,
+                    ProgramLogWeeks = programLog.ProgramLogWeeks,
+                    LogDates = await _service.ProgramLogDay.GetAllUserProgramLogDates(userId)
                 };
                 return Ok(Responses.Success(programLogExtended));
             }

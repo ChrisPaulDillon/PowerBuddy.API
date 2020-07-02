@@ -101,7 +101,8 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         {
             try
             {
-                var programLogs = await _service.ProgramLogDay.GetProgramLogDayById(programLogDayId);
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogs = await _service.ProgramLogDay.GetProgramLogDayById(_userId, programLogDayId);
                 return Ok(Responses.Success(programLogs));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -126,6 +127,23 @@ namespace PowerLifting.API.API.Areas.ProgramLog
                 return CreatedAtRoute(nameof(GetProgramLogDayById), new { programLogDayId = createdProgramLogDayDTO.ProgramLogDayId }, createdProgramLogDayDTO);
             }
             catch (ProgramLogDayNotWithinWeekException ex)
+            {
+                return Conflict(Responses.Error(ex));
+            }
+        }
+
+        [HttpDelete("{programLogDayId:int}")]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> DeleteProgramLogDay(int programLogDayId)
+        {
+            try
+            {
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _service.ProgramLogDay.DeleteProgramLogDay(_userId, programLogDayId);
+                return Ok(Responses.Success(result));
+            }
+            catch (ProgramLogDayNotFoundException ex)
             {
                 return Conflict(Responses.Error(ex));
             }

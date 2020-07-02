@@ -145,7 +145,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_programLogDay == null) _programLogDay = new ProgramLogDayService(_programLogWrapper, _mapper, _userManager);
+                if (_programLogDay == null) _programLogDay = new ProgramLogDayService(_programLogWrapper, _mapper);
 
                 return _programLogDay;
             }

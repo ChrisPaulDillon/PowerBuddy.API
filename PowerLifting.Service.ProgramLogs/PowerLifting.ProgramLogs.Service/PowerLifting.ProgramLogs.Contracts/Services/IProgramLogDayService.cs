@@ -9,6 +9,11 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
     public interface IProgramLogDayService
     {
         /// <summary>
+        /// Gets the program Log Day by Id
+        /// </summary>
+        Task<ProgramLogDay> GetProgramLogDayById(string userId, int programLogDayId);
+
+        /// <summary>
         /// Gets a program log day overview for a given user on a given date regardless of program log 
         /// </summary>
         Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime date);
@@ -24,11 +29,6 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, DateTime date);
 
         /// <summary>
-        /// Gets the program Log Day by Id
-        /// </summary>
-        Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId);
-
-        /// <summary>
         /// Creates a new program log day, used for customising program logs
         /// </summary>
         Task<ProgramLogDay> CreateProgramLogDay(string userId, ProgramLogDayDTO programLogDay);
@@ -38,5 +38,10 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// for calendar population
         /// </summary>
         Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId);
+
+        /// <summary>
+        /// Deletes a programLog day
+        /// </summary>
+        Task<bool> DeleteProgramLogDay(string userId, int programLogDayId);
     }
 }

@@ -25,6 +25,12 @@ namespace PowerLifting.ProgramLogs.Repository
             _mapper = mapper;
         }
 
+        public async Task<ProgramLogDay> GetProgramLogDayById(string userId, int programLogDayId)
+        {
+            return await _context.Set<ProgramLogDay>().Where(x => x.ProgramLogDayId == programLogDayId && x.UserId == userId)
+                                                                 .FirstOrDefaultAsync();
+        }
+
         public async Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime dateSelected)
         {
             return await _context.Set<ProgramLogDay>().Where(x => x.UserId == userId
@@ -59,14 +65,6 @@ namespace PowerLifting.ProgramLogs.Repository
             return null;
         }
 
-        public async Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId)
-        {
-            return await _context.Set<ProgramLogDay>().Where(x => x.ProgramLogDayId == programLogDayId)
-                                                                 .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
-                                                                 .AsNoTracking()
-                                                                 .FirstOrDefaultAsync();
-        }
-
         public async Task<ProgramLogDay> CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO)
         {
             var programLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
@@ -85,9 +83,8 @@ namespace PowerLifting.ProgramLogs.Repository
             return changedRows > 0;
         }
 
-        public async Task<bool> DeleteProgramLogDay(ProgramLogDayDTO programLogDayDTO)
+        public async Task<bool> DeleteProgramLogDay(ProgramLogDay programLogDay)
         {
-            var programLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
             _context.Remove(programLogDay);
 
             var changedRows = await _context.SaveChangesAsync();

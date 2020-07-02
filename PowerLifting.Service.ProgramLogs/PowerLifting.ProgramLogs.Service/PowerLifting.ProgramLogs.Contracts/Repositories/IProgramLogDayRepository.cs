@@ -8,14 +8,14 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
 {
     public interface IProgramLogDayRepository
     {
-        Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime dateSelected);
-
-        Task<ProgramLogDayDTO> GetProgramLogDayByProgramLogId(string userId, int programLogId, DateTime dateSelected);
-
         /// <summary>
         /// Gets a Program Log Day by a given Id
         /// </summary>
-        Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId);
+        Task<ProgramLogDay> GetProgramLogDayById(string userId, int programLogDayId);
+
+        Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime dateSelected);
+
+        Task<ProgramLogDayDTO> GetProgramLogDayByProgramLogId(string userId, int programLogId, DateTime dateSelected);
 
         /// <summary>
         /// Gets the closest program log day to a given date
@@ -35,7 +35,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Deletes a program day off the program week
         /// </summary>
-        Task<bool> DeleteProgramLogDay(ProgramLogDayDTO programLogDay);
+        Task<bool> DeleteProgramLogDay(ProgramLogDay programLogDay);
 
         /// <summary>
         /// Gets all the users program log dates

@@ -16,19 +16,16 @@ namespace PowerLifting.ProgramLogs.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly IProgramLogWrapper _repo;
-        private readonly UserManager<User> _userManager;
 
-        public ProgramLogDayService(IProgramLogWrapper repo, IMapper mapper, UserManager<User> userManager)
+        public ProgramLogDayService(IProgramLogWrapper repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
-            _userManager = userManager;
         }
 
-        public async Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId)
+        public async Task<ProgramLogDay> GetProgramLogDayById(string userId, int programLogDayId)
         {
-
-            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDayById(programLogDayId);
+            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDayById(userId, programLogDayId);
             if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
             return programLogDayDTO;
         }
@@ -69,6 +66,14 @@ namespace PowerLifting.ProgramLogs.Service.Services
         public async Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId)
         {
             return await _repo.ProgramLogDay.GetAllUserProgramLogDates(userId);
+        }
+
+        public async Task<bool> DeleteProgramLogDay(string userId, int programLogDayId)
+        {
+            var programLogDay = await _repo.ProgramLogDay.GetProgramLogDayById(userId, programLogDayId);
+            if (programLogDay == null) throw new ProgramLogDayNotFoundException();
+
+            return await _repo.ProgramLogDay.DeleteProgramLogDay(programLogDay);
         }
     }
 }
