@@ -31,13 +31,32 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
         #region ProgramLogServices
 
-        public async Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId)
+        public async Task<IEnumerable<ProgramLogStatDTO>> GetAllProgramLogsByUserId(string userId)
         {
-            var userProgramLogs = await _repo.ProgramLog.GetAllProgramLogsByUserId(userId);
+            var programLogStats = (List<ProgramLogDTO>)await _repo.ProgramLog.GetAllProgramLogsByUserId(userId);
 
-            if (userProgramLogs == null) throw new ProgramLogNotFoundException();
+            if (programLogStats == null) throw new ProgramLogNotFoundException();
 
-            return userProgramLogs;
+            var stats = programLogStats.Select(x => new ProgramLogStatDTO()
+            {
+                ProgramLogId = x.ProgramLogId,
+                TemplateProgramId = x.TemplateProgramId,
+                NoOfWeeks = x.NoOfWeeks,
+                UserId = x.UserId,
+                Monday = x.Monday,
+                Tuesday = x.Tuesday,
+                Wednesday = x.Wednesday,
+                Thursday = x.Thursday,
+                Friday = x.Friday,
+                Saturday = x.Saturday,
+                Sunday = x.Sunday,
+                StartDate = x.StartDate,
+                EndDate = x.EndDate,
+                DayCount = x.ProgramLogWeeks.Sum(x => x.ProgramLogDays.Count),
+                ExerciseCount = x.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises).Count(),
+                ExerciseCompletedCount = x.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises.Where(x => x.Completed)).Count(),
+            });
+            return stats;
         }
 
         public async Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId)

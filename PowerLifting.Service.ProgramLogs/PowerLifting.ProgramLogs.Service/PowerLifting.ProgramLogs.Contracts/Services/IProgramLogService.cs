@@ -17,7 +17,7 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId);
+        Task<IEnumerable<ProgramLogStatDTO>> GetAllProgramLogsByUserId(string userId);
 
         /// <summary>
         /// Gets the most recent / active program log of a given user

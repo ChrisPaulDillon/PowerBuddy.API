@@ -25,6 +25,11 @@ namespace PowerLifting.ProgramLogs.Repository
             _mapper = mapper;
         }
 
+        public async Task<IEnumerable<ProgramLogDayDTO>> GetAllProgramLogDaysByProgramLogId()
+        {
+            return await _context.Set<ProgramLogDay>().ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider).ToListAsync(); ///TODO COME BACK TO PROGRAM LOGIDs
+        }
+
         public async Task<ProgramLogDay> GetProgramLogDayById(string userId, int programLogDayId)
         {
             return await _context.Set<ProgramLogDay>().Where(x => x.ProgramLogDayId == programLogDayId && x.UserId == userId)

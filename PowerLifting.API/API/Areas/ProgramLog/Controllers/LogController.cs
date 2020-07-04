@@ -30,16 +30,24 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             _service = service;
         }
 
-        [HttpGet("All/{userId}")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogDTO>>), StatusCodes.Status200OK)]
+        [HttpGet("All")]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogStatDTO>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAllProgramLogsByUserId(string userId)
+        public async Task<IActionResult> GetAllProgramLogsByUserId()
         {
             try
             {
+                userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var programLogs = await _service.ProgramLog.GetAllProgramLogsByUserId(userId);
-                return Ok(Responses.Success(programLogs));
+
+                var programWithTemplate = programLogs.ToList();
+                foreach (var program in programWithTemplate)
+                {
+                    program.TemplateName = await _service.TemplateProgram.GetTemplateProgramNameById(program.TemplateProgramId);
+                }
+
+                return Ok(Responses.Success(programWithTemplate));
             }
             catch (ProgramLogNotFoundException ex)
             {

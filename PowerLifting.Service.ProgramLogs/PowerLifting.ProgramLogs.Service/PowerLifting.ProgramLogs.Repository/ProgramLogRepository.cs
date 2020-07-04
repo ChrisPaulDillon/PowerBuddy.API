@@ -26,9 +26,8 @@ namespace PowerLifting.ProgramLogs.Repository
         public async Task<IEnumerable<ProgramLogDTO>> GetAllProgramLogsByUserId(string userId)
         {
             return await _context.Set<ProgramLog>().Where(x => x.UserId == userId)
-                                                                        .Include(x => x.ProgramLogWeeks)
-                                                                        .ThenInclude(x => x.ProgramLogDays)
                                                                         .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider)
+                                                                        .AsNoTracking()
                                                                         .ToListAsync();
         }
 

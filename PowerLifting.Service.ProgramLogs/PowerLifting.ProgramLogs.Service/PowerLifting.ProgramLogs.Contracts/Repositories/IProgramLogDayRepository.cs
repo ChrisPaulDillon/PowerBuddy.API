@@ -8,6 +8,8 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
 {
     public interface IProgramLogDayRepository
     {
+        Task<IEnumerable<ProgramLogDayDTO>> GetAllProgramLogDaysByProgramLogId();
+
         /// <summary>
         /// Gets a Program Log Day by a given Id
         /// </summary>
