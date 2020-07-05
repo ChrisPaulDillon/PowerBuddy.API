@@ -28,7 +28,6 @@ namespace PowerLifting.Persistence
                     new Quote{QuoteStr="We All Gonna Make It Brahs", Author = "Zyzz", Year = 2011, Active = true},
                     new Quote{QuoteStr="Non Negotiable", Author = "Jason Blaha", Year = 2015, Active = true},
                     new Quote{QuoteStr="Everyone wants to be a bodybuilder, but nobody wants to lift no heavy ass weights", Author = "Ronnie Coleman", Year = 2005, Active = true},
-                    new Quote{QuoteStr="Everyone wants to be a bodybuilder, but nobody wants to lift no heavy ass weights", Author = "Ronnie Coleman", Year = 2005, Active = true},
                 };
 
                 foreach (var e in quotes)

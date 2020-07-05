@@ -2,7 +2,7 @@
 {
     public enum RepSchemeTypeEnum
     {
-       FIXED = 0,
-       RAMPED = 1
+        Fixed = 0,
+        Ramped = 1
     }
 }
