@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using PowerLifting.Accounts.Contracts.Services;
 using PowerLifting.Accounts.Service;
+using PowerLifting.Accounts.Service.Services;
 using PowerLifting.LiftingStats.Service;
 using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.ProgramLogs.Service;
@@ -34,6 +35,7 @@ namespace PowerLifting.API.Wrappers
         private ITemplateExerciseCollectionService _templateExerciseCollection;
         private IUserService _user;
         private IUserSettingService _userSetting;
+        private INotificationService _notification;
 
         private readonly IMapper _mapper;
         private readonly IProgramLogWrapper _programLogWrapper;
@@ -209,6 +211,16 @@ namespace PowerLifting.API.Wrappers
                 if (_userSetting == null) _userSetting = new UserSettingService(_accountWrapper, _mapper);
 
                 return _userSetting;
+            }
+        }
+
+        public INotificationService Notification
+        {
+            get
+            {
+                if (_notification == null) _notification = new NotificationService(_accountWrapper, _mapper);
+
+                return _notification;
             }
         }
     }

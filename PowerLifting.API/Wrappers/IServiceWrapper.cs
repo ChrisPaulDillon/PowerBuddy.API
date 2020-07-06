@@ -24,5 +24,6 @@ namespace PowerLifting.API.Wrappers
         ITemplateExerciseCollectionService TemplateExerciseCollection { get; }
         IUserService User { get; }
         IUserSettingService UserSetting { get; }
+        INotificationService Notification { get; }
     }
 }

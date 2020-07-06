@@ -401,6 +401,7 @@ namespace PowerLifting.Persistence
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
                                         new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                             NoOfSets = 1, RepSchemeFormat = "1x1", TemplateRepSchemes = new List<TemplateRepScheme> {
+                                                new TemplateRepScheme { SetNo = 1, Percentage = 105, NoOfReps = 1, AMRAP = true},
                                           }
                                         }
                                     } },

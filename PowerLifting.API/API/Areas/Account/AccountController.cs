@@ -12,11 +12,12 @@ using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
 
-namespace PowerLifting.API.API
+namespace PowerLifting.API.API.Areas.Account
 {
-    [Route("api/[controller]")]
+    [Route("api/[area]/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [Area("Account")]
     public class AccountController : ControllerBase
     {
         private readonly IServiceWrapper _service;

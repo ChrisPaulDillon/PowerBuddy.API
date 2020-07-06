@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
+using PowerLifting.Entity.Users.DTO;
+using PowerLifting.Entity.Users.Model;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Model;
+using PowerLifting.Service.UserSettings.DTO;
+using PowerLifting.Service.UserSettings.Model;
 
 namespace PowerLifting.Service.Users.AutoMapper
 {
@@ -9,12 +13,14 @@ namespace PowerLifting.Service.Users.AutoMapper
         public UserMappingProfile()
         {
             //Users
-            CreateMap<User, UserDTO>();
-            CreateMap<UserDTO, User>();
-            CreateMap<RegisterUserDTO, User>();
-            CreateMap<User, RegisterUserDTO>();
-            CreateMap<NewUserDTO, User>();
-            CreateMap<User, NewUserDTO>();
+            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<RegisterUserDTO, User>().ReverseMap();
+            CreateMap<NewUserDTO, User>().ReverseMap();
+            CreateMap<UserSetting, UserSettingDTO>().ReverseMap();
+
+            CreateMap<Notification, NotificationDTO>().ReverseMap();
+            CreateMap<NotificationInteraction, NotificationInteractionDTO>().ReverseMap();
+
         }
     }
 }

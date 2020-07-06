@@ -10,6 +10,8 @@ namespace PowerLifting.Accounts.Service
     {
         private IUserRepository _userRepo;
         private IUserSettingRepository _userSettingRepo;
+        private INotificationRepository _notificationRepo;
+
         private readonly IMapper _mapper;
 
         private readonly PowerliftingContext _context;
@@ -43,6 +45,19 @@ namespace PowerLifting.Accounts.Service
                 }
 
                 return _userSettingRepo;
+            }
+        }
+
+        public INotificationRepository Notification
+        {
+            get
+            {
+                if (_notificationRepo == null)
+                {
+                    _notificationRepo = new NotificationRepository(_context, _mapper);
+                }
+
+                return _notificationRepo;
             }
         }
     }

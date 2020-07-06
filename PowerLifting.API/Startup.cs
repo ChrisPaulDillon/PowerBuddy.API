@@ -20,7 +20,6 @@ using PowerLifting.Service.LiftingStats.AutoMapper;
 using PowerLifting.Service.ProgramLogs.AutoMapper;
 using PowerLifting.Service.TemplatePrograms.AutoMapper;
 using PowerLifting.Service.Users.AutoMapper;
-using PowerLifting.Service.UserSettings.AutoMapper;
 using PowerLifting.Service.Exercises.AutoMapper;
 using PowerLifting.Systems.Service;
 using PowerLifting.Accounts.Service;
@@ -28,8 +27,6 @@ using PowerLifting.TemplatePrograms.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using PowerLifting.API.Models;
-using System.Net;
 using PowerLifting.API.Util;
 
 namespace PowerLifting.API
@@ -115,7 +112,6 @@ namespace PowerLifting.API
                  mc.AddProfile(new ProgramLogMappingProfile());
                  mc.AddProfile(new TemplateProgramMappingProfile());
                  mc.AddProfile(new UserMappingProfile());
-                 mc.AddProfile(new UserSettingMappingProfile());
              });
 
             IMapper mapper = mappingConfig.CreateMapper();
