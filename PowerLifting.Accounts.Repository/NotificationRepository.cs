@@ -49,5 +49,22 @@ namespace PowerLifting.Accounts.Repository
             var changedRows = await _context.SaveChangesAsync();
             return changedRows > 0;
         }
+
+        public async Task<Notification> CreateNotification(NotificationDTO notificationDTO)
+        {
+            var notification = new Notification()
+            {
+                NotificationText = notificationDTO.NotificationText
+            };
+            _context.Add(notification);
+            await _context.SaveChangesAsync();
+            return notification;
+        }
+
+        public async Task CreateNotificationInteraction(IEnumerable<NotificationInteraction> notificationInteractions)
+        {
+            notificationInteractions.ToList().ForEach(x => _context.Add(x));
+            await _context.SaveChangesAsync();
+        }
     }
 }

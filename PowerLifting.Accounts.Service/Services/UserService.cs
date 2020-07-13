@@ -9,7 +9,6 @@ using PowerLifting.Accounts.Service;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
-using PowerLifting.Service.Users.Validators;
 using PowerLifting.Service.UserSettings.Model;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;

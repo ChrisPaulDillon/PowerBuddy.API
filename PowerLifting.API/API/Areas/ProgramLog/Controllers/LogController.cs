@@ -152,7 +152,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
 
                 var checkLiftingStats = liftingStats.ToList().Where(item1 => tec.Any(item2 => item1.ExerciseId == item2));
 
-                if (tec.Count() != checkLiftingStats.Count()) throw new TemplateExercise1RMNotSetForUserException();
+                if (tec.Count() != checkLiftingStats.Count()) return Ok(Responses.Success(tec));
 
                 var programLog = await _service.ProgramLog.CreateProgramLogFromTemplate(userId, template, liftingStats, daySelected);
                 return Ok(Responses.Success(programLog));

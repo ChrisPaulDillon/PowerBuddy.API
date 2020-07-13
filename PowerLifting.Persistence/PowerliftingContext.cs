@@ -13,6 +13,7 @@ using PowerLifting.Entity.System.ExerciseTypes.Models;
 using PowerLifting.Entity.System.Exercises.Models;
 using PowerLifting.Entity.System.Quotes.Models;
 using PowerLifting.Entity.System.ExerciseSports.Model;
+using PowerLifting.Entity.Users.Model;
 
 namespace PowerLifting.Persistence
 {
@@ -56,6 +57,8 @@ namespace PowerLifting.Persistence
         public DbSet<IdentityUserRole<string>> UserRole { get; set; }
         public DbSet<IdentityUserToken<string>> UserToken { get; set; }
         public DbSet<UserSetting> UserSetting { get; set; }
+        public DbSet<Notification> Notification { get; set; }
+        public DbSet<NotificationInteraction> NotificationInteraction { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -93,6 +96,8 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
+            modelBuilder.Entity<Notification>().ToTable("Notification");
+            modelBuilder.Entity<NotificationInteraction>().ToTable("NotificatonInteraction");
         }
     }
 }

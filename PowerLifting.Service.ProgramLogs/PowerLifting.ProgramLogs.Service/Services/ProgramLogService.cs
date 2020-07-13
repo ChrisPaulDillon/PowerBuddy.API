@@ -334,7 +334,6 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 Percentage = templateRepScheme.Percentage,
                 WeightLifted = weightToLift,
                 AMRAP = templateRepScheme.AMRAP,
-                IsBackOffSet = templateRepScheme.IsBackOffSet
             };
         }
 

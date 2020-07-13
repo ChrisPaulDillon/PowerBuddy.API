@@ -18,7 +18,7 @@ namespace PowerLifting.Service.Users.AutoMapper
             CreateMap<NewUserDTO, User>().ReverseMap();
             CreateMap<UserSetting, UserSettingDTO>().ReverseMap();
 
-            CreateMap<Notification, NotificationDTO>().ReverseMap();
+            CreateMap<NotificationDTO, Notification>().ReverseMap();
             CreateMap<NotificationInteraction, NotificationInteractionDTO>().ReverseMap();
 
         }

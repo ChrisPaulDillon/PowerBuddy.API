@@ -10,5 +10,6 @@ namespace PowerLifting.Accounts.Contracts.Services
     {
         Task<IEnumerable<NotificationInteractionDTO>> GetUserNotifications(string userId);
         Task<bool> MarkNotificationAsRead(int notificationInteractionId);
+        Task<Notification> CreateNotification(NotificationDTO notificationDTO);
     }
 }

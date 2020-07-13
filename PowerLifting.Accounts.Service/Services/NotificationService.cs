@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Accounts.Contracts.Services;
@@ -17,6 +18,22 @@ namespace PowerLifting.Accounts.Service.Services
         {
             _repo = repo;
             _mapper = mapper;
+        }
+
+        public async Task<Notification> CreateNotification(NotificationDTO notificationDTO)
+        {
+            var notification = await _repo.Notification.CreateNotification(notificationDTO);
+            var users = await _repo.User.GetAllUsers();
+
+            var notificationInteractionList = users.ToList().Select(x => new NotificationInteraction()
+            {
+                NotificationId = notification.NotificationId,
+                UserId = x.Id,
+                HasRead = false
+            });
+
+            await _repo.Notification.CreateNotificationInteraction(notificationInteractionList);
+            return notification;
         }
 
         public async Task<IEnumerable<NotificationInteractionDTO>> GetUserNotifications(string userId)
