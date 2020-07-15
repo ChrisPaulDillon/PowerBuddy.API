@@ -5,6 +5,5 @@ namespace PowerLifting.Entity.System.Exercises.DTO
     {
         public int ExerciseTypeId { get; set; }
         public string ExerciseName { get; set; }
-        public bool IsProgrammable { get; set; } //Is this a main lift / can numbers be generated using this lift
     }
 }
