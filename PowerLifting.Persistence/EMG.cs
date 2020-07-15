@@ -1,7 +1,7 @@
 ﻿using System;
 namespace PowerLifting.Persistence
 {
-    public static class ExerciseMuscleGroups
+    public static class EMG
     {
         //NECK
         public const string STERNOCLEIDOMASTOID = "Sternocleidomastoid";
@@ -22,6 +22,10 @@ namespace PowerLifting.Persistence
         public const string LOWER_CHEST = "Lower Chest";
         public const string SERRATUS_ANTERIOR = "Serratus Anterior";
 
+        //Lower Arms
+        public const string WRIST_FLEXORS = "Wrist Flexors";
+        public const string BRACHIORADIALIS = "Brachioradialis";
+
         //Back
         public const string UPPER_TRAPEZIUS = "Upper Trapezius";
         public const string MIDDLE_TRAPEZIUS = "Middle Trapezius";
@@ -30,8 +34,10 @@ namespace PowerLifting.Persistence
         public const string LEVATOR_SCAPULAE = "Levator Scapulae";
         public const string INFRASPINATUS = "Infraspinatus";
         public const string TERES_MINOR = "Teres Minor";
+        public const string TERES_MAJOR = "Teres Major";
         public const string SUBSCAPULARIS = "Subscapularis";
         public const string ERECTOR_SPINAE = "Erector Spinae";
+        public const string LATISSIMUS_DORSI = "Latissimus Dorsi";
 
         //Abs
         public const string RECTUS_ABDOMINIS = "Rectus Abdominis";
