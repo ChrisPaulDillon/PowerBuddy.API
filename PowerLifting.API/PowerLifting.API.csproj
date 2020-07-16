@@ -62,5 +62,6 @@
     <Folder Include="API\Areas\ProgramLog\Models\" />
     <Folder Include="API\Areas\Account\" />
     <Folder Include="API\Areas\Admin\" />
+    <Folder Include="API\Areas\Public\" />
   </ItemGroup>
 </Project>

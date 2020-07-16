@@ -12,13 +12,13 @@ namespace PowerLifting.Persistence
             {
                     Create531(),
                     Create531BBB(),
-                    new TemplateProgram { Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner), NoOfWeeks = 12,
+                    new TemplateProgram { TemplateProgramId = 3, Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner), NoOfWeeks = 12,
                         MaxLiftDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 25},
-                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 26 },
-                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 27 },
+                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 4},
+                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 3 },
+                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 2 },
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 2 } },
                             TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
@@ -31,7 +31,7 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 4, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NoOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                       new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NoOfReps = 5},
@@ -57,7 +57,7 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 4, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NoOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                       new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NoOfReps = 5},
@@ -65,7 +65,7 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 4, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NoOfReps = 5}
                                         } },
-                                        new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                        new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NoOfReps = 5},
@@ -83,7 +83,7 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 4, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NoOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                       new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 2, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 3, NoOfReps = 5},
@@ -109,7 +109,7 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 4, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NoOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                       new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NoOfReps = 5},
@@ -117,7 +117,7 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 4, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NoOfReps = 5}
                                         } },
-                                        new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                        new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NoOfReps = 5},
@@ -134,7 +134,7 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 3, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NoOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                       new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NoOfReps = 5},
@@ -160,7 +160,7 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 4, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NoOfReps = 5}
                                         } },
-                                       new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                       new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NoOfReps = 5},
@@ -168,7 +168,7 @@ namespace PowerLifting.Persistence
                                             new TemplateRepScheme { SetNo = 4, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 5, NoOfReps = 5}
                                         } },
-                                        new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                        new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 5, RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                             new TemplateRepScheme { SetNo = 1, NoOfReps = 5},
                                             new TemplateRepScheme { SetNo = 2, NoOfReps = 5},
@@ -179,10 +179,10 @@ namespace PowerLifting.Persistence
                                     } } } }
                             } },
 
-                        new TemplateProgram {Name="Russian Squat Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Intermediate), NoOfWeeks = 6, MaxLiftDaysPerWeek = 3,
+                        new TemplateProgram {TemplateProgramId = 4, Name="Russian Squat Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Intermediate), NoOfWeeks = 6, MaxLiftDaysPerWeek = 3,
                         TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                         TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 1 }
+                            new TemplateExerciseCollection { TemplateProgramId = 4, ExerciseId = 1 }
                         },
                         TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
@@ -409,15 +409,15 @@ namespace PowerLifting.Persistence
                             }
 
                     } },
-                        new TemplateProgram {Name="Smolov Jr Bench Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Advanced), NoOfWeeks = 3, MaxLiftDaysPerWeek = 4,
+                        new TemplateProgram { TemplateProgramId = 5, Name="Smolov Jr Bench Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Advanced), NoOfWeeks = 3, MaxLiftDaysPerWeek = 4,
                         TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                         TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 5, ExerciseId = 26 }
+                            new TemplateExerciseCollection { TemplateProgramId = 5, ExerciseId = 3 }
                         },
                         TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 6, RepSchemeFormat = "6x6", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 6},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 70, NoOfReps = 6},
@@ -429,7 +429,7 @@ namespace PowerLifting.Persistence
                                         }
                                     } },
                                      new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 7, RepSchemeFormat = "7x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -442,7 +442,7 @@ namespace PowerLifting.Persistence
                                         }
                                     } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 8, RepSchemeFormat = "8x4", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 80, NoOfReps = 4},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 4},
@@ -456,7 +456,7 @@ namespace PowerLifting.Persistence
                                         }
                                     } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 10, RepSchemeFormat = "10x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 85, NoOfReps = 3},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -476,7 +476,7 @@ namespace PowerLifting.Persistence
                             //Week 2
                              new TemplateWeek { WeekNo = 2,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 6, RepSchemeFormat = "6x6", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 72, NoOfReps = 6},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 72, NoOfReps = 6},
@@ -488,7 +488,7 @@ namespace PowerLifting.Persistence
                                         }
                                     } },
                                      new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 7, RepSchemeFormat = "7x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 77, NoOfReps = 5},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 77, NoOfReps = 5},
@@ -501,7 +501,7 @@ namespace PowerLifting.Persistence
                                         }
                                     } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 8, RepSchemeFormat = "8x4", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 82, NoOfReps = 4},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 82, NoOfReps = 4},
@@ -515,7 +515,7 @@ namespace PowerLifting.Persistence
                                         }
                                     } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 10, RepSchemeFormat = "10x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 87, NoOfReps = 3},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 87, NoOfReps = 3},
@@ -535,7 +535,7 @@ namespace PowerLifting.Persistence
                              //Week 3
                               new TemplateWeek { WeekNo = 3,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 6, RepSchemeFormat = "6x6", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 74, NoOfReps = 6},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 74, NoOfReps = 6},
@@ -547,7 +547,7 @@ namespace PowerLifting.Persistence
                                         }
                                     } },
                                      new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 7, RepSchemeFormat = "7x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 77, NoOfReps = 5},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 77, NoOfReps = 5},
@@ -560,7 +560,7 @@ namespace PowerLifting.Persistence
                                         }
                                     } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 8, RepSchemeFormat = "8x4", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 84, NoOfReps = 4},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 84, NoOfReps = 4},
@@ -574,7 +574,7 @@ namespace PowerLifting.Persistence
                                         }
                                     } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                        new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
+                                        new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                           NoOfSets = 10, RepSchemeFormat = "10x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                           new TemplateRepScheme { SetNo = 1, Percentage = 89, NoOfReps = 3},
                                           new TemplateRepScheme { SetNo = 2, Percentage = 89, NoOfReps = 3},
@@ -604,6 +604,7 @@ namespace PowerLifting.Persistence
         {
             return new TemplateProgram
             {
+                TemplateProgramId = 6,
                 Name = "Madcow 5x5",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Intermediate),
                 NoOfWeeks = 12,
@@ -614,9 +615,9 @@ namespace PowerLifting.Persistence
                 {
                     new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 1 },
                     new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 2 },
-                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 25 },
-                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 26 },
-                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 27 }
+                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 4 },
+                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 3 },
+                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 2 }
                 },
                 TemplateWeeks = new List<TemplateWeek>
                 {
@@ -647,7 +648,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -699,7 +700,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -714,7 +715,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -750,7 +751,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -809,7 +810,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -861,7 +862,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -876,7 +877,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -912,7 +913,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -972,7 +973,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1024,7 +1025,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1039,7 +1040,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -1075,7 +1076,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -1135,7 +1136,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1187,7 +1188,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1202,7 +1203,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -1238,7 +1239,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -1297,7 +1298,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1349,7 +1350,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1364,7 +1365,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -1400,7 +1401,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -1459,7 +1460,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1511,7 +1512,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1526,7 +1527,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -1562,7 +1563,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -1622,7 +1623,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1674,7 +1675,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1689,7 +1690,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -1725,7 +1726,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -1784,7 +1785,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1836,7 +1837,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1851,7 +1852,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -1887,7 +1888,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -1946,7 +1947,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -1998,7 +1999,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -2013,7 +2014,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -2049,7 +2050,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -2108,7 +2109,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -2160,7 +2161,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -2175,7 +2176,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -2211,7 +2212,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -2270,7 +2271,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -2322,7 +2323,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -2337,7 +2338,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -2373,7 +2374,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -2432,7 +2433,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -2484,7 +2485,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 25,
+                                        ExerciseId = 4,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "5x5",
@@ -2499,7 +2500,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 27,
+                                        ExerciseId = 2,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 4,
                                         RepSchemeFormat = "4x5",
@@ -2535,7 +2536,7 @@ namespace PowerLifting.Persistence
                                     },
                                     new TemplateExercise
                                     {
-                                        ExerciseId = 26,
+                                        ExerciseId = 3,
                                         RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                         NoOfSets = 5,
                                         RepSchemeFormat = "4x5, 1x3",
@@ -2575,6 +2576,7 @@ namespace PowerLifting.Persistence
         {
             return new TemplateProgram
             {
+                TemplateProgramId = 2,
                 Name = "5/3/1 Boring But Big (3 Day)",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                 NoOfWeeks = 4,
@@ -2583,8 +2585,8 @@ namespace PowerLifting.Persistence
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 26 },
-                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 27 }
+                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 3 },
+                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 2 }
                          },
                 TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
@@ -2601,7 +2603,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo=2, TemplateExercises = new List<TemplateExercise>{
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -2613,7 +2615,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo=3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -2639,7 +2641,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x3", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -2651,7 +2653,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x3", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -2677,7 +2679,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -2689,7 +2691,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -2710,14 +2712,14 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -2732,6 +2734,7 @@ namespace PowerLifting.Persistence
         {
             return new TemplateProgram
             {
+                TemplateProgramId = 7,
                 Name = "5/3/1 Boring But Big (4 Day)",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                 NoOfWeeks = 4,
@@ -2740,9 +2743,9 @@ namespace PowerLifting.Persistence
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 25 },
-                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 26 },
-                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 27 }
+                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 4 },
+                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 3 },
+                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 2 }
                          },
                 TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
@@ -2759,7 +2762,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo=2, TemplateExercises = new List<TemplateExercise>{
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -2771,7 +2774,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo=3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -2783,7 +2786,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 8, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x5", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -2810,7 +2813,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x3", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -2822,7 +2825,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x3", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -2834,7 +2837,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 8, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "3x3", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -2861,7 +2864,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -2873,7 +2876,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 10, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -2885,7 +2888,7 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 8, Percentage = 50, NoOfReps = 8, IsBackOffSet = true}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 8, RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets=true, BackOffSetFormat="5x10", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -2907,21 +2910,21 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -2936,6 +2939,7 @@ namespace PowerLifting.Persistence
         {
             return new TemplateProgram
             {
+                TemplateProgramId = 1,
                 Name = "5/3/1 (3 Day)",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                 NoOfWeeks = 4,
@@ -2944,8 +2948,8 @@ namespace PowerLifting.Persistence
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 26 },
-                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 27 } },
+                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 2 },
+                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 3 } },
                 TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
@@ -2956,14 +2960,14 @@ namespace PowerLifting.Persistence
                                           new TemplateRepScheme { SetNo = 3, Percentage = 85, NoOfReps = 5, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise>{
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 85, NoOfReps = 5, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -2979,14 +2983,14 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NoOfReps = 3, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NoOfReps = 3, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -3002,14 +3006,14 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NoOfReps = 1, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo=2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NoOfReps = 1, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo=3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -3025,14 +3029,14 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo=2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo=3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3045,9 +3049,9 @@ namespace PowerLifting.Persistence
 
         public static TemplateProgram Create5314Day()
         {
-
             return new TemplateProgram
             {
+                TemplateProgramId = 8,
                 Name = "5/3/1 (4 Day)",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                 NoOfWeeks = 4,
@@ -3056,9 +3060,9 @@ namespace PowerLifting.Persistence
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 25 },
-                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 26 },
-                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 27 } },
+                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 4 },
+                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 3 },
+                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 2 } },
                 TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
@@ -3069,21 +3073,21 @@ namespace PowerLifting.Persistence
                                           new TemplateRepScheme { SetNo = 3, Percentage = 85, NoOfReps = 5, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise>{
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 85, NoOfReps = 5, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 85, NoOfReps = 5, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 65, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -3100,21 +3104,21 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NoOfReps = 3, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NoOfReps = 3, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 90, NoOfReps = 3, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 70, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -3131,21 +3135,21 @@ namespace PowerLifting.Persistence
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NoOfReps = 1, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo=2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NoOfReps = 1, AMRAP = true},
                                                                                                           } } } },
                                     new TemplateDay { DayNo=3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
                                                 new TemplateRepScheme { SetNo = 3, Percentage = 95, NoOfReps = 1, AMRAP = true}
                                                                                                           } } } },
                                      new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                 new TemplateRepScheme { SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                 new TemplateRepScheme { SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -3162,21 +3166,21 @@ namespace PowerLifting.Persistence
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo=2, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 26, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo=3, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 27, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 2, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 3, Percentage = 60, NoOfReps = 5}
                                                                                                           } } } },
                                     new TemplateDay { DayNo = 4, TemplateExercises = new List<TemplateExercise> {
-                                          new TemplateExercise { ExerciseId = 25, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                          new TemplateExercise { ExerciseId = 4, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                             NoOfSets = 3, RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme> {
                                                  new TemplateRepScheme { SetNo = 1, Percentage = 40, NoOfReps = 5},
                                                  new TemplateRepScheme { SetNo = 2, Percentage = 50, NoOfReps = 5},

@@ -14,7 +14,7 @@ namespace PowerLifting.Persistence
             {
                 new Exercise
                 {
-                    ExerciseName = "Back Squat", ExerciseTypeId = 2,
+                    ExerciseId = 1, ExerciseName = "Back Squat", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Quads"},
@@ -29,7 +29,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "DeadLift", ExerciseTypeId = 2,
+                    ExerciseId = 2, ExerciseName = "DeadLift", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Lower Back"},
@@ -44,7 +44,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Bench Press", ExerciseTypeId = 2,
+                    ExerciseId = 3, ExerciseName = "Bench Press", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Chest"},
@@ -58,7 +58,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Overhead Press", ExerciseTypeId = 2,
+                    ExerciseId = 4, ExerciseName = "Overhead Press", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Anterior Deltoid"},
@@ -73,7 +73,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Front Squat", ExerciseTypeId = 2,
+                    ExerciseId = 5, ExerciseName = "Front Squat", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Quadricep"},
@@ -89,7 +89,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Overhead Squat", ExerciseTypeId = 2,
+                    ExerciseId = 6, ExerciseName = "Overhead Squat", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Shoulder"},
@@ -104,7 +104,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Floor Press", ExerciseTypeId = 2,
+                    ExerciseId = 7, ExerciseName = "Floor Press", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Shoulder"},
@@ -112,30 +112,30 @@ namespace PowerLifting.Persistence
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Tricep"},
                     },
                 },
-                new Exercise {ExerciseName = "Barbell Lunge", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Incline Bench Press", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Decline Bench Press", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Good Morning", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Stiff Leg Deadlift", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Sumo Deadlift", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Snatch", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Hang Snatch", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Power Snatch", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Clean & Press", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Clean & Jerk", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Clean", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Hang Clean", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Power Clean", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Jerk", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Power Jerk", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Barbell Row", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "Pendlay Row", ExerciseTypeId = 2},
-                new Exercise {ExerciseName = "T-Bar Row", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 8, ExerciseName = "Barbell Lunge", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 9, ExerciseName = "Incline Bench Press", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 10, ExerciseName = "Decline Bench Press", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 11, ExerciseName = "Good Morning", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 12, ExerciseName = "Stiff Leg Deadlift", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 13, ExerciseName = "Sumo Deadlift", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 14, ExerciseName = "Snatch", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 15, ExerciseName = "Hang Snatch", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 16, ExerciseName = "Power Snatch", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 17, ExerciseName = "Clean & Press", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 18, ExerciseName = "Clean & Jerk", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 19, ExerciseName = "Clean", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 20, ExerciseName = "Hang Clean", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 21, ExerciseName = "Power Clean", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 22, ExerciseName = "Jerk", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 23, ExerciseName = "Power Jerk", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 24, ExerciseName = "Barbell Row", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 25, ExerciseName = "Pendlay Row", ExerciseTypeId = 2},
+                new Exercise {ExerciseId = 26, ExerciseName = "T-Bar Row", ExerciseTypeId = 2},
 
                 //shoulder region
                 new Exercise
                 {
-                    ExerciseName = "Barbell Press (Behind The Neck)", ExerciseTypeId = 2,
+                    ExerciseId = 27, ExerciseName = "Barbell Press (Behind The Neck)", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
@@ -148,7 +148,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Barbell Front Raise", ExerciseTypeId = 2,
+                    ExerciseId = 28, ExerciseName = "Barbell Front Raise", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
@@ -161,7 +161,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Military Press", ExerciseTypeId = 2,
+                    ExerciseId = 29, ExerciseName = "Military Press", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
@@ -174,7 +174,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Arnold Press", ExerciseTypeId = 1,
+                    ExerciseId = 30, ExerciseName = "Dumbbell Arnold Press", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
@@ -188,7 +188,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Front Raise", ExerciseTypeId = 1,
+                    ExerciseId = 31, ExerciseName = "Dumbbell Front Raise", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
@@ -201,7 +201,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Shoulder Press", ExerciseTypeId = 1,
+                    ExerciseId = 32, ExerciseName = "Dumbbell Shoulder Press", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
@@ -214,7 +214,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Shoulder Press", ExerciseTypeId = 1,
+                    ExerciseId = 33, ExerciseName = "Barbell Shoulder Press", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
@@ -227,7 +227,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Barbell Upright Row", ExerciseTypeId = 2,
+                    ExerciseId = 34, ExerciseName = "Barbell Upright Row", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID, IsPrimary = true},
@@ -244,7 +244,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Lateral Raise", ExerciseTypeId = 1,
+                    ExerciseId = 35, ExerciseName = "Dumbbell Lateral Raise", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID, IsPrimary = true},
@@ -257,7 +257,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Upright Row", ExerciseTypeId = 2,
+                    ExerciseId = 36, ExerciseName = "Dumbbell Upright Row", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID, IsPrimary = true},
@@ -274,7 +274,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Barbell Rear Delt Raise", ExerciseTypeId = 2,
+                    ExerciseId = 37, ExerciseName = "Barbell Rear Delt Raise", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID, IsPrimary = true},
@@ -289,7 +289,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Rear Delt Row", ExerciseTypeId = 1,
+                    ExerciseId = 38, ExerciseName = "Dumbbell Rear Delt Row", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID, IsPrimary = true},
@@ -306,7 +306,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Rear Delt Fly", ExerciseTypeId = 1,
+                    ExerciseId = 39, ExerciseName = "Dumbbell Rear Delt Fly", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID, IsPrimary = true},
@@ -324,7 +324,7 @@ namespace PowerLifting.Persistence
 
                 new Exercise
                 {
-                    ExerciseName = "Barbell Bench Press (Close Grip)", ExerciseTypeId = 2,
+                    ExerciseId = 40, ExerciseName = "Barbell Bench Press (Close Grip)", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
@@ -334,18 +334,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Barbell Incline Press (Close Grip)", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
-                    {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
-                    },
-                },
-                new Exercise
-                {
-                    ExerciseName = "JM Barbell Press", ExerciseTypeId = 2,
+                    ExerciseId = 41, ExerciseName = "Barbell Incline Press (Close Grip)", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
@@ -356,22 +345,18 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Barbell Skull Crusher", ExerciseTypeId = 2,
+                    ExerciseId = 42, ExerciseName = "JM Barbell Press", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LATISSIMUS_DORSI },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TERES_MAJOR },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.WRIST_FLEXORS },
                     },
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Skull Crusher", ExerciseTypeId = 1,
+                    ExerciseId = 43, ExerciseName = "Barbell Skull Crusher", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
@@ -386,7 +371,22 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Barbell Tricep Extension", ExerciseTypeId = 2,
+                    ExerciseId = 44, ExerciseName = "Dumbbell Skull Crusher", ExerciseTypeId = 1,
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    {
+                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
+                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
+                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
+                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LATISSIMUS_DORSI },
+                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID },
+                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TERES_MAJOR },
+                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.WRIST_FLEXORS },
+                    },
+                },
+                new Exercise
+                {
+                    ExerciseId = 45, ExerciseName = "Barbell Tricep Extension", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
@@ -394,7 +394,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Tricep Extension", ExerciseTypeId = 1,
+                    ExerciseId = 46, ExerciseName = "Dumbbell Tricep Extension", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
@@ -402,7 +402,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Tricep Kickback", ExerciseTypeId = 1,
+                    ExerciseId = 47, ExerciseName = "Dumbbell Tricep Kickback", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
@@ -412,7 +412,7 @@ namespace PowerLifting.Persistence
                 //BICEPS
                 new Exercise
                 {
-                    ExerciseName = "Barbell Curl", ExerciseTypeId = 2,
+                    ExerciseId = 48, ExerciseName = "Barbell Curl", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII, IsPrimary = true},
@@ -422,7 +422,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Curl", ExerciseTypeId = 1,
+                    ExerciseId = 49, ExerciseName = "Dumbbell Curl", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII, IsPrimary = true},
@@ -432,7 +432,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Incline Curl", ExerciseTypeId = 1,
+                    ExerciseId = 50, ExerciseName = "Dumbbell Incline Curl", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII, IsPrimary = true},
@@ -442,7 +442,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Barbell Preacher Curl", ExerciseTypeId = 2,
+                    ExerciseId = 51, ExerciseName = "Barbell Preacher Curl", ExerciseTypeId = 2,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS, IsPrimary = true},
@@ -452,7 +452,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Concentration Curl", ExerciseTypeId = 1,
+                    ExerciseId = 52, ExerciseName = "Dumbbell Concentration Curl", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS, IsPrimary = true},
@@ -462,7 +462,7 @@ namespace PowerLifting.Persistence
                 },
                 new Exercise
                 {
-                    ExerciseName = "Dumbbell Preacher Curl", ExerciseTypeId = 1,
+                    ExerciseId = 53, ExerciseName = "Dumbbell Preacher Curl", ExerciseTypeId = 1,
                     ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
                     {
                         new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS, IsPrimary = true},

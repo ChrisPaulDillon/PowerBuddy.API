@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using PowerLifting.Entity.Users.DTO;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Model;
 
@@ -12,10 +13,15 @@ namespace PowerLifting.Accounts.Contracts.Services
         Task<UserDTO> GetUserByEmail(string programType);
 
         Task<UserDTO> GetUserProfile(string userId);
+
+        /// <summary>
+        /// Gets the users public profile if they have a public profile enabled
+        /// </summary>
+        Task<PublicUserDTO> GetPublicUserProfile(string userName);
+
         /// <summary>
         /// Attempts to login a user using their given email and password
         /// </summary>
-        /// <returns></returns>
         Task<string> LoginUser(LoginModel user);
 
         Task RegisterUser(RegisterUserDTO userDTO);

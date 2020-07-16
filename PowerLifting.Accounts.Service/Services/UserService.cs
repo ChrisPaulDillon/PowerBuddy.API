@@ -15,6 +15,7 @@ using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Options;
+using PowerLifting.Entity.Users.DTO;
 
 namespace PowerLifting.Accounts.Service
 {
@@ -43,6 +44,8 @@ namespace PowerLifting.Accounts.Service
         public async Task<UserDTO> GetUserProfile(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) throw new UserNotFoundException();
+
             var userDTO = new UserDTO()
             {
                 UserId = user.Id,
@@ -52,9 +55,27 @@ namespace PowerLifting.Accounts.Service
             return userDTO;
         }
 
+        public async Task<PublicUserDTO> GetPublicUserProfile(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null) throw new UserNotFoundException();
+
+            var userDTO = new PublicUserDTO()
+            {
+                UserName = user.UserName,
+                SportType = user.SportType,
+            };
+            return userDTO;
+        }
+
         public async Task<string> LoginUser(LoginModel loginModel)
         {
-            var user = await _userManager.FindByNameAsync(loginModel.Email);
+            var user = await _userManager.FindByNameAsync(loginModel.UserName);
+            if (user == null)
+            {
+                user = await _userManager.FindByEmailAsync(loginModel.Email);
+            }
+
             if (user != null && await _userManager.CheckPasswordAsync(user, loginModel.Password))
             {
                 var key = Encoding.UTF8.GetBytes(_appSettings.JWT_Secret);
@@ -96,7 +117,7 @@ namespace PowerLifting.Accounts.Service
             var user = await _repo.User.GetUserByEmail(userDTO.UserName);
             if (user != null) throw new EmailInUseException();
             var userEntity = _mapper.Map<User>(userDTO);
-            userEntity.Email = userDTO.UserName;
+
             userEntity.UserSetting = new UserSetting()
             {
                 UserId = userEntity.Id

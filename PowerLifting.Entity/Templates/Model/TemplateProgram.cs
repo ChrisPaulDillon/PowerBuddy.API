@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PowerLifting.Service.TemplatePrograms.Model
 {
     public class TemplateProgram
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TemplateProgramId { get; set; }
         public string Name { get; set; }
         public string Difficulty { get; set; }

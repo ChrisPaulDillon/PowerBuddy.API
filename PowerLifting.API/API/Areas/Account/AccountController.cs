@@ -48,6 +48,7 @@ namespace PowerLifting.API.API.Areas.Account
         [HttpGet("Profile")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetLoggedInUsersProfile()
         {
@@ -56,6 +57,10 @@ namespace PowerLifting.API.API.Areas.Account
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var user = await _service.User.GetUserProfile(userId);
                 return Ok(Responses.Success(user));
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
             }
             catch (InvalidCredentialsException ex)
             {
@@ -71,7 +76,7 @@ namespace PowerLifting.API.API.Areas.Account
             try
             {
                 await _service.User.RegisterUser(userDTO);
-                var user = await _userManager.FindByEmailAsync(userDTO.UserName);
+                var user = await _userManager.FindByEmailAsync(userDTO.Email);
 
                 var exercisesInSport = await _service.Exercise.GetAllExercisesBySport(userDTO.SportType);
                 await _service.LiftingStat.CreateLiftingStatsByAthleteType(user.Id, exercisesInSport);

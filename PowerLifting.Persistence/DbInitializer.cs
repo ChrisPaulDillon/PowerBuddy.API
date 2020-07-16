@@ -57,10 +57,11 @@ namespace PowerLifting.Persistence
             {
                 var exerciseCategories = new ExerciseType[]
                 {
-                    new ExerciseType{ExerciseTypeName="Dumbbell"},
-                    new ExerciseType{ExerciseTypeName="Barbell"},
-                    new ExerciseType{ExerciseTypeName="BodyWeight"},
-                    new ExerciseType{ExerciseTypeName="Machine"},
+                    new ExerciseType{ExerciseTypeId = 1, ExerciseTypeName="Dumbbell"},
+                    new ExerciseType{ExerciseTypeId = 2, ExerciseTypeName="Barbell"},
+                    new ExerciseType{ExerciseTypeId = 3, ExerciseTypeName="BodyWeight"},
+                    new ExerciseType{ExerciseTypeId = 4, ExerciseTypeName = "Cable"},
+                    new ExerciseType{ExerciseTypeId = 5, ExerciseTypeName="Machine"},
                 };
 
                 foreach (var e in exerciseCategories)
@@ -72,6 +73,7 @@ namespace PowerLifting.Persistence
 
             if (!context.Exercise.Any())
             {
+                var exercises = ExerciseSeed.CreateExercises();
 
                 foreach (var e in exercises)
                 {

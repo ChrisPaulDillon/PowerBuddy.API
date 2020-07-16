@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 using PowerLifting.Entity.System.ExerciseSports.Model;
 using PowerLifting.Entity.System.ExerciseTypes.Models;
@@ -10,6 +11,7 @@ namespace PowerLifting.Entity.System.Exercises.Models
     /// </summary>
     public class Exercise
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ExerciseId { get; set; }
         public int ExerciseTypeId { get; set; }
         public string ExerciseName { get; set; }
