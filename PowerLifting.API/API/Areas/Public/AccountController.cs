@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
+using PowerLifting.Entity.Users.DTO;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
@@ -27,7 +28,7 @@ namespace PowerLifting.API.API.Areas.Public
         }
 
         [HttpGet("Profile/{userName}")]
-        [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<PublicUserDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLoggedInUsersProfile(string userName)
         {

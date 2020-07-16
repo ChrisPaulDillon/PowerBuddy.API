@@ -36,6 +36,7 @@ namespace PowerLifting.API.Wrappers
         private IUserService _user;
         private IUserSettingService _userSetting;
         private INotificationService _notification;
+        private IFriendsListService _friendsList;
 
         private readonly IMapper _mapper;
         private readonly IProgramLogWrapper _programLogWrapper;
@@ -221,6 +222,16 @@ namespace PowerLifting.API.Wrappers
                 if (_notification == null) _notification = new NotificationService(_accountWrapper, _mapper);
 
                 return _notification;
+            }
+        }
+
+        public IFriendsListService FriendsList
+        {
+            get
+            {
+                if (_friendsList == null) _friendsList = new FriendsListService(_accountWrapper, _mapper, _userManager);
+
+                return _friendsList;
             }
         }
     }

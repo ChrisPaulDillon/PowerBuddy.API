@@ -22,8 +22,10 @@ namespace PowerLifting.API.Wrappers
         IProgramLogExerciseService ProgramLogExercise { get; }
         ITemplateProgramService TemplateProgram { get; }
         ITemplateExerciseCollectionService TemplateExerciseCollection { get; }
+
         IUserService User { get; }
         IUserSettingService UserSetting { get; }
         INotificationService Notification { get; }
+        IFriendsListService FriendsList { get; }
     }
 }

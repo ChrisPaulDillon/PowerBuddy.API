@@ -11,6 +11,7 @@ namespace PowerLifting.Accounts.Service
         private IUserRepository _userRepo;
         private IUserSettingRepository _userSettingRepo;
         private INotificationRepository _notificationRepo;
+        private IFriendsListRepository _friendsListRepo;
 
         private readonly IMapper _mapper;
 
@@ -58,6 +59,19 @@ namespace PowerLifting.Accounts.Service
                 }
 
                 return _notificationRepo;
+            }
+        }
+
+        public IFriendsListRepository FriendsList
+        {
+            get
+            {
+                if (_friendsListRepo == null)
+                {
+                    _friendsListRepo = new FriendsListRepository(_context, _mapper);
+                }
+
+                return _friendsListRepo;
             }
         }
     }

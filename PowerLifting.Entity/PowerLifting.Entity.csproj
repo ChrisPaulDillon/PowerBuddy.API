@@ -33,6 +33,9 @@
     <Folder Include="System\ExerciseSports\" />
     <Folder Include="System\ExerciseSports\Models\" />
     <Folder Include="System\ExerciseSports\DTOs\" />
+    <Folder Include="Account\" />
+    <Folder Include="Account\Models\" />
+    <Folder Include="Account\DTOs\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
