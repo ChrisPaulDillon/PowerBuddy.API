@@ -56,6 +56,7 @@ namespace PowerLifting.API.API.Areas.Account
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var user = await _service.User.GetUserProfile(userId);
+                user.UserSetting = await _service.UserSetting.GetUserSettingsByUserId(userId);
                 return Ok(Responses.Success(user));
             }
             catch (UserNotFoundException ex)

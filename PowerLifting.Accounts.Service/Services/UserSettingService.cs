@@ -19,9 +19,9 @@ namespace PowerLifting.Accounts.Service
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<UserSettingDTO>> GetUserSettingsByUserId(string userId)
+        public async Task<UserSettingDTO> GetUserSettingsByUserId(string userId)
         {
-            throw new System.NotImplementedException();
+            return await _repo.UserSetting.GetUserSettingsById(userId);
         }
     }
 }

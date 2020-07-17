@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using PowerLifting.Entity.ProgramLogs.DTO;
-using PowerLifting.Service.LiftingStats.DTO;
+﻿using PowerLifting.Service.LiftingStats.DTO;
+using PowerLifting.Service.UserSettings.DTO;
 
 namespace PowerLifting.Service.Users.DTO
 {
@@ -14,6 +13,6 @@ namespace PowerLifting.Service.Users.DTO
 
         public int LiftingStatId { get; set; }
         public virtual LiftingStatDTO LiftingStats { get; set; }
-        public virtual IEnumerable<ProgramLogDTO> ProgramLogs { get; set; }
+        public virtual UserSettingDTO UserSetting { get; set; }
     }
 }

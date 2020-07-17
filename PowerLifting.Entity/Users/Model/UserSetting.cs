@@ -1,4 +1,6 @@
-﻿namespace PowerLifting.Service.UserSettings.Model
+﻿using System;
+
+namespace PowerLifting.Service.UserSettings.Model
 {
     /// <summary>
     /// Used to store specific settings about the user such as their bodyweight,
