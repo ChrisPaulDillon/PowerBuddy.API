@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PowerLifting.Persistence.SeedData.TemplatePrograms;
 using PowerLifting.Service.TemplatePrograms.Model;
 
 namespace PowerLifting.Persistence
@@ -10,6 +11,7 @@ namespace PowerLifting.Persistence
         {
             var templates = new TemplateProgram[]
             {
+                JuggernaughtMethod.Create(),
                     Create531(),
                     Create531BBB(),
                     new TemplateProgram { TemplateProgramId = 3, Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner), NoOfWeeks = 12,
