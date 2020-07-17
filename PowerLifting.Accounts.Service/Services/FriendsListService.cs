@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,11 @@ namespace PowerLifting.Accounts.Service.Services
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
+        }
+
+        public async Task<IEnumerable<FriendsListAssocDTO>> GetUsersFriendList(string userId)
+        {
+            return await _repo.FriendsList.GetUsersFriendsList(userId);
         }
 
         public async Task<bool> RespondToFriendRequest(int friendsListId, bool response, string userId)

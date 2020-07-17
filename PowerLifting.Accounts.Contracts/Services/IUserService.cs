@@ -17,7 +17,12 @@ namespace PowerLifting.Accounts.Contracts.Services
         /// <summary>
         /// Gets the users public profile if they have a public profile enabled
         /// </summary>
-        Task<PublicUserDTO> GetPublicUserProfile(string userName);
+        Task<PublicUserDTO> GetPublicUserProfileById(string id);
+
+        /// <summary>
+        /// Gets the users public profile if they have a public profile enabled
+        /// </summary>
+        Task<PublicUserDTO> GetPublicUserProfileByUserName(string userName);
 
         /// <summary>
         /// Attempts to login a user using their given email and password

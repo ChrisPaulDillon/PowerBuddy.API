@@ -24,6 +24,7 @@ namespace PowerLifting.Service.Users.AutoMapper
             CreateMap<NotificationInteraction, NotificationInteractionDTO>().ReverseMap();
 
             CreateMap<FriendsList, FriendsListDTO>().ReverseMap();
+            CreateMap<FriendsListAssoc, FriendsListAssocDTO>().ReverseMap();
         }
     }
 }

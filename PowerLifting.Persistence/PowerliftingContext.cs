@@ -59,6 +59,7 @@ namespace PowerLifting.Persistence
         public DbSet<IdentityUserToken<string>> UserToken { get; set; }
 
         public DbSet<FriendsList> FriendsList { get; set; }
+        public DbSet<FriendsListAssoc> FriendsListAssoc { get; set; }
         public DbSet<UserSetting> UserSetting { get; set; }
         public DbSet<Notification> Notification { get; set; }
         public DbSet<NotificationInteraction> NotificationInteraction { get; set; }
@@ -100,6 +101,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
 
             modelBuilder.Entity<FriendsList>().ToTable("FriendsList");
+            modelBuilder.Entity<FriendsListAssoc>().ToTable("FriendsListAssoc");
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
             modelBuilder.Entity<Notification>().ToTable("Notification");
             modelBuilder.Entity<NotificationInteraction>().ToTable("NotificatonInteraction");

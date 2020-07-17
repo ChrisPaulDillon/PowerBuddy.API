@@ -53,7 +53,20 @@ namespace PowerLifting.Accounts.Service
             return userDTO;
         }
 
-        public async Task<PublicUserDTO> GetPublicUserProfile(string userName)
+        public async Task<PublicUserDTO> GetPublicUserProfileById(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) throw new UserNotFoundException();
+
+            var userDTO = new PublicUserDTO()
+            {
+                UserName = user.UserName,
+                SportType = user.SportType,
+            };
+            return userDTO;
+        }
+
+        public async Task<PublicUserDTO> GetPublicUserProfileByUserName(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null) throw new UserNotFoundException();

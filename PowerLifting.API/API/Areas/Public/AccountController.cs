@@ -34,7 +34,7 @@ namespace PowerLifting.API.API.Areas.Public
         {
             try
             {
-                var user = await _service.User.GetPublicUserProfile(userName);
+                var user = await _service.User.GetPublicUserProfileByUserName(userName);
                 return Ok(Responses.Success(user));
             }
             catch (UserNotFoundException ex)
