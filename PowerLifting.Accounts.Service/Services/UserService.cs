@@ -151,5 +151,10 @@ namespace PowerLifting.Accounts.Service
             if (user == null) throw new UserNotFoundException();
             _repo.User.DeleteUser(user);
         }
+
+        public async Task<IEnumerable<PublicUserDTO>> GetAllActivePublicProfiles()
+        {
+            return await _repo.User.GetAllActivePublicProfiles();
+        }
     }
 }

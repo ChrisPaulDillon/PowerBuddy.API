@@ -42,5 +42,21 @@ namespace PowerLifting.API.API.Areas.Public
                 return NotFound(Responses.Error(ex));
             }
         }
+
+        [HttpGet("All")]
+        [ProducesResponseType(typeof(ApiResponse<PublicUserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllActiveUserProfiles()
+        {
+            try
+            {
+                var userProfiles = await _service.User.GetAllActivePublicProfiles();
+                return Ok(Responses.Success(userProfiles));
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+        }
     }
 }

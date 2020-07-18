@@ -24,6 +24,8 @@ namespace PowerLifting.Accounts.Contracts.Services
         /// </summary>
         Task<PublicUserDTO> GetPublicUserProfileByUserName(string userName);
 
+        Task<IEnumerable<PublicUserDTO>> GetAllActivePublicProfiles();
+
         /// <summary>
         /// Attempts to login a user using their given email and password
         /// </summary>

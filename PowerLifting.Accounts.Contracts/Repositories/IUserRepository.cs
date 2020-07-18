@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using PowerLifting.Entity.Users.DTO;
 using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.Accounts.Contracts.Repositories
@@ -13,5 +14,7 @@ namespace PowerLifting.Accounts.Contracts.Repositories
         Task CreateUser(User user);
         void UpdateUser(User user);
         void DeleteUser(User user);
+
+        Task<IEnumerable<PublicUserDTO>> GetAllActivePublicProfiles();
     }
 }

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using PowerLifting.Accounts.Contracts.Repositories;
 using AutoMapper;
+using PowerLifting.Entity.Users.DTO;
+using AutoMapper.QueryableExtensions;
 
 namespace PowerLifting.Accounts.Repository
 {
@@ -53,6 +55,14 @@ namespace PowerLifting.Accounts.Repository
         public void DeleteUser(User user)
         {
             _context.Set<User>().Remove(user);
+        }
+
+        public async Task<IEnumerable<PublicUserDTO>> GetAllActivePublicProfiles()
+        {
+            return await _context.User.Where(x => x.IsPublic == true)
+                .AsNoTracking()
+                .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
     }
 }
