@@ -76,7 +76,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
                         {
                             SetNo = i,
                             NoOfReps = (int)programLogExercise.Reps,
-                            WeightLifted = (double)programLogExercise.Weight,
+                            WeightLifted = (decimal)programLogExercise.Weight,
                         };
                         exerciseEntity.ProgramLogRepSchemes.Add(repScheme);
                     }

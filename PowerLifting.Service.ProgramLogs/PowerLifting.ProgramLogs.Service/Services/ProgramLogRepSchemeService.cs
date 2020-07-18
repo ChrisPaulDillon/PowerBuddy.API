@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +28,21 @@ namespace PowerLifting.ProgramLogs.Service.Services
         public async Task<ProgramLogRepScheme> CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
         {
             return await _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(programLogRepSchemeDTO);
+        }
+
+
+        public async Task<bool> CreateProgramLogExerciseCollection(IEnumerable<ProgramLogRepSchemeDTO> repSchemeCollection)
+        {
+            var repList = repSchemeCollection.ToList();
+            var programLogExercise = await _repo.ProgramLogExercise.GetProgramLogExerciseById(repList[0].ProgramLogExerciseId);
+            programLogExercise.NoOfSets += repList.Count();
+
+            foreach (var item in repList)
+            {
+                await _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(item);
+            }
+
+            return true;
         }
 
         public async Task<bool> UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)

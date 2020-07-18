@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Entity.ProgramLogs.DTO;
 using PowerLifting.Entity.ProgramLogs.Model;
@@ -12,6 +14,8 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         /// an additional set etc
         /// </summary>
         Task<ProgramLogRepScheme> CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO);
+
+        Task<bool> CreateProgramLogExerciseCollection(IEnumerable<ProgramLogRepSchemeDTO> repSchemeCollection);
 
         /// <summary>
         /// Marks a program log rep scheme as complete or non complete

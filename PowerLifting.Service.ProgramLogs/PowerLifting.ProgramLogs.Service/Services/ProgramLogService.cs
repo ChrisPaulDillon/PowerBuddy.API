@@ -292,10 +292,6 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 {
                     NoOfSets = temExercise.NoOfSets,
                     ExerciseId = temExercise.ExerciseId,
-                    HasBackOffSets = temExercise.HasBackOffSets,
-                    BackOffSetFormat = temExercise.BackOffSetFormat,
-                    RepSchemeFormat = temExercise.RepSchemeFormat,
-                    RepSchemeType = temExercise.RepSchemeType,
                     ProgramLogRepSchemes = new List<ProgramLogRepSchemeDTO>()
                 };
                 var user1RMOnLift = liftingStats.SingleOrDefault(x => x.ExerciseId == temExercise.ExerciseId);
@@ -312,7 +308,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
         private static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string weightProgressionType, double user1RM, TemplateRepSchemeDTO templateRepScheme)
         {
-            var weightToLift = 0.0;
+            var weightToLift = 0.00M;
 
             if (Enum.TryParse(weightProgressionType, out WeightProgressionTypeEnum weightProgressionTypeEnum))
             {
@@ -320,7 +316,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 {
                     case WeightProgressionTypeEnum.PERCENTAGE:
                         var percent = templateRepScheme.Percentage / 100;
-                        weightToLift = Convert.ToDouble(user1RM * percent);
+                        weightToLift = Convert.ToDecimal(user1RM * percent);
                         break;
                     case WeightProgressionTypeEnum.INCREMENTAL:
                         break;

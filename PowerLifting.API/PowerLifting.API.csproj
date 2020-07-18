@@ -55,13 +55,10 @@
     <Folder Include="Middleware\" />
     <Folder Include="Models\" />
     <Folder Include="Wrappers\" />
-    <Folder Include="API\Areas\" />
-    <Folder Include="API\Areas\ProgramLog\" />
+    <Folder Include="Areas\" />
     <Folder Include="Util\" />
-    <Folder Include="API\Areas\ProgramLog\Controllers\" />
-    <Folder Include="API\Areas\ProgramLog\Models\" />
-    <Folder Include="API\Areas\Account\" />
-    <Folder Include="API\Areas\Admin\" />
-    <Folder Include="API\Areas\Public\" />
+    <Folder Include="Areas\ProgramLog\Models\" />
+    <Folder Include="Areas\Public\" />
+    <Folder Include="Areas\System\" />
   </ItemGroup>
 </Project>

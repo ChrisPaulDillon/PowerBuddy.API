@@ -619,7 +619,6 @@ namespace PowerLifting.Persistence
                     new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 2 },
                     new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 4 },
                     new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 3 },
-                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 2 }
                 },
                 TemplateWeeks = new List<TemplateWeek>
                 {

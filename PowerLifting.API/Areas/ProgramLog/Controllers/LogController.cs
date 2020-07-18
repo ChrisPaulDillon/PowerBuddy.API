@@ -132,7 +132,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         }
 
         [HttpPost("FromTemplate/{templateProgramId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
@@ -166,6 +166,10 @@ namespace PowerLifting.API.API.Areas.ProgramLog
                 return Conflict(Responses.Error(ex));
             }
             catch (ProgramDaysDoesNotMatchTemplateDaysException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
+            catch (ProgramLogAlreadyActiveException ex)
             {
                 return BadRequest(Responses.Error(ex));
             }

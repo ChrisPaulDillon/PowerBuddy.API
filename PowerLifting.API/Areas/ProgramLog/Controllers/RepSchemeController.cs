@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
@@ -20,6 +21,22 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         public RepSchemeController(IServiceWrapper service)
         {
             _service = service;
+        }
+
+        [HttpPost("Collection")]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        public IActionResult CreateProgramLogRepSchemeCollection([FromBody] IEnumerable<ProgramLogRepSchemeDTO> programLogRepSchemeCollection)
+        {
+            try
+            {
+                var result = _service.ProgramLogRepScheme.CreateProgramLogExerciseCollection(programLogRepSchemeCollection);
+                return Ok(Responses.Success(result));
+            }
+            catch (ProgramLogRepSchemeNotFoundException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
+            }
         }
 
         [HttpPost]

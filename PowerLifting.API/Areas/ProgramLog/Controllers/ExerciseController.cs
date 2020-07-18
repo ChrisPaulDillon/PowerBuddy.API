@@ -71,8 +71,8 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         {
             try
             {
-                await _service.ProgramLogExercise.UpdateProgramLogExercise(programLogDTO);
-                return Ok(Responses.Success());
+                var didUpdate = await _service.ProgramLogExercise.UpdateProgramLogExercise(programLogDTO);
+                return Ok(Responses.Success(didUpdate));
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {

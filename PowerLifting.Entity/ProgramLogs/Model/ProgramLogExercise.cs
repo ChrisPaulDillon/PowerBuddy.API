@@ -15,10 +15,6 @@ namespace PowerLifting.Entity.ProgramLogs.Model
         public int ExerciseId { get; set; }
         public int NoOfSets { get; set; }
         public string Comment { get; set; }
-        public string RepSchemeFormat { get; set; } // 3x5, 4x5
-        public string RepSchemeType { get; set; } //ramped, fixed
-        public bool HasBackOffSets { get; set; }
-        public string BackOffSetFormat { get; set; }
         public bool Completed { get; set; }
         public bool? PersonalBest { get; set; }
         public virtual Exercise Exercise { get; set; }
