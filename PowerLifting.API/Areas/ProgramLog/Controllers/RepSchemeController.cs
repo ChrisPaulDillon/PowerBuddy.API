@@ -98,14 +98,14 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         }
 
         [HttpDelete("{programLogRepSchemeId:int}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public IActionResult DeleteProgramLogRepScheme(int programLogRepSchemeId)
+        public async Task<IActionResult> DeleteProgramLogRepSchemeAsync(int programLogRepSchemeId)
         {
             try
             {
-                _service.ProgramLogRepScheme.DeleteProgramLogRepScheme(programLogRepSchemeId);
-                return NoContent();
+                var result = await _service.ProgramLogRepScheme.DeleteProgramLogRepScheme(programLogRepSchemeId);
+                return Ok(result);
             }
             catch (ProgramLogDayNotWithinWeekException e)
             {
