@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using PowerLifting.API.Util;
+using PowerLifting.SignalR;
 
 namespace PowerLifting.API
 {
@@ -147,6 +148,8 @@ namespace PowerLifting.API
                     policy => policy.Requirements.Add(new IsAuthorized()));
             });
 
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -182,6 +185,7 @@ namespace PowerLifting.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessageHub>("/messagehub");
             });
         }
     }

@@ -52,6 +52,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 Sunday = x.Sunday,
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
+                Active = x.Active,
                 DayCount = x.ProgramLogWeeks.Sum(x => x.ProgramLogDays.Count),
                 ExerciseCount = x.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises).Count(),
                 ExerciseCompletedCount = x.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises.Where(x => x.Completed)).Count(),
@@ -350,13 +351,11 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
         public async Task<bool> DeleteProgramLog(string userId, int programLogId)
         {
-            //var validator = new ProgramLogValidator();
-            //validator.ValidateProgramLogId(programLogId);
+            var doesProgramLogExist = await _repo.ProgramLog.DoesProgramLogExist(programLogId);
 
-            var programLog = await _repo.ProgramLog.GetProgramLogById(programLogId);
+            if (string.IsNullOrWhiteSpace(doesProgramLogExist)) throw new ProgramLogNotFoundException();
 
-            if (programLog == null) throw new ProgramLogNotFoundException();
-            if (programLog.UserId != userId)
+            if (doesProgramLogExist != userId)
             {
                 throw new UnauthorisedUserException("UserId does match the user associated with this program log!");
             }

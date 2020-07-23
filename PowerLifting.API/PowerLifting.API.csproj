@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.6">
@@ -27,6 +27,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.6" />
+    <PackageReference Include="Sentry" Version="2.1.4" />
     <PackageReference Include="Swashbuckle" Version="5.6.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
@@ -48,6 +49,9 @@
     <ProjectReference Include="..\PowerLifting.Systems.Service\PowerLifting.Systems.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.TemplatePrograms.Contracts\PowerLifting.TemplatePrograms.Contracts.csproj" />
     <ProjectReference Include="..\PowerLifting.TemplatePrograms.Service\PowerLifting.TemplatePrograms.Service.csproj" />
+    <ProjectReference Include="..\PowerLifting.SignalR\PowerLifting.SignalR.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 

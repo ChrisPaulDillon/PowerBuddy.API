@@ -41,5 +41,8 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// Allows a user to delete the current log selected
         /// </summary>
         Task<bool> DeleteProgramLog(ProgramLogDTO log);
+
+
+        Task<string> DoesProgramLogExist(int programLogId);
     }
 }

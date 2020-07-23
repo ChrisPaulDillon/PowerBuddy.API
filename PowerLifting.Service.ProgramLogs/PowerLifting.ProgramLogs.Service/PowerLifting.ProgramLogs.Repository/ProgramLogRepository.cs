@@ -84,5 +84,14 @@ namespace PowerLifting.ProgramLogs.Repository
         {
             return await _context.Set<ProgramLog>().AnyAsync(x => x.StartDate >= DateTime.Now && x.UserId == userId);
         }
+
+        public async Task<string> DoesProgramLogExist(int programLogId)
+        {
+            return await _context.Set<ProgramLog>()
+                .AsNoTracking()
+                .Where(x => x.ProgramLogId == programLogId)
+                .Select(x => x.UserId)
+                .FirstOrDefaultAsync();
+        }
     }
 }

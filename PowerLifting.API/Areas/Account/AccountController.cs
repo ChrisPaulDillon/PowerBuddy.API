@@ -5,12 +5,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.HttpSys;
+using Microsoft.AspNetCore.SignalR;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Service;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
+using PowerLifting.SignalR;
 
 namespace PowerLifting.API.API.Areas.Account
 {
@@ -22,11 +24,13 @@ namespace PowerLifting.API.API.Areas.Account
     {
         private readonly IServiceWrapper _service;
         private readonly UserManager<User> _userManager;
+        IHubContext<MessageHub> _messageHub;
 
-        public AccountController(IServiceWrapper service, UserManager<User> userManager)
+        public AccountController(IServiceWrapper service, UserManager<User> userManager, IHubContext<MessageHub> messageHub)
         {
             _service = service;
             _userManager = userManager;
+            _messageHub = messageHub;
         }
 
         [HttpPost("Login")]
@@ -56,7 +60,10 @@ namespace PowerLifting.API.API.Areas.Account
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var user = await _service.User.GetUserProfile(userId);
-                user.UserSetting = await _service.UserSetting.GetUserSettingsByUserId(userId);
+                if (user != null)
+                {
+                    user.UserSetting = await _service.UserSetting.GetUserSettingsByUserId(userId);
+                }
                 return Ok(Responses.Success(user));
             }
             catch (UserNotFoundException ex)
@@ -78,10 +85,12 @@ namespace PowerLifting.API.API.Areas.Account
             {
                 await _service.User.RegisterUser(userDTO);
                 var user = await _userManager.FindByEmailAsync(userDTO.Email);
-
-                var exercisesInSport = await _service.Exercise.GetAllExercisesBySport(userDTO.SportType);
-                await _service.LiftingStat.CreateLiftingStatsByAthleteType(user.Id, exercisesInSport);
-
+                if (user != null)
+                {
+                    var exercisesInSport = await _service.Exercise.GetAllExercisesBySport(userDTO.SportType);
+                    await _service.LiftingStat.CreateLiftingStatsByAthleteType(user.Id, exercisesInSport);
+                }
+                await _messageHub.Clients.All.SendAsync("pizza", "lmfao");
                 return Ok(Responses.Success(userDTO));
             }
             catch (EmailInUseException ex)

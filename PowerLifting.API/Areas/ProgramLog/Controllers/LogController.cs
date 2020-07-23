@@ -175,19 +175,24 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-        [HttpDelete("{userId}")]
+        [HttpDelete("{programLogId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public IActionResult DeleteProgramLog(string userId, int programLogId)
+        public async Task<IActionResult> DeleteProgramLog(int programLogId)
         {
             try
             {
-                _service.ProgramLog.DeleteProgramLog(userId, programLogId);
-                return Ok(Responses.Success());
+                userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _service.ProgramLog.DeleteProgramLog(userId, programLogId);
+                return Ok(Responses.Success(result));
             }
             catch (ProgramLogNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return BadRequest(Responses.Error(ex));
             }
         }
 
