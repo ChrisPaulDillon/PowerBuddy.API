@@ -99,5 +99,12 @@ namespace PowerLifting.LiftingStats.Repository
         {
             return await _context.LiftingStat.Where(x => x.UserId == userId && x.ExerciseId == exerciseId && x.RepRange == repRange).AnyAsync();
         }
+
+        public async Task<bool> UpdateLiftingStatCollection(IEnumerable<LiftingStatDTO> liftingStatCollectionDTO)
+        {
+            var liftingStatCollection = _mapper.Map<LiftingStat>(liftingStatCollectionDTO);
+            _context.LiftingStat.Attach(liftingStatCollection);
+            return await SaveChangesAsync();
+        }
     }
 }

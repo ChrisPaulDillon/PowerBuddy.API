@@ -59,6 +59,22 @@ namespace PowerLifting.API.API
             }
         }
 
+        [HttpPut("Collection")]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateLiftingStatCollection([FromBody] IEnumerable<LiftingStatDTO> liftingStatCollectionDTO)
+        {
+            try
+            {
+                var liftingStat = await _service.LiftingStat.UpdateLiftingStatCollection(liftingStatCollectionDTO);
+                return Ok(Responses.Success(liftingStat));
+            }
+            catch (LiftingStatAlreadyExistsException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
+        }
+
         [HttpPut("{liftingStatId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]

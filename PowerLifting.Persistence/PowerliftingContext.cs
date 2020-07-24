@@ -58,7 +58,7 @@ namespace PowerLifting.Persistence
         public DbSet<IdentityUserRole<string>> UserRole { get; set; }
         public DbSet<IdentityUserToken<string>> UserToken { get; set; }
 
-        public DbSet<FriendsList> FriendsList { get; set; }
+        public DbSet<FriendRequest> FriendRequest { get; set; }
         public DbSet<FriendsListAssoc> FriendsListAssoc { get; set; }
         public DbSet<UserSetting> UserSetting { get; set; }
         public DbSet<Notification> Notification { get; set; }
@@ -100,7 +100,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
 
-            modelBuilder.Entity<FriendsList>().ToTable("FriendsList");
+            modelBuilder.Entity<FriendRequest>().ToTable("FriendRequest");
             modelBuilder.Entity<FriendsListAssoc>().ToTable("FriendsListAssoc");
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
             modelBuilder.Entity<Notification>().ToTable("Notification");

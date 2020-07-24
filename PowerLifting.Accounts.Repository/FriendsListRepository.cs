@@ -23,22 +23,22 @@ namespace PowerLifting.Accounts.Repository
             _mapper = mapper;
         }
 
-        public async Task<bool> GetFriendRequest(string userId, string otherUserId)
+        public async Task<bool> DoesFriendRequestExist(string friendUserId, string userId)
         {
-            return await _context.FriendsList.AnyAsync(x => x.UserFromId == userId && x.UserToId == otherUserId);
+            return await _context.FriendRequest.AnyAsync(x => x.UserFromId == userId && x.UserToId == friendUserId);
         }
 
-        public async Task<bool> SendFriendRequest(FriendsListDTO request)
+        public async Task<bool> SendFriendRequest(string friendUserId, string userId)
         {
-            var friendsListReq = _mapper.Map<FriendsList>(request);
+            var friendsListReq = new FriendRequest() { UserToId = friendUserId, UserFromId = userId };
             _context.Add(friendsListReq);
             var modifiedRows = await _context.SaveChangesAsync();
             return modifiedRows > 0;
         }
 
-        public async Task<bool> RespondToFriendRequest(int friendsListId, bool response, string userId)
+        public async Task<bool> RespondToFriendRequest(int friendsRequestId, bool response, string userId)
         {
-            var friendRequest = await _context.FriendsList.FirstOrDefaultAsync(x => x.FriendsListId == friendsListId && x.UserToId == userId);
+            var friendRequest = await _context.FriendRequest.FirstOrDefaultAsync(x => x.FriendRequestId == friendsRequestId && x.UserToId == userId);
             if (friendRequest != null) friendRequest.HasAccepted = response;
 
             CreateFriendsListAssoc(friendRequest.UserFromId, friendRequest.UserToId);
@@ -46,7 +46,7 @@ namespace PowerLifting.Accounts.Repository
             return modifiedRows > 0;
         }
 
-        public void CreateFriendsListAssoc(string userId, string otherUserId)
+        public void CreateFriendsListAssoc(string otherUserId, string userId)
         {
             var friendsListAssoc = new FriendsListAssoc()
             {
@@ -63,6 +63,14 @@ namespace PowerLifting.Accounts.Repository
                 .AsNoTracking()
                 .ProjectTo<FriendsListAssocDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public async Task<FriendRequestDTO> GetPendingFriendRequest(string friendUserId, string userId)
+        {
+            return await _context.FriendRequest.Where(x => x.UserFromId == friendUserId && x.UserToId == userId || x.UserFromId == userId && x.UserToId == friendUserId)
+                .AsNoTracking()
+                .ProjectTo<FriendRequestDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
         }
     }
 }

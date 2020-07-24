@@ -53,5 +53,10 @@ namespace PowerLifting.LiftingStats.Contracts
         Task<bool> DeleteLiftingStat(LiftingStatDTO liftingStatId);
 
         Task<bool> SaveChangesAsync();
+
+        /// <summary>
+        /// Updates an entire lifting stat collection for one exercise
+        /// </summary>
+        Task<bool> UpdateLiftingStatCollection(IEnumerable<LiftingStatDTO> liftingStatCollectionDTO);
     }
 }

@@ -120,5 +120,10 @@ namespace PowerLifting.LiftingStats.Service
 
             return await _repo.LiftingStat.DeleteLiftingStat(liftingStatDTO);
         }
+
+        public async Task<bool> UpdateLiftingStatCollection(IEnumerable<LiftingStatDTO> liftingStatCollectionDTO)
+        {
+            return await _repo.LiftingStat.UpdateLiftingStatCollection(liftingStatCollectionDTO);
+        }
     }
 }

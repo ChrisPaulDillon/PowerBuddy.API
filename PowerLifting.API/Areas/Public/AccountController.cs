@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,14 +29,29 @@ namespace PowerLifting.API.API.Areas.Public
         }
 
         [HttpGet("Profile/{userName}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(ApiResponse<PublicUserDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetLoggedInUsersProfile(string userName)
+        public async Task<IActionResult> GetPublicUserProfile(string userName)
         {
             try
             {
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var user = await _service.User.GetPublicUserProfileByUserName(userName);
-                return Ok(Responses.Success(user));
+                if (user != null)
+                {
+                    var friendRequest = await _service.FriendsList.GetPendingFriendRequest(user.Id, userId);
+                    var userExtended = new PublicUserExtendedDTO()
+                    {
+                        Id = user.Id,
+                        UserName = user.UserName,
+                        IsPublic = user.IsPublic,
+                        PendingFriendRequest = friendRequest != null,
+                        SportType = user.SportType
+                    };
+                    return Ok(Responses.Success(userExtended));
+                }
+                return NotFound();
             }
             catch (UserNotFoundException ex)
             {

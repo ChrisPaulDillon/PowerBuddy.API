@@ -34,6 +34,11 @@ namespace PowerLifting.LiftingStats.Service
         Task<bool> UpdateLiftingStat(LiftingStatDTO liftingStatDTO);
 
         /// <summary>
+        /// Updates an entire lifting stat collection for one exercise
+        /// </summary>
+        Task<bool> UpdateLiftingStatCollection(IEnumerable<LiftingStatDTO> liftingStatCollectionDTO);
+
+        /// <summary>
         /// Deletes a given lifting stat and the audit associated with it
         /// </summary>
         Task<bool> DeleteLiftingStat(LiftingStatDTO liftingStatId);

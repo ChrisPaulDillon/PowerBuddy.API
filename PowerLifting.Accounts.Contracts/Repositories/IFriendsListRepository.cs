@@ -6,14 +6,16 @@ namespace PowerLifting.Accounts.Contracts.Repositories
 {
     public interface IFriendsListRepository
     {
-        Task<bool> SendFriendRequest(FriendsListDTO request);
+        Task<bool> SendFriendRequest(string friendUserId, string userId);
 
-        Task<bool> GetFriendRequest(string userId, string otherUserId);
+        Task<bool> DoesFriendRequestExist(string friendUserId, string userId);
 
         Task<bool> RespondToFriendRequest(int friendsListId, bool response, string userId);
 
-        void CreateFriendsListAssoc(string userId, string otherUserId);
+        void CreateFriendsListAssoc(string friendUserId, string userId);
 
         Task<IEnumerable<FriendsListAssocDTO>> GetUsersFriendsList(string userId);
+
+        Task<FriendRequestDTO> GetPendingFriendRequest(string friendUserId, string userId);
     }
 }

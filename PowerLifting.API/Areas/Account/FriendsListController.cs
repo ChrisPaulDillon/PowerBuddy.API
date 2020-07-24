@@ -30,15 +30,16 @@ namespace PowerLifting.API.API.Areas.Account
             _userManager = userManager;
         }
 
-        [HttpPost("Request")]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("Request/{friendUserId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> SendFriendRequest(FriendsListDTO friendsList)
+        public async Task<IActionResult> SendFriendRequest(string friendUserId)
         {
             try
             {
-                var result = await _service.FriendsList.SendFriendsRequest(friendsList);
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _service.FriendsList.SendFriendsRequest(friendUserId, _userId);
                 return Ok(Responses.Success(result));
             }
             catch (InvalidCredentialsException ex)
@@ -51,7 +52,7 @@ namespace PowerLifting.API.API.Areas.Account
         //[Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> RespondToFriendsQuest(int friendsListId, bool acceptRequest)
+        public async Task<IActionResult> RespondToFriendsRequest(int friendsListId, bool acceptRequest)
         {
             try
             {
@@ -67,15 +68,14 @@ namespace PowerLifting.API.API.Areas.Account
         }
 
         [HttpGet]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetUserFriendsList()
         {
             try
             {
-                string _userId = "f595080c-8484-4d60-99e4-3a32f75702f7";
-                //_userId = User.Claims.First(x => x.Type == "UserID").Value;
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var result = (await _service.FriendsList.GetUsersFriendList(_userId)).ToList();
 
                 var friendsListExtended = new List<FriendsListExtended>();

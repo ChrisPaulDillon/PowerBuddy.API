@@ -1,8 +1,8 @@
 ﻿namespace PowerLifting.Entity.Account.DTOs
 {
-    public class FriendsListDTO
+    public class FriendRequestDTO
     {
-        public int FriendsListId { get; set; }
+        public int FriendRequestId { get; set; }
         public string UserFromId { get; set; }
         public string UserToId { get; set; }
         public bool HasAccepted { get; set; }

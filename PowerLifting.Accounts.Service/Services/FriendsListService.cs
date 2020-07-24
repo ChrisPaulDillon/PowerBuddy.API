@@ -22,6 +22,11 @@ namespace PowerLifting.Accounts.Service.Services
             _userManager = userManager;
         }
 
+        public async Task<FriendRequestDTO> GetPendingFriendRequest(string friendUserId, string userId)
+        {
+            return await _repo.FriendsList.GetPendingFriendRequest(friendUserId, userId);
+        }
+
         public async Task<IEnumerable<FriendsListAssocDTO>> GetUsersFriendList(string userId)
         {
             return await _repo.FriendsList.GetUsersFriendsList(userId);
@@ -32,17 +37,16 @@ namespace PowerLifting.Accounts.Service.Services
             return await _repo.FriendsList.RespondToFriendRequest(friendsListId, response, userId);
         }
 
-        public async Task<bool> SendFriendsRequest(FriendsListDTO request)
+        public async Task<bool> SendFriendsRequest(string friendUserId, string userId)
         {
-            var doesOtherUserExist = await _userManager.FindByIdAsync(request.UserToId);
-            var doesRequestExist = await _repo.FriendsList.GetFriendRequest(request.UserFromId, request.UserToId);
+            var friendUser = await _userManager.FindByIdAsync(friendUserId);
+            if (friendUser == null) return false;
 
-            if (doesRequestExist || doesOtherUserExist.Id == null)
-            {
-                return false;
-            }
+            var doesRequestExist = await _repo.FriendsList.DoesFriendRequestExist(friendUserId, userId);
 
-            return await _repo.FriendsList.SendFriendRequest(request);
+            if (doesRequestExist) return false;
+
+            return await _repo.FriendsList.SendFriendRequest(friendUserId, userId);
         }
     }
 }
