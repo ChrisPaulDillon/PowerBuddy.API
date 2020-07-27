@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Entity.Account.DTOs;
+using PowerLifting.Entity.Users.DTO;
 using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
 using PowerLifting.Service.Users.Model;
@@ -39,8 +40,10 @@ namespace PowerLifting.API.API.Areas.Account
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _service.FriendsList.SendFriendsRequest(friendUserId, _userId);
-                return Ok(Responses.Success(result));
+                var requestSent = await _service.FriendsList.SendFriendsRequest(friendUserId, _userId);
+
+                //TODO create notification
+                return Ok(Responses.Success(requestSent));
             }
             catch (InvalidCredentialsException ex)
             {
@@ -90,9 +93,25 @@ namespace PowerLifting.API.API.Areas.Account
                     };
                     friendsListExtended.Add(friendList);
                 }
-
-
                 return Ok(Responses.Success(friendsListExtended));
+            }
+            catch (InvalidCredentialsException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
+            }
+        }
+
+        [HttpGet("Pending")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<FriendRequestDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetAllUserPendingFriendRequests()
+        {
+            try
+            {
+                _userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var friendRequests = (await _service.FriendsList.GetAllPendingFriendRequests(_userId));
+                return Ok(Responses.Success(friendRequests));
             }
             catch (InvalidCredentialsException ex)
             {

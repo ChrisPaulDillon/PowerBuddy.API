@@ -25,9 +25,9 @@ namespace PowerLifting.ProgramLogs.Contracts.Services
         Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId);
 
         /// <summary>
-        /// Creates a new generic program log
+        /// Creates a new program log from scratch
         /// </summary>
-        Task<ProgramLog> CreateProgramLog(ProgramLogDTO programLog);
+        Task<ProgramLog> CreateProgramLogFromScratch(CProgramLogDTO programLog, string userId);
 
         /// <summary>
         /// Creates a new program log based on the selected program templates details and what days

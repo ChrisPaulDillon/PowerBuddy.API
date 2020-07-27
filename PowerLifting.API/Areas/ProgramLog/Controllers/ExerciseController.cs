@@ -108,12 +108,12 @@ namespace PowerLifting.API.API.Areas.ProgramLog
         [HttpDelete("{programLogExerciseId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public IActionResult DeleteProgramLogExercise(int programLogExerciseId)
+        public async Task<IActionResult> DeleteProgramLogExerciseAsync(int programLogExerciseId)
         {
             try
             {
-                _service.ProgramLogExercise.DeleteProgramLogExercise(programLogExerciseId);
-                return Ok(Responses.Success());
+                var isDeleted = await _service.ProgramLogExercise.DeleteProgramLogExercise(programLogExerciseId);
+                return Ok(Responses.Success(isDeleted));
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {

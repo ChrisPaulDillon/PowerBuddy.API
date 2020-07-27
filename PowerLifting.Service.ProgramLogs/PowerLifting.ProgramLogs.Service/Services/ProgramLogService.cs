@@ -29,8 +29,6 @@ namespace PowerLifting.ProgramLogs.Service.Services
             _userManager = userManager;
         }
 
-        #region ProgramLogServices
-
         public async Task<IEnumerable<ProgramLogStatDTO>> GetAllProgramLogsByUserId(string userId)
         {
             var programLogStats = (List<ProgramLogDTO>)await _repo.ProgramLog.GetAllProgramLogsByUserId(userId);
@@ -40,7 +38,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
             var stats = programLogStats.Select(x => new ProgramLogStatDTO()
             {
                 ProgramLogId = x.ProgramLogId,
-                TemplateProgramId = x.TemplateProgramId,
+                TemplateProgramId = (int)x.TemplateProgramId,
                 NoOfWeeks = x.NoOfWeeks,
                 UserId = x.UserId,
                 Monday = x.Monday,
@@ -67,9 +65,112 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return programLogDTO;
         }
 
-        public async Task<ProgramLog> CreateProgramLog(ProgramLogDTO programLog)
+        public async Task<ProgramLog> CreateProgramLogFromScratch(CProgramLogDTO programLog, string userId)
         {
-            return await _repo.ProgramLog.CreateProgramLog(programLog);
+            var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
+
+            var startDate = programLog.StartDate;
+
+            for (int i = 1; i < programLog.NoOfWeeks + 1; i++)
+            {
+                //ds.StartDate = ds.StartDate.AddDays(7);
+                var programLogWeek = new ProgramLogWeekDTO()
+                {
+                    StartDate = startDate,
+                    EndDate = startDate.AddDays(7),
+                    WeekNo = i,
+                    UserId = userId,
+                    ProgramLogDays = new List<ProgramLogDayDTO>()
+                };
+
+                for (int j = 0; j < programLog.NoOfDays; j++)
+                {
+                    if (programLog.Monday)
+                    {
+                        var daysUntilSpecificDay = ((int)DayOfWeek.Monday - (int)startDate.DayOfWeek + 7) % 7;
+                        var nextDate = startDate.AddDays(daysUntilSpecificDay);
+                        var programLogDay = new ProgramLogDayDTO()
+                        {
+                            Date = nextDate,
+                            UserId = programLogWeek.UserId
+                        };
+                        programLogWeek.ProgramLogDays.Add(programLogDay);
+                    }
+                    else if (programLog.Tuesday)
+                    {
+                        var daysUntilSpecificDay = ((int)DayOfWeek.Tuesday - (int)startDate.DayOfWeek + 7) % 7;
+                        var nextDate = startDate.AddDays(daysUntilSpecificDay);
+                        var programLogDay = new ProgramLogDayDTO()
+                        {
+                            Date = nextDate,
+                            UserId = programLogWeek.UserId
+                        };
+                        programLogWeek.ProgramLogDays.Add(programLogDay);
+                    }
+                    else if (programLog.Wednesday)
+                    {
+                        var daysUntilSpecificDay = ((int)DayOfWeek.Wednesday - (int)startDate.DayOfWeek + 7) % 7;
+                        var nextDate = startDate.AddDays(daysUntilSpecificDay);
+                        var programLogDay = new ProgramLogDayDTO()
+                        {
+                            Date = nextDate,
+                            UserId = programLogWeek.UserId
+                        };
+                        programLogWeek.ProgramLogDays.Add(programLogDay);
+                    }
+                    else if (programLog.Thursday)
+                    {
+                        var daysUntilSpecificDay = ((int)DayOfWeek.Thursday - (int)startDate.DayOfWeek + 7) % 7;
+                        var nextDate = startDate.AddDays(daysUntilSpecificDay);
+                        var programLogDay = new ProgramLogDayDTO()
+                        {
+                            Date = nextDate,
+                            UserId = programLogWeek.UserId
+                        };
+                        programLogWeek.ProgramLogDays.Add(programLogDay);
+                    }
+                    else if (programLog.Friday)
+                    {
+                        var daysUntilSpecificDay = ((int)DayOfWeek.Friday - (int)startDate.DayOfWeek + 7) % 7;
+                        var nextDate = startDate.AddDays(daysUntilSpecificDay);
+                        var programLogDay = new ProgramLogDayDTO()
+                        {
+                            Date = nextDate,
+                            UserId = programLogWeek.UserId
+                        };
+                        programLogWeek.ProgramLogDays.Add(programLogDay);
+                    }
+                    else if (programLog.Saturday)
+                    {
+                        var daysUntilSpecificDay = ((int)DayOfWeek.Saturday - (int)startDate.DayOfWeek + 7) % 7;
+                        var nextDate = startDate.AddDays(daysUntilSpecificDay);
+                        var programLogDay = new ProgramLogDayDTO()
+                        {
+                            Date = nextDate,
+                            UserId = programLogWeek.UserId
+                        };
+                        programLogWeek.ProgramLogDays.Add(programLogDay);
+                    }
+                    else if (programLog.Sunday)
+                    {
+                        var daysUntilSpecificDay = ((int)DayOfWeek.Sunday - (int)startDate.DayOfWeek + 7) % 7;
+                        var nextDate = startDate.AddDays(daysUntilSpecificDay);
+                        var programLogDay = new ProgramLogDayDTO()
+                        {
+                            Date = nextDate,
+                            UserId = programLogWeek.UserId
+                        };
+                        programLogWeek.ProgramLogDays.Add(programLogDay);
+                    }
+                }
+                startDate = startDate.AddDays(7);
+                listOfProgramWeeks.Add(programLogWeek);
+            }
+
+            programLog.ProgramLogWeeks = listOfProgramWeeks;
+
+            return null;
+            //return await _repo.ProgramLog.CreateProgramLog(programLog);
         }
 
         public async Task<ProgramLog> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)
@@ -182,8 +283,6 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 Active = true,
                 ProgramLogWeeks = GenerateProgramWeekDates(ds, tp, userId, liftingStats)
             };
-
-            //log.ProgramLogWeeks = GenerateProgramExercises(tp, (List<ProgramLogWeekDTO>)log.ProgramLogWeeks, liftingStats);
             return log;
         }
 
@@ -220,49 +319,42 @@ namespace PowerLifting.ProgramLogs.Service.Services
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Monday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogDay.DayNo = templateDay.DayNo;
                     programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Tuesday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Tuesday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogDay.DayNo = templateDay.DayNo;
                     programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Wednesday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Wednesday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogDay.DayNo = templateDay.DayNo;
                     programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Thursday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Thursday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogDay.DayNo = templateDay.DayNo;
                     programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Friday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Friday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogDay.DayNo = templateDay.DayNo;
                     programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Saturday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Saturday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogDay.DayNo = templateDay.DayNo;
                     programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Sunday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Sunday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogDay.DayNo = templateDay.DayNo;
                     programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
             }
@@ -276,8 +368,6 @@ namespace PowerLifting.ProgramLogs.Service.Services
             var programLogDay = new ProgramLogDayDTO()
             {
                 Date = nextDate,
-                DayOfWeek = day.ToString(),
-                DayNo = templateDay.DayNo,
                 ProgramLogExercises = CreateProgramLogExercises(templateDay, liftingStats)
             };
             return programLogDay;
@@ -363,10 +453,6 @@ namespace PowerLifting.ProgramLogs.Service.Services
             return await _repo.ProgramLog.DeleteProgramLog(new ProgramLogDTO() { ProgramLogId = programLogId });
         }
 
-        #endregion
-
-        #region ProgramLogWeekServices
-
         public async Task<ProgramLogWeekDTO> GetProgramLogWeekByUserIdAndDate(string userId, DateTime date)
         {
             //_validator.ValidateProgramLogWeekId(programLogWeekId);
@@ -374,7 +460,5 @@ namespace PowerLifting.ProgramLogs.Service.Services
             if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
             return programLogWeek;
         }
-
-        #endregion
     }
 }

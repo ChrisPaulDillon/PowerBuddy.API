@@ -13,5 +13,6 @@
         public bool Completed { get; set; }
         public int? RepsCompleted { get; set; }
         public bool? PersonalBest { get; set; }
+        public virtual ProgramLogExercise ProgramLogExercise { get; set; }
     }
 }

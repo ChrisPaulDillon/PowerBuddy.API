@@ -76,12 +76,27 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<RepSchemeType>().ToTable("sysRepSchemeType");
             modelBuilder.Entity<Quote>().ToTable("sysQuote");
 
-            modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
-            modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");
-            modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay");
-            modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
+            modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog")
+                .HasMany(x => x.ProgramLogWeeks);
+
+            modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek")
+                .HasMany(x => x.ProgramLogDays);
+
+            modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay")
+                .HasMany(x => x.ProgramLogExercises);
+
+            modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise")
+                .HasOne(x => x.ProgramLogDay)
+                .WithMany(x => x.ProgramLogExercises)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme")
+                .HasOne(x => x.ProgramLogExercise)
+                .WithMany(x => x.ProgramLogRepSchemes)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
             modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
-            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
+
 
             modelBuilder.Entity<LiftingStat>().ToTable("LiftingStat");
             modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");

@@ -17,5 +17,7 @@ namespace PowerLifting.Accounts.Contracts.Repositories
         Task<IEnumerable<FriendsListAssocDTO>> GetUsersFriendsList(string userId);
 
         Task<FriendRequestDTO> GetPendingFriendRequest(string friendUserId, string userId);
+
+        Task<IEnumerable<FriendRequestDTO>> GetAllPendingFriendRequests(string userId);
     }
 }

@@ -22,6 +22,11 @@ namespace PowerLifting.Accounts.Service.Services
             _userManager = userManager;
         }
 
+        public async Task<IEnumerable<FriendRequestDTO>> GetAllPendingFriendRequests(string userId)
+        {
+            return await _repo.FriendsList.GetAllPendingFriendRequests(userId);
+        }
+
         public async Task<FriendRequestDTO> GetPendingFriendRequest(string friendUserId, string userId)
         {
             return await _repo.FriendsList.GetPendingFriendRequest(friendUserId, userId);

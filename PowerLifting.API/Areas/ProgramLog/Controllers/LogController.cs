@@ -70,7 +70,7 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var programLog = await _service.ProgramLog.GetActiveProgramLogByUserId(userId);
-                var templateName = await _service.TemplateProgram.GetTemplateProgramNameById(programLog.TemplateProgramId);
+                var templateName = await _service.TemplateProgram.GetTemplateProgramNameById((int)programLog.TemplateProgramId);
 
                 var programLogExtended = new ProgramLogWithTemplateDTO()
                 {
@@ -123,11 +123,12 @@ namespace PowerLifting.API.API.Areas.ProgramLog
             }
         }
 
-        [HttpPost]
+        [HttpPost("Scratch")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateProgramLog([FromBody] ProgramLogDTO programLog)
+        public async Task<IActionResult> CreateProgramLog([FromBody] CProgramLogDTO programLog)
         {
-            await _service.ProgramLog.CreateProgramLog(programLog);
+            userId = User.Claims.First(x => x.Type == "UserID").Value;
+            var createdLog = await _service.ProgramLog.CreateProgramLogFromScratch(programLog, userId);
             return Ok(Responses.Success(programLog));
         }
 

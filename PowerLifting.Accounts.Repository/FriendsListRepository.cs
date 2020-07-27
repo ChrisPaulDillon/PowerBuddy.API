@@ -72,5 +72,13 @@ namespace PowerLifting.Accounts.Repository
                 .ProjectTo<FriendRequestDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<FriendRequestDTO>> GetAllPendingFriendRequests(string userId)
+        {
+            return await _context.FriendRequest.Where(x => x.UserFromId == userId && x.UserToId == userId && x.HasAccepted == null || x.UserFromId == userId && x.UserToId == userId && x.HasAccepted == null)
+                .AsNoTracking()
+                .ProjectTo<FriendRequestDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
     }
 }
