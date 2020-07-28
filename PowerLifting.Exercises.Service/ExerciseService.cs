@@ -1,64 +1,98 @@
 ﻿using AutoMapper;
 using PowerLifting.Data.DTOs.System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.Exercises.Service.Wrapper;
+using PowerLifting.Persistence;
 
 namespace PowerLifting.Exercises.Service
 {
     public class ExerciseService : IExerciseService
     {
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IExerciseWrapper _repo;
 
-        public ExerciseService(IExerciseWrapper repo, IMapper mapper)
+        public ExerciseService(PowerLiftingContext context, IExerciseWrapper repo, IMapper mapper)
         {
+            _context = context;
             _repo = repo;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
         {
-            return await _repo.Exercise.GetAllExercises();
+            return await _context.Set<Exercise>()
+                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
         {
-            return await _repo.Exercise.GetAllExercisesBySport(exerciseSport);
+            return await _context.Set<Exercise>()
+                .Where(x => x.ExerciseSports.Any(x => x.ExerciseSportStr == exerciseSport))
+                .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<Exercise> GetExerciseById(int id)
         {
-            var exercise = await _repo.Exercise.GetExerciseById(id);
-            return exercise;
+            return await _context.Set<Exercise>()
+                .Where(x => x.ExerciseId == id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Exercise> CreateExercise(CExerciseDTO exerciseDTO)
         {
-            var doesExist = await _repo.Exercise.DoesExerciseNameExist(exerciseDTO.ExerciseName);
+            var doesExist = await _context.Set<Exercise>()
+                .AsNoTracking()
+                .AnyAsync(x => x.ExerciseName == exerciseDTO.ExerciseName);
+
             if (doesExist) throw new ExerciseAlreadyExistsException();
 
-            return new Exercise();
-            //return _repo.Exercise.cre(exerciseDTO);
+            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            _context.Add(exercise);
+             await _context.SaveChangesAsync();
+             return exercise;
         }
 
         public async Task<bool> UpdateExercise(ExerciseDTO exerciseDTO)
         {
-            var doesExist = await _repo.Exercise.DoesExerciseExist(exerciseDTO.ExerciseId);
-            if (!doesExist) throw new ExerciseNotFoundException();
+            var doesExerciseExist = await _context.Set<Exercise>()
+                .AsNoTracking()
+                .AnyAsync(x => x.ExerciseId == exerciseDTO.ExerciseId);
 
-            return await _repo.Exercise.UpdateExercise(exerciseDTO);
+            if (!doesExerciseExist) throw new ExerciseNotFoundException();
+             
+            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            _context.Update(exercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
         public async Task<bool> DeleteExercise(ExerciseDTO exerciseDTO)
         {
-            var exercise = await _repo.Exercise.GetExerciseById(exerciseDTO.ExerciseId);
-            if (exercise == null) throw new ExerciseNotFoundException();
+            var doesExerciseExist =  await _context.Set<Exercise>()
+                .AsNoTracking()
+                .AnyAsync(x => x.ExerciseId == exerciseDTO.ExerciseId);
+            
+            if (!doesExerciseExist) throw new ExerciseNotFoundException();
 
-            return await _repo.Exercise.DeleteExercise(exerciseDTO);
+            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            _context.Remove(exercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
     }
 }

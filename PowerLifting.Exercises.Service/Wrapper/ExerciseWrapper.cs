@@ -6,7 +6,6 @@ namespace PowerLifting.Exercises.Service.Wrapper
 {
     public class ExerciseWrapper : IExerciseWrapper
     {
-        private IExerciseRepository _exerciseRepo;
         private IExerciseTypeRepository _exerciseTypeRepo;
         private IExerciseMuscleGroupRepository _exerciseMuscleGroupRepo;
 
@@ -16,19 +15,6 @@ namespace PowerLifting.Exercises.Service.Wrapper
         {
             _context = repositoryContext;
             _mapper = mapper;
-        }
-
-        public IExerciseRepository Exercise
-        {
-            get
-            {
-                if (_exerciseRepo == null)
-                {
-                    _exerciseRepo = new ExerciseRepository(_context, _mapper);
-                }
-
-                return _exerciseRepo;
-            }
         }
 
         public IExerciseTypeRepository ExerciseType

@@ -38,7 +38,7 @@ namespace PowerLifting.ProgramLogs.Service
             var stats = programLogStats.Select(x => new ProgramLogStatDTO()
             {
                 ProgramLogId = x.ProgramLogId,
-                TemplateProgramId = (int)x.TemplateProgramId,
+                TemplateProgramId = x.TemplateProgramId ?? 0,
                 NoOfWeeks = x.NoOfWeeks,
                 UserId = x.UserId,
                 Monday = x.Monday,
@@ -51,7 +51,7 @@ namespace PowerLifting.ProgramLogs.Service
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
                 Active = x.Active,
-                DayCount = x.ProgramLogWeeks.Sum(x => x.ProgramLogDays.Count),
+                DayCount = x.ProgramLogWeeks.Sum(j => j.ProgramLogDays.Count),
                 ExerciseCount = x.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises).Count(),
                 ExerciseCompletedCount = x.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises.Where(x => x.Completed)).Count(),
             });

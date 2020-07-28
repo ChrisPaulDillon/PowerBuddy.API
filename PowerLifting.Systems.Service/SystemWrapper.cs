@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using PowerLifting.Persistence;
-using PowerLifting.Systems.Contracts;
 using PowerLifting.Systems.Repository;
 
 namespace PowerLifting.Systems.Service

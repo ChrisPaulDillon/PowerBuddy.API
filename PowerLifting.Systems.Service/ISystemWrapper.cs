@@ -1,5 +1,4 @@
-﻿using PowerLifting.Systems.Contracts;
-using PowerLifting.Systems.Repository;
+﻿using PowerLifting.Systems.Repository;
 
 namespace PowerLifting.Systems.Service
 {

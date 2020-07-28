@@ -8,6 +8,7 @@ using PowerLifting.Data.Entities.Account;
 using PowerLifting.Exercises.Service;
 using PowerLifting.Exercises.Service.Wrapper;
 using PowerLifting.LiftingStats.Service;
+using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Service;
 using PowerLifting.ProgramLogs.Service.Wrapper;
 using PowerLifting.Systems.Service;
@@ -47,9 +48,11 @@ namespace PowerLifting.API.Wrappers
 
         private readonly UserManager<User> _userManager;
         private readonly IOptions<ApplicationSettings> _appSettings;
+        private readonly PowerLiftingContext _context;
 
-        public ServiceWrapper(IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings, IExerciseWrapper exerciseWrapper)
+        public ServiceWrapper(PowerLiftingContext context, IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings, IExerciseWrapper exerciseWrapper)
         {
+            _context = context;
             _mapper = mapper;
             _programLogWrapper = programLogWrapper;
             _templateProgramWrapper = templateProgramWrapper;
@@ -75,7 +78,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_exercise == null) _exercise = new ExerciseService(_exerciseWrapper, _mapper);
+                if (_exercise == null) _exercise = new ExerciseService(_context, _exerciseWrapper, _mapper);
 
                 return _exercise;
             }
