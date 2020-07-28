@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PowerLifting.API.API.Areas.ProgramLog.Models;
+using PowerLifting.API.Areas.ProgramLog.Models;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
-using PowerLifting.Common.Exceptions;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities.ProgramLogs;
+using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.Data.Exceptions.TemplatePrograms;
 using PowerLifting.ProgramLogs.Service.Exceptions;
-using PowerLifting.Service.TemplatePrograms.Exceptions;
 
-namespace PowerLifting.API.API.Areas.ProgramLog
+namespace PowerLifting.API.Areas.ProgramLog.Controllers
 {
     [Route("api/ProgramLog/[controller]")]
     [ApiController]

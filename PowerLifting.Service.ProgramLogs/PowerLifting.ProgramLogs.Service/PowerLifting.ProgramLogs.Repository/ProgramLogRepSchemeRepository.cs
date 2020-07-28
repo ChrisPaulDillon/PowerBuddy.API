@@ -5,16 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Persistence;
-using PowerLifting.ProgramLogs.Contracts.Repositories;
 
 namespace PowerLifting.ProgramLogs.Repository
 {
     public class ProgramLogRepSchemeRepository : IProgramLogRepSchemeRepository
     {
-        private readonly PowerliftingContext _context;
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public ProgramLogRepSchemeRepository(PowerliftingContext context, IMapper mapper)
+        public ProgramLogRepSchemeRepository(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

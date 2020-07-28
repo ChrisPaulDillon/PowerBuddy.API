@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.System;
+using PowerLifting.Persistence.SeedData;
 
 namespace PowerLifting.Persistence
 {
     public class DbInitializer
     {
-        public static void Initialize(PowerliftingContext context)
+        public static void Initialize(PowerLiftingContext context)
         {
             var curDate = DateTime.Now.Date;
             context.Database.EnsureCreated();

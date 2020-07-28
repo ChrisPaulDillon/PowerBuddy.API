@@ -21,10 +21,14 @@ using PowerLifting.TemplatePrograms.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using PowerLifting.Accounts.Service.Wrapper;
+using PowerLifting.API.Middleware;
 using PowerLifting.Data;
 using PowerLifting.Data.AutoMapper;
 using PowerLifting.Data.Entities.Account;
+using PowerLifting.ProgramLogs.Service.Wrapper;
 using PowerLifting.SignalR;
+using PowerLifting.TemplatePrograms.Service.Wrapper;
 
 namespace PowerLifting.API
 {
@@ -54,14 +58,14 @@ namespace PowerLifting.API
             );
 
 
-            services.AddDbContext<PowerliftingContext>(options =>
+            services.AddDbContext<PowerLiftingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddDbContext<PowerliftingContext>(options =>
             //  options.UseSqlite("DataSource = app.db"));
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<PowerliftingContext>();
+                .AddEntityFrameworkStores<PowerLiftingContext>();
 
             var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JWT_Secret"].ToString());
 
@@ -105,7 +109,7 @@ namespace PowerLifting.API
             var mappingConfig = new MapperConfiguration(mc =>
              {
                  mc.AddProfile(new SystemAutoMapperProfile());
-                 mc.AddProfile(new LiftingStatServiceMappingProfile());
+                 mc.AddProfile(new LiftingStatMappingProfile());
                  mc.AddProfile(new ProgramLogMappingProfile());
                  mc.AddProfile(new TemplateProgramMappingProfile());
                  mc.AddProfile(new AccountMappingProfile());

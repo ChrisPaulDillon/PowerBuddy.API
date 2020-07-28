@@ -1,20 +1,18 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using PowerLifting.Accounts.Contracts.Services;
 using PowerLifting.Accounts.Service;
-using PowerLifting.Accounts.Service.Services;
+using PowerLifting.Accounts.Service.Wrapper;
 using PowerLifting.Data;
 using PowerLifting.Data.Entities.Account;
+using PowerLifting.Exercises.Service;
+using PowerLifting.Exercises.Service.Wrapper;
 using PowerLifting.LiftingStats.Service;
-using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.ProgramLogs.Service;
-using PowerLifting.ProgramLogs.Service.Services;
-using PowerLifting.Systems.Contracts.Services;
+using PowerLifting.ProgramLogs.Service.Wrapper;
 using PowerLifting.Systems.Service;
-using PowerLifting.Systems.Service.Services;
-using PowerLifting.TemplatePrograms.Contracts.Services;
 using PowerLifting.TemplatePrograms.Service;
+using PowerLifting.TemplatePrograms.Service.Wrapper;
 
 namespace PowerLifting.API.Wrappers
 {
@@ -45,11 +43,12 @@ namespace PowerLifting.API.Wrappers
         private readonly ISystemWrapper _systemWrapper;
         private readonly IAccountWrapper _accountWrapper;
         private readonly ILiftingStatsWrapper _liftingStatsWrapper;
+        private readonly IExerciseWrapper _exerciseWrapper;
 
         private readonly UserManager<User> _userManager;
         private readonly IOptions<ApplicationSettings> _appSettings;
 
-        public ServiceWrapper(IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
+        public ServiceWrapper(IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings, IExerciseWrapper exerciseWrapper)
         {
             _mapper = mapper;
             _programLogWrapper = programLogWrapper;
@@ -59,6 +58,7 @@ namespace PowerLifting.API.Wrappers
             _liftingStatsWrapper = liftingStatsWrapper;
             _userManager = userManager;
             _appSettings = appSettings;
+            _exerciseWrapper = exerciseWrapper;
         }
 
         public ILiftingStatService LiftingStat
@@ -75,7 +75,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_exercise == null) _exercise = new ExerciseService(_systemWrapper, _mapper);
+                if (_exercise == null) _exercise = new ExerciseService(_exerciseWrapper, _mapper);
 
                 return _exercise;
             }
@@ -85,7 +85,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_exerciseType == null) _exerciseType = new ExerciseTypeService(_systemWrapper, _mapper);
+                if (_exerciseType == null) _exerciseType = new ExerciseTypeService(_exerciseWrapper, _mapper);
 
                 return _exerciseType;
             }
@@ -96,7 +96,7 @@ namespace PowerLifting.API.Wrappers
             get
             {
                 if (_exerciseMuscleGroup == null)
-                    _exerciseMuscleGroup = new ExerciseMuscleGroupService(_systemWrapper, _mapper);
+                    _exerciseMuscleGroup = new ExerciseMuscleGroupService(_exerciseWrapper, _mapper);
 
                 return _exerciseMuscleGroup;
             }

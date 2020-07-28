@@ -14,14 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="PowerLifting.ProgramLogs.Contracts\PowerLifting.ProgramLogs.Contracts.csproj">
-      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
-    </ProjectReference>
+    <ProjectReference Include="..\..\PowerLifting.Data\PowerLifting.Data.csproj" />
     <ProjectReference Include="PowerLifting.ProgramLogs.Repository\PowerLifting.ProgramLogs.Repository.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />

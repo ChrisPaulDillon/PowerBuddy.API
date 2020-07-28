@@ -1,0 +1,69 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Entities.Templates;
+using PowerLifting.Persistence;
+using PowerLifting.TemplatePrograms.Repository.Contracts;
+
+namespace PowerLifting.TemplatePrograms.Repository.Concrete
+{
+    public class TemplateProgramRepository : ITemplateProgramRepository
+    {
+        private readonly PowerLiftingContext _context;
+        private readonly IMapper _mapper;
+
+        public TemplateProgramRepository(PowerLiftingContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<TemplateProgramDTO>> GetAllTemplatePrograms()
+        {
+            return await _context.Set<TemplateProgram>().AsNoTracking()
+                                                        .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
+                                                        .ToListAsync();
+        }
+
+        public async Task<TemplateProgramDTO> GetTemplateProgramById(int templateProgramId)
+        {
+            var templateProgram = await _context.Set<TemplateProgram>().AsNoTracking()
+                                                             .Where(x => x.TemplateProgramId == templateProgramId)
+                                                             .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
+                                                             .FirstOrDefaultAsync();
+
+            if (templateProgram != null && templateProgram.TemplateWeeks != null)
+            {
+                templateProgram.TemplateWeeks = templateProgram.TemplateWeeks.OrderBy(x => x.WeekNo);
+                return templateProgram;
+            }
+            return null;
+        }
+
+        public async Task<string> GetTemplateProgramNameById(int templateProgramId)
+        {
+            return await _context.Set<TemplateProgram>().Where(x => x.TemplateProgramId == templateProgramId)
+                                                        .Select(x => x.Name)
+                                                        .AsNoTracking()
+                                                        .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> DoesNameExist(string programTemplate)
+        {
+            return await _context.Set<TemplateProgram>().AsNoTracking().AnyAsync(x => x.Name == programTemplate);
+        }
+
+        public async Task<TemplateProgram> CreateTemplateProgram(TemplateProgramDTO templateProgramDTO)
+        {
+            var template = _mapper.Map<TemplateProgram>(templateProgramDTO);
+            _context.Add(template);
+
+            await _context.SaveChangesAsync();
+            return template;
+        }
+    }
+}

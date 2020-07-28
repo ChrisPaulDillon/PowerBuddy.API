@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
-using PowerLifting.Common.Exceptions;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.LiftingStats.Service.Exceptions;
 
-namespace PowerLifting.API.API
+namespace PowerLifting.API.Areas.Account
 {
     [ApiController]
     [Route("api/[controller]")]

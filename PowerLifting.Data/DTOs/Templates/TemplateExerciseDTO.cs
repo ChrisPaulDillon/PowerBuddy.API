@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
 
 namespace PowerLifting.Data.DTOs.Templates

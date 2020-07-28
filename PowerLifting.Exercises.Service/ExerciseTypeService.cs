@@ -1,0 +1,62 @@
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
+using PowerLifting.Data.DTOs.Exercises;
+using PowerLifting.Data.Exceptions.Exercises;
+using PowerLifting.Exercises.Service.Wrapper;
+
+namespace PowerLifting.Exercises.Service
+{
+    public class ExerciseTypeService : IExerciseTypeService
+    {
+        private readonly IMapper _mapper;
+        private readonly IExerciseWrapper _repo;
+        private readonly ConcurrentDictionary<int, ExerciseTypeDTO> _store;
+
+        public ExerciseTypeService(IExerciseWrapper repo, IMapper mapper)
+        {
+            _store = new ConcurrentDictionary<int, ExerciseTypeDTO>();
+            _repo = repo;
+            _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<ExerciseTypeDTO>> GetAllExerciseTypes()
+        {
+            await RefreshExerciseStore();
+            return _store.Values;
+        }
+
+        private async Task RefreshExerciseStore()
+        {
+            if (!_store.IsEmpty)
+                return;
+
+            var exerciseTypes = await _repo.ExerciseType.GetAllExerciseTypes();
+
+            foreach (var exerciseDTO in exerciseTypes)
+                _store.AddOrUpdate(exerciseDTO.ExerciseTypeId, exerciseDTO, (key, olValue) => exerciseDTO);
+        }
+
+        public async Task<ExerciseTypeDTO> GetExerciseTypeById(int id)
+        {
+            var exerciseType = await _repo.ExerciseType.GetExerciseTypeById(id);
+            return exerciseType;
+        }
+
+        public async Task<bool> UpdateExerciseType(ExerciseTypeDTO exerciseTypeDTO)
+        {
+            var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeDTO.ExerciseTypeId);
+            if (exerciseTypeEntity == null) throw new ExerciseTypeNotFoundException();
+
+            return await _repo.ExerciseType.UpdateExerciseType(exerciseTypeDTO);
+        }
+
+        public async Task<bool> DeleteExerciseType(ExerciseTypeDTO exerciseTypeDTO)
+        {
+            var exerciseTypeEntity = await _repo.ExerciseType.GetExerciseTypeById(exerciseTypeDTO.ExerciseTypeId);
+            if (exerciseTypeEntity == null) throw new ExerciseTypeNotFoundException();
+            return await _repo.ExerciseType.DeleteExerciseType(exerciseTypeDTO);
+        }
+    }
+}

@@ -8,9 +8,9 @@ using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
-using PowerLifting.Service.Users.Exceptions;
+using PowerLifting.Data.Exceptions.Account;
 
-namespace PowerLifting.API.API.Areas.Public
+namespace PowerLifting.API.Areas.Public
 {
     [Route("api/[area]/[controller]")]
     [ApiController]

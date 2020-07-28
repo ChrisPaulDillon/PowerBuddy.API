@@ -7,16 +7,15 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.System;
-using PowerLifting.Systems.Contracts.Repositories;
 
 namespace PowerLifting.Systems.Repository
 {
     public class QuoteRepository : IQuoteRepository
     {
-        private readonly PowerliftingContext _context;
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public QuoteRepository(PowerliftingContext context, IMapper mapper)
+        public QuoteRepository(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

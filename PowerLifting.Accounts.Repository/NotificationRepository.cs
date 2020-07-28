@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Accounts.Contracts.Repositories;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Persistence;
@@ -14,10 +13,10 @@ namespace PowerLifting.Accounts.Repository
 {
     public class NotificationRepository : INotificationRepository
     {
-        private readonly PowerliftingContext _context;
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public NotificationRepository(PowerliftingContext context, IMapper mapper)
+        public NotificationRepository(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

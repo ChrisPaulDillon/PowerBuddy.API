@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using PowerLifting.Data.Entities.System;
+﻿using System.Collections.Generic;
+using PowerLifting.Data.Entities.Exercises;
 
-namespace PowerLifting.Persistence
+namespace PowerLifting.Persistence.SeedData
 {
     public static class ExerciseSeed
     {

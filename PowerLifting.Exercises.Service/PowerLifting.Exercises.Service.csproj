@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
+    <ProjectReference Include="..\PowerLifting.Exercises.Repository\PowerLifting.Exercises.Repository.csproj" />
+    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Repository\PowerLifting.TemplatePrograms.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
+    <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

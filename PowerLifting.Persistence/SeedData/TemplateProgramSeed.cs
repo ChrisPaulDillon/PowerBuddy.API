@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using PowerLifting.Data.Entities.Templates;
 using PowerLifting.Persistence.SeedData.TemplatePrograms;
 
-namespace PowerLifting.Persistence
+namespace PowerLifting.Persistence.SeedData
 {
     public static class TemplateProgramSeed
     {

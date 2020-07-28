@@ -6,16 +6,15 @@ using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.System;
 using PowerLifting.Persistence;
-using PowerLifting.Systems.Contracts.Repositories;
 
 namespace PowerLifting.Systems.Repository
 {
     public class TemplateDifficultyRepository : ITemplateDifficultyRepository
     {
-        private readonly PowerliftingContext _context;
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public TemplateDifficultyRepository(PowerliftingContext context, IMapper mapper)
+        public TemplateDifficultyRepository(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

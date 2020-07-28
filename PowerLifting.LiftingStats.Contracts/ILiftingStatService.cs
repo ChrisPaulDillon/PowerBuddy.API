@@ -4,7 +4,7 @@ using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.Account;
 
-namespace PowerLifting.LiftingStats.Service
+namespace PowerLifting.LiftingStats.Contracts
 {
     public interface ILiftingStatService
     {

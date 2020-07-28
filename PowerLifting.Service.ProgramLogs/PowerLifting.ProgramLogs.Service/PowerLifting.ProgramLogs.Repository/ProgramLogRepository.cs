@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PowerLifting.ProgramLogs.Contracts.Repositories;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PowerLifting.Data.DTOs.ProgramLogs;
@@ -14,10 +13,10 @@ namespace PowerLifting.ProgramLogs.Repository
 {
     public class ProgramLogRepository : IProgramLogRepository
     {
-        private readonly PowerliftingContext _context;
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public ProgramLogRepository(PowerliftingContext context, IMapper mapper)
+        public ProgramLogRepository(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

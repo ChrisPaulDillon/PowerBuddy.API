@@ -5,8 +5,8 @@ using AutoMapper;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities.Templates;
-using PowerLifting.Service.TemplatePrograms.Exceptions;
-using PowerLifting.TemplatePrograms.Contracts.Services;
+using PowerLifting.Data.Exceptions.TemplatePrograms;
+using PowerLifting.TemplatePrograms.Service.Wrapper;
 
 namespace PowerLifting.TemplatePrograms.Service
 {

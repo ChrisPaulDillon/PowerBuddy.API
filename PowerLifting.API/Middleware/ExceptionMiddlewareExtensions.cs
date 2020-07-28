@@ -3,31 +3,33 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.LoggerService;
-using PowerLifting.Service;
 
-public static class ExceptionMiddlewareExtensions
+namespace PowerLifting.API.Middleware
 {
-    public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILoggerManager logger)
+    public static class ExceptionMiddlewareExtensions
     {
-        app.UseExceptionHandler(appError =>
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILoggerManager logger)
         {
-            appError.Run(async context =>
+            app.UseExceptionHandler(appError =>
             {
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                context.Response.ContentType = "application/json";
-
-                var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                if (contextFeature != null)
+                appError.Run(async context =>
                 {
-                    logger.LogError($"Something went wrong: {contextFeature.Error}");
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.ContentType = "application/json";
 
-                    await context.Response.WriteAsync(new ErrorDetails()
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    if (contextFeature != null)
                     {
-                        StatusCode = context.Response.StatusCode,
-                        Message = "Internal Server Error."
-                    }.ToString());
-                }
+                        logger.LogError($"Something went wrong: {contextFeature.Error}");
+
+                        await context.Response.WriteAsync(new ErrorDetails()
+                        {
+                            StatusCode = context.Response.StatusCode,
+                            Message = "Internal Server Error."
+                        }.ToString());
+                    }
+                });
             });
-        });
+        }
     }
 }

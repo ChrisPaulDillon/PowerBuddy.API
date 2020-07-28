@@ -15,7 +15,6 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.6" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SeedData\" />
     <Folder Include="SeedData\TemplatePrograms\" />
   </ItemGroup>
   <ItemGroup>

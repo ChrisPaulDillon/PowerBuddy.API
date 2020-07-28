@@ -1,4 +1,4 @@
-﻿using PowerLifting.LiftingStats.Contracts;
+﻿using PowerLifting.LiftingStats.Repository;
 
 namespace PowerLifting.LiftingStats.Service
 {

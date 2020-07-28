@@ -2,16 +2,13 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.HttpSys;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
-using PowerLifting.Service;
-using PowerLifting.Service.Users.Exceptions;
+using PowerLifting.Data.Exceptions.Account;
 
-namespace PowerLifting.API.API.Areas.Account
+namespace PowerLifting.API.Areas.Account
 {
     [Route("api/[area]/[controller]")]
     [ApiController]

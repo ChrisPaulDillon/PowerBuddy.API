@@ -1,8 +1,9 @@
-﻿using PowerLifting.Accounts.Contracts.Services;
+﻿using PowerLifting.Accounts.Service;
+using PowerLifting.Exercises.Service;
 using PowerLifting.LiftingStats.Service;
-using PowerLifting.ProgramLogs.Contracts.Services;
-using PowerLifting.Systems.Contracts.Services;
-using PowerLifting.TemplatePrograms.Contracts.Services;
+using PowerLifting.ProgramLogs.Service;
+using PowerLifting.Systems.Service;
+using PowerLifting.TemplatePrograms.Service;
 
 namespace PowerLifting.API.Wrappers
 {

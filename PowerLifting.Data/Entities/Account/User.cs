@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using PowerLifting.Data.Entities.ProgramLogs;
 
 namespace PowerLifting.Data.Entities.Account

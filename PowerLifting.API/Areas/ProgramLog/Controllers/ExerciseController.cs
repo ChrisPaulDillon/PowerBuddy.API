@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
-using PowerLifting.Common.Exceptions;
 using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.ProgramLogs.Service.Exceptions;
-using PowerLifting.Service.ProgramLogs.Exceptions;
 
-namespace PowerLifting.API.API.Areas.ProgramLog
+namespace PowerLifting.API.Areas.ProgramLog.Controllers
 {
     [Route("api/ProgramLog/[controller]")]
     [ApiController]

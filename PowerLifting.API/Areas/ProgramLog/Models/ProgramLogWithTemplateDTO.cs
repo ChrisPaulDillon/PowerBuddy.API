@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using PowerLifting.Data.DTOs.ProgramLogs;
 
-namespace PowerLifting.API.API.Areas.ProgramLog.Models
+namespace PowerLifting.API.Areas.ProgramLog.Models
 {
     public class ProgramLogWithTemplateDTO : ProgramLogDTO
     {

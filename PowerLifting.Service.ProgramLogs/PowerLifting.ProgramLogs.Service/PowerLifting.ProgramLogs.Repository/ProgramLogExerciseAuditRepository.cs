@@ -5,16 +5,15 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Persistence;
-using PowerLifting.ProgramLogs.Contracts.Repositories;
 
 namespace PowerLifting.ProgramLogs.Repository
 {
     public class ProgramLogExerciseAuditRepository : IProgramLogExerciseAuditRepository
     {
-        private readonly PowerliftingContext _context;
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public ProgramLogExerciseAuditRepository(PowerliftingContext context, IMapper mapper)
+        public ProgramLogExerciseAuditRepository(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

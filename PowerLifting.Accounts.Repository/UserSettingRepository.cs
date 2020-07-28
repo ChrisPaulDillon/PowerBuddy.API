@@ -1,5 +1,4 @@
-﻿using PowerLifting.Accounts.Contracts.Repositories;
-using PowerLifting.Persistence;
+﻿using PowerLifting.Persistence;
 using AutoMapper;
 using System.Threading.Tasks;
 using System.Linq;
@@ -11,10 +10,10 @@ namespace PowerLifting.Accounts.Repository
 {
     public class UserSettingRepository : IUserSettingRepository
     {
-        private readonly PowerliftingContext _context;
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public UserSettingRepository(PowerliftingContext context, IMapper mapper)
+        public UserSettingRepository(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Entities.System;
 using PowerLifting.Data.Entities.Templates;
 
 namespace PowerLifting.Persistence
 {
-    public class PowerliftingContext : DbContext
+    public class PowerLiftingContext : DbContext
     {
-        public PowerliftingContext(DbContextOptions<PowerliftingContext> options) : base(options)
+        public PowerLiftingContext(DbContextOptions<PowerLiftingContext> options) : base(options)
         {
 
 
@@ -108,7 +109,7 @@ namespace PowerLifting.Persistence
             modelBuilder.Entity<FriendsListAssoc>().ToTable("FriendsListAssoc");
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
             modelBuilder.Entity<Notification>().ToTable("Notification");
-            modelBuilder.Entity<NotificationInteraction>().ToTable("NotificatonInteraction");
+            modelBuilder.Entity<NotificationInteraction>().ToTable("NotificationInteraction");
         }
     }
 }

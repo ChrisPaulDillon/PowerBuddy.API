@@ -1,0 +1,84 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.DTOs.Exercises;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.Exercises;
+using PowerLifting.Persistence;
+
+namespace PowerLifting.Exercises.Repository
+{
+    public class ExerciseRepository : IExerciseRepository
+    {
+        private readonly PowerLiftingContext _context;
+        private readonly IMapper _mapper;
+
+        public ExerciseRepository(PowerLiftingContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
+        {
+            return await _context.Set<Exercise>()
+                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
+        {
+            return await _context.Set<Exercise>()
+                .Where(x => x.ExerciseSports.Any(x => x.ExerciseSportStr == exerciseSport))
+                .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<Exercise> GetExerciseById(int id)
+        {
+            return await _context.Set<Exercise>()
+                .Where(x => x.ExerciseId == id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> DoesExerciseExist(int exerciseId)
+        {
+            return await _context.Set<Exercise>()
+                .Where(x => x.ExerciseId == exerciseId)
+                .AsNoTracking()
+                .AnyAsync();
+        }
+
+        public async Task<bool> DoesExerciseNameExist(string exerciseName)
+        {
+            return await _context.Set<Exercise>()
+                .Where(x => x.ExerciseName == exerciseName)
+                .AsNoTracking()
+                .AnyAsync();
+        }
+
+        public async Task<bool> UpdateExercise(ExerciseDTO exerciseDTO)
+        {
+            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            _context.Update(exercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
+        }
+
+        public async Task<bool> DeleteExercise(ExerciseDTO exerciseDTO)
+        {
+            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            _context.Remove(exercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
+        }
+    }
+}

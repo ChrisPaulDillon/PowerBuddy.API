@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
+using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.System;
-using PowerLifting.Systems.Service.Exceptions;
+using PowerLifting.Data.Exceptions.Exercises;
 
-namespace PowerLifting.API.API
+namespace PowerLifting.API.Areas.System
 {
     [Route("api/[controller]")]
     [ApiController]

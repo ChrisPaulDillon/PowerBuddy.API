@@ -1,5 +1,4 @@
-﻿using PowerLifting.LiftingStats.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using PowerLifting.Persistence;
@@ -15,9 +14,9 @@ namespace PowerLifting.LiftingStats.Service
 
         private readonly IMapper _mapper;
 
-        private PowerliftingContext _context;
+        private PowerLiftingContext _context;
 
-        public LiftingStatsWrapper(PowerliftingContext repositoryContext, IMapper mapper)
+        public LiftingStatsWrapper(PowerLiftingContext repositoryContext, IMapper mapper)
         {
             _context = repositoryContext;
             _mapper = mapper;

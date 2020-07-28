@@ -3,7 +3,6 @@ using PowerLifting.Persistence;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using PowerLifting.LiftingStats.Contracts;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PowerLifting.Data.DTOs.Account;
@@ -13,10 +12,10 @@ namespace PowerLifting.LiftingStats.Repository
 {
     public class LiftingStatRepository : ILiftingStatRepository
     {
-        private readonly PowerliftingContext _context;
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public LiftingStatRepository(PowerliftingContext context, IMapper mapper)
+        public LiftingStatRepository(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

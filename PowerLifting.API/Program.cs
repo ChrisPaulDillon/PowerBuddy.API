@@ -33,7 +33,7 @@ namespace PowerLifting.API
                     var services = scope.ServiceProvider;
                     try
                     {
-                        var context = services.GetRequiredService<PowerliftingContext>();
+                        var context = services.GetRequiredService<PowerLiftingContext>();
                         DbInitializer.Initialize(context);
                     }
                     catch (Exception ex)

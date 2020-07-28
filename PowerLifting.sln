@@ -11,51 +11,37 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.LoggerService"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Persistence", "PowerLifting.Persistence\PowerLifting.Persistence.csproj", "{E82D8BBC-D50B-48BB-A0EC-AD86F434EF13}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProgramLogs", "ProgramLogs", "{8F343442-B6C4-4481-A34D-1C95C1DDD34F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.ProgramLogs.Service", "PowerLifting.Service.ProgramLogs\PowerLifting.ProgramLogs.Service\PowerLifting.ProgramLogs.Service.csproj", "{FBD6C701-2AD3-44D9-9268-41DC9A4D8709}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.ProgramLogs.Repository", "PowerLifting.Service.ProgramLogs\PowerLifting.ProgramLogs.Service\PowerLifting.ProgramLogs.Repository\PowerLifting.ProgramLogs.Repository.csproj", "{BC306148-C981-41B1-A59E-A51BD76F5F1C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.ProgramLogs.Contracts", "PowerLifting.Service.ProgramLogs\PowerLifting.ProgramLogs.Service\PowerLifting.ProgramLogs.Contracts\PowerLifting.ProgramLogs.Contracts.csproj", "{67E64AA0-D10F-48FE-83F5-8A47DAF53B85}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Common", "PowerLifting.Common\PowerLifting.Common.csproj", "{C9C4968C-2BB8-4777-A443-9823CE1104EF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplatePrograms", "TemplatePrograms", "{D7CBB99C-6918-40A4-A862-AF8D11FA2DC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.TemplatePrograms.Repository", "PowerLifting.TemplatePrograms.Repository\PowerLifting.TemplatePrograms.Repository.csproj", "{E02310B0-1347-43EB-9579-DA9B6A85DEBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.TemplatePrograms.Contracts", "PowerLifting.TemplatePrograms.Contracts\PowerLifting.TemplatePrograms.Contracts.csproj", "{F84A6172-38E5-4D49-9657-C3F893984F2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.TemplatePrograms.Service", "PowerLifting.TemplatePrograms.Service\PowerLifting.TemplatePrograms.Service.csproj", "{65D7E0A4-EFE8-4D1C-9C99-FB940B6C50B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.TemplatePrograms.Repository", "PowerLifting.TemplatePrograms.Repository\PowerLifting.TemplatePrograms.Repository.csproj", "{E02310B0-1347-43EB-9579-DA9B6A85DEBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Systems.Repository", "PowerLifting.Systems.Repository\PowerLifting.Systems.Repository.csproj", "{54FBB531-A9DB-4138-BE3F-6A432589F323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.TemplatePrograms.Service", "PowerLifting.TemplatePrograms.Service\PowerLifting.TemplatePrograms.Service.csproj", "{65D7E0A4-EFE8-4D1C-9C99-FB940B6C50B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Systems.Service", "PowerLifting.Systems.Service\PowerLifting.Systems.Service.csproj", "{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{34C4C974-2069-4B30-9D61-FAA72AA8473F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.LiftingStats.Repository", "PowerLifting.LiftingStats.Repository\PowerLifting.LiftingStats.Repository.csproj", "{CCECBC01-B1A9-4201-99FD-88A5473202C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Systems.Contracts", "PowerLifting.Systems.Contracts\PowerLifting.Systems.Contracts.csproj", "{DF2683B1-FEEA-4C2B-B238-91C065B6D943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.LiftingStats.Service", "PowerLifting.LiftingStats.Service\PowerLifting.LiftingStats.Service.csproj", "{65E506EE-CD9E-4869-B0DA-24EF528C940E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Systems.Repository", "PowerLifting.Systems.Repository\PowerLifting.Systems.Repository.csproj", "{54FBB531-A9DB-4138-BE3F-6A432589F323}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Accounts.Repository", "PowerLifting.Accounts.Repository\PowerLifting.Accounts.Repository.csproj", "{026D9031-9089-4872-B950-D4ADCEB20C1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Systems.Service", "PowerLifting.Systems.Service\PowerLifting.Systems.Service.csproj", "{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Accounts.Service", "PowerLifting.Accounts.Service\PowerLifting.Accounts.Service.csproj", "{64FB3DF1-FFC9-4D90-B02E-6C7ED48C2B4A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LiftingStats", "LiftingStats", "{9FC894B1-FA6B-49FE-8168-AC7563CDC09E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.SignalR", "PowerLifting.SignalR\PowerLifting.SignalR.csproj", "{A7DFE890-28B2-49C7-8D17-6403BAF1FCAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.LiftingStats.Contracts", "PowerLifting.LiftingStats.Contracts\PowerLifting.LiftingStats.Contracts.csproj", "{94816E3F-0706-4979-AA9E-4D6D2F2C2840}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Data", "PowerLifting.Data\PowerLifting.Data.csproj", "{3555D58B-6855-4422-BC83-C011F56445BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.LiftingStats.Repository", "PowerLifting.LiftingStats.Repository\PowerLifting.LiftingStats.Repository.csproj", "{CCECBC01-B1A9-4201-99FD-88A5473202C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Exercises.Service", "PowerLifting.Exercises.Service\PowerLifting.Exercises.Service.csproj", "{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.LiftingStats.Service", "PowerLifting.LiftingStats.Service\PowerLifting.LiftingStats.Service.csproj", "{65E506EE-CD9E-4869-B0DA-24EF528C940E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Exercises.Repository", "PowerLifting.Exercises.Repository\PowerLifting.Exercises.Repository.csproj", "{4D159DD2-3879-47C0-A5DD-C49EBECCFB4A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account", "Account", "{AC3C45C4-9377-4082-A270-14FB9B78448A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Accounts.Contracts", "PowerLifting.Accounts.Contracts\PowerLifting.Accounts.Contracts.csproj", "{93BBA6AD-75A0-46F5-BA3F-28659972A09F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Accounts.Repository", "PowerLifting.Accounts.Repository\PowerLifting.Accounts.Repository.csproj", "{026D9031-9089-4872-B950-D4ADCEB20C1A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Accounts.Service", "PowerLifting.Accounts.Service\PowerLifting.Accounts.Service.csproj", "{64FB3DF1-FFC9-4D90-B02E-6C7ED48C2B4A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.SignalR", "PowerLifting.SignalR\PowerLifting.SignalR.csproj", "{A7DFE890-28B2-49C7-8D17-6403BAF1FCAB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Data", "PowerLifting.Data\PowerLifting.Data.csproj", "{3555D58B-6855-4422-BC83-C011F56445BC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{39B0BAED-594C-4D76-AA92-75CBC53013DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,18 +73,10 @@ Global
 		{BC306148-C981-41B1-A59E-A51BD76F5F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC306148-C981-41B1-A59E-A51BD76F5F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC306148-C981-41B1-A59E-A51BD76F5F1C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67E64AA0-D10F-48FE-83F5-8A47DAF53B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67E64AA0-D10F-48FE-83F5-8A47DAF53B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67E64AA0-D10F-48FE-83F5-8A47DAF53B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67E64AA0-D10F-48FE-83F5-8A47DAF53B85}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9C4968C-2BB8-4777-A443-9823CE1104EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9C4968C-2BB8-4777-A443-9823CE1104EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9C4968C-2BB8-4777-A443-9823CE1104EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9C4968C-2BB8-4777-A443-9823CE1104EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F84A6172-38E5-4D49-9657-C3F893984F2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F84A6172-38E5-4D49-9657-C3F893984F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F84A6172-38E5-4D49-9657-C3F893984F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F84A6172-38E5-4D49-9657-C3F893984F2E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E02310B0-1347-43EB-9579-DA9B6A85DEBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E02310B0-1347-43EB-9579-DA9B6A85DEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E02310B0-1347-43EB-9579-DA9B6A85DEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,10 +85,6 @@ Global
 		{65D7E0A4-EFE8-4D1C-9C99-FB940B6C50B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65D7E0A4-EFE8-4D1C-9C99-FB940B6C50B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65D7E0A4-EFE8-4D1C-9C99-FB940B6C50B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF2683B1-FEEA-4C2B-B238-91C065B6D943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF2683B1-FEEA-4C2B-B238-91C065B6D943}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF2683B1-FEEA-4C2B-B238-91C065B6D943}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF2683B1-FEEA-4C2B-B238-91C065B6D943}.Release|Any CPU.Build.0 = Release|Any CPU
 		{54FBB531-A9DB-4138-BE3F-6A432589F323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{54FBB531-A9DB-4138-BE3F-6A432589F323}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54FBB531-A9DB-4138-BE3F-6A432589F323}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -119,10 +93,6 @@ Global
 		{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94816E3F-0706-4979-AA9E-4D6D2F2C2840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94816E3F-0706-4979-AA9E-4D6D2F2C2840}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94816E3F-0706-4979-AA9E-4D6D2F2C2840}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94816E3F-0706-4979-AA9E-4D6D2F2C2840}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CCECBC01-B1A9-4201-99FD-88A5473202C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CCECBC01-B1A9-4201-99FD-88A5473202C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCECBC01-B1A9-4201-99FD-88A5473202C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -131,10 +101,6 @@ Global
 		{65E506EE-CD9E-4869-B0DA-24EF528C940E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65E506EE-CD9E-4869-B0DA-24EF528C940E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65E506EE-CD9E-4869-B0DA-24EF528C940E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93BBA6AD-75A0-46F5-BA3F-28659972A09F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93BBA6AD-75A0-46F5-BA3F-28659972A09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93BBA6AD-75A0-46F5-BA3F-28659972A09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93BBA6AD-75A0-46F5-BA3F-28659972A09F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{026D9031-9089-4872-B950-D4ADCEB20C1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{026D9031-9089-4872-B950-D4ADCEB20C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{026D9031-9089-4872-B950-D4ADCEB20C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -151,26 +117,31 @@ Global
 		{3555D58B-6855-4422-BC83-C011F56445BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3555D58B-6855-4422-BC83-C011F56445BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3555D58B-6855-4422-BC83-C011F56445BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D159DD2-3879-47C0-A5DD-C49EBECCFB4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D159DD2-3879-47C0-A5DD-C49EBECCFB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D159DD2-3879-47C0-A5DD-C49EBECCFB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D159DD2-3879-47C0-A5DD-C49EBECCFB4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{FBD6C701-2AD3-44D9-9268-41DC9A4D8709} = {8F343442-B6C4-4481-A34D-1C95C1DDD34F}
-		{BC306148-C981-41B1-A59E-A51BD76F5F1C} = {8F343442-B6C4-4481-A34D-1C95C1DDD34F}
-		{67E64AA0-D10F-48FE-83F5-8A47DAF53B85} = {8F343442-B6C4-4481-A34D-1C95C1DDD34F}
-		{F84A6172-38E5-4D49-9657-C3F893984F2E} = {D7CBB99C-6918-40A4-A862-AF8D11FA2DC2}
-		{E02310B0-1347-43EB-9579-DA9B6A85DEBA} = {D7CBB99C-6918-40A4-A862-AF8D11FA2DC2}
-		{65D7E0A4-EFE8-4D1C-9C99-FB940B6C50B3} = {D7CBB99C-6918-40A4-A862-AF8D11FA2DC2}
-		{DF2683B1-FEEA-4C2B-B238-91C065B6D943} = {34C4C974-2069-4B30-9D61-FAA72AA8473F}
-		{54FBB531-A9DB-4138-BE3F-6A432589F323} = {34C4C974-2069-4B30-9D61-FAA72AA8473F}
-		{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF} = {34C4C974-2069-4B30-9D61-FAA72AA8473F}
-		{94816E3F-0706-4979-AA9E-4D6D2F2C2840} = {9FC894B1-FA6B-49FE-8168-AC7563CDC09E}
-		{CCECBC01-B1A9-4201-99FD-88A5473202C3} = {9FC894B1-FA6B-49FE-8168-AC7563CDC09E}
-		{65E506EE-CD9E-4869-B0DA-24EF528C940E} = {9FC894B1-FA6B-49FE-8168-AC7563CDC09E}
-		{93BBA6AD-75A0-46F5-BA3F-28659972A09F} = {AC3C45C4-9377-4082-A270-14FB9B78448A}
-		{026D9031-9089-4872-B950-D4ADCEB20C1A} = {AC3C45C4-9377-4082-A270-14FB9B78448A}
-		{64FB3DF1-FFC9-4D90-B02E-6C7ED48C2B4A} = {AC3C45C4-9377-4082-A270-14FB9B78448A}
+		{FBD6C701-2AD3-44D9-9268-41DC9A4D8709} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{BC306148-C981-41B1-A59E-A51BD76F5F1C} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{E02310B0-1347-43EB-9579-DA9B6A85DEBA} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{65D7E0A4-EFE8-4D1C-9C99-FB940B6C50B3} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{54FBB531-A9DB-4138-BE3F-6A432589F323} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{CCECBC01-B1A9-4201-99FD-88A5473202C3} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{65E506EE-CD9E-4869-B0DA-24EF528C940E} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{026D9031-9089-4872-B950-D4ADCEB20C1A} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{64FB3DF1-FFC9-4D90-B02E-6C7ED48C2B4A} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
+		{4D159DD2-3879-47C0-A5DD-C49EBECCFB4A} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5724747C-09D0-4C77-B6AA-EA64EB0A2EF6}

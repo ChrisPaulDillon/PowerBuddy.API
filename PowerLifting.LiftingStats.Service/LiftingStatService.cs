@@ -6,8 +6,8 @@ using AutoMapper;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.System;
-using PowerLifting.LiftingStats.Contracts;
 using PowerLifting.LiftingStats.Service.Exceptions;
 
 namespace PowerLifting.LiftingStats.Service

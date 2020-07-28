@@ -1,5 +1,6 @@
 ﻿using System;
-namespace PowerLifting.Service.ProgramLogs.Exceptions
+
+namespace PowerLifting.ProgramLogs.Service.Exceptions
 {
     public class ProgramLogDayNotWithinWeekException : Exception
     {

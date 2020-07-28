@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.System;
 
 namespace PowerLifting.Data.Entities.ProgramLogs

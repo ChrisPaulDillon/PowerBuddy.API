@@ -3,7 +3,6 @@ using PowerLifting.Persistence;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PowerLifting.Accounts.Contracts.Repositories;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PowerLifting.Data.DTOs.Account;
@@ -13,10 +12,10 @@ namespace PowerLifting.Accounts.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly PowerliftingContext _context;
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public UserRepository(PowerliftingContext context, IMapper mapper)
+        public UserRepository(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

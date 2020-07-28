@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Templates;
-using PowerLifting.Service;
-using PowerLifting.Service.TemplatePrograms.Exceptions;
+using PowerLifting.Data.Exceptions.TemplatePrograms;
 
-namespace PowerLifting.API.API
+namespace PowerLifting.API.Areas.System
 {
     [Route("api/[controller]")]
     [ApiController]
