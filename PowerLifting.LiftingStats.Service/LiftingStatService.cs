@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using PowerLifting.Entity.System.Exercises.DTOs;
-using PowerLifting.Entity.System.Exercises.Models;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.System;
 using PowerLifting.LiftingStats.Contracts;
 using PowerLifting.LiftingStats.Service.Exceptions;
-using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.LiftingStats.Model;
-using PowerLifting.Service.LiftingStatsAudit.Model;
 
 namespace PowerLifting.LiftingStats.Service
 {

@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Service.SystemServices.RepSchemeTypes.Model
+﻿namespace PowerLifting.Data.Entities.System
 {
     public class RepSchemeType
     {

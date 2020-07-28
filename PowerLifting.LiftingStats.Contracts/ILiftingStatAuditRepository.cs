@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using PowerLifting.Service.LiftingStatsAudit.Model;
+using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.LiftingStats.Contracts
 {

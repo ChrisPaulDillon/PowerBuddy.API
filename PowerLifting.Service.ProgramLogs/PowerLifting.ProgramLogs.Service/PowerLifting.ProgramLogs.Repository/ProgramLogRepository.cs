@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PowerLifting.Entity.ProgramLogs.Model;
 using PowerLifting.Persistence;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,8 @@ using System.Threading.Tasks;
 using PowerLifting.ProgramLogs.Contracts.Repositories;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using PowerLifting.Entity.ProgramLogs.DTO;
+using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Entities.ProgramLogs;
 
 namespace PowerLifting.ProgramLogs.Repository
 {

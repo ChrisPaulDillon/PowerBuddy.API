@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.System;
 using PowerLifting.Persistence;
-using PowerLifting.Service.SystemServices.RepSchemeTypes.DTO;
-using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
 using PowerLifting.Systems.Contracts.Repositories;
 
 namespace PowerLifting.Systems.Repository

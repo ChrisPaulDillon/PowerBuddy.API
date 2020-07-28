@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using PowerLifting.Accounts.Contracts.Services;
-using PowerLifting.Entity.Account.DTOs;
-using PowerLifting.Service.Users.Model;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.Accounts.Service.Services
 {

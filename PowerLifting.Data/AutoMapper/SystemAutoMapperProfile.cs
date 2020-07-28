@@ -1,20 +1,8 @@
 ﻿using AutoMapper;
-using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
-using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
-using PowerLifting.Entity.System.Exercises.DTO;
-using PowerLifting.Entity.System.Exercises.DTOs;
-using PowerLifting.Entity.System.Exercises.Models;
-using PowerLifting.Entity.System.ExerciseSports.DTOs;
-using PowerLifting.Entity.System.ExerciseSports.Model;
-using PowerLifting.Entity.System.ExerciseTypes.DTOs;
-using PowerLifting.Entity.System.ExerciseTypes.Models;
-using PowerLifting.Entity.System.Quotes.DTOs;
-using PowerLifting.Entity.System.Quotes.Models;
-using PowerLifting.Service.SystemServices.RepSchemeTypes.DTO;
-using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
-using PowerLifting.Service.TemplatePrograms.DTO;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.System;
 
-namespace PowerLifting.Service.Exercises.AutoMapper
+namespace PowerLifting.Data.AutoMapper
 {
     public class SystemAutoMapperProfile : Profile
     {

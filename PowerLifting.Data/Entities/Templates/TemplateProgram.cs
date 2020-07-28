@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PowerLifting.Service.TemplatePrograms.Model
+namespace PowerLifting.Data.Entities.Templates
 {
     public class TemplateProgram
     {

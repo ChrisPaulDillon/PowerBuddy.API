@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using PowerLifting.Entity.ProgramLogs.DTO;
-using PowerLifting.Entity.ProgramLogs.Model;
-using PowerLifting.Entity.System.Exercises.Models;
+using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.ProgramLogs;
+using PowerLifting.Data.Entities.System;
 using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.ProgramLogs.Service.Exceptions;
-using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.ProgramLogs.Service.Services
 {

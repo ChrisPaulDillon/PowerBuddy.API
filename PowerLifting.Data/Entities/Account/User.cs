@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
-using PowerLifting.Entity.ProgramLogs.Model;
-using PowerLifting.Service.LiftingStats.Model;
-using PowerLifting.Service.UserSettings.Model;
+using Microsoft.AspNet.Identity.EntityFramework;
+using PowerLifting.Data.Entities.ProgramLogs;
 
-namespace PowerLifting.Service.Users.Model
+namespace PowerLifting.Data.Entities.Account
 {
     public class User : IdentityUser
     {

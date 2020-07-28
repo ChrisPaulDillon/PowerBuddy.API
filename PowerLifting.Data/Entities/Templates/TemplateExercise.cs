@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using PowerLifting.Entity.System.Exercises.Models;
+using PowerLifting.Data.Entities.System;
 
-namespace PowerLifting.Service.TemplatePrograms.Model
+namespace PowerLifting.Data.Entities.Templates
 {
     /// <summary>
     /// TemplateExercise represents on a fixed program template, a given exercise,

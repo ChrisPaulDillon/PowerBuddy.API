@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Service.Users.DTO
+﻿namespace PowerLifting.Data.DTOs.Account
 {
     public class RegisterUserDTO
     {

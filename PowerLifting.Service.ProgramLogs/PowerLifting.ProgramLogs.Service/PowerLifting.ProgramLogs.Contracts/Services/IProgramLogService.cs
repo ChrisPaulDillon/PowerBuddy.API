@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerLifting.Entity.ProgramLogs.DTO;
-using PowerLifting.Entity.ProgramLogs.Model;
-using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.TemplatePrograms.DTO;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Entities.ProgramLogs;
 
 namespace PowerLifting.ProgramLogs.Contracts.Services
 {

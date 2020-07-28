@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Service.SystemServices.TemplateDifficultys.DTO
+﻿namespace PowerLifting.Data.DTOs.System
 {
     public class TemplateDifficultyDTO
     {

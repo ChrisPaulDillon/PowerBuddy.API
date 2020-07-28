@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.System;
 using PowerLifting.Systems.Contracts.Repositories;
-using PowerLifting.Entity.System.Quotes.Models;
-using PowerLifting.Entity.System.Quotes.DTOs;
 
 namespace PowerLifting.Systems.Repository
 {

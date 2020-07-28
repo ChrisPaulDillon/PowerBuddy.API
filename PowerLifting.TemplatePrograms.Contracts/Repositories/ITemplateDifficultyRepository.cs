@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
+using PowerLifting.Data.Entities.System;
 
 namespace PowerLifting.TemplatePrograms.Contracts.Repositories
 {

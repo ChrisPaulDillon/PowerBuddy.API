@@ -4,7 +4,7 @@ using AutoMapper;
 using PowerLifting.Accounts.Contracts;
 using PowerLifting.Accounts.Contracts.Services;
 using PowerLifting.Accounts.Service;
-using PowerLifting.Service.UserSettings.DTO;
+using PowerLifting.Data.DTOs.Account;
 
 namespace PowerLifting.Accounts.Service
 {

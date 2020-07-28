@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PowerLifting.Service.TemplatePrograms.DTO
+namespace PowerLifting.Data.DTOs.Templates
 {
     public class TemplateDayDTO
     {

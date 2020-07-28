@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Service.SystemServices.TemplateDifficultys.Model
+﻿namespace PowerLifting.Data.Entities.System
 {
     public class TemplateDifficulty
     {

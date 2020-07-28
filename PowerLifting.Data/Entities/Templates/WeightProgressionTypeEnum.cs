@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Service.TemplatePrograms.Model
+﻿namespace PowerLifting.Data.Entities.Templates
 {
     public enum WeightProgressionTypeEnum
     {

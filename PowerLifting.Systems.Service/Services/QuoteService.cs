@@ -3,8 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using PowerLifting.Entity.System.Quotes.DTOs;
-using PowerLifting.Entity.System.Quotes.Models;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.System;
 using PowerLifting.Systems.Contracts.Services;
 using PowerLifting.Systems.Service.Exceptions;
 

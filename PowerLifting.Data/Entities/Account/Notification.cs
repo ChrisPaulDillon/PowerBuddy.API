@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Entity.Users.Model
+﻿namespace PowerLifting.Data.Entities.Account
 {
     public class Notification
     {

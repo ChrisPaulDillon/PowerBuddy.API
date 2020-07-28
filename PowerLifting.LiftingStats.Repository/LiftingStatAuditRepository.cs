@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using PowerLifting.Data.Entities.Account;
 using PowerLifting.LiftingStats.Contracts;
 using PowerLifting.Persistence;
-using PowerLifting.Service.LiftingStatsAudit.Model;
 
 namespace PowerLifting.LiftingStats.Repository
 {

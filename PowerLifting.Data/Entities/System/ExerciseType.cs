@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PowerLifting.Entity.System.ExerciseTypes.Models
+namespace PowerLifting.Data.Entities.System
 {
     public class ExerciseType
     {

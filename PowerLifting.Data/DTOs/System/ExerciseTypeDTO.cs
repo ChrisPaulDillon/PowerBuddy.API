@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Entity.System.ExerciseTypes.DTOs
+﻿namespace PowerLifting.Data.DTOs.System
 {
     public class ExerciseTypeDTO
     {

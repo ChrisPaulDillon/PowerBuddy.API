@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using PowerLifting.Service.SystemServices.TemplateDifficultys;
-using PowerLifting.Service.SystemServices.TemplateDifficultys.DTO;
+using PowerLifting.Data.DTOs.System;
 using PowerLifting.Systems.Contracts.Services;
 
 namespace PowerLifting.Systems.Service.Services

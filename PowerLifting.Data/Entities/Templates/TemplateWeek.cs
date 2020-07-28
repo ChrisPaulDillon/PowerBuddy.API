@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PowerLifting.Service.TemplatePrograms.Model
+namespace PowerLifting.Data.Entities.Templates
 {
     public class TemplateWeek
     {

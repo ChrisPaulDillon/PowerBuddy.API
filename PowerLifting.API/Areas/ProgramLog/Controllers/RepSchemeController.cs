@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Common.Exceptions;
-using PowerLifting.Entity.ProgramLogs.DTO;
+using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.ProgramLogs.Service.Exceptions;
 using PowerLifting.Service.ProgramLogs.Exceptions;
 

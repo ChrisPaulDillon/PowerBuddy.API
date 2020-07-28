@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Service.TemplatePrograms.Model
+﻿namespace PowerLifting.Data.Entities.Templates
 {
     /// <summary>
     /// Used to collect all exercises associated with a given

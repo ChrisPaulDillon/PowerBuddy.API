@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Entity.ProgramLogs.Model
+﻿namespace PowerLifting.Data.Entities.ProgramLogs
 {
     /// <summary>
     /// Used to log how many times an exercise is selected by a user

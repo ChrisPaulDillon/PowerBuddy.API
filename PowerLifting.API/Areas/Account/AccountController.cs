@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.AspNetCore.SignalR;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities.Account;
 using PowerLifting.Service;
-using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
-using PowerLifting.Service.Users.Model;
 using PowerLifting.SignalR;
 
 namespace PowerLifting.API.API.Areas.Account

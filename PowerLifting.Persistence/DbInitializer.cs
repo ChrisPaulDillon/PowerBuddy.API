@@ -1,16 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PowerLifting.Entity.ProgramLogs.Model;
-using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
-using PowerLifting.Entity.System.Exercises.Models;
-using PowerLifting.Entity.System.ExerciseSports.Model;
-using PowerLifting.Entity.System.ExerciseTypes.Models;
-using PowerLifting.Entity.System.Quotes.Models;
-using PowerLifting.Service.LiftingStats.Model;
-using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
-using PowerLifting.Service.TemplatePrograms.Model;
-using PowerLifting.Service.Users.Model;
+using PowerLifting.Data.Entities.System;
 
 namespace PowerLifting.Persistence
 {

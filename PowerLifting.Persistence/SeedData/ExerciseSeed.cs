@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
-using PowerLifting.Entity.System.Exercises.Models;
-using PowerLifting.Entity.System.ExerciseSports.Model;
+using PowerLifting.Data.Entities.System;
 
 namespace PowerLifting.Persistence
 {

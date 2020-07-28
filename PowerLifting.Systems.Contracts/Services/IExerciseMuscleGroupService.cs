@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
+using PowerLifting.Data.DTOs.System;
 
 namespace PowerLifting.Systems.Contracts.Services
 {

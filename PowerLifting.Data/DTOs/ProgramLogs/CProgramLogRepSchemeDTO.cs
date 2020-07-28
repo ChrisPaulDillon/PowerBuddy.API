@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Entity.ProgramLogs.DTO
+﻿namespace PowerLifting.Data.DTOs.ProgramLogs
 {
     public class CProgramLogRepSchemeDTO
     {

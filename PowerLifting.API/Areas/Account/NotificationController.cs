@@ -7,10 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.HttpSys;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
+using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Service;
-using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
-using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.API.API.Areas.Account
 {

@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Entity.Account.Models
+﻿namespace PowerLifting.Data.Entities.Account
 {
     public class FriendsListAssoc
     {

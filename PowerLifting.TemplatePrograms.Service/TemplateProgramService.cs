@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.TemplatePrograms.DTO;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Entities.Templates;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
-using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.TemplatePrograms.Contracts.Services;
 
 namespace PowerLifting.TemplatePrograms.Service

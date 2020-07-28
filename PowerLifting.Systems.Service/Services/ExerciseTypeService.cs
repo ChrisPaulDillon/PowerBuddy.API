@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using PowerLifting.Entity.System.ExerciseTypes.DTOs;
-using PowerLifting.Entity.System.ExerciseTypes.Models;
+using PowerLifting.Data.DTOs.System;
 using PowerLifting.Systems.Contracts.Services;
 using PowerLifting.Systems.Service.Exceptions;
 

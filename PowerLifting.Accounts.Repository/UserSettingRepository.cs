@@ -3,9 +3,9 @@ using PowerLifting.Persistence;
 using AutoMapper;
 using System.Threading.Tasks;
 using System.Linq;
-using PowerLifting.Service.UserSettings.DTO;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper.QueryableExtensions;
+using PowerLifting.Data.DTOs.Account;
 
 namespace PowerLifting.Accounts.Repository
 {

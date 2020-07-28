@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Common.Exceptions;
+using PowerLifting.Data.DTOs.Account;
 using PowerLifting.LiftingStats.Service.Exceptions;
-using PowerLifting.Service.LiftingStats.DTO;
 
 namespace PowerLifting.API.API
 {

@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Service.TemplatePrograms.DTO
+﻿namespace PowerLifting.Data.DTOs.Templates
 {
     /// <summary>
     ///     Used for showing all program templates as a general overview

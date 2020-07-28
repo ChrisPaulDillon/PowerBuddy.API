@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using PowerLifting.Common.Exceptions;
-using PowerLifting.Entity.ProgramLogs.DTO;
-using PowerLifting.Entity.ProgramLogs.Model;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.ProgramLogs;
+using PowerLifting.Data.Entities.Templates;
 using PowerLifting.ProgramLogs.Contracts.Services;
 using PowerLifting.ProgramLogs.Service.Exceptions;
-using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.TemplatePrograms.DTO;
-using PowerLifting.Service.TemplatePrograms.Model;
-using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.ProgramLogs.Service.Services
 {

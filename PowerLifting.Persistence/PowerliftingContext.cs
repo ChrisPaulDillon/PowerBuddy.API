@@ -1,20 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Service.Users.Model;
-using PowerLifting.Service.LiftingStatsAudit.Model;
-using PowerLifting.Service.LiftingStats.Model;
-using PowerLifting.Service.TemplatePrograms.Model;
-using PowerLifting.Service.UserSettings.Model;
-using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
-using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
-using PowerLifting.Entity.ProgramLogs.Model;
-using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
-using PowerLifting.Entity.System.ExerciseTypes.Models;
-using PowerLifting.Entity.System.Exercises.Models;
-using PowerLifting.Entity.System.Quotes.Models;
-using PowerLifting.Entity.System.ExerciseSports.Model;
-using PowerLifting.Entity.Users.Model;
-using PowerLifting.Entity.Account.Models;
+using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.ProgramLogs;
+using PowerLifting.Data.Entities.System;
+using PowerLifting.Data.Entities.Templates;
 
 namespace PowerLifting.Persistence
 {

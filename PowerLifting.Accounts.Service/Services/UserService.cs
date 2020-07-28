@@ -4,16 +4,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using PowerLifting.Accounts.Contracts.Services;
-using PowerLifting.Service.Users.DTO;
 using PowerLifting.Service.Users.Exceptions;
-using PowerLifting.Service.Users.Model;
-using PowerLifting.Service.UserSettings.Model;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Options;
-using PowerLifting.Entity.Users.DTO;
+using PowerLifting.Data;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.Accounts.Service
 {

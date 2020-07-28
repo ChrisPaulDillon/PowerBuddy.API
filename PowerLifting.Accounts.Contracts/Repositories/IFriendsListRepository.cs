@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerLifting.Entity.Account.DTOs;
+using PowerLifting.Data.DTOs.Account;
 
 namespace PowerLifting.Accounts.Contracts.Repositories
 {

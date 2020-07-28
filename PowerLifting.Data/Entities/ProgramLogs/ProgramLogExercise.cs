@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using PowerLifting.Entity.System.Exercises.Models;
+﻿using System.Collections.Generic;
+using PowerLifting.Data.Entities.System;
 
-namespace PowerLifting.Entity.ProgramLogs.Model
+namespace PowerLifting.Data.Entities.ProgramLogs
 {
     /// <summary>
     /// Represents a given lift, its sets, weight and reps lifted on a given day for that particular exercise.

@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Entity.System.Quotes.DTOs
+﻿namespace PowerLifting.Data.DTOs.System
 {
     public class QuoteDTO
     {

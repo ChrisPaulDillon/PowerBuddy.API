@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using PowerLifting.Accounts.Contracts.Services;
-using PowerLifting.Entity.Users.DTO;
-using PowerLifting.Entity.Users.Model;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.Accounts.Service.Services
 {

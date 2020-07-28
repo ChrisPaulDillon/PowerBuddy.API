@@ -1,6 +1,4 @@
-﻿using PowerLifting.Service.LiftingStats.DTO;
-
-namespace PowerLifting.Service.Users.DTO
+﻿namespace PowerLifting.Data.DTOs.Account
 {
     public class NewUserDTO
     {

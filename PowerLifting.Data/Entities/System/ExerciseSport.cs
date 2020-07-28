@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Entity.System.ExerciseSports.Model
+﻿namespace PowerLifting.Data.Entities.System
 {
     public class ExerciseSport
     {

@@ -5,12 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
-using PowerLifting.Entity.System.Exercises.DTO;
-using PowerLifting.Entity.System.Exercises.DTOs;
-using PowerLifting.Entity.System.ExerciseTypes.DTOs;
-using PowerLifting.Entity.System.Quotes.DTOs;
-using PowerLifting.Service.SystemServices.RepSchemeTypes.Model;
-using PowerLifting.Service.SystemServices.TemplateDifficultys.Model;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.System;
 using PowerLifting.Systems.Service.Exceptions;
 
 namespace PowerLifting.API.API

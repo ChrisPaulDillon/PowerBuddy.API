@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
-using PowerLifting.Entity.System.ExerciseSports.DTOs;
-using PowerLifting.Entity.System.ExerciseSports.Model;
-using PowerLifting.Entity.System.ExerciseTypes.Models;
+using PowerLifting.Data.Entities.System;
 
-namespace PowerLifting.Entity.System.Exercises.DTOs
+namespace PowerLifting.Data.DTOs.System
 {
     /// <summary>
     /// Used for a lookups table for each individual lift

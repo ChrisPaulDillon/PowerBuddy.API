@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using PowerLifting.Data.Entities.Templates;
 using PowerLifting.Persistence;
-using PowerLifting.Service.TemplatePrograms.Model;
 using PowerLifting.TemplatePrograms.Contracts.Repositories;
 
 namespace PowerLifting.TemplatePrograms.Repository

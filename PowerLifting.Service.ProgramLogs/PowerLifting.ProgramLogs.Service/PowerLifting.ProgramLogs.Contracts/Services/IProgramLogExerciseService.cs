@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerLifting.Entity.ProgramLogs.DTO;
-using PowerLifting.Entity.ProgramLogs.Model;
-using PowerLifting.Entity.System.Exercises.Models;
+using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Entities.ProgramLogs;
+using PowerLifting.Data.Entities.System;
 
 namespace PowerLifting.ProgramLogs.Contracts.Services
 {

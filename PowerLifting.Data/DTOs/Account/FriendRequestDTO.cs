@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Entity.Account.DTOs
+﻿namespace PowerLifting.Data.DTOs.Account
 {
     public class FriendRequestDTO
     {

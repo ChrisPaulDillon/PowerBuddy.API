@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PowerLifting.Entity.ProgramLogs.Model
+namespace PowerLifting.Data.Entities.ProgramLogs
 { 
     /// <summary>
     /// Received by the client to determine what days the user will using for their log

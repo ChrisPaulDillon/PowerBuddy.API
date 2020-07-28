@@ -2,12 +2,12 @@
 using PowerLifting.Persistence;
 using System.Linq;
 using System.Threading.Tasks;
-using PowerLifting.Service.LiftingStats.Model;
 using System.Collections.Generic;
 using PowerLifting.LiftingStats.Contracts;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using PowerLifting.Service.LiftingStats.DTO;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.LiftingStats.Repository
 {

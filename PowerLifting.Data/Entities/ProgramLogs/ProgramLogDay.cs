@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PowerLifting.Entity.ProgramLogs.Model
+namespace PowerLifting.Data.Entities.ProgramLogs
 {
     public class ProgramLogDay
     {

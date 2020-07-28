@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.LiftingStats.Model;
-using PowerLifting.Service.LiftingStatsAudit.DTO;
-using PowerLifting.Service.LiftingStatsAudit.Model;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities.Account;
 
-namespace PowerLifting.Service.LiftingStats.AutoMapper
+namespace PowerLifting.Data.AutoMapper
 {
     public class LiftingStatServiceMappingProfile : Profile
     {

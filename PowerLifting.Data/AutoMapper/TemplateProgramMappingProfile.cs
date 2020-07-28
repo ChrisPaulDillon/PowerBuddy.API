@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using PowerLifting.Service.TemplatePrograms.DTO;
-using PowerLifting.Service.TemplatePrograms.Model;
+using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Entities.Templates;
 
-namespace PowerLifting.Service.TemplatePrograms.AutoMapper
+namespace PowerLifting.Data.AutoMapper
 {
     public class TemplateProgramMappingProfile : Profile
     {

@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Entity.Users.DTO
+﻿namespace PowerLifting.Data.DTOs.Account
 {
     public class PublicUserDTO
     {

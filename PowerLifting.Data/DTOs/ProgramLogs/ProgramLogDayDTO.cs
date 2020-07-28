@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PowerLifting.Entity.ProgramLogs.DTO
+namespace PowerLifting.Data.DTOs.ProgramLogs
 {
     public class ProgramLogDayDTO
     {

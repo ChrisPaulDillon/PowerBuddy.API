@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PowerLifting.Persistence;
-using PowerLifting.Service.Users.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PowerLifting.Accounts.Contracts.Repositories;
 using AutoMapper;
-using PowerLifting.Entity.Users.DTO;
 using AutoMapper.QueryableExtensions;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.Accounts.Repository
 {

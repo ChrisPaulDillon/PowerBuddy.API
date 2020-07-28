@@ -6,8 +6,8 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Accounts.Contracts.Repositories;
-using PowerLifting.Entity.Users.DTO;
-using PowerLifting.Entity.Users.Model;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities.Account;
 using PowerLifting.Persistence;
 
 namespace PowerLifting.Accounts.Repository

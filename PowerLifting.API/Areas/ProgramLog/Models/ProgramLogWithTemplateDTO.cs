@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using PowerLifting.Entity.ProgramLogs.DTO;
+using PowerLifting.Data.DTOs.ProgramLogs;
 
 namespace PowerLifting.API.API.Areas.ProgramLog.Models
 {

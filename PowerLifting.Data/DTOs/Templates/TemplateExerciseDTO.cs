@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using PowerLifting.Entity.System.Exercises.DTOs;
-using PowerLifting.Service.TemplatePrograms.Model;
+using PowerLifting.Data.DTOs.System;
 
-namespace PowerLifting.Service.TemplatePrograms.DTO
+namespace PowerLifting.Data.DTOs.Templates
 {
     public class TemplateExerciseDTO
     {

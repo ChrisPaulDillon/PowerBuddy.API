@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PowerLifting.Entity.ProgramLogs.Model
+namespace PowerLifting.Data.Entities.ProgramLogs
 {
     /// <summary>
     /// ProgramLog details information based on that specific weightlifting cycle

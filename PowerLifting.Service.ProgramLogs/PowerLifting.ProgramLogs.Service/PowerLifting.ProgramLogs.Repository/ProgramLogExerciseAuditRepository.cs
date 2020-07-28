@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Entity.ProgramLogs.Model;
+using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Contracts.Repositories;
 

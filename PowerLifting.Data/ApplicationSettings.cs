@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Service.Users.Model
+﻿namespace PowerLifting.Data
 {
     public class ApplicationSettings
     {

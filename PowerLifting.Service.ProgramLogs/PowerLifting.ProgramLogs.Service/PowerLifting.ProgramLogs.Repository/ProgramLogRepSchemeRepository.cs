@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Entity.ProgramLogs.DTO;
-using PowerLifting.Entity.ProgramLogs.Model;
+using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Contracts.Repositories;
 

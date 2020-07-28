@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PowerLifting.Persistence;
-using PowerLifting.Service.TemplatePrograms.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PowerLifting.TemplatePrograms.Contracts.Repositories;
 using AutoMapper;
-using PowerLifting.Service.TemplatePrograms.DTO;
 using AutoMapper.QueryableExtensions;
+using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Entities.Templates;
 
 namespace PowerLifting.TemplatePrograms.Repository
 {

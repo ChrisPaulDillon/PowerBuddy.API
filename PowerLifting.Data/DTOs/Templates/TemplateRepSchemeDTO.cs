@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Service.TemplatePrograms.DTO
+﻿namespace PowerLifting.Data.DTOs.Templates
 {
     public class TemplateRepSchemeDTO
     {

@@ -10,24 +10,20 @@ using NLog;
 using System;
 using System.IO;
 using PowerLifting.LoggerService;
-using PowerLifting.Service.Users.Model;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.API.Wrappers;
 using PowerLifting.LiftingStats.Service;
 using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Service;
-using PowerLifting.Service.LiftingStats.AutoMapper;
-using PowerLifting.Service.ProgramLogs.AutoMapper;
-using PowerLifting.Service.TemplatePrograms.AutoMapper;
-using PowerLifting.Service.Users.AutoMapper;
-using PowerLifting.Service.Exercises.AutoMapper;
 using PowerLifting.Systems.Service;
 using PowerLifting.Accounts.Service;
 using PowerLifting.TemplatePrograms.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using PowerLifting.API.Util;
+using PowerLifting.Data;
+using PowerLifting.Data.AutoMapper;
+using PowerLifting.Data.Entities.Account;
 using PowerLifting.SignalR;
 
 namespace PowerLifting.API
@@ -112,7 +108,7 @@ namespace PowerLifting.API
                  mc.AddProfile(new LiftingStatServiceMappingProfile());
                  mc.AddProfile(new ProgramLogMappingProfile());
                  mc.AddProfile(new TemplateProgramMappingProfile());
-                 mc.AddProfile(new UserMappingProfile());
+                 mc.AddProfile(new AccountMappingProfile());
              });
 
             IMapper mapper = mappingConfig.CreateMapper();
@@ -140,12 +136,6 @@ namespace PowerLifting.API
                     builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
                     .AllowAnyHeader()
                     .AllowAnyMethod());
-            });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("IsAuthorized",
-                    policy => policy.Requirements.Add(new IsAuthorized()));
             });
 
             services.AddSignalR();

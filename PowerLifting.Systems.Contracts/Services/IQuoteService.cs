@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerLifting.Entity.System.Quotes.DTOs;
-using PowerLifting.Entity.System.Quotes.Models;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.System;
 
 namespace PowerLifting.Systems.Contracts.Services
 {

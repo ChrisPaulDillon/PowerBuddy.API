@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Entity.System.ExerciseMuscleGroups.Models
+﻿namespace PowerLifting.Data.Entities.System
 {
     /// <summary>
     /// Represents a muscle group to be trained such as neck, shoulders etc.

@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
-using PowerLifting.Entity.Account.DTOs;
-using PowerLifting.Entity.Users.DTO;
-using PowerLifting.Service.Users.DTO;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities.Account;
 using PowerLifting.Service.Users.Exceptions;
-using PowerLifting.Service.Users.Model;
 
 namespace PowerLifting.API.API.Areas.Account
 {

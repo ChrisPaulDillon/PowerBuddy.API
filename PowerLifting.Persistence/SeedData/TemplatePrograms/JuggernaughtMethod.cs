@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerLifting.Service.TemplatePrograms.Model;
+using PowerLifting.Data.Entities.Templates;
 
 namespace PowerLifting.Persistence.SeedData.TemplatePrograms
 {

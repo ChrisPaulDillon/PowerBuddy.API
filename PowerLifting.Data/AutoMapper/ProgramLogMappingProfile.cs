@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using PowerLifting.Entity.ProgramLogs.DTO;
-using PowerLifting.Entity.ProgramLogs.Model;
+using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Entities.ProgramLogs;
 
-namespace PowerLifting.Service.ProgramLogs.AutoMapper
+namespace PowerLifting.Data.AutoMapper
 {
     public class ProgramLogMappingProfile : Profile
     {

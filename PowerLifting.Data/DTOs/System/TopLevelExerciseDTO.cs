@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Entity.System.Exercises.DTOs
+﻿namespace PowerLifting.Data.DTOs.System
 {
     /// <summary>
     /// Used to display exercises at a glance within a list

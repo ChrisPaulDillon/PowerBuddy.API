@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Entity.ProgramLogs.Model
+﻿namespace PowerLifting.Data.Entities.ProgramLogs
 {
     public class ProgramLogRepScheme
     {

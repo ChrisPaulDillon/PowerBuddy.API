@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PowerLifting.Entity.System.ExerciseMuscleGroups.Models;
 using PowerLifting.Persistence;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using PowerLifting.Entity.System.ExerciseMuscleGroups.DTOs;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.System;
 using PowerLifting.Systems.Contracts;
 using PowerLifting.Systems.Contracts.Repositories;
 

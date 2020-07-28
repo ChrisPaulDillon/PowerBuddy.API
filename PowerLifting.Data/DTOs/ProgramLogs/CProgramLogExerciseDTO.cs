@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using PowerLifting.Entity.System.Exercises.DTOs;
 
-namespace PowerLifting.Entity.ProgramLogs.DTO
+namespace PowerLifting.Data.DTOs.ProgramLogs
 {
     /// <summary>
     /// Represents a given lift, its sets, weight and reps lifted on a given day for that particular exercise.

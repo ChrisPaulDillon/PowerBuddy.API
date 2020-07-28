@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
+using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Service;
-using PowerLifting.Service.TemplatePrograms.DTO;
 using PowerLifting.Service.TemplatePrograms.Exceptions;
 
 namespace PowerLifting.API.API

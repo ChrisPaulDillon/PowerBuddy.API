@@ -1,7 +1,7 @@
 ﻿using System;
-using PowerLifting.Entity.System.Exercises.DTOs;
+using PowerLifting.Data.DTOs.System;
 
-namespace PowerLifting.Service.LiftingStats.DTO
+namespace PowerLifting.Data.DTOs.Account
 {
     /// <summary>
     /// Represents a users lifting stats for a given rep range, user will have multiple

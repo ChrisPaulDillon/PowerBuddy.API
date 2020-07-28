@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using PowerLifting.Service.UserSettings.DTO;
+using PowerLifting.Data.DTOs.Account;
 
 namespace PowerLifting.Accounts.Contracts.Repositories
 {

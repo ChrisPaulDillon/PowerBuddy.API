@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PowerLifting.Service.LiftingStatsAudit.DTO
+namespace PowerLifting.Data.DTOs.Account
 {
     public class LiftingStatAuditDTO
     {

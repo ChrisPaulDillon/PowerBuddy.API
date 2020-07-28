@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Service.SystemServices.RepSchemeTypes.DTO
+﻿namespace PowerLifting.Data.DTOs.System
 {
     public class RepSchemeTypeDTO
     {

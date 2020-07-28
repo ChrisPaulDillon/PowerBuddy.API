@@ -1,5 +1,5 @@
 ﻿using System;
-using PowerLifting.Entity.Users.DTO;
+using PowerLifting.Data.DTOs.Account;
 
 namespace PowerLifting.API.Models
 {

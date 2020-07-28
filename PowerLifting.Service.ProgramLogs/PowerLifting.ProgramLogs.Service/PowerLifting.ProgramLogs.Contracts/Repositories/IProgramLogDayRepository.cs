@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerLifting.Entity.ProgramLogs.DTO;
-using PowerLifting.Entity.ProgramLogs.Model;
+using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Entities.ProgramLogs;
 
 namespace PowerLifting.ProgramLogs.Contracts.Repositories
 {

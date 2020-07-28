@@ -1,5 +1,4 @@
-﻿using System;
-namespace PowerLifting.Entity.System.Exercises.DTO
+﻿namespace PowerLifting.Data.DTOs.System
 {
     public class CExerciseDTO
     {

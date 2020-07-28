@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PowerLifting.Service.LiftingStatsAudit.Model
+namespace PowerLifting.Data.Entities.Account
 {
     /// <summary>
     /// Used to record when a user updates their lifting stats to show a timeline

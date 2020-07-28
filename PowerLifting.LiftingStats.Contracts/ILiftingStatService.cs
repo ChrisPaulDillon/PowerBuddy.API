@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerLifting.Entity.System.Exercises.DTOs;
-using PowerLifting.Entity.System.Exercises.Models;
-using PowerLifting.Service.LiftingStats.DTO;
-using PowerLifting.Service.LiftingStats.Model;
+using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.LiftingStats.Service
 {
