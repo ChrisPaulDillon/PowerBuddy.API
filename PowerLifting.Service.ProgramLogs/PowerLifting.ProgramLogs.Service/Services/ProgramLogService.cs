@@ -169,8 +169,7 @@ namespace PowerLifting.ProgramLogs.Service.Services
 
             programLog.ProgramLogWeeks = listOfProgramWeeks;
 
-            return null;
-            //return await _repo.ProgramLog.CreateProgramLog(programLog);
+            return await _repo.ProgramLog.CreateProgramLog(programLog);
         }
 
         public async Task<ProgramLog> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)

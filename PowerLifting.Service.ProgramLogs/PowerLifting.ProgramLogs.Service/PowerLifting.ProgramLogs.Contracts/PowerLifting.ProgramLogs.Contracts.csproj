@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\PowerLifting.Entity\PowerLifting.Entity.csproj" />
     <ProjectReference Include="..\..\..\PowerLifting.Common\PowerLifting.Common.csproj" />
   </ItemGroup>
 </Project>

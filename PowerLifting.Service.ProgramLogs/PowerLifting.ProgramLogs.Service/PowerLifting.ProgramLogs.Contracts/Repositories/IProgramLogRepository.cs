@@ -30,6 +30,11 @@ namespace PowerLifting.ProgramLogs.Contracts.Repositories
         /// <summary>
         /// Creates a new program log for the user
         /// </summary>
+        Task<ProgramLog> CreateProgramLog(CProgramLogDTO programLog);
+
+        /// <summary>
+        /// Creates a new program log for the user
+        /// </summary>
         Task<ProgramLog> CreateProgramLog(ProgramLogDTO programLog);
 
         /// <summary>

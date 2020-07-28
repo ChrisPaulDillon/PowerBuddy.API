@@ -52,6 +52,9 @@
     <ProjectReference Include="..\PowerLifting.SignalR\PowerLifting.SignalR.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 

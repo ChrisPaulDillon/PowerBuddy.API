@@ -10,9 +10,9 @@ using PowerLifting.Service.UserSettings.Model;
 
 namespace PowerLifting.Service.Users.AutoMapper
 {
-    public class UserMappingProfile : Profile
+    public class AccountMappingProfile : Profile
     {
-        public UserMappingProfile()
+        public AccountMappingProfile()
         {
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<RegisterUserDTO, User>().ReverseMap();

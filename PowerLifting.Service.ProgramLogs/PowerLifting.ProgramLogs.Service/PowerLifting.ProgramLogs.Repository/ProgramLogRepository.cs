@@ -62,6 +62,15 @@ namespace PowerLifting.ProgramLogs.Repository
             return programLog;
         }
 
+        public async Task<ProgramLog> CreateProgramLog(CProgramLogDTO programLogDTO)
+        {
+            var programLog = _mapper.Map<ProgramLog>(programLogDTO);
+            _context.Add(programLog);
+
+            await _context.SaveChangesAsync();
+            return programLog;
+        }
+
         public async Task<bool> UpdateProgramLog(ProgramLogDTO logDTO)
         {
             var programLog = _mapper.Map<ProgramLog>(logDTO);

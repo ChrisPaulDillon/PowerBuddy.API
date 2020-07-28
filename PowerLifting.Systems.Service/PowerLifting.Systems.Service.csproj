@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerLifting.Entity\PowerLifting.Entity.csproj" />
     <ProjectReference Include="..\PowerLifting.Systems.Contracts\PowerLifting.Systems.Contracts.csproj" />
     <ProjectReference Include="..\PowerLifting.Systems.Repository\PowerLifting.Systems.Repository.csproj" />
   </ItemGroup>

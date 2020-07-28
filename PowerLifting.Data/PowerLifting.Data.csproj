@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="DTOs\" />
+    <Folder Include="AutoMapper\" />
+    <Folder Include="DTOs\Account\" />
+    <Folder Include="DTOs\ProgramLogs\" />
+    <Folder Include="Entities\ProgramLogs\" />
+    <Folder Include="DTOs\System\" />
+    <Folder Include="Entities\System\" />
+    <Folder Include="Entities\Templates\" />
+    <Folder Include="DTOs\Templates\" />
+    <Folder Include="DTOs\Users\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+  </ItemGroup>
+</Project>

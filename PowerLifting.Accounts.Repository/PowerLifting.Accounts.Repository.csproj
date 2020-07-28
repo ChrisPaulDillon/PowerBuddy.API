@@ -7,7 +7,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Accounts.Contracts\PowerLifting.Accounts.Contracts.csproj" />
     <ProjectReference Include="..\PowerLifting.Common\PowerLifting.Common.csproj" />
-    <ProjectReference Include="..\PowerLifting.Entity\PowerLifting.Entity.csproj" />
   </ItemGroup>
 
 </Project>
