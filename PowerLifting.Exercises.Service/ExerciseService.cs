@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.Exercises;
-using PowerLifting.Exercises.Service.Wrapper;
 using PowerLifting.Persistence;
 
 namespace PowerLifting.Exercises.Service
@@ -17,12 +16,10 @@ namespace PowerLifting.Exercises.Service
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IExerciseWrapper _repo;
 
-        public ExerciseService(PowerLiftingContext context, IExerciseWrapper repo, IMapper mapper)
+        public ExerciseService(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
-            _repo = repo;
             _mapper = mapper;
         }
 
@@ -61,8 +58,9 @@ namespace PowerLifting.Exercises.Service
 
             var exercise = _mapper.Map<Exercise>(exerciseDTO);
             _context.Add(exercise);
-             await _context.SaveChangesAsync();
-             return exercise;
+            await _context.SaveChangesAsync();
+
+            return exercise;
         }
 
         public async Task<bool> UpdateExercise(ExerciseDTO exerciseDTO)

@@ -6,7 +6,6 @@ using PowerLifting.Accounts.Service.Wrapper;
 using PowerLifting.Data;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Exercises.Service;
-using PowerLifting.Exercises.Service.Wrapper;
 using PowerLifting.LiftingStats.Service;
 using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Service;
@@ -44,13 +43,12 @@ namespace PowerLifting.API.Wrappers
         private readonly ISystemWrapper _systemWrapper;
         private readonly IAccountWrapper _accountWrapper;
         private readonly ILiftingStatsWrapper _liftingStatsWrapper;
-        private readonly IExerciseWrapper _exerciseWrapper;
 
         private readonly UserManager<User> _userManager;
         private readonly IOptions<ApplicationSettings> _appSettings;
         private readonly PowerLiftingContext _context;
 
-        public ServiceWrapper(PowerLiftingContext context, IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings, IExerciseWrapper exerciseWrapper)
+        public ServiceWrapper(PowerLiftingContext context, IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
         {
             _context = context;
             _mapper = mapper;
@@ -61,7 +59,6 @@ namespace PowerLifting.API.Wrappers
             _liftingStatsWrapper = liftingStatsWrapper;
             _userManager = userManager;
             _appSettings = appSettings;
-            _exerciseWrapper = exerciseWrapper;
         }
 
         public ILiftingStatService LiftingStat
@@ -78,7 +75,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_exercise == null) _exercise = new ExerciseService(_context, _exerciseWrapper, _mapper);
+                if (_exercise == null) _exercise = new ExerciseService(_context, _mapper);
 
                 return _exercise;
             }
@@ -88,7 +85,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_exerciseType == null) _exerciseType = new ExerciseTypeService(_exerciseWrapper, _mapper);
+                if (_exerciseType == null) _exerciseType = new ExerciseTypeService(_context, _mapper);
 
                 return _exerciseType;
             }
@@ -99,7 +96,7 @@ namespace PowerLifting.API.Wrappers
             get
             {
                 if (_exerciseMuscleGroup == null)
-                    _exerciseMuscleGroup = new ExerciseMuscleGroupService(_exerciseWrapper, _mapper);
+                    _exerciseMuscleGroup = new ExerciseMuscleGroupService(_context, _mapper);
 
                 return _exerciseMuscleGroup;
             }
@@ -233,7 +230,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_friendsList == null) _friendsList = new FriendsListService(_accountWrapper, _mapper, _userManager);
+                if (_friendsList == null) _friendsList = new FriendsListService(_context, _accountWrapper, _mapper, _userManager);
 
                 return _friendsList;
             }

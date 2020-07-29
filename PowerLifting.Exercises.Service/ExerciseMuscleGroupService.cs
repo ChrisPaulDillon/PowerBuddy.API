@@ -1,62 +1,64 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.Exercises;
-using PowerLifting.Exercises.Service.Wrapper;
+using PowerLifting.Persistence;
 
 namespace PowerLifting.Exercises.Service
 {
     public class ExerciseMuscleGroupService : IExerciseMuscleGroupService
     {
         private readonly IMapper _mapper;
-        private readonly IExerciseWrapper _repo;
-        private readonly ConcurrentDictionary<int, ExerciseMuscleGroupDTO> _store;
+        private readonly PowerLiftingContext _context;
 
-        public ExerciseMuscleGroupService(IExerciseWrapper repo, IMapper mapper)
+        public ExerciseMuscleGroupService(PowerLiftingContext context, IMapper mapper)
         {
-            _repo = repo;
-            _store = new ConcurrentDictionary<int, ExerciseMuscleGroupDTO>();
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups()
         {
-            await RefreshExerciseStore();
-            return _store.Values;
-        }
-
-        private async Task RefreshExerciseStore()
-        {
-            if (!_store.IsEmpty)
-                return;
-
-            var exerciseMuscleGroupDTOs = await _repo.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
-
-            foreach (var exerciseMuscleGroupDTO in exerciseMuscleGroupDTOs)
-                _store.AddOrUpdate(exerciseMuscleGroupDTO.ExerciseMuscleGroupId, exerciseMuscleGroupDTO, (key, olValue) => exerciseMuscleGroupDTO);
+            return await _context.Set<ExerciseMuscleGroup>()
+                .AsNoTracking()
+                .ProjectTo<ExerciseMuscleGroupDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         public async Task<bool> UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)
         {
-            var exerciseMuscleGroup = await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
+            var doesMuscleGroupExist = await _context.ExerciseMuscleGroup
+                .AsNoTracking()
+                .AnyAsync(x => x.ExerciseMuscleGroupId == exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
+            
+            if (!doesMuscleGroupExist) throw new ExerciseMuscleGroupNotFoundException();
 
-            if (exerciseMuscleGroup == null) throw new ExerciseMuscleGroupNotFoundException();
+            var exerciseMuscleGroup = _mapper.Map<ExerciseMuscleGroup>(exerciseMuscleGroupDTO);
 
-            return await _repo.ExerciseMuscleGroup.UpdateExerciseMuscleGroup(exerciseMuscleGroupDTO);
+            _context.Update(exerciseMuscleGroup);
+            var modifiedRows = await _context.SaveChangesAsync();
+
+            return modifiedRows > 0;
         }
 
         public async Task<bool> DeleteExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)
         {
-            var exerciseMuscleGroup = await _repo.ExerciseMuscleGroup.GetExerciseMuscleGroupById(exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
+            var doesMuscleGroupExist = await _context.ExerciseMuscleGroup
+                .AsNoTracking()
+                .AnyAsync(x => x.ExerciseMuscleGroupId == exerciseMuscleGroupDTO.ExerciseMuscleGroupId);
 
-            if (exerciseMuscleGroup == null) throw new ExerciseMuscleGroupNotFoundException();
-            var exerciseMG = _mapper.Map<ExerciseMuscleGroup>(exerciseMuscleGroup);
+            if (!doesMuscleGroupExist) throw new ExerciseMuscleGroupNotFoundException();
 
-            return await _repo.ExerciseMuscleGroup.DeleteExerciseMuscleGroup(exerciseMuscleGroupDTO);
+            var exerciseMuscleGroup = _mapper.Map<ExerciseMuscleGroup>(exerciseMuscleGroupDTO);
+
+            _context.Remove(exerciseMuscleGroup);
+            var modifiedRows = await _context.SaveChangesAsync();
+
+            return modifiedRows > 0;
         }
-
     }
 }

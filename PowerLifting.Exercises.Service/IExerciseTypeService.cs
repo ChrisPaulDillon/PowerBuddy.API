@@ -10,5 +10,6 @@ namespace PowerLifting.Exercises.Service
         Task<ExerciseTypeDTO> GetExerciseTypeById(int exerciseTypeId);
         Task<bool> UpdateExerciseType(ExerciseTypeDTO exerciseTypeDTO);
         Task<bool> DeleteExerciseType(ExerciseTypeDTO exerciseTypeDTO);
+        Task<ExerciseTypeDTO> CreateExerciseType(ExerciseTypeDTO exerciseTypeDTO);
     }
 }
