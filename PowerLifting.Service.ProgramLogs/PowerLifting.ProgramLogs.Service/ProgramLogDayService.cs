@@ -1,76 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities.ProgramLogs;
-using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Service.Wrapper;
 
 namespace PowerLifting.ProgramLogs.Service
 {
     public class ProgramLogDayService : IProgramLogDayService
     {
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IProgramLogWrapper _repo;
 
-        public ProgramLogDayService(IProgramLogWrapper repo, IMapper mapper)
+        public ProgramLogDayService(PowerLiftingContext context, IProgramLogWrapper repo, IMapper mapper)
         {
+            _context = context;
             _repo = repo;
             _mapper = mapper;
         }
 
-        public async Task<ProgramLogDay> GetProgramLogDayById(string userId, int programLogDayId)
+        public async Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId, string userId)
         {
-            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDayById(userId, programLogDayId);
+            var programLogDayDTO = await _context.Set<ProgramLogDay>().Where(x => x.ProgramLogDayId == programLogDayId && x.UserId == userId)
+                .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
             return programLogDayDTO;
         }
 
-        public async Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime date)
+        public async Task<ProgramLogDayDTO> GetProgramLogDayByDate(DateTime date, string userId)
         {
-            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDayByDate(userId, date);
+            var programLogDayDTO = await _context.Set<ProgramLogDay>().Where(x => x.UserId == userId && DateTime.Compare(date.Date, x.Date.Date) == 0)
+                .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
             return programLogDayDTO;
         }
 
         public async Task<ProgramLogDayDTO> GetProgramLogDayByProgramLogId(string userId, int programLogId, DateTime date)
         {
-            var programLogDayDTO = await _repo.ProgramLogDay.GetProgramLogDayByProgramLogId(userId, programLogId, date);
+            var programLogDayDTO = await _context.Set<ProgramLogDay>().Where(x => x.UserId == userId && DateTime.Compare(date.Date, x.Date.Date) == 0 && x.ProgramLogDayId == programLogId)
+                .ProjectTo<ProgramLogDayDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
             return programLogDayDTO;
         }
 
-        public async Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, DateTime date)
+        public async Task<ProgramLogDayDTO> CreateProgramLogDay(ProgramLogDayDTO programLogDayDTO, string userId)
         {
-            return await _repo.ProgramLogDay.GetClosestProgramLogDayToDate(userId, date);
-        }
+            if (userId != programLogDayDTO.UserId) throw new UnauthorisedUserException();
 
-        public async Task<ProgramLogDay> CreateProgramLogDay(string userId, ProgramLogDayDTO programLogDayDTO)
-        {
-            programLogDayDTO.UserId = userId;
-            var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekById(programLogDayDTO.ProgramLogWeekId);
+            var programLogWeek = await _context.Set<ProgramLogWeek>().Where(x => x.ProgramLogWeekId == programLogDayDTO.ProgramLogWeekId)
+                .Select(x => new ProgramLogWeek()
+                {
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate
+                })
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (programLogDayDTO.Date >= programLogWeek.StartDate && programLogDayDTO.Date <= programLogWeek.EndDate)
             {
-                return await _repo.ProgramLogDay.CreateProgramLogDay(programLogDayDTO);
+                var programLogDay = _mapper.Map<ProgramLogDay>(programLogDayDTO);
+                _context.Add(programLogDay);
+
+                await _context.SaveChangesAsync();
+                return programLogDayDTO;
             }
-            else
-            {
-                throw new ProgramLogDayNotWithinWeekException();
-            }
+            throw new ProgramLogDayNotWithinWeekException();
         }
 
         public async Task<IEnumerable<DateTime>> GetAllUserProgramLogDates(string userId)
         {
-            return await _repo.ProgramLogDay.GetAllUserProgramLogDates(userId);
+            return await _context.Set<ProgramLogDay>()
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Date.Date)
+                .ToListAsync();
         }
 
-        public async Task<bool> DeleteProgramLogDay(string userId, int programLogDayId)
+        public async Task<bool> DeleteProgramLogDay(int programLogDayId, string userId)
         {
-            var programLogDay = await _repo.ProgramLogDay.GetProgramLogDayById(userId, programLogDayId);
-            if (programLogDay == null) throw new ProgramLogDayNotFoundException();
+            var doesProgramLogDayExist = await _context.ProgramLogDay.AsNoTracking().AnyAsync(x => x.ProgramLogDayId == programLogDayId && x.UserId == userId);
+            if (!doesProgramLogDayExist) throw new ProgramLogDayNotFoundException();
 
-            return await _repo.ProgramLogDay.DeleteProgramLogDay(programLogDay);
+            _context.Remove(new ProgramLogDay() { ProgramLogDayId = programLogDayId});
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
     }
 }

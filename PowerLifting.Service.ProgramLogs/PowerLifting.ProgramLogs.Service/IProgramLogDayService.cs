@@ -11,12 +11,12 @@ namespace PowerLifting.ProgramLogs.Service
         /// <summary>
         /// Gets the program Log Day by Id
         /// </summary>
-        Task<ProgramLogDay> GetProgramLogDayById(string userId, int programLogDayId);
+        Task<ProgramLogDayDTO> GetProgramLogDayById(int programLogDayId, string userId);
 
         /// <summary>
         /// Gets a program log day overview for a given user on a given date regardless of program log 
         /// </summary>
-        Task<ProgramLogDayDTO> GetProgramLogDayByDate(string userId, DateTime date);
+        Task<ProgramLogDayDTO> GetProgramLogDayByDate(DateTime date, string userId);
 
         /// <summary>
         /// Gets a program log day overview for a given user on a given date
@@ -24,14 +24,9 @@ namespace PowerLifting.ProgramLogs.Service
         Task<ProgramLogDayDTO> GetProgramLogDayByProgramLogId(string userId, int programLogId, DateTime date);
 
         /// <summary>
-        /// Gets the upcoming workout closest to the given date
-        /// </summary>
-        Task<ProgramLogDayDTO> GetClosestProgramLogDayToDate(string userId, DateTime date);
-
-        /// <summary>
         /// Creates a new program log day, used for customising program logs
         /// </summary>
-        Task<ProgramLogDay> CreateProgramLogDay(string userId, ProgramLogDayDTO programLogDay);
+        Task<ProgramLogDayDTO> CreateProgramLogDay(ProgramLogDayDTO programLogDay, string userId);
 
         /// <summary>
         /// Gets all the users program log dates
@@ -42,6 +37,6 @@ namespace PowerLifting.ProgramLogs.Service
         /// <summary>
         /// Deletes a programLog day
         /// </summary>
-        Task<bool> DeleteProgramLogDay(string userId, int programLogDayId);
+        Task<bool> DeleteProgramLogDay(int programLogDayId, string userId);
     }
 }

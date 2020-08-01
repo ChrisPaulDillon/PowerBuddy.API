@@ -142,7 +142,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_programLogDay == null) _programLogDay = new ProgramLogDayService(_programLogWrapper, _mapper);
+                if (_programLogDay == null) _programLogDay = new ProgramLogDayService(_context, _programLogWrapper, _mapper);
 
                 return _programLogDay;
             }
@@ -152,7 +152,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_programLogExercise == null) _programLogExercise = new ProgramLogExerciseService(_programLogWrapper, _mapper, _userManager);
+                if (_programLogExercise == null) _programLogExercise = new ProgramLogExerciseService(_context, _programLogWrapper, _mapper, _userManager);
 
                 return _programLogExercise;
             }
@@ -162,7 +162,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_programLogRepScheme == null) _programLogRepScheme = new ProgramLogRepSchemeService(_programLogWrapper, _mapper, _userManager);
+                if (_programLogRepScheme == null) _programLogRepScheme = new ProgramLogRepSchemeService(_context, _programLogWrapper, _mapper, _userManager);
 
                 return _programLogRepScheme;
             }

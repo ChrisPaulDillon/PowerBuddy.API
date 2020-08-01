@@ -6,7 +6,7 @@ using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Data.Exceptions.ProgramLogs;
 
 namespace PowerLifting.API.Areas.ProgramLog.Controllers
 {

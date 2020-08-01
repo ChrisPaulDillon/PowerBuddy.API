@@ -13,7 +13,6 @@
     <Folder Include="Entities\Templates\" />
     <Folder Include="DTOs\Templates\" />
     <Folder Include="DTOs\Users\" />
-    <Folder Include="Exceptions\ProgramLogs\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />

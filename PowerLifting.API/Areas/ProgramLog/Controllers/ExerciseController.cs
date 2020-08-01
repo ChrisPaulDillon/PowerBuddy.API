@@ -7,7 +7,7 @@ using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Data.Exceptions.ProgramLogs;
 
 namespace PowerLifting.API.Areas.ProgramLog.Controllers
 {
@@ -28,7 +28,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogExerciseDTO>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProgramLogDayExercisesByDay(int programLogDayId)
         {
-            var programLogExercises = await _service.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId);
+            var programLogExercises = await _service.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId, _userId);
             return Ok(Responses.Success(programLogExercises));
         }
 
@@ -50,8 +50,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var exercise = await _service.Exercise.GetExerciseById(programLogExerciseDTO.ExerciseId);
-                var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(_userId, exercise, programLogExerciseDTO);
+                var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(programLogExerciseDTO, _userId);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
 
             }
@@ -69,7 +68,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
         {
             try
             {
-                var didUpdate = await _service.ProgramLogExercise.UpdateProgramLogExercise(programLogDTO);
+                var didUpdate = await _service.ProgramLogExercise.UpdateProgramLogExercise(programLogDTO, _userId);
                 return Ok(Responses.Success(didUpdate));
             }
             catch (ProgramLogExerciseNotFoundException ex)
@@ -110,7 +109,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
         {
             try
             {
-                var isDeleted = await _service.ProgramLogExercise.DeleteProgramLogExercise(programLogExerciseId);
+                var isDeleted = await _service.ProgramLogExercise.DeleteProgramLogExercise(programLogExerciseId, _userId);
                 return Ok(Responses.Success(isDeleted));
             }
             catch (ProgramLogExerciseNotFoundException ex)

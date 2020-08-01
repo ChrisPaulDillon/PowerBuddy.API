@@ -8,9 +8,6 @@ namespace PowerLifting.ProgramLogs.Service.Wrapper
     {
         private IProgramLogRepository _programLogRepo;
         private IProgramLogWeekRepository _programLogWeekRepo;
-        private IProgramLogDayRepository _programLogDayRepo;
-        private IProgramLogExerciseRepository _programLogExerciseRepo;
-        private IProgramLogExerciseAuditRepository _programLogExerciseAuditRepo;
         private IProgramLogRepSchemeRepository _programLogRepSchemeRepo;
 
         private readonly PowerLiftingContext _context;
@@ -45,45 +42,6 @@ namespace PowerLifting.ProgramLogs.Service.Wrapper
                 }
 
                 return _programLogWeekRepo;
-            }
-        }
-
-        public IProgramLogDayRepository ProgramLogDay
-        {
-            get
-            {
-                if (_programLogDayRepo == null)
-                {
-                    _programLogDayRepo = new ProgramLogDayRepository(_context, _mapper);
-                }
-
-                return _programLogDayRepo;
-            }
-        }
-
-        public IProgramLogExerciseRepository ProgramLogExercise
-        {
-            get
-            {
-                if (_programLogExerciseRepo == null)
-                {
-                    _programLogExerciseRepo = new ProgramLogExerciseRepository(_context, _mapper);
-                }
-
-                return _programLogExerciseRepo;
-            }
-        }
-
-        public IProgramLogExerciseAuditRepository ProgramLogExerciseAudit
-        {
-            get
-            {
-                if (_programLogExerciseAuditRepo == null)
-                {
-                    _programLogExerciseAuditRepo = new ProgramLogExerciseAuditRepository(_context, _mapper);
-                }
-
-                return _programLogExerciseAuditRepo;
             }
         }
 

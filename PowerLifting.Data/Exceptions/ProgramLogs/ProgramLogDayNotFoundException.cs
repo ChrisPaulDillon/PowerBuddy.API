@@ -1,5 +1,6 @@
 ﻿using System;
-namespace PowerLifting.ProgramLogs.Service.Exceptions
+
+namespace PowerLifting.Data.Exceptions.ProgramLogs
 {
     public class ProgramLogDayNotFoundException : Exception
     {

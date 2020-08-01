@@ -11,7 +11,7 @@ using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Entities.Templates;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.ProgramLogs.Service.Wrapper;
 
 namespace PowerLifting.ProgramLogs.Service

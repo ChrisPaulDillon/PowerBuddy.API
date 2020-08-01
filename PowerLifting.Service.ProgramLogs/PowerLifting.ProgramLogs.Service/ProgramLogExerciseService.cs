@@ -1,49 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities.Account;
-using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.ProgramLogs;
-using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Service.Wrapper;
 
 namespace PowerLifting.ProgramLogs.Service
 {
     public class ProgramLogExerciseService : IProgramLogExerciseService
     {
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IProgramLogWrapper _repo;
         private readonly UserManager<User> _userManager;
 
-        public ProgramLogExerciseService(IProgramLogWrapper repo, IMapper mapper, UserManager<User> userManager)
+        public ProgramLogExerciseService(PowerLiftingContext context, IProgramLogWrapper repo, IMapper mapper, UserManager<User> userManager)
         {
+            _context = context;
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId)
+        public async Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId, string userId)
         {
-            var programLogExercisesDTO = await _repo.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId);
+            var programLogExercisesDTO = await _context.Set<ProgramLogExercise>()
+                .AsNoTracking()
+                .Where(x => x.ProgramLogDayId == programLogDayId)
+                .ProjectTo<ProgramLogExerciseDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
             return programLogExercisesDTO;
         }
 
         public async Task<ProgramLogExercise> GetProgramLogExerciseById(int programLogExerciseId)
         {
-            return await _repo.ProgramLogExercise.GetProgramLogExerciseById(programLogExerciseId);
+            return await _context.Set<ProgramLogExercise>()
+                .Where(x => x.ProgramLogExerciseId == programLogExerciseId)
+                .Include(x => x.ProgramLogRepSchemes)
+                .Include(x => x.Exercise)
+                .FirstOrDefaultAsync();
         }
 
-        public async Task<ProgramLogExercise> CreateProgramLogExercise(string userId, Exercise exercise, CProgramLogExerciseDTO programLogExercise)
+        public async Task<ProgramLogExerciseDTO> CreateProgramLogExercise(CProgramLogExerciseDTO programLogExerciseDTO, string userId)
         {
-            var doesExerciseExist = await _repo.ProgramLogExercise.DoesExerciseExistForDay(programLogExercise.ProgramLogDayId, programLogExercise.ExerciseId);
-            if (doesExerciseExist == 0)
+            var doesExerciseExist = await _context.Set<ProgramLogExercise>()
+                .AsNoTracking()
+                .AnyAsync(x => x.ProgramLogDayId == programLogExerciseDTO.ProgramLogDayId && x.ExerciseId == programLogExerciseDTO.ExerciseId);
+
+            if (doesExerciseExist)
             {
-                if (programLogExercise.RepSchemeType.Contains("Fixed"))
+                if (programLogExerciseDTO.RepSchemeType.Contains("Fixed"))
                 {
-                    var noOfSets = programLogExercise.NoOfSets;
+                    var noOfSets = programLogExerciseDTO.NoOfSets;
                     var repSchemeCollection = new List<CProgramLogRepSchemeDTO>();
 
                     for (var i = 1; i < noOfSets + 1; i++)
@@ -51,64 +69,88 @@ namespace PowerLifting.ProgramLogs.Service
                         var repScheme = new CProgramLogRepSchemeDTO()
                         {
                             SetNo = i,
-                            NoOfReps = (int)programLogExercise.Reps,
-                            WeightLifted = (double)programLogExercise.Weight,
+                            NoOfReps = (int)programLogExerciseDTO.Reps,
+                            WeightLifted = (double)programLogExerciseDTO.Weight,
                         };
                         repSchemeCollection.Add(repScheme);
                     }
-                    programLogExercise.ProgramLogRepSchemes = repSchemeCollection;
+                    programLogExerciseDTO.ProgramLogRepSchemes = repSchemeCollection;
                 }
 
-                var createdExercise = await _repo.ProgramLogExercise.CreateProgramLogExercise(programLogExercise);
-                createdExercise.Exercise = exercise;
-                return createdExercise;
+                var programLogExerciseEntity = _mapper.Map<ProgramLogExercise>(programLogExerciseDTO);
+                _context.Add(programLogExerciseEntity);
+                await _context.SaveChangesAsync();
+
+                var mappedProgramLogExercise = _mapper.Map<ProgramLogExerciseDTO>(programLogExerciseEntity);
+                return mappedProgramLogExercise;
                 //await CreateProgramLogExerciseAudit(userId, programLogExercise.ExerciseId);
             }
-            else
+            else //exercise already exists for the given day, add to it
             {
-                var exerciseEntity = await _repo.ProgramLogExercise.GetProgramLogExerciseById(doesExerciseExist);
-                if (programLogExercise.RepSchemeType.Contains("Fixed"))
+                var programLogExerciseEntity = await _context.Set<ProgramLogExercise>()
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x =>
+                        x.ProgramLogDayId == programLogExerciseDTO.ProgramLogDayId &&
+                        x.ExerciseId == programLogExerciseDTO.ExerciseId);
+
+                if (programLogExerciseDTO.RepSchemeType.Contains("Fixed"))
                 {
-                    var noOfSets = programLogExercise.NoOfSets;
+                    var noOfSets = programLogExerciseDTO.NoOfSets;
                     for (var i = 1; i < noOfSets + 1; i++)
                     {
                         var repScheme = new ProgramLogRepScheme()
                         {
                             SetNo = i,
-                            NoOfReps = (int)programLogExercise.Reps,
-                            WeightLifted = (decimal)programLogExercise.Weight,
+                            NoOfReps = (int) programLogExerciseDTO.Reps,
+                            WeightLifted = (decimal) programLogExerciseDTO.Weight,
                         };
-                        exerciseEntity.ProgramLogRepSchemes.Add(repScheme);
+                        programLogExerciseEntity.ProgramLogRepSchemes.Add(repScheme);
                     }
                 }
-                exerciseEntity.NoOfSets += programLogExercise.NoOfSets;
-                await _repo.ProgramLogExercise.SaveChangesAsync();
-                return exerciseEntity;
+
+                programLogExerciseEntity.NoOfSets += programLogExerciseDTO.NoOfSets;
+                await _context.SaveChangesAsync();
+
+                var mappedProgramLogExercise = _mapper.Map<ProgramLogExerciseDTO>(programLogExerciseEntity);
+                return mappedProgramLogExercise;
             }
         }
 
-        public async Task<bool> UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO)
+        public async Task<bool> UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExerciseDTO, string userId)
         {
-            var doesExist = await _repo.ProgramLogExercise.DoesExerciseExist(programLogExerciseDTO.ProgramLogExerciseId);
-            if (!doesExist) throw new ProgramLogExerciseNotFoundException();
+            var programLogDayId = await _context.ProgramLogExercise.AsNoTracking().Where(x => x.ProgramLogExerciseId == programLogExerciseDTO.ProgramLogExerciseId).Select(x => x.ProgramLogDayId).FirstOrDefaultAsync();
+            if (programLogDayId == 0) throw new ProgramLogExerciseNotFoundException();
 
-            return await _repo.ProgramLogExercise.UpdateProgramLogExercise(programLogExerciseDTO);
+            var doesLogDayExist = await _context.ProgramLogDay.AsNoTracking().AnyAsync(x => x.ProgramLogDayId == programLogDayId && x.UserId == userId);
+            if (!doesLogDayExist) throw new UnauthorisedUserException();
+
+            var programLogExercise = _mapper.Map<ProgramLogExercise>(programLogExerciseDTO);
+            _context.Update(programLogExercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
-        public async Task<bool> DeleteProgramLogExercise(int programLogExerciseId)
+        public async Task<bool> DeleteProgramLogExercise(int programLogExerciseId, string userId)
         {
-            //var validator = new ProgramLogValidator();
-            //validator.ValidateProgramLogExerciseId(programLogExerciseId);
+            var programLogDayId = await _context.ProgramLogExercise.AsNoTracking().Where(x => x.ProgramLogExerciseId == programLogExerciseId).Select(x => x.ProgramLogDayId).FirstOrDefaultAsync();
+            if (programLogDayId == 0) throw new ProgramLogExerciseNotFoundException();
 
-            var doesExist = await _repo.ProgramLogExercise.DoesExerciseExist(programLogExerciseId);
-            if (!doesExist) throw new ProgramLogExerciseNotFoundException();
+            var doesLogDayExist = await _context.ProgramLogDay.AsNoTracking().AnyAsync(x => x.ProgramLogDayId == programLogDayId && x.UserId == userId);
+            if(!doesLogDayExist) throw new UnauthorisedUserException();
 
-            return await _repo.ProgramLogExercise.DeleteProgramLogExercise(new ProgramLogExerciseDTO() { ProgramLogExerciseId = programLogExerciseId });
+            _context.Remove(new ProgramLogExercise() { ProgramLogExerciseId = programLogExerciseId});
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
         public async Task<int> CreateProgramLogExerciseAudit(string userId, int exerciseId)
         {
-            var audit = await _repo.ProgramLogExerciseAudit.GetProgramLogExerciseAudit(userId, exerciseId);
+            var audit = await _context.Set<ProgramLogExerciseAudit>()
+                .Where(x => x.UserId == userId && x.ExerciseId == exerciseId)
+                .FirstOrDefaultAsync();
+
             if (audit == null)
             {
                 var createAudit = new ProgramLogExerciseAudit()
@@ -117,24 +159,30 @@ namespace PowerLifting.ProgramLogs.Service
                     ExerciseId = exerciseId,
                     //exercisetypeid
                     SelectedCount = 1
-                };
-                return await _repo.ProgramLogExerciseAudit.CreateProgramLogExerciseAudit(createAudit);
+                }; 
+                _context.Add(audit);
+
+                return await _context.SaveChangesAsync();
             }
             return 0;
         }
 
-        public Task<ProgramLogExerciseAudit> GetProgramLogExerciseAuditCount(string userId)
+        public async Task<ProgramLogExerciseAudit> GetProgramLogExerciseAuditCount(string userId)
         {
-            throw new NotImplementedException();
+            return await _context.Set<ProgramLogExerciseAudit>().AsNoTracking()
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.SelectedCount).Take(3)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<bool> MarkProgramLogExerciseComplete(int programLogExerciseId, bool isCompleted)
         {
-            var programLogExerciseDTO = await _repo.ProgramLogExercise.GetProgramLogExerciseById(programLogExerciseId);
-            var programLogExercise = _mapper.Map<ProgramLogExercise>(programLogExerciseDTO);
+            var programLogExercise = await _context.ProgramLogExercise.FirstOrDefaultAsync(x => x.ProgramLogExerciseId == programLogExerciseId);
             if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
+
             programLogExercise.Completed = isCompleted;
-            return await _repo.ProgramLogExercise.MarkProgramLogExerciseComplete(programLogExercise);
+            var modifiedRows = await _context.SaveChangesAsync();
+            return modifiedRows > 0;
         }
     }
 }

@@ -11,9 +11,7 @@ namespace PowerLifting.ProgramLogs.Service
         /// <summary>
         /// Gets all exercises for a given program log day
         /// </summary>
-        /// <param name="programLogDayId"></param>
-        /// <returns></returns>
-        Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId);
+        Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId, string userId);
 
         /// <summary>
         /// Gets a specific ProgramLogExercise By Ids
@@ -23,7 +21,7 @@ namespace PowerLifting.ProgramLogs.Service
         /// <summary>
         /// Creates a new program exercise for a specific log
         /// </summary>
-        Task<ProgramLogExercise> CreateProgramLogExercise(string userId, Exercise exercise, CProgramLogExerciseDTO programLogExercise);
+        Task<ProgramLogExerciseDTO> CreateProgramLogExercise(CProgramLogExerciseDTO programLogExercise, string userId);
 
         /// <summary>
         /// Marks a program log exercise completed
@@ -34,12 +32,12 @@ namespace PowerLifting.ProgramLogs.Service
         /// Updates a given program log exercise, this could be the number of sets,
         /// a new comment etc
         /// </summary>
-        Task<bool> UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExercise);
+        Task<bool> UpdateProgramLogExercise(ProgramLogExerciseDTO programLogExercise, string userId);
 
         /// <summary>
         /// Deletes a given program log exercise
         /// </summary>
-        Task<bool> DeleteProgramLogExercise(int programLogExerciseId);
+        Task<bool> DeleteProgramLogExercise(int programLogExerciseId, string userId);
 
         /// <summary>
         /// Checks for an existing audit,

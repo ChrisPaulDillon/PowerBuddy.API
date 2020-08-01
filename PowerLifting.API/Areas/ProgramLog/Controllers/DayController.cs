@@ -8,7 +8,7 @@ using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.ProgramLogs.Service.Exceptions;
+using PowerLifting.Data.Exceptions.ProgramLogs;
 
 namespace PowerLifting.API.Areas.ProgramLog.Controllers
 {
@@ -35,7 +35,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogDay = await _service.ProgramLogDay.GetProgramLogDayByDate(_userId, dateSelected);
+                var programLogDay = await _service.ProgramLogDay.GetProgramLogDayByDate(dateSelected, _userId);
                 return Ok(Responses.Success(programLogDay));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -70,28 +70,6 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
             }
         }
 
-        [HttpGet("Closest")]
-        [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetClosestProgramLogDayToDate(DateTime dateSelected)
-        {
-            try
-            {
-                _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogDay = await _service.ProgramLogDay.GetClosestProgramLogDayToDate(_userId, dateSelected);
-                return Ok(Responses.Success(programLogDay));
-            }
-            catch (ProgramLogDayNotFoundException ex)
-            {
-                return NotFound(Responses.Error(ex));
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(Responses.Error(ex));
-            }
-        }
-
         [HttpGet("{programLogDayId:int}", Name = nameof(GetProgramLogDayById))]
         [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
@@ -101,8 +79,8 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogs = await _service.ProgramLogDay.GetProgramLogDayById(_userId, programLogDayId);
-                return Ok(Responses.Success(programLogs));
+                var programLogDayDTO = await _service.ProgramLogDay.GetProgramLogDayById(programLogDayId, _userId);
+                return Ok(Responses.Success(programLogDayDTO));
             }
             catch (ProgramLogDayNotFoundException ex)
             {
@@ -122,7 +100,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var createdProgramLogDayDTO = await _service.ProgramLogDay.CreateProgramLogDay(_userId, programLogDayDTO);
+                var createdProgramLogDayDTO = await _service.ProgramLogDay.CreateProgramLogDay(programLogDayDTO, _userId);
                 return CreatedAtRoute(nameof(GetProgramLogDayById), new { programLogDayId = createdProgramLogDayDTO.ProgramLogDayId }, createdProgramLogDayDTO);
             }
             catch (ProgramLogDayNotWithinWeekException ex)
@@ -139,7 +117,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _service.ProgramLogDay.DeleteProgramLogDay(_userId, programLogDayId);
+                var result = await _service.ProgramLogDay.DeleteProgramLogDay(programLogDayId, _userId);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogDayNotFoundException ex)
