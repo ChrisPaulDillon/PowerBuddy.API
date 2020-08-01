@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PowerLifting.LiftingStats.Service.Exceptions
+namespace PowerLifting.Data.Exceptions.LiftingStats
 {
     public class LiftingStatNotFoundException : Exception
     {

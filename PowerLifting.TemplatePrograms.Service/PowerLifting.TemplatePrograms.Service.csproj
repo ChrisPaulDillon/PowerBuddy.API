@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Common\PowerLifting.Common.csproj" />
-    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Repository\PowerLifting.TemplatePrograms.Repository.csproj" />
   </ItemGroup>
 
 </Project>

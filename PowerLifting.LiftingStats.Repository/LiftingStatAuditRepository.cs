@@ -18,9 +18,7 @@ namespace PowerLifting.LiftingStats.Repository
 
         public async Task<int> CreateLiftingStatAudit(LiftingStatAudit liftingStatAudit)
         {
-            _context.Add(liftingStatAudit);
-            await _context.SaveChangesAsync();
-            return liftingStatAudit.LiftingStatAuditId;
+            
         }
     }
 }

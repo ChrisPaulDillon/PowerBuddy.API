@@ -12,7 +12,6 @@ using PowerLifting.ProgramLogs.Service;
 using PowerLifting.ProgramLogs.Service.Wrapper;
 using PowerLifting.Systems.Service;
 using PowerLifting.TemplatePrograms.Service;
-using PowerLifting.TemplatePrograms.Service.Wrapper;
 
 namespace PowerLifting.API.Wrappers
 {
@@ -39,24 +38,18 @@ namespace PowerLifting.API.Wrappers
 
         private readonly IMapper _mapper;
         private readonly IProgramLogWrapper _programLogWrapper;
-        private readonly ITemplateProgramWrapper _templateProgramWrapper;
-        private readonly ISystemWrapper _systemWrapper;
         private readonly IAccountWrapper _accountWrapper;
-        private readonly ILiftingStatsWrapper _liftingStatsWrapper;
 
         private readonly UserManager<User> _userManager;
         private readonly IOptions<ApplicationSettings> _appSettings;
         private readonly PowerLiftingContext _context;
 
-        public ServiceWrapper(PowerLiftingContext context, IMapper mapper, IProgramLogWrapper programLogWrapper, ITemplateProgramWrapper templateProgramWrapper, ISystemWrapper systemWrapper, ILiftingStatsWrapper liftingStatsWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
+        public ServiceWrapper(PowerLiftingContext context, IMapper mapper, IProgramLogWrapper programLogWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
         {
             _context = context;
             _mapper = mapper;
             _programLogWrapper = programLogWrapper;
-            _templateProgramWrapper = templateProgramWrapper;
-            _systemWrapper = systemWrapper;
             _accountWrapper = accountWrapper;
-            _liftingStatsWrapper = liftingStatsWrapper;
             _userManager = userManager;
             _appSettings = appSettings;
         }
@@ -65,7 +58,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_liftingStats == null) _liftingStats = new LiftingStatService(_liftingStatsWrapper, _mapper);
+                if (_liftingStats == null) _liftingStats = new LiftingStatService(_context, _mapper);
 
                 return _liftingStats;
             }
@@ -107,7 +100,7 @@ namespace PowerLifting.API.Wrappers
             get
             {
                 if (_quoteService == null)
-                    _quoteService = new QuoteService(_systemWrapper, _mapper);
+                    _quoteService = new QuoteService(_context, _mapper);
 
                 return _quoteService;
             }
@@ -118,7 +111,7 @@ namespace PowerLifting.API.Wrappers
             get
             {
                 if (_templateDifficultyService == null)
-                    _templateDifficultyService = new TemplateDifficultyService(_systemWrapper, _mapper);
+                    _templateDifficultyService = new TemplateDifficultyService(_context, _mapper);
 
                 return _templateDifficultyService;
             }
@@ -129,7 +122,7 @@ namespace PowerLifting.API.Wrappers
             get
             {
                 if (_repSchemeTypeService == null)
-                    _repSchemeTypeService = new RepSchemeTypeService(_systemWrapper, _mapper);
+                    _repSchemeTypeService = new RepSchemeTypeService(_context, _mapper);
 
                 return _repSchemeTypeService;
             }
@@ -180,7 +173,7 @@ namespace PowerLifting.API.Wrappers
             get
             {
                 if (_templateExerciseCollection == null)
-                    _templateExerciseCollection = new TemplateExerciseCollectionService(_templateProgramWrapper, _mapper);
+                    _templateExerciseCollection = new TemplateExerciseCollectionService(_context, _mapper);
 
                 return _templateExerciseCollection;
             }
@@ -190,7 +183,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_templateProgram == null) _templateProgram = new TemplateProgramService(_templateProgramWrapper, _mapper);
+                if (_templateProgram == null) _templateProgram = new TemplateProgramService(_context, _mapper);
 
                 return _templateProgram;
             }
@@ -220,7 +213,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_notification == null) _notification = new NotificationService(_accountWrapper, _mapper);
+                if (_notification == null) _notification = new NotificationService(_context, _accountWrapper, _mapper);
 
                 return _notification;
             }

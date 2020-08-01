@@ -20,9 +20,7 @@ namespace PowerLifting.TemplatePrograms.Repository.Concrete
 
         public IEnumerable<int> GetTemplateExerciseCollectionByTemplateId(int templateId)
         {
-            return _context.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == templateId)
-                                                                              .Select(x => x.ExerciseId)
-                                                                              .ToList();
+
 
         }
     }

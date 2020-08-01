@@ -13,8 +13,6 @@
     <Folder Include="Entities\Templates\" />
     <Folder Include="DTOs\Templates\" />
     <Folder Include="DTOs\Users\" />
-    <Folder Include="Exceptions\LiftingStats\" />
-    <Folder Include="Exceptions\NewFolder\" />
     <Folder Include="Exceptions\ProgramLogs\" />
   </ItemGroup>
   <ItemGroup>

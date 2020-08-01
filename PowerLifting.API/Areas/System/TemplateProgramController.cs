@@ -49,23 +49,6 @@ namespace PowerLifting.API.Areas.System
             }
         }
 
-        [HttpGet("Calculate/{id}")]
-        [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GenerateProgramTemplateForIndividualAsync(string userId, int programTemplateId)
-        {
-            try
-            {
-                var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
-                var templateProgramDTO = await _service.TemplateProgram.GenerateProgramTemplateForIndividual(userId, programTemplateId, liftingStats);
-                return Ok(templateProgramDTO);
-            }
-            catch (UserDoesNotHaveLiftingStatSetForExerciseException ex)
-            {
-                return Unauthorized(Responses.Error(ex));
-            }
-        }
-
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]

@@ -8,7 +8,6 @@ namespace PowerLifting.Accounts.Service.Wrapper
     {
         private IUserRepository _userRepo;
         private IUserSettingRepository _userSettingRepo;
-        private INotificationRepository _notificationRepo;
 
         private readonly IMapper _mapper;
 
@@ -43,19 +42,6 @@ namespace PowerLifting.Accounts.Service.Wrapper
                 }
 
                 return _userSettingRepo;
-            }
-        }
-
-        public INotificationRepository Notification
-        {
-            get
-            {
-                if (_notificationRepo == null)
-                {
-                    _notificationRepo = new NotificationRepository(_context, _mapper);
-                }
-
-                return _notificationRepo;
             }
         }
     }

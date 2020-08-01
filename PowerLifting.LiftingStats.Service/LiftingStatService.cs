@@ -3,36 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Entities.Exercises;
-using PowerLifting.Data.Entities.System;
-using PowerLifting.LiftingStats.Service.Exceptions;
+using PowerLifting.Data.Exceptions.LiftingStats;
+using PowerLifting.Persistence;
 
 namespace PowerLifting.LiftingStats.Service
 {
     public class LiftingStatService : ILiftingStatService
     {
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly ILiftingStatsWrapper _repo;
 
-        public LiftingStatService(ILiftingStatsWrapper repo, IMapper mapper)
+        public LiftingStatService(PowerLiftingContext context, IMapper mapper)
         {
-            _repo = repo;
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserId(string userId)
         {
-            return await _repo.LiftingStat.GetLiftingStatsByUserId(userId);
+            return await _context.Set<LiftingStat>().Where(u => u.UserId == userId)
+                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> GetLiftingStatsByUserIdAndRepRange(string userId, int repRange)
         {
-            var liftingStats = await _repo.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, repRange);
-            var liftingStatsDTO = _mapper.Map<IEnumerable<LiftingStatDTO>>(liftingStats);
-            return liftingStatsDTO;
+            return await _context.Set<LiftingStat>().Where(u => u.UserId == userId && u.RepRange == repRange && u.Weight != null)
+                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<bool> CreateLiftingStatsByAthleteType(string userId, IEnumerable<TopLevelExerciseDTO> exercises)
@@ -43,8 +49,8 @@ namespace PowerLifting.LiftingStats.Service
             {
                 foreach (var repRange in repRanges)
                 {
-                    _repo.LiftingStat.CreateLiftingStatNoSave(
-                        new LiftingStat()
+                    _context.Add(
+                    new LiftingStat()
                         {
                             UserId = userId,
                             ExerciseId = exercise.ExerciseId,
@@ -53,19 +59,23 @@ namespace PowerLifting.LiftingStats.Service
                         });
                 }
             }
-            return await _repo.LiftingStat.SaveChangesAsync();
+
+            var modifiedRows = await _context.SaveChangesAsync();
+            return modifiedRows > 0;
         }
 
-        public async Task<LiftingStat> CreateLiftingStat(LiftingStatDTO liftingStatDTO)
+        public async Task<LiftingStatDTO> CreateLiftingStat(LiftingStatDTO liftingStatDTO)
         {
             var userId = liftingStatDTO.UserId;
             var repRange = liftingStatDTO.RepRange;
 
-            var liftingStat = await _repo.LiftingStat.DoesLiftingStatExistByExerciseAndRep(userId, liftingStatDTO.ExerciseId, repRange);
+            var doesLiftingStatExist = await _context.LiftingStat.Where(x => x.UserId == userId && x.ExerciseId == liftingStatDTO.ExerciseId && x.RepRange == repRange)
+                .AsNoTracking()
+                .AnyAsync();
 
-            if (liftingStat) throw new LiftingStatAlreadyExistsException();
+            if (doesLiftingStatExist) throw new LiftingStatAlreadyExistsException();
 
-            var createdLiftingStatDTO = new LiftingStatDTO()
+            var createdLiftingStat = new LiftingStat()
             {
                 UserId = liftingStatDTO.UserId,
                 ExerciseId = liftingStatDTO.ExerciseId,
@@ -76,9 +86,9 @@ namespace PowerLifting.LiftingStats.Service
                 LastUpdated = liftingStatDTO.LastUpdated,
             };
 
-            var liftingStatEntity = await _repo.LiftingStat.CreateLiftingStat(createdLiftingStatDTO);
+            _context.Add(createdLiftingStat);
 
-            liftingStatEntity.Exercise = new Exercise()
+            createdLiftingStat.Exercise = new Exercise()
             {
                 ExerciseId = liftingStatDTO.Exercise.ExerciseId,
                 ExerciseName = liftingStatDTO.Exercise.ExerciseName
@@ -92,13 +102,17 @@ namespace PowerLifting.LiftingStats.Service
                 UserId = liftingStatDTO.UserId,
             };
             //var createdAudit = await _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
-            return liftingStatEntity;
+
+            return liftingStatDTO;
         }
 
         public async Task<bool> UpdateLiftingStat(LiftingStatDTO stats)
         {
-            var liftingStat = await _repo.LiftingStat.DoesLiftingStatExist(stats.LiftingStatId);
+            var liftingStat = await _context.LiftingStat.Where(x => x.LiftingStatId == stats.LiftingStatId).AsNoTracking().AnyAsync();
             if (!liftingStat) throw new LiftingStatNotFoundException();
+
+            var liftingStatEntity = _mapper.Map<LiftingStat>(stats);
+            _context.Update(liftingStatEntity);
 
             var liftingStatAudit = new LiftingStatAudit()
             {
@@ -108,21 +122,32 @@ namespace PowerLifting.LiftingStats.Service
                 ExerciseId = stats.ExerciseId
             };
 
-            await _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
-            return await _repo.LiftingStat.UpdateLiftingStat(stats);
+            _context.Add(liftingStatAudit);
+
+            var modifiedRows = await _context.SaveChangesAsync();
+
+            return modifiedRows > 0;
         }
 
         public async Task<bool> DeleteLiftingStat(LiftingStatDTO liftingStatDTO)
         {
-            var liftingStat = await _repo.LiftingStat.GetLiftingStatById(liftingStatDTO.LiftingStatId);
-            if (liftingStat == null) throw new LiftingStatNotFoundException();
+            var liftingStat = await _context.LiftingStat.Where(x => x.LiftingStatId == liftingStatDTO.LiftingStatId).AsNoTracking().AnyAsync();
+            if (!liftingStat) throw new LiftingStatNotFoundException();
 
-            return await _repo.LiftingStat.DeleteLiftingStat(liftingStatDTO);
+            var liftingStatEntity = _mapper.Map<LiftingStat>(liftingStatDTO);
+            _context.Remove(liftingStatEntity);
+
+            var modifiedRows = await _context.SaveChangesAsync();
+
+            return modifiedRows > 0;
         }
 
         public async Task<bool> UpdateLiftingStatCollection(IEnumerable<LiftingStatDTO> liftingStatCollectionDTO)
         {
-            return await _repo.LiftingStat.UpdateLiftingStatCollection(liftingStatCollectionDTO);
+            var liftingStatCollection = _mapper.Map<LiftingStat>(liftingStatCollectionDTO);
+            _context.LiftingStat.Attach(liftingStatCollection);
+            var modifiedRows = await _context.SaveChangesAsync();
+            return modifiedRows > 0;
         }
     }
 }

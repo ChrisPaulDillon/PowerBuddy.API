@@ -22,10 +22,6 @@ namespace PowerLifting.Systems.Repository
 
         public async Task<IEnumerable<TemplateDifficultyDTO>> GetAllTemplateDifficulties()
         {
-            return await _context.Set<TemplateDifficulty>()
-                .ProjectTo<TemplateDifficultyDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking()
-                .ToListAsync();
-        }
+           }
     }
 }

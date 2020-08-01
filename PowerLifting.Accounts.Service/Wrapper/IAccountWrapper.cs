@@ -6,6 +6,5 @@ namespace PowerLifting.Accounts.Service.Wrapper
     {
         IUserRepository User { get; }
         IUserSettingRepository UserSetting { get; }
-        INotificationRepository Notification { get; }
     }
 }

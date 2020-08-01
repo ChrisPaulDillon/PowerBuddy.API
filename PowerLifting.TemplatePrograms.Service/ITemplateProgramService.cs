@@ -25,13 +25,8 @@ namespace PowerLifting.TemplatePrograms.Service
         Task<string> GetTemplateProgramNameById(int templateProgramId);
 
         /// <summary>
-        /// Creates a program template based upon the user viewing the programs lifting stats
-        /// </summary>
-        Task<TemplateProgramDTO> GenerateProgramTemplateForIndividual(string userId, int programTemplateId, IEnumerable<LiftingStatDTO> liftingStats);
-
-        /// <summary>
         /// Creates a new program template, possibly to be used by an admin or custom program creation
         /// </summary>
-        Task<TemplateProgram> CreateTemplateProgram(TemplateProgramDTO programTemplateDTO);
+        Task<TemplateProgramDTO> CreateTemplateProgram(TemplateProgramDTO programTemplateDTO);
     }
 }

@@ -8,7 +8,7 @@ using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.LiftingStats.Service.Exceptions;
+using PowerLifting.Data.Exceptions.LiftingStats;
 
 namespace PowerLifting.API.Areas.Account
 {

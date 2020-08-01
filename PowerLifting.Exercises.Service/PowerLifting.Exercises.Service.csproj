@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
-    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Repository\PowerLifting.TemplatePrograms.Repository.csproj" />
+    <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

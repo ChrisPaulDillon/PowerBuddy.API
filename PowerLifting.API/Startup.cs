@@ -12,12 +12,7 @@ using System.IO;
 using PowerLifting.LoggerService;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.API.Wrappers;
-using PowerLifting.LiftingStats.Service;
 using PowerLifting.Persistence;
-using PowerLifting.ProgramLogs.Service;
-using PowerLifting.Systems.Service;
-using PowerLifting.Accounts.Service;
-using PowerLifting.TemplatePrograms.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
@@ -28,7 +23,6 @@ using PowerLifting.Data.AutoMapper;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.ProgramLogs.Service.Wrapper;
 using PowerLifting.SignalR;
-using PowerLifting.TemplatePrograms.Service.Wrapper;
 
 namespace PowerLifting.API
 {
@@ -98,11 +92,8 @@ namespace PowerLifting.API
             services.AddControllers();
 
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
-            services.AddScoped<ISystemWrapper, SystemWrapper>();
-            services.AddScoped<ILiftingStatsWrapper, LiftingStatsWrapper>();
             services.AddScoped<IAccountWrapper, AccountWrapper>();
             services.AddScoped<IProgramLogWrapper, ProgramLogWrapper>();
-            services.AddScoped<ITemplateProgramWrapper, TemplateProgramWrapper>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<ILoggerManager, LoggerManager>();
 

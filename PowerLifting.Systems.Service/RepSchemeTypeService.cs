@@ -2,38 +2,31 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities.System;
+using PowerLifting.Persistence;
 
 namespace PowerLifting.Systems.Service
 {
     public class RepSchemeTypeService : IRepSchemeTypeService
     {
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly ISystemWrapper _repo;
-        private readonly ConcurrentDictionary<int, RepSchemeTypeDTO> _store;
 
-        public RepSchemeTypeService(ISystemWrapper repo, IMapper mapper)
+        public RepSchemeTypeService(PowerLiftingContext context, IMapper mapper)
         {
-            _repo = repo;
-            _store = new ConcurrentDictionary<int, RepSchemeTypeDTO>();
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<RepSchemeTypeDTO>> GetAllRepSchemeTypes()
         {
-            await RefreshRepSchemeTypeStore();
-            return _store.Values;
-        }
-
-        private async Task RefreshRepSchemeTypeStore()
-        {
-            if (!_store.IsEmpty)
-                return;
-
-            var repSchemeTypes = await _repo.RepSchemeType.GetAllRepSchemeTypes();
-
-            foreach (var repSchemeTypeDTO in repSchemeTypes)
-                _store.AddOrUpdate(repSchemeTypeDTO.RepSchemeTypeId, repSchemeTypeDTO, (key, olValue) => repSchemeTypeDTO);
+            return await _context.Set<RepSchemeType>()
+                .ProjectTo<RepSchemeTypeDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

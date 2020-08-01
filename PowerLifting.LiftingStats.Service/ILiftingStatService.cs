@@ -19,7 +19,7 @@ namespace PowerLifting.LiftingStats.Service
         /// Creates a new lifting stat entry for the user for a given rep range.
         /// Checks if the rep range already exists for the user before creating.
         /// </summary>
-        Task<LiftingStat> CreateLiftingStat(LiftingStatDTO liftingStats);
+        Task<LiftingStatDTO> CreateLiftingStat(LiftingStatDTO liftingStats);
 
         /// <summary>
         /// Creates a batch of lifting stats based on the users sport preferences

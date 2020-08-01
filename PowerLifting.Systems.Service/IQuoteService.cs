@@ -11,6 +11,10 @@ namespace PowerLifting.Systems.Service
 
         Task<QuoteDTO> GetQuoteById(int quoteId);
 
-        Task<Quote> CreateQuote(QuoteDTO quote);
+        Task<QuoteDTO> CreateQuote(QuoteDTO quote);
+
+        Task<bool> UpdateQuote(QuoteDTO quoteDTO);
+
+        Task<bool> DeleteQuote(int quoteId);
     }
 }
