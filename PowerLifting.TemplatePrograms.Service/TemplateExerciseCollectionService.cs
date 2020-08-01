@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Entities.Templates;
 using PowerLifting.Persistence;
 

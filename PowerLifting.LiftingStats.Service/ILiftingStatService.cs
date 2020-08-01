@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.Account;
 

@@ -6,6 +6,7 @@ using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Entities.Templates;
 

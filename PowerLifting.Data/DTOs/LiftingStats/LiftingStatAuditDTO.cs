@@ -1,11 +1,8 @@
 ﻿using System;
 
-namespace PowerLifting.Data.Entities.Account
+namespace PowerLifting.Data.DTOs.LiftingStats
 {
-    /// <summary>
-    /// Used to record when a user updates their lifting stats to show a timeline
-    /// </summary>
-    public class LiftingStatAudit
+    public class LiftingStatAuditDTO
     {
         public int LiftingStatAuditId { get; set; }
         public string UserId { get; set; }

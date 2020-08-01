@@ -6,9 +6,11 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Entities.Exercises;
+using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Exceptions.LiftingStats;
 using PowerLifting.Persistence;
 

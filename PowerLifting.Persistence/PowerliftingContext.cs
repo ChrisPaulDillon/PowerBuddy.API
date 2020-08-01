@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Entities.Exercises;
+using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Entities.System;
 using PowerLifting.Data.Entities.Templates;

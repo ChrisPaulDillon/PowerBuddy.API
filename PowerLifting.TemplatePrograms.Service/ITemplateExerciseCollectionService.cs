@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.LiftingStats;
 
 namespace PowerLifting.TemplatePrograms.Service
 {
