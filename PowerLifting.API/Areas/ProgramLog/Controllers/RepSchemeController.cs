@@ -38,43 +38,6 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
             }
         }
 
-        [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public IActionResult CreateProgramLogRepScheme([FromBody] ProgramLogRepSchemeDTO programLogRepSchemeDTO)
-        {
-            try
-            {
-                _service.ProgramLogRepScheme.CreateProgramLogRepScheme(programLogRepSchemeDTO);
-                return Ok(Responses.Success());
-            }
-            catch (ProgramLogRepSchemeNotFoundException ex)
-            {
-                return Unauthorized(Responses.Error(ex));
-            }
-        }
-
-        [HttpPut("Mark/{programLogRepSchemeId:int}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> MarkProgramLogRepSchemeComplete(int programLogRepSchemeId, bool isCompleted)
-        {
-            try
-            {
-                var result = await _service.ProgramLogRepScheme.MarkProgramLogRepSchemeComplete(programLogRepSchemeId, isCompleted);
-                return Ok(Responses.Success());
-            }
-            catch (ProgramLogNotFoundException e)
-            {
-                return NotFound(e);
-            }
-            catch (UnauthorisedUserException e)
-            {
-                return Unauthorized(e);
-            }
-        }
-
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

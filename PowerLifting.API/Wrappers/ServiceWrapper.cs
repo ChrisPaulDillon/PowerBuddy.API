@@ -132,7 +132,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_programLog == null) _programLog = new ProgramLogService(_programLogWrapper, _mapper, _userManager);
+                if (_programLog == null) _programLog = new ProgramLogService(_context, _programLogWrapper, _mapper, _userManager);
 
                 return _programLog;
             }
@@ -162,7 +162,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_programLogRepScheme == null) _programLogRepScheme = new ProgramLogRepSchemeService(_context, _programLogWrapper, _mapper, _userManager);
+                if (_programLogRepScheme == null) _programLogRepScheme = new ProgramLogRepSchemeService(_context, _mapper);
 
                 return _programLogRepScheme;
             }

@@ -110,7 +110,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
         {
             try
             {
-                await _service.ProgramLog.UpdateProgramLog(userId, programLogDTO);
+                await _service.ProgramLog.UpdateProgramLog(programLogDTO, userId);
                 return Ok(Responses.Success(programLogDTO));
             }
             catch (ProgramLogNotFoundException ex)
@@ -184,7 +184,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
             try
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _service.ProgramLog.DeleteProgramLog(userId, programLogId);
+                var result = await _service.ProgramLog.DeleteProgramLog(programLogId, userId);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogNotFoundException ex)
@@ -205,7 +205,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
             try
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogWeek = await _service.ProgramLog.GetProgramLogWeekByUserIdAndDate(userId, date);
+                var programLogWeek = await _service.ProgramLog.GetProgramLogWeekBetweenDate(date, userId);
                 return Ok(Responses.Success(programLogWeek));
             }
             catch (ProgramLogWeekNotFoundException ex)

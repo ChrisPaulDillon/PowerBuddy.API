@@ -18,57 +18,58 @@ namespace PowerLifting.ProgramLogs.Service
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IProgramLogWrapper _repo;
-        private readonly UserManager<User> _userManager;
 
-        public ProgramLogRepSchemeService(PowerLiftingContext context, IProgramLogWrapper repo, IMapper mapper, UserManager<User> userManager)
+        public ProgramLogRepSchemeService(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
-            _repo = repo;
             _mapper = mapper;
-            _userManager = userManager;
         }
 
-        public async Task<ProgramLogRepScheme> CreateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        public async Task<bool> CreateProgramLogExerciseCollection(IEnumerable<ProgramLogRepSchemeDTO> repSchemeDTOCollection)
         {
-            return await _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(programLogRepSchemeDTO);
-        }
+            var repSchemeCollection = _mapper.Map<IList<ProgramLogRepScheme>>(repSchemeDTOCollection);
+            var programLogExercise = await _context.ProgramLogExercise.FirstOrDefaultAsync(x => x.ProgramLogExerciseId == repSchemeCollection[0].ProgramLogExerciseId);
+            programLogExercise.NoOfSets += repSchemeCollection.Count;
 
-        public async Task<bool> CreateProgramLogExerciseCollection(IEnumerable<ProgramLogRepSchemeDTO> repSchemeCollection)
-        {
-            var repList = repSchemeCollection.ToList();
-            var programLogExercise = await _context.ProgramLogExercise.FirstOrDefaultAsync(x => x.ProgramLogExerciseId == repList[0].ProgramLogExerciseId);
-            programLogExercise.NoOfSets += repList.Count;
 
-            foreach (var item in repList)
+            foreach (var repSchemeDTO in repSchemeCollection)
             {
-                await _repo.ProgramLogRepScheme.CreateProgramLogRepScheme(item);
+                _context.ProgramLogRepScheme.Add(repSchemeDTO);
             }
-            return true;
+
+            var modifiedRows = await _context.SaveChangesAsync();
+            return modifiedRows > 0;
         }
 
         public async Task<bool> UpdateProgramLogRepScheme(ProgramLogRepSchemeDTO programLogRepSchemeDTO)
         {
-            var doesExist = await _repo.ProgramLogRepScheme.DoesRepSchemeExist(programLogRepSchemeDTO.ProgramLogRepSchemeId);
+            var doesExist = await _context.Set<ProgramLogRepScheme>()
+                .Where(x => x.ProgramLogRepSchemeId == programLogRepSchemeDTO.ProgramLogRepSchemeId)
+                .AsNoTracking()
+                .AnyAsync();
+
             if (!doesExist) throw new ProgramLogRepSchemeNotFoundException();
 
-            return await _repo.ProgramLogRepScheme.UpdateProgramLogRepScheme(programLogRepSchemeDTO);
+            var programLogRepScheme = _mapper.Map<ProgramLogRepScheme>(programLogRepSchemeDTO);
+            _context.Update(programLogRepScheme);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
         public async Task<bool> DeleteProgramLogRepScheme(int programLogRepSchemeId)
         {
-            var doesExist = await _repo.ProgramLogRepScheme.DoesRepSchemeExist(programLogRepSchemeId);
+            var doesExist = await _context.Set<ProgramLogRepScheme>()
+                .Where(x => x.ProgramLogRepSchemeId == programLogRepSchemeId)
+                .AsNoTracking()
+                .AnyAsync();
+
             if (!doesExist) throw new ProgramLogRepSchemeNotFoundException();
 
-            return await _repo.ProgramLogRepScheme.DeleteProgramLogRepScheme(new ProgramLogRepSchemeDTO() { ProgramLogRepSchemeId = programLogRepSchemeId });
-        }
+            _context.Remove(new ProgramLogRepScheme() { ProgramLogRepSchemeId = programLogRepSchemeId });
 
-        public async Task<bool> MarkProgramLogRepSchemeComplete(int programLogRepSchemeId, bool isCompleted)
-        {
-            var programLogRepScheme = await _repo.ProgramLogRepScheme.GetProgramLogRepSchemeById(programLogRepSchemeId);
-            if (programLogRepScheme == null) throw new ProgramLogRepSchemeNotFoundException();
-            programLogRepScheme.Completed = isCompleted;
-            return await _repo.ProgramLogRepScheme.MarkProgramLogRepSchemeComplete(programLogRepScheme);
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
     }
 }

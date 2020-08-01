@@ -6,9 +6,7 @@ namespace PowerLifting.ProgramLogs.Service.Wrapper
 {
     public class ProgramLogWrapper : IProgramLogWrapper
     {
-        private IProgramLogRepository _programLogRepo;
         private IProgramLogWeekRepository _programLogWeekRepo;
-        private IProgramLogRepSchemeRepository _programLogRepSchemeRepo;
 
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -17,19 +15,6 @@ namespace PowerLifting.ProgramLogs.Service.Wrapper
         {
             _context = repositoryContext;
             _mapper = mapper;
-        }
-
-        public IProgramLogRepository ProgramLog
-        {
-            get
-            {
-                if (_programLogRepo == null)
-                {
-                    _programLogRepo = new ProgramLogRepository(_context, _mapper);
-                }
-
-                return _programLogRepo;
-            }
         }
 
         public IProgramLogWeekRepository ProgramLogWeek
@@ -42,19 +27,6 @@ namespace PowerLifting.ProgramLogs.Service.Wrapper
                 }
 
                 return _programLogWeekRepo;
-            }
-        }
-
-        public IProgramLogRepSchemeRepository ProgramLogRepScheme
-        {
-            get
-            {
-                if (_programLogRepSchemeRepo == null)
-                {
-                    _programLogRepSchemeRepo = new ProgramLogRepSchemeRepository(_context, _mapper);
-                }
-
-                return _programLogRepSchemeRepo;
             }
         }
     }

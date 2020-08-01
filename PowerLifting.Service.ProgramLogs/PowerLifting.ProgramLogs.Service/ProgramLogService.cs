@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
@@ -12,18 +14,22 @@ using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Entities.Templates;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.Persistence;
+using PowerLifting.ProgramLogs.Service.Util;
 using PowerLifting.ProgramLogs.Service.Wrapper;
 
 namespace PowerLifting.ProgramLogs.Service
 {
     public class ProgramLogService : IProgramLogService
     {
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IProgramLogWrapper _repo;
         private readonly UserManager<User> _userManager;
 
-        public ProgramLogService(IProgramLogWrapper repo, IMapper mapper, UserManager<User> userManager)
+        public ProgramLogService(PowerLiftingContext context, IProgramLogWrapper repo, IMapper mapper, UserManager<User> userManager)
         {
+            _context = context;
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
@@ -31,7 +37,10 @@ namespace PowerLifting.ProgramLogs.Service
 
         public async Task<IEnumerable<ProgramLogStatDTO>> GetAllProgramLogsByUserId(string userId)
         {
-            var programLogStats = (List<ProgramLogDTO>)await _repo.ProgramLog.GetAllProgramLogsByUserId(userId);
+            var programLogStats = await _context.Set<ProgramLog>().Where(x => x.UserId == userId)
+                .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync();
 
             if (programLogStats == null) throw new ProgramLogNotFoundException();
 
@@ -60,7 +69,11 @@ namespace PowerLifting.ProgramLogs.Service
 
         public async Task<ProgramLogDTO> GetActiveProgramLogByUserId(string userId)
         {
-            var programLogDTO = await _repo.ProgramLog.GetActiveProgramLogByUserId(userId);
+            var programLogDTO = await _context.ProgramLog.Where(x => x.UserId == userId && x.Active)
+                .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (programLogDTO == null) throw new ProgramLogNotFoundException();
             return programLogDTO;
         }
@@ -71,7 +84,7 @@ namespace PowerLifting.ProgramLogs.Service
 
             var startDate = programLog.StartDate;
 
-            for (int i = 1; i < programLog.NoOfWeeks + 1; i++)
+            for (var i = 1; i < programLog.NoOfWeeks + 1; i++)
             {
                 //ds.StartDate = ds.StartDate.AddDays(7);
                 var programLogWeek = new ProgramLogWeekDTO()
@@ -83,7 +96,7 @@ namespace PowerLifting.ProgramLogs.Service
                     ProgramLogDays = new List<ProgramLogDayDTO>()
                 };
 
-                for (int j = 0; j < programLog.NoOfDays; j++)
+                for (var j = 0; j < programLog.NoOfDays; j++)
                 {
                     if (programLog.Monday)
                     {
@@ -169,293 +182,76 @@ namespace PowerLifting.ProgramLogs.Service
 
             programLog.ProgramLogWeeks = listOfProgramWeeks;
 
-            return await _repo.ProgramLog.CreateProgramLog(programLog);
+            var programLogEntity = _mapper.Map<ProgramLog>(programLog);
+            _context.ProgramLog.Add(programLogEntity);
+            await _context.SaveChangesAsync();
+            return programLogEntity;
         }
 
         public async Task<ProgramLog> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)
         {
-            var doesExist = await _repo.ProgramLog.DoesProgramLogAfterTodayExist(userId);
+            var doesExist = await _context.Set<ProgramLog>().AnyAsync(x => x.Active && x.UserId == userId);
             if (doesExist) throw new ProgramLogAlreadyActiveException();
 
-            daySelected = CountDaysSelected(daySelected);
-            var newProgramLog = CreateProgramLog(templateProgram, daySelected, liftingStats.ToList(), userId);
-            return await _repo.ProgramLog.CreateProgramLog(newProgramLog);
-        }
+            daySelected = ProgramLogHelper.CalculateDayOrder(daySelected);
 
-        private static DaySelected CountDaysSelected(DaySelected ds)
-        {
-            ds.ProgramOrder = new Dictionary<int, string>();
-
-            var startingDay = ds.StartDate.DayOfWeek;
-            var startingNo = (int)ds.StartDate.DayOfWeek;
-
-            var counter = 1;
-            ds.ProgramOrder.Add(counter, startingDay.ToString());
-
-            foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)).OfType<DayOfWeek>().ToList().Skip(startingNo + 1))
+            var createdLog = new ProgramLogDTO
             {
-                if (day == DayOfWeek.Monday)
-                {
-                    if (ds.Monday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Tuesday)
-                {
-                    if (ds.Tuesday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Wednesday)
-                {
-                    if (ds.Wednesday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Thursday)
-                {
-                    if (ds.Thursday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Friday)
-                {
-                    if (ds.Friday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Saturday)
-                {
-                    if (ds.Saturday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Sunday)
-                {
-                    if (ds.Sunday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-            }
-
-            foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)).OfType<DayOfWeek>().ToList())
-            {
-                var dayNo = (int)day;
-
-                if (dayNo >= startingNo) //Once we get to the day we originally started on, stop
-                    break;
-
-                if (day == DayOfWeek.Monday)
-                {
-                    if (ds.Monday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Tuesday)
-                {
-                    if (ds.Tuesday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Wednesday)
-                {
-                    if (ds.Wednesday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Thursday)
-                {
-                    if (ds.Thursday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Friday)
-                {
-                    if (ds.Friday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Saturday)
-                {
-                    if (ds.Saturday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-                else if (day == DayOfWeek.Sunday)
-                {
-                    if (ds.Sunday) ds.ProgramOrder.Add(++counter, day.ToString());
-                }
-            }
-            return ds;
-        }
-
-        private ProgramLogDTO CreateProgramLog(TemplateProgramDTO tp, DaySelected ds, List<LiftingStatDTO> liftingStats, string userId)
-        {
-            var log = new ProgramLogDTO
-            {
-                TemplateProgramId = tp.TemplateProgramId,
+                TemplateProgramId = templateProgram.TemplateProgramId,
                 UserId = userId,
-                Monday = ds.Monday,
-                Tuesday = ds.Tuesday,
-                Wednesday = ds.Wednesday,
-                Thursday = ds.Thursday,
-                Friday = ds.Friday,
-                Saturday = ds.Saturday,
-                Sunday = ds.Sunday,
-                StartDate = ds.StartDate,
-                EndDate = ds.StartDate.AddDays(tp.NoOfWeeks * 7),
-                NoOfWeeks = tp.NoOfWeeks,
+                Monday = daySelected.Monday,
+                Tuesday = daySelected.Tuesday,
+                Wednesday = daySelected.Wednesday,
+                Thursday = daySelected.Thursday,
+                Friday = daySelected.Friday,
+                Saturday = daySelected.Saturday,
+                Sunday = daySelected.Sunday,
+                StartDate = daySelected.StartDate,
+                EndDate = daySelected.StartDate.AddDays(templateProgram.NoOfWeeks * 7),
+                NoOfWeeks = templateProgram.NoOfWeeks,
                 Active = true,
-                ProgramLogWeeks = GenerateProgramWeekDates(ds, tp, userId, liftingStats)
-            };
-            return log;
-        }
-
-        private List<ProgramLogWeekDTO> GenerateProgramWeekDates(DaySelected ds, TemplateProgramDTO tp, string userId, List<LiftingStatDTO> liftingStats)
-        {
-            var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
-
-            foreach (var templateWeek in tp.TemplateWeeks)
-            {
-                var programLogWeekWithDays = CreateProgramLogWeek(templateWeek, ds, userId, liftingStats);
-                listOfProgramWeeks.Add(programLogWeekWithDays);
-                ds.StartDate = ds.StartDate.AddDays(7);
-            }
-
-            return listOfProgramWeeks;
-        }
-
-        private static ProgramLogWeekDTO CreateProgramLogWeek(TemplateWeekDTO templateWeek, DaySelected ds, string userId, List<LiftingStatDTO> liftingStats)
-        {
-            var programLogWeek = new ProgramLogWeekDTO()
-            {
-                StartDate = ds.StartDate,
-                EndDate = ds.StartDate.AddDays(7),
-                WeekNo = templateWeek.WeekNo,
-                UserId = userId,
-                ProgramLogDays = new List<ProgramLogDayDTO>()
+                ProgramLogWeeks = ProgramLogHelper.GenerateProgramWeekDates(daySelected, templateProgram, userId, liftingStats)
             };
 
-            var startDate = programLogWeek.StartDate;
-            foreach (var templateDay in templateWeek.TemplateDays)
-            {
-                var dayOfWeek = ds.ProgramOrder[templateDay.DayNo];
-                if (dayOfWeek == DayOfWeek.Monday.ToString())
-                {
-                    var programLogDay = GenerateProgramLogDay(DayOfWeek.Monday, templateDay, startDate, liftingStats);
-                    programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Tuesday.ToString())
-                {
-                    var programLogDay = GenerateProgramLogDay(DayOfWeek.Tuesday, templateDay, startDate, liftingStats);
-                    programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Wednesday.ToString())
-                {
-                    var programLogDay = GenerateProgramLogDay(DayOfWeek.Wednesday, templateDay, startDate, liftingStats);
-                    programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Thursday.ToString())
-                {
-                    var programLogDay = GenerateProgramLogDay(DayOfWeek.Thursday, templateDay, startDate, liftingStats);
-                    programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Friday.ToString())
-                {
-                    var programLogDay = GenerateProgramLogDay(DayOfWeek.Friday, templateDay, startDate, liftingStats);
-                    programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Saturday.ToString())
-                {
-                    var programLogDay = GenerateProgramLogDay(DayOfWeek.Saturday, templateDay, startDate, liftingStats);
-                    programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Sunday.ToString())
-                {
-                    var programLogDay = GenerateProgramLogDay(DayOfWeek.Sunday, templateDay, startDate, liftingStats);
-                    programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
-                }
-            }
-            return programLogWeek;
+            var programLog = _mapper.Map<ProgramLog>(createdLog);
+            _context.Add(programLog);
+
+            await _context.SaveChangesAsync();
+            return programLog;
         }
 
-        private static ProgramLogDayDTO GenerateProgramLogDay(DayOfWeek day, TemplateDayDTO templateDay, DateTime startDate, List<LiftingStatDTO> liftingStats)
+        public async Task<bool> UpdateProgramLog(ProgramLogDTO programLogDTO, string userId)
         {
-            var daysUntilSpecificDay = ((int)day - (int)startDate.DayOfWeek + 7) % 7;
-            var nextDate = startDate.AddDays(daysUntilSpecificDay);
-            var programLogDay = new ProgramLogDayDTO()
-            {
-                Date = nextDate,
-                ProgramLogExercises = CreateProgramLogExercises(templateDay, liftingStats)
-            };
-            return programLogDay;
+            var doesLogExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.ProgramLogId == programLogDTO.ProgramLogId && x.UserId == userId);
+
+            if (!doesLogExist) throw new ProgramLogNotFoundException();
+
+            _context.Update(programLogDTO);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
-        private static IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercises(TemplateDayDTO templateDay, List<LiftingStatDTO> liftingStats)
+        public async Task<bool> DeleteProgramLog(int programLogId, string userId)
         {
-            var programLogExercises = new List<ProgramLogExerciseDTO>();
+            var doesLogExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.ProgramLogId == programLogId && x.UserId == userId);
 
-            foreach (var temExercise in templateDay.TemplateExercises)
-            {
-                var programLogExercise = new ProgramLogExerciseDTO()
-                {
-                    NoOfSets = temExercise.NoOfSets,
-                    ExerciseId = temExercise.ExerciseId,
-                    ProgramLogRepSchemes = new List<ProgramLogRepSchemeDTO>()
-                };
-                var user1RMOnLift = liftingStats.SingleOrDefault(x => x.ExerciseId == temExercise.ExerciseId);
+            if (!doesLogExist) throw new ProgramLogNotFoundException();
 
-                foreach (var temReps in temExercise.TemplateRepSchemes)
-                {
-                    var programRepSchema = GenerateProgramLogRepScheme("PERCENTAGE", (double)(user1RMOnLift.Weight), temReps);
-                    programLogExercise.ProgramLogRepSchemes.Add(programRepSchema);
-                }
-                programLogExercises.Add(programLogExercise);
-            }
-            return programLogExercises;
+            _context.Remove(new ProgramLog() { ProgramLogId = programLogId });
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
         }
 
-        private static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string weightProgressionType, double user1RM, TemplateRepSchemeDTO templateRepScheme)
+        public async Task<ProgramLogWeekDTO> GetProgramLogWeekBetweenDate(DateTime date, string userId)
         {
-            var weightToLift = 0.00M;
+            var programLogWeek = await _context.Set<ProgramLogWeek>()
+                .Where(x => x.UserId == userId && date.Date >= x.StartDate.Date && date.Date <= x.EndDate.Date)
+                .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
 
-            if (Enum.TryParse(weightProgressionType, out WeightProgressionTypeEnum weightProgressionTypeEnum))
-            {
-                switch (weightProgressionTypeEnum)
-                {
-                    case WeightProgressionTypeEnum.PERCENTAGE:
-                        var percent = templateRepScheme.Percentage / 100;
-                        weightToLift = Convert.ToDecimal(user1RM * percent);
-                        break;
-                    case WeightProgressionTypeEnum.INCREMENTAL:
-                        break;
-                }
-            }
-
-            return new ProgramLogRepSchemeDTO()
-            {
-                SetNo = templateRepScheme.SetNo,
-                NoOfReps = templateRepScheme.NoOfReps,
-                Percentage = templateRepScheme.Percentage,
-                WeightLifted = weightToLift,
-                AMRAP = templateRepScheme.AMRAP,
-            };
-        }
-
-        public async Task<ProgramLogDTO> UpdateProgramLog(string userId, ProgramLogDTO programLogDTO)
-        {
-            var programLog = await _repo.ProgramLog.GetProgramLogById(programLogDTO.ProgramLogId);
-
-            if (programLog == null) throw new ProgramLogNotFoundException();
-            if (programLog.UserId != userId)
-            {
-                throw new UnauthorisedUserException("UserId does match the user associated with this program log!");
-            }
-
-            _mapper.Map(programLogDTO, programLog);
-            var result = await _repo.ProgramLog.UpdateProgramLog(programLogDTO);
-            return programLogDTO;
-        }
-
-        public async Task<bool> DeleteProgramLog(string userId, int programLogId)
-        {
-            var doesProgramLogExist = await _repo.ProgramLog.DoesProgramLogExist(programLogId);
-
-            if (string.IsNullOrWhiteSpace(doesProgramLogExist)) throw new ProgramLogNotFoundException();
-
-            if (doesProgramLogExist != userId)
-            {
-                throw new UnauthorisedUserException("UserId does match the user associated with this program log!");
-            }
-
-            return await _repo.ProgramLog.DeleteProgramLog(new ProgramLogDTO() { ProgramLogId = programLogId });
-        }
-
-        public async Task<ProgramLogWeekDTO> GetProgramLogWeekByUserIdAndDate(string userId, DateTime date)
-        {
-            //_validator.ValidateProgramLogWeekId(programLogWeekId);
-            var programLogWeek = await _repo.ProgramLogWeek.GetProgramLogWeekByUserIdAndDate(userId, date);
             if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
             return programLogWeek;
         }

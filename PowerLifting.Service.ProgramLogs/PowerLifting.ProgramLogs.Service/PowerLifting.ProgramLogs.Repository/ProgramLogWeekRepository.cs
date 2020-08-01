@@ -21,16 +21,6 @@ namespace PowerLifting.ProgramLogs.Repository
             _mapper = mapper;
         }
 
-        public async Task<ProgramLogWeekDTO> GetProgramLogWeekByUserIdAndDate(string userId, DateTime date)
-        {
-            //var currentWeek = DateHelper.Instance.GetWeekRangeOfCurrentWeek();
-            return await _context.Set<ProgramLogWeek>()
-                .Where(x => x.UserId == userId && date.Date >= x.StartDate.Date && date.Date <= x.EndDate.Date)
-                .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-        }
-
         public async Task<ProgramLogWeek> GetProgramLogWeekById(int programLogWeekId)
         {
             return await _context.Set<ProgramLogWeek>().Where(x => x.ProgramLogWeekId == programLogWeekId)

@@ -7,7 +7,6 @@ namespace PowerLifting.ProgramLogs.Repository
 {
     public interface IProgramLogWeekRepository
     {
-        Task<ProgramLogWeekDTO> GetProgramLogWeekByUserIdAndDate(string userId, DateTime date);
         Task<ProgramLogWeek> GetProgramLogWeekById(int programLogWeekId);
         Task<ProgramLogWeek> GetProgramLogWeekByProgramLogIdAndDate(int programLogId, DateTime date);
     }
