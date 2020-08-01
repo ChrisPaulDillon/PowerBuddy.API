@@ -21,11 +21,7 @@ namespace PowerLifting.Accounts.Repository
 
         public async Task<UserSettingDTO> GetUserSettingsById(string userId)
         {
-            return await _context.UserSetting
-                .Where(x => x.UserId == userId)
-                .ProjectTo<UserSettingDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
+            return
 
         }
     }

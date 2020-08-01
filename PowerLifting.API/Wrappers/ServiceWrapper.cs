@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using PowerLifting.Accounts.Service;
-using PowerLifting.Accounts.Service.Wrapper;
 using PowerLifting.Data;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Exercises.Service;
 using PowerLifting.LiftingStats.Service;
 using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Service;
-using PowerLifting.ProgramLogs.Service.Wrapper;
 using PowerLifting.Systems.Service;
 using PowerLifting.TemplatePrograms.Service;
 
@@ -37,19 +35,15 @@ namespace PowerLifting.API.Wrappers
         private IFriendsListService _friendsList;
 
         private readonly IMapper _mapper;
-        private readonly IProgramLogWrapper _programLogWrapper;
-        private readonly IAccountWrapper _accountWrapper;
 
         private readonly UserManager<User> _userManager;
         private readonly IOptions<ApplicationSettings> _appSettings;
         private readonly PowerLiftingContext _context;
 
-        public ServiceWrapper(PowerLiftingContext context, IMapper mapper, IProgramLogWrapper programLogWrapper, IAccountWrapper accountWrapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
+        public ServiceWrapper(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
         {
             _context = context;
             _mapper = mapper;
-            _programLogWrapper = programLogWrapper;
-            _accountWrapper = accountWrapper;
             _userManager = userManager;
             _appSettings = appSettings;
         }
@@ -132,7 +126,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_programLog == null) _programLog = new ProgramLogService(_context, _programLogWrapper, _mapper, _userManager);
+                if (_programLog == null) _programLog = new ProgramLogService(_context, _mapper);
 
                 return _programLog;
             }
@@ -142,7 +136,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_programLogDay == null) _programLogDay = new ProgramLogDayService(_context, _programLogWrapper, _mapper);
+                if (_programLogDay == null) _programLogDay = new ProgramLogDayService(_context, _mapper);
 
                 return _programLogDay;
             }
@@ -152,7 +146,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_programLogExercise == null) _programLogExercise = new ProgramLogExerciseService(_context, _programLogWrapper, _mapper, _userManager);
+                if (_programLogExercise == null) _programLogExercise = new ProgramLogExerciseService(_context, _mapper);
 
                 return _programLogExercise;
             }
@@ -193,7 +187,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_user == null) _user = new UserService(_accountWrapper, _mapper, _userManager, _appSettings);
+                if (_user == null) _user = new UserService(_context, _mapper, _userManager, _appSettings);
 
                 return _user;
             }
@@ -203,7 +197,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_userSetting == null) _userSetting = new UserSettingService(_accountWrapper, _mapper);
+                if (_userSetting == null) _userSetting = new UserSettingService(_context, _mapper);
 
                 return _userSetting;
             }
@@ -213,7 +207,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_notification == null) _notification = new NotificationService(_context, _accountWrapper, _mapper);
+                if (_notification == null) _notification = new NotificationService(_context, _mapper);
 
                 return _notification;
             }
@@ -223,7 +217,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_friendsList == null) _friendsList = new FriendsListService(_context, _accountWrapper, _mapper, _userManager);
+                if (_friendsList == null) _friendsList = new FriendsListService(_context, _mapper, _userManager);
 
                 return _friendsList;
             }

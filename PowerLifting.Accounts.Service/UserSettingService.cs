@@ -1,24 +1,31 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
-using PowerLifting.Accounts.Service.Wrapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Persistence;
 
 namespace PowerLifting.Accounts.Service
 {
     public class UserSettingService : IUserSettingService
     {
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IAccountWrapper _repo;
 
-        public UserSettingService(IAccountWrapper repo, IMapper mapper)
+        public UserSettingService(PowerLiftingContext context, IMapper mapper)
         {
-            _repo = repo;
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<UserSettingDTO> GetUserSettingsByUserId(string userId)
         {
-            return await _repo.UserSetting.GetUserSettingsById(userId);
+            return await _context.UserSetting
+                .Where(x => x.UserId == userId)
+                .ProjectTo<UserSettingDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
         }
     }
 }

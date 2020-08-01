@@ -5,6 +5,7 @@ using System.Text;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Entities.Templates;
 
@@ -12,12 +13,12 @@ namespace PowerLifting.ProgramLogs.Service.Util
 {
     public static class ProgramLogHelper
     {
-        public static DaySelected CalculateDayOrder(DaySelected ds)
+        public static Dictionary<int, string> CalculateDayOrder(CProgramLogDTO programLogDTO)
         {
             var programDayOrder = new Dictionary<int, string>();
 
-            var startingDay = ds.StartDate.DayOfWeek;
-            var startingNo = (int)ds.StartDate.DayOfWeek;
+            var startingDay = programLogDTO.StartDate.DayOfWeek;
+            var startingNo = (int)programLogDTO.StartDate.DayOfWeek;
 
             var counter = 1;
             programDayOrder.Add(counter, startingDay.ToString());
@@ -28,37 +29,37 @@ namespace PowerLifting.ProgramLogs.Service.Util
                 {
                     case DayOfWeek.Monday:
                     {
-                        if (ds.Monday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Monday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Tuesday:
                     {
-                        if (ds.Tuesday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Tuesday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Wednesday:
                     {
-                        if (ds.Wednesday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Wednesday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Thursday:
                     {
-                        if (ds.Thursday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Thursday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Friday:
                     {
-                        if (ds.Friday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Friday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Saturday:
                     {
-                        if (ds.Saturday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Saturday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Sunday:
                     {
-                        if (ds.Sunday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Sunday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                 }
@@ -75,65 +76,65 @@ namespace PowerLifting.ProgramLogs.Service.Util
                 {
                     case DayOfWeek.Monday:
                     {
-                        if (ds.Monday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Monday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Tuesday:
                     {
-                        if (ds.Tuesday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Tuesday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Wednesday:
                     {
-                        if (ds.Wednesday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Wednesday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Thursday:
                     {
-                        if (ds.Thursday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Thursday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Friday:
                     {
-                        if (ds.Friday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Friday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Saturday:
                     {
-                        if (ds.Saturday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Saturday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Sunday:
                     {
-                        if (ds.Sunday) programDayOrder.Add(++counter, day.ToString());
+                        if (programLogDTO.Sunday) programDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                 }
             }
 
-            ds.ProgramOrder = programDayOrder;
-            return ds;
+            return programDayOrder;
         }
-        public static IEnumerable<ProgramLogWeekDTO> GenerateProgramWeekDates(DaySelected ds, TemplateProgramDTO tp, string userId, IEnumerable<LiftingStatDTO> liftingStats)
+
+        public static IEnumerable<ProgramLogWeekDTO> GenerateProgramWeekDates(CProgramLogDTO programLogDTO, TemplateProgramDTO tp, IList<LiftingStat> liftingStats, string userId)
         {
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
 
             foreach (var templateWeek in tp.TemplateWeeks)
             {
-                var programLogWeekWithDays = CreateProgramLogWeek(templateWeek, ds, userId, liftingStats);
+                var programLogWeekWithDays = CreateProgramLogWeek(programLogDTO, templateWeek, liftingStats, userId);
                 listOfProgramWeeks.Add(programLogWeekWithDays);
-                ds.StartDate = ds.StartDate.AddDays(7);
+                programLogDTO.StartDate = programLogDTO.StartDate.AddDays(7);
             }
 
             return listOfProgramWeeks;
         }
 
-        public static ProgramLogWeekDTO CreateProgramLogWeek(TemplateWeekDTO templateWeek, DaySelected ds, string userId, IEnumerable<LiftingStatDTO> liftingStats)
+        public static ProgramLogWeekDTO CreateProgramLogWeek(CProgramLogDTO programLogDTO, TemplateWeekDTO templateWeek, IEnumerable<LiftingStat> liftingStats, string userId)
         {
             var programLogWeek = new ProgramLogWeekDTO()
             {
-                StartDate = ds.StartDate,
-                EndDate = ds.StartDate.AddDays(7),
+                StartDate = programLogDTO.StartDate,
+                EndDate = programLogDTO.StartDate.AddDays(7),
                 WeekNo = templateWeek.WeekNo,
                 UserId = userId,
                 ProgramLogDays = new List<ProgramLogDayDTO>()
@@ -142,7 +143,7 @@ namespace PowerLifting.ProgramLogs.Service.Util
             var startDate = programLogWeek.StartDate;
             foreach (var templateDay in templateWeek.TemplateDays)
             {
-                var dayOfWeek = ds.ProgramOrder[templateDay.DayNo];
+                var dayOfWeek = programLogDTO.ProgramDayOrder[templateDay.DayNo];
                 if (dayOfWeek == DayOfWeek.Monday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Monday, templateDay, startDate, liftingStats);
@@ -189,7 +190,7 @@ namespace PowerLifting.ProgramLogs.Service.Util
             return programLogWeek;
         }
 
-        public static ProgramLogDayDTO GenerateProgramLogDay(DayOfWeek day, TemplateDayDTO templateDay, DateTime startDate, IEnumerable<LiftingStatDTO> liftingStats)
+        public static ProgramLogDayDTO GenerateProgramLogDay(DayOfWeek day, TemplateDayDTO templateDay, DateTime startDate, IEnumerable<LiftingStat> liftingStats)
         {
             var daysUntilSpecificDay = ((int)day - (int)startDate.DayOfWeek + 7) % 7;
             var nextDate = startDate.AddDays(daysUntilSpecificDay);
@@ -201,7 +202,7 @@ namespace PowerLifting.ProgramLogs.Service.Util
             return programLogDay;
         }
 
-        public static IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercises(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats)
+        public static IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercises(TemplateDayDTO templateDay, IEnumerable<LiftingStat> liftingStats)
         {
             var programLogExercises = new List<ProgramLogExerciseDTO>();
 

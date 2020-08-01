@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -11,7 +10,6 @@ using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Persistence;
-using PowerLifting.ProgramLogs.Service.Wrapper;
 
 namespace PowerLifting.ProgramLogs.Service
 {
@@ -19,12 +17,10 @@ namespace PowerLifting.ProgramLogs.Service
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IProgramLogWrapper _repo;
 
-        public ProgramLogDayService(PowerLiftingContext context, IProgramLogWrapper repo, IMapper mapper)
+        public ProgramLogDayService(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
-            _repo = repo;
             _mapper = mapper;
         }
 

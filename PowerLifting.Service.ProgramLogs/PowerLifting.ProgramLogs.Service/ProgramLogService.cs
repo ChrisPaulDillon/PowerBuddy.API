@@ -11,12 +11,9 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Entities.ProgramLogs;
-using PowerLifting.Data.Entities.Templates;
-using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Persistence;
 using PowerLifting.ProgramLogs.Service.Util;
-using PowerLifting.ProgramLogs.Service.Wrapper;
 
 namespace PowerLifting.ProgramLogs.Service
 {
@@ -24,15 +21,11 @@ namespace PowerLifting.ProgramLogs.Service
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IProgramLogWrapper _repo;
-        private readonly UserManager<User> _userManager;
 
-        public ProgramLogService(PowerLiftingContext context, IProgramLogWrapper repo, IMapper mapper, UserManager<User> userManager)
+        public ProgramLogService(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
-            _repo = repo;
             _mapper = mapper;
-            _userManager = userManager;
         }
 
         public async Task<IEnumerable<ProgramLogStatDTO>> GetAllProgramLogsByUserId(string userId)
@@ -96,7 +89,7 @@ namespace PowerLifting.ProgramLogs.Service
                     ProgramLogDays = new List<ProgramLogDayDTO>()
                 };
 
-                for (var j = 0; j < programLog.NoOfDays; j++)
+                for (var j = 0; j < programLog.DayCount; j++)
                 {
                     if (programLog.Monday)
                     {
@@ -188,29 +181,31 @@ namespace PowerLifting.ProgramLogs.Service
             return programLogEntity;
         }
 
-        public async Task<ProgramLog> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected)
+        public async Task<ProgramLog> CreateProgramLogFromTemplate(CProgramLogDTO programLogDTO, TemplateProgramDTO templateProgram, string userId)
         {
             var doesExist = await _context.Set<ProgramLog>().AnyAsync(x => x.Active && x.UserId == userId);
             if (doesExist) throw new ProgramLogAlreadyActiveException();
 
-            daySelected = ProgramLogHelper.CalculateDayOrder(daySelected);
+            programLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(programLogDTO);
+
+            var liftingStats = await _context.LiftingStat.Where(x => x.UserId == userId && x.RepRange == 1).AsNoTracking().ToListAsync();
 
             var createdLog = new ProgramLogDTO
             {
                 TemplateProgramId = templateProgram.TemplateProgramId,
                 UserId = userId,
-                Monday = daySelected.Monday,
-                Tuesday = daySelected.Tuesday,
-                Wednesday = daySelected.Wednesday,
-                Thursday = daySelected.Thursday,
-                Friday = daySelected.Friday,
-                Saturday = daySelected.Saturday,
-                Sunday = daySelected.Sunday,
-                StartDate = daySelected.StartDate,
-                EndDate = daySelected.StartDate.AddDays(templateProgram.NoOfWeeks * 7),
+                Monday = programLogDTO.Monday,
+                Tuesday = programLogDTO.Tuesday,
+                Wednesday = programLogDTO.Wednesday,
+                Thursday = programLogDTO.Thursday,
+                Friday = programLogDTO.Friday,
+                Saturday = programLogDTO.Saturday,
+                Sunday = programLogDTO.Sunday,
+                StartDate = programLogDTO.StartDate,
+                EndDate = programLogDTO.StartDate.AddDays(templateProgram.NoOfWeeks * 7),
                 NoOfWeeks = templateProgram.NoOfWeeks,
                 Active = true,
-                ProgramLogWeeks = ProgramLogHelper.GenerateProgramWeekDates(daySelected, templateProgram, userId, liftingStats)
+                ProgramLogWeeks = ProgramLogHelper.GenerateProgramWeekDates(programLogDTO, templateProgram, liftingStats, userId)
             };
 
             var programLog = _mapper.Map<ProgramLog>(createdLog);

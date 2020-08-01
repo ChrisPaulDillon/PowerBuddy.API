@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerLifting.Accounts.Repository\PowerLifting.Accounts.Repository.csproj" />
+    <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
+    <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,12 +16,10 @@ using PowerLifting.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using PowerLifting.Accounts.Service.Wrapper;
 using PowerLifting.API.Middleware;
 using PowerLifting.Data;
 using PowerLifting.Data.AutoMapper;
 using PowerLifting.Data.Entities.Account;
-using PowerLifting.ProgramLogs.Service.Wrapper;
 using PowerLifting.SignalR;
 
 namespace PowerLifting.API
@@ -92,8 +90,6 @@ namespace PowerLifting.API
             services.AddControllers();
 
             services.AddScoped<IServiceWrapper, ServiceWrapper>();
-            services.AddScoped<IAccountWrapper, AccountWrapper>();
-            services.AddScoped<IProgramLogWrapper, ProgramLogWrapper>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<ILoggerManager, LoggerManager>();
 

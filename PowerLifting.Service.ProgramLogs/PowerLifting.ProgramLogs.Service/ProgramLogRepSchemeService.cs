@@ -2,15 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.ProgramLogs;
-using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Persistence;
-using PowerLifting.ProgramLogs.Service.Wrapper;
-using SQLitePCL;
 
 namespace PowerLifting.ProgramLogs.Service
 {

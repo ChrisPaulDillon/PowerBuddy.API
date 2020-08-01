@@ -97,38 +97,6 @@ namespace PowerLifting.API.Areas.Account
             }
         }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult UpdateUser(int id, [FromBody] UserDTO user)
-        {
-            try
-            {
-                _service.User.UpdateUser(user);
-                return NoContent();
-            }
-            catch (UserNotFoundException)
-            {
-                return NotFound();
-            }
-        }
-
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteUser(string id)
-        {
-            try
-            {
-                await _service.User.DeleteUser(id);
-                return NoContent();
-            }
-            catch (UserNotFoundException)
-            {
-                return NotFound();
-            }
-        }
-
         [HttpGet("Settings/{userId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

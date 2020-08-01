@@ -137,25 +137,21 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] DaySelected daySelected)
+        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] CProgramLogDTO programLogDTO)
         {
             try
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
 
                 var template = await _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
-                if (template == null) throw new TemplateProgramNotFoundException();
+                if (template.MaxLiftDaysPerWeek != programLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
 
-                if (template.MaxLiftDaysPerWeek != daySelected.Counter) throw new ProgramDaysDoesNotMatchTemplateDaysException();
+                var liftingStatsToCreate = await _service.TemplateExerciseCollection.DoesUserHaveExerciseCollection1RMSet(templateProgramId, userId);
 
-                var tec = _service.TemplateExerciseCollection.GetTemplateExerciseCollectionByTemplateProgramId(templateProgramId);
-                var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserIdAndRepRange(userId, 1);
-
-                var checkLiftingStats = liftingStats.ToList().Where(item1 => tec.Any(item2 => item1.ExerciseId == item2));
-
-                if (tec.Count() != checkLiftingStats.Count()) return Ok(Responses.Success(tec));
-
-                var programLog = await _service.ProgramLog.CreateProgramLogFromTemplate(userId, template, liftingStats, daySelected);
+                var statsToCreate = liftingStatsToCreate.ToList();
+                if (statsToCreate.Any()) return Ok(Responses.Success(statsToCreate));
+                 
+                var programLog = await _service.ProgramLog.CreateProgramLogFromTemplate(programLogDTO, template, userId);
                 return Ok(Responses.Success(programLog));
             }
             catch (TemplateProgramNotFoundException ex)

@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\PowerLifting.Data\PowerLifting.Data.csproj" />
-    <ProjectReference Include="PowerLifting.ProgramLogs.Repository\PowerLifting.ProgramLogs.Repository.csproj" />
+    <ProjectReference Include="..\..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />

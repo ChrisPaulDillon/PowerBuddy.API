@@ -16,7 +16,7 @@ namespace PowerLifting.ProgramLogs.Service
 
         Task<ProgramLog> CreateProgramLogFromScratch(CProgramLogDTO programLog, string userId);
 
-        Task<ProgramLog> CreateProgramLogFromTemplate(string userId, TemplateProgramDTO templateProgram, IEnumerable<LiftingStatDTO> liftingStats, DaySelected daySelected);
+        Task<ProgramLog> CreateProgramLogFromTemplate(CProgramLogDTO programLogDTO, TemplateProgramDTO templateProgram, string userId);
 
         Task<bool> UpdateProgramLog(ProgramLogDTO programLog, string userId);
 

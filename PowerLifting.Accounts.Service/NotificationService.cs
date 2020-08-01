@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Accounts.Service.Wrapper;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
@@ -16,12 +15,10 @@ namespace PowerLifting.Accounts.Service
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IAccountWrapper _repo;
 
-        public NotificationService(PowerLiftingContext context, IAccountWrapper repo, IMapper mapper)
+        public NotificationService(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
-            _repo = repo;
             _mapper = mapper;
         }
 
@@ -33,12 +30,12 @@ namespace PowerLifting.Accounts.Service
             };
             _context.Add(notification);
 
-            var users = await _repo.User.GetAllUsers();
+            var users = await _context.User.Select(x => x.Id).ToListAsync();
 
             var notificationInteractionList = users.ToList().Select(x => new NotificationInteraction()
             {
                 NotificationId = notification.NotificationId,
-                UserId = x.Id,
+                UserId = x,
                 HasRead = false
             });
 

@@ -5,7 +5,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Accounts.Service.Wrapper;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
@@ -17,13 +16,11 @@ namespace PowerLifting.Accounts.Service
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IAccountWrapper _repo;
         private readonly UserManager<User> _userManager;
 
-        public FriendsListService(PowerLiftingContext context, IAccountWrapper repo, IMapper mapper, UserManager<User> userManager)
+        public FriendsListService(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager)
         {
             _context = context;
-            _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
         }

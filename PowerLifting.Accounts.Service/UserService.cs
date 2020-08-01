@@ -1,31 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using PowerLifting.Accounts.Service.Wrapper;
 using PowerLifting.Data;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.Persistence;
 
 namespace PowerLifting.Accounts.Service
 {
     public class UserService : IUserService
     {
+        private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IAccountWrapper _repo;
-        private UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly ApplicationSettings _appSettings;
 
-        public UserService(IAccountWrapper repo, IMapper mapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
+        public UserService(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
         {
-            _repo = repo;
+            _context = context;
             _mapper = mapper;
             _userManager = userManager;
             _appSettings = appSettings.Value;
@@ -33,9 +36,8 @@ namespace PowerLifting.Accounts.Service
 
         public async Task<IEnumerable<UserDTO>> GetAllUsers()
         {
-            var users = await _repo.User.GetAllUsers();
-            var usersDTO = _mapper.Map<IEnumerable<UserDTO>>(users);
-            return usersDTO;
+            var users = await _context.User.ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            return users;
         }
 
         public async Task<UserDTO> GetUserProfile(string userId)
@@ -108,26 +110,11 @@ namespace PowerLifting.Accounts.Service
             throw new InvalidCredentialsException();
         }
 
-
-        public async Task<UserDTO> GetUserById(string id)
-        {
-            var user = await _repo.User.GetUserById(id);
-            if (user == null) throw new UserNotFoundException();
-            var userDTO = _mapper.Map<UserDTO>(user);
-            return userDTO;
-        }
-
-        public async Task<UserDTO> GetUserByEmail(string username)
-        {
-            var user = await _repo.User.GetUserByEmail(username);
-            var userDTO = _mapper.Map<UserDTO>(user);
-            return userDTO;
-        }
-
         public async Task RegisterUser(RegisterUserDTO userDTO)
         {
-            var user = await _repo.User.GetUserByEmail(userDTO.UserName);
-            if (user != null) throw new EmailInUseException();
+            var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == userDTO.Email || x.UserName == userDTO.UserName);
+            if (doesUserExist) throw new EmailInUseException();
+
             var userEntity = _mapper.Map<User>(userDTO);
 
             userEntity.UserSetting = new UserSetting()
@@ -138,24 +125,12 @@ namespace PowerLifting.Accounts.Service
             await _userManager.CreateAsync(userEntity, userDTO.Password);
         }
 
-        public async Task UpdateUser(UserDTO userDTO)
-        {
-            var user = await _repo.User.GetUserById(userDTO.UserId);
-            if (user == null) throw new UserNotFoundException();
-            _mapper.Map(userDTO, user);
-            _repo.User.UpdateUser(user);
-        }
-
-        public async Task DeleteUser(string id)
-        {
-            var user = await _repo.User.GetUserById(id);
-            if (user == null) throw new UserNotFoundException();
-            _repo.User.DeleteUser(user);
-        }
-
         public async Task<IEnumerable<PublicUserDTO>> GetAllActivePublicProfiles()
         {
-            return await _repo.User.GetAllActivePublicProfiles();
+            return await _context.User.Where(x => x.IsPublic)
+                .AsNoTracking()
+                .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
     }
 }

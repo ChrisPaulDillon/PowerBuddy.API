@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Util\**" />
+    <Content Remove="Util\**" />
+    <EmbeddedResource Remove="Util\**" />
+    <None Remove="Util\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
@@ -60,7 +67,6 @@
     <Folder Include="Models\" />
     <Folder Include="Wrappers\" />
     <Folder Include="Areas\" />
-    <Folder Include="Util\" />
     <Folder Include="Areas\ProgramLog\Models\" />
     <Folder Include="Areas\Public\" />
     <Folder Include="Areas\System\" />
