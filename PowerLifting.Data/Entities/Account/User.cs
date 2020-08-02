@@ -11,6 +11,7 @@ namespace PowerLifting.Data.Entities.Account
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool IsPublic { get; set; } = true;
+        public bool IsBanned { get; set; }
         public string SportType { get; set; }
         public UserSetting UserSetting { get; set; }
     }

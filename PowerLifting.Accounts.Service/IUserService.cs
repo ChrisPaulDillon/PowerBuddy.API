@@ -7,7 +7,7 @@ namespace PowerLifting.Accounts.Service
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserDTO>> GetAllUsers();
+        Task<IEnumerable<AdminUserDTO>> GetAllAdminUsers();
 
         Task<UserDTO> GetUserProfile(string userId);
 

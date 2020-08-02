@@ -25,8 +25,8 @@ namespace PowerLifting.Exercises.Service
 
         public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
         {
-            return await _context.Set<Exercise>()
-                .Where(x => x.IsApproved)
+            return await _context.Exercise
+                .Where(x => x.IsApproved == true)
                 .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .ToListAsync();
@@ -34,7 +34,7 @@ namespace PowerLifting.Exercises.Service
 
         public async Task<IEnumerable<ExerciseDTO>> GetAllUnapprovedExercises()
         {
-            return await _context.Exercise.Where(x => !x.IsApproved)
+            return await _context.Exercise.Where(x => x.IsApproved == false)
                 .AsNoTracking()
                 .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
@@ -43,7 +43,7 @@ namespace PowerLifting.Exercises.Service
         public async Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
         {
             return await _context.Set<Exercise>()
-                .Where(x => x.ExerciseSports.Any(x => x.ExerciseSportStr == exerciseSport))
+                .Where(x => x.ExerciseSports.Any(j => j.ExerciseSportStr == exerciseSport) && x.IsApproved)
                 .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .ToListAsync();

@@ -12,7 +12,7 @@ using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.SignalR;
 
-namespace PowerLifting.API.Areas.Account
+namespace PowerLifting.API.Areas.Account.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]
@@ -77,7 +77,7 @@ namespace PowerLifting.API.Areas.Account
         [HttpPost("Register")]
         [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO userDTO)
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDTO userDTO)
         {
             try
             {
@@ -88,8 +88,7 @@ namespace PowerLifting.API.Areas.Account
                     var exercisesInSport = await _service.Exercise.GetAllExercisesBySport(userDTO.SportType);
                     await _service.LiftingStat.CreateLiftingStatsByAthleteType(user.Id, exercisesInSport);
                 }
-                await _messageHub.Clients.All.SendAsync("pizza", "lmfao");
-                return Ok(Responses.Success(userDTO));
+                return Ok(Responses.Success());
             }
             catch (EmailInUseException ex)
             {

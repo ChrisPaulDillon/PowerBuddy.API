@@ -17,4 +17,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Data.Builders\PowerLifting.Data.Builders.csproj" />
+    <ProjectReference Include="..\PowerLifting.Exercises.Service\PowerLifting.Exercises.Service.csproj" />
+    <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

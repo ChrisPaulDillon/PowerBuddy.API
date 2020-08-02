@@ -6,7 +6,7 @@ using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
 
-namespace PowerLifting.API.Areas.Admin
+namespace PowerLifting.API.Areas.Admin.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]

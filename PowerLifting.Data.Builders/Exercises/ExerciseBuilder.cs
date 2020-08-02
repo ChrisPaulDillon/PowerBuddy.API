@@ -18,6 +18,7 @@ namespace PowerLifting.Data.Builders.Exercises
                 ExerciseId = _random.Next(),
                 ExerciseTypeId = _random.Next(),
                 ExerciseName = _random.Next().ToString(),
+                IsApproved = true
             };
         }
 
@@ -41,6 +42,12 @@ namespace PowerLifting.Data.Builders.Exercises
         public ExerciseBuilder WithExerciseTypeId(int exerciseTypeId)
         {
             _exercise.ExerciseTypeId = exerciseTypeId;
+            return this;
+        }
+
+        public ExerciseBuilder WithIsApproved(bool isApproved)
+        {
+            _exercise.IsApproved = isApproved;
             return this;
         }
     }

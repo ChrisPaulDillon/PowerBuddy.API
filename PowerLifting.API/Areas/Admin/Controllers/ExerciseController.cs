@@ -9,7 +9,7 @@ using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Exercises;
 
-namespace PowerLifting.API.Areas.Admin
+namespace PowerLifting.API.Areas.Admin.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]

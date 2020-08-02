@@ -34,9 +34,9 @@ namespace PowerLifting.Accounts.Service
             _appSettings = appSettings.Value;
         }
 
-        public async Task<IEnumerable<UserDTO>> GetAllUsers()
+        public async Task<IEnumerable<AdminUserDTO>> GetAllAdminUsers()
         {
-            var users = await _context.User.ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            var users = await _context.User.ProjectTo<AdminUserDTO>(_mapper.ConfigurationProvider).AsNoTracking().ToListAsync();
             return users;
         }
 
