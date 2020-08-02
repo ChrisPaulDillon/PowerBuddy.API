@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using PowerLifting.Data.DTOs.ProgramLogs;
 
-namespace PowerLifting.API.Areas.ProgramLog.Models
+namespace PowerLifting.API.Areas.Account.Models
 {
     public class ProgramLogWithTemplateDTO : ProgramLogDTO
     {

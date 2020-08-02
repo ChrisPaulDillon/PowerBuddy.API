@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PowerLifting.API.Areas.ProgramLog.Models;
+using PowerLifting.API.Areas.Account.Models;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.ProgramLogs;
@@ -14,18 +14,19 @@ using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 
-namespace PowerLifting.API.Areas.ProgramLog.Controllers
+namespace PowerLifting.API.Areas.Account.Controllers
 {
-    [Route("api/ProgramLog/[controller]")]
+    [Route("api/[area]/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [Area("Account")]
     [Authorize(AuthenticationSchemes = "Bearer")]
-    public class LogController : ControllerBase
+    public class ProgramLogController : ControllerBase
     {
         private readonly IServiceWrapper _service;
         private string userId = "";
 
-        public LogController(IServiceWrapper service)
+        public ProgramLogController(IServiceWrapper service)
         {
             _service = service;
         }

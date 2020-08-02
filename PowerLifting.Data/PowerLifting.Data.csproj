@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTOs\Users\**" />
+    <EmbeddedResource Remove="DTOs\Users\**" />
+    <None Remove="DTOs\Users\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="DTOs\Account\" />
     <Folder Include="DTOs\ProgramLogs\" />
     <Folder Include="Entities\ProgramLogs\" />
@@ -12,7 +18,6 @@
     <Folder Include="Entities\System\" />
     <Folder Include="Entities\Templates\" />
     <Folder Include="DTOs\Templates\" />
-    <Folder Include="DTOs\Users\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />

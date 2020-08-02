@@ -39,10 +39,10 @@ namespace PowerLifting.API.Areas.Public
                 var user = await _service.User.GetPublicUserProfileByUserName(userName);
                 if (user != null)
                 {
-                    var friendRequest = await _service.FriendsList.GetPendingFriendRequest(user.Id, userId);
+                    var friendRequest = await _service.FriendsList.GetPendingFriendRequest(user.UserId, userId);
                     var userExtended = new PublicUserExtendedDTO()
                     {
-                        Id = user.Id,
+                        UserId = user.UserId,
                         UserName = user.UserName,
                         IsPublic = user.IsPublic,
                         PendingFriendRequest = friendRequest != null,

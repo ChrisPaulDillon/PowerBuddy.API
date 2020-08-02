@@ -9,9 +9,8 @@ namespace PowerLifting.Data.DTOs.Account
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
         public int LiftingStatId { get; set; }
-        public virtual LiftingStatDTO LiftingStats { get; set; }
-        public virtual UserSettingDTO UserSetting { get; set; }
+        public string SportType { get; set; }
+        public UserSettingDTO UserSetting { get; set; }
     }
 }

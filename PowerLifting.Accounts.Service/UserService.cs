@@ -74,7 +74,7 @@ namespace PowerLifting.Accounts.Service
 
             var userDTO = new PublicUserDTO()
             {
-                Id = user.Id,
+                UserId = user.Id,
                 UserName = user.UserName,
                 SportType = user.SportType,
                 IsPublic = user.IsPublic

@@ -9,17 +9,18 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 
-namespace PowerLifting.API.Areas.ProgramLog.Controllers
+namespace PowerLifting.API.Areas.Account
 {
-    [Route("api/ProgramLog/[controller]")]
+    [Route("api/[area]/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class ExerciseController : ControllerBase
+    [Area("Account")]
+    public class ProgramLogExerciseController : ControllerBase
     {
         private readonly IServiceWrapper _service;
         private string _userId = "";
 
-        public ExerciseController(IServiceWrapper service)
+        public ProgramLogExerciseController(IServiceWrapper service)
         {
             _service = service;
         }

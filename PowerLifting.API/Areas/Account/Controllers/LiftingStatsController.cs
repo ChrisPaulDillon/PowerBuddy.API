@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.API.Wrappers;
-using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.LiftingStats;
 
-namespace PowerLifting.API.Areas.Account
+namespace PowerLifting.API.Areas.Account.Controllers
 {
+    [Route("api/[area]/[controller]")]
     [ApiController]
-    [Route("api/[controller]")]
     [Produces("application/json")]
+    [Area("Account")]
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class LiftingStatsController : ControllerBase
     {

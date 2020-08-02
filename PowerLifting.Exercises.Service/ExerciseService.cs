@@ -42,10 +42,14 @@ namespace PowerLifting.Exercises.Service
 
         public async Task<Exercise> GetExerciseById(int id)
         {
-            return await _context.Set<Exercise>()
+            var exercise = await _context.Set<Exercise>()
                 .Where(x => x.ExerciseId == id)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+
+            if(exercise == null) throw new ExerciseNotFoundException();
+
+            return exercise;
         }
 
         public async Task<Exercise> CreateExercise(CExerciseDTO exerciseDTO)
