@@ -8,7 +8,7 @@ namespace PowerLifting.Data.DTOs.Templates
         public string Name { get; set; }
         public string Difficulty { get; set; }
         public int NoOfWeeks { get; set; }
-        public int MaxLiftDaysPerWeek { get; set; }
+        public int NoOfDaysPerWeek { get; set; }
         public string TemplateType { get; set; } //incremental, percentage based
         public string WeightProgressionType { get; set; } //incremental, percentage based
 

@@ -12,6 +12,7 @@ namespace PowerLifting.Data.Entities.Exercises
         public int ExerciseId { get; set; }
         public int ExerciseTypeId { get; set; }
         public string ExerciseName { get; set; }
+        public bool IsApproved { get; set; }
         public virtual ExerciseType ExerciseType { get; set; }
         public virtual IEnumerable<ExerciseMuscleGroup> ExerciseMuscleGroups { get; set; }
         public virtual IEnumerable<ExerciseSport> ExerciseSports { get; set; }

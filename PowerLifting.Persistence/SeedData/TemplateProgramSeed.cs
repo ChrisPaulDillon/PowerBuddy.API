@@ -15,7 +15,7 @@ namespace PowerLifting.Persistence.SeedData
                     Create531(),
                     Create531BBB(),
                     new TemplateProgram { TemplateProgramId = 3, Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner), NoOfWeeks = 12,
-                        MaxLiftDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL),
+                        NoOfDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL),
                          TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 1 },
                             new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 4},
@@ -183,7 +183,7 @@ namespace PowerLifting.Persistence.SeedData
                                     } } } }
                             } },
 
-                        new TemplateProgram {TemplateProgramId = 4, Name="Russian Squat Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Intermediate), NoOfWeeks = 6, MaxLiftDaysPerWeek = 3,
+                        new TemplateProgram {TemplateProgramId = 4, Name="Russian Squat Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Intermediate), NoOfWeeks = 6, NoOfDaysPerWeek = 3,
                         TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                         TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 4, ExerciseId = 1 }
@@ -413,7 +413,7 @@ namespace PowerLifting.Persistence.SeedData
                             }
 
                     } },
-                        new TemplateProgram { TemplateProgramId = 5, Name="Smolov Jr Bench Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Advanced), NoOfWeeks = 3, MaxLiftDaysPerWeek = 4,
+                        new TemplateProgram { TemplateProgramId = 5, Name="Smolov Jr Bench Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Advanced), NoOfWeeks = 3, NoOfDaysPerWeek = 4,
                         TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                         TemplateExerciseCollection = new List<TemplateExerciseCollection> {
                             new TemplateExerciseCollection { TemplateProgramId = 5, ExerciseId = 3 }
@@ -612,7 +612,7 @@ namespace PowerLifting.Persistence.SeedData
                 Name = "Madcow 5x5",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Intermediate),
                 NoOfWeeks = 12,
-                MaxLiftDaysPerWeek = 3,
+                NoOfDaysPerWeek = 3,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection>
@@ -2583,7 +2583,7 @@ namespace PowerLifting.Persistence.SeedData
                 Name = "5/3/1 Boring But Big (3 Day)",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                 NoOfWeeks = 4,
-                MaxLiftDaysPerWeek = 3,
+                NoOfDaysPerWeek = 3,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection> {
@@ -2741,7 +2741,7 @@ namespace PowerLifting.Persistence.SeedData
                 Name = "5/3/1 Boring But Big (4 Day)",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                 NoOfWeeks = 4,
-                MaxLiftDaysPerWeek = 4,
+                NoOfDaysPerWeek = 4,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection> {
@@ -2946,7 +2946,7 @@ namespace PowerLifting.Persistence.SeedData
                 Name = "5/3/1 (3 Day)",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                 NoOfWeeks = 4,
-                MaxLiftDaysPerWeek = 3,
+                NoOfDaysPerWeek = 3,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection> {
@@ -3058,7 +3058,7 @@ namespace PowerLifting.Persistence.SeedData
                 Name = "5/3/1 (4 Day)",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                 NoOfWeeks = 4,
-                MaxLiftDaysPerWeek = 4,
+                NoOfDaysPerWeek = 4,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection> {

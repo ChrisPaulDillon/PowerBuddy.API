@@ -12,11 +12,7 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public int ExerciseId { get; set; }
         public int NoOfSets { get; set; }
         public string Comment { get; set; }
-
-        public string RepSchemeFormat { get; set; } // 3x5, 4x5
         public string RepSchemeType { get; set; } //ramped, fixed
-        public bool HasBackOffSets { get; set; }
-        public string BackOffSetFormat { get; set; }
         public bool Completed { get; set; }
 
         public decimal? Weight { get; set; } //only used when repSchemeType is set to 'fixed'

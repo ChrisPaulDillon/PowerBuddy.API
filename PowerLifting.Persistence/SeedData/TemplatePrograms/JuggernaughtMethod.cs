@@ -14,7 +14,7 @@ namespace PowerLifting.Persistence.SeedData.TemplatePrograms
                 Name = "Juggernaught Method",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
                 NoOfWeeks = 16,
-                MaxLiftDaysPerWeek = 4,
+                NoOfDaysPerWeek = 4,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateExerciseCollection = new List<TemplateExerciseCollection> {

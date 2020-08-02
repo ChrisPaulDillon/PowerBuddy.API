@@ -144,7 +144,7 @@ namespace PowerLifting.API.Areas.ProgramLog.Controllers
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
 
                 var template = await _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
-                if (template.MaxLiftDaysPerWeek != programLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
+                if (template.NoOfDaysPerWeek != programLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
 
                 var liftingStatsToCreate = await _service.TemplateExerciseCollection.DoesUserHaveExerciseCollection1RMSet(templateProgramId, userId);
 

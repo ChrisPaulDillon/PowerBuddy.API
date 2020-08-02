@@ -219,7 +219,7 @@ namespace PowerLifting.ProgramLogs.Service.Util
 
                 foreach (var temReps in temExercise.TemplateRepSchemes)
                 {
-                    var programRepSchema = GenerateProgramLogRepScheme("PERCENTAGE", (double)(user1RMOnLift.Weight), temReps);
+                    var programRepSchema = GenerateProgramLogRepScheme("PERCENTAGE", user1RMOnLift.Weight, temReps);
                     programLogExercise.ProgramLogRepSchemes.Add(programRepSchema);
                 }
                 programLogExercises.Add(programLogExercise);
@@ -227,7 +227,7 @@ namespace PowerLifting.ProgramLogs.Service.Util
             return programLogExercises;
         }
 
-        public static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string weightProgressionType, double user1RM, TemplateRepSchemeDTO templateRepScheme)
+        public static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string weightProgressionType, decimal? user1RM, TemplateRepSchemeDTO templateRepScheme)
         {
             var weightToLift = 0.00M;
 
@@ -237,7 +237,7 @@ namespace PowerLifting.ProgramLogs.Service.Util
                 {
                     case WeightProgressionTypeEnum.PERCENTAGE:
                         var percent = templateRepScheme.Percentage / 100;
-                        weightToLift = Convert.ToDecimal(user1RM * percent);
+                        weightToLift = (decimal)(user1RM * percent);
                         break;
                     case WeightProgressionTypeEnum.INCREMENTAL:
                         break;
