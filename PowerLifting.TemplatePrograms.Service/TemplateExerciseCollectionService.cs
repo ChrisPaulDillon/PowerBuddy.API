@@ -28,7 +28,7 @@ namespace PowerLifting.TemplatePrograms.Service
                 .ToList();
         }
 
-        public async Task<IEnumerable<LiftingStat>> DoesUserHaveExerciseCollection1RMSet(int templateProgramId, string userId)
+        public async Task<IEnumerable<int>> DoesUserHaveExerciseCollection1RMSet(int templateProgramId, string userId)
         {
             var tec = _context.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == templateProgramId)
                 .AsNoTracking()
@@ -37,7 +37,7 @@ namespace PowerLifting.TemplatePrograms.Service
 
             var liftingStats = await _context.LiftingStat.Where(x => x.UserId == userId && x.RepRange == 1).AsNoTracking().ToListAsync();
 
-            var liftingStatsToCreate = liftingStats.Where(item1 => tec.All(item2 => item1.ExerciseId != item2));
+            var liftingStatsToCreate = tec.Where(item1 => liftingStats.All(item2 => item1 != item2.ExerciseId));
 
             return liftingStatsToCreate;
         }

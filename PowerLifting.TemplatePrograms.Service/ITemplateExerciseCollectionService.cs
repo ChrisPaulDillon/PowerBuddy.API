@@ -9,6 +9,6 @@ namespace PowerLifting.TemplatePrograms.Service
     {
         IEnumerable<int> GetTemplateExerciseCollectionByTemplateProgramId(int templateProgramId);
 
-        Task<IEnumerable<LiftingStat>> DoesUserHaveExerciseCollection1RMSet(int templateProgramId, string userId);
+        Task<IEnumerable<int>> DoesUserHaveExerciseCollection1RMSet(int templateProgramId, string userId);
     }
 }

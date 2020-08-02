@@ -26,8 +26,17 @@ namespace PowerLifting.Exercises.Service
         public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
         {
             return await _context.Set<Exercise>()
+                .Where(x => x.IsApproved)
                 .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ExerciseDTO>> GetAllUnapprovedExercises()
+        {
+            return await _context.Exercise.Where(x => !x.IsApproved)
+                .AsNoTracking()
+                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
