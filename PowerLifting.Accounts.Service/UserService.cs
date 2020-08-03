@@ -15,6 +15,7 @@ using PowerLifting.Data;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.Data.Util;
 using PowerLifting.Persistence;
 
 namespace PowerLifting.Accounts.Service
@@ -24,14 +25,14 @@ namespace PowerLifting.Accounts.Service
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        private readonly ApplicationSettings _appSettings;
+        private readonly JWTSettings _jwtSettings;
 
-        public UserService(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
+        public UserService(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, JWTSettings jwtSettings)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
-            _appSettings = appSettings.Value;
+            _jwtSettings = jwtSettings;
         }
 
         public async Task<IEnumerable<AdminUserDTO>> GetAllAdminUsers()
@@ -92,7 +93,7 @@ namespace PowerLifting.Accounts.Service
 
             if (user != null && await _userManager.CheckPasswordAsync(user, loginModel.Password))
             {
-                var key = Encoding.UTF8.GetBytes(_appSettings.JWT_Secret);
+                var key = Encoding.UTF8.GetBytes(_jwtSettings.JWT_Secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
