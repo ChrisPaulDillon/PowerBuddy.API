@@ -11,9 +11,6 @@ namespace PowerLifting.Accounts.Service
 
         Task<UserDTO> GetUserProfile(string userId);
 
-        /// <summary>
-        /// Gets the users public profile if they have a public profile enabled
-        /// </summary>
         Task<PublicUserDTO> GetPublicUserProfileById(string id);
 
         Task<PublicUserDTO> GetPublicUserProfileByUserName(string userName);
@@ -23,5 +20,7 @@ namespace PowerLifting.Accounts.Service
         Task<string> LoginUser(LoginModel user);
 
         Task RegisterUser(RegisterUserDTO userDTO);
+
+        Task<bool> BanUser(string userId, string adminUserId);
     }
 }

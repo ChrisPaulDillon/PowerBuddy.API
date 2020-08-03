@@ -9,6 +9,7 @@ using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.Persistence;
+using PowerLifting.Data.Exceptions.Account;
 
 namespace PowerLifting.Exercises.Service
 {
@@ -101,6 +102,26 @@ namespace PowerLifting.Exercises.Service
 
             var exercise = _mapper.Map<Exercise>(exerciseDTO);
             _context.Remove(exercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
+        }
+
+        public async Task<bool> ApproveExercise(int exerciseId, string userId)
+        {
+            var exercise = await _context.Exercise.FirstOrDefaultAsync(x => x.ExerciseId == exerciseId);
+
+            if (exercise == null) throw new ExerciseNotFoundException();
+
+            var userName = await _context.User.Where(x => x.Id == userId && x.Rights >= 1) //user is a mod or admin
+                .AsNoTracking()
+                .Select(x => x.UserName)
+                .FirstOrDefaultAsync();
+
+            if (userName == null) throw new UserNotFoundException();
+
+            exercise.IsApproved = true;
+            exercise.AdminApprover = userName;
 
             var changedRows = await _context.SaveChangesAsync();
             return changedRows > 0;

@@ -133,5 +133,21 @@ namespace PowerLifting.Accounts.Service
                 .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
+
+        public async Task<bool> BanUser(string userId, string adminUserId)
+        {
+            var userToBan = await _context.User.FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (userToBan == null) throw new UserNotFoundException();
+
+            var adminUser = await _context.User.Where(x => x.Id == adminUserId && x.Rights >= 1).Select(x => x.UserName).FirstOrDefaultAsync();
+
+            if (string.IsNullOrEmpty(adminUser)) throw new UserNotFoundException();
+
+            userToBan.IsBanned = true;
+            var modifiedRows = await _context.SaveChangesAsync();
+
+            return modifiedRows > 0;
+        }
     }
 }

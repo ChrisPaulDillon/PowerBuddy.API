@@ -35,7 +35,7 @@ namespace PowerLifting.API.UnitTests.Area.Admin
             })));
 
             _serviceWrapper = new Mock<IServiceWrapper>(MockBehavior.Strict);
-            _controller = new AccountController(_serviceWrapper.Object);
+            _controller = new AccountController(_serviceWrapper.Object, _httpContextAccessor.Object);
         }
 
         #region GetAllAdminUsers
@@ -55,5 +55,7 @@ namespace PowerLifting.API.UnitTests.Area.Admin
         }
 
         #endregion
+
+
     }
 }

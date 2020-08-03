@@ -5,10 +5,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.Builders.Account;
 using PowerLifting.Data.Builders.Exercises;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.Exercises;
+using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.Persistence;
 using Xunit;
 
@@ -136,6 +139,55 @@ namespace PowerLifting.Exercises.Service.UnitTests
             Assert.NotEmpty(result);
             Assert.NotNull(result);
             Assert.IsType<List<TopLevelExerciseDTO>>(result);
+        }
+
+        [Fact]
+        public async Task ApproveExercise_ExerciseNotFound_ThrowsExerciseNotFoundException()
+        {
+            await Assert.ThrowsAsync<ExerciseNotFoundException>(async () => await _exerciseService.ApproveExercise(1, "test"));
+        }
+
+        [Fact]
+        public async Task ApproveExercise_UserNotFound_ThrowsUserNotFoundException()
+        {
+            var exercise = new ExerciseBuilder().WithIsApproved(true).Build();
+            _context.Exercise.Add(exercise);
+            await _context.SaveChangesAsync();
+
+            await Assert.ThrowsAsync<UserNotFoundException>(async () => await _exerciseService.ApproveExercise(exercise.ExerciseId, "test"));
+        }
+
+        [Fact]
+        public async Task ApproveExercise_UserDoesNotHaveRights_ThrowsUserNotFoundException()
+        {
+            // Arrange
+            var exercise = new ExerciseBuilder().WithIsApproved(true).Build();
+            var user = new UserBuilder().Build();
+
+            _context.Exercise.Add(exercise);
+            _context.User.Add(user);
+            await _context.SaveChangesAsync();
+
+            // Act
+            await Assert.ThrowsAsync<UserNotFoundException>(async () => await _exerciseService.ApproveExercise(exercise.ExerciseId, user.Id));
+        }
+
+        [Fact]
+        public async Task ApproveExercise_UserHasRights_ReturnsTrue()
+        {
+            // Arrange
+            var exercise = new ExerciseBuilder().WithIsApproved(true).Build();
+            var user = new UserBuilder().WithRights(3).Build();
+
+            _context.Exercise.Add(exercise);
+            _context.User.Add(user);
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _exerciseService.ApproveExercise(exercise.ExerciseId, user.Id);
+
+            // Assert
+            Assert.True(result);
         }
     }
 }

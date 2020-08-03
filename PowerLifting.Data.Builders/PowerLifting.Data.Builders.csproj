@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Account\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
   </ItemGroup>
 
