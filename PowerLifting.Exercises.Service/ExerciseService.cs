@@ -50,10 +50,12 @@ namespace PowerLifting.Exercises.Service
                 .ToListAsync();
         }
 
-        public async Task<Exercise> GetExerciseById(int id)
+        public async Task<Exercise> GetExerciseById(int exerciseId)
         {
+            if (exerciseId <= 0) throw new ExerciseValidationException("ExerciseId must be greater than zero");
+
             var exercise = await _context.Set<Exercise>()
-                .Where(x => x.ExerciseId == id)
+                .Where(x => x.ExerciseId == exerciseId)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
@@ -109,6 +111,9 @@ namespace PowerLifting.Exercises.Service
 
         public async Task<bool> ApproveExercise(int exerciseId, string userId)
         {
+            if (exerciseId <= 0) throw new ExerciseValidationException("ExerciseId must be greater than zero");
+            if (string.IsNullOrEmpty(userId)) throw new UserValidationException("UserId cannot be null or invalid");
+
             var exercise = await _context.Exercise.FirstOrDefaultAsync(x => x.ExerciseId == exerciseId);
 
             if (exercise == null) throw new ExerciseNotFoundException();

@@ -43,6 +43,8 @@ namespace PowerLifting.Accounts.Service
 
         public async Task<UserDTO> GetUserProfile(string userId)
         {
+            if (string.IsNullOrEmpty(userId)) throw new UserValidationException("UserId cannot be empty");
+
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null) throw new UserNotFoundException();
 
@@ -57,6 +59,8 @@ namespace PowerLifting.Accounts.Service
 
         public async Task<PublicUserDTO> GetPublicUserProfileById(string userId)
         {
+            if (string.IsNullOrEmpty(userId)) throw new UserValidationException("UserId cannot be empty");
+
             var user = await _context.User.Where(x => x.Id == userId)
                 .AsNoTracking()
                 .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
@@ -69,6 +73,8 @@ namespace PowerLifting.Accounts.Service
 
         public async Task<PublicUserDTO> GetPublicUserProfileByUserName(string userName)
         {
+            if (string.IsNullOrEmpty(userName)) throw new UserValidationException("UserName cannot be empty");
+
             var user = await _context.User.Where(x => x.NormalizedUserName == userName.ToUpper())
                .AsNoTracking()
                .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
@@ -81,6 +87,10 @@ namespace PowerLifting.Accounts.Service
 
         public async Task<string> LoginUser(LoginModel loginModel)
         {
+            if (string.IsNullOrEmpty(loginModel.Email)) throw new UserValidationException("Email cannot be empty");
+            if (string.IsNullOrEmpty(loginModel.Password)) throw new UserValidationException("Password cannot be empty");
+            if (string.IsNullOrEmpty(loginModel.UserName)) throw new UserValidationException("UserName cannot be empty");
+
             var user = await _userManager.FindByNameAsync(loginModel.UserName);
             if (user == null)
             {

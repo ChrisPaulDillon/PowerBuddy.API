@@ -39,12 +39,17 @@ namespace PowerLifting.API.Areas.Admin.Controllers
         [HttpPut("{userId}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> BanUser(string userId)
         {
             try
             {
                 var result = await _service.User.BanUser(userId, _userId);
                 return Ok(Responses.Success(result));
+            }
+            catch (UserValidationException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (UserNotFoundException e)
             {

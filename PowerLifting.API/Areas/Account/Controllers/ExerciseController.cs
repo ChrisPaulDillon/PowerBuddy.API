@@ -53,9 +53,15 @@ namespace PowerLifting.API.Areas.Account
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int exerciseId)
         {
-            var exercises = await _service.Exercise.GetExerciseById(exerciseId);
-            if (exercises == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Exercise Found"));
-            return Ok(Responses.Success(exercises));
+            try
+            {
+                var exercises = await _service.Exercise.GetExerciseById(exerciseId);
+                return Ok(Responses.Success(exercises));
+            }
+            catch(ExerciseNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
     }

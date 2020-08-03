@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -21,9 +22,10 @@ namespace PowerLifting.API.Areas.Admin.Controllers
         private readonly IServiceWrapper _service;
         private string _userId;
 
-        public ExerciseController(IServiceWrapper service)
+        public ExerciseController(IServiceWrapper service, IHttpContextAccessor accessor)
         {
             _service = service;
+            _userId = accessor.HttpContext.User.Claims.First(x => x.Type == "UserID").Value;
         }
 
         [HttpGet]
@@ -37,6 +39,7 @@ namespace PowerLifting.API.Areas.Admin.Controllers
 
         [HttpPut("{exerciseId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ApproveExercise(int exerciseId)
         {
@@ -44,6 +47,14 @@ namespace PowerLifting.API.Areas.Admin.Controllers
             {
                 var result = await _service.Exercise.ApproveExercise(exerciseId, _userId);
                 return Ok(Responses.Success(result));
+            }
+            catch(ExerciseValidationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch(UserValidationException e)
+            {
+                return BadRequest(e.Message);
             }
             catch(ExerciseNotFoundException e)
             {

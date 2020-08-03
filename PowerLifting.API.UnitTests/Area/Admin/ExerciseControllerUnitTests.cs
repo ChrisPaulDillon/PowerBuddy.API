@@ -33,10 +33,38 @@ namespace PowerLifting.API.UnitTests.Area.Admin
             })));
 
             _serviceWrapper = new Mock<IServiceWrapper>(MockBehavior.Strict);
-            _controller = new ExerciseController(_serviceWrapper.Object);
+            _controller = new ExerciseController(_serviceWrapper.Object, _httpContextAccessor.Object);
         }
 
         #region ApproveExercise
+
+        [Fact]
+        public async Task ApproveExercise_ThrowsExerciseValidationException_ReturnsBadRequest()
+        {
+            // Arrange
+            _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new ExerciseValidationException());
+
+            // Act
+            var result = await _controller.ApproveExercise(555);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task ApproveExercise_ThrowsUserValidationException_ReturnsBadRequest()
+        {
+            // Arrange
+            _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new UserValidationException());
+
+            // Act
+            var result = await _controller.ApproveExercise(555);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
 
         [Fact]
         public async Task ApproveExercise_ThrowsExerciseNotFoundException_ReturnsNotFound()

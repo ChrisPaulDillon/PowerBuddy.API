@@ -34,12 +34,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [HttpPost("Login")]
         [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> LoginUser(LoginModel loginModel)
         {
             try
             {
                 var token = await _service.User.LoginUser(loginModel);
                 return Ok(Responses.Success(token));
+            }
+            catch (UserValidationException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (InvalidCredentialsException ex)
             {
@@ -52,6 +57,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetLoggedInUsersProfile()
         {
             try
@@ -63,6 +69,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                     user.UserSetting = await _service.UserSetting.GetUserSettingsByUserId(userId);
                 }
                 return Ok(Responses.Success(user));
+            }
+            catch (UserValidationException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (UserNotFoundException ex)
             {
@@ -77,6 +87,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [HttpPost("Register")]
         [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDTO userDTO)
         {
             try
@@ -90,6 +101,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 }
                 return Ok(Responses.Success());
             }
+            catch (UserValidationException e)
+            {
+                return BadRequest(e.Message);
+            }
             catch (EmailOrUserNameInUseException ex)
             {
                 return Conflict(Responses.Error(ex));
@@ -99,11 +114,16 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [HttpGet("Settings/{userId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetUserSettings(string userId)
         {
             try
             {
                 return NoContent();
+            }
+            catch (UserValidationException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (UserNotFoundException)
             {
