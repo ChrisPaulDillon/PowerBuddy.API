@@ -55,32 +55,28 @@ namespace PowerLifting.Accounts.Service
             return userDTO;
         }
 
-        public async Task<PublicUserDTO> GetPublicUserProfileById(string id)
+        public async Task<PublicUserDTO> GetPublicUserProfileById(string userId)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _context.User.Where(x => x.Id == userId)
+                .AsNoTracking()
+                .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
             if (user == null) throw new UserNotFoundException();
 
-            var userDTO = new PublicUserDTO()
-            {
-                UserName = user.UserName,
-                SportType = user.SportType,
-            };
-            return userDTO;
+            return user;
         }
 
         public async Task<PublicUserDTO> GetPublicUserProfileByUserName(string userName)
         {
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await _context.User.Where(x => x.NormalizedUserName == userName.ToUpper())
+               .AsNoTracking()
+               .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
+               .FirstOrDefaultAsync();
+
             if (user == null) throw new UserNotFoundException();
 
-            var userDTO = new PublicUserDTO()
-            {
-                UserId = user.Id,
-                UserName = user.UserName,
-                SportType = user.SportType,
-                IsPublic = user.IsPublic
-            };
-            return userDTO;
+            return user;
         }
 
         public async Task<string> LoginUser(LoginModel loginModel)
@@ -113,8 +109,12 @@ namespace PowerLifting.Accounts.Service
 
         public async Task RegisterUser(RegisterUserDTO userDTO)
         {
-            var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == userDTO.Email || x.UserName == userDTO.UserName);
-            if (doesUserExist) throw new EmailInUseException();
+            if (string.IsNullOrEmpty(userDTO.Email)) throw new UserValidationException("Email cannot be empty");
+            if (string.IsNullOrEmpty(userDTO.Password)) throw new UserValidationException("Password cannot be empty");
+            if (string.IsNullOrEmpty(userDTO.UserName)) throw new UserValidationException("UserName cannot be empty");
+
+            var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == userDTO.Email || x.NormalizedUserName == userDTO.UserName.ToUpper());
+            if (doesUserExist) throw new EmailOrUserNameInUseException();
 
             var userEntity = _mapper.Map<User>(userDTO);
 

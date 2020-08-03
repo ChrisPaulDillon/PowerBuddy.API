@@ -90,7 +90,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 }
                 return Ok(Responses.Success());
             }
-            catch (EmailInUseException ex)
+            catch (EmailOrUserNameInUseException ex)
             {
                 return Conflict(Responses.Error(ex));
             }

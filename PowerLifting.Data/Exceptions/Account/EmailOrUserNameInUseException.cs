@@ -2,7 +2,7 @@
 
 namespace PowerLifting.Data.Exceptions.Account
 {
-    public class EmailInUseException : Exception
+    public class EmailOrUserNameInUseException : Exception
     {
     }
 }

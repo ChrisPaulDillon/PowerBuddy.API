@@ -13,11 +13,17 @@ namespace PowerLifting.Data.Builders.Account
         public UserBuilder(Random random = null)
         {
             _random = random ?? new Random();
+            var userName = _random.Next().ToString();
+            var email = _random.Next().ToString();
+
             _user = new User
             {
                 Id = _random.Next().ToString(),
-                UserName = _random.Next().ToString(),
-                Email = _random.Next().ToString(),
+                UserName = userName,
+                NormalizedUserName = userName.ToUpper(),
+                Email = email,
+                NormalizedEmail = email.ToUpper(),
+                PasswordHash = _random.Next().ToString(),
                 Rights = 0
             };
         }
@@ -33,9 +39,27 @@ namespace PowerLifting.Data.Builders.Account
             return this;
         }
 
+        public UserBuilder WithEmail(string email)
+        {
+            _user.Email = email;
+            return this;
+        }
+
+        public UserBuilder WithNormalizedEmail(string normalizedEmail)
+        {
+            _user.NormalizedEmail = normalizedEmail;
+            return this;
+        }
+
         public UserBuilder WithUserName(string userName)
         {
             _user.UserName = userName;
+            return this;
+        }
+
+        public UserBuilder WithNormalizedUserName(string userName)
+        {
+            _user.NormalizedUserName = userName;
             return this;
         }
 
