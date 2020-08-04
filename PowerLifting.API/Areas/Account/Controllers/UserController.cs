@@ -18,17 +18,15 @@ namespace PowerLifting.API.Areas.Account.Controllers
     [ApiController]
     [Produces("application/json")]
     [Area("Account")]
-    public class AccountController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IServiceWrapper _service;
         private readonly UserManager<User> _userManager;
-        IHubContext<MessageHub> _messageHub;
 
-        public AccountController(IServiceWrapper service, UserManager<User> userManager, IHubContext<MessageHub> messageHub)
+        public UserController(IServiceWrapper service, UserManager<User> userManager)
         {
             _service = service;
             _userManager = userManager;
-            _messageHub = messageHub;
         }
 
         [HttpPost("Login")]

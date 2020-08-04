@@ -16,12 +16,12 @@ namespace PowerLifting.API.Areas.Admin.Controllers
     [Produces("application/json")]
     [Area("Admin")]
     [Authorize(AuthenticationSchemes = "Bearer")]
-    public class AccountController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IServiceWrapper _service;
         private string _userId;
 
-        public AccountController(IServiceWrapper service, IHttpContextAccessor accessor)
+        public UserController(IServiceWrapper service, IHttpContextAccessor accessor)
         {
             _service = service;
             _userId = accessor.HttpContext.User.Claims.First(x => x.Type == "UserID").Value;

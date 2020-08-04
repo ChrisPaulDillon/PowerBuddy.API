@@ -29,7 +29,7 @@ namespace PowerLifting.API.Extensions
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigin",
-                    builder => builder.WithOrigins(corsConfig["Client_URL"].ToString())
+                    builder => builder.WithOrigins("http://localhost:3000")//corsConfig["Client_URL"].ToString(), "")
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });

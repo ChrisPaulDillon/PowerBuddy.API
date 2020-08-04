@@ -39,10 +39,18 @@ namespace PowerLifting.API
         {
 
             //Inject app settings
-            services.AddJWTSettings(Configuration.GetSection("JWT_Settings"));
+            services.AddJWTSettings(Configuration.GetSection("JWTSettings"));
             services.AddSentry(Configuration.GetSection("Sentry"));
             services.AddPowerLiftingContext(Configuration.GetConnectionString("DefaultConnection"));
-            services.AddCorsPolicy(Configuration.GetSection("CorsPolicy"));
+            //services.AddCorsPolicy(Configuration.GetSection("CorsPolicy"));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin",
+                    builder => builder.WithOrigins(Configuration["CorsPolicy:Client_URL"].ToString())
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
@@ -116,9 +124,7 @@ namespace PowerLifting.API
 
             app.UseRouting();
 
-            app.UseCors(builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
-                 .AllowAnyHeader()
-                 .AllowAnyMethod());
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();
