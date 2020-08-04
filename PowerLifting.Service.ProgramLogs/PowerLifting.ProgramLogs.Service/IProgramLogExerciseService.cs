@@ -8,10 +8,6 @@ namespace PowerLifting.ProgramLogs.Service
 {
     public interface IProgramLogExerciseService
     {
-        /// <summary>
-        /// Gets all exercises for a given program log day
-        /// </summary>
-        Task<IEnumerable<ProgramLogExerciseDTO>> GetProgramExercisesByProgramLogDayId(int programLogDayId, string userId);
 
         /// <summary>
         /// Gets a specific ProgramLogExercise By Ids
@@ -22,11 +18,6 @@ namespace PowerLifting.ProgramLogs.Service
         /// Creates a new program exercise for a specific log
         /// </summary>
         Task<ProgramLogExerciseDTO> CreateProgramLogExercise(CProgramLogExerciseDTO programLogExercise, string userId);
-
-        /// <summary>
-        /// Marks a program log exercise completed
-        /// </summary>
-        Task<bool> MarkProgramLogExerciseComplete(int programLogExerciseId, bool isCompleted);
 
         /// <summary>
         /// Updates a given program log exercise, this could be the number of sets,

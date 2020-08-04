@@ -45,15 +45,8 @@ namespace PowerLifting.API.Areas.Public
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExerciseMuscleGroups()
         {
-            try
-            {
-                var exercises = await _service.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
-                return Ok(Responses.Success(exercises));
-            }
-            catch (ExerciseMuscleGroupNotFoundException ex)
-            {
-                return NotFound(Responses.Error(ex));
-            }
+            var exercises = await _service.ExerciseMuscleGroup.GetAllExerciseMuscleGroups();
+            return Ok(Responses.Success(exercises));
         }
 
         [HttpGet("ExerciseType")]
@@ -62,7 +55,6 @@ namespace PowerLifting.API.Areas.Public
         public async Task<IActionResult> GetAllExerciseTypes()
         {
             var exerciseTypes = await _service.ExerciseType.GetAllExerciseTypes();
-            if (exerciseTypes == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Exercise Types Found"));
             return Ok(Responses.Success(exerciseTypes));
         }
     }

@@ -35,7 +35,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogStatDTO>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAllProgramLogsByUserId()
+        public async Task<IActionResult> GetAllUserProgramLogs()
         {
             try
             {
@@ -126,14 +126,14 @@ namespace PowerLifting.API.Areas.Account.Controllers
 
         [HttpPost("Scratch")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateProgramLog([FromBody] CProgramLogDTO programLog)
+        public async Task<IActionResult> CreateProgramLogFromScratch([FromBody] CProgramLogDTO programLog)
         {
             userId = User.Claims.First(x => x.Type == "UserID").Value;
             var createdLog = await _service.ProgramLog.CreateProgramLogFromScratch(programLog, userId);
             return Ok(Responses.Success(programLog));
         }
 
-        [HttpPost("FromTemplate/{templateProgramId:int}")]
+        [HttpPost("Template/{templateProgramId:int}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
@@ -151,7 +151,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
 
                 var statsToCreate = liftingStatsToCreate.ToList();
                 if (statsToCreate.Any()) return Ok(Responses.Success(statsToCreate));
-                 
+
                 var programLog = await _service.ProgramLog.CreateProgramLogFromTemplate(programLogDTO, template, userId);
                 return Ok(Responses.Success(programLog));
             }

@@ -25,14 +25,6 @@ namespace PowerLifting.API.Areas.Account
             _service = service;
         }
 
-        [HttpGet("{programLogDayId}")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogExerciseDTO>>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProgramLogDayExercisesByDay(int programLogDayId)
-        {
-            var programLogExercises = await _service.ProgramLogExercise.GetProgramExercisesByProgramLogDayId(programLogDayId, _userId);
-            return Ok(Responses.Success(programLogExercises));
-        }
-
         [HttpGet("{programLogExerciseId:int}", Name = "ProgramLogExerciseById")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogExerciseDTO>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProgramLogDayExerciseById(int programLogExerciseId)
@@ -82,31 +74,10 @@ namespace PowerLifting.API.Areas.Account
             }
         }
 
-        [HttpPut("Mark/{programLogExerciseId:int}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> MarkProgramLogExerciseComplete(int programLogExerciseId, bool isCompleted)
-        {
-            try
-            {
-                var result = await _service.ProgramLogExercise.MarkProgramLogExerciseComplete(programLogExerciseId, isCompleted);
-                return Ok(Responses.Success());
-            }
-            catch (ProgramLogNotFoundException e)
-            {
-                return NotFound(e);
-            }
-            catch (UnauthorisedUserException e)
-            {
-                return Unauthorized(e);
-            }
-        }
-
         [HttpDelete("{programLogExerciseId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteProgramLogExerciseAsync(int programLogExerciseId)
+        public async Task<IActionResult> DeleteProgramLogExercise(int programLogExerciseId)
         {
             try
             {

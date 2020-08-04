@@ -31,7 +31,7 @@ namespace PowerLifting.API.Areas.Account
             _service = service;
         }
 
-        [HttpPost("Exercise")]
+        [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<TopLevelExerciseDTO>>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateExercise([FromBody] CExerciseDTO exerciseDTO)
@@ -48,7 +48,7 @@ namespace PowerLifting.API.Areas.Account
         }
 
 
-        [HttpGet("Exercise/{exerciseId:int}", Name = nameof(GetExerciseById))]
+        [HttpGet("{exerciseId:int}", Name = nameof(GetExerciseById))]
         [ProducesResponseType(typeof(ApiResponse<TopLevelExerciseDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int exerciseId)
@@ -58,7 +58,7 @@ namespace PowerLifting.API.Areas.Account
                 var exercises = await _service.Exercise.GetExerciseById(exerciseId);
                 return Ok(Responses.Success(exercises));
             }
-            catch(ExerciseNotFoundException e)
+            catch (ExerciseNotFoundException e)
             {
                 return NotFound(e.Message);
             }

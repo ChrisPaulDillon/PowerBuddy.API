@@ -7,11 +7,12 @@ using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 
-namespace PowerLifting.API.Areas.System
+namespace PowerLifting.API.Areas.Public
 {
-    [Route("api/[controller]")]
+    [Route("api/[area]/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [Area("Public")]
     public class TemplateProgramController : ControllerBase
     {
         private readonly IServiceWrapper _service;
@@ -27,9 +28,6 @@ namespace PowerLifting.API.Areas.System
         public async Task<IActionResult> GetAllTemplatePrograms()
         {
             var templatePrograms = await _service.TemplateProgram.GetAllTemplatePrograms();
-
-            if (templatePrograms == null) return NotFound(Responses.Error(StatusCodes.Status404NotFound, "No Template Programs found!"));
-
             return Ok(Responses.Success(templatePrograms));
         }
 
