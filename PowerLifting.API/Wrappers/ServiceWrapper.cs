@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using PowerLifting.Accounts.Service;
 using PowerLifting.Data;
 using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Util;
 using PowerLifting.Exercises.Service;
 using PowerLifting.LiftingStats.Service;
 using PowerLifting.Persistence;
@@ -37,15 +38,15 @@ namespace PowerLifting.API.Wrappers
         private readonly IMapper _mapper;
 
         private readonly UserManager<User> _userManager;
-        private readonly IOptions<ApplicationSettings> _appSettings;
+        private readonly JWTSettings _jwtSettings;
         private readonly PowerLiftingContext _context;
 
-        public ServiceWrapper(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
+        public ServiceWrapper(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, JWTSettings jwtSettings)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
-            _appSettings = appSettings;
+            _jwtSettings = jwtSettings;
         }
 
         public ILiftingStatService LiftingStat
@@ -187,7 +188,7 @@ namespace PowerLifting.API.Wrappers
         {
             get
             {
-                if (_user == null) _user = new UserService(_context, _mapper, _userManager, _appSettings);
+                if (_user == null) _user = new UserService(_context, _mapper, _userManager, _jwtSettings);
 
                 return _user;
             }

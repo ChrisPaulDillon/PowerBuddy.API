@@ -15,6 +15,7 @@ using PowerLifting.Data;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.Data.Util;
 using PowerLifting.Persistence;
 
 namespace PowerLifting.Accounts.Service
@@ -24,14 +25,14 @@ namespace PowerLifting.Accounts.Service
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        private readonly ApplicationSettings _appSettings;
+        private readonly JWTSettings _jwtSettings;
 
-        public UserService(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
+        public UserService(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, JWTSettings jwtSettings)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
-            _appSettings = appSettings.Value;
+            _jwtSettings = jwtSettings;
         }
 
         public async Task<IEnumerable<AdminUserDTO>> GetAllAdminUsers()
@@ -42,6 +43,8 @@ namespace PowerLifting.Accounts.Service
 
         public async Task<UserDTO> GetUserProfile(string userId)
         {
+            if (string.IsNullOrEmpty(userId)) throw new UserValidationException("UserId cannot be empty");
+
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null) throw new UserNotFoundException();
 
@@ -54,36 +57,40 @@ namespace PowerLifting.Accounts.Service
             return userDTO;
         }
 
-        public async Task<PublicUserDTO> GetPublicUserProfileById(string id)
+        public async Task<PublicUserDTO> GetPublicUserProfileById(string userId)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            if (string.IsNullOrEmpty(userId)) throw new UserValidationException("UserId cannot be empty");
+
+            var user = await _context.User.Where(x => x.Id == userId)
+                .AsNoTracking()
+                .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
             if (user == null) throw new UserNotFoundException();
 
-            var userDTO = new PublicUserDTO()
-            {
-                UserName = user.UserName,
-                SportType = user.SportType,
-            };
-            return userDTO;
+            return user;
         }
 
         public async Task<PublicUserDTO> GetPublicUserProfileByUserName(string userName)
         {
-            var user = await _userManager.FindByNameAsync(userName);
+            if (string.IsNullOrEmpty(userName)) throw new UserValidationException("UserName cannot be empty");
+
+            var user = await _context.User.Where(x => x.NormalizedUserName == userName.ToUpper())
+               .AsNoTracking()
+               .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
+               .FirstOrDefaultAsync();
+
             if (user == null) throw new UserNotFoundException();
 
-            var userDTO = new PublicUserDTO()
-            {
-                UserId = user.Id,
-                UserName = user.UserName,
-                SportType = user.SportType,
-                IsPublic = user.IsPublic
-            };
-            return userDTO;
+            return user;
         }
 
         public async Task<string> LoginUser(LoginModel loginModel)
         {
+            if (string.IsNullOrEmpty(loginModel.Email)) throw new UserValidationException("Email cannot be empty");
+            if (string.IsNullOrEmpty(loginModel.Password)) throw new UserValidationException("Password cannot be empty");
+            if (string.IsNullOrEmpty(loginModel.UserName)) throw new UserValidationException("UserName cannot be empty");
+
             var user = await _userManager.FindByNameAsync(loginModel.UserName);
             if (user == null)
             {
@@ -92,7 +99,7 @@ namespace PowerLifting.Accounts.Service
 
             if (user != null && await _userManager.CheckPasswordAsync(user, loginModel.Password))
             {
-                var key = Encoding.UTF8.GetBytes(_appSettings.JWT_Secret);
+                var key = Encoding.UTF8.GetBytes(_jwtSettings.JWT_Secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
@@ -112,8 +119,12 @@ namespace PowerLifting.Accounts.Service
 
         public async Task RegisterUser(RegisterUserDTO userDTO)
         {
-            var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == userDTO.Email || x.UserName == userDTO.UserName);
-            if (doesUserExist) throw new EmailInUseException();
+            if (string.IsNullOrEmpty(userDTO.Email)) throw new UserValidationException("Email cannot be empty");
+            if (string.IsNullOrEmpty(userDTO.Password)) throw new UserValidationException("Password cannot be empty");
+            if (string.IsNullOrEmpty(userDTO.UserName)) throw new UserValidationException("UserName cannot be empty");
+
+            var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == userDTO.Email || x.NormalizedUserName == userDTO.UserName.ToUpper());
+            if (doesUserExist) throw new EmailOrUserNameInUseException();
 
             var userEntity = _mapper.Map<User>(userDTO);
 
@@ -131,6 +142,22 @@ namespace PowerLifting.Accounts.Service
                 .AsNoTracking()
                 .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public async Task<bool> BanUser(string userId, string adminUserId)
+        {
+            var userToBan = await _context.User.FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (userToBan == null) throw new UserNotFoundException();
+
+            var adminUser = await _context.User.Where(x => x.Id == adminUserId && x.Rights >= 1).Select(x => x.UserName).FirstOrDefaultAsync();
+
+            if (string.IsNullOrEmpty(adminUser)) throw new UserNotFoundException();
+
+            userToBan.IsBanned = true;
+            var modifiedRows = await _context.SaveChangesAsync();
+
+            return modifiedRows > 0;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace PowerLifting.API.Areas.Account
         [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetProgramLogDayByUserId(DateTime dateSelected)
+        public async Task<IActionResult> GetProgramLogDayByDate(DateTime dateSelected)
         {
             try
             {

@@ -21,14 +21,13 @@ using PowerLifting.Data;
 using PowerLifting.Data.AutoMapper;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.SignalR;
+using PowerLifting.Data.Util;
+using PowerLifting.API.Extensions;
 
 namespace PowerLifting.API
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -36,55 +35,33 @@ namespace PowerLifting.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
             //Inject app settings
-            services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
+            services.AddJWTSettings(Configuration.GetSection("JWTSettings"));
+            services.AddSentry(Configuration.GetSection("Sentry"));
+            services.AddPowerLiftingContext(Configuration.GetConnectionString("DefaultConnection"));
+            //services.AddCorsPolicy(Configuration.GetSection("CorsPolicy"));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin",
+                    builder => builder.WithOrigins(Configuration["CorsPolicy:Client_URL"].ToString())
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
-
-            services.AddDbContext<PowerLiftingContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             //services.AddDbContext<PowerliftingContext>(options =>
             //  options.UseSqlite("DataSource = app.db"));
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PowerLiftingContext>();
-
-            var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JWT_Secret"].ToString());
-
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = false;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-
-            //services.AddIdentity<User, IdentityRole>()
-            //   .AddRoles<IdentityRole>()
-            //   .AddEntityFrameworkStores<PowerliftingContext>()
-            //  .AddDefaultUI()
-            //  .AddDefaultTokenProviders();
-
 
             services.AddControllers();
 
@@ -120,14 +97,6 @@ namespace PowerLifting.API
             //        });
             //});
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowOrigin",
-                    builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
-            });
-
             services.AddSignalR();
 
         }
@@ -155,9 +124,7 @@ namespace PowerLifting.API
 
             app.UseRouting();
 
-            app.UseCors(builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
-                 .AllowAnyHeader()
-                 .AllowAnyMethod());
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();

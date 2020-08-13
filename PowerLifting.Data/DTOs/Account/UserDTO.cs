@@ -11,6 +11,7 @@ namespace PowerLifting.Data.DTOs.Account
         public string LastName { get; set; }
         public int LiftingStatId { get; set; }
         public string SportType { get; set; }
+        public int Rights { get; set; }
         public UserSettingDTO UserSetting { get; set; }
     }
 }

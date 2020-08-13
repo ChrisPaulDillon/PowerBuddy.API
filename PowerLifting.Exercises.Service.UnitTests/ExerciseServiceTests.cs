@@ -5,10 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.Builders.Account;
 using PowerLifting.Data.Builders.Exercises;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.Exercises;
+using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.Persistence;
 using Xunit;
@@ -148,13 +150,17 @@ namespace PowerLifting.Exercises.Service.UnitTests
         }
 
         [Fact]
-        public async Task GetExerciseById_ExerciseIsFound_ReturnsExercise()
+        public async Task ApproveExercise_ExerciseNotFound_ThrowsExerciseNotFoundException()
         {
-            // Arrange
+            await Assert.ThrowsAsync<ExerciseNotFoundException>(async () => await _exerciseService.ApproveExercise(1, "test"));
+        }
+
+        [Fact]
+        public async Task ApproveExercise_UserNotFound_ThrowsUserNotFoundException()
+        {
             var exercise = new ExerciseBuilder().WithIsApproved(true).Build();
             _context.Exercise.Add(exercise);
             await _context.SaveChangesAsync();
-
             // Act
             var result = await _exerciseService.GetExerciseById(exercise.ExerciseId);
 
@@ -215,12 +221,6 @@ namespace PowerLifting.Exercises.Service.UnitTests
         }
 
         [Fact]
-        public async Task DeleteExercise_ExerciseDoesNotExist_ThrowsExerciseNotFoundException()
-        {
-            await Assert.ThrowsAsync<ExerciseNotFoundException>(async () => await _exerciseService.DeleteExercise(1));
-        }
-
-        [Fact]
         public async Task DeleteExercise_ExerciseIsUpdated_ReturnsTrue()
         {
             // Arrange
@@ -231,6 +231,37 @@ namespace PowerLifting.Exercises.Service.UnitTests
 
             // Act
             var result = await _exerciseService.DeleteExercise(exercise.ExerciseId);
+            await Assert.ThrowsAsync<UserNotFoundException>(async () => await _exerciseService.ApproveExercise(exercise.ExerciseId, "test"));
+        }
+
+        [Fact]
+        public async Task ApproveExercise_UserDoesNotHaveRights_ThrowsUserNotFoundException()
+        {
+            // Arrange
+            var exercise = new ExerciseBuilder().WithIsApproved(true).Build();
+            var user = new UserBuilder().Build();
+
+            _context.Exercise.Add(exercise);
+            _context.User.Add(user);
+            await _context.SaveChangesAsync();
+
+            // Act
+            await Assert.ThrowsAsync<UserNotFoundException>(async () => await _exerciseService.ApproveExercise(exercise.ExerciseId, user.Id));
+        }
+
+        [Fact]
+        public async Task ApproveExercise_UserHasRights_ReturnsTrue()
+        {
+            // Arrange
+            var exercise = new ExerciseBuilder().WithIsApproved(true).Build();
+            var user = new UserBuilder().WithRights(3).Build();
+
+            _context.Exercise.Add(exercise);
+            _context.User.Add(user);
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _exerciseService.ApproveExercise(exercise.ExerciseId, user.Id);
 
             // Assert
             Assert.True(result);

@@ -9,6 +9,7 @@ using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.Persistence;
+using PowerLifting.Data.Exceptions.Account;
 
 namespace PowerLifting.Exercises.Service
 {
@@ -49,10 +50,12 @@ namespace PowerLifting.Exercises.Service
                 .ToListAsync();
         }
 
-        public async Task<Exercise> GetExerciseById(int id)
+        public async Task<Exercise> GetExerciseById(int exerciseId)
         {
+            if (exerciseId <= 0) throw new ExerciseValidationException("ExerciseId must be greater than zero");
+
             var exercise = await _context.Set<Exercise>()
-                .Where(x => x.ExerciseId == id)
+                .Where(x => x.ExerciseId == exerciseId)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
@@ -100,6 +103,29 @@ namespace PowerLifting.Exercises.Service
             if (exercise == null) throw new ExerciseNotFoundException();
 
             _context.Remove(exercise);
+
+            var changedRows = await _context.SaveChangesAsync();
+            return changedRows > 0;
+        }
+
+        public async Task<bool> ApproveExercise(int exerciseId, string userId)
+        {
+            if (exerciseId <= 0) throw new ExerciseValidationException("ExerciseId must be greater than zero");
+            if (string.IsNullOrEmpty(userId)) throw new UserValidationException("UserId cannot be null or invalid");
+
+            var exercise = await _context.Exercise.FirstOrDefaultAsync(x => x.ExerciseId == exerciseId);
+
+            if (exercise == null) throw new ExerciseNotFoundException();
+
+            var userName = await _context.User.Where(x => x.Id == userId && x.Rights >= 1) //user is a mod or admin
+                .AsNoTracking()
+                .Select(x => x.UserName)
+                .FirstOrDefaultAsync();
+
+            if (userName == null) throw new UserNotFoundException();
+
+            exercise.IsApproved = true;
+            exercise.AdminApprover = userName;
 
             var changedRows = await _context.SaveChangesAsync();
             return changedRows > 0;

@@ -12,6 +12,8 @@ namespace PowerLifting.Exercises.Service
 
         Task<IEnumerable<ExerciseDTO>> GetAllUnapprovedExercises();
 
+        Task<bool> ApproveExercise(int exerciseId, string userId);
+
         Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercisesBySport(string exerciseSport);
 
         Task<Exercise> GetExerciseById(int id);

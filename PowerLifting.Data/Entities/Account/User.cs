@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
-using PowerLifting.Data.Entities.LiftingStats;
-using PowerLifting.Data.Entities.ProgramLogs;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace PowerLifting.Data.Entities.Account
 {
@@ -13,6 +10,7 @@ namespace PowerLifting.Data.Entities.Account
         public bool IsPublic { get; set; } = true;
         public bool IsBanned { get; set; }
         public string SportType { get; set; }
+        public int Rights { get; set; }
         public UserSetting UserSetting { get; set; }
     }
 }
