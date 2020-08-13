@@ -56,50 +56,49 @@ namespace PowerLifting.Exercises.Service
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
-            if(exercise == null) throw new ExerciseNotFoundException();
+            if (exercise == null) throw new ExerciseNotFoundException();
 
             return exercise;
         }
 
-        public async Task<Exercise> CreateExercise(CExerciseDTO exerciseDTO)
+        public async Task<ExerciseDTO> CreateExercise(CExerciseDTO cExerciseDTO)
         {
-            var doesExist = await _context.Set<Exercise>()
+            var doesExist = await _context.Exercise
                 .AsNoTracking()
-                .AnyAsync(x => x.ExerciseName == exerciseDTO.ExerciseName);
+                .AnyAsync(x => x.ExerciseName == cExerciseDTO.ExerciseName);
 
             if (doesExist) throw new ExerciseAlreadyExistsException();
 
-            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            var exercise = _mapper.Map<Exercise>(cExerciseDTO);
             _context.Add(exercise);
             await _context.SaveChangesAsync();
 
-            return exercise;
+            var exerciseDTO = _mapper.Map<ExerciseDTO>(exercise);
+            return exerciseDTO;
         }
 
         public async Task<bool> UpdateExercise(ExerciseDTO exerciseDTO)
         {
-            var doesExerciseExist = await _context.Set<Exercise>()
-                .AsNoTracking()
-                .AnyAsync(x => x.ExerciseId == exerciseDTO.ExerciseId);
+            var exercise = await _context.Exercise
+                .FirstOrDefaultAsync(x => x.ExerciseId == exerciseDTO.ExerciseId);
 
-            if (!doesExerciseExist) throw new ExerciseNotFoundException();
+            if (exercise == null) throw new ExerciseNotFoundException();
              
-            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            _mapper.Map(exerciseDTO, exercise);
             _context.Update(exercise);
 
             var changedRows = await _context.SaveChangesAsync();
             return changedRows > 0;
         }
 
-        public async Task<bool> DeleteExercise(ExerciseDTO exerciseDTO)
+        public async Task<bool> DeleteExercise(int exerciseId)
         {
-            var doesExerciseExist =  await _context.Set<Exercise>()
+            var exercise =  await _context.Exercise
                 .AsNoTracking()
-                .AnyAsync(x => x.ExerciseId == exerciseDTO.ExerciseId);
+                .FirstOrDefaultAsync(x => x.ExerciseId == exerciseId);
             
-            if (!doesExerciseExist) throw new ExerciseNotFoundException();
+            if (exercise == null) throw new ExerciseNotFoundException();
 
-            var exercise = _mapper.Map<Exercise>(exerciseDTO);
             _context.Remove(exercise);
 
             var changedRows = await _context.SaveChangesAsync();

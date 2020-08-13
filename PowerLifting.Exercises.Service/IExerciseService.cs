@@ -16,10 +16,10 @@ namespace PowerLifting.Exercises.Service
 
         Task<Exercise> GetExerciseById(int id);
 
-        Task<Exercise> CreateExercise(CExerciseDTO exercise);
+        Task<ExerciseDTO> CreateExercise(CExerciseDTO exercise);
 
         Task<bool> UpdateExercise(ExerciseDTO exercise);
 
-        Task<bool> DeleteExercise(ExerciseDTO exercise);
+        Task<bool> DeleteExercise(int exerciseId);
     }
 }
