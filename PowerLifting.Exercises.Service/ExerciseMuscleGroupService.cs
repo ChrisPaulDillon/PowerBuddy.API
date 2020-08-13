@@ -23,10 +23,7 @@ namespace PowerLifting.Exercises.Service
 
         public async Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups()
         {
-            return await _context.Set<ExerciseMuscleGroup>()
-                .AsNoTracking()
-                .ProjectTo<ExerciseMuscleGroupDTO>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+         
         }
 
         public async Task<bool> UpdateExerciseMuscleGroup(ExerciseMuscleGroupDTO exerciseMuscleGroupDTO)

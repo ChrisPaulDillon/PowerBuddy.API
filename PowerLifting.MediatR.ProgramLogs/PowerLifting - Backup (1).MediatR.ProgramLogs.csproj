@@ -7,18 +7,10 @@
   <ItemGroup>
     <Folder Include="CommandHandler\Account\" />
     <Folder Include="CommandHandler\Admin\" />
-    <Folder Include="CommandHandler\Public\" />
-    <Folder Include="CommandHandler\Shared\" />
     <Folder Include="Command\Account\" />
     <Folder Include="Command\Admin\" />
-    <Folder Include="Command\Public\" />
-    <Folder Include="Command\Shared\" />
-    <Folder Include="QueryHandler\Account\" />
     <Folder Include="QueryHandler\Admin\" />
-    <Folder Include="QueryHandler\Shared\" />
-    <Folder Include="Query\Account\" />
     <Folder Include="Query\Admin\" />
-    <Folder Include="Query\Shared\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -15,12 +15,19 @@
     <Folder Include="Command\Shared\" />
     <Folder Include="QueryHandler\Account\" />
     <Folder Include="QueryHandler\Admin\" />
-    <Folder Include="QueryHandler\Public\" />
     <Folder Include="QueryHandler\Shared\" />
     <Folder Include="Query\Account\" />
     <Folder Include="Query\Admin\" />
-    <Folder Include="Query\Public\" />
     <Folder Include="Query\Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
+    <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

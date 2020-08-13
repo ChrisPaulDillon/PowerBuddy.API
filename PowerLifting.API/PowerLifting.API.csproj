@@ -44,8 +44,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Accounts.Service\PowerLifting.Accounts.Service.csproj" />
-    <ProjectReference Include="..\PowerLifting.Exercises.Service\PowerLifting.Exercises.Service.csproj" />
-    <ProjectReference Include="..\PowerLifting.LiftingStats.Service\PowerLifting.LiftingStats.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj" />
     <ProjectReference Include="..\PowerLifting.Service.ProgramLogs\PowerLifting.ProgramLogs.Service\PowerLifting.ProgramLogs.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj">

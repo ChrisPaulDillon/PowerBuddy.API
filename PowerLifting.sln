@@ -17,15 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.TemplateProgra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Systems.Service", "PowerLifting.Systems.Service\PowerLifting.Systems.Service.csproj", "{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.LiftingStats.Service", "PowerLifting.LiftingStats.Service\PowerLifting.LiftingStats.Service.csproj", "{65E506EE-CD9E-4869-B0DA-24EF528C940E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Accounts.Service", "PowerLifting.Accounts.Service\PowerLifting.Accounts.Service.csproj", "{64FB3DF1-FFC9-4D90-B02E-6C7ED48C2B4A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.SignalR", "PowerLifting.SignalR\PowerLifting.SignalR.csproj", "{A7DFE890-28B2-49C7-8D17-6403BAF1FCAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Data", "PowerLifting.Data\PowerLifting.Data.csproj", "{3555D58B-6855-4422-BC83-C011F56445BC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Exercises.Service", "PowerLifting.Exercises.Service\PowerLifting.Exercises.Service.csproj", "{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{39B0BAED-594C-4D76-AA92-75CBC53013DD}"
 EndProject
@@ -39,31 +35,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Accounts.Servi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mediatr", "Mediatr", "{F184F21A-0499-4782-BB23-5A08B4AB5957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.Exercises", "PowerLifting.MediatR.Exercises\PowerLifting.MediatR.Exercises.csproj", "{5A98542E-EBF7-4595-BF9F-9A9361C946DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.Exercises", "PowerLifting.MediatR.Exercises\PowerLifting.MediatR.Exercises.csproj", "{5A98542E-EBF7-4595-BF9F-9A9361C946DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.ExerciseMuscleGroups", "PowerLifting.MediatR.ExerciseMuscleGroups\PowerLifting.MediatR.ExerciseMuscleGroups.csproj", "{935CBF63-4896-4A4B-9058-B1FFE26672AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ExerciseMuscleGroups", "PowerLifting.MediatR.ExerciseMuscleGroups\PowerLifting.MediatR.ExerciseMuscleGroups.csproj", "{935CBF63-4896-4A4B-9058-B1FFE26672AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.ExerciseTypes", "PowerLifting.MediatR.ExerciseTypes\PowerLifting.MediatR.ExerciseTypes.csproj", "{BFA4A0DD-2F45-4143-9138-CE601A957AE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ExerciseTypes", "PowerLifting.MediatR.ExerciseTypes\PowerLifting.MediatR.ExerciseTypes.csproj", "{BFA4A0DD-2F45-4143-9138-CE601A957AE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.ProgramLogs", "PowerLifting.MediatR.ProgramLogs\PowerLifting.MediatR.ProgramLogs.csproj", "{BC906858-EA9B-41F2-BE8F-C42E52322437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ProgramLogs", "PowerLifting.MediatR.ProgramLogs\PowerLifting.MediatR.ProgramLogs.csproj", "{BC906858-EA9B-41F2-BE8F-C42E52322437}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.ProgramLogExercises", "PowerLifting.MediatR.ProgramLogExercises\PowerLifting.MediatR.ProgramLogExercises.csproj", "{830612A3-6C1A-455D-B034-9B5E228AAA18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ProgramLogExercises", "PowerLifting.MediatR.ProgramLogExercises\PowerLifting.MediatR.ProgramLogExercises.csproj", "{830612A3-6C1A-455D-B034-9B5E228AAA18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.ProgramLogDays", "PowerLifting.MediatR.ProgramLogDays\PowerLifting.MediatR.ProgramLogDays.csproj", "{2DF587CA-69BD-4F88-A0C6-8F191007E41C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ProgramLogDays", "PowerLifting.MediatR.ProgramLogDays\PowerLifting.MediatR.ProgramLogDays.csproj", "{2DF587CA-69BD-4F88-A0C6-8F191007E41C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.ProgramLogWeeks", "PowerLifting.MediatR.ProgramLogWeeks\PowerLifting.MediatR.ProgramLogWeeks.csproj", "{FC2C581F-20F1-4081-BF92-36F0AB4D60B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ProgramLogWeeks", "PowerLifting.MediatR.ProgramLogWeeks\PowerLifting.MediatR.ProgramLogWeeks.csproj", "{FC2C581F-20F1-4081-BF92-36F0AB4D60B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.Notifications", "PowerLifting.MediatR.Notifications\PowerLifting.MediatR.Notifications.csproj", "{2686442F-33A2-4028-927F-A6B71CFDD534}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.Notifications", "PowerLifting.MediatR.Notifications\PowerLifting.MediatR.Notifications.csproj", "{2686442F-33A2-4028-927F-A6B71CFDD534}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.ProgramLogRepSchemes", "PowerLifting.MediatR.ProgramLogRepSchemes\PowerLifting.MediatR.ProgramLogRepSchemes.csproj", "{64665AE8-729D-4744-9950-3F4C1F75749F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ProgramLogRepSchemes", "PowerLifting.MediatR.ProgramLogRepSchemes\PowerLifting.MediatR.ProgramLogRepSchemes.csproj", "{64665AE8-729D-4744-9950-3F4C1F75749F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.FriendsLists", "PowerLifting.MediatR.FriendsLists\PowerLifting.MediatR.FriendsLists.csproj", "{F4D50974-A7A4-40CE-B91B-96BEE8466D6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.FriendsLists", "PowerLifting.MediatR.FriendsLists\PowerLifting.MediatR.FriendsLists.csproj", "{F4D50974-A7A4-40CE-B91B-96BEE8466D6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.Users", "PowerLifting.MediatR.Users\PowerLifting.MediatR.Users.csproj", "{4067D978-F133-4F42-92AD-30032EB0A215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.Users", "PowerLifting.MediatR.Users\PowerLifting.MediatR.Users.csproj", "{4067D978-F133-4F42-92AD-30032EB0A215}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.TemplatePrograms", "PowerLifting.MediatR.TemplatePrograms\PowerLifting.MediatR.TemplatePrograms.csproj", "{4DF530A3-3A8F-4670-856F-17D53F442400}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.TemplatePrograms", "PowerLifting.MediatR.TemplatePrograms\PowerLifting.MediatR.TemplatePrograms.csproj", "{4DF530A3-3A8F-4670-856F-17D53F442400}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.MediatR.LiftingStats", "PowerLifting.MediatR.LiftingStats\PowerLifting.MediatR.LiftingStats.csproj", "{B58D03BC-479C-490C-8F2F-D2958241B6C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.LiftingStats", "PowerLifting.MediatR.LiftingStats\PowerLifting.MediatR.LiftingStats.csproj", "{B58D03BC-479C-490C-8F2F-D2958241B6C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,10 +95,6 @@ Global
 		{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65E506EE-CD9E-4869-B0DA-24EF528C940E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65E506EE-CD9E-4869-B0DA-24EF528C940E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65E506EE-CD9E-4869-B0DA-24EF528C940E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65E506EE-CD9E-4869-B0DA-24EF528C940E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64FB3DF1-FFC9-4D90-B02E-6C7ED48C2B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64FB3DF1-FFC9-4D90-B02E-6C7ED48C2B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64FB3DF1-FFC9-4D90-B02E-6C7ED48C2B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -115,10 +107,6 @@ Global
 		{3555D58B-6855-4422-BC83-C011F56445BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3555D58B-6855-4422-BC83-C011F56445BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3555D58B-6855-4422-BC83-C011F56445BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A0838055-D951-4DD8-8D50-5AAE6F32D29F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A0838055-D951-4DD8-8D50-5AAE6F32D29F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0838055-D951-4DD8-8D50-5AAE6F32D29F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -195,9 +183,7 @@ Global
 		{FBD6C701-2AD3-44D9-9268-41DC9A4D8709} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
 		{65D7E0A4-EFE8-4D1C-9C99-FB940B6C50B3} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
 		{B5E7000C-CE33-4887-AEA9-3DCD4ABCA3EF} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
-		{65E506EE-CD9E-4869-B0DA-24EF528C940E} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
 		{64FB3DF1-FFC9-4D90-B02E-6C7ED48C2B4A} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
-		{84CC9411-98DE-4D7B-8DE9-C2F4FCE2A77F} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
 		{A0838055-D951-4DD8-8D50-5AAE6F32D29F} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
 		{AACBF9FD-30CE-4C84-9622-DC7C9D689AD6} = {39B0BAED-594C-4D76-AA92-75CBC53013DD}
 		{5A98542E-EBF7-4595-BF9F-9A9361C946DA} = {F184F21A-0499-4782-BB23-5A08B4AB5957}
