@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.Accounts.Service;
 using PowerLifting.API.Areas.Admin.Controllers;
+using PowerLifting.API.Areas.Public;
 using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
 using Xunit;

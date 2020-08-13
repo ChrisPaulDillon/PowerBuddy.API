@@ -7,10 +7,10 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Exercises;
+using PowerLifting.MediatR.Exercises.Query.Public;
 using PowerLifting.Persistence;
-using PowerLifting.Mediatr.Query.Exercises.Public;
 
-namespace PowerLifting.Mediatr.QueryHandler.Exercises.Public
+namespace PowerLifting.MediatR.Exercises.QueryHandler.Public
 {
     public class GetAllExercisesQueryHandler : IRequestHandler<GetAllExercisesQuery, IEnumerable<ExerciseDTO>>
     {

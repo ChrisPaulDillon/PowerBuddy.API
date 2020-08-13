@@ -36,78 +36,78 @@ namespace PowerLifting.API.UnitTests.Area.Admin
             _controller = new ExerciseController(_serviceWrapper.Object, _httpContextAccessor.Object);
         }
 
-        #region ApproveExercise
+        //#region ApproveExercise
 
-        [Fact]
-        public async Task ApproveExercise_ThrowsExerciseValidationException_ReturnsBadRequest()
-        {
-            // Arrange
-            _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new ExerciseValidationException());
+        //[Fact]
+        //public async Task ApproveExercise_ThrowsExerciseValidationException_ReturnsBadRequest()
+        //{
+        //    // Arrange
+        //    _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new ExerciseValidationException());
 
-            // Act
-            var result = await _controller.ApproveExercise(555);
+        //    // Act
+        //    var result = await _controller.ApproveExercise(555);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<BadRequestObjectResult>(result);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.IsType<BadRequestObjectResult>(result);
+        //}
 
-        [Fact]
-        public async Task ApproveExercise_ThrowsUserValidationException_ReturnsBadRequest()
-        {
-            // Arrange
-            _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new UserValidationException());
+        //[Fact]
+        //public async Task ApproveExercise_ThrowsUserValidationException_ReturnsBadRequest()
+        //{
+        //    // Arrange
+        //    _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new UserValidationException());
 
-            // Act
-            var result = await _controller.ApproveExercise(555);
+        //    // Act
+        //    var result = await _controller.ApproveExercise(555);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<BadRequestObjectResult>(result);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.IsType<BadRequestObjectResult>(result);
+        //}
 
-        [Fact]
-        public async Task ApproveExercise_ThrowsExerciseNotFoundException_ReturnsNotFound()
-        {
-            // Arrange
-            _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new ExerciseNotFoundException());
+        //[Fact]
+        //public async Task ApproveExercise_ThrowsExerciseNotFoundException_ReturnsNotFound()
+        //{
+        //    // Arrange
+        //    _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new ExerciseNotFoundException());
 
-            // Act
-            var result = await _controller.ApproveExercise(555);
+        //    // Act
+        //    var result = await _controller.ApproveExercise(555);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<NotFoundObjectResult>(result);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.IsType<NotFoundObjectResult>(result);
+        //}
 
-        [Fact]
-        public async Task ApproveExercise_ThrowsUserNotFoundException_ReturnsNotFound()
-        {
-            // Arrange
-            _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new UserNotFoundException());
+        //[Fact]
+        //public async Task ApproveExercise_ThrowsUserNotFoundException_ReturnsNotFound()
+        //{
+        //    // Arrange
+        //    _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ThrowsAsync(new UserNotFoundException());
 
-            // Act
-            var result = await _controller.ApproveExercise(555);
+        //    // Act
+        //    var result = await _controller.ApproveExercise(555);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<NotFoundObjectResult>(result);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.IsType<NotFoundObjectResult>(result);
+        //}
 
-        [Fact]
-        public async Task ApproveExercise_ExerciseIsApproved_ReturnsOk()
-        {
-            // Arrange
-            _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(true);
+        //[Fact]
+        //public async Task ApproveExercise_ExerciseIsApproved_ReturnsOk()
+        //{
+        //    // Arrange
+        //    _serviceWrapper.Setup(x => x.Exercise.ApproveExercise(It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(true);
 
-            // Act
-            var result = await _controller.ApproveExercise(555);
+        //    // Act
+        //    var result = await _controller.ApproveExercise(555);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<OkObjectResult>(result);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.IsType<OkObjectResult>(result);
+        //}
 
-        #endregion
+        //#endregion
     }
 }

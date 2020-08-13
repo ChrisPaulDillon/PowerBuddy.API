@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.Exercises;
-using PowerLifting.Mediatr.Command.Exercises.Admin;
-using PowerLifting.Mediatr.Command.Exercises.Public;
+using PowerLifting.MediatR.Exercises.Command.Admin;
 using PowerLifting.Persistence;
 
-namespace PowerLifting.Mediatr.CommandHandler.Exercises.Admin
+namespace PowerLifting.MediatR.Exercises.CommandHandler.Admin
 {
     public class ApproveExerciseCommandHandler : IRequestHandler<ApproveExerciseCommand, bool>
     {

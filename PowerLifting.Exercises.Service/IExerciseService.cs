@@ -8,11 +8,8 @@ namespace PowerLifting.Exercises.Service
 {
     public interface IExerciseService
     {
-        Task<IEnumerable<ExerciseDTO>> GetAllExercises();
 
         Task<IEnumerable<ExerciseDTO>> GetAllUnapprovedExercises();
-
-        Task<bool> ApproveExercise(int exerciseId, string userId);
 
         Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercisesBySport(string exerciseSport);
 

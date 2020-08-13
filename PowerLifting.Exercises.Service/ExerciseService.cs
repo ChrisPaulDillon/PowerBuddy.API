@@ -24,30 +24,9 @@ namespace PowerLifting.Exercises.Service
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
-        {
-            return await _context.Exercise
-                .Where(x => x.IsApproved == true)
-                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking()
-                .ToListAsync();
-        }
-
         public async Task<IEnumerable<ExerciseDTO>> GetAllUnapprovedExercises()
         {
-            return await _context.Exercise.Where(x => x.IsApproved == false)
-                .AsNoTracking()
-                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<TopLevelExerciseDTO>> GetAllExercisesBySport(string exerciseSport)
-        {
-            return await _context.Set<Exercise>()
-                .Where(x => x.ExerciseSports.Any(j => j.ExerciseSportStr == exerciseSport) && x.IsApproved)
-                .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking()
-                .ToListAsync();
+       
         }
 
         public async Task<Exercise> GetExerciseById(int exerciseId)
@@ -108,27 +87,5 @@ namespace PowerLifting.Exercises.Service
             return changedRows > 0;
         }
 
-        public async Task<bool> ApproveExercise(int exerciseId, string userId)
-        {
-            if (exerciseId <= 0) throw new ExerciseValidationException("ExerciseId must be greater than zero");
-            if (string.IsNullOrEmpty(userId)) throw new UserValidationException("UserId cannot be null or invalid");
-
-            var exercise = await _context.Exercise.FirstOrDefaultAsync(x => x.ExerciseId == exerciseId);
-
-            if (exercise == null) throw new ExerciseNotFoundException();
-
-            var userName = await _context.User.Where(x => x.Id == userId && x.Rights >= 1) //user is a mod or admin
-                .AsNoTracking()
-                .Select(x => x.UserName)
-                .FirstOrDefaultAsync();
-
-            if (userName == null) throw new UserNotFoundException();
-
-            exercise.IsApproved = true;
-            exercise.AdminApprover = userName;
-
-            var changedRows = await _context.SaveChangesAsync();
-            return changedRows > 0;
-        }
     }
 }

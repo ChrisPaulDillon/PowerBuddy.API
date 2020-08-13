@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MediatR;
+﻿using MediatR;
 
-namespace PowerLifting.Mediatr.Command.Exercises.Admin
+namespace PowerLifting.MediatR.Exercises.Command.Admin
 {
     public class ApproveExerciseCommand : IRequest<bool>
     {
