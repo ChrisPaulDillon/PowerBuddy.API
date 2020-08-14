@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
@@ -16,11 +16,11 @@ namespace PowerLifting.API.Areas.Account
     [Area("Account")]
     public class ProgramLogRepSchemeController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
 
-        public ProgramLogRepSchemeController(IServiceWrapper service)
+        public ProgramLogRepSchemeController(IMediator mediator)
         {
-            _service = service;
+            _mediator = mediator;
         }
 
         [HttpPost("Collection")]

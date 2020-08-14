@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
-    <ProjectReference Include="..\PowerLifting.Service.ProgramLogs\PowerLifting.ProgramLogs.Service\PowerLifting.ProgramLogs.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 
@@ -15,11 +15,11 @@ namespace PowerLifting.API.Areas.Public
     [Area("Public")]
     public class TemplateProgramController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
 
-        public TemplateProgramController(IServiceWrapper service)
+        public TemplateProgramController(IMediator mediator)
         {
-            _service = service;
+            _mediator = mediator;
         }
 
         [HttpGet]

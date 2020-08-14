@@ -1,20 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
-using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
-using PowerLifting.Data.Entities.Account;
-using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.Exercises;
-using PowerLifting.SignalR;
 
 namespace PowerLifting.API.Areas.Account
 {
@@ -24,11 +16,11 @@ namespace PowerLifting.API.Areas.Account
     [Area("Account")]
     public class ExerciseController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
 
-        public ExerciseController(IServiceWrapper service)
+        public ExerciseController(IMediator mediator)
         {
-            _service = service;
+            _mediator = mediator;
         }
 
         [HttpPost]

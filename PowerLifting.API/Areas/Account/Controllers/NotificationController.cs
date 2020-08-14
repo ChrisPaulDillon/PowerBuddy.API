@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
 
@@ -16,11 +16,11 @@ namespace PowerLifting.API.Areas.Account
     [Area("Account")]
     public class NotificationController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
 
-        public NotificationController(IServiceWrapper service)
+        public NotificationController(IMediator mediator)
         {
-            _service = service;
+            _mediator = mediator;
         }
 
         [HttpGet]

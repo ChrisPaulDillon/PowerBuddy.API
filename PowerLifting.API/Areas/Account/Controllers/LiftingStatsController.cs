@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.LiftingStats;
@@ -19,12 +19,12 @@ namespace PowerLifting.API.Areas.Account.Controllers
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class LiftingStatsController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
         private string _userId = "";
 
-        public LiftingStatsController(IServiceWrapper service)
+        public LiftingStatsController(IMediator mediator)
         {
-            _service = service;
+            _mediator = mediator;
         }
 
         [HttpGet]

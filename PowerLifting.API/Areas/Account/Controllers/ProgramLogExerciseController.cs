@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
@@ -17,12 +17,12 @@ namespace PowerLifting.API.Areas.Account
     [Area("Account")]
     public class ProgramLogExerciseController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
         private string _userId = "";
 
-        public ProgramLogExerciseController(IServiceWrapper service)
+        public ProgramLogExerciseController(IMediator mediator)
         {
-            _service = service;
+            _mediator = mediator;
         }
 
         [HttpGet("{programLogExerciseId:int}", Name = "ProgramLogExerciseById")]

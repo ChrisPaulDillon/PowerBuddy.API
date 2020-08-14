@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
@@ -19,14 +19,12 @@ namespace PowerLifting.API.Areas.Account
     [Area("Account")]
     public class FriendsListController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
-        private readonly UserManager<User> _userManager;
+        private readonly IMediator _mediator;
         private string _userId;
 
-        public FriendsListController(IServiceWrapper service, UserManager<User> userManager)
+        public FriendsListController(IMediator mediator)
         {
-            _service = service;
-            _userManager = userManager;
+            _mediator = mediator;
         }
 
         [HttpPost("Request/{friendUserId}")]

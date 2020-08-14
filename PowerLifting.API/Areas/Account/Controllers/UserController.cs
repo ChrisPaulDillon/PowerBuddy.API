@@ -1,16 +1,14 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.SignalR;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {
@@ -20,12 +18,12 @@ namespace PowerLifting.API.Areas.Account.Controllers
     [Area("Account")]
     public class UserController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
         private readonly UserManager<User> _userManager;
 
-        public UserController(IServiceWrapper service, UserManager<User> userManager)
+        public UserController(IMediator mediator, UserManager<User> userManager)
         {
-            _service = service;
+            _mediator = mediator;
             _userManager = userManager;
         }
 

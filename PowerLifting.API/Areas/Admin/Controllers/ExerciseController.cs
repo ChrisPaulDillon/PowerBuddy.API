@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
@@ -19,12 +19,12 @@ namespace PowerLifting.API.Areas.Admin.Controllers
     [Area("Admin")]
     public class ExerciseController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
         private string _userId;
 
-        public ExerciseController(IServiceWrapper service, IHttpContextAccessor accessor)
+        public ExerciseController(IMediator mediator, IHttpContextAccessor accessor)
         {
-            _service = service;
+            _mediator = mediator;
             _userId = accessor.HttpContext.User.Claims.First(x => x.Type == "UserID").Value;
         }
 

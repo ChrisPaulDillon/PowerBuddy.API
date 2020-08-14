@@ -1,13 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
-using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
 
 namespace PowerLifting.API.Areas.Public
@@ -18,13 +16,11 @@ namespace PowerLifting.API.Areas.Public
     [Area("Public")]
     public class AccountController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
-        private readonly UserManager<User> _userManager;
+        private readonly IMediator _mediator;
 
-        public AccountController(IServiceWrapper service, UserManager<User> userManager)
+        public AccountController(IMediator mediator)
         {
-            _service = service;
-            _userManager = userManager;
+            _mediator = mediator;
         }
 
         [HttpGet("Profile/{userName}")]

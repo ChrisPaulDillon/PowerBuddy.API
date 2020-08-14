@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
 
@@ -18,12 +18,12 @@ namespace PowerLifting.API.Areas.Admin.Controllers
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class UserController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
         private string _userId;
 
-        public UserController(IServiceWrapper service, IHttpContextAccessor accessor)
+        public UserController(IMediator mediator, IHttpContextAccessor accessor)
         {
-            _service = service;
+            _mediator = mediator;
             _userId = accessor.HttpContext.User.Claims.First(x => x.Type == "UserID").Value;
         }
 

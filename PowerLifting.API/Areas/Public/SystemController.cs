@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
@@ -15,12 +16,11 @@ namespace PowerLifting.API.Areas.Public
     [Area("Public")]
     public class SystemController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
-        private readonly HttpRequest _request;
+        private readonly IMediator _mediator;
 
-        public SystemController(IServiceWrapper service, IHttpContextAccessor accessor)
+        public SystemController(IMediator mediator)
         {
-            _service = service;
+            _mediator = mediator;
             _request = accessor.HttpContext.Request;
         }
 

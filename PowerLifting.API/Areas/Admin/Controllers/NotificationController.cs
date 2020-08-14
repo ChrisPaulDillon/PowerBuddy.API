@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
@@ -14,11 +15,11 @@ namespace PowerLifting.API.Areas.Admin.Controllers
     [Area("Admin")]
     public class NotificationController : ControllerBase
     {
-        private readonly IServiceWrapper _service;
+        private readonly IMediator _mediator;
 
-        public NotificationController(IServiceWrapper service)
+        public NotificationController(IMediator mediator)
         {
-            _service = service;
+            _mediator = mediator;
         }
 
         [HttpPost]
