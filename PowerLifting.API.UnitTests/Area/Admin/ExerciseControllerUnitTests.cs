@@ -1,23 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PowerLifting.API.Areas.Admin.Controllers;
-using PowerLifting.API.Wrappers;
-using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.Data.Exceptions.Exercises;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace PowerLifting.API.UnitTests.Area.Admin
 {
     public class ExerciseControllerUnitTests
     {
         private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
-        private readonly Mock<IServiceWrapper> _serviceWrapper;
 
         private readonly Random _random;
 
@@ -32,8 +24,8 @@ namespace PowerLifting.API.UnitTests.Area.Admin
                 new Claim(ClaimTypes.NameIdentifier, _random.Next().ToString())
             })));
 
-            _serviceWrapper = new Mock<IServiceWrapper>(MockBehavior.Strict);
-            _controller = new ExerciseController(_serviceWrapper.Object, _httpContextAccessor.Object);
+            //_serviceWrapper = new Mock<IServiceWrapper>(MockBehavior.Strict);
+            //_controller = new ExerciseController(_serviceWrapper.Object, _httpContextAccessor.Object);
         }
 
         //#region ApproveExercise

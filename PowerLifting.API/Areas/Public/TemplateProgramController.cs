@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
+using PowerLifting.MediatR.ProgramLogRepSchemes.Command.Account;
+using PowerLifting.MediatR.TemplatePrograms.Command.Admin;
+using PowerLifting.MediatR.TemplatePrograms.Query.Public;
 
 namespace PowerLifting.API.Areas.Public
 {
@@ -27,7 +31,7 @@ namespace PowerLifting.API.Areas.Public
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllTemplatePrograms()
         {
-            var templatePrograms = await _service.TemplateProgram.GetAllTemplatePrograms();
+            var templatePrograms = await _mediator.Send(new GetAllTemplateProgramsQuery()).ConfigureAwait(false);
             return Ok(Responses.Success(templatePrograms));
         }
 
@@ -38,7 +42,7 @@ namespace PowerLifting.API.Areas.Public
         {
             try
             {
-                var templateProgram = await _service.TemplateProgram.GetTemplateProgramById(templateProgramId);
+                var templateProgram = await _mediator.Send(new GetTemplateProgramByIdQuery(templateProgramId)).ConfigureAwait(false);
                 return Ok(Responses.Success(templateProgram));
             }
             catch (TemplateProgramNotFoundException ex)
@@ -54,8 +58,9 @@ namespace PowerLifting.API.Areas.Public
         {
             try
             {
-                await _service.TemplateProgram.CreateTemplateProgram(templateProgramDTO);
-                return Ok(Responses.Success());
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var templateProgram = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(templateProgram));
             }
             catch (TemplateProgramNameAlreadyExistsException ex)
             {

@@ -37,6 +37,11 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Account
 
             if (user == null) throw new UserNotFoundException();
 
+            user.UserSetting = await _context.UserSetting
+                .AsNoTracking()
+                .ProjectTo<UserSettingDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.UserId == request.UserId, cancellationToken: cancellationToken);
+
             return user;
         }
     }

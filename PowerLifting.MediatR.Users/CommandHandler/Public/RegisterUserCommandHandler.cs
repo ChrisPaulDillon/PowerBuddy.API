@@ -10,7 +10,10 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities.Exercises;
+using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.Users.Command.Public;
 using PowerLifting.MediatR.Users.Query.Account;
@@ -47,6 +50,33 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Public
             };
 
             var result = await _userManager.CreateAsync(userEntity, request.RegisterUserDTO.Password);
+
+            if (result.Succeeded)
+            {
+                var exercisesToAdd = await _context.Set<Exercise>()
+                    .Where(x => x.ExerciseSports.Any(j => j.ExerciseSportStr == request.RegisterUserDTO.SportType) && x.IsApproved)
+                    .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
+                    .AsNoTracking()
+                    .ToListAsync(cancellationToken: cancellationToken);
+
+                var repRanges = new int[] { 1, 2, 3, 5, 10 };
+                foreach (var exercise in exercisesToAdd)
+                {
+                    foreach (var repRange in repRanges)
+                    {
+                        _context.LiftingStat.Add(
+                            new LiftingStat()
+                            {
+                                UserId = userEntity.Id,
+                                ExerciseId = exercise.ExerciseId,
+                                RepRange = repRange,
+                                LastUpdated = DateTime.UtcNow
+                            });
+                    }
+                }
+
+                await _context.SaveChangesAsync(cancellationToken);
+            }
             return result.Succeeded;
         }
     }

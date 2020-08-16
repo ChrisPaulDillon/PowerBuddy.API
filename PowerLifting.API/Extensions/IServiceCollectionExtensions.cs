@@ -11,11 +11,206 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PowerLifting.MediatR.Exercises.CommandHandler.Account;
+using MediatR;
+using PowerLifting.MediaR.Quotes.CommandHandler.Account;
+using PowerLifting.MediaR.Quotes.CommandHandler.Admin;
+using PowerLifting.MediaR.Quotes.QueryHandler.Public;
+using PowerLifting.MediatR.ExerciseMuscleGroups.QueryHandler.Public;
+using PowerLifting.MediatR.Exercises.Query.Admin;
+using PowerLifting.MediatR.Exercises.QueryHandler.Public;
+using PowerLifting.MediatR.ExerciseTypes.QueryHandler.Public;
+using PowerLifting.MediatR.FriendsLists.CommandHandler.Account;
+using PowerLifting.MediatR.FriendsLists.QueryHandler.Account;
+using PowerLifting.MediatR.LiftingStats.Command.Account;
+using PowerLifting.MediatR.LiftingStats.CommandHandler.Account;
+using PowerLifting.MediatR.Notifications.CommandHandler.Account;
+using PowerLifting.MediatR.Notifications.CommandHandler.Admin;
+using PowerLifting.MediatR.ProgramLogDays.CommandHandler.Account;
+using PowerLifting.MediatR.ProgramLogDays.QueryHandler.Account;
+using PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account;
+using PowerLifting.MediatR.ProgramLogExercises.QueryHandler.Account;
+using PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account;
+using PowerLifting.MediatR.ProgramLogs.CommandHandler.Account;
+using PowerLifting.MediatR.ProgramLogs.QueryHandler.Account;
+using PowerLifting.MediatR.ProgramLogWeeks.QueryHandler.Account;
+using PowerLifting.Mediatr.QueryHandler.Exercises.Admin;
+using PowerLifting.Mediatr.QueryHandler.Exercises.Public;
+using PowerLifting.MediatR.TemplatePrograms.CommandHandler.Admin;
+using PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account;
+using PowerLifting.MediatR.TemplatePrograms.QueryHandler.Public;
+using PowerLifting.MediatR.Users.CommandHandler.Admin;
+using PowerLifting.MediatR.Users.CommandHandler.Public;
+using PowerLifting.MediatR.Users.QueryHandler.Account;
+using PowerLifting.MediatR.Users.QueryHandler.Admin;
+using PowerLifting.MediatR.Users.QueryHandler.Public;
 
 namespace PowerLifting.API.Extensions
 {
     public static class IServiceCollectionExtensions
     {
+        public static IServiceCollection AddProgramLogDayMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(CreateProgramLogDayCommandHandler));
+            services.AddMediatR(typeof(DeleteProgramLogDayCommandHandler));
+
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetAllProgramDayDatesQueryHandler));
+            services.AddMediatR(typeof(GetProgramLogDayByDateQueryHandler));
+            services.AddMediatR(typeof(GetProgramLogDayByIdQueryHandler));
+            services.AddMediatR(typeof(GetProgramSpecificDayByDateQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddProgramLogExerciseMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(CreateProgramLogExerciseCommandHandler));
+            services.AddMediatR(typeof(DeleteProgramLogExerciseCommandHandler));
+            services.AddMediatR(typeof(UpdateProgramLogExerciseCommandHandler));
+
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetProgramLogExerciseByIdQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddProgramLogRepSchemesMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(CreateProgramLogRepSchemeCollectionCommandHandler));
+            services.AddMediatR(typeof(UpdateProgramLogRepSchemeCommandHandler));
+            services.AddMediatR(typeof(DeleteProgramLogRepSchemeCommandHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddProgramLogMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(CreateProgramLogFromScratchCommandHandler));
+            services.AddMediatR(typeof(CreateProgramLogFromTemplateCommandHandler));
+            services.AddMediatR(typeof(UpdateProgramLogCommandHandler));
+            services.AddMediatR(typeof(DeleteProgramLogCommandHandler));
+
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetActiveProgramLogByUserIdQueryHandler));
+            services.AddMediatR(typeof(GetAllProgramLogsByUserIdQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddProgramLogWeekMediatrHandlers(this IServiceCollection services)
+        {
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetProgramLogWeekBetweenDateQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddTemplateProgramMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(CreateTemplateProgramCommandHandler));
+
+            // QueryHandler Registration
+            services.AddMediatR(typeof(DoesUserHaveExerciseCollection1RMSetQueryHandler));
+            services.AddMediatR(typeof(GetAllTemplateProgramsQueryHandler));
+            services.AddMediatR(typeof(GetTecByTemplateProgramIdQueryHandler));
+            services.AddMediatR(typeof(GetTemplateProgramByIdQueryHandler));
+            services.AddMediatR(typeof(GetTemplateProgramNameByIdQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddUserMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(BanUserCommandHandler));
+            services.AddMediatR(typeof(RegisterUserCommandHandler));
+
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetAllUsersByAdminQueryHandler));
+            services.AddMediatR(typeof(GetPublicUserProfileByIdQueryHandler));
+            services.AddMediatR(typeof(GetPublicUserProfileByUsernameQueryHandler));
+            services.AddMediatR(typeof(LoginUserQueryHandler));
+            services.AddMediatR(typeof(GetUserProfileQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddNotificationsMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(MarkNotificationReadCommandHandler));
+            services.AddMediatR(typeof(CreateNotificationCommandHandler));
+
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetUserNotificationsQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddLiftingStatsMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(CreateLiftingStatCommandHandler));
+            services.AddMediatR(typeof(CreateLiftingStatsBySportsTypeCommandHandler));
+            services.AddMediatR(typeof(DeleteLiftingStatCommandHandler));
+            services.AddMediatR(typeof(UpdateLiftingStatCollectionCommandHandler));
+            services.AddMediatR(typeof(UpdateLiftingStatCommandHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddFriendsListsMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(RespondToFriendRequestCommandHandler));
+            services.AddMediatR(typeof(SendFriendRequestCommandHandler));
+
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetAllPendingFriendRequestsQueryHandler));
+            services.AddMediatR(typeof(GetPendingFriendRequestQueryHandler));
+            services.AddMediatR(typeof(GetUserFriendsListQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddQuoteMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(RequestQuoteCommandHandler));
+            services.AddMediatR(typeof(CreateQuoteCommandHandler));
+            services.AddMediatR(typeof(UpdateQuoteCommandHandler));
+            services.AddMediatR(typeof(DeleteQuoteCommandHandler));
+
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetAllQuotesQueryHandler));
+            services.AddMediatR(typeof(GetQuoteByIdQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddExerciseMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(CreateExerciseCommandHandler));
+
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetAllUnapprovedExercisesQueryHandler));
+            services.AddMediatR(typeof(GetAllExercisesBySportQueryHandler));
+            services.AddMediatR(typeof(GetExerciseByIdQueryHandler));
+            services.AddMediatR(typeof(GetAllExercisesQueryHandler));
+  
+            return services;
+        }
+
+        public static IServiceCollection AddExerciseTypeMediatrHandlers(this IServiceCollection services)
+        {
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetAllExerciseTypesQueryHandler));
+            return services;
+        }
+
+
+        public static IServiceCollection AddExerciseMuscleGroupHandlers(this IServiceCollection services)
+        {
+            services.AddMediatR(typeof(GetAllExerciseMuscleGroupsQueryHandler));
+            return services;
+        }
+
         public static IServiceCollection AddPowerLiftingContext(this IServiceCollection services, string connectionStr)
         {
             services.AddDbContext<PowerLiftingContext>(options =>

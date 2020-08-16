@@ -31,7 +31,7 @@ namespace PowerLifting.API.UnitTests.Area.Admin
             })));
 
             _mediator = new Mock<IMediator>(MockBehavior.Strict);
-            _controller = new AccountController(_mediator.Object);
+            //_controller = new AccountController(_mediator.Object);
         }
 
         //#region GetAllAdminUsers

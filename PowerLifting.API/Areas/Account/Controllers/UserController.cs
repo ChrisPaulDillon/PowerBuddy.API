@@ -9,6 +9,9 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.MediatR.Users.Command.Public;
+using PowerLifting.MediatR.Users.CommandHandler.Public;
+using PowerLifting.MediatR.Users.Query.Account;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {
@@ -35,7 +38,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var token = await _service.User.LoginUser(loginModel);
+                var token = await _mediator.Send(new LoginUserQuery(loginModel)).ConfigureAwait(false);
                 return Ok(Responses.Success(token));
             }
             catch (UserValidationException e)
@@ -59,11 +62,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var user = await _service.User.GetUserProfile(userId);
-                if (user != null)
-                {
-                    user.UserSetting = await _service.UserSetting.GetUserSettingsByUserId(userId);
-                }
+                var user = await _mediator.Send(new GetUserProfileQuery(userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(user));
             }
             catch (UserValidationException e)
@@ -88,14 +87,8 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                await _service.User.RegisterUser(userDTO);
-                var user = await _userManager.FindByEmailAsync(userDTO.Email);
-                if (user != null)
-                {
-                    var exercisesInSport = await _service.Exercise.GetAllExercisesBySport(userDTO.SportType);
-                    await _service.LiftingStat.CreateLiftingStatsByAthleteType(user.Id, exercisesInSport);
-                }
-                return Ok(Responses.Success());
+                var result = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
+                return Ok(Responses.Success(result));
             }
             catch (UserValidationException e)
             {
@@ -104,26 +97,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
             catch (EmailOrUserNameInUseException ex)
             {
                 return Conflict(Responses.Error(ex));
-            }
-        }
-
-        [HttpGet("Settings/{userId}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetUserSettings(string userId)
-        {
-            try
-            {
-                return NoContent();
-            }
-            catch (UserValidationException e)
-            {
-                return BadRequest(e.Message);
-            }
-            catch (UserNotFoundException)
-            {
-                return NotFound();
             }
         }
     }

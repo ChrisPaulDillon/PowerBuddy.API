@@ -28,6 +28,22 @@ namespace PowerLifting.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            //Mediatr Services
+            services.AddProgramLogDayMediatrHandlers();
+            services.AddProgramLogMediatrHandlers();
+            services.AddProgramLogWeekMediatrHandlers();
+            services.AddProgramLogExerciseMediatrHandlers();
+            services.AddProgramLogRepSchemesMediatrHandlers();
+            services.AddExerciseMediatrHandlers();
+            services.AddExerciseMuscleGroupHandlers();
+            services.AddExerciseTypeMediatrHandlers();
+            services.AddQuoteMediatrHandlers();
+            services.AddLiftingStatsMediatrHandlers();
+            services.AddNotificationsMediatrHandlers();
+            services.AddTemplateProgramMediatrHandlers();
+            services.AddUserMediatrHandlers();
+            services.AddFriendsListsMediatrHandlers();
+
             //Inject app settings
             services.AddJWTSettings(Configuration.GetSection("JWTSettings"));
             services.AddSentry(Configuration.GetSection("Sentry"));

@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
+using PowerLifting.MediatR.TemplatePrograms.Command.Admin;
 
 namespace PowerLifting.API.Areas.Admin
 {
@@ -28,7 +30,8 @@ namespace PowerLifting.API.Areas.Admin
         {
             try
             {
-                await _service.TemplateProgram.CreateTemplateProgram(templateProgramDTO);
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success());
             }
             catch (TemplateProgramNameAlreadyExistsException ex)

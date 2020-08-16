@@ -19,6 +19,7 @@
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="MediatR" Version="8.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.6">
@@ -55,6 +56,9 @@
     <ProjectReference Include="..\PowerLifting.MediatR.ProgramLogDays\PowerLifting.MediatR.ProgramLogDays.csproj" />
     <ProjectReference Include="..\PowerLifting.MediatR.ProgramLogExercises\PowerLifting.MediatR.ProgramLogExercises.csproj" />
     <ProjectReference Include="..\PowerLifting.MediatR.ProgramLogRepSchemes\PowerLifting.MediatR.ProgramLogRepSchemes.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.ProgramLogs\PowerLifting.MediatR.ProgramLogs.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.ProgramLogWeeks\PowerLifting.MediatR.ProgramLogWeeks.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.TemplatePrograms\PowerLifting.MediatR.TemplatePrograms.csproj" />
     <ProjectReference Include="..\PowerLifting.MediatR.Users\PowerLifting.MediatR.Users.csproj" />
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>

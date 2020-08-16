@@ -25,36 +25,36 @@ namespace PowerLifting.API.Areas.Public
             _mediator = mediator;
         }
 
-        [HttpGet("Profile/{userName}")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [ProducesResponseType(typeof(ApiResponse<PublicUserDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetPublicUserProfile(string userName)
-        {
-            try
-            {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var user = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName)).ConfigureAwait(false);
-                if (user != null)
-                {
-                    var friendRequest = await _mediator.Send(new GetPendingFriendRequestQuery()).ConfigureAwait(false);
-                    var userExtended = new PublicUserExtendedDTO()
-                    {
-                        UserId = user.UserId,
-                        UserName = user.UserName,
-                        IsPublic = user.IsPublic,
-                        PendingFriendRequest = friendRequest != null,
-                        SportType = user.SportType
-                    };
-                    return Ok(Responses.Success(userExtended));
-                }
-                return NotFound();
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(Responses.Error(ex));
-            }
-        }
+        //[HttpGet("Profile/{userName}")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        //[ProducesResponseType(typeof(ApiResponse<PublicUserDTO>), StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        //public async Task<IActionResult> GetPublicUserProfile(string userName)
+        //{
+        //    try
+        //    {
+        //        var userId = User.Claims.First(x => x.Type == "UserID").Value;
+        //        var user = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName)).ConfigureAwait(false);
+        //        if (user != null)
+        //        {
+        //            var friendRequest = await _mediator.Send(new GetPendingFriendRequestQuery()).ConfigureAwait(false);
+        //            var userExtended = new PublicUserExtendedDTO()
+        //            {
+        //                UserId = user.UserId,
+        //                UserName = user.UserName,
+        //                IsPublic = user.IsPublic,
+        //                PendingFriendRequest = friendRequest != null,
+        //                SportType = user.SportType
+        //            };
+        //            return Ok(Responses.Success(userExtended));
+        //        }
+        //        return NotFound();
+        //    }
+        //    catch (UserNotFoundException ex)
+        //    {
+        //        return NotFound(Responses.Error(ex));
+        //    }
+        //}
 
         [HttpGet("All")]
         [ProducesResponseType(typeof(ApiResponse<PublicUserDTO>), StatusCodes.Status200OK)]
