@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerLifting.Accounts.Service\PowerLifting.Accounts.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.Data.Builders\PowerLifting.Data.Builders.csproj" />
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
   </ItemGroup>

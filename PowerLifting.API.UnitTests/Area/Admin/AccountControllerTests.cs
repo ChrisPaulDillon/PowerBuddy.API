@@ -6,12 +6,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.Accounts.Service;
 using PowerLifting.API.Areas.Admin.Controllers;
 using PowerLifting.API.Areas.Public;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Data.DTOs.Account;
 using Xunit;
 
@@ -20,7 +20,7 @@ namespace PowerLifting.API.UnitTests.Area.Admin
     public class AccountControllerTests
     {
         private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
-        private readonly Mock<IServiceWrapper> _serviceWrapper;
+        private readonly Mock<IMediator> _mediator;
 
         private readonly Random _random;
 
@@ -35,8 +35,8 @@ namespace PowerLifting.API.UnitTests.Area.Admin
                 new Claim(ClaimTypes.NameIdentifier, _random.Next().ToString())
             })));
 
-            _serviceWrapper = new Mock<IServiceWrapper>(MockBehavior.Strict);
-            _controller = new AccountController(_serviceWrapper.Object, _httpContextAccessor.Object);
+            _mediator = new Mock<IMediator>(MockBehavior.Strict);
+            _controller = new AccountController(_mediator.Object);
         }
 
         #region GetAllAdminUsers

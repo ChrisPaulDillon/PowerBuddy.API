@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Common\PowerLifting.Common.csproj" />
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj" />
   </ItemGroup>

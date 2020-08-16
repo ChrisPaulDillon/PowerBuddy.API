@@ -8,5 +8,7 @@
         public short? Year { get; set; }
         public string QuoteCategory { get; set; }
         public bool Active { get; set; }
+        public bool IsApproved { get; set; }
+        public string UserId { get; set; }
     }
 }

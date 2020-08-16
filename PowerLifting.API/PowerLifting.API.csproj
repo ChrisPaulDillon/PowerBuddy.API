@@ -44,13 +44,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerLifting.Accounts.Service\PowerLifting.Accounts.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj" />
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\PowerLifting.Systems.Service\PowerLifting.Systems.Service.csproj" />
-    <ProjectReference Include="..\PowerLifting.TemplatePrograms.Service\PowerLifting.TemplatePrograms.Service.csproj" />
     <ProjectReference Include="..\PowerLifting.SignalR\PowerLifting.SignalR.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

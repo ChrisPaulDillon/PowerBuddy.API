@@ -23,23 +23,12 @@ namespace PowerLifting.TemplatePrograms.Service
 
         public IEnumerable<int> GetTemplateExerciseCollectionByTemplateProgramId(int templateProgramId)
         {
-            return _context.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == templateProgramId)
-                .Select(x => x.ExerciseId)
-                .ToList();
+          
         }
 
         public async Task<IEnumerable<int>> DoesUserHaveExerciseCollection1RMSet(int templateProgramId, string userId)
         {
-            var tec = _context.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == templateProgramId)
-                .AsNoTracking()
-                .Select(x => x.ExerciseId)
-                .ToList();
-
-            var liftingStats = await _context.LiftingStat.Where(x => x.UserId == userId && x.RepRange == 1).AsNoTracking().ToListAsync();
-
-            var liftingStatsToCreate = tec.Where(item1 => liftingStats.All(item2 => item1 != item2.ExerciseId));
-
-            return liftingStatsToCreate;
+          
         }
     }
 }
