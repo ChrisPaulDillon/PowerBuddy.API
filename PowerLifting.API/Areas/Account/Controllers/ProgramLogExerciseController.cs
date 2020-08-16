@@ -8,6 +8,8 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.MediatR.ProgramLogExercises.Command.Account;
+using PowerLifting.MediatR.ProgramLogExercises.Query.Account;
 
 namespace PowerLifting.API.Areas.Account
 {
@@ -18,7 +20,6 @@ namespace PowerLifting.API.Areas.Account
     public class ProgramLogExerciseController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private string _userId = "";
 
         public ProgramLogExerciseController(IMediator mediator)
         {
@@ -29,7 +30,8 @@ namespace PowerLifting.API.Areas.Account
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogExerciseDTO>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProgramLogDayExerciseById(int programLogExerciseId)
         {
-            var programLogExercise = await _service.ProgramLogExercise.GetProgramLogExerciseById(programLogExerciseId);
+            var userId = User.Claims.First(x => x.Type == "UserID").Value;
+            var programLogExercise = await _mediator.Send(new GetProgramLogExerciseByIdQuery(programLogExerciseId)).ConfigureAwait(false);
             return Ok(Responses.Success(programLogExercise));
         }
 
@@ -42,8 +44,8 @@ namespace PowerLifting.API.Areas.Account
         {
             try
             {
-                _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogExercise = await _service.ProgramLogExercise.CreateProgramLogExercise(programLogExerciseDTO, _userId);
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogExercise = await _mediator.Send(new CreateProgramLogExerciseCommand(programLogExerciseDTO, userId)).ConfigureAwait(false);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
 
             }
@@ -57,12 +59,13 @@ namespace PowerLifting.API.Areas.Account
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateProgramLogExercise(int programlogExerciseId, [FromBody] ProgramLogExerciseDTO programLogDTO)
+        public async Task<IActionResult> UpdateProgramLogExercise(int programLogExerciseId, [FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
         {
             try
             {
-                var didUpdate = await _service.ProgramLogExercise.UpdateProgramLogExercise(programLogDTO, _userId);
-                return Ok(Responses.Success(didUpdate));
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _mediator.Send(new UpdateProgramLogExerciseCommand(programLogExerciseDTO, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(result));
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {
@@ -77,14 +80,20 @@ namespace PowerLifting.API.Areas.Account
         [HttpDelete("{programLogExerciseId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteProgramLogExercise(int programLogExerciseId)
         {
             try
             {
-                var isDeleted = await _service.ProgramLogExercise.DeleteProgramLogExercise(programLogExerciseId, _userId);
-                return Ok(Responses.Success(isDeleted));
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _mediator.Send(new DeleteProgramLogExerciseCommand(programLogExerciseId, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(result));
             }
             catch (ProgramLogExerciseNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
             {
                 return NotFound(Responses.Error(ex));
             }

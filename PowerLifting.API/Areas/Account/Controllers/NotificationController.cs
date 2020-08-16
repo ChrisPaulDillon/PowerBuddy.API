@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.MediatR.Notifications.Command.Account;
 
 namespace PowerLifting.API.Areas.Account
 {
@@ -32,7 +33,7 @@ namespace PowerLifting.API.Areas.Account
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var notifications = await _service.Notification.GetUserNotifications(userId);
+                var notifications = await _mediator.Send(new GetUserNotificationsQuery(userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(notifications));
             }
             catch (InvalidCredentialsException ex)

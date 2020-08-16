@@ -1,27 +1,17 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using NLog;
-using System;
-using System.IO;
 using PowerLifting.LoggerService;
 using Microsoft.AspNetCore.Http;
-using PowerLifting.API.Wrappers;
 using PowerLifting.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
 using PowerLifting.API.Middleware;
-using PowerLifting.Data;
 using PowerLifting.Data.AutoMapper;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.SignalR;
-using PowerLifting.Data.Util;
 using PowerLifting.API.Extensions;
 
 namespace PowerLifting.API
@@ -65,7 +55,6 @@ namespace PowerLifting.API
 
             services.AddControllers();
 
-            services.AddScoped<IServiceWrapper, ServiceWrapper>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<ILoggerManager, LoggerManager>();
 

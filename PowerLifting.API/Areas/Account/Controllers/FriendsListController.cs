@@ -4,14 +4,15 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
-using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.MediatR.FriendsLists.Command.Account;
+using PowerLifting.MediatR.FriendsLists.Query.Account;
+using PowerLifting.MediatR.Users.Query.Public;
 
-namespace PowerLifting.API.Areas.Account
+namespace PowerLifting.API.Areas.Account.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]
@@ -36,7 +37,7 @@ namespace PowerLifting.API.Areas.Account
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var requestSent = await _service.FriendsList.SendFriendsRequest(friendUserId, _userId);
+                var requestSent = await _mediator.Send(new SendFriendRequestCommand(friendUserId, _userId)).ConfigureAwait(false);
 
                 //TODO create notification
                 return Ok(Responses.Success(requestSent));
@@ -57,7 +58,7 @@ namespace PowerLifting.API.Areas.Account
             {
                 string _userId = "00dffc28-fb73-4edb-a44e-1ee1c3354b0d";
                 //_userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _service.FriendsList.RespondToFriendRequest(friendsListId, acceptRequest, _userId);
+                var result = await _mediator.Send(new RespondToFriendRequestCommand(friendsListId, acceptRequest, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (InvalidCredentialsException ex)
@@ -75,17 +76,18 @@ namespace PowerLifting.API.Areas.Account
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = (await _service.FriendsList.GetUsersFriendList(_userId)).ToList();
+                var result = await _mediator.Send(new GetUserFriendsListQuery(_userId)).ConfigureAwait(false);
 
                 var friendsListExtended = new List<FriendsListExtended>();
 
                 foreach (var x in result)
                 {
+                    var user = await _mediator.Send(new GetPublicUserProfileByIdQuery(_userId)).ConfigureAwait(false);
                     var friendList = new FriendsListExtended()
                     {
                         FriendsListAssocId = x.FriendsListAssocId,
                         OtherUserId = x.OtherUserId,
-                        UserName = (await _service.User.GetPublicUserProfileById(x.OtherUserId)).UserName
+                        UserName = user.UserName
                     };
                     friendsListExtended.Add(friendList);
                 }
@@ -106,7 +108,7 @@ namespace PowerLifting.API.Areas.Account
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var friendRequests = (await _service.FriendsList.GetAllPendingFriendRequests(_userId));
+                var friendRequests = await _mediator.Send(new GetAllPendingFriendRequestsQuery(_userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(friendRequests));
             }
             catch (InvalidCredentialsException ex)

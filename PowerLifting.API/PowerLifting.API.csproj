@@ -45,6 +45,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.LoggerService\PowerLifting.LoggerService.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediaR.Quotes\PowerLifting.MediaR.Quotes.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.ExerciseMuscleGroups\PowerLifting.MediatR.ExerciseMuscleGroups.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.Exercises\PowerLifting.MediatR.Exercises.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.ExerciseTypes\PowerLifting.MediatR.ExerciseTypes.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.FriendsLists\PowerLifting.MediatR.FriendsLists.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.LiftingStats\PowerLifting.MediatR.LiftingStats.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.Notifications\PowerLifting.MediatR.Notifications.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.ProgramLogDays\PowerLifting.MediatR.ProgramLogDays.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.ProgramLogExercises\PowerLifting.MediatR.ProgramLogExercises.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.ProgramLogRepSchemes\PowerLifting.MediatR.ProgramLogRepSchemes.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.Users\PowerLifting.MediatR.Users.csproj" />
     <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

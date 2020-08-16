@@ -9,6 +9,8 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.MediatR.ProgramLogDays.Command.Account;
+using PowerLifting.MediatR.ProgramLogDays.Query.Account;
 
 namespace PowerLifting.API.Areas.Account
 {
@@ -34,8 +36,8 @@ namespace PowerLifting.API.Areas.Account
         {
             try
             {
-                _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogDay = await _service.ProgramLogDay.GetProgramLogDayByDate(dateSelected, _userId);
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogDay = await _mediator.Send(new GetProgramLogDayByDateQuery(dateSelected, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLogDay));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -56,8 +58,8 @@ namespace PowerLifting.API.Areas.Account
         {
             try
             {
-                _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogDay = await _service.ProgramLogDay.GetProgramLogDayByProgramLogId(_userId, programLogId, dateSelected);
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogDay = await _mediator.Send(new GetProgramSpecificDayByDateQuery(dateSelected, programLogId, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLogDay));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -78,8 +80,8 @@ namespace PowerLifting.API.Areas.Account
         {
             try
             {
-                _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogDayDTO = await _service.ProgramLogDay.GetProgramLogDayById(programLogDayId, _userId);
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var programLogDayDTO = await _mediator.Send(new GetProgramLogDayByIdQuery(programLogDayId, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLogDayDTO));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -94,35 +96,49 @@ namespace PowerLifting.API.Areas.Account
 
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateProgramLogDay([FromBody] ProgramLogDayDTO programLogDayDTO)
         {
             try
             {
-                _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var createdProgramLogDayDTO = await _service.ProgramLogDay.CreateProgramLogDay(programLogDayDTO, _userId);
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var createdProgramLogDayDTO = await _mediator.Send(new CreateProgramLogDayCommand(programLogDayDTO, userId)).ConfigureAwait(false);
                 return CreatedAtRoute(nameof(GetProgramLogDayById), new { programLogDayId = createdProgramLogDayDTO.ProgramLogDayId }, createdProgramLogDayDTO);
             }
             catch (ProgramLogDayNotWithinWeekException ex)
             {
-                return Conflict(Responses.Error(ex));
+                return BadRequest(Responses.Error(ex));
+            }
+            catch (ProgramLogWeekNotFoundException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
             }
         }
 
         [HttpDelete("{programLogDayId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteProgramLogDay(int programLogDayId)
         {
             try
             {
-                _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _service.ProgramLogDay.DeleteProgramLogDay(programLogDayId, _userId);
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _mediator.Send(new DeleteProgramLogDayCommand(programLogDayId, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogDayNotFoundException ex)
             {
-                return Conflict(Responses.Error(ex));
+                return BadRequest(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
             }
         }
 
@@ -132,9 +148,9 @@ namespace PowerLifting.API.Areas.Account
         {
             try
             {
-                _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogDates = await _service.ProgramLogDay.GetAllUserProgramLogDates(_userId);
-                return Ok(Responses.Success(programLogDates));
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var dates = await _mediator.Send(new GetAllProgramDayDatesQuery(userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(dates));
             }
             catch (ProgramLogDayNotFoundException ex)
             {

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.MediatR.FriendsLists.Query.Account;
+using PowerLifting.MediatR.Users.Query.Public;
 
 namespace PowerLifting.API.Areas.Public
 {
@@ -32,10 +34,10 @@ namespace PowerLifting.API.Areas.Public
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var user = await _service.User.GetPublicUserProfileByUserName(userName);
+                var user = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName)).ConfigureAwait(false);
                 if (user != null)
                 {
-                    var friendRequest = await _service.FriendsList.GetPendingFriendRequest(user.UserId, userId);
+                    var friendRequest = await _mediator.Send(new GetPendingFriendRequestQuery()).ConfigureAwait(false);
                     var userExtended = new PublicUserExtendedDTO()
                     {
                         UserId = user.UserId,
@@ -61,7 +63,7 @@ namespace PowerLifting.API.Areas.Public
         {
             try
             {
-                var userProfiles = await _service.User.GetAllActivePublicProfiles();
+                var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery()).ConfigureAwait(false);
                 return Ok(Responses.Success(userProfiles));
             }
             catch (UserNotFoundException ex)

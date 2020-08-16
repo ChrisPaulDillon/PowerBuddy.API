@@ -9,6 +9,8 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.LiftingStats;
+using PowerLifting.MediatR.LiftingStats.Command.Account;
+using PowerLifting.MediatR.LiftingStats.Query.Account;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {
@@ -35,7 +37,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             try
             {
                 _userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var liftingStats = await _service.LiftingStat.GetLiftingStatsByUserId(_userId);
+                var liftingStats = await _mediator.Send(new GetLiftingStatsByUserIdQuery(_userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(liftingStats));
             }
             catch (LiftingStatNotFoundException ex)
@@ -50,8 +52,8 @@ namespace PowerLifting.API.Areas.Account.Controllers
         public async Task<IActionResult> CreateLiftingStat([FromBody] LiftingStatDTO liftingStatDTO)
         {
             try
-            {
-                var liftingStat = await _service.LiftingStat.CreateLiftingStat(liftingStatDTO);
+            {//TODO ADD USER VALIDATION
+                var liftingStat = await _mediator.Send(new CreateLiftingStatCommand(liftingStatDTO)).ConfigureAwait(false);
                 return Ok(Responses.Success(liftingStat));
             }
             catch (LiftingStatAlreadyExistsException ex)
@@ -67,7 +69,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var liftingStat = await _service.LiftingStat.UpdateLiftingStatCollection(liftingStatCollectionDTO);
+                var liftingStat = await _mediator.Send(new UpdateLiftingStatCollectionCommand(liftingStatCollectionDTO)).ConfigureAwait(false);
                 return Ok(Responses.Success(liftingStat));
             }
             catch (LiftingStatAlreadyExistsException ex)
@@ -84,7 +86,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var isUpdated = await _service.LiftingStat.UpdateLiftingStat(liftingStats);
+                var isUpdated = await _mediator.Send(new UpdateLiftingStatCommand(liftingStats)).ConfigureAwait(false);
                 return Ok(Responses.Success(isUpdated));
             }
             catch (LiftingStatNotFoundException ex)
@@ -101,17 +103,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public IActionResult DeleteLiftingStat(int liftingStatId)
+        public async Task<IActionResult> DeleteLiftingStatAsync(int liftingStatId)
         {
             try
             {
-                _service.LiftingStat.DeleteLiftingStat(new LiftingStatDTO() { LiftingStatId = liftingStatId });
+               var result = await _mediator.Send(new DeleteLiftingStatCommand(liftingStatId)).ConfigureAwait(false);
+               return Ok(Responses.Success(result));
             }
             catch (LiftingStatNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
             }
-            return Ok(Responses.Success());
         }
     }
 }

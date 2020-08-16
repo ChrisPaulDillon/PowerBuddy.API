@@ -6,9 +6,10 @@ namespace PowerLifting.MediatR.Exercises.Query.Admin
 {
     public class GetAllUnapprovedExercisesQuery : IRequest<IEnumerable<ExerciseDTO>>
     {
-
-        public GetAllUnapprovedExercisesQuery()
+        public string UserId { get; }
+        public GetAllUnapprovedExercisesQuery(string userId)
         {
+            UserId = userId;
         }
     }
 }

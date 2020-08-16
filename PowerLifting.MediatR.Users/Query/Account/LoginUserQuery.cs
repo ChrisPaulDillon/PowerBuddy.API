@@ -10,9 +10,9 @@ namespace PowerLifting.MediatR.Users.Query.Account
     {
         public LoginModel LoginModel { get; }
 
-        public LoginUserQuery(LoginModel request.LoginModel)
+        public LoginUserQuery(LoginModel loginModel)
         {
-            LoginModel = request.LoginModel;
+            LoginModel = loginModel;
         }
     }
 }

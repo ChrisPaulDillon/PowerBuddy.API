@@ -7,6 +7,8 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Exceptions.Exercises;
+using PowerLifting.MediatR.Exercises.Command.Account;
+using PowerLifting.MediatR.Exercises.Query.Public;
 
 namespace PowerLifting.API.Areas.Account
 {
@@ -30,7 +32,7 @@ namespace PowerLifting.API.Areas.Account
         {
             try
             {
-                var exercise = await _service.Exercise.CreateExercise(exerciseDTO);
+                var exercise = await _mediator.Send(new CreateExerciseCommand(exerciseDTO)).ConfigureAwait(false);
                 return CreatedAtRoute(nameof(GetExerciseById), new { exerciseId = exercise.ExerciseId }, exercise);
             }
             catch (ExerciseAlreadyExistsException e)
@@ -47,7 +49,7 @@ namespace PowerLifting.API.Areas.Account
         {
             try
             {
-                var exercises = await _service.Exercise.GetExerciseById(exerciseId);
+                var exercises = await _mediator.Send(new GetExerciseByIdQuery(exerciseId)).ConfigureAwait(false);
                 return Ok(Responses.Success(exercises));
             }
             catch (ExerciseNotFoundException e)

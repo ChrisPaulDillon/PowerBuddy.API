@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.MediatR.Exercises.Query.Admin;
+using PowerLifting.MediatR.Notifications.Command.Admin;
 
 namespace PowerLifting.API.Areas.Admin.Controllers
 {
@@ -28,8 +31,8 @@ namespace PowerLifting.API.Areas.Admin.Controllers
         {
             try
             {
-                //var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var notification = await _service.Notification.CreateNotification(notificationDTO);
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var notification = await _mediator.Send(new CreateNotificationCommand(notificationDTO, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(notification));
             }
             catch (InvalidCredentialsException ex)
