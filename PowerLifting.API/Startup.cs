@@ -26,7 +26,6 @@ namespace PowerLifting.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             //Mediatr Services
             services.AddProgramLogDayMediatrHandlers();
             services.AddProgramLogMediatrHandlers();
