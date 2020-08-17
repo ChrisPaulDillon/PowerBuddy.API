@@ -7,6 +7,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.Entities;
+using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.Data.Exceptions.LiftingStats;
 using PowerLifting.MediatR.LiftingStats.Command.Account;
@@ -27,9 +28,11 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
         {
             var liftingStat = await _context.LiftingStat
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ExerciseId == request.LiftingStatId);
+                .FirstOrDefaultAsync(x => x.ExerciseId == request.LiftingStatId, cancellationToken: cancellationToken);
 
             if (liftingStat == null) throw new LiftingStatNotFoundException();
+
+            if(liftingStat.UserId != request.UserId) throw new UnauthorisedUserException();
 
             _context.LiftingStat.Remove(liftingStat);
 

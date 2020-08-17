@@ -24,12 +24,17 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
                 .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
+                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.TemplateProgram.Name))
+                .ForMember(x => x.LogDates, opt => opt.Ignore())
                 .ReverseMap();
 
             CreateMap<ProgramLog, ProgramLogStatDTO>()
                 .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
                 .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
+                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.TemplateProgram.Name))
                 .ForMember(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
+                .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.Monday, d => d.MapFrom(src => src.Monday))
                 .ForMember(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday))
                 .ForMember(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday))

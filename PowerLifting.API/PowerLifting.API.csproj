@@ -70,6 +70,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Areas\Account\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>
 </Project>

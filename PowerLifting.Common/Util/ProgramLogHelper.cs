@@ -112,7 +112,7 @@ namespace PowerLifting.Common.Util
             return programDayOrder;
         }
 
-        public static IEnumerable<ProgramLogWeekDTO> GenerateProgramWeekDates(CProgramLogDTO programLogDTO, TemplateProgramDTO tp, IList<LiftingStat> liftingStats, string userId)
+        public static IEnumerable<ProgramLogWeekDTO> GenerateProgramWeekDates(CProgramLogDTO programLogDTO, TemplateProgram tp, IList<LiftingStat> liftingStats, string userId)
         {
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
 
@@ -126,7 +126,7 @@ namespace PowerLifting.Common.Util
             return listOfProgramWeeks;
         }
 
-        public static ProgramLogWeekDTO CreateProgramLogWeek(CProgramLogDTO programLogDTO, TemplateWeekDTO templateWeek, IEnumerable<LiftingStat> liftingStats, string userId)
+        public static ProgramLogWeekDTO CreateProgramLogWeek(CProgramLogDTO programLogDTO, TemplateWeek templateWeek, IEnumerable<LiftingStat> liftingStats, string userId)
         {
             var programLogWeek = new ProgramLogWeekDTO()
             {
@@ -187,7 +187,7 @@ namespace PowerLifting.Common.Util
             return programLogWeek;
         }
 
-        public static ProgramLogDayDTO GenerateProgramLogDay(DayOfWeek day, TemplateDayDTO templateDay, DateTime startDate, IEnumerable<LiftingStat> liftingStats)
+        public static ProgramLogDayDTO GenerateProgramLogDay(DayOfWeek day, TemplateDay templateDay, DateTime startDate, IEnumerable<LiftingStat> liftingStats)
         {
             var daysUntilSpecificDay = ((int)day - (int)startDate.DayOfWeek + 7) % 7;
             var nextDate = startDate.AddDays(daysUntilSpecificDay);
@@ -199,7 +199,7 @@ namespace PowerLifting.Common.Util
             return programLogDay;
         }
 
-        public static IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercises(TemplateDayDTO templateDay, IEnumerable<LiftingStat> liftingStats)
+        public static IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercises(TemplateDay templateDay, IEnumerable<LiftingStat> liftingStats)
         {
             var programLogExercises = new List<ProgramLogExerciseDTO>();
 
@@ -223,7 +223,7 @@ namespace PowerLifting.Common.Util
             return programLogExercises;
         }
 
-        public static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string weightProgressionType, decimal? user1RM, TemplateRepSchemeDTO templateRepScheme)
+        public static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string weightProgressionType, decimal? user1RM, TemplateRepScheme templateRepScheme)
         {
             var weightToLift = 0.00M;
 

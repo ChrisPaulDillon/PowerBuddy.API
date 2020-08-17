@@ -43,9 +43,9 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateProgramLogRepScheme([FromBody] ProgramLogRepSchemeDTO programLogRepSchemeDTO)
         {
             try
@@ -65,9 +65,9 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpDelete("{programLogRepSchemeId:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteProgramLogRepSchemeAsync(int programLogRepSchemeId)
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteProgramLogRepScheme(int programLogRepSchemeId)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (ProgramLogDayNotWithinWeekException e)
             {
-                return Unauthorized(e);
+                return BadRequest(e.Message);
             }
         }
     }

@@ -8,13 +8,13 @@ namespace PowerLifting.MediatR.ProgramLogs.Command.Account
     public class CreateProgramLogFromTemplateCommand : IRequest<ProgramLog>
     {
         public CProgramLogDTO ProgramLogDTO { get; }
-        public TemplateProgramDTO TemplateProgramDTO { get; }
+        public int TemplateProgramId { get; }
         public string UserId { get; }
 
-        public CreateProgramLogFromTemplateCommand(CProgramLogDTO programLogDTO, TemplateProgramDTO templateProgram, string userId)
+        public CreateProgramLogFromTemplateCommand(CProgramLogDTO programLogDTO, int templateProgramId, string userId)
         {
             ProgramLogDTO = programLogDTO;
-            TemplateProgramDTO = templateProgram;
+            TemplateProgramId = templateProgramId;
             UserId = userId;
         }
     }

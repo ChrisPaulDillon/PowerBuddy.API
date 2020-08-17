@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using PowerLifting.Data.Entities.ProgramLogs;
 
 namespace PowerLifting.Data.Entities.Templates
 {
@@ -16,5 +17,6 @@ namespace PowerLifting.Data.Entities.Templates
 
         public virtual IEnumerable<TemplateWeek> TemplateWeeks { get; set; }
         public virtual IEnumerable<TemplateExerciseCollection> TemplateExerciseCollection { get; set; }
+        public virtual ProgramLog ProgramLog { get; set; }
     }
 }

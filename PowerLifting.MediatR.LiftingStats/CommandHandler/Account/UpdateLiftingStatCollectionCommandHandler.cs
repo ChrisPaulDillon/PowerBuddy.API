@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.LiftingStats;
+using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.LiftingStats.Command.Account;
 
 namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
@@ -27,9 +29,11 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
 
         public async Task<bool> Handle(UpdateLiftingStatCollectionCommand request, CancellationToken cancellationToken)
         {
+            if(request.LiftingStatCollection.ToList()[0].UserId != request.UserId) throw new UnauthorisedUserException();
+
             var liftingStatCollection = _mapper.Map<LiftingStat>(request.LiftingStatCollection);
             _context.LiftingStat.Attach(liftingStatCollection);
-            var modifiedRows = await _context.SaveChangesAsync();
+            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
             return modifiedRows > 0;
         }
     }

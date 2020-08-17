@@ -21,7 +21,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
     public class ProgramLogDayController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private string _userId = "";
 
         public ProgramLogDayController(IMediator mediator)
         {
@@ -96,8 +95,8 @@ namespace PowerLifting.API.Areas.Account.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateProgramLogDay([FromBody] ProgramLogDayDTO programLogDayDTO)
         {
             try
@@ -122,8 +121,8 @@ namespace PowerLifting.API.Areas.Account.Controllers
 
         [HttpDelete("{programLogDayId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteProgramLogDay(int programLogDayId)
         {
             try

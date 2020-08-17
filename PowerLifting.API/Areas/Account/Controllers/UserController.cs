@@ -22,12 +22,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly UserManager<User> _userManager;
 
-        public UserController(IMediator mediator, UserManager<User> userManager)
+        public UserController(IMediator mediator)
         {
             _mediator = mediator;
-            _userManager = userManager;
         }
 
         [HttpPost("Login")]

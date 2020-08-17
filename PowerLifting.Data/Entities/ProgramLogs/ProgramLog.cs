@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PowerLifting.Data.Entities.Templates;
 
 namespace PowerLifting.Data.Entities.ProgramLogs
 {
@@ -24,5 +25,6 @@ namespace PowerLifting.Data.Entities.ProgramLogs
         public bool Sunday { get; set; }
         public bool Active { get; set; }
         public IEnumerable<ProgramLogWeek> ProgramLogWeeks { get; set; }
+        public virtual TemplateProgram TemplateProgram { get; set; }
     }
 }

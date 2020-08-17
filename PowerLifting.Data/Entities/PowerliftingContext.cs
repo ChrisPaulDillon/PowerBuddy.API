@@ -93,6 +93,12 @@ namespace PowerLifting.Data.Entities
             modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
 
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
+
+            modelBuilder.Entity<TemplateProgram>()
+                .HasOne(x => x.ProgramLog)
+                .WithOne(x => x.TemplateProgram)
+                .HasForeignKey<TemplateProgram>(x => x.TemplateProgramId);
+
             modelBuilder.Entity<TemplateWeek>().ToTable("TemplateWeek");
             modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");

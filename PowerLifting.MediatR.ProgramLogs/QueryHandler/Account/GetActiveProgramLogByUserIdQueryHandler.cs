@@ -12,6 +12,7 @@ using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
+using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogs.Query.Account;
 
@@ -32,9 +33,15 @@ namespace PowerLifting.MediatR.ProgramLogs.QueryHandler.Account
             var programLogDTO = await _context.ProgramLog.Where(x => x.UserId == request.UserId && x.Active)
                 .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (programLogDTO == null) throw new ProgramLogNotFoundException();
+
+            programLogDTO.LogDates = await _context.Set<ProgramLogDay>()
+                .Where(x => x.UserId == request.UserId)
+                .Select(x => x.Date.Date)
+                .ToListAsync(cancellationToken: cancellationToken);
+
             return programLogDTO;
         }
     }

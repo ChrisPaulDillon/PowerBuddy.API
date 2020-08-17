@@ -6,19 +6,15 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PowerLifting.API.Areas.Account.Models;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
-using PowerLifting.MediatR.ProgramLogDays.Query.Account;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
 using PowerLifting.MediatR.ProgramLogs.Query.Account;
 using PowerLifting.MediatR.ProgramLogWeeks.Query.Account;
 using PowerLifting.MediatR.TemplatePrograms.Query.Account;
-using PowerLifting.MediatR.TemplatePrograms.Query.Public;
-using PowerLifting.MediatR.Users.Query.Public;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {
@@ -46,15 +42,9 @@ namespace PowerLifting.API.Areas.Account.Controllers
             try
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogs = await _mediator.Send(new GetAllProgramLogStatsQuery(userId)).ConfigureAwait(false);
+                var programLogStats = await _mediator.Send(new GetAllProgramLogStatsQuery(userId)).ConfigureAwait(false);
 
-                var programWithTemplate = programLogs.ProgramLogStats.ToList();
-                foreach (var program in programWithTemplate)
-                {
-                    program.TemplateName = await _mediator.Send(new GetTemplateProgramNameByIdQuery(program.TemplateProgramId)).ConfigureAwait(false);
-                }
-
-                return Ok(Responses.Success(programWithTemplate));
+                return Ok(Responses.Success(programLogStats));
             }
             catch (ProgramLogNotFoundException ex)
             {
@@ -68,7 +58,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
 
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogWithTemplateDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetActiveProgramLog()
@@ -77,33 +67,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var programLog = await _mediator.Send(new GetActiveProgramLogByUserIdQuery(userId)).ConfigureAwait(false);
-
-                var programLogExtended = new ProgramLogWithTemplateDTO()
-                {
-                    ProgramLogId = programLog.ProgramLogId,
-                    TemplateProgramId = programLog.TemplateProgramId,
-                    StartDate = programLog.StartDate,
-                    EndDate = programLog.EndDate,
-                    NoOfWeeks = programLog.NoOfWeeks,
-                    Monday = programLog.Monday,
-                    Tuesday = programLog.Tuesday,
-                    Wednesday = programLog.Wednesday,
-                    Thursday = programLog.Thursday,
-                    Friday = programLog.Friday,
-                    Saturday = programLog.Saturday,
-                    Sunday = programLog.Sunday,
-                    ProgramLogWeeks = programLog.ProgramLogWeeks,
-                    LogDates = await _mediator.Send(new GetAllProgramDayDatesQuery(userId)).ConfigureAwait(false)
-                };
-
-                if (programLog.TemplateProgramId != null)
-                {
-                    var templateName = await _mediator
-                        .Send(new GetTemplateProgramNameByIdQuery((int) programLog.TemplateProgramId)).ConfigureAwait(false);
-                    programLogExtended.TemplateName = templateName;
-                }
-
-                return Ok(Responses.Success(programLogExtended));
+                return Ok(Responses.Success(programLog));
             }
             catch (ProgramLogNotFoundException ex)
             {
@@ -115,14 +79,15 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
-        [HttpPut("{userId}")]
+        [HttpPut]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateProgramLogByUserId(string userId, [FromBody] ProgramLogDTO programLogDTO)
+        public async Task<IActionResult> UpdateProgramLogByUserId([FromBody] ProgramLogDTO programLogDTO)
         {
             try
             {
+                userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var result = await _mediator.Send(new UpdateProgramLogCommand(programLogDTO, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
@@ -142,7 +107,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             userId = User.Claims.First(x => x.Type == "UserID").Value;
             var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, userId)).ConfigureAwait(false);
-            return Ok(Responses.Success(programLog));
+            return Ok(Responses.Success(createdLog));
         }
 
         [HttpPost("Template/{templateProgramId:int}")]
@@ -156,15 +121,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
 
-                var template = await _mediator.Send(new GetTemplateProgramByIdQuery(templateProgramId)).ConfigureAwait(false);
-                if (template.NoOfDaysPerWeek != programLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
-
                 var liftingStatsToCreate = await _mediator.Send(new DoesUserHaveExerciseCollection1RMSetQuery(templateProgramId, userId)).ConfigureAwait(false);
+                if (liftingStatsToCreate.ToList().Any()) return Ok(Responses.Success(liftingStatsToCreate));
 
-                var statsToCreate = liftingStatsToCreate.ToList();
-                if (statsToCreate.Any()) return Ok(Responses.Success(statsToCreate));
-
-                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, template, userId)).ConfigureAwait(false);
+                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, templateProgramId, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLog));
             }
             catch (TemplateProgramNotFoundException ex)
@@ -209,7 +169,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [HttpGet("Week/{date}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProgramLogWeekByUserId(DateTime date)
+        public async Task<IActionResult> GetProgramLogWeekByDate(DateTime date)
         {
             try
             {

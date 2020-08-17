@@ -13,6 +13,7 @@ using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.LiftingStats;
+using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.LiftingStats;
 using PowerLifting.MediatR.LiftingStats.Command.Account;
 
@@ -33,9 +34,11 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
             var userId = request.LiftingStat.UserId;
             var repRange = request.LiftingStat.RepRange;
 
+            if (userId != request.UserId) throw new UnauthorisedUserException();
+
             var doesLiftingStatExist = await _context.LiftingStat.Where(x => x.UserId == userId && x.ExerciseId == request.LiftingStat.ExerciseId && x.RepRange == repRange)
                 .AsNoTracking()
-                .AnyAsync();
+                .AnyAsync(cancellationToken: cancellationToken);
 
             if (doesLiftingStatExist) throw new LiftingStatAlreadyExistsException();
 

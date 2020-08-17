@@ -133,7 +133,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
             var programLogEntity = _mapper.Map<ProgramLog>(request.ProgramLogDTO);
             _context.ProgramLog.Add(programLogEntity);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return programLogEntity;
         }
     }

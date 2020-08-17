@@ -30,7 +30,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
         public async Task<bool> Handle(DeleteProgramLogCommand request, CancellationToken cancellationToken)
         {
-            var doesLogExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.ProgramLogId == request.ProgramLogId && x.UserId == request.UserId);
+            var doesLogExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.ProgramLogId == request.ProgramLogId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (!doesLogExist) throw new ProgramLogNotFoundException();
 

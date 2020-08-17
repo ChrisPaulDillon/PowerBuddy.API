@@ -20,5 +20,7 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public bool Sunday { get; set; }
         public bool Active { get; set; }
         public IEnumerable<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
+        public string TemplateName { get; set; }
+        public IEnumerable<DateTime> LogDates { get; set; }
     }
 }
