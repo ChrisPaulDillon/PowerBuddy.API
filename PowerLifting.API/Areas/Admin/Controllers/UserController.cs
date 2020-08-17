@@ -29,7 +29,6 @@ namespace PowerLifting.API.Areas.Admin.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<AdminUserDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllAdminUsers()
         {
             var userId = User.Claims.First(x => x.Type == "UserID").Value;

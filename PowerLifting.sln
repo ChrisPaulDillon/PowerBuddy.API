@@ -5,11 +5,7 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.API", "PowerLifting.API\PowerLifting.API.csproj", "{AD37FAC0-554C-40BC-A91D-D5FAFF732211}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.LoggerService", "PowerLifting.LoggerService\PowerLifting.LoggerService.csproj", "{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Common", "PowerLifting.Common\PowerLifting.Common.csproj", "{C9C4968C-2BB8-4777-A443-9823CE1104EF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.SignalR", "PowerLifting.SignalR\PowerLifting.SignalR.csproj", "{A7DFE890-28B2-49C7-8D17-6403BAF1FCAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Data", "PowerLifting.Data\PowerLifting.Data.csproj", "{3555D58B-6855-4422-BC83-C011F56445BC}"
 EndProject
@@ -63,18 +59,10 @@ Global
 		{AD37FAC0-554C-40BC-A91D-D5FAFF732211}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD37FAC0-554C-40BC-A91D-D5FAFF732211}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD37FAC0-554C-40BC-A91D-D5FAFF732211}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CB61182-DCB3-4DB1-A744-FA0578B6E0EF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9C4968C-2BB8-4777-A443-9823CE1104EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9C4968C-2BB8-4777-A443-9823CE1104EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9C4968C-2BB8-4777-A443-9823CE1104EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9C4968C-2BB8-4777-A443-9823CE1104EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7DFE890-28B2-49C7-8D17-6403BAF1FCAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7DFE890-28B2-49C7-8D17-6403BAF1FCAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7DFE890-28B2-49C7-8D17-6403BAF1FCAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7DFE890-28B2-49C7-8D17-6403BAF1FCAB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3555D58B-6855-4422-BC83-C011F56445BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3555D58B-6855-4422-BC83-C011F56445BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3555D58B-6855-4422-BC83-C011F56445BC}.Release|Any CPU.ActiveCfg = Release|Any CPU

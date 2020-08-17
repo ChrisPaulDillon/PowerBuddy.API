@@ -5,12 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using PowerLifting.LoggerService;
 using Microsoft.AspNetCore.Http;
 using PowerLifting.API.Middleware;
 using PowerLifting.Data.AutoMapper;
 using PowerLifting.Data.Entities.Account;
-using PowerLifting.SignalR;
 using PowerLifting.API.Extensions;
 using PowerLifting.Data.Entities;
 
@@ -23,6 +21,7 @@ namespace PowerLifting.API
             Configuration = configuration;
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
@@ -52,7 +51,7 @@ namespace PowerLifting.API
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin",
+                options.AddPolicy(MyAllowSpecificOrigins,
                     builder => builder.WithOrigins(Configuration["CorsPolicy:Client_URL"].ToString())
                     .AllowAnyHeader()
                     .AllowAnyMethod());
@@ -72,7 +71,6 @@ namespace PowerLifting.API
             services.AddControllers();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<ILoggerManager, LoggerManager>();
 
             var mappingConfig = new MapperConfiguration(mc =>
              {
@@ -83,7 +81,7 @@ namespace PowerLifting.API
                  mc.AddProfile(new AccountMappingProfile());
              });
 
-            IMapper mapper = mappingConfig.CreateMapper();
+            var mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -101,35 +99,30 @@ namespace PowerLifting.API
             //                "https://localhost:5001/");
             //        });
             //});
-
-            services.AddSignalR();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.ConfigureExceptionHandler(logger);
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+            app.ConfigureExceptionHandler();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
+
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "PowerBuddy V1");
             });
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -137,7 +130,6 @@ namespace PowerLifting.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<MessageHub>("/messagehub");
             });
         }
     }
