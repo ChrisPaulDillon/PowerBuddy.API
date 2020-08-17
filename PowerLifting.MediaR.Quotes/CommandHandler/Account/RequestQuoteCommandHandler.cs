@@ -9,9 +9,9 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.System;
 using PowerLifting.MediaR.Quotes.Command.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediaR.Quotes.CommandHandler.Account
 {

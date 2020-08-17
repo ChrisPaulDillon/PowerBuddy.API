@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PowerLifting.API
+namespace PowerLifting.API.Middleware
 {
     public class ErrorDetails
     {

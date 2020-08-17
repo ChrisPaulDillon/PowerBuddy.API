@@ -10,11 +10,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.LiftingStats;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Exceptions.LiftingStats;
 using PowerLifting.MediatR.LiftingStats.Command.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
 {

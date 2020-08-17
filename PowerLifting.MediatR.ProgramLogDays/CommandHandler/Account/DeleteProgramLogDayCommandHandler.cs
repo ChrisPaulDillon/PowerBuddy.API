@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogDays.Command.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Account
 {

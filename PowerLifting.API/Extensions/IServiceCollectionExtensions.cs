@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PowerLifting.Data.Util;
-using PowerLifting.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +12,13 @@ using System.Text;
 using System.Threading.Tasks;
 using PowerLifting.MediatR.Exercises.CommandHandler.Account;
 using MediatR;
+using PowerLifting.Data.Entities;
 using PowerLifting.MediaR.Quotes.CommandHandler.Account;
 using PowerLifting.MediaR.Quotes.CommandHandler.Admin;
 using PowerLifting.MediaR.Quotes.QueryHandler.Public;
 using PowerLifting.MediatR.ExerciseMuscleGroups.QueryHandler.Public;
 using PowerLifting.MediatR.Exercises.Query.Admin;
+using PowerLifting.MediatR.Exercises.QueryHandler.Admin;
 using PowerLifting.MediatR.Exercises.QueryHandler.Public;
 using PowerLifting.MediatR.ExerciseTypes.QueryHandler.Public;
 using PowerLifting.MediatR.FriendsLists.CommandHandler.Account;
@@ -26,6 +27,7 @@ using PowerLifting.MediatR.LiftingStats.Command.Account;
 using PowerLifting.MediatR.LiftingStats.CommandHandler.Account;
 using PowerLifting.MediatR.Notifications.CommandHandler.Account;
 using PowerLifting.MediatR.Notifications.CommandHandler.Admin;
+using PowerLifting.MediatR.Notifications.QueryHandler.Account;
 using PowerLifting.MediatR.ProgramLogDays.CommandHandler.Account;
 using PowerLifting.MediatR.ProgramLogDays.QueryHandler.Account;
 using PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account;
@@ -34,8 +36,6 @@ using PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account;
 using PowerLifting.MediatR.ProgramLogs.CommandHandler.Account;
 using PowerLifting.MediatR.ProgramLogs.QueryHandler.Account;
 using PowerLifting.MediatR.ProgramLogWeeks.QueryHandler.Account;
-using PowerLifting.Mediatr.QueryHandler.Exercises.Admin;
-using PowerLifting.Mediatr.QueryHandler.Exercises.Public;
 using PowerLifting.MediatR.TemplatePrograms.CommandHandler.Admin;
 using PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account;
 using PowerLifting.MediatR.TemplatePrograms.QueryHandler.Public;
@@ -94,7 +94,7 @@ namespace PowerLifting.API.Extensions
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetActiveProgramLogByUserIdQueryHandler));
-            services.AddMediatR(typeof(GetAllProgramLogsByUserIdQueryHandler));
+            services.AddMediatR(typeof(GetAllProgramLogStatsQueryHandler));
             return services;
         }
 

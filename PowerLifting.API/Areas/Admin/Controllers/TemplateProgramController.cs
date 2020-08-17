@@ -8,7 +8,7 @@ using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 using PowerLifting.MediatR.TemplatePrograms.Command.Admin;
 
-namespace PowerLifting.API.Areas.Admin
+namespace PowerLifting.API.Areas.Admin.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]

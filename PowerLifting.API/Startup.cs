@@ -7,12 +7,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PowerLifting.LoggerService;
 using Microsoft.AspNetCore.Http;
-using PowerLifting.Persistence;
 using PowerLifting.API.Middleware;
 using PowerLifting.Data.AutoMapper;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.SignalR;
 using PowerLifting.API.Extensions;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.API
 {

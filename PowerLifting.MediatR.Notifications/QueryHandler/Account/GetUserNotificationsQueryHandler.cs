@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,12 +7,11 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Account;
-using PowerLifting.MediatR.Notifications.Command.Account;
-using PowerLifting.MediatR.Notifications.Command.Admin;
-using PowerLifting.Persistence;
+using PowerLifting.MediatR.Notifications.Query.Account;
 
-namespace PowerLifting.MediatR.Notifications.CommandHandler.Account
+namespace PowerLifting.MediatR.Notifications.QueryHandler.Account
 {
     public class GetUserNotificationsQueryHandler : IRequestHandler<GetUserNotificationsQuery, IEnumerable<NotificationInteractionDTO>>
     {

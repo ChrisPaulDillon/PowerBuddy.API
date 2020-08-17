@@ -1,20 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Data.DTOs.Exercises;
-using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.Exercises;
-using PowerLifting.MediatR.Exercises.Command.Admin;
 using PowerLifting.MediatR.Exercises.Query.Public;
-using PowerLifting.Persistence;
 
-namespace PowerLifting.Mediatr.QueryHandler.Exercises.Public
+namespace PowerLifting.MediatR.Exercises.QueryHandler.Public
 {
     public class GetExerciseByIdQueryHandler : IRequestHandler<GetExerciseByIdQuery, Exercise>
     {

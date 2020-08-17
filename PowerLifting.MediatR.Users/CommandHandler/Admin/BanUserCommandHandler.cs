@@ -8,11 +8,11 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.Users.Command.Admin;
 using PowerLifting.MediatR.Users.Command.Public;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.Users.CommandHandler.Admin
 {

@@ -9,11 +9,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Entities.Templates;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.TemplatePrograms.Query.Public;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Public
 {

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.MediatR.Notifications.Command.Account;
+using PowerLifting.MediatR.Notifications.Query.Account;
 
-namespace PowerLifting.API.Areas.Account
+namespace PowerLifting.API.Areas.Account.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]

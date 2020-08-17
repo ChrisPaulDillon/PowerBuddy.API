@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities.ProgramLogs;
 
@@ -11,7 +12,7 @@ namespace PowerLifting.Data.AutoMapper
             CreateMap<ProgramLog, ProgramLogDTO>()
                 .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
-                .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId))
+                .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
                 .ForMember(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
                 .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
@@ -27,7 +28,8 @@ namespace PowerLifting.Data.AutoMapper
 
             CreateMap<ProgramLog, ProgramLogStatDTO>()
                 .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
-                .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId))
+                .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
+                .ForMember(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
                 .ForMember(x => x.Monday, d => d.MapFrom(src => src.Monday))
                 .ForMember(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday))
                 .ForMember(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday))
@@ -35,6 +37,12 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Friday, d => d.MapFrom(src => src.Friday))
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
+                .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
+                .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks))
+                .ForMember(x => x.DayCount, opt => opt.Ignore())
+                .ForMember(x => x.ExerciseCount, opt => opt.Ignore())
+                .ForMember(x => x.ExerciseCompletedCount, opt => opt.Ignore())
+                .ForMember(x => x.ExerciseVarianceCount, opt => opt.Ignore())
                 .ReverseMap();
 
             CreateMap<ProgramLog, CProgramLogDTO>()

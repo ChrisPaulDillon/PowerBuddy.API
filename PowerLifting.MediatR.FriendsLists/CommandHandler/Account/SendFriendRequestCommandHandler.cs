@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.FriendsLists.Command.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.FriendsLists.CommandHandler.Account
 {

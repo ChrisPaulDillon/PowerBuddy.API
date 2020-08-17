@@ -12,7 +12,7 @@ using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogDays.Command.Account;
 using PowerLifting.MediatR.ProgramLogDays.Query.Account;
 
-namespace PowerLifting.API.Areas.Account
+namespace PowerLifting.API.Areas.Account.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]

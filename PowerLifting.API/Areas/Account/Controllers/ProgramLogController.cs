@@ -46,9 +46,9 @@ namespace PowerLifting.API.Areas.Account.Controllers
             try
             {
                 userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogs = await _mediator.Send(new GetAllProgramLogsByUserIdQuery(userId)).ConfigureAwait(false);
+                var programLogs = await _mediator.Send(new GetAllProgramLogStatsQuery(userId)).ConfigureAwait(false);
 
-                var programWithTemplate = programLogs.ToList();
+                var programWithTemplate = programLogs.ProgramLogStats.ToList();
                 foreach (var program in programWithTemplate)
                 {
                     program.TemplateName = await _mediator.Send(new GetTemplateProgramNameByIdQuery(program.TemplateProgramId)).ConfigureAwait(false);

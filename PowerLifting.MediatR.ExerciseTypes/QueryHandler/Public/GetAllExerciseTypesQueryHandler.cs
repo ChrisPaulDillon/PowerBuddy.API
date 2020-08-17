@@ -8,10 +8,10 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Exercises;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.MediatR.ExerciseTypes.Query.Public;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.ExerciseTypes.QueryHandler.Public
 {

@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using PowerLifting.Persistence;
+using PowerLifting.Data.Entities;
+using PowerLifting.Data.SeedData;
 using Sentry;
 
 namespace PowerLifting.API

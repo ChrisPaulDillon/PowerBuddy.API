@@ -9,10 +9,10 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogExercises.Query.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.ProgramLogExercises.QueryHandler.Account
 { 

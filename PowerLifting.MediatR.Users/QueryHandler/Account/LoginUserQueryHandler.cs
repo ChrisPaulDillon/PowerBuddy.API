@@ -13,10 +13,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.Users.Query.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.Users.QueryHandler.Account
 {

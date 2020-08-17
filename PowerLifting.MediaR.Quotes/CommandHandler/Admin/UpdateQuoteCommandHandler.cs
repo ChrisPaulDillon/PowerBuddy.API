@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.System;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.System;
 using PowerLifting.MediaR.Quotes.Command.Admin;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediaR.Quotes.CommandHandler.Admin
 {

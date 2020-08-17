@@ -9,10 +9,10 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.System;
 using PowerLifting.Data.Exceptions.System;
 using PowerLifting.MediaR.Quotes.Query.Public;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediaR.Quotes.QueryHandler.Public
 {

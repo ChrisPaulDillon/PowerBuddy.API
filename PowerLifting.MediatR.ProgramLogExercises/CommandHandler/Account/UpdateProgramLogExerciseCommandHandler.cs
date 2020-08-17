@@ -8,12 +8,12 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogExercises.Command.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 {

@@ -10,7 +10,7 @@ using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.MediatR.Exercises.Command.Account;
 using PowerLifting.MediatR.Exercises.Query.Public;
 
-namespace PowerLifting.API.Areas.Account
+namespace PowerLifting.API.Areas.Account.Controllers
 {
     [Route("api/[area]/[controller]")]
     [ApiController]

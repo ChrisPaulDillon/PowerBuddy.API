@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using MediatR;
 using PowerLifting.Data.DTOs.Account;
 
-namespace PowerLifting.MediatR.Notifications.Command.Account
+namespace PowerLifting.MediatR.Notifications.Query.Account
 {
     public class GetUserNotificationsQuery : IRequest<IEnumerable<NotificationInteractionDTO>>
     {

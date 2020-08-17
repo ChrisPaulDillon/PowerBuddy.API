@@ -1,16 +1,12 @@
-﻿using System;
+﻿using PowerLifting.Data.DTOs.Templates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.ProgramLogs;
-using PowerLifting.Data.DTOs.Templates;
-using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Entities.LiftingStats;
-using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Entities.Templates;
 
-namespace PowerLifting.ProgramLogs.Service.Util
+namespace PowerLifting.Common.Util
 {
     public static class ProgramLogHelper
     {

@@ -9,9 +9,9 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.FriendsLists.Query.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.FriendsLists.QueryHandler.Account
 {

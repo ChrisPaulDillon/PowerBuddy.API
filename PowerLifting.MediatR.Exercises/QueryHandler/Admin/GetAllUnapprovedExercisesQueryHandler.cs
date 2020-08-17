@@ -7,13 +7,11 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Exercises;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.MediatR.Exercises.Command.Admin;
 using PowerLifting.MediatR.Exercises.Query.Admin;
-using PowerLifting.MediatR.Exercises.Query.Public;
-using PowerLifting.Persistence;
 
-namespace PowerLifting.Mediatr.QueryHandler.Exercises.Admin
+namespace PowerLifting.MediatR.Exercises.QueryHandler.Admin
 {
     public class GetAllUnapprovedExercisesQueryHandler : IRequestHandler<GetAllUnapprovedExercisesQuery, IEnumerable<ExerciseDTO>>
     {

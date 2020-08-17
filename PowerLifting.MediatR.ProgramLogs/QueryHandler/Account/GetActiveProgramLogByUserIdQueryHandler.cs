@@ -10,10 +10,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogs.Query.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.ProgramLogs.QueryHandler.Account
 {

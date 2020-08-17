@@ -60,9 +60,6 @@
     <ProjectReference Include="..\PowerLifting.MediatR.ProgramLogWeeks\PowerLifting.MediatR.ProgramLogWeeks.csproj" />
     <ProjectReference Include="..\PowerLifting.MediatR.TemplatePrograms\PowerLifting.MediatR.TemplatePrograms.csproj" />
     <ProjectReference Include="..\PowerLifting.MediatR.Users\PowerLifting.MediatR.Users.csproj" />
-    <ProjectReference Include="..\PowerLifting.Persistence\PowerLifting.Persistence.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
     <ProjectReference Include="..\PowerLifting.SignalR\PowerLifting.SignalR.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

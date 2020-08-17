@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.MediatR.LiftingStats.Command.Account;
-using PowerLifting.Persistence;
 
 namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
 {

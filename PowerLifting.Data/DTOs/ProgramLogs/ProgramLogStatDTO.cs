@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PowerLifting.Data.DTOs.ProgramLogs
 {
@@ -19,6 +21,7 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
         public bool Active { get; set; }
+        public IEnumerable<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
         public int ExerciseVarianceCount { get; set; }
         public int DayCount { get; set; }
         public int ExerciseCount { get; set; }
