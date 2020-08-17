@@ -83,7 +83,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateProgramLogByUserId([FromBody] ProgramLogDTO programLogDTO)
+        public async Task<IActionResult> UpdateProgramLog([FromBody] ProgramLogDTO programLogDTO)
         {
             try
             {
@@ -148,6 +148,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [HttpDelete("{programLogId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteProgramLog(int programLogId)
         {
             try
@@ -169,6 +170,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [HttpGet("Week/{date}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetProgramLogWeekByDate(DateTime date)
         {
             try
@@ -180,6 +182,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             catch (ProgramLogWeekNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
             }
         }
     }

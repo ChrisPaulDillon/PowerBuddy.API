@@ -16,6 +16,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
     [Route("api/[area]/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Area("Account")]
     public class NotificationController : ControllerBase
     {
@@ -27,7 +28,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<NotificationInteractionDTO>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetUserNotifications()

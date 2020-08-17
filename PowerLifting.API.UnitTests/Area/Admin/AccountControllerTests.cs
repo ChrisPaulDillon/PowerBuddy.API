@@ -19,7 +19,7 @@ namespace PowerLifting.API.UnitTests.Area.Admin
 
         private readonly Random _random;
 
-        private readonly AccountController _controller;
+        private readonly UserController _controller;
 
         public AccountControllerTests()
         {
