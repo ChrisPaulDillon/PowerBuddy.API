@@ -1,5 +1,4 @@
-- task: Docker@2
+- task: DotNetCoreCLI@2
   inputs:
-    containerRegistry: 'chrisd01'
-    command: 'buildAndPush'
-    Dockerfile: '**/PowerLifting.API/Dockerfile'
+    command: 'build'
+    projects: '**/*.csproj'
