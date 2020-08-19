@@ -1,4 +1,9 @@
 apiVersion : apps/v1beta1
+- task: Docker@2
+  inputs:
+    containerRegistry: 'chrisd01'
+    command: 'buildAndPush'
+    Dockerfile: '**/PowerLifting.API/Dockerfile'
 kind: Deployment
 metadata:
   name: powerbuddyapi-deployment
