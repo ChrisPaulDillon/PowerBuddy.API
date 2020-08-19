@@ -10,6 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: "06a60d39-e417-495b-92b6-670f286d21ac"
   imageRepository: "powerbuddyapi"
   containerRegistry: "powerbuddy.azurecr.io"
   dockerfilePath: "$(Build.SourcesDirectory)/Dockerfile"
