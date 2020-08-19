@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,7 +8,6 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Common.Static;
-using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Account;
@@ -18,7 +15,6 @@ using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.Users.Command.Public;
-using PowerLifting.MediatR.Users.Query.Account;
 
 namespace PowerLifting.MediatR.Users.CommandHandler.Public
 {
