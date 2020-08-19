@@ -1,23 +1,19 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 WORKDIR /app
-FROM microsoft/aspnetcore
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+WORKDIR /src
 COPY ["PowerLifting.API/PowerLifting.API.csproj", "PowerLifting.API/"]
-COPY ["PowerLifting.Repository/PowerLifting.Repository.csproj", "PowerLifting.Repository/"]
-COPY ["PowerLifting.Persistence/PowerLifting.Persistence.csproj", "PowerLifting.Persistence/"]
-COPY ["PowerLifting.Service/PowerLifting.Service.csproj", "PowerLifting.Service/"]
-COPY ["PowerLifting.LoggerService/PowerLifting.LoggerService.csproj", "PowerLifting.LoggerService/"]
-COPY ["PowerLifting.UnitTests/PowerLifting.UnitTests.csproj", "PowerLifting.UnitTests/"]
 RUN dotnet restore "PowerLifting.API/PowerLifting.API.csproj"
 COPY . .
-RUN dotnet build "PowerLifting.API/PowerLifting.API.csproj" -c Release -o /app
+WORKDIR "/src/PowerLifting.API"
+RUN dotnet build "PowerLifting.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "PowerLifting.API/PowerLifting.API.csproj" -c Release -o /app
+RUN dotnet publish "PowerLifting.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "PowerLifting.API.dll"]
