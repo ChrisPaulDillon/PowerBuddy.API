@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Common\PowerLifting.Common.csproj" />
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
   </ItemGroup>
 

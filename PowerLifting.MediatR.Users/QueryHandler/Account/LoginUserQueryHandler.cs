@@ -16,6 +16,7 @@ using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.Data.Util;
 using PowerLifting.MediatR.Users.Query.Account;
 
 namespace PowerLifting.MediatR.Users.QueryHandler.Account
@@ -25,10 +26,13 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Account
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager)
+        private readonly JWTSettings _jwtSettings;
+        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, JWTSettings jwtSettings)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
+            _jwtSettings = jwtSettings;
         }
 
         public async Task<string> Handle(LoginUserQuery request, CancellationToken cancellationToken)
@@ -46,7 +50,7 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Account
 
             if (await _userManager.CheckPasswordAsync(user, request.LoginModel.Password))
             {
-                var key = Encoding.UTF8.GetBytes("gfgfd"); //TODO Encoding.UTF8.GetBytes(_jwtSettings.JWT_Secret); 
+                var key = Encoding.UTF8.GetBytes(_jwtSettings.JWT_Secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]

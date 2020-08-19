@@ -9,6 +9,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Common.Static;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities;
@@ -38,8 +39,9 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Public
             if (string.IsNullOrEmpty(request.RegisterUserDTO.Email)) throw new UserValidationException("Email cannot be empty");
             if (string.IsNullOrEmpty(request.RegisterUserDTO.Password)) throw new UserValidationException("Password cannot be empty");
             if (string.IsNullOrEmpty(request.RegisterUserDTO.UserName)) throw new UserValidationException("UserName cannot be empty");
+            if (!Enum.IsDefined(typeof(SportEnum), request.RegisterUserDTO.SportType.ToUpper())) throw new UserValidationException("Incorrect Sport");
 
-            var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == request.RegisterUserDTO.Email || x.NormalizedUserName == request.RegisterUserDTO.UserName.ToUpper());
+            var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == request.RegisterUserDTO.Email || x.NormalizedUserName == request.RegisterUserDTO.UserName.ToUpper(), cancellationToken: cancellationToken);
             if (doesUserExist) throw new EmailOrUserNameInUseException();
 
             var userEntity = _mapper.Map<User>(request.RegisterUserDTO);
@@ -54,7 +56,7 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Public
             if (result.Succeeded)
             {
                 var exercisesToAdd = await _context.Set<Exercise>()
-                    .Where(x => x.ExerciseSports.Any(j => j.ExerciseSportStr == request.RegisterUserDTO.SportType) && x.IsApproved)
+                    .Where(x => x.ExerciseSports.Any(j => string.Equals(j.ExerciseSportStr, request.RegisterUserDTO.SportType, StringComparison.CurrentCultureIgnoreCase)) && x.IsApproved)
                     .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
                     .AsNoTracking()
                     .ToListAsync(cancellationToken: cancellationToken);
