@@ -29,8 +29,6 @@ namespace PowerLifting.API
 
                 using (var scope = host.Services.CreateScope())
                 {
-
-
                     var services = scope.ServiceProvider;
                     try
                     {
@@ -54,7 +52,7 @@ namespace PowerLifting.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                 
+
                 });
     }
 }
