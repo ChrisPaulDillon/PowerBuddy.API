@@ -52,6 +52,14 @@ stages:
         pool:
           vmImage: $(vmImageName)
         steps:
+          - task: NuGetCommand@2
+            displayName: GitVersion
+            inputs:
+            command: custom
+            arguments: install GitVersion.CommandLine -Version 5.0.1 -OutputDirectory $(Build.BinariesDirectory)/tools -ExcludeVersion
+          - script: mono $(Build.BinariesDirectory)/tools/GitVersion.CommandLine/tools/GitVersion.exe /output buildserver /nofetch
+          - script: echo "##vso[build.updatebuildnumber]$(GitVersion.SemVer)"
+
           - task: Docker@2
             displayName: Build and push an image to container registry
             inputs:
