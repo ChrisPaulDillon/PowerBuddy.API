@@ -69,6 +69,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(CreateProgramLogExerciseCommandHandler));
             services.AddMediatR(typeof(DeleteProgramLogExerciseCommandHandler));
             services.AddMediatR(typeof(UpdateProgramLogExerciseCommandHandler));
+            services.AddMediatR(typeof(UpdateProgramLogExerciseNotesCommandHandler));
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetProgramLogExerciseByIdQueryHandler));
@@ -153,6 +154,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(DeleteLiftingStatCommandHandler));
             services.AddMediatR(typeof(UpdateLiftingStatCollectionCommandHandler));
             services.AddMediatR(typeof(UpdateLiftingStatCommandHandler));
+            services.AddMediatR(typeof(CreateLiftingStatCollectionCommandHandler));
             return services;
         }
 

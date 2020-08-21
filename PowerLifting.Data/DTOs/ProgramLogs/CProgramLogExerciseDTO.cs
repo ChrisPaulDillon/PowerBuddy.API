@@ -12,7 +12,6 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public int ExerciseId { get; set; }
         public int NoOfSets { get; set; }
         public string Comment { get; set; }
-        public string RepSchemeType { get; set; } //ramped, fixed
         public bool Completed { get; set; }
 
         public decimal? Weight { get; set; } //only used when repSchemeType is set to 'fixed'

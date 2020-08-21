@@ -100,5 +100,27 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 return NotFound(Responses.Error(ex));
             }
         }
+
+        [HttpPut("Note/{programLogExerciseId:int}")]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateProgramLogExerciseNotes(int programLogExerciseId, string notes)
+        {
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _mediator.Send(new UpdateProgramLogExerciseNotesCommand(programLogExerciseId, notes, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(result));
+            }
+            catch (ProgramLogExerciseNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+        }
     }
 }

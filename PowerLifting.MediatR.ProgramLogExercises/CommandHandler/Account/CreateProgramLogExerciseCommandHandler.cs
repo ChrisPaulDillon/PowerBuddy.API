@@ -41,11 +41,9 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
                                && x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId,
                     cancellationToken: cancellationToken);
 
-            if (doesProgramExerciseExist)
+            if (!doesProgramExerciseExist)
             {
-                if (request.ProgramLogExerciseDTO.RepSchemeType.Contains("Fixed"))
-                {
-                    var noOfSets = request.ProgramLogExerciseDTO.NoOfSets;
+                var noOfSets = request.ProgramLogExerciseDTO.NoOfSets;
                     var repSchemeCollection = new List<CProgramLogRepSchemeDTO>();
 
                     for (var i = 1; i < noOfSets + 1; i++)
@@ -63,8 +61,7 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
                     }
 
                     request.ProgramLogExerciseDTO.ProgramLogRepSchemes = repSchemeCollection;
-                }
-
+                
                 var programLogExerciseEntity = _mapper.Map<ProgramLogExercise>(request.ProgramLogExerciseDTO);
                 _context.ProgramLogExercise.Add(programLogExerciseEntity);
                 await _context.SaveChangesAsync(cancellationToken);
@@ -81,8 +78,6 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
                         x.ProgramLogDayId == request.ProgramLogExerciseDTO.ProgramLogDayId &&
                         x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId, cancellationToken: cancellationToken);
 
-                if (request.ProgramLogExerciseDTO.RepSchemeType.Contains("Fixed"))
-                {
                     var noOfSets = request.ProgramLogExerciseDTO.NoOfSets;
                     for (var i = 1; i < noOfSets + 1; i++)
                     {
@@ -97,8 +92,7 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
                             programLogExerciseEntity.ProgramLogRepSchemes.Add(repScheme);
                         }
                     }
-                }
-
+                    
                 programLogExerciseEntity.NoOfSets += request.ProgramLogExerciseDTO.NoOfSets;
                 await _context.SaveChangesAsync(cancellationToken);
 

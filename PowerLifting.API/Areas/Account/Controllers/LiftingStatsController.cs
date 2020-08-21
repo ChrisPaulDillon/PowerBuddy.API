@@ -67,6 +67,23 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
+        [HttpPost("Collection")]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> CreateLiftingStatCollection([FromBody] IEnumerable<LiftingStatDTO> liftingStatCollectionDTO)
+        {
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var liftingStat = await _mediator.Send(new CreateLiftingStatCollectionCommand(liftingStatCollectionDTO, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(liftingStat));
+            }
+            catch (UnauthorisedUserException e)
+            {
+                return Unauthorized(Responses.Error(e));
+            }
+        }
+
         [HttpPut("Collection")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]

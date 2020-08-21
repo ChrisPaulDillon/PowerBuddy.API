@@ -97,7 +97,6 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.NoOfSets, d => d.MapFrom(src => src.NoOfSets))
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
-                .ForMember(dest => dest.RepSchemeType, opt => opt.Ignore())
                 .ReverseMap();
 
             CreateMap<ProgramLogRepScheme, ProgramLogRepSchemeDTO>()

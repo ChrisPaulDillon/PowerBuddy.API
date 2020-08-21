@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerLifting.Common.Util;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.ProgramLogs;
+using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.ProgramLogs;
@@ -36,7 +37,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             var doesExist = await _context.Set<ProgramLog>().AsNoTracking().AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
             if (doesExist) throw new ProgramLogAlreadyActiveException();
 
-            var templateProgram = await _context.TemplateProgram.Where(x => x.TemplateProgramId == request.TemplateProgramId).FirstOrDefaultAsync(cancellationToken: cancellationToken);
+            var templateProgram = await _context.TemplateProgram.Where(x => x.TemplateProgramId == request.TemplateProgramId).ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider).FirstOrDefaultAsync(cancellationToken: cancellationToken);
             if (templateProgram == null) throw new TemplateProgramNotFoundException();
 
             if (templateProgram.NoOfDaysPerWeek != request.ProgramLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
@@ -64,6 +65,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             };
 
             var programLog = _mapper.Map<ProgramLog>(createdLog);
+            programLog.TemplateProgram = null;
             _context.ProgramLog.Add(programLog);
 
             await _context.SaveChangesAsync(cancellationToken);

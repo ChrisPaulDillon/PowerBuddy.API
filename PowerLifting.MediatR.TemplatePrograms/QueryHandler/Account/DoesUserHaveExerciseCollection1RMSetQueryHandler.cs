@@ -34,11 +34,11 @@ namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account
                 .Select(x => x.ExerciseId)
                 .ToList();
 
-            var liftingStats = await _context.LiftingStat.Where(x => x.UserId == request.UserId && x.RepRange == 1)
+            var liftingStats = await _context.LiftingStat.Where(x => x.UserId == request.UserId && x.RepRange == 1 && x.Weight != null)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            var liftingStatsToCreate = tec.Where(item1 => liftingStats.All(item2 => item1 != item2.ExerciseId));
+            var liftingStatsToCreate = tec.Where(item1 => !liftingStats.Any(liftingStat => item1 != liftingStat.ExerciseId));
 
             return liftingStatsToCreate;
         }

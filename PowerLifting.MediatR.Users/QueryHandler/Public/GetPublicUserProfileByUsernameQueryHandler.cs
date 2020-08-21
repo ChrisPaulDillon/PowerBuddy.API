@@ -29,7 +29,7 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Public
         {
             if (string.IsNullOrEmpty(request.Username)) throw new UserValidationException("UserId cannot be empty");
 
-            var user = await _context.User.Where(x => x.Id == request.Username)
+            var user = await _context.User.Where(x => x.NormalizedUserName == request.Username.ToUpper())
                 .AsNoTracking()
                 .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
