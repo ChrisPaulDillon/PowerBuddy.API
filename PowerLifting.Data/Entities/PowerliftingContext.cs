@@ -97,7 +97,8 @@ namespace PowerLifting.Data.Entities
             modelBuilder.Entity<TemplateProgram>()
                 .HasOne(x => x.ProgramLog)
                 .WithOne(x => x.TemplateProgram)
-                .HasForeignKey<TemplateProgram>(x => x.TemplateProgramId);
+                .HasForeignKey<ProgramLog>(x => x.TemplateProgramId)
+                .IsRequired(false);
 
             modelBuilder.Entity<TemplateWeek>().ToTable("TemplateWeek");
             modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");

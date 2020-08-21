@@ -4,13 +4,13 @@ using System.Text;
 using MediatR;
 using PowerLifting.Data.DTOs.ProgramLogs;
 
-namespace PowerLifting.MediatR.ProgramLogDays.Query.Account
+namespace PowerLifting.MediatR.ProgramLogs.Query.Account
 {
-    public class GetAllProgramDayDatesQuery : IRequest<IEnumerable<DateTime>>
+    public class GetAllProgramLogCalendarStatsQuery : IRequest<ProgramLogCalendarDTO>
     {
         public string UserId { get; }
 
-        public GetAllProgramDayDatesQuery(string userId)
+        public GetAllProgramLogCalendarStatsQuery(string userId)
         {
             UserId = userId;
         }

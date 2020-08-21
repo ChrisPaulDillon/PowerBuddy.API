@@ -11,6 +11,7 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
+using PowerLifting.MediatR.ProgramLogDays.Query.Account;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
 using PowerLifting.MediatR.ProgramLogs.Query.Account;
 using PowerLifting.MediatR.ProgramLogWeeks.Query.Account;
@@ -180,6 +181,26 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 return Ok(Responses.Success(programLogWeek));
             }
             catch (ProgramLogWeekNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
+            }
+        }
+
+        [HttpGet("Calendar")]
+        [ProducesResponseType(typeof(IEnumerable<DateTime>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetProgramLogCalendarStats()
+        {
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var dates = await _mediator.Send(new GetAllProgramLogCalendarStatsQuery(userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(dates));
+            }
+            catch (ProgramLogDayNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
             }

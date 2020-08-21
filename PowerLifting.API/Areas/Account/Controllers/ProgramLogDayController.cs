@@ -130,32 +130,13 @@ namespace PowerLifting.API.Areas.Account.Controllers
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new DeleteProgramLogDayCommand(programLogDayId, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteProgramLogDayCommand(programLogDayId, userId))
+                    .ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogDayNotFoundException ex)
             {
                 return BadRequest(Responses.Error(ex));
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(Responses.Error(ex));
-            }
-        }
-
-        [HttpGet("All/Date")]
-        [ProducesResponseType(typeof(IEnumerable<DateTime>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProgramLogDates()
-        {
-            try
-            {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var dates = await _mediator.Send(new GetAllProgramDayDatesQuery(userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(dates));
-            }
-            catch (ProgramLogDayNotFoundException ex)
-            {
-                return NotFound(Responses.Error(ex));
             }
             catch (UnauthorisedUserException ex)
             {

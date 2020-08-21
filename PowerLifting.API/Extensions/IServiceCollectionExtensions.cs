@@ -57,7 +57,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(DeleteProgramLogDayCommandHandler));
 
             // QueryHandler Registration
-            services.AddMediatR(typeof(GetAllProgramDayDatesQueryHandler));
+            services.AddMediatR(typeof(GetAllProgramLogCalendarStatsQueryHandler));
             services.AddMediatR(typeof(GetProgramLogDayByDateQueryHandler));
             services.AddMediatR(typeof(GetProgramLogDayByIdQueryHandler));
             services.AddMediatR(typeof(GetProgramSpecificDayByDateQueryHandler));

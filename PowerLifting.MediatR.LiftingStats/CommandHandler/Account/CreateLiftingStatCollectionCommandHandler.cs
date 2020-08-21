@@ -33,15 +33,16 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
             if(request.LiftingStatCollection.ToList()[0].UserId != request.UserId) throw new UnauthorisedUserException();
 
             var liftingStatsToAdd = new List<LiftingStatDTO>();
-
+            var liftingStatsToUpdate = new List<LiftingStat>();
             foreach (var liftingStat in request.LiftingStatCollection.ToList())
             {
                 liftingStat.Exercise = null;
                 var liftingStatEntity = await _context.LiftingStat
-                    .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.RepRange == liftingStat.RepRange, cancellationToken: cancellationToken);
+                    .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.RepRange == liftingStat.RepRange && x.ExerciseId == liftingStat.ExerciseId, cancellationToken: cancellationToken);
                 if (liftingStatEntity != null)
                 {
                     liftingStatEntity.Weight = liftingStat.Weight;
+                    liftingStatsToUpdate.Add(liftingStatEntity);
                 }
                 else
                 {
@@ -51,6 +52,7 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
 
             var liftingStatEntitiesToAdd = _mapper.Map<IEnumerable<LiftingStat>>(liftingStatsToAdd);
 
+            _context.LiftingStat.UpdateRange(liftingStatsToUpdate);
             _context.LiftingStat.AddRange(liftingStatEntitiesToAdd);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
