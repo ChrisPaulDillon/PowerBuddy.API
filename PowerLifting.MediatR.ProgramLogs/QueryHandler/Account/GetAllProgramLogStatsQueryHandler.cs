@@ -34,7 +34,7 @@ namespace PowerLifting.MediatR.ProgramLogs.QueryHandler.Account
                 .AsNoTracking()
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            if (programLogStats == null) throw new ProgramLogNotFoundException();
+            if (!programLogStats.Any()) throw new ProgramLogNotFoundException();
 
             foreach (var programLog in programLogStats)
             {

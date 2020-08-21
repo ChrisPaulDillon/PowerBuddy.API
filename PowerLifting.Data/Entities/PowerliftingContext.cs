@@ -58,14 +58,14 @@ namespace PowerLifting.Data.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
-            modelBuilder.Entity<Exercise>().ToTable("sysExercise");
+            modelBuilder.Entity<Exercise>().ToTable("Exercise");
             modelBuilder.Entity<ExerciseType>().HasAlternateKey(e => e.ExerciseTypeName);
-            modelBuilder.Entity<ExerciseType>().ToTable("sysExerciseType");
-            modelBuilder.Entity<ExerciseSport>().ToTable("sysExerciseSport");
-            modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("sysExerciseMuscleGroup");
-            modelBuilder.Entity<TemplateDifficulty>().ToTable("sysTemplateDifficulty");
-            modelBuilder.Entity<RepSchemeType>().ToTable("sysRepSchemeType");
-            modelBuilder.Entity<Quote>().ToTable("sysQuote");
+            modelBuilder.Entity<ExerciseType>().ToTable("ExerciseType");
+            modelBuilder.Entity<ExerciseSport>().ToTable("ExerciseSport");
+            modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("ExerciseMuscleGroup");
+            modelBuilder.Entity<TemplateDifficulty>().ToTable("TemplateDifficulty");
+            modelBuilder.Entity<RepSchemeType>().ToTable("RepSchemeType");
+            modelBuilder.Entity<Quote>().ToTable("Quote");
 
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog")
                 .HasMany(x => x.ProgramLogWeeks);

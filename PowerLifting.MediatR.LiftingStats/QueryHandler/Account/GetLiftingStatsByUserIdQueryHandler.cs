@@ -32,7 +32,7 @@ namespace PowerLifting.MediatR.LiftingStats.QueryHandler.Account
             return await _context.Set<LiftingStat>().Where(u => u.UserId == request.UserId)
                 .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

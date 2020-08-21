@@ -111,6 +111,15 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.AMRAP, d => d.MapFrom(src => src.AMRAP))
                 .ForMember(x => x.RepsCompleted, d => d.MapFrom(src => src.RepsCompleted))
                 .ReverseMap();
+
+            CreateMap<ProgramLogRepScheme, CProgramLogRepSchemeDTO>()
+                .ForMember(x => x.SetNo, d => d.MapFrom(src => src.SetNo))
+                .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
+                .ForMember(x => x.NoOfReps, d => d.MapFrom(src => src.NoOfReps))
+                .ForMember(x => x.WeightLifted, d => d.MapFrom(src => src.WeightLifted))
+                .ForMember(x => x.Percentage, d => d.MapFrom(src => src.Percentage))
+                .ForMember(x => x.AMRAP, d => d.MapFrom(src => src.AMRAP))
+               .ReverseMap();
         }
     }
 }

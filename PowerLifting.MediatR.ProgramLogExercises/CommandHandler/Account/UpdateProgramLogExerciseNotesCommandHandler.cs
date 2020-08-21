@@ -14,12 +14,12 @@ using PowerLifting.MediatR.ProgramLogExercises.Command.Account;
 
 namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 {
-    public class UpdateProgramLogExerciseNotesCommandHandler : IRequestHandler<UpdateProgramLogExerciseNotesCommand, bool>
+    public class UpdateProgramLogExerciseMemberCommandHandler : IRequestHandler<UpdateProgramLogExerciseNotesCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public UpdateProgramLogExerciseNotesCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public UpdateProgramLogExerciseMemberCommandHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

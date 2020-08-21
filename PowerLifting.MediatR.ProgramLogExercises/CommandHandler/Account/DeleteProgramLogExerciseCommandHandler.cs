@@ -30,6 +30,7 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
         {
             var programLogExercise = await _context.ProgramLogExercise
                 .AsNoTracking()
+                .Include(x => x.ProgramLogRepSchemes)
                 .FirstOrDefaultAsync(x => x.ProgramLogExerciseId == request.ProgramLogExerciseId, cancellationToken: cancellationToken);
 
             if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();

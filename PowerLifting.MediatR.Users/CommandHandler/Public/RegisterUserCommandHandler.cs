@@ -52,7 +52,7 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Public
             if (result.Succeeded)
             {
                 var exercisesToAdd = await _context.Set<Exercise>()
-                    .Where(x => x.ExerciseSports.Any(j => string.Equals(j.ExerciseSportStr, request.RegisterUserDTO.SportType, StringComparison.CurrentCultureIgnoreCase)) && x.IsApproved)
+                    .Where(x => x.ExerciseSports.Any(j => j.ExerciseSportStr.ToLower().Equals(request.RegisterUserDTO.SportType.ToLower())) && x.IsApproved)
                     .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
                     .AsNoTracking()
                     .ToListAsync(cancellationToken: cancellationToken);

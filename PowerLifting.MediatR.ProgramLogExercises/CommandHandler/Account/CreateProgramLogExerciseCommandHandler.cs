@@ -74,6 +74,7 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
             {
                 var programLogExerciseEntity = await _context.Set<ProgramLogExercise>()
                     .AsNoTracking()
+                    .Include(x => x.ProgramLogRepSchemes)
                     .FirstOrDefaultAsync(x =>
                         x.ProgramLogDayId == request.ProgramLogExerciseDTO.ProgramLogDayId &&
                         x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId, cancellationToken: cancellationToken);

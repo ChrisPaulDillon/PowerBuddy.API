@@ -30,6 +30,7 @@ using PowerLifting.MediatR.Notifications.CommandHandler.Admin;
 using PowerLifting.MediatR.Notifications.QueryHandler.Account;
 using PowerLifting.MediatR.ProgramLogDays.CommandHandler.Account;
 using PowerLifting.MediatR.ProgramLogDays.QueryHandler.Account;
+using PowerLifting.MediatR.ProgramLogExercises.Command.Member;
 using PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account;
 using PowerLifting.MediatR.ProgramLogExercises.QueryHandler.Account;
 using PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account;
@@ -69,7 +70,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(CreateProgramLogExerciseCommandHandler));
             services.AddMediatR(typeof(DeleteProgramLogExerciseCommandHandler));
             services.AddMediatR(typeof(UpdateProgramLogExerciseCommandHandler));
-            services.AddMediatR(typeof(UpdateProgramLogExerciseNotesCommandHandler));
+            services.AddMediatR(typeof(UpdateProgramLogExerciseMemberCommandHandler));
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetProgramLogExerciseByIdQueryHandler));
