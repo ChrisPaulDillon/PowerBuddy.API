@@ -25,8 +25,8 @@ namespace PowerLifting.MediatR.FriendsLists.QueryHandler.Account
         public async Task<IEnumerable<FriendRequestDTO>> Handle(GetAllPendingFriendRequestsQuery request, CancellationToken cancellationToken)
         {
             return await _context.FriendRequest.Where(x =>
-                    x.UserFromId == request.UserId && x.UserToId == request.UserId && x.HasAccepted == null ||
-                    x.UserFromId == request.UserId && x.UserToId == request.UserId && x.HasAccepted == null)
+                    x.UserToId == request.UserId && x.HasAccepted == null ||
+                    x.UserFromId == request.UserId && x.HasAccepted == null)
                 .AsNoTracking()
                 .ProjectTo<FriendRequestDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);

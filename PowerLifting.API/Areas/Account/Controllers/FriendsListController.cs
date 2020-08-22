@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.FriendsLists.Command.Account;
 using PowerLifting.MediatR.FriendsLists.Query.Account;
@@ -104,7 +105,31 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var friendRequests = await _mediator.Send(new GetAllPendingFriendRequestsQuery(userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(friendRequests));
+                var friendRequestsExtended = new List<FriendRequestExtended>();
+
+                foreach (var friendRequest in friendRequests)
+                {
+                    var user = new PublicUserDTO();
+                    if (friendRequest.UserFromId != userId)
+                    {
+                        user = await _mediator.Send(new GetPublicUserProfileByIdQuery(friendRequest.UserFromId))
+                            .ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        user = await _mediator.Send(new GetPublicUserProfileByIdQuery(friendRequest.UserToId))
+                            .ConfigureAwait(false);
+                    }
+
+                    var friendList = new FriendRequestExtended()
+                    {
+                        FriendRequestId = friendRequest.FriendRequestId,
+                        UserId = user.UserId,
+                        UserName = user.UserName
+                    };
+                    friendRequestsExtended.Add(friendList);
+                }
+                return Ok(Responses.Success(friendRequestsExtended));
             }
             catch (InvalidCredentialsException ex)
             {
