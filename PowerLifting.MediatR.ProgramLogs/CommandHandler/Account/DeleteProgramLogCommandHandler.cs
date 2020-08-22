@@ -36,7 +36,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
             _context.ProgramLog.Remove(new ProgramLog() { ProgramLogId = request.ProgramLogId });
 
-            var changedRows = await _context.SaveChangesAsync();
+            var changedRows = await _context.SaveChangesAsync(cancellationToken);
             return changedRows > 0;
         }
     }

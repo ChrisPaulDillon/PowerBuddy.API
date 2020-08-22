@@ -37,10 +37,15 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             var doesExist = await _context.Set<ProgramLog>().AsNoTracking().AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
             if (doesExist) throw new ProgramLogAlreadyActiveException();
 
-            var templateProgram = await _context.TemplateProgram.Where(x => x.TemplateProgramId == request.TemplateProgramId).ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider).FirstOrDefaultAsync(cancellationToken: cancellationToken);
+            var templateProgram = await _context.TemplateProgram.Where(x => x.TemplateProgramId == request.TemplateProgramId)
+                .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
             if (templateProgram == null) throw new TemplateProgramNotFoundException();
 
             if (templateProgram.NoOfDaysPerWeek != request.ProgramLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
+
+            templateProgram.TemplateWeeks = templateProgram.TemplateWeeks.OrderBy(x => x.WeekNo);
 
             request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
 
@@ -68,8 +73,13 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             programLog.TemplateProgram = null;
             _context.ProgramLog.Add(programLog);
 
-            await _context.SaveChangesAsync(cancellationToken);
-            return programLog;
+            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
+            if (modifiedRows > 0)
+            {
+                return programLog;
+            }
+
+            throw new ProgramLogAlreadyActiveException();
         }
     }
 }

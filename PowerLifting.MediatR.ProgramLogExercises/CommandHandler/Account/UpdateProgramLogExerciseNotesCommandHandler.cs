@@ -14,12 +14,12 @@ using PowerLifting.MediatR.ProgramLogExercises.Command.Account;
 
 namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 {
-    public class UpdateProgramLogExerciseMemberCommandHandler : IRequestHandler<UpdateProgramLogExerciseNotesCommand, bool>
+    public class UpdateProgramLogExerciseNotesCommandHandler : IRequestHandler<UpdateProgramLogExerciseNotesCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public UpdateProgramLogExerciseMemberCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public UpdateProgramLogExerciseNotesCommandHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -27,7 +27,7 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 
         public async Task<bool> Handle(UpdateProgramLogExerciseNotesCommand request, CancellationToken cancellationToken)
         {
-            var programLogExercise = await _context.ProgramLogExercise.AsNoTracking()
+            var programLogExercise = await _context.ProgramLogExercise
                 .FirstOrDefaultAsync(x => x.ProgramLogExerciseId == request.ProgramLogExerciseId,
                     cancellationToken: cancellationToken);
 

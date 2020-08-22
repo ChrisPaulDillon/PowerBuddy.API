@@ -95,6 +95,23 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
+        [HttpPut("{programLogDayId:int}")]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateProgramLogDay(int programLogExerciseId, [FromBody] ProgramLogDayDTO programLogDayDTO)
+        {
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _mediator.Send(new UpdateProgramLogDayCommand(programLogDayDTO, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(result));
+            }
+            catch (ProgramLogDayNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
@@ -141,6 +158,23 @@ namespace PowerLifting.API.Areas.Account.Controllers
             catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
+            }
+        }
+
+        [HttpPut("Note/{programLogDayId:int}")]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateProgramLogDayNotes(int programLogDayId, string notes)
+        {
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _mediator.Send(new UpdateProgramLogDayNotesCommand(programLogDayId, notes, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(result));
+            }
+            catch (ProgramLogDayNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
             }
         }
     }
