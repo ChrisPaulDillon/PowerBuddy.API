@@ -41,6 +41,7 @@ using PowerLifting.MediatR.ProgramLogWeeks.QueryHandler.Account;
 using PowerLifting.MediatR.TemplatePrograms.CommandHandler.Admin;
 using PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account;
 using PowerLifting.MediatR.TemplatePrograms.QueryHandler.Public;
+using PowerLifting.MediatR.Users.CommandHandler.Account;
 using PowerLifting.MediatR.Users.CommandHandler.Admin;
 using PowerLifting.MediatR.Users.CommandHandler.Public;
 using PowerLifting.MediatR.Users.QueryHandler.Account;
@@ -128,6 +129,7 @@ namespace PowerLifting.API.Extensions
             // CommandHandler Registration
             services.AddMediatR(typeof(BanUserCommandHandler));
             services.AddMediatR(typeof(RegisterUserCommandHandler));
+            services.AddMediatR(typeof(CreateFirstVisitStatsCommandHandler));
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetAllUsersByAdminQueryHandler));

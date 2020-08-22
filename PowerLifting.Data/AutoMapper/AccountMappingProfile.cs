@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.Data.AutoMapper
@@ -12,10 +13,13 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.Id))
                 .ForMember(x => x.UserName, d => d.MapFrom(src => src.UserName))
                 .ForMember(x => x.Email, d => d.MapFrom(src => src.Email))
+                .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.LiftingLevel))
+                .ForMember(x => x.Gender, d => d.MapFrom(src => src.Gender))
                 .ForMember(x => x.FirstName, d => d.MapFrom(src => src.FirstName))
                 .ForMember(x => x.LastName, d => d.MapFrom(src => src.LastName))
                 .ForMember(x => x.LiftingStatId, d => d.MapFrom(src => src.LiftingStatId))
                 .ForMember(x => x.SportType, d => d.MapFrom(src => src.SportType))
+                .ForMember(x => x.FirstVisit, d => d.MapFrom(src => src.FirstVisit))
                 .ReverseMap();
 
             CreateMap<RegisterUserDTO, User>()

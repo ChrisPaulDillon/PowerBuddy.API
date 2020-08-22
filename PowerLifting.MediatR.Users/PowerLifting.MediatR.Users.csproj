@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CommandHandler\Account\" />
     <Folder Include="CommandHandler\Shared\" />
-    <Folder Include="Command\Account\" />
     <Folder Include="Command\Shared\" />
     <Folder Include="QueryHandler\Shared\" />
     <Folder Include="Query\Shared\" />

@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DTOs\Users\**" />
-    <EmbeddedResource Remove="DTOs\Users\**" />
-    <None Remove="DTOs\Users\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Entities\ProgramLogs\" />
     <Folder Include="DTOs\System\" />
     <Folder Include="Entities\System\" />

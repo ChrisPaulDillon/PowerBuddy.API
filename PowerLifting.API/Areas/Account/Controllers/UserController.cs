@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.MediatR.Users.Command.Account;
 using PowerLifting.MediatR.Users.Command.Public;
 using PowerLifting.MediatR.Users.CommandHandler.Public;
 using PowerLifting.MediatR.Users.Query.Account;
@@ -95,6 +97,25 @@ namespace PowerLifting.API.Areas.Account.Controllers
             catch (EmailOrUserNameInUseException ex)
             {
                 return Conflict(Responses.Error(ex));
+            }
+        }
+
+        [HttpPost("FirstVisit")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> FirstVisit([FromBody] FirstVisitDTO firstVisitDTO)
+        {
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDTO, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(result));
+            }
+            catch (UserNotFoundException e)
+            {
+                return NotFound(e.Message);
             }
         }
     }
