@@ -48,7 +48,9 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Account
                 _context.ProgramLogDay.Add(programLogDay);
 
                 await _context.SaveChangesAsync(cancellationToken);
-                return request.ProgramLogDayDTO;
+
+                var mappedProgramLogDayDTO = _mapper.Map<ProgramLogDayDTO>(programLogDay);
+                return mappedProgramLogDayDTO;
             }
             throw new ProgramLogDayNotWithinWeekException();
         }
