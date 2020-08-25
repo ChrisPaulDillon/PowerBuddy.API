@@ -38,11 +38,15 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Account
                 .Select(x => x.ExerciseId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
+            var deadliftLs = await _context.LiftingStat.FirstOrDefaultAsync(x => x.UserId == request.UserId && x.RepRange == 1 && x.ExerciseId == deadlift, cancellationToken: cancellationToken);
+
             var squat = await _context.Exercise
                 .AsNoTracking()
                 .Where(x => x.ExerciseName.ToUpper() == "Back Squat".ToUpper())
                 .Select(x => x.ExerciseId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+            var squatLs = await _context.LiftingStat.FirstOrDefaultAsync(x => x.UserId == request.UserId && x.RepRange == 1 && x.ExerciseId == squat, cancellationToken: cancellationToken);
 
             var overheadPress = await _context.Exercise
                 .AsNoTracking()
@@ -50,23 +54,34 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Account
                 .Select(x => x.ExerciseId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
+            var overheadPressLs = await _context.LiftingStat.FirstOrDefaultAsync(x => x.UserId == request.UserId && x.RepRange == 1 && x.ExerciseId == overheadPress, cancellationToken: cancellationToken);
+
             var bench = await _context.Exercise
                 .AsNoTracking()
                 .Where(x => x.ExerciseName.ToUpper() == "Bench Press".ToUpper())
                 .Select(x => x.ExerciseId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
+            var benchLs = await _context.LiftingStat.FirstOrDefaultAsync(x => x.UserId == request.UserId && x.RepRange == 1 && x.ExerciseId == bench, cancellationToken: cancellationToken);
+
             var liftingStats = new List<LiftingStat>();
 
-            var benchStat = new LiftingStat() {UserId = request.UserId, ExerciseId = bench, Weight = request.FirstVisitDTO.BenchPressWeight, LastUpdated = DateTime.UtcNow, RepRange = 1};
-            var deadliftStat = new LiftingStat() { UserId = request.UserId, ExerciseId = deadlift, Weight = request.FirstVisitDTO.DeadliftWeight, LastUpdated = DateTime.UtcNow, RepRange = 1};
-            var overheadPressStat = new LiftingStat() { UserId = request.UserId, ExerciseId = overheadPress, Weight = request.FirstVisitDTO.OverheadPressWeight, LastUpdated = DateTime.UtcNow, RepRange = 1};
-            var squatStat = new LiftingStat() { UserId = request.UserId, ExerciseId = squat, Weight = request.FirstVisitDTO.SquatWeight, LastUpdated = DateTime.UtcNow, RepRange = 1};
+            deadliftLs.Weight = request.FirstVisitDTO.DeadliftWeight;
+            deadliftLs.LastUpdated = DateTime.UtcNow;
 
-            liftingStats.Add(benchStat);
-            liftingStats.Add(deadliftStat);
-            liftingStats.Add(overheadPressStat);
-            liftingStats.Add(squatStat);
+            squatLs.Weight = request.FirstVisitDTO.SquatWeight;
+            squatLs.LastUpdated = DateTime.UtcNow;
+
+            overheadPressLs.Weight = request.FirstVisitDTO.OverheadPressWeight;
+            overheadPressLs.LastUpdated = DateTime.UtcNow;
+            
+            squatLs.Weight = request.FirstVisitDTO.SquatWeight;
+            squatLs.LastUpdated = DateTime.UtcNow;
+            
+            liftingStats.Add(deadliftLs);
+            liftingStats.Add(squatLs);
+            liftingStats.Add(overheadPressLs);
+            liftingStats.Add(squatLs);
 
             _context.LiftingStat.AttachRange(liftingStats);
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);

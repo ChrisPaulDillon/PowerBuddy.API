@@ -36,7 +36,7 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
 
             _context.LiftingStat.Remove(liftingStat);
 
-            var changedRows = await _context.SaveChangesAsync();
+            var changedRows = await _context.SaveChangesAsync(cancellationToken);
             return changedRows > 0;
         }
     }

@@ -73,6 +73,12 @@ namespace PowerLifting.Data.Entities
                 .WithOne(x => x.ProgramLog)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<ProgramLog>()
+                .HasOne(x => x.TemplateProgram)
+                .WithOne(x => x.ProgramLog)
+                .HasForeignKey<ProgramLog>(x => x.TemplateProgramId)
+                .IsRequired(false);
+
             modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek")
                 .HasMany(x => x.ProgramLogDays)
                 .WithOne(x => x.ProgramLogWeek)
@@ -104,13 +110,6 @@ namespace PowerLifting.Data.Entities
             modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
 
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
-
-            modelBuilder.Entity<TemplateProgram>()
-                .HasOne(x => x.ProgramLog)
-                .WithOne(x => x.TemplateProgram)
-                .HasForeignKey<ProgramLog>(x => x.TemplateProgramId)
-                .IsRequired(false);
-
             modelBuilder.Entity<TemplateWeek>().ToTable("TemplateWeek");
             modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
