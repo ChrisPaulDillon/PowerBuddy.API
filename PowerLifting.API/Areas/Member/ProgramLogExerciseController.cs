@@ -38,8 +38,8 @@ namespace PowerLifting.API.Areas.Member.Controllers
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateProgramLogExerciseMemberCommand(programLogExerciseDTO, userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                var liftingStatsThatPb = await _mediator.Send(new UpdateProgramLogExerciseMemberCommand(programLogExerciseDTO, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(liftingStatsThatPb));
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {

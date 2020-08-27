@@ -30,7 +30,7 @@ namespace PowerLifting.MediatR.ExerciseMuscleGroups.QueryHandler.Public
             return await _context.Set<ExerciseMuscleGroup>()
                 .AsNoTracking()
                 .ProjectTo<ExerciseMuscleGroupDTO>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

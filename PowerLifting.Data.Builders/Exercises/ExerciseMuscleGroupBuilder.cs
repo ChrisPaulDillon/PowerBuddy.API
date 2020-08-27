@@ -8,27 +8,27 @@ namespace PowerLifting.Data.Builders.Exercises
     public class ExerciseMuscleGroupBuilder
     {
         private readonly Random _random;
-        private readonly ExerciseMuscleGroup _exerciseMuscleGroup;
+        private readonly ExerciseMuscleGroupAssoc _exerciseMuscleGroup;
 
         public ExerciseMuscleGroupBuilder(Random random = null)
         {
             _random = random ?? new Random();
-            _exerciseMuscleGroup = new ExerciseMuscleGroup()
+            _exerciseMuscleGroup = new ExerciseMuscleGroupAssoc()
             {
-                ExerciseMuscleGroupId = _random.Next(),
+                ExerciseMuscleGroupAssocId =  _random.Next(),
                 ExerciseMuscleGroupName = _random.Next().ToString(),
                 ExerciseId = _random.Next(),
             };
         }
 
-        public ExerciseMuscleGroup Build()
+        public ExerciseMuscleGroupAssoc Build()
         {
             return _exerciseMuscleGroup;
         }
 
         public ExerciseMuscleGroupBuilder WithExerciseMuscleGroupId(int exerciseMuscleGroupId)
         {
-            _exerciseMuscleGroup.ExerciseMuscleGroupId = exerciseMuscleGroupId;
+            _exerciseMuscleGroup.ExerciseMuscleGroupAssocId = exerciseMuscleGroupId;
             return this;
         }
 

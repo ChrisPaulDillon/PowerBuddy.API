@@ -13,11 +13,11 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 1, ExerciseName = "Back Squat", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Quads"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Hamstrings"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Lower Back"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Quads"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Hamstrings"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Lower Back"},
                     },
                     ExerciseSports = new List<ExerciseSport>
                     {
@@ -28,11 +28,11 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 2, ExerciseName = "DeadLift", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Lower Back"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Upper Back"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Hamstring"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Lower Back"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Upper Back"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Hamstring"},
                     },
                     ExerciseSports = new List<ExerciseSport>
                     {
@@ -43,11 +43,11 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 3, ExerciseName = "Bench Press", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Chest"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Tricep"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Anterior Deltoid"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Chest"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Tricep"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Anterior Deltoid"},
                     },
                     ExerciseSports = new List<ExerciseSport>
                     {
@@ -57,11 +57,11 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 4, ExerciseName = "Overhead Press", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Anterior Deltoid"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Tricep"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Trapezius"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Anterior Deltoid"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Tricep"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Trapezius"},
                     },
                     ExerciseSports = new List<ExerciseSport>
                     {
@@ -72,12 +72,12 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 5, ExerciseName = "Front Squat", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Quadricep"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Glute"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Abdominal"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Upper Back"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Quadricep"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Glute"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Abdominal"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Upper Back"},
                     },
                     ExerciseSports = new List<ExerciseSport>
                     {
@@ -88,12 +88,12 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 6, ExerciseName = "Overhead Squat", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Shoulder"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Quadricep"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Glute"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Upper Back"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Shoulder"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Quadricep"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Glute"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Upper Back"},
                     },
                     ExerciseSports = new List<ExerciseSport>
                     {
@@ -103,11 +103,11 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 7, ExerciseName = "Floor Press", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Shoulder"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Chest"},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = "Tricep"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Shoulder"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Chest"},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = "Tricep"},
                     },
                 },
                 new Exercise {ExerciseId = 8, ExerciseName = "Barbell Lunge", ExerciseTypeId = 2},
@@ -134,186 +134,186 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 27, ExerciseName = "Barbell Press (Behind The Neck)", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 28, ExerciseName = "Barbell Front Raise", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 29, ExerciseName = "Military Press", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 30, ExerciseName = "Dumbbell Arnold Press", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 31, ExerciseName = "Dumbbell Front Raise", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 32, ExerciseName = "Dumbbell Shoulder Press", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 33, ExerciseName = "Barbell Shoulder Press", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 34, ExerciseName = "Barbell Upright Row", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.INFRASPINATUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TERES_MINOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.INFRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TERES_MINOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 35, ExerciseName = "Dumbbell Lateral Raise", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 36, ExerciseName = "Dumbbell Upright Row", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.INFRASPINATUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TERES_MINOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SUPRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LOWER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.SERRATUS_ANTERIOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.INFRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TERES_MINOR },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 37, ExerciseName = "Barbell Rear Delt Raise", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LEVATOR_SCAPULAE },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.WRIST_FLEXORS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LEVATOR_SCAPULAE },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.UPPER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.WRIST_FLEXORS },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 38, ExerciseName = "Dumbbell Rear Delt Row", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TERES_MINOR },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.RHOMBOIDS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.INFRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TERES_MINOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.UPPER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.RHOMBOIDS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.INFRASPINATUS },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 39, ExerciseName = "Dumbbell Rear Delt Fly", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TERES_MINOR },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_TRAPEZIUS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.RHOMBOIDS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.INFRASPINATUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TERES_MINOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MEDIAL_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.MIDDLE_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.UPPER_TRAPEZIUS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.RHOMBOIDS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.INFRASPINATUS },
                     },
                 },
 
@@ -323,87 +323,87 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 40, ExerciseName = "Barbell Bench Press (Close Grip)", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.CHEST },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 41, ExerciseName = "Barbell Incline Press (Close Grip)", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 42, ExerciseName = "JM Barbell Press", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 43, ExerciseName = "Barbell Skull Crusher", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LATISSIMUS_DORSI },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TERES_MAJOR },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.WRIST_FLEXORS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LATISSIMUS_DORSI },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TERES_MAJOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.WRIST_FLEXORS },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 44, ExerciseName = "Dumbbell Skull Crusher", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.LATISSIMUS_DORSI },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TERES_MAJOR },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.WRIST_FLEXORS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.ANTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.UPPER_CHEST },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.LATISSIMUS_DORSI },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.POSTERIOR_DELTOID },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TERES_MAJOR },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.WRIST_FLEXORS },
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 45, ExerciseName = "Barbell Tricep Extension", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 46, ExerciseName = "Dumbbell Tricep Extension", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 47, ExerciseName = "Dumbbell Tricep Kickback", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.TRICEPS_BRACHII, IsPrimary = true},
                     },
                 },
 
@@ -411,61 +411,61 @@ namespace PowerLifting.Data.SeedData.Exercises
                 new Exercise
                 {
                     ExerciseId = 48, ExerciseName = "Barbell Curl", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 49, ExerciseName = "Dumbbell Curl", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 50, ExerciseName = "Dumbbell Incline Curl", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 51, ExerciseName = "Barbell Preacher Curl", ExerciseTypeId = 2,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 52, ExerciseName = "Dumbbell Concentration Curl", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
                     },
                 },
                 new Exercise
                 {
                     ExerciseId = 53, ExerciseName = "Dumbbell Preacher Curl", ExerciseTypeId = 1,
-                    ExerciseMuscleGroups = new List<ExerciseMuscleGroup>
+                    ExerciseMuscleGroups = new List<ExerciseMuscleGroupAssoc>
                     {
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIALIS, IsPrimary = true},
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
-                        new ExerciseMuscleGroup {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIALIS, IsPrimary = true},
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BICEPS_BRACHII },
+                        new ExerciseMuscleGroupAssoc {ExerciseMuscleGroupName = EMG.BRACHIORADIALIS }
                     },
                 },
             };

@@ -65,6 +65,17 @@ namespace PowerLifting.Data.SeedData
                 context.SaveChanges();
             }
 
+            if (!context.ExerciseMuscleGroup.Any())
+            {
+                var exerciseMuscleGroups = ExerciseMuscleGroupSeed.CreateExerciseMuscleGroups();
+
+                foreach (var e in exerciseMuscleGroups)
+                {
+                    context.ExerciseMuscleGroup.Add(e);
+                }
+                context.SaveChanges();
+            }
+
             if (!context.Exercise.Any())
             {
                 var exercises = ExerciseSeed.CreateExercises();

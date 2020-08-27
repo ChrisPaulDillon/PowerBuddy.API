@@ -24,6 +24,7 @@ namespace PowerLifting.Data.Entities
         //System
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }
+        public DbSet<ExerciseMuscleGroupAssoc> ExerciseMuscleGroupAssoc { get; set; }
         public DbSet<ExerciseMuscleGroup> ExerciseMuscleGroup { get; set; }
         public DbSet<ExerciseSport> ExerciseSport { get; set; }
         public DbSet<TemplateDifficulty> TemplateDifficulty { get; set; }
@@ -63,6 +64,7 @@ namespace PowerLifting.Data.Entities
             modelBuilder.Entity<ExerciseType>().HasAlternateKey(e => e.ExerciseTypeName);
             modelBuilder.Entity<ExerciseType>().ToTable("ExerciseType");
             modelBuilder.Entity<ExerciseSport>().ToTable("ExerciseSport");
+            modelBuilder.Entity<ExerciseMuscleGroupAssoc>().ToTable("ExerciseMuscleGroupAssoc");
             modelBuilder.Entity<ExerciseMuscleGroup>().ToTable("ExerciseMuscleGroup");
             modelBuilder.Entity<TemplateDifficulty>().ToTable("TemplateDifficulty");
             modelBuilder.Entity<RepSchemeType>().ToTable("RepSchemeType");
