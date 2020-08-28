@@ -77,11 +77,15 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Account
             
             squatLs.Weight = request.FirstVisitDTO.SquatWeight;
             squatLs.LastUpdated = DateTime.UtcNow;
-            
+
+            benchLs.Weight = request.FirstVisitDTO.BenchPressWeight;
+            benchLs.LastUpdated = DateTime.UtcNow;
+
             liftingStats.Add(deadliftLs);
             liftingStats.Add(squatLs);
             liftingStats.Add(overheadPressLs);
             liftingStats.Add(squatLs);
+            liftingStats.Add(benchLs);
 
             _context.LiftingStat.AttachRange(liftingStats);
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);

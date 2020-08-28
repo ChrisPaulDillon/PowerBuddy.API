@@ -13,5 +13,6 @@ namespace PowerLifting.Data.Entities.Exercises
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ExerciseMuscleGroupId { get; set; }
         public string ExerciseMuscleGroupName { get; set; }
+        public string Region { get; set; }
     }
 }

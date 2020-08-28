@@ -53,5 +53,9 @@
         public const string QUADRICEPS = "Quadriceps";
         public const string HAMSTRINGS = "Hamstrings";
         public const string ADDUCTORS = "Adductors";
+
+        //Lower Legs
+        public const string SOLEUS = "Soleus";
+        public const string GASTROCNEMIUS = "Gastrocnemius";
     }
 }

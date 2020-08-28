@@ -20,6 +20,7 @@ namespace PowerLifting.Data.AutoMapper
 
             //Exercise muscle groups
             CreateMap<ExerciseMuscleGroupAssoc, ExerciseMuscleGroupAssocDTO>().ReverseMap();
+            CreateMap<ExerciseMuscleGroup, ExerciseMuscleGroupDTO>().ReverseMap();
 
             CreateMap<RepSchemeType, RepSchemeTypeDTO>().ReverseMap();
 
