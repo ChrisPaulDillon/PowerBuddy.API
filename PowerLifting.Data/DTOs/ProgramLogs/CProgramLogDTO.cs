@@ -5,6 +5,7 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
 {
     public class CProgramLogDTO
     {
+        public string UserId { get; set; }
         public int NoOfWeeks { get; set; }
         public DateTime StartDate { get; set; }
         public bool Monday { get; set; }

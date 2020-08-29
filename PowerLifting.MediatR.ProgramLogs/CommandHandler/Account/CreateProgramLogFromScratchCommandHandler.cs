@@ -12,6 +12,7 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.ProgramLogs;
+using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
 
 namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
@@ -29,6 +30,8 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
         public async Task<ProgramLog> Handle(CreateProgramLogFromScratchCommand request, CancellationToken cancellationToken)
         {
+            if(request.ProgramLogDTO.UserId != request.UserId) throw new UnauthorisedUserException();
+
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
 
             var startDate = request.ProgramLogDTO.StartDate;

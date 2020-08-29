@@ -51,6 +51,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ReverseMap();
 
             CreateMap<ProgramLog, CProgramLogDTO>()
+                .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
                 .ForMember(x => x.Monday, d => d.MapFrom(src => src.Monday))
                 .ForMember(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday))
                 .ForMember(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday))
