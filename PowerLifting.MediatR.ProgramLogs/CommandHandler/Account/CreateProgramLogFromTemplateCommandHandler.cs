@@ -21,7 +21,7 @@ using PowerLifting.MediatR.ProgramLogs.Command.Account;
 
 namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 {
-    public class CreateProgramLogFromTemplateCommandHandler : IRequestHandler<CreateProgramLogFromTemplateCommand, ProgramLog>
+    public class CreateProgramLogFromTemplateCommandHandler : IRequestHandler<CreateProgramLogFromTemplateCommand, ProgramLogDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -32,7 +32,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             _mapper = mapper;
         }
 
-        public async Task<ProgramLog> Handle(CreateProgramLogFromTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<ProgramLogDTO> Handle(CreateProgramLogFromTemplateCommand request, CancellationToken cancellationToken)
         {
             var doesExist = await _context.Set<ProgramLog>().AsNoTracking().AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
             if (doesExist) throw new ProgramLogAlreadyActiveException();
@@ -76,7 +76,8 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
             if (modifiedRows > 0)
             {
-                return programLog;
+                var createdProgramLog = _mapper.Map<ProgramLogDTO>(_mapper.ConfigurationProvider);
+                return createdProgramLog;
             }
 
             throw new ProgramLogAlreadyActiveException();

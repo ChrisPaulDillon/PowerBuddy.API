@@ -5,7 +5,7 @@ using PowerLifting.Data.Entities.ProgramLogs;
 
 namespace PowerLifting.MediatR.ProgramLogs.Command.Account
 {
-    public class CreateProgramLogFromTemplateCommand : IRequest<ProgramLog>
+    public class CreateProgramLogFromTemplateCommand : IRequest<ProgramLogDTO>
     {
         public CProgramLogDTO ProgramLogDTO { get; }
         public int TemplateProgramId { get; }
