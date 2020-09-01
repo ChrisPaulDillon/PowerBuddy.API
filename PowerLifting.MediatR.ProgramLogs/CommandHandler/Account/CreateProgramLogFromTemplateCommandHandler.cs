@@ -76,7 +76,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
             if (modifiedRows > 0)
             {
-                var createdProgramLog = _mapper.Map<ProgramLogDTO>(_mapper.ConfigurationProvider);
+                var createdProgramLog = _mapper.Map<ProgramLogDTO>(programLog);
                 return createdProgramLog;
             }
 

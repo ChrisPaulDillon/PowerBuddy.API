@@ -54,14 +54,14 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
             foreach (var rep in noOfReps)
             {
                 //Get the highest weight lifted for the given exercise and rep range
-                var maxWeightLiftedInSet = repSchemes.Where(x => x.NoOfReps == rep)
+                var maxWeightLiftedInSet = repSchemes.Where(x => x.RepsCompleted == rep)
                     .MaxBy(x => x.WeightLifted).ToList();
 
                 if (!maxWeightLiftedInSet.Any()) continue;
 
                 var liftingStatExerciseWithRep = await _context.LiftingStat
                     .FirstOrDefaultAsync(
-                        x => x.RepRange == rep && x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId,
+                        x => x.RepRange == rep && x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId && x.UserId == request.UserId,
                         cancellationToken: cancellationToken);
 
                 if (liftingStatExerciseWithRep != null)
@@ -91,7 +91,6 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
                 }
 
                 var personalBestRepScheme = maxWeightLiftedInSet[0];
-                personalBestRepScheme.PersonalBest = true;
 
                 var index = repSchemes.FindIndex(a => a.ProgramLogRepSchemeId == personalBestRepScheme.ProgramLogRepSchemeId);
                 repSchemes[index] = personalBestRepScheme; //replace the current program log rep scheme with the newly updated PB
