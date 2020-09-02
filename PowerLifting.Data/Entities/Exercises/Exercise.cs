@@ -8,7 +8,6 @@ namespace PowerLifting.Data.Entities.Exercises
     /// </summary>
     public class Exercise
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ExerciseId { get; set; }
         public int ExerciseTypeId { get; set; }
         public string ExerciseName { get; set; }

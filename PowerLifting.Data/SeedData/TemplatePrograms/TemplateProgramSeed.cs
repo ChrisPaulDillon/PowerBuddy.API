@@ -15,15 +15,7 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
                     Create531BBB(),
                     new TemplateProgram { TemplateProgramId = 3, Name="StrongLifts 5x5", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner), NoOfWeeks = 12,
                         NoOfDaysPerWeek = 3, TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL),
-                         TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 4},
-                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 3 },
-                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 2 },
-                            new TemplateExerciseCollection { TemplateProgramId = 3, ExerciseId = 24 },
-
-                         },
-                            TemplateWeeks = new List<TemplateWeek> {
+                        TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                    new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
                                         new TemplateExercise { ExerciseId = 1, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
@@ -184,9 +176,6 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
 
                         new TemplateProgram {TemplateProgramId = 4, Name="Russian Squat Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Intermediate), NoOfWeeks = 6, NoOfDaysPerWeek = 3,
                         TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
-                        TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 4, ExerciseId = 1 }
-                        },
                         TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
@@ -414,9 +403,6 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
                     } },
                         new TemplateProgram { TemplateProgramId = 5, Name="Smolov Jr Bench Routine", Difficulty=Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Advanced), NoOfWeeks = 3, NoOfDaysPerWeek = 4,
                         TemplateType="Block", WeightProgressionType=Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
-                        TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 5, ExerciseId = 3 }
-                        },
                         TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
@@ -614,13 +600,6 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
                 NoOfDaysPerWeek = 3,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.INCREMENTAL),
-                TemplateExerciseCollection = new List<TemplateExerciseCollection>
-                {
-                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 1 },
-                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 2 },
-                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 4 },
-                    new TemplateExerciseCollection { TemplateProgramId = 6, ExerciseId = 3 },
-                },
                 TemplateWeeks = new List<TemplateWeek>
                 {
                     new TemplateWeek
@@ -2585,11 +2564,6 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
                 NoOfDaysPerWeek = 3,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
-                TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 3 },
-                            new TemplateExerciseCollection { TemplateProgramId = 2, ExerciseId = 2 }
-                         },
                 TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
@@ -2743,12 +2717,6 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
                 NoOfDaysPerWeek = 4,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
-                TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 4 },
-                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 3 },
-                            new TemplateExerciseCollection { TemplateProgramId = 7, ExerciseId = 2 }
-                         },
                 TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
@@ -2948,10 +2916,6 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
                 NoOfDaysPerWeek = 3,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
-                TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 2 },
-                            new TemplateExerciseCollection { TemplateProgramId = 1, ExerciseId = 3 } },
                 TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
@@ -3060,11 +3024,6 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
                 NoOfDaysPerWeek = 4,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
-                TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 4 },
-                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 3 },
-                            new TemplateExerciseCollection { TemplateProgramId = 8, ExerciseId = 2 } },
                 TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {

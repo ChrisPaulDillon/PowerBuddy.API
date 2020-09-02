@@ -17,6 +17,12 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom(src => src.WeightProgressionType))
                 .ReverseMap();
 
+            CreateMap<TemplateExerciseCollection, TemplateExerciseCollectionDTO>()
+                .ForMember(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom(src => src.TemplateExerciseCollectionId))
+                .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
+                .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
+                .ReverseMap();
+
             CreateMap<TemplateWeek, TemplateWeekDTO>()
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom(src => src.TemplateWeekId))
                 .ForMember(dest => dest.TemplateId, opt => opt.MapFrom(src => src.TemplateId))

@@ -17,11 +17,6 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
                 NoOfDaysPerWeek = 4,
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
-                TemplateExerciseCollection = new List<TemplateExerciseCollection> {
-                            new TemplateExerciseCollection { TemplateProgramId = 9, ExerciseId = 1 },
-                            new TemplateExerciseCollection { TemplateProgramId = 9, ExerciseId = 4 },
-                            new TemplateExerciseCollection { TemplateProgramId = 9, ExerciseId = 3 },
-                            new TemplateExerciseCollection { TemplateProgramId = 9, ExerciseId = 2 } },
                 TemplateWeeks = new List<TemplateWeek> {
                             new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {

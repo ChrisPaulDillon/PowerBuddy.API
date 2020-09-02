@@ -8,8 +8,6 @@
     <Folder Include="Entities\ProgramLogs\" />
     <Folder Include="DTOs\System\" />
     <Folder Include="Entities\System\" />
-    <Folder Include="Entities\Templates\" />
-    <Folder Include="DTOs\Templates\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
