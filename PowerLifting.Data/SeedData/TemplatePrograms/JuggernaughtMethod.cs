@@ -18,7 +18,7 @@ namespace PowerLifting.Data.SeedData.TemplatePrograms
                 TemplateType = "Block",
                 WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateWeeks = new List<TemplateWeek> {
-                            new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
+                    new TemplateWeek { WeekNo = 1,TemplateDays = new List<TemplateDay> {
                                     new TemplateDay { DayNo = 1, TemplateExercises = new List<TemplateExercise> {
                                         new TemplateExercise { ExerciseId = 3, RepSchemeType=Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Fixed),
                                             NoOfSets = 5, RepSchemeFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme> {

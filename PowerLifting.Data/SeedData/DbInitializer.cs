@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.System;
@@ -10,7 +11,7 @@ namespace PowerLifting.Data.SeedData
 {
     public class DbInitializer
     {
-        public static void Initialize(PowerLiftingContext context)
+        public static async System.Threading.Tasks.Task InitializeAsync(PowerLiftingContext context)
         {
             var curDate = DateTime.Now.Date;
             context.Database.EnsureCreated();
@@ -91,9 +92,11 @@ namespace PowerLifting.Data.SeedData
                 context.SaveChanges();
             }
 
+            var exercises = ExerciseSeed.CreateExercises();
+
             if (!context.Exercise.Any())
             {
-                var exercises = ExerciseSeed.CreateExercises();
+                
 
                 foreach (var e in exercises)
                 {
@@ -102,9 +105,10 @@ namespace PowerLifting.Data.SeedData
                 context.SaveChanges();
             }
 
+            var templateExercises = context.Exercise.ToList();
             if (!context.TemplateProgram.Any())
             {
-                var createdTemplates = TemplateProgramSeed.CreateTemplatePrograms();
+                var createdTemplates = TemplateProgramSeed.CreateTemplatePrograms(templateExercises);
                 foreach (var e in createdTemplates)
                 {
                     context.TemplateProgram.Add(e);

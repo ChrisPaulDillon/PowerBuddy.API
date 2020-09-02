@@ -6,7 +6,6 @@ namespace PowerLifting.Data.Entities.Templates
 {
     public class TemplateProgram
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TemplateProgramId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -15,7 +14,7 @@ namespace PowerLifting.Data.Entities.Templates
         public int NoOfDaysPerWeek { get; set; }
         public string TemplateType { get; set; } //block training, autoregulation?
         public string WeightProgressionType { get; set; } //incremental, percentage based
-
+        public bool IsPublished { get; set; }
         public virtual IEnumerable<TemplateWeek> TemplateWeeks { get; set; }
         public virtual IEnumerable<TemplateExerciseCollection> TemplateExerciseCollection { get; set; }
         public virtual ProgramLog ProgramLog { get; set; }

@@ -35,7 +35,7 @@ using Sentry;
                 try
                 {
                     var context = services.GetRequiredService<PowerLiftingContext>();
-                    DbInitializer.Initialize(context);
+                    DbInitializer.InitializeAsync(context);
                 }
                 catch (Exception ex)
                 {
