@@ -104,11 +104,25 @@ namespace PowerLifting.API.Areas.Account.Controllers
 
         [HttpPost("Scratch")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateProgramLogFromScratch([FromBody] CProgramLogDTO programLog)
         {
-            userId = User.Claims.First(x => x.Type == "UserID").Value;
-            var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, userId)).ConfigureAwait(false);
-            return Ok(Responses.Success(createdLog));
+            try
+            {
+                userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, userId))
+                    .ConfigureAwait(false);
+                return Ok(Responses.Success(createdLog));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (ProgramLogAlreadyActiveException ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost("Template/{templateProgramId:int}")]

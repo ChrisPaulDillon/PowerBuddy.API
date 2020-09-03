@@ -10,14 +10,14 @@ using PowerLifting.Data.Entities;
 namespace PowerLifting.Data.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    [Migration("20200821203213_test")]
-    partial class test
+    [Migration("20200903140317_initialmigration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6")
+                .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -175,6 +175,9 @@ namespace PowerLifting.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("BodyWeight")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -188,6 +191,12 @@ namespace PowerLifting.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("FirstVisit")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsBanned")
                         .HasColumnType("bit");
 
@@ -195,6 +204,9 @@ namespace PowerLifting.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LiftingLevel")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LiftingStatId")
@@ -219,6 +231,9 @@ namespace PowerLifting.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("QuotesEnabled")
                         .HasColumnType("bit");
 
                     b.Property<int>("Rights")
@@ -274,7 +289,9 @@ namespace PowerLifting.Data.Migrations
             modelBuilder.Entity("PowerLifting.Data.Entities.Exercises.Exercise", b =>
                 {
                     b.Property<int>("ExerciseId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdminApprover")
                         .HasColumnType("nvarchar(max)");
@@ -301,6 +318,22 @@ namespace PowerLifting.Data.Migrations
             modelBuilder.Entity("PowerLifting.Data.Entities.Exercises.ExerciseMuscleGroup", b =>
                 {
                     b.Property<int>("ExerciseMuscleGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExerciseMuscleGroupName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ExerciseMuscleGroupId");
+
+                    b.ToTable("ExerciseMuscleGroup");
+                });
+
+            modelBuilder.Entity("PowerLifting.Data.Entities.Exercises.ExerciseMuscleGroupAssoc", b =>
+                {
+                    b.Property<int>("ExerciseMuscleGroupAssocId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -314,11 +347,11 @@ namespace PowerLifting.Data.Migrations
                     b.Property<bool>("IsPrimary")
                         .HasColumnType("bit");
 
-                    b.HasKey("ExerciseMuscleGroupId");
+                    b.HasKey("ExerciseMuscleGroupAssocId");
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("ExerciseMuscleGroup");
+                    b.ToTable("ExerciseMuscleGroupAssoc");
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.Exercises.ExerciseSport", b =>
@@ -426,6 +459,9 @@ namespace PowerLifting.Data.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<string>("CustomName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -480,6 +516,9 @@ namespace PowerLifting.Data.Migrations
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Completed")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -774,7 +813,12 @@ namespace PowerLifting.Data.Migrations
             modelBuilder.Entity("PowerLifting.Data.Entities.Templates.TemplateProgram", b =>
                 {
                     b.Property<int>("TemplateProgramId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Difficulty")
                         .HasColumnType("nvarchar(max)");
@@ -873,7 +917,7 @@ namespace PowerLifting.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PowerLifting.Data.Entities.Exercises.ExerciseMuscleGroup", b =>
+            modelBuilder.Entity("PowerLifting.Data.Entities.Exercises.ExerciseMuscleGroupAssoc", b =>
                 {
                     b.HasOne("PowerLifting.Data.Entities.Exercises.Exercise", null)
                         .WithMany("ExerciseMuscleGroups")
@@ -909,7 +953,7 @@ namespace PowerLifting.Data.Migrations
 
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogs.ProgramLogDay", b =>
                 {
-                    b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLogWeek", null)
+                    b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLogWeek", "ProgramLogWeek")
                         .WithMany("ProgramLogDays")
                         .HasForeignKey("ProgramLogWeekId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -927,8 +971,7 @@ namespace PowerLifting.Data.Migrations
                     b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLogDay", "ProgramLogDay")
                         .WithMany("ProgramLogExercises")
                         .HasForeignKey("ProgramLogDayId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogs.ProgramLogRepScheme", b =>
@@ -936,13 +979,13 @@ namespace PowerLifting.Data.Migrations
                     b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLogExercise", "ProgramLogExercise")
                         .WithMany("ProgramLogRepSchemes")
                         .HasForeignKey("ProgramLogExerciseId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogs.ProgramLogWeek", b =>
                 {
-                    b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLog", null)
+                    b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLog", "ProgramLog")
                         .WithMany("ProgramLogWeeks")
                         .HasForeignKey("ProgramLogId")
                         .OnDelete(DeleteBehavior.Cascade)

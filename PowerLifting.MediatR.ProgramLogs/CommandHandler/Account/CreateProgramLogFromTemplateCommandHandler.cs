@@ -18,6 +18,7 @@ using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
+using PowerLifting.Services.ProgramLog;
 
 namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 {

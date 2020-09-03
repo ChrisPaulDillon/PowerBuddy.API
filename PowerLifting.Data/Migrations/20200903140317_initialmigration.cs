@@ -3,10 +3,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PowerLifting.Data.Migrations
 {
-    public partial class test : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ExerciseMuscleGroup",
+                columns: table => new
+                {
+                    ExerciseMuscleGroupId = table.Column<int>(nullable: false),
+                    ExerciseMuscleGroupName = table.Column<string>(nullable: true),
+                    Region = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExerciseMuscleGroup", x => x.ExerciseMuscleGroupId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "ExerciseType",
                 columns: table => new
@@ -86,9 +99,14 @@ namespace PowerLifting.Data.Migrations
                     LiftingStatId = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
+                    BodyWeight = table.Column<decimal>(nullable: false),
+                    LiftingLevel = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
                     IsPublic = table.Column<bool>(nullable: false),
                     IsBanned = table.Column<bool>(nullable: false),
                     SportType = table.Column<string>(nullable: true),
+                    FirstVisit = table.Column<bool>(nullable: false),
+                    QuotesEnabled = table.Column<bool>(nullable: false),
                     Rights = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -245,8 +263,10 @@ namespace PowerLifting.Data.Migrations
                 name: "TemplateProgram",
                 columns: table => new
                 {
-                    TemplateProgramId = table.Column<int>(nullable: false),
+                    TemplateProgramId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     Difficulty = table.Column<string>(nullable: true),
                     NoOfWeeks = table.Column<int>(nullable: false),
                     NoOfDaysPerWeek = table.Column<int>(nullable: false),
@@ -262,7 +282,8 @@ namespace PowerLifting.Data.Migrations
                 name: "Exercise",
                 columns: table => new
                 {
-                    ExerciseId = table.Column<int>(nullable: false),
+                    ExerciseId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ExerciseTypeId = table.Column<int>(nullable: false),
                     ExerciseName = table.Column<string>(nullable: false),
                     IsApproved = table.Column<bool>(nullable: false),
@@ -308,6 +329,7 @@ namespace PowerLifting.Data.Migrations
                 {
                     ProgramLogId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
                     TemplateProgramId = table.Column<int>(nullable: true),
                     NoOfWeeks = table.Column<int>(nullable: false),
@@ -375,10 +397,10 @@ namespace PowerLifting.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExerciseMuscleGroup",
+                name: "ExerciseMuscleGroupAssoc",
                 columns: table => new
                 {
-                    ExerciseMuscleGroupId = table.Column<int>(nullable: false)
+                    ExerciseMuscleGroupAssocId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ExerciseMuscleGroupName = table.Column<string>(nullable: true),
                     IsPrimary = table.Column<bool>(nullable: false),
@@ -386,9 +408,9 @@ namespace PowerLifting.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExerciseMuscleGroup", x => x.ExerciseMuscleGroupId);
+                    table.PrimaryKey("PK_ExerciseMuscleGroupAssoc", x => x.ExerciseMuscleGroupAssocId);
                     table.ForeignKey(
-                        name: "FK_ExerciseMuscleGroup_Exercise_ExerciseId",
+                        name: "FK_ExerciseMuscleGroupAssoc_Exercise_ExerciseId",
                         column: x => x.ExerciseId,
                         principalTable: "Exercise",
                         principalColumn: "ExerciseId",
@@ -493,7 +515,8 @@ namespace PowerLifting.Data.Migrations
                     UserId = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     Comment = table.Column<string>(nullable: true),
-                    PersonalBest = table.Column<bool>(nullable: true)
+                    PersonalBest = table.Column<bool>(nullable: true),
+                    Completed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -564,7 +587,7 @@ namespace PowerLifting.Data.Migrations
                         column: x => x.ProgramLogDayId,
                         principalTable: "ProgramLogDay",
                         principalColumn: "ProgramLogDayId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -617,7 +640,7 @@ namespace PowerLifting.Data.Migrations
                         column: x => x.ProgramLogExerciseId,
                         principalTable: "ProgramLogExercise",
                         principalColumn: "ProgramLogExerciseId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -626,8 +649,8 @@ namespace PowerLifting.Data.Migrations
                 column: "ExerciseTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExerciseMuscleGroup_ExerciseId",
-                table: "ExerciseMuscleGroup",
+                name: "IX_ExerciseMuscleGroupAssoc_ExerciseId",
+                table: "ExerciseMuscleGroupAssoc",
                 column: "ExerciseId");
 
             migrationBuilder.CreateIndex(
@@ -714,6 +737,9 @@ namespace PowerLifting.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ExerciseMuscleGroup");
+
+            migrationBuilder.DropTable(
+                name: "ExerciseMuscleGroupAssoc");
 
             migrationBuilder.DropTable(
                 name: "ExerciseSport");

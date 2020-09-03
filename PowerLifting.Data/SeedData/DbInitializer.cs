@@ -11,7 +11,7 @@ namespace PowerLifting.Data.SeedData
 {
     public class DbInitializer
     {
-        public static async System.Threading.Tasks.Task InitializeAsync(PowerLiftingContext context)
+        public static void InitializeAsync(PowerLiftingContext context)
         {
             var curDate = DateTime.Now.Date;
             context.Database.EnsureCreated();

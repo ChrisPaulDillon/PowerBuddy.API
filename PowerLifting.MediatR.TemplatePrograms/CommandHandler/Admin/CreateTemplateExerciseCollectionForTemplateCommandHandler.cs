@@ -32,7 +32,7 @@ namespace PowerLifting.MediatR.TemplatePrograms.CommandHandler.Admin
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.Rights >= 1, cancellationToken: cancellationToken);
 
-            if (!isUserAdmin) throw new UnauthorisedUserException();
+            //if (!isUserAdmin) throw new UnauthorisedUserException();
 
             var exercisesAlreadyExist = await _context.TemplateExerciseCollection.AsNoTracking().AnyAsync(x => x.TemplateProgramId == request.TemplateProgramId);
 

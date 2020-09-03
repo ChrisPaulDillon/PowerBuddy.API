@@ -317,7 +317,6 @@ namespace PowerLifting.Data.SeedData.Exercises
                     },
                 },
 
-
                 //UPPER ARMS REGION
 
                 new Exercise

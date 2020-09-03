@@ -7,6 +7,7 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
     public class ProgramLogStatDTO
     {
         public int ProgramLogId { get; set; }
+        public string CustomName { get; set; }
         public string UserId { get; set; }
         public int TemplateProgramId { get; set; }
         public string TemplateName { get; set; }

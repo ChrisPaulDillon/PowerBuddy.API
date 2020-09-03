@@ -14,6 +14,7 @@ using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
 
 namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
@@ -31,7 +32,10 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
         public async Task<ProgramLog> Handle(CreateProgramLogFromScratchCommand request, CancellationToken cancellationToken)
         {
-            if(request.ProgramLogDTO.UserId != request.UserId) throw new UnauthorisedUserException();
+            if (request.ProgramLogDTO.UserId != request.UserId) throw new UnauthorisedUserException();
+
+            var doesExist = await _context.Set<ProgramLog>().AsNoTracking().AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
+            if (doesExist) throw new ProgramLogAlreadyActiveException();
 
             request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
@@ -137,6 +141,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             }
 
             request.ProgramLogDTO.ProgramLogWeeks = listOfProgramWeeks;
+            request.ProgramLogDTO.CustomName = "Custom Program";
 
             var programLogEntity = _mapper.Map<ProgramLog>(request.ProgramLogDTO);
             _context.ProgramLog.Add(programLogEntity);

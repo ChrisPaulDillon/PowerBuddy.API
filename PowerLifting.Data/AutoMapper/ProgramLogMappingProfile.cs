@@ -11,6 +11,7 @@ namespace PowerLifting.Data.AutoMapper
         {
             CreateMap<ProgramLog, ProgramLogDTO>()
                 .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
+                .ForMember(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
                 .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
                 .ForMember(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
@@ -30,6 +31,7 @@ namespace PowerLifting.Data.AutoMapper
 
             CreateMap<ProgramLog, ProgramLogStatDTO>()
                 .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
+                .ForMember(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
                 .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
                 .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.TemplateProgram.Name))
                 .ForMember(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
@@ -52,6 +54,7 @@ namespace PowerLifting.Data.AutoMapper
 
             CreateMap<ProgramLog, CProgramLogDTO>()
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
                 .ForMember(x => x.Monday, d => d.MapFrom(src => src.Monday))
                 .ForMember(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday))
                 .ForMember(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday))

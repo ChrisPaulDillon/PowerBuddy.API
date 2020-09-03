@@ -11,6 +11,7 @@ namespace PowerLifting.Data.Entities.ProgramLogs
     public class ProgramLog
     {
         public int ProgramLogId { get; set; }
+        public string CustomName { get; set; }
         public string UserId { get; set; }
         public int? TemplateProgramId { get; set; }
         public int NoOfWeeks { get; set; }

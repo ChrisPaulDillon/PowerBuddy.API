@@ -6,11 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.API.Middleware;
 using PowerLifting.Data.AutoMapper;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.API.Extensions;
 using PowerLifting.Data.Entities;
+using PowerLifting.Services.ProgramLog;
 
 namespace PowerLifting.API
 {
@@ -42,10 +44,14 @@ namespace PowerLifting.API
             services.AddUserMediatrHandlers();
             services.AddFriendsListsMediatrHandlers();
 
+            //services.AddScoped<IProgramLogService, ProgramLogService>();
+
             //Inject app settings
             services.AddJWTSettings(Configuration.GetSection("JWTSettings"));
             services.AddSentry(Configuration.GetSection("Sentry"));
-            services.AddPowerLiftingContext(Configuration.GetConnectionString("DefaultConnection"));
+            //services.AddPowerLiftingContext(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddDbContext<PowerLiftingContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             //services.AddCorsPolicy(Configuration.GetSection("CorsPolicy"));
 
             services.AddCors(options =>
