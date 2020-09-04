@@ -54,7 +54,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
                     ProgramLogDays = new List<ProgramLogDayDTO>()
                 };
 
-                for (var j = 1; j < request.ProgramLogDTO.DayCount; j++)
+                for (var j = 1; j < request.ProgramLogDTO.DayCount + 1; j++)
                 {
                     var dayOfWeek = request.ProgramLogDTO.ProgramDayOrder[j];
 
