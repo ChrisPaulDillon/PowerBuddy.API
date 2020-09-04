@@ -86,6 +86,7 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
                         {
                             var repScheme = new ProgramLogRepScheme()
                             {
+                                ProgramLogExerciseId = programLogExerciseEntity.ProgramLogExerciseId,
                                 SetNo = i,
                                 NoOfReps = (int) request.ProgramLogExerciseDTO.Reps,
                                 WeightLifted = (decimal) request.ProgramLogExerciseDTO.Weight,

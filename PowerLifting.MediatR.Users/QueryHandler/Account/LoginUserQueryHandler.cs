@@ -13,15 +13,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Util;
+using PowerLifting.MediatR.Users.Models;
 using PowerLifting.MediatR.Users.Query.Account;
 
 namespace PowerLifting.MediatR.Users.QueryHandler.Account
 {
-    public class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, string>
+    public class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, UserLoggedInDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -35,7 +37,7 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Account
             _jwtSettings = jwtSettings;
         }
 
-        public async Task<string> Handle(LoginUserQuery request, CancellationToken cancellationToken)
+        public async Task<UserLoggedInDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(request.LoginModel.Email)) throw new UserValidationException("Email cannot be empty");
             if (string.IsNullOrEmpty(request.LoginModel.Password)) throw new UserValidationException("Password cannot be empty");
@@ -63,7 +65,26 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Account
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                return token;
+
+                var userProfile = await _context.User
+                    .Where(x => x.Id == user.Id)
+                    .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+                if (userProfile == null) throw new UserNotFoundException();
+
+                userProfile.UserSetting = await _context.UserSetting
+                    .AsNoTracking()
+                    .ProjectTo<UserSettingDTO>(_mapper.ConfigurationProvider)
+                    .FirstOrDefaultAsync(x => x.UserId == user.Id, cancellationToken: cancellationToken);
+
+                var userWithToken = new UserLoggedInDTO()
+                {
+                    Token = token,
+                    User = userProfile
+                };
+                return userWithToken;
             }
             throw new InvalidCredentialsException();
         }

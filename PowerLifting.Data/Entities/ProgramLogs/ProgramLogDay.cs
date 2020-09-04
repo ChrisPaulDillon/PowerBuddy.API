@@ -13,6 +13,5 @@ namespace PowerLifting.Data.Entities.ProgramLogs
         public bool? PersonalBest { get; set; }
         public bool Completed { get; set; }
         public virtual IEnumerable<ProgramLogExercise> ProgramLogExercises { get; set; }
-        public virtual ProgramLogWeek ProgramLogWeek { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account
                 .Select(x => x.ExerciseId)
                 .ToList();
 
-            var liftingStatsToCreate = await _context.LiftingStat.Where(x => x.RepRange == 1 && x.Weight == null &&
+            var liftingStatsToCreate = await _context.LiftingStat.Where(x => x.RepRange == 1 && x.Weight == null && x.UserId == request.UserId &&
                 tec.Any(j => j == x.ExerciseId))
                 .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);

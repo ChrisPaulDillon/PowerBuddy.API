@@ -57,7 +57,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
-
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
@@ -125,8 +124,42 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
+        [HttpPost("Template/WeightInput/{templateProgramId:int}")]
+        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> CreateProgramLogFromTemplateWithWeightInput(int templateProgramId, [FromBody] CProgramLogWeightInputDTO programLogDTO)
+        {
+            try
+            {
+                userId = User.Claims.First(x => x.Type == "UserID").Value;
+
+                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateWithWeightInputCommand(programLogDTO, templateProgramId, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(programLog));
+            }
+            catch (TemplateProgramNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+            catch (TemplateExercise1RMNotSetForUserException ex)
+            {
+                return Conflict(Responses.Error(ex));
+            }
+            catch (ProgramDaysDoesNotMatchTemplateDaysException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
+            catch (ProgramLogAlreadyActiveException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
+        }
+
         [HttpPost("Template/{templateProgramId:int}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]

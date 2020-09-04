@@ -13,6 +13,7 @@ using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.Users.Command.Account;
 using PowerLifting.MediatR.Users.Command.Public;
 using PowerLifting.MediatR.Users.CommandHandler.Public;
+using PowerLifting.MediatR.Users.Models;
 using PowerLifting.MediatR.Users.Query.Account;
 
 namespace PowerLifting.API.Areas.Account.Controllers
@@ -31,15 +32,15 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpPost("Login")]
-        [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<UserLoggedInDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> LoginUser(LoginModel loginModel)
         {
             try
             {
-                var token = await _mediator.Send(new LoginUserQuery(loginModel)).ConfigureAwait(false);
-                return Ok(Responses.Success(token));
+                var userLoggedInProfile = await _mediator.Send(new LoginUserQuery(loginModel)).ConfigureAwait(false);
+                return Ok(Responses.Success(userLoggedInProfile));
             }
             catch (UserValidationException e)
             {

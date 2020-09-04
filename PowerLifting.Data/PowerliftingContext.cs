@@ -72,38 +72,38 @@ namespace PowerLifting.Data.Entities
 
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog")
                 .HasMany(x => x.ProgramLogWeeks)
-                .WithOne(x => x.ProgramLog)
+                .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ProgramLog>()
-                .HasOne(x => x.TemplateProgram)
-                .WithOne(x => x.ProgramLog)
-                .HasForeignKey<ProgramLog>(x => x.TemplateProgramId)
-                .IsRequired(false);
+            //modelBuilder.Entity<ProgramLog>()
+            //    .HasOne(x => x.TemplateProgram)
+            //    .WithOne()
+            //    .IsRequired(false);
 
             modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek")
                 .HasMany(x => x.ProgramLogDays)
-                .WithOne(x => x.ProgramLogWeek)
+                .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay")
-            //    .HasMany(x => x.ProgramLogExercises)
-            //    .WithOne(x => x.ProgramLogDay)
-            //    .HasForeignKey(x => x.ProgramLogDayId)
-            //    .IsRequired(false)
-            //    .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise")
-                .HasOne(x => x.ProgramLogDay)
-                .WithMany(x => x.ProgramLogExercises)
+            modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay")
+                .HasMany(x => x.ProgramLogExercises)
+                .WithOne()
                 .HasForeignKey(x => x.ProgramLogDayId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme")
-                .HasOne(x => x.ProgramLogExercise)
-                .WithMany(x => x.ProgramLogRepSchemes)
+            modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise")
+                .HasMany(x => x.ProgramLogRepSchemes)
+                .WithOne()
+                .HasForeignKey(x => x.ProgramLogExerciseId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
+            //    .HasOne(x => x.ProgramLogExercise)
+            //    .WithMany(x => x.ProgramLogRepSchemes)
+            //    .HasForeignKey(x => x.ProgramLogExerciseId)
+            //    .IsRequired(false)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
 

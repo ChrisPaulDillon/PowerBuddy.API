@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20200904174557_templateprogramfixv2")]
+    partial class templateprogramfixv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -498,7 +500,9 @@ namespace PowerLifting.Data.Migrations
 
                     b.HasKey("ProgramLogId");
 
-                    b.HasIndex("TemplateProgramId");
+                    b.HasIndex("TemplateProgramId")
+                        .IsUnique()
+                        .HasFilter("[TemplateProgramId] IS NOT NULL");
 
                     b.ToTable("ProgramLog");
                 });
@@ -951,8 +955,8 @@ namespace PowerLifting.Data.Migrations
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogs.ProgramLog", b =>
                 {
                     b.HasOne("PowerLifting.Data.Entities.Templates.TemplateProgram", "TemplateProgram")
-                        .WithMany()
-                        .HasForeignKey("TemplateProgramId");
+                        .WithOne()
+                        .HasForeignKey("PowerLifting.Data.Entities.ProgramLogs.ProgramLog", "TemplateProgramId");
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogs.ProgramLogDay", b =>

@@ -17,6 +17,5 @@ namespace PowerLifting.Data.Entities.Templates
         public bool IsPublished { get; set; }
         public virtual IEnumerable<TemplateWeek> TemplateWeeks { get; set; }
         public virtual IEnumerable<TemplateExerciseCollection> TemplateExerciseCollection { get; set; }
-        public virtual ProgramLog ProgramLog { get; set; }
     }
 }

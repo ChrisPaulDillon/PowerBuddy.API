@@ -48,7 +48,8 @@ namespace PowerLifting.API.Areas.Public
         {
             try
             {
-                var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery()).ConfigureAwait(false);
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery(userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(userProfiles));
             }
             catch (UserNotFoundException ex)

@@ -11,6 +11,7 @@ namespace PowerLifting.Data.AutoMapper
             CreateMap<TemplateProgram, TemplateProgramDTO>()
                 .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Difficulty, opt => opt.MapFrom(src => src.Difficulty))
                 .ForMember(dest => dest.NoOfDaysPerWeek, opt => opt.MapFrom(src => src.NoOfDaysPerWeek))
                 .ForMember(dest => dest.TemplateType, opt => opt.MapFrom(src => src.TemplateType))

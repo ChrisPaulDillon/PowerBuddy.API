@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20200904152531_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -498,7 +500,9 @@ namespace PowerLifting.Data.Migrations
 
                     b.HasKey("ProgramLogId");
 
-                    b.HasIndex("TemplateProgramId");
+                    b.HasIndex("TemplateProgramId")
+                        .IsUnique()
+                        .HasFilter("[TemplateProgramId] IS NOT NULL");
 
                     b.ToTable("ProgramLog");
                 });
@@ -621,9 +625,6 @@ namespace PowerLifting.Data.Migrations
                     b.Property<int>("ProgramLogExerciseId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProgramLogExerciseId1")
-                        .HasColumnType("int");
-
                     b.Property<int?>("RepsCompleted")
                         .HasColumnType("int");
 
@@ -636,8 +637,6 @@ namespace PowerLifting.Data.Migrations
                     b.HasKey("ProgramLogRepSchemeId");
 
                     b.HasIndex("ProgramLogExerciseId");
-
-                    b.HasIndex("ProgramLogExerciseId1");
 
                     b.ToTable("ProgramLogRepScheme");
                 });
@@ -951,13 +950,13 @@ namespace PowerLifting.Data.Migrations
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogs.ProgramLog", b =>
                 {
                     b.HasOne("PowerLifting.Data.Entities.Templates.TemplateProgram", "TemplateProgram")
-                        .WithMany()
-                        .HasForeignKey("TemplateProgramId");
+                        .WithOne("ProgramLog")
+                        .HasForeignKey("PowerLifting.Data.Entities.ProgramLogs.ProgramLog", "TemplateProgramId");
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogs.ProgramLogDay", b =>
                 {
-                    b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLogWeek", null)
+                    b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLogWeek", "ProgramLogWeek")
                         .WithMany("ProgramLogDays")
                         .HasForeignKey("ProgramLogWeekId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -980,15 +979,10 @@ namespace PowerLifting.Data.Migrations
 
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogs.ProgramLogRepScheme", b =>
                 {
-                    b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLogExercise", null)
+                    b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLogExercise", "ProgramLogExercise")
                         .WithMany("ProgramLogRepSchemes")
                         .HasForeignKey("ProgramLogExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PowerLifting.Data.Entities.ProgramLogs.ProgramLogExercise", "ProgramLogExercise")
-                        .WithMany()
-                        .HasForeignKey("ProgramLogExerciseId1");
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogs.ProgramLogWeek", b =>

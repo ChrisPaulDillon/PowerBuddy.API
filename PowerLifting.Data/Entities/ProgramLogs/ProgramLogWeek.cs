@@ -12,6 +12,5 @@ namespace PowerLifting.Data.Entities.ProgramLogs
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public IEnumerable<ProgramLogDay> ProgramLogDays { get; set; }
-        public virtual ProgramLog ProgramLog { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Public
 
         public async Task<IEnumerable<PublicUserDTO>> Handle(GetAllActivePublicProfilesQuery request, CancellationToken cancellationToken)
         {
-            return await _context.User.Where(x => x.IsPublic)
+            return await _context.User.Where(x => x.IsPublic && x.Id != request.UserId)
                 .AsNoTracking()
                 .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
