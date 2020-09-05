@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
+    <ProjectReference Include="..\PowerLifting.MediatR.LiftingStats\PowerLifting.MediatR.LiftingStats.csproj" />
   </ItemGroup>
 
 </Project>

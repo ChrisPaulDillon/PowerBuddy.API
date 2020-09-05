@@ -21,11 +21,13 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public CreateProgramLogExerciseCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public CreateProgramLogExerciseCommandHandler(PowerLiftingContext context, IMapper mapper, IMediator mediator)
         {
             _context = context;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         public async Task<ProgramLogExerciseDTO> Handle(CreateProgramLogExerciseCommand request, CancellationToken cancellationToken)
@@ -41,7 +43,7 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
                                && x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId,
                     cancellationToken: cancellationToken);
 
-            if (!doesProgramExerciseExist)
+            if (!doesProgramExerciseExist) //no exercise found for this day
             {
                 var noOfSets = request.ProgramLogExerciseDTO.NoOfSets;
                     var repSchemeCollection = new List<CProgramLogRepSchemeDTO>();
@@ -64,11 +66,12 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
                 
                 var programLogExerciseEntity = _mapper.Map<ProgramLogExercise>(request.ProgramLogExerciseDTO);
                 _context.ProgramLogExercise.Add(programLogExerciseEntity);
+
+                await _mediator.Send(new CreateProgramLogExerciseAuditCommand(request.ProgramLogExerciseDTO.ExerciseId, request.UserId), cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 var mappedProgramLogExercise = _mapper.Map<ProgramLogExerciseDTO>(programLogExerciseEntity);
                 return mappedProgramLogExercise;
-                //await CreateProgramLogExerciseAudit(userId, programLogExercise.ExerciseId);
             }
             else //exercise already exists for the given day, add to it
             {

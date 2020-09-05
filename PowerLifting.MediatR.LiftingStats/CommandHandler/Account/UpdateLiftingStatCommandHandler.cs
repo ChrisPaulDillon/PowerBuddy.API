@@ -23,10 +23,12 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        public UpdateLiftingStatCommandHandler(PowerLiftingContext context, IMapper mapper)
+        private readonly IMediator _mediator;
+        public UpdateLiftingStatCommandHandler(PowerLiftingContext context, IMapper mapper, IMediator mediator)
         {
             _context = context;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         public async Task<bool> Handle(UpdateLiftingStatCommand request, CancellationToken cancellationToken)
@@ -42,19 +44,10 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
             var liftingStatEntity = _mapper.Map<LiftingStat>(request.LiftingStatDTO);
             _context.LiftingStat.Update(liftingStatEntity);
 
-            var liftingStatAudit = new LiftingStatAudit()
-            {
-                DateChanged = DateTime.UtcNow.Date,
-                RepRange = request.LiftingStatDTO.RepRange,
-                UserId = request.LiftingStatDTO.UserId,
-                ExerciseId = request.LiftingStatDTO.ExerciseId
-            };
-
-            _context.LiftingStatAudit.Add(liftingStatAudit);
+            await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStatEntity.LiftingStatId, liftingStatEntity.RepRange, (decimal)liftingStatEntity.Weight, liftingStatEntity.UserId), cancellationToken);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
-
-            return modifiedRows > 0; ;
+            return modifiedRows > 0; 
         }
     }
 }

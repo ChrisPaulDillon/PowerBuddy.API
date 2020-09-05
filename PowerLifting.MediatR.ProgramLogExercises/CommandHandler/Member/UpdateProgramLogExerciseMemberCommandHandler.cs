@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,14 +8,13 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MoreLinq;
 using PowerLifting.Data.DTOs.LiftingStats;
-using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
-using PowerLifting.MediatR.ProgramLogExercises.Command.Account;
+using PowerLifting.MediatR.LiftingStats.Command.Account;
 using PowerLifting.MediatR.ProgramLogExercises.Command.Member;
 
 namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
@@ -25,11 +23,13 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public UpdateProgramLogExerciseMemberCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public UpdateProgramLogExerciseMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IMediator mediator)
         {
             _context = context;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> Handle(UpdateProgramLogExerciseMemberCommand request, CancellationToken cancellationToken)
@@ -59,25 +59,24 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
 
                 if (!maxWeightLiftedInSet.Any()) continue;
 
-                var liftingStatExerciseWithRep = await _context.LiftingStat
+                var lsSpecificRep = await _context.LiftingStat
                     .FirstOrDefaultAsync(
                         x => x.RepRange == rep && x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId && x.UserId == request.UserId,
                         cancellationToken: cancellationToken);
 
-                if (liftingStatExerciseWithRep != null)
+                if (lsSpecificRep != null)
                 {
-                    if (maxWeightLiftedInSet[0].WeightLifted > liftingStatExerciseWithRep.Weight ||
-                        liftingStatExerciseWithRep.Weight == null) //Pb was hit and lifting stat exists
+                    if (maxWeightLiftedInSet[0].WeightLifted > lsSpecificRep.Weight ||
+                        lsSpecificRep.Weight == null) //Pb was hit and lifting stat exists
                     {
-
-                        liftingStatExerciseWithRep.Weight = maxWeightLiftedInSet[0].WeightLifted;
-                        liftingStatExerciseWithRep.LastUpdated = DateTime.UtcNow;
-                        existingWeightNewPbs.Add(liftingStatExerciseWithRep);
+                        lsSpecificRep.Weight = maxWeightLiftedInSet[0].WeightLifted;
+                        lsSpecificRep.LastUpdated = DateTime.UtcNow;
+                        existingWeightNewPbs.Add(lsSpecificRep);
                     }
                 }
                 else //Pb was hit, though no lifting stat exists for the current rep and exercise
                 {
-                    liftingStatExerciseWithRep = new LiftingStat()
+                    lsSpecificRep = new LiftingStat()
                     {
                         ExerciseId = request.ProgramLogExerciseDTO.ExerciseId,
                         Exercise = _mapper.Map<Exercise>(request.ProgramLogExerciseDTO.Exercise),
@@ -86,11 +85,13 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
                         LastUpdated = DateTime.UtcNow,
                         UserId = request.UserId
                     };
-                    nonExistingWeightNewPbs.Add(liftingStatExerciseWithRep);
-                    liftingStatExerciseWithRep.Exercise = null;
-                }
 
+                    nonExistingWeightNewPbs.Add(lsSpecificRep);
+                    lsSpecificRep.Exercise = null;
+                }
+ 
                 var personalBestRepScheme = maxWeightLiftedInSet[0];
+                personalBestRepScheme.PersonalBest = true;
 
                 var index = repSchemes.FindIndex(a => a.ProgramLogRepSchemeId == personalBestRepScheme.ProgramLogRepSchemeId);
                 repSchemes[index] = personalBestRepScheme; //replace the current program log rep scheme with the newly updated PB
@@ -121,6 +122,12 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
             if (nonExistingWeightNewPbs.Any())
             {
                 totalPersonalBests.AddRange(_mapper.Map<IEnumerable<LiftingStatDTO>>(nonExistingWeightNewPbs));
+            }
+
+            //TODO Add lifting stat audit for all ls commands
+            foreach (var liftingStat in totalPersonalBests)
+            {
+                await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStat.LiftingStatId, liftingStat.RepRange, (decimal)liftingStat.Weight, liftingStat.UserId), cancellationToken);
             }
 
             return totalPersonalBests;

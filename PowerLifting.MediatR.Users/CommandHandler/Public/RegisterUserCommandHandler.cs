@@ -40,6 +40,8 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Public
             var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == request.RegisterUserDTO.Email || x.NormalizedUserName == request.RegisterUserDTO.UserName.ToUpper(), cancellationToken: cancellationToken);
             if (doesUserExist) throw new EmailOrUserNameInUseException();
 
+            request.RegisterUserDTO.SportType = "PowerLifting";
+
             var userEntity = _mapper.Map<User>(request.RegisterUserDTO);
 
             userEntity.UserSetting = new UserSetting()

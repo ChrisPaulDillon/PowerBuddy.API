@@ -49,7 +49,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var programLogExercise = await _mediator.Send(new CreateProgramLogExerciseCommand(programLogExerciseDTO, userId)).ConfigureAwait(false);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
-
             }
             catch (ProgramLogDayNotWithinWeekException ex)
             {

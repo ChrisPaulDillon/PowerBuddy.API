@@ -39,6 +39,7 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
                 liftingStat.Exercise = null;
                 var liftingStatEntity = await _context.LiftingStat
                     .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.RepRange == liftingStat.RepRange && x.ExerciseId == liftingStat.ExerciseId, cancellationToken: cancellationToken);
+
                 if (liftingStatEntity != null)
                 {
                     liftingStatEntity.Weight = liftingStat.Weight;
