@@ -14,6 +14,7 @@ using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogExercises.Command.Account;
+using PowerLifting.MediatR.ProgramLogExercises.Util;
 
 namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 {
@@ -37,18 +38,18 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 
             if (!doesExerciseExist) throw new ExerciseNotFoundException();
 
-            var doesProgramExerciseExist = await _context.Set<ProgramLogExercise>()
+            var programLogExerciseEntity = await _context.Set<ProgramLogExercise>()
                 .AsNoTracking()
-                .AnyAsync(x => x.ProgramLogDayId == request.ProgramLogExerciseDTO.ProgramLogDayId
-                               && x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId,
-                    cancellationToken: cancellationToken);
+                .Include(x => x.ProgramLogRepSchemes)
+                .FirstOrDefaultAsync(x => x.ProgramLogDayId == request.ProgramLogExerciseDTO.ProgramLogDayId && x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId, cancellationToken: cancellationToken);
 
-            if (!doesProgramExerciseExist) //no exercise found for this day
-            {
-                var noOfSets = request.ProgramLogExerciseDTO.NoOfSets;
-                    var repSchemeCollection = new List<CProgramLogRepSchemeDTO>();
+            var noOfSetsToAdd = request.ProgramLogExerciseDTO.NoOfSets;
 
-                    for (var i = 1; i < noOfSets + 1; i++)
+            if (programLogExerciseEntity == null) //no exercise found for this day
+            { 
+                var repSchemeCollection = new List<CProgramLogRepSchemeDTO>();
+
+                    for (var i = 1; i < noOfSetsToAdd + 1; i++)
                     {
                         if (request.ProgramLogExerciseDTO.Reps != null && request.ProgramLogExerciseDTO.Weight != null)
                         {
@@ -62,10 +63,10 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
                         }
                     }
 
-                    request.ProgramLogExerciseDTO.ProgramLogRepSchemes = repSchemeCollection;
+                request.ProgramLogExerciseDTO.ProgramLogRepSchemes = repSchemeCollection;
                 
-                var programLogExerciseEntity = _mapper.Map<ProgramLogExercise>(request.ProgramLogExerciseDTO);
-                _context.ProgramLogExercise.Add(programLogExerciseEntity);
+                var programLogExercise = _mapper.Map<ProgramLogExercise>(request.ProgramLogExerciseDTO);
+                _context.ProgramLogExercise.Add(programLogExercise);
 
                 await _mediator.Send(new CreateProgramLogExerciseAuditCommand(request.ProgramLogExerciseDTO.ExerciseId, request.UserId), cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
@@ -75,29 +76,27 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
             }
             else //exercise already exists for the given day, add to it
             {
-                var programLogExerciseEntity = await _context.Set<ProgramLogExercise>()
-                    .AsNoTracking()
-                    .Include(x => x.ProgramLogRepSchemes)
-                    .FirstOrDefaultAsync(x =>
-                        x.ProgramLogDayId == request.ProgramLogExerciseDTO.ProgramLogDayId &&
-                        x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId, cancellationToken: cancellationToken);
+                var totalNoOfSets = programLogExerciseEntity.NoOfSets + noOfSetsToAdd;
+                if (totalNoOfSets >= ProgramLogExerciseConstants.MAX_NO_OF_SETS)
+                {
+                    throw new ReachedMaxSetsOnExerciseException();
+                }
 
-                    var noOfSets = request.ProgramLogExerciseDTO.NoOfSets;
-                    for (var i = 1; i < noOfSets + 1; i++)
+                for (var i = 1; i < noOfSetsToAdd + 1; i++)
+                {
+                    if (request.ProgramLogExerciseDTO.Reps != null && request.ProgramLogExerciseDTO.Weight != null)
                     {
-                        if (request.ProgramLogExerciseDTO.Reps != null && request.ProgramLogExerciseDTO.Weight != null)
+                        var repScheme = new ProgramLogRepScheme()
                         {
-                            var repScheme = new ProgramLogRepScheme()
-                            {
-                                ProgramLogExerciseId = programLogExerciseEntity.ProgramLogExerciseId,
-                                SetNo = i,
-                                NoOfReps = (int) request.ProgramLogExerciseDTO.Reps,
-                                WeightLifted = (decimal) request.ProgramLogExerciseDTO.Weight,
-                            };
-                            programLogExerciseEntity.ProgramLogRepSchemes.Add(repScheme);
-                        }
+                            ProgramLogExerciseId = programLogExerciseEntity.ProgramLogExerciseId,
+                            SetNo = i,
+                            NoOfReps = (int) request.ProgramLogExerciseDTO.Reps,
+                            WeightLifted = (decimal) request.ProgramLogExerciseDTO.Weight,
+                        };
+                        programLogExerciseEntity.ProgramLogRepSchemes.Add(repScheme);
                     }
-                    
+                }
+
                 programLogExerciseEntity.NoOfSets += request.ProgramLogExerciseDTO.NoOfSets;
                 await _context.SaveChangesAsync(cancellationToken);
 

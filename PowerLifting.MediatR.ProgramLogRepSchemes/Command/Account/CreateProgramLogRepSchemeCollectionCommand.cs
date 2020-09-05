@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PowerLifting.MediatR.ProgramLogRepSchemes.Command.Account
 {
-    public class CreateProgramLogRepSchemeCollectionCommand : IRequest<bool>
+    public class CreateProgramLogRepSchemeCollectionCommand : IRequest<IEnumerable<ProgramLogRepSchemeDTO>>
     {
         public IList<ProgramLogRepSchemeDTO> RepSchemeCollectionDTO { get; }
         public string UserId { get; }

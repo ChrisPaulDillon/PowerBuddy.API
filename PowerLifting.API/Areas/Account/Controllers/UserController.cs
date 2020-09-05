@@ -50,6 +50,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 return Unauthorized(Responses.Error(ex));
             }
+            catch (UserNotFoundException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
         }
 
         [HttpGet("Profile")]

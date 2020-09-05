@@ -15,7 +15,7 @@ using PowerLifting.MediatR.ProgramLogRepSchemes.Command.Account;
 
 namespace PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account
 {
-    public class CreateProgramLogRepSchemeCollectionCommandHandler : IRequestHandler<CreateProgramLogRepSchemeCollectionCommand, bool>
+    public class CreateProgramLogRepSchemeCollectionCommandHandler : IRequestHandler<CreateProgramLogRepSchemeCollectionCommand, IEnumerable<ProgramLogRepSchemeDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -26,7 +26,7 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(CreateProgramLogRepSchemeCollectionCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProgramLogRepSchemeDTO>> Handle(CreateProgramLogRepSchemeCollectionCommand request, CancellationToken cancellationToken)
         {
             var programLogExercise = await _context.ProgramLogExercise
                 .FirstOrDefaultAsync(x => x.ProgramLogExerciseId == request.RepSchemeCollectionDTO[0].ProgramLogExerciseId, cancellationToken: cancellationToken);
@@ -42,13 +42,10 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account
             var repSchemeCollection = _mapper.Map<IList<ProgramLogRepScheme>>(request.RepSchemeCollectionDTO);
             programLogExercise.NoOfSets += repSchemeCollection.Count;
 
-            foreach (var repSchemeDTO in repSchemeCollection)
-            {
-                _context.ProgramLogRepScheme.Add(repSchemeDTO);
-            }
+            _context.AddRange(repSchemeCollection);
+            await _context.SaveChangesAsync(cancellationToken);
 
-            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
-            return modifiedRows > 0;
+            return _mapper.Map<IEnumerable<ProgramLogRepSchemeDTO>>(repSchemeCollection);
         }
     }
 }

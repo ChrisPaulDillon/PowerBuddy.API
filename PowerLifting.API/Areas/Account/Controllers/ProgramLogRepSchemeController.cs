@@ -28,9 +28,9 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpPost("Collection")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateProgramLogRepSchemeCollectionAsync([FromBody] IList<ProgramLogRepSchemeDTO> programLogRepSchemeCollection)
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogRepSchemeDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> CreateProgramLogRepSchemeCollection([FromBody] IList<ProgramLogRepSchemeDTO> programLogRepSchemeCollection)
         {
             try
             {
@@ -38,7 +38,11 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new CreateProgramLogRepSchemeCollectionCommand(programLogRepSchemeCollection, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
-            catch (ProgramLogRepSchemeNotFoundException ex)
+            catch (ProgramLogExerciseNotFoundException ex)
+            {
+                return NotFound(Responses.Error(ex));
+            }
+            catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(Responses.Error(ex));
             }
@@ -56,7 +60,11 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new UpdateProgramLogRepSchemeCommand(programLogRepSchemeDTO, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
-            catch (ProgramLogNotFoundException e)
+            catch (ProgramLogRepSchemeNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            catch (ProgramLogExerciseNotFoundException e)
             {
                 return NotFound(e);
             }

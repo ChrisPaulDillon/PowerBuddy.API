@@ -50,6 +50,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var programLogExercise = await _mediator.Send(new CreateProgramLogExerciseCommand(programLogExerciseDTO, userId)).ConfigureAwait(false);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
             }
+            catch (ReachedMaxSetsOnExerciseException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
             catch (ProgramLogDayNotWithinWeekException ex)
             {
                 return BadRequest(Responses.Error(ex));
