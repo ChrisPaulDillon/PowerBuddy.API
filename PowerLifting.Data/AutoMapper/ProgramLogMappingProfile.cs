@@ -63,6 +63,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
                 .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
                 .ForMember(dest => dest.DayCount, opt => opt.Ignore())
                 .ReverseMap();

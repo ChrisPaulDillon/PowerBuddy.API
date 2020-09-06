@@ -142,6 +142,8 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
             request.ProgramLogDTO.ProgramLogWeeks = listOfProgramWeeks;
             request.ProgramLogDTO.CustomName = "Custom Program";
+            request.ProgramLogDTO.EndDate =
+                request.ProgramLogDTO.StartDate.AddDays(request.ProgramLogDTO.NoOfWeeks * 7);
 
             var programLogEntity = _mapper.Map<ProgramLog>(request.ProgramLogDTO);
             _context.ProgramLog.Add(programLogEntity);

@@ -9,6 +9,7 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public string CustomName { get; set; }
         public int NoOfWeeks { get; set; }
         public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public bool Monday { get; set; }
         public bool Tuesday { get; set; }
         public bool Wednesday { get; set; }
