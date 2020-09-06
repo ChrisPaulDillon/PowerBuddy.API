@@ -45,6 +45,15 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account
 
             if (!isUserAuthorized) throw new UnauthorisedUserException();
 
+            if (programLogExercise.NoOfSets == 1) //last set in exercise, delete the full exercise
+            {
+                _context.ProgramLogExercise.Remove(programLogExercise);
+            }
+            else
+            {
+                programLogExercise.NoOfSets--;
+            }
+  
             _context.ProgramLogRepScheme.Remove(programLogRepScheme);
 
             var changedRows = await _context.SaveChangesAsync(cancellationToken);

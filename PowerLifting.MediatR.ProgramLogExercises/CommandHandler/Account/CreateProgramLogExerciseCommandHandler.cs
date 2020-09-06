@@ -65,8 +65,8 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 
                 request.ProgramLogExerciseDTO.ProgramLogRepSchemes = repSchemeCollection;
                 
-                var programLogExercise = _mapper.Map<ProgramLogExercise>(request.ProgramLogExerciseDTO);
-                _context.ProgramLogExercise.Add(programLogExercise);
+                programLogExerciseEntity = _mapper.Map<ProgramLogExercise>(request.ProgramLogExerciseDTO);
+                _context.ProgramLogExercise.Add(programLogExerciseEntity);
 
                 await _mediator.Send(new CreateProgramLogExerciseAuditCommand(request.ProgramLogExerciseDTO.ExerciseId, request.UserId), cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
