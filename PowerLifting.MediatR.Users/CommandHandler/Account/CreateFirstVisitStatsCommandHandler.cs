@@ -29,7 +29,7 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Account
             if (user == null) throw new UserNotFoundException();
 
             //TODO fix
-            //user.Gender = request.FirstVisitDTO.Gender;
+            user.GenderId = request.FirstVisitDTO.GenderId;
             user.LiftingLevel = request.FirstVisitDTO.LiftingLevel;
             user.FirstVisit = true;
 
