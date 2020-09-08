@@ -16,17 +16,18 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.QuotesEnabled, d => d.MapFrom(src => src.QuotesEnabled))
                 .ForMember(x => x.Email, d => d.MapFrom(src => src.Email))
                 .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.LiftingLevel))
-                .ForMember(x => x.Gender, d => d.MapFrom(src => src.Gender))
-               .ForMember(x => x.FirstName, d => d.MapFrom(src => src.FirstName))
+                .ForMember(x => x.FirstName, d => d.MapFrom(src => src.FirstName))
                 .ForMember(x => x.LastName, d => d.MapFrom(src => src.LastName))
                 .ForMember(x => x.LiftingStatId, d => d.MapFrom(src => src.LiftingStatId))
                 .ForMember(x => x.SportType, d => d.MapFrom(src => src.SportType))
                 .ForMember(x => x.FirstVisit, d => d.MapFrom(src => src.FirstVisit))
+                .ForMember(x => x.Gender, d => d.MapFrom(src => src.Gender.GenderName))
+                .ForMember(x => x.MemberStatus, d => d.MapFrom(src => src.MemberStatus.MemberStatusName))
                 .ReverseMap();
 
-            CreateMap<RegisterUserDTO, User>()
+            CreateMap<User, RegisterUserDTO>()
                 .ForMember(x => x.UserName, d => d.MapFrom(src => src.UserName))
-                .ForMember(x => x.PasswordHash, d => d.MapFrom(src => src.Password))
+                .ForMember(x => x.Password, d => d.MapFrom(src => src.PasswordHash))
                 .ForMember(x => x.Email, d => d.MapFrom(src => src.Email))
                 .ForMember(x => x.SportType, d => d.MapFrom(src => src.SportType))
                 .ReverseMap();
@@ -37,8 +38,8 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.SportType, d => d.MapFrom(src => src.SportType))
                 .ForMember(x => x.BodyWeight, d => d.MapFrom(src => src.BodyWeight))
                 .ForMember(x => x.IsPublic, d => d.MapFrom(src => src.IsPublic))
-                .ForMember(x => x.Rights, d => d.MapFrom(src => src.Rights))
-                .ForMember(x => x.Gender, d => d.MapFrom(src => src.Gender))
+                .ForMember(x => x.MemberStatus, d => d.MapFrom(src => src.MemberStatus.MemberStatusName))
+                .ForMember(x => x.Gender, d => d.MapFrom(src => src.Gender.GenderName))
                 .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.LiftingLevel))
                 .ReverseMap();
 

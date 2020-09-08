@@ -29,7 +29,7 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Admin
 
         public async Task<IEnumerable<AdminUserDTO>> Handle(GetAllUsersByAdminQuery request, CancellationToken cancellationToken)
         {
-            var isUserAuthorized = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.Rights > 1);
+            var isUserAuthorized = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2);
 
             if (!isUserAuthorized) throw new UnauthorisedUserException();
 

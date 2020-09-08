@@ -7,7 +7,7 @@
         public decimal BodyWeight { get; set; }
         public string SportType { get; set; }
         public bool IsPublic { get; set; }
-        public int Rights { get; set; }
+        public string MemberStatus { get; set; }
         public string Gender { get; set; }
         public string LiftingLevel { get; set; }
     }

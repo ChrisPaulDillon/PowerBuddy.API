@@ -81,6 +81,39 @@ namespace PowerLifting.Data.SeedData
                 context.SaveChanges();
             }
 
+            if (!context.MemberStatus.Any())
+            {
+                var members = new MemberStatus[]
+                {
+                    new MemberStatus{MemberStatusName= "Normal"},
+                    new MemberStatus{MemberStatusName= "Member"},
+                    new MemberStatus{MemberStatusName= "Moderator"},
+                    new MemberStatus{MemberStatusName= "Admin"},
+                };
+
+                foreach (var e in members)
+                {
+                    context.MemberStatus.Add(e);
+                }
+                context.SaveChanges();
+            }
+
+            if (!context.Gender.Any())
+            {
+                var genders = new Gender[]
+                {
+                    new Gender{GenderName= "Male"},
+                    new Gender{GenderName= "Female"},
+                    new Gender{GenderName= "Attack Helicopter"},
+                };
+
+                foreach (var e in genders)
+                {
+                    context.Gender.Add(e);
+                }
+                context.SaveChanges();
+            }
+
             if (!context.ExerciseMuscleGroup.Any())
             {
                 var exerciseMuscleGroups = ExerciseMuscleGroupSeed.CreateExerciseMuscleGroups();
@@ -96,8 +129,6 @@ namespace PowerLifting.Data.SeedData
 
             if (!context.Exercise.Any())
             {
-                
-
                 foreach (var e in exercises)
                 {
                     context.Exercise.Add(e);

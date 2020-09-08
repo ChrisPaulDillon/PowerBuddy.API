@@ -28,7 +28,7 @@ namespace PowerLifting.MediatR.Exercises.CommandHandler.Admin
 
             if (exercise == null) throw new ExerciseNotFoundException();
 
-            var userName = await _context.User.Where(x => x.Id == request.UserId && x.Rights >= 1) //user is a mod or admin
+            var userName = await _context.User.Where(x => x.Id == request.UserId && x.MemberStatusId >= 2) //user is a mod or admin
                 .AsNoTracking()
                 .Select(x => x.UserName)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);

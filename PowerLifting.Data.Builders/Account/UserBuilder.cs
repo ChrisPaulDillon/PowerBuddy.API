@@ -24,7 +24,7 @@ namespace PowerLifting.Data.Builders.Account
                 Email = email,
                 NormalizedEmail = email.ToUpper(),
                 PasswordHash = _random.Next().ToString(),
-                Rights = 0
+                MemberStatusId = 1
             };
         }
 
@@ -63,9 +63,9 @@ namespace PowerLifting.Data.Builders.Account
             return this;
         }
 
-        public UserBuilder WithRights(int rights)
+        public UserBuilder WithMemberStatusId(int memberId)
         {
-            _user.Rights = rights;
+            _user.MemberStatusId = memberId;
             return this;
         }
     }

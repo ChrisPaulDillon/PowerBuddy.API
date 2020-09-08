@@ -23,7 +23,7 @@ namespace PowerLifting.MediaR.Quotes.CommandHandler.Admin
 
         public async Task<QuoteDTO> Handle(RequestQuoteCommand request, CancellationToken cancellationToken)
         {
-            var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.Rights >= 1, cancellationToken: cancellationToken);
+            var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
             if (!isUserAdmin) throw new UnauthorisedUserException();
 

@@ -28,7 +28,8 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Account
             var user = await _context.User.FirstOrDefaultAsync(x => x.Id == request.UserId , cancellationToken: cancellationToken);
             if (user == null) throw new UserNotFoundException();
 
-            user.Gender = request.FirstVisitDTO.Gender;
+            //TODO fix
+            //user.Gender = request.FirstVisitDTO.Gender;
             user.LiftingLevel = request.FirstVisitDTO.LiftingLevel;
             user.FirstVisit = true;
 

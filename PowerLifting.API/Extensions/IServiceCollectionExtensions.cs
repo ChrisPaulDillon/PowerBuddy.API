@@ -31,6 +31,7 @@ using PowerLifting.MediatR.ProgramLogExercises.QueryHandler.Account;
 using PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account;
 using PowerLifting.MediatR.ProgramLogs.CommandHandler.Account;
 using PowerLifting.MediatR.ProgramLogs.QueryHandler.Account;
+using PowerLifting.MediatR.ProgramLogWeeks.CommandHandler.Account;
 using PowerLifting.MediatR.ProgramLogWeeks.QueryHandler.Account;
 using PowerLifting.MediatR.TemplatePrograms.CommandHandler.Admin;
 using PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account;
@@ -100,6 +101,9 @@ namespace PowerLifting.API.Extensions
 
         public static IServiceCollection AddProgramLogWeekMediatrHandlers(this IServiceCollection services)
         {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(AddProgramLogWeekToLogCommandHandler));
+
             // QueryHandler Registration
             services.AddMediatR(typeof(GetProgramLogWeekBetweenDateQueryHandler));
             return services;

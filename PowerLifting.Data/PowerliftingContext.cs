@@ -57,8 +57,17 @@ namespace PowerLifting.Data.Entities
         public DbSet<Notification> Notification { get; set; }
         public DbSet<NotificationInteraction> NotificationInteraction { get; set; }
 
+        //System
+        public DbSet<Gender> Gender { get; set; }
+
+        public DbSet<MemberStatus> MemberStatus { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //System
+            modelBuilder.Entity<Gender>().ToTable("Gender");
+            modelBuilder.Entity<MemberStatus>().ToTable("MemberStatus");
+
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
             modelBuilder.Entity<Exercise>().ToTable("Exercise");
             modelBuilder.Entity<ExerciseType>().HasAlternateKey(e => e.ExerciseTypeName);
@@ -120,6 +129,17 @@ namespace PowerLifting.Data.Entities
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
             modelBuilder.Entity<User>().ToTable("IdentityUser");
+
+            //modelBuilder.Entity<Gender>()
+            //    .HasMany(x => x.Users)
+            //    .WithOne(x => x.Gender)
+            //    .IsRequired(false);
+
+            //modelBuilder.Entity<MemberStatus>()
+            //    .HasMany(x => x.Users)
+            //    .WithOne(x => x.MemberStatus)
+            //    .IsRequired(false);
+
             modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey().ToTable("IdentityUserRole");
             modelBuilder.Entity<IdentityRole>().ToTable("IdentityRole");
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");

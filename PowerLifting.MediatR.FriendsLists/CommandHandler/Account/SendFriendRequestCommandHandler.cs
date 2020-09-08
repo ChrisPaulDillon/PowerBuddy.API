@@ -32,8 +32,7 @@ namespace PowerLifting.MediatR.FriendsLists.CommandHandler.Account
             var doesRequestExist = await _context.FriendRequest
                 .AsNoTracking()
                 .AnyAsync(x => x.UserFromId == request.UserId && x.UserToId == request.FriendUserId ||
-                               x.UserFromId == request.FriendUserId && x.UserToId == request.UserId
-                    , cancellationToken: cancellationToken);
+                               x.UserFromId == request.FriendUserId && x.UserToId == request.UserId, cancellationToken: cancellationToken);
 
             if (doesRequestExist) return false;
 

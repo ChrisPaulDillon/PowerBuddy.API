@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CommandHandler\Account\" />
     <Folder Include="CommandHandler\Admin\" />
-    <Folder Include="Command\Account\" />
     <Folder Include="Command\Admin\" />
     <Folder Include="QueryHandler\Admin\" />
     <Folder Include="Query\Admin\" />

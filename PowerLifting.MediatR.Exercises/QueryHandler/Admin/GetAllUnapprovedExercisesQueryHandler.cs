@@ -25,7 +25,7 @@ namespace PowerLifting.MediatR.Exercises.QueryHandler.Admin
 
         public async Task<IEnumerable<ExerciseDTO>> Handle(GetAllUnapprovedExercisesQuery request, CancellationToken cancellationToken)
         {
-            var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.Rights >= 1);
+            var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2);
 
             if (!isUserAdmin) throw new UnauthorisedUserException();
 

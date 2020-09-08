@@ -34,7 +34,7 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Admin
 
             if (userToBan == null) throw new UserNotFoundException();
 
-            var adminUser = await _context.User.Where(x => x.Id == request.AdminUserId && x.Rights >= 1).Select(x => x.UserName).FirstOrDefaultAsync(cancellationToken: cancellationToken);
+            var adminUser = await _context.User.Where(x => x.Id == request.AdminUserId && x.MemberStatusId >= 2).Select(x => x.UserName).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (string.IsNullOrEmpty(adminUser)) throw new UserNotFoundException();
 
