@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="QueryHandler\Admin\**" />
+    <Compile Remove="QueryHandler\Shared\**" />
+    <Compile Remove="Query\Admin\**" />
+    <Compile Remove="Query\Shared\**" />
+    <EmbeddedResource Remove="QueryHandler\Admin\**" />
+    <EmbeddedResource Remove="QueryHandler\Shared\**" />
+    <EmbeddedResource Remove="Query\Admin\**" />
+    <EmbeddedResource Remove="Query\Shared\**" />
+    <None Remove="QueryHandler\Admin\**" />
+    <None Remove="QueryHandler\Shared\**" />
+    <None Remove="Query\Admin\**" />
+    <None Remove="Query\Shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
+  </ItemGroup>
+
+</Project>

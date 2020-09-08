@@ -107,7 +107,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
 
         [HttpPost("FirstVisit")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> FirstVisit([FromBody] FirstVisitDTO firstVisitDTO)

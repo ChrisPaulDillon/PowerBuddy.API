@@ -28,6 +28,9 @@ namespace PowerLifting.Data.AutoMapper
 
             CreateMap<ExerciseSport, ExerciseSportDTO>().ReverseMap();
 
+            CreateMap<Gender, GenderDTO>();
+            CreateMap<MemberStatus, MemberStatusDTO>();
+
         }
     }
 }

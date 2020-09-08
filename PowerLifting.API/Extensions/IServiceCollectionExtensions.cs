@@ -42,11 +42,21 @@ using PowerLifting.MediatR.Users.CommandHandler.Public;
 using PowerLifting.MediatR.Users.QueryHandler.Account;
 using PowerLifting.MediatR.Users.QueryHandler.Admin;
 using PowerLifting.MediatR.Users.QueryHandler.Public;
+using PowerLifting.MediatR.System.QueryHandler.Public;
 
 namespace PowerLifting.API.Extensions
 {
     public static class IServiceCollectionExtensions
     {
+        public static IServiceCollection AddSystemMediatrHandlers(this IServiceCollection services)
+        {
+            // QueryHandler Registration
+            services.AddMediatR(typeof(GetAllGendersQueryHandler));
+            services.AddMediatR(typeof(GetAllMemberStatusQueryHandler));
+            return services;
+        }
+
+
         public static IServiceCollection AddProgramLogDayMediatrHandlers(this IServiceCollection services)
         {
             // CommandHandler Registration

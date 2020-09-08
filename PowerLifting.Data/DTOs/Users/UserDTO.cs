@@ -17,6 +17,6 @@ namespace PowerLifting.Data.DTOs.Users
         public bool FirstVisit { get; set; }
         public UserSettingDTO UserSetting { get; set; }
         public string Gender { get; set; }
-        public string MemberStatus { get; set; }
+        public int MemberStatusId { get; set; }
     }
 }

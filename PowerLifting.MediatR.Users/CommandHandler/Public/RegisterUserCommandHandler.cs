@@ -43,6 +43,7 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Public
             request.RegisterUserDTO.SportType = "PowerLifting";
 
             var userEntity = _mapper.Map<User>(request.RegisterUserDTO);
+            userEntity.MemberStatusId = 1;
 
             userEntity.UserSetting = new UserSetting()
             {

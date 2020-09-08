@@ -22,7 +22,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.SportType, d => d.MapFrom(src => src.SportType))
                 .ForMember(x => x.FirstVisit, d => d.MapFrom(src => src.FirstVisit))
                 .ForMember(x => x.Gender, d => d.MapFrom(src => src.Gender.GenderName))
-                .ForMember(x => x.MemberStatus, d => d.MapFrom(src => src.MemberStatus.MemberStatusName))
+                .ForMember(x => x.MemberStatusId, d => d.MapFrom(src => src.MemberStatusId))
                 .ReverseMap();
 
             CreateMap<User, RegisterUserDTO>()
@@ -38,7 +38,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.SportType, d => d.MapFrom(src => src.SportType))
                 .ForMember(x => x.BodyWeight, d => d.MapFrom(src => src.BodyWeight))
                 .ForMember(x => x.IsPublic, d => d.MapFrom(src => src.IsPublic))
-                .ForMember(x => x.MemberStatus, d => d.MapFrom(src => src.MemberStatus.MemberStatusName))
+                .ForMember(x => x.MemberStatusId, d => d.MapFrom(src => src.MemberStatusId))
                 .ForMember(x => x.Gender, d => d.MapFrom(src => src.Gender.GenderName))
                 .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.LiftingLevel))
                 .ReverseMap();
