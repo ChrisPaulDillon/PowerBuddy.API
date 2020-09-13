@@ -30,6 +30,7 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
             var liftingStatAudit = new LiftingStatAudit()
             {
                 LiftingStatId = request.LiftingStatId,
+                ExerciseId = request.ExerciseId,
                 RepRange = request.RepRange,
                 Weight = request.Weight,
                 UserId = request.UserId,

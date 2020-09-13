@@ -116,11 +116,11 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(ex.Message);
+                return Unauthorized(Responses.Error(ex));
             }
             catch (ProgramLogAlreadyActiveException ex)
             {
-                return BadRequest(ex);
+                return BadRequest(Responses.Error(ex));
             }
         }
 

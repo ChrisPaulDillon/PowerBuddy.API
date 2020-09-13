@@ -1,4 +1,7 @@
-﻿namespace PowerLifting.Data.DTOs.Account
+﻿using System.Collections.Generic;
+using PowerLifting.Data.DTOs.LiftingStats;
+
+namespace PowerLifting.Data.DTOs.Account
 {
     public class PublicUserDTO
     {
@@ -10,5 +13,6 @@
         public int MemberStatusId { get; set; }
         public string Gender { get; set; }
         public string LiftingLevel { get; set; }
+        public IEnumerable<LiftFeedDTO> LiftFeed { get; set; }
     }
 }

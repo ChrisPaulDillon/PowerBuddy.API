@@ -44,7 +44,7 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
             var liftingStatEntity = _mapper.Map<LiftingStat>(request.LiftingStatDTO);
             _context.LiftingStat.Update(liftingStatEntity);
 
-            await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStatEntity.LiftingStatId, liftingStatEntity.RepRange, (decimal)liftingStatEntity.Weight, liftingStatEntity.UserId), cancellationToken);
+            await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStatEntity.LiftingStatId, liftingStatEntity.ExerciseId, liftingStatEntity.RepRange, (decimal)liftingStatEntity.Weight, liftingStatEntity.UserId), cancellationToken);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
             return modifiedRows > 0; 

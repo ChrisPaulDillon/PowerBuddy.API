@@ -20,6 +20,10 @@ using PowerLifting.MediatR.ExerciseTypes.QueryHandler.Public;
 using PowerLifting.MediatR.FriendsLists.CommandHandler.Account;
 using PowerLifting.MediatR.FriendsLists.QueryHandler.Account;
 using PowerLifting.MediatR.LiftingStats.CommandHandler.Account;
+using PowerLifting.MediatR.LiftingStats.Query.Account;
+using PowerLifting.MediatR.LiftingStats.Query.Public;
+using PowerLifting.MediatR.LiftingStats.QueryHandler.Account;
+using PowerLifting.MediatR.LiftingStats.QueryHandler.Public;
 using PowerLifting.MediatR.Notifications.CommandHandler.Account;
 using PowerLifting.MediatR.Notifications.CommandHandler.Admin;
 using PowerLifting.MediatR.Notifications.QueryHandler.Account;
@@ -170,6 +174,10 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(UpdateLiftingStatCollectionCommandHandler));
             services.AddMediatR(typeof(UpdateLiftingStatCommandHandler));
             services.AddMediatR(typeof(CreateLiftingStatCollectionCommandHandler));
+
+            // Query Handlers
+            services.AddMediatR(typeof(GetLiftingStatFeedForUserQueryHandler));
+            services.AddMediatR(typeof(GetLiftingStatsByUserIdQueryHandler));
             return services;
         }
 

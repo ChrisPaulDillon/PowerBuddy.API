@@ -12,10 +12,8 @@
     <Folder Include="Command\Public\" />
     <Folder Include="Command\Shared\" />
     <Folder Include="QueryHandler\Admin\" />
-    <Folder Include="QueryHandler\Public\" />
     <Folder Include="QueryHandler\Shared\" />
     <Folder Include="Query\Admin\" />
-    <Folder Include="Query\Public\" />
     <Folder Include="Query\Shared\" />
   </ItemGroup>
 
