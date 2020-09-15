@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ namespace PowerLifting.API.Areas.Admin.Controllers
     [ApiController]
     [Produces("application/json")]
     [Area("Admin")]
+    [Authorize(Policy = "IsModerator")]
     public class ExerciseController : ControllerBase
     {
         private readonly IMediator _mediator;

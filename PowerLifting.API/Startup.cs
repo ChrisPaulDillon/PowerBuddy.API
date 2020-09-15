@@ -1,5 +1,6 @@
 using AutoMapper;
 using HotChocolate.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.API.AuthorizationHandlers;
 using PowerLifting.API.Middleware;
 using PowerLifting.Data.AutoMapper;
 using PowerLifting.Data.Entities.Account;
@@ -111,6 +113,14 @@ namespace PowerLifting.API
             //                "https://localhost:5001/");
             //        });
             //});
+
+            services.AddTransient<IAuthorizationHandler, IsModeratorAuthorizationHandler>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsModerator",
+                    policy => policy.Requirements.Add(new IsModeratorValidationRequirement()));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
@@ -16,15 +18,16 @@ namespace PowerLifting.API.Areas.Account.Controllers
     [Route("api/[area]/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(Policy = "Default")]
     [Area("Account")]
     public class ExerciseController : ControllerBase
     {
         private readonly IMediator _mediator;
-
-        public ExerciseController(IMediator mediator)
+        private readonly string _userId;
+        public ExerciseController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId(ClaimTypes.NameIdentifier);
         }
 
         [HttpPost]

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
+using PowerLifting.API.Extensions;
 using PowerLifting.Service.Account;
 
 namespace PowerLifting.API.AuthorizationHandlers
@@ -22,7 +23,7 @@ namespace PowerLifting.API.AuthorizationHandlers
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsModeratorValidationRequirement requirement)
         {
-            var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = context.User.FindUserId(ClaimTypes.NameIdentifier);
 
             if (_accountService.IsUserModerator(userId))
             {
