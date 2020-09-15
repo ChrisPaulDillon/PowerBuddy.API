@@ -18,6 +18,12 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="HotChocolate" Version="10.5.2" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.5.2" />
+    <PackageReference Include="HotChocolate.Types" Version="10.5.2" />
+    <PackageReference Include="HotChocolate.Types.Filters" Version="10.5.2" />
+    <PackageReference Include="HotChocolate.Types.Selections" Version="10.5.2" />
+    <PackageReference Include="HotChocolate.Types.Sorting" Version="10.5.2" />
     <PackageReference Include="MediatR" Version="8.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
@@ -72,7 +78,7 @@
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\PowerLifting.Services.ProgramLog\PowerLifting.Services.ProgramLog.csproj" />
+    <ProjectReference Include="..\PowerLifting.Service.Account\PowerLifting.Service.Account.csproj" />
   </ItemGroup>
 
 

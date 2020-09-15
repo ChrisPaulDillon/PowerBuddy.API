@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 
 namespace PowerLifting.Services.ProgramLog

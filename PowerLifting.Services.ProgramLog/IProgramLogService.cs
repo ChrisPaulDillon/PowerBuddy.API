@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using PowerLifting.Data.DTOs.ProgramLogs;
 
 namespace PowerLifting.Services.ProgramLog
 {
