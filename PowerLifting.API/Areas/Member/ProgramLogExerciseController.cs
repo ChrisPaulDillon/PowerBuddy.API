@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
@@ -23,10 +24,12 @@ namespace PowerLifting.API.Areas.Member.Controllers
     public class ProgramLogExerciseController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly string _userId;
 
-        public ProgramLogExerciseController(IMediator mediator)
+        public ProgramLogExerciseController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpPut("{programLogExerciseId:int}")]
@@ -37,8 +40,7 @@ namespace PowerLifting.API.Areas.Member.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var liftingStatsThatPb = await _mediator.Send(new UpdateProgramLogExerciseMemberCommand(programLogExerciseDTO, userId)).ConfigureAwait(false);
+                var liftingStatsThatPb = await _mediator.Send(new UpdateProgramLogExerciseMemberCommand(programLogExerciseDTO, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(liftingStatsThatPb));
             }
             catch (ProgramLogExerciseNotFoundException ex)

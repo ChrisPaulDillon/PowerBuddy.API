@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
@@ -23,15 +25,16 @@ namespace PowerLifting.API.Areas.Account.Controllers
     [ApiController]
     [Produces("application/json")]
     [Area("Account")]
-    [Authorize(Policy = "IsModerator", AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ProgramLogController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private string userId = "";
+        private readonly string _userId;
 
-        public ProgramLogController(IMediator mediator)
+        public ProgramLogController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpGet("All")]
@@ -42,8 +45,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogStats = await _mediator.Send(new GetAllProgramLogStatsQuery(userId)).ConfigureAwait(false);
+                var programLogStats = await _mediator.Send(new GetAllProgramLogStatsQuery(_userId)).ConfigureAwait(false);
 
                 return Ok(Responses.Success(programLogStats));
             }
@@ -65,8 +67,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLog = await _mediator.Send(new GetActiveProgramLogByUserIdQuery(userId)).ConfigureAwait(false);
+                var programLog = await _mediator.Send(new GetActiveProgramLogByUserIdQuery(_userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLog));
             }
             catch (ProgramLogNotFoundException ex)
@@ -87,8 +88,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateProgramLogCommand(programLogDTO, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateProgramLogCommand(programLogDTO, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogNotFoundException ex)
@@ -109,8 +109,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, userId))
+                var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, _userId))
                     .ConfigureAwait(false);
                 return Ok(Responses.Success(createdLog));
             }
@@ -134,9 +133,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-
-                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateWithWeightInputCommand(programLogDTO, templateProgramId, userId)).ConfigureAwait(false);
+                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateWithWeightInputCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLog));
             }
             catch (TemplateProgramNotFoundException ex)
@@ -167,12 +164,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-
-                var liftingStatsToCreate = await _mediator.Send(new DoesUserHaveExerciseCollection1RMSetQuery(templateProgramId, userId)).ConfigureAwait(false);
+                var liftingStatsToCreate = await _mediator.Send(new DoesUserHaveExerciseCollection1RMSetQuery(templateProgramId, _userId)).ConfigureAwait(false);
                 if (liftingStatsToCreate.ToList().Any()) return Ok(Responses.Success(liftingStatsToCreate));
 
-                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, templateProgramId, userId)).ConfigureAwait(false);
+                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLog));
             }
             catch (TemplateProgramNotFoundException ex)
@@ -201,8 +196,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new DeleteProgramLogCommand(programLogId, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteProgramLogCommand(programLogId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogNotFoundException ex)
@@ -223,8 +217,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogWeek = await _mediator.Send(new GetProgramLogWeekBetweenDateQuery(date, userId)).ConfigureAwait(false);
+                var programLogWeek = await _mediator.Send(new GetProgramLogWeekBetweenDateQuery(date, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLogWeek));
             }
             catch (ProgramLogWeekNotFoundException ex)
@@ -243,8 +236,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var dates = await _mediator.Send(new GetAllProgramLogCalendarStatsQuery(userId)).ConfigureAwait(false);
+                var dates = await _mediator.Send(new GetAllProgramLogCalendarStatsQuery(_userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(dates));
             }
             catch (ProgramLogDayNotFoundException ex)

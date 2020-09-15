@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
@@ -21,10 +22,12 @@ namespace PowerLifting.API.Areas.Account.Controllers
     public class ProgramLogRepSchemeController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly string _userId;
 
-        public ProgramLogRepSchemeController(IMediator mediator)
+        public ProgramLogRepSchemeController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpPost("Collection")]
@@ -34,8 +37,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new CreateProgramLogRepSchemeCollectionCommand(programLogRepSchemeCollection, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new CreateProgramLogRepSchemeCollectionCommand(programLogRepSchemeCollection, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogExerciseNotFoundException ex)
@@ -56,8 +58,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateProgramLogRepSchemeCommand(programLogRepSchemeDTO, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateProgramLogRepSchemeCommand(programLogRepSchemeDTO, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogRepSchemeNotFoundException e)
@@ -81,8 +82,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new DeleteProgramLogRepSchemeCommand(programLogRepSchemeId, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteProgramLogRepSchemeCommand(programLogRepSchemeId, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (ProgramLogDayNotWithinWeekException e)

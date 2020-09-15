@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
@@ -22,21 +23,21 @@ namespace PowerLifting.API.Areas.Account.Controllers
     public class ProgramLogExerciseController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly string _userId;
 
-        public ProgramLogExerciseController(IMediator mediator)
+        public ProgramLogExerciseController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpGet("{programLogExerciseId:int}", Name = "ProgramLogExerciseById")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogExerciseDTO>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProgramLogDayExerciseById(int programLogExerciseId)
         {
-            var userId = User.Claims.First(x => x.Type == "UserID").Value;
             var programLogExercise = await _mediator.Send(new GetProgramLogExerciseByIdQuery(programLogExerciseId)).ConfigureAwait(false);
             return Ok(Responses.Success(programLogExercise));
         }
-
 
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
@@ -46,8 +47,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogExercise = await _mediator.Send(new CreateProgramLogExerciseCommand(programLogExerciseDTO, userId)).ConfigureAwait(false);
+                var programLogExercise = await _mediator.Send(new CreateProgramLogExerciseCommand(programLogExerciseDTO, _userId)).ConfigureAwait(false);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
             }
             catch (ReachedMaxSetsOnExerciseException ex)
@@ -68,8 +68,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateProgramLogExerciseCommand(programLogExerciseDTO, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateProgramLogExerciseCommand(programLogExerciseDTO, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogExerciseNotFoundException ex)
@@ -90,8 +89,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new DeleteProgramLogExerciseCommand(programLogExerciseId, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteProgramLogExerciseCommand(programLogExerciseId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogExerciseNotFoundException ex)
@@ -112,8 +110,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateProgramLogExerciseNotesCommand(programLogExerciseId, notes, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateProgramLogExerciseNotesCommand(programLogExerciseId, notes, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogExerciseNotFoundException ex)

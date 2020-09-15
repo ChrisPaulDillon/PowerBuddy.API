@@ -27,7 +27,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         public ExerciseController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
-            _userId = accessor.HttpContext.User.FindUserId(ClaimTypes.NameIdentifier);
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpPost]
@@ -46,7 +46,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
-
         [HttpGet("{exerciseId:int}", Name = nameof(GetExerciseById))]
         [ProducesResponseType(typeof(ApiResponse<TopLevelExerciseDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
@@ -62,6 +61,5 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 return NotFound(e.Message);
             }
         }
-
     }
 }

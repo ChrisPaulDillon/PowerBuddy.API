@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
@@ -21,10 +22,12 @@ namespace PowerLifting.API.Areas.Account.Controllers
     public class NotificationController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly string _userId;
 
-        public NotificationController(IMediator mediator)
+        public NotificationController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpGet]
@@ -34,8 +37,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var notifications = await _mediator.Send(new GetUserNotificationsQuery(userId)).ConfigureAwait(false);
+                var notifications = await _mediator.Send(new GetUserNotificationsQuery(_userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(notifications));
             }
             catch (InvalidCredentialsException ex)

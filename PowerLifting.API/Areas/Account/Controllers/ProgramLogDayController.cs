@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
@@ -23,12 +24,13 @@ namespace PowerLifting.API.Areas.Account.Controllers
     public class ProgramLogDayController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly string _userId;
 
-        public ProgramLogDayController(IMediator mediator)
+        public ProgramLogDayController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
-
         [HttpGet]
         [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
@@ -37,8 +39,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogDay = await _mediator.Send(new GetProgramLogDayByDateQuery(dateSelected, userId)).ConfigureAwait(false);
+                var programLogDay = await _mediator.Send(new GetProgramLogDayByDateQuery(dateSelected, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLogDay));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -59,8 +60,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogDay = await _mediator.Send(new GetProgramSpecificDayByDateQuery(dateSelected, programLogId, userId)).ConfigureAwait(false);
+                var programLogDay = await _mediator.Send(new GetProgramSpecificDayByDateQuery(dateSelected, programLogId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLogDay));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -81,8 +81,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogDayDTO = await _mediator.Send(new GetProgramLogDayByIdQuery(programLogDayId, userId)).ConfigureAwait(false);
+                var programLogDayDTO = await _mediator.Send(new GetProgramLogDayByIdQuery(programLogDayId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLogDayDTO));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -102,8 +101,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateProgramLogDayCommand(programLogDayDTO, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateProgramLogDayCommand(programLogDayDTO, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogDayNotFoundException ex)
@@ -120,8 +118,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var createdProgramLogDayDTO = await _mediator.Send(new CreateProgramLogDayCommand(programLogDayDTO, userId)).ConfigureAwait(false);
+                var createdProgramLogDayDTO = await _mediator.Send(new CreateProgramLogDayCommand(programLogDayDTO, _userId)).ConfigureAwait(false);
                 return CreatedAtRoute(nameof(GetProgramLogDayById), new { programLogDayId = createdProgramLogDayDTO.ProgramLogDayId }, createdProgramLogDayDTO);
             }
             catch (ProgramLogDayNotWithinWeekException ex)
@@ -146,8 +143,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new DeleteProgramLogDayCommand(programLogDayId, userId))
+                var result = await _mediator.Send(new DeleteProgramLogDayCommand(programLogDayId, _userId))
                     .ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
@@ -168,8 +164,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateProgramLogDayNotesCommand(programLogDayId, notes, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateProgramLogDayNotesCommand(programLogDayId, notes, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (ProgramLogDayNotFoundException ex)

@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
@@ -27,13 +28,13 @@ namespace PowerLifting.API.Areas.Account.Controllers
     public class ProgramLogWeekController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private string userId = "";
+        private readonly string _userId;
 
-        public ProgramLogWeekController(IMediator mediator)
+        public ProgramLogWeekController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
-
 
         [HttpPost("{programLogId:int}")]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
@@ -42,8 +43,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogWeek = await _mediator.Send(new AddProgramLogWeekToLogCommand(programLogId, userId)).ConfigureAwait(false);
+                var programLogWeek = await _mediator.Send(new AddProgramLogWeekToLogCommand(programLogId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLogWeek));
             }
             catch (ProgramLogNotFoundException ex)
@@ -59,9 +59,8 @@ namespace PowerLifting.API.Areas.Account.Controllers
         public async Task<IActionResult> GetProgramLogWeekByDate(DateTime date)
         {
             try
-            {
-                userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var programLogWeek = await _mediator.Send(new GetProgramLogWeekBetweenDateQuery(date, userId)).ConfigureAwait(false);
+            { 
+                var programLogWeek = await _mediator.Send(new GetProgramLogWeekBetweenDateQuery(date, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLogWeek));
             }
             catch (ProgramLogWeekNotFoundException ex)

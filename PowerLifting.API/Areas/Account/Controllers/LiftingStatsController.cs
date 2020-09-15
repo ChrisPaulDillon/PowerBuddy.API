@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.Exceptions.Account;
@@ -22,10 +23,12 @@ namespace PowerLifting.API.Areas.Account.Controllers
     public class LiftingStatsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly string _userId;
 
-        public LiftingStatsController(IMediator mediator)
+        public LiftingStatsController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpGet]
@@ -35,8 +38,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var liftingStats = await _mediator.Send(new GetLiftingStatsByUserIdQuery(userId)).ConfigureAwait(false);
+                var liftingStats = await _mediator.Send(new GetLiftingStatsByUserIdQuery(_userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(liftingStats));
             }
             catch (LiftingStatNotFoundException ex)
@@ -53,8 +55,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var liftingStat = await _mediator.Send(new CreateLiftingStatCommand(liftingStatDTO, userId)).ConfigureAwait(false);
+                var liftingStat = await _mediator.Send(new CreateLiftingStatCommand(liftingStatDTO, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(liftingStat));
             }
             catch (LiftingStatAlreadyExistsException e)
@@ -74,8 +75,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var liftingStat = await _mediator.Send(new CreateLiftingStatCollectionCommand(liftingStatCollectionDTO, userId)).ConfigureAwait(false);
+                var liftingStat = await _mediator.Send(new CreateLiftingStatCollectionCommand(liftingStatCollectionDTO, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(liftingStat));
             }
             catch (UnauthorisedUserException e)
@@ -92,8 +92,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var liftingStat = await _mediator.Send(new UpdateLiftingStatCollectionCommand(liftingStatCollectionDTO, userId)).ConfigureAwait(false);
+                var liftingStat = await _mediator.Send(new UpdateLiftingStatCollectionCommand(liftingStatCollectionDTO, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(liftingStat));
             }
             catch (LiftingStatAlreadyExistsException e)
@@ -114,8 +113,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateLiftingStatCommand(liftingStats, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateLiftingStatCommand(liftingStats, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
             catch (LiftingStatNotFoundException ex)
@@ -136,8 +134,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new DeleteLiftingStatCommand(liftingStatId, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteLiftingStatCommand(liftingStatId, _userId)).ConfigureAwait(false);
                return Ok(Responses.Success(result));
             }
             catch (LiftingStatNotFoundException ex)
@@ -146,7 +143,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (UnauthorisedUserException ex)
             {
-                return Conflict(Responses.Error(ex));
+                return Unauthorized(Responses.Error(ex));
             }
         }
     }

@@ -9,11 +9,11 @@ namespace PowerLifting.API.Extensions
     public static class ClaimsPrincipleExtensions
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "Claim is not localized")]
-        public static string FindUserId(this ClaimsPrincipal claimsPrincipal, string claimName)
+        public static string FindUserId(this ClaimsPrincipal claimsPrincipal)
         {
             try
             {
-                var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = claimsPrincipal.Claims.First(x => x.Type == "UserID").Value;
                 if (userId == null)
                 {
                     userId = "194120d9-b0c5-4d41-be94-3f62d99a2f01";
