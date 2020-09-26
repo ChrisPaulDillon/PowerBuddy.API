@@ -47,7 +47,38 @@ namespace PowerLifting.API.Areas.Admin.Controllers
             }
         }
 
-        [HttpPut("{exerciseId:int}")]
+        [HttpPut]
+        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateExercise([FromBody] ExerciseDTO exerciseDTO)
+        {
+            try
+            {
+                var userId = User.Claims.First(x => x.Type == "UserID").Value;
+                var result = await _mediator.Send(new UpdateExerciseCommand(exerciseDTO, userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(result));
+            }
+            catch (ExerciseValidationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (UserValidationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (ExerciseNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (UnauthorisedUserException e)
+            {
+                return Unauthorized(e.Message);
+            }
+        }
+
+        [HttpPut("Approve/{exerciseId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]

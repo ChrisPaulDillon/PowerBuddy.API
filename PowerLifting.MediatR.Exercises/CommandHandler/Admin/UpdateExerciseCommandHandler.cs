@@ -27,15 +27,17 @@ namespace PowerLifting.MediatR.Exercises.CommandHandler.Admin
 
         public async Task<bool> Handle(UpdateExerciseCommand request, CancellationToken cancellationToken)
         {
-            var exercise = await _context.Exercise
-                .FirstOrDefaultAsync(x => x.ExerciseId == request.Exercise.ExerciseId);
+            var doesExerciseExist = await _context.Exercise.AsNoTracking().AnyAsync(x => x.ExerciseId == request.Exercise.ExerciseId);
 
-            if (exercise == null) throw new ExerciseNotFoundException();
+            if (!doesExerciseExist) throw new ExerciseNotFoundException();
 
-            _mapper.Map(request.Exercise, exercise);
-            _context.Update(exercise);
+            request.Exercise.ExerciseType = null;
+            request.Exercise.ExerciseSports = null;
+            request.Exercise.ExerciseSports = null;
 
-            var changedRows = await _context.SaveChangesAsync();
+            _context.Exercise.Update(_mapper.Map<Exercise>(request.Exercise));
+
+            var changedRows = await _context.SaveChangesAsync(cancellationToken);
             return changedRows > 0;
         }
     }

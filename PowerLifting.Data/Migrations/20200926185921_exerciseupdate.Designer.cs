@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20200926185921_exerciseupdate")]
+    partial class exerciseupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -302,7 +304,7 @@ namespace PowerLifting.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ExerciseTypeId")
+                    b.Property<int>("ExerciseTypeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsApproved")
@@ -974,7 +976,9 @@ namespace PowerLifting.Data.Migrations
                 {
                     b.HasOne("PowerLifting.Data.Entities.Exercises.ExerciseType", "ExerciseType")
                         .WithMany()
-                        .HasForeignKey("ExerciseTypeId");
+                        .HasForeignKey("ExerciseTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.Exercises.ExerciseMuscleGroupAssoc", b =>
