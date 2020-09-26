@@ -71,7 +71,7 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                         if (repScheme.WeightLifted > liftingStatPb.Weight || liftingStatPb.Weight == null) //Pb was hit and lifting stat exists
                         {
                             liftingStatPb.Weight = repScheme.WeightLifted;
-                            liftingStatPb.LastUpdated = DateTime.UtcNow;
+                            liftingStatPb.LastUpdated = request.ProgramLogDayDTO.Date;
                         }
                         else
                         {
@@ -86,7 +86,7 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                             Exercise = _mapper.Map<Exercise>(programExercise.Exercise),
                             Weight = repScheme.WeightLifted,
                             RepRange = (int) repScheme.RepsCompleted,
-                            LastUpdated = DateTime.UtcNow,
+                            LastUpdated = request.ProgramLogDayDTO.Date,
                             UserId = request.UserId
                         };
                     }
