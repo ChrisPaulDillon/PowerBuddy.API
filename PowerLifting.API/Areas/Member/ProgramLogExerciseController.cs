@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,9 +8,7 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
-using PowerLifting.MediatR.ProgramLogExercises.Command.Account;
 using PowerLifting.MediatR.ProgramLogExercises.Command.Member;
-using PowerLifting.MediatR.ProgramLogExercises.Query.Account;
 
 namespace PowerLifting.API.Areas.Member.Controllers
 {

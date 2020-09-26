@@ -23,7 +23,7 @@ namespace PowerLifting.API.AuthorizationHandlers
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsModeratorValidationRequirement requirement)
         {
-            var userId = context.User.FindUserId(ClaimTypes.NameIdentifier);
+            var userId = context.User.FindUserId();
 
             if (_accountService.IsUserModerator(userId))
             {

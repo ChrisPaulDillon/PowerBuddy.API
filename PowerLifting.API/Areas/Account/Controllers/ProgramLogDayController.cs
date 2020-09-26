@@ -12,6 +12,7 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogDays.Command.Account;
+using PowerLifting.MediatR.ProgramLogDays.Command.Member;
 using PowerLifting.MediatR.ProgramLogDays.Query.Account;
 
 namespace PowerLifting.API.Areas.Account.Controllers
@@ -97,12 +98,19 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [HttpPut("{programLogDayId:int}")]
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateProgramLogDay(int programLogExerciseId, [FromBody] ProgramLogDayDTO programLogDayDTO)
+        public async Task<IActionResult> UpdateProgramLogDay(int programLogDayId, [FromBody] ProgramLogDayDTO programLogDayDTO)
         {
             try
             {
-                var result = await _mediator.Send(new UpdateProgramLogDayCommand(programLogDayDTO, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                //var result = await _mediator.Send(new UpdateProgramLogDayCommand(programLogDayDTO, _userId)).ConfigureAwait(false);
+                //return Ok(Responses.Success(result));
+
+                var liftingStatsThatPb = await _mediator.Send(new UpdateProgramLogDayMemberCommand(programLogDayDTO, _userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(liftingStatsThatPb));
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(Responses.Error(ex));
             }
             catch (ProgramLogDayNotFoundException ex)
             {

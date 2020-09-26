@@ -18,6 +18,11 @@ namespace PowerLifting.API.GraphQL.Resolvers
             return svc.GetProgramLogsQueryable(account.UserId);
         }
 
+        public IQueryable<ProgramLogDTO> GetProgramLog([Parent] UserDTO account, [Service] IAccountService svc)
+        {
+            return svc.GetProgramLogQueryable(account.UserId);
+        }
+
         public IQueryable<LiftingStatDTO> GetLiftingStats([Parent] UserDTO account, [Service] IAccountService svc)
         {
             return svc.GetLiftingStatsQueryable(account.UserId);

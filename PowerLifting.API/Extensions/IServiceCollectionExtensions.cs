@@ -20,14 +20,13 @@ using PowerLifting.MediatR.ExerciseTypes.QueryHandler.Public;
 using PowerLifting.MediatR.FriendsLists.CommandHandler.Account;
 using PowerLifting.MediatR.FriendsLists.QueryHandler.Account;
 using PowerLifting.MediatR.LiftingStats.CommandHandler.Account;
-using PowerLifting.MediatR.LiftingStats.Query.Account;
-using PowerLifting.MediatR.LiftingStats.Query.Public;
 using PowerLifting.MediatR.LiftingStats.QueryHandler.Account;
 using PowerLifting.MediatR.LiftingStats.QueryHandler.Public;
 using PowerLifting.MediatR.Notifications.CommandHandler.Account;
 using PowerLifting.MediatR.Notifications.CommandHandler.Admin;
 using PowerLifting.MediatR.Notifications.QueryHandler.Account;
 using PowerLifting.MediatR.ProgramLogDays.CommandHandler.Account;
+using PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member;
 using PowerLifting.MediatR.ProgramLogDays.QueryHandler.Account;
 using PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account;
 using PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member;
@@ -67,6 +66,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(CreateProgramLogDayCommandHandler));
             services.AddMediatR(typeof(DeleteProgramLogDayCommandHandler));
             services.AddMediatR(typeof(UpdateProgramLogDayNotesCommandHandler));
+            services.AddMediatR(typeof(UpdateProgramLogDayMemberCommandHandler));
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetAllProgramLogCalendarStatsQueryHandler));

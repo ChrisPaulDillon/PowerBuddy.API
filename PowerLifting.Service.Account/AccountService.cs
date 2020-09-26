@@ -38,6 +38,13 @@ namespace PowerLifting.Service.Account
                 .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider);
         }
 
+        public IQueryable<ProgramLogDTO> GetProgramLogQueryable(string userId)
+        {
+            return _context.ProgramLog.AsNoTracking()
+                .Where(x => x.UserId == userId && x.Active == true)
+                .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider);
+        }
+
         public IQueryable<LiftingStatDTO> GetLiftingStatsQueryable(string userId)
         {
             return _context.LiftingStat.AsNoTracking()

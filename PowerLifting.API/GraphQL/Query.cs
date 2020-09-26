@@ -10,17 +10,18 @@ using Microsoft.AspNetCore.Http;
 using PowerLifting.API.Extensions;
 using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Service.Account;
+using PowerLifting.Service.System;
 
 namespace PowerLifting.API.GraphQL
 {
     public class Query
     {
-        [Authorize(Policy = "Default")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [UseFirstOrDefault]
         [UseSelection]
         public IQueryable<UserDTO> Account([Service] IAccountService svc, [Service] IHttpContextAccessor accessor)
         {
-            var _userId = accessor.HttpContext.User.FindUserId(ClaimTypes.NameIdentifier);
+            var _userId = accessor.HttpContext.User.FindUserId();
             return svc.GetAccountQueryable(_userId);
         }
     }

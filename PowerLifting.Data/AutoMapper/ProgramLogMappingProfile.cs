@@ -25,6 +25,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
                 .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
+                .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks.OrderBy(x => x.WeekNo)))
                 .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.TemplateProgram.Name))
                 .ForMember(x => x.LogDates, opt => opt.Ignore())
                 .ReverseMap();
@@ -45,7 +46,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
                 .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
-                .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks))
+                .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks.OrderBy(x => x.WeekNo)))
                 .ForMember(x => x.DayCount, opt => opt.Ignore())
                 .ForMember(x => x.ExerciseCount, opt => opt.Ignore())
                 .ForMember(x => x.ExerciseCompletedCount, opt => opt.Ignore())
@@ -75,6 +76,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.WeekNo, d => d.MapFrom(src => src.WeekNo))
                 .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+                .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays.OrderBy(x => x.Date)))
                 .ReverseMap();
 
             CreateMap<ProgramLogDay, ProgramLogDayDTO>()
@@ -117,6 +119,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
                 .ForMember(x => x.AMRAP, d => d.MapFrom(src => src.AMRAP))
                 .ForMember(x => x.RepsCompleted, d => d.MapFrom(src => src.RepsCompleted))
+                .ForMember(x => x.ProgramLogExercise, d => d.MapFrom(src => src.ProgramLogExercise))
                 .ReverseMap();
 
             CreateMap<ProgramLogRepScheme, CProgramLogRepSchemeDTO>()

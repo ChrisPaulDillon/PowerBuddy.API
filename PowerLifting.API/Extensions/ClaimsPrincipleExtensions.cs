@@ -13,20 +13,16 @@ namespace PowerLifting.API.Extensions
         {
             try
             {
-                var userId = claimsPrincipal.Claims.First(x => x.Type == "UserID").Value;
-                if (userId == null)
-                {
-                    userId = "194120d9-b0c5-4d41-be94-3f62d99a2f01";
-                }
-
+                var userId = claimsPrincipal.FindFirstValue("UserID");
                 return userId;
             }
             catch (Exception ex) when (
                 ex is ArgumentNullException
                 || ex is FormatException
-                || ex is OverflowException)
+                || ex is OverflowException
+                || ex is InvalidOperationException)
             {
-                return "194120d9-b0c5-4d41-be94-3f62d99a2f01";
+                return "";
             }
         }
     }

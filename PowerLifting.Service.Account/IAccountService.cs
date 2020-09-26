@@ -15,6 +15,8 @@ namespace PowerLifting.Service.Account
 
         IQueryable<ProgramLogDTO> GetProgramLogsQueryable(string userId);
 
+        IQueryable<ProgramLogDTO> GetProgramLogQueryable(string userId);
+
         IQueryable<LiftingStatDTO> GetLiftingStatsQueryable(string userId);
 
         bool IsUserModerator(string userId);

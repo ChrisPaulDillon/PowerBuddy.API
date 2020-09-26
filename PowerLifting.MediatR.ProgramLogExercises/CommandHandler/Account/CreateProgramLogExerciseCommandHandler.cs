@@ -33,12 +33,18 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 
         public async Task<ProgramLogExerciseDTO> Handle(CreateProgramLogExerciseCommand request, CancellationToken cancellationToken)
         {
+            var programLogDay = await _context.ProgramLogDay.FirstOrDefaultAsync(x => x.ProgramLogDayId == request.ProgramLogExerciseDTO.ProgramLogDayId);
+
+            if (programLogDay == null) throw new ProgramLogDayNotFoundException();
+
+            programLogDay.Completed = false; //day is no longer completed if an exercise is added to it
+
             var doesExerciseExist = await _context.Exercise.AsNoTracking().AnyAsync(
                 x => x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId, cancellationToken: cancellationToken);
 
             if (!doesExerciseExist) throw new ExerciseNotFoundException();
 
-            var programLogExerciseEntity = await _context.Set<ProgramLogExercise>()
+            var programLogExerciseEntity = await _context.ProgramLogExercise
                 .AsNoTracking()
                 .Include(x => x.ProgramLogRepSchemes)
                 .FirstOrDefaultAsync(x => x.ProgramLogDayId == request.ProgramLogExerciseDTO.ProgramLogDayId && x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId, cancellationToken: cancellationToken);

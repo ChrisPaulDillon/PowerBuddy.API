@@ -17,6 +17,7 @@ using PowerLifting.API.Extensions;
 using PowerLifting.API.GraphQL;
 using PowerLifting.Data.Entities;
 using PowerLifting.Service.Account;
+using PowerLifting.Service.LiftingStats;
 
 namespace PowerLifting.API
 {
@@ -81,6 +82,7 @@ namespace PowerLifting.API
             services.AddControllers();
 
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ILiftingStatService, LiftingStatService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

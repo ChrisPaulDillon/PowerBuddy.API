@@ -45,7 +45,7 @@ namespace PowerLifting.MediatR.ProgramLogWeeks.CommandHandler.Account
                 EndDate = lastProgramWeek.EndDate.AddDays(7),
                 ProgramLogId = request.ProgramLogId,
                 UserId = request.UserId,
-                WeekNo = lastProgramWeek.WeekNo++
+                WeekNo = lastProgramWeek.WeekNo + 1
             };
 
             _context.ProgramLogWeek.Add(programLogWeek);

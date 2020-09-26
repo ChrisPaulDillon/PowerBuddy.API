@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities.Templates;
 
@@ -16,6 +17,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(dest => dest.NoOfDaysPerWeek, opt => opt.MapFrom(src => src.NoOfDaysPerWeek))
                 .ForMember(dest => dest.TemplateType, opt => opt.MapFrom(src => src.TemplateType))
                 .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom(src => src.WeightProgressionType))
+                .ForMember(dest => dest.TemplateWeeks, opt => opt.MapFrom(src => src.TemplateWeeks.OrderBy(x => x.WeekNo)))
                 .ReverseMap();
 
             CreateMap<TemplateExerciseCollection, TemplateExerciseCollectionDTO>()
