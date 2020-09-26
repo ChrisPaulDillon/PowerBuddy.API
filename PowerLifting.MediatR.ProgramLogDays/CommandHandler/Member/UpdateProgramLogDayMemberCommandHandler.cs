@@ -36,7 +36,7 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
         public async Task<IEnumerable<LiftingStatDTO>> Handle(UpdateProgramLogDayMemberCommand request, CancellationToken cancellationToken)
         {
             var doesProgramLogDayExist = await _context.ProgramLogExercise.AsNoTracking()
-                .AnyAsync(x => x.ProgramLogExerciseId == request.ProgramLogDayDTO.ProgramLogDayId, cancellationToken: cancellationToken);
+                .AnyAsync(x => x.ProgramLogDayId == request.ProgramLogDayDTO.ProgramLogDayId, cancellationToken: cancellationToken);
 
             if (!doesProgramLogDayExist) throw new ProgramLogDayNotFoundException();
 

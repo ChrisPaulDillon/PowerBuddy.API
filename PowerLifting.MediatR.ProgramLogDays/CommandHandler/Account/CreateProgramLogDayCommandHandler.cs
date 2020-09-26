@@ -42,7 +42,7 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Account
 
             if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
 
-            if (request.ProgramLogDayDTO.Date >= programLogWeek.StartDate && request.ProgramLogDayDTO.Date <= programLogWeek.EndDate)
+            if (request.ProgramLogDayDTO.Date >= programLogWeek.StartDate.AddDays(1) && request.ProgramLogDayDTO.Date <= programLogWeek.EndDate.AddDays(1))
             {
                 var programLogDay = _mapper.Map<ProgramLogDay>(request.ProgramLogDayDTO);
                 _context.ProgramLogDay.Add(programLogDay);
