@@ -9,7 +9,7 @@ namespace PowerLifting.Data.Entities.ProgramLogs
     /// Represents a given lift, its sets, weight and reps lifted on a given day for that particular exercise.
     /// Always unique to the user as this will allow customisation
     /// </summary>
-    public class ProgramLogExercise
+    public partial class ProgramLogExercise
     {
         public int ProgramLogExerciseId { get; set; }
         public int ProgramLogDayId { get; set; }
@@ -18,7 +18,5 @@ namespace PowerLifting.Data.Entities.ProgramLogs
         public string Comment { get; set; }
         public bool Completed { get; set; }
         public bool? PersonalBest { get; set; }
-        public virtual Exercise Exercise { get; set; }
-        public virtual ICollection<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
     }
 }

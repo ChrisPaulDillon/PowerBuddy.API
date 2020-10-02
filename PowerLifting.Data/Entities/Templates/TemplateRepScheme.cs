@@ -1,6 +1,6 @@
 ﻿namespace PowerLifting.Data.Entities.Templates
 {
-    public class TemplateRepScheme
+    public partial class TemplateRepScheme
     {
         public int TemplateRepSchemeId { get; set; }
         public int TemplateExerciseId { get; set; }

@@ -4,7 +4,7 @@
     /// Used to store specific settings about the user such as their bodyweight,
     /// unit measurement preferences etc.
     /// </summary>
-    public class UserSetting
+    public partial class UserSetting
     {
         public int UserSettingId { get; set; }
         public string UserId { get; set; }

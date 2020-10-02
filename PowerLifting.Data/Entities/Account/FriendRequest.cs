@@ -1,6 +1,6 @@
 ﻿namespace PowerLifting.Data.Entities.Account
 {
-    public class FriendRequest
+    public partial class FriendRequest
     {
         public int FriendRequestId { get; set; }
         public string UserFromId { get; set; }

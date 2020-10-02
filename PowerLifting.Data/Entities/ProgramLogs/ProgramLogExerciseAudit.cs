@@ -3,7 +3,7 @@
     /// <summary>
     /// Used to log how many times an exercise is selected by a user
     /// </summary>
-    public class ProgramLogExerciseAudit
+    public partial class ProgramLogExerciseAudit
     {
         public int ProgramLogExerciseAuditId { get; set; }
         public string UserId { get; set; }

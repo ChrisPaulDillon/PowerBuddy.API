@@ -4,7 +4,7 @@
     /// Used to collect all exercises associated with a given
     /// TemplateProgram
     /// </summary>
-    public class TemplateExerciseCollection
+    public partial class TemplateExerciseCollection
     {
         public int TemplateExerciseCollectionId { get; set; }
         public int TemplateProgramId { get; set; }

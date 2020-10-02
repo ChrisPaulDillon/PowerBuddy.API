@@ -5,7 +5,7 @@ namespace PowerLifting.Data.Entities.Exercises
     /// <summary>
     /// Represents the association of musclegroups to a given exercise
     /// </summary>
-    public class ExerciseMuscleGroupAssoc
+    public partial class ExerciseMuscleGroupAssoc
     {
         public int ExerciseMuscleGroupAssocId { get; set; }
         public string ExerciseMuscleGroupName { get; set; }

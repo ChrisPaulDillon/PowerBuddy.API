@@ -2,7 +2,7 @@
 
 namespace PowerLifting.Data.Entities.Exercises
 {
-    public class ExerciseType
+    public partial class ExerciseType
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ExerciseTypeId { get; set; }

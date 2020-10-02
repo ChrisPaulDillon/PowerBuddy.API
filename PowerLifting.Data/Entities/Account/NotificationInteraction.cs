@@ -1,6 +1,6 @@
 ﻿namespace PowerLifting.Data.Entities.Account
 {
-    public class NotificationInteraction
+    public partial class NotificationInteraction
     {
         public int NotificationInteractionId { get; set; }
         public int NotificationId { get; set; }

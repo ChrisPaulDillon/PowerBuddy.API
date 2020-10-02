@@ -12,5 +12,6 @@ namespace PowerLifting.Data.Entities.Account
         public Gender Gender { get; set; }
         public MemberStatus MemberStatus { get; set; }
         public IEnumerable<LiftingStatAudit> LiftingStatAudit { get; set; }
+        public UserSetting UserSetting { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PowerLifting.Data.Entities.ProgramLogs
 {
-    public class ProgramLogDay
+    public partial class ProgramLogDay
     {
         public int ProgramLogDayId { get; set; }
         public int ProgramLogWeekId { get; set; }
@@ -12,6 +12,5 @@ namespace PowerLifting.Data.Entities.ProgramLogs
         public string Comment { get; set; }
         public bool? PersonalBest { get; set; }
         public bool Completed { get; set; }
-        public virtual IEnumerable<ProgramLogExercise> ProgramLogExercises { get; set; }
     }
 }

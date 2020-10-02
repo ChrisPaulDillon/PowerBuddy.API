@@ -14,5 +14,6 @@
         public int? RepsCompleted { get; set; }
         public bool? PersonalBest { get; set; }
         public ProgramLogExerciseDTO ProgramLogExercise { get; set; }
+        public ProgramLogDTO ProgramLog { get; set; }
     }
 }

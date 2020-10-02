@@ -1,6 +1,6 @@
 ﻿namespace PowerLifting.Data.Entities.System
 {
-    public class Quote
+    public partial class Quote
     {
         public int QuoteId { get; set; }
         public string QuoteStr { get; set; }

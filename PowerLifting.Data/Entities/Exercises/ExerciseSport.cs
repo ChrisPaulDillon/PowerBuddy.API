@@ -1,6 +1,6 @@
 ﻿namespace PowerLifting.Data.Entities.Exercises
 {
-    public class ExerciseSport
+    public partial class ExerciseSport
     {
         public int ExerciseSportId { get; set; }
         public string ExerciseSportStr { get; set; }

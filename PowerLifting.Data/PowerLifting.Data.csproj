@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="EntitiesExtensions\Users\" />
     <Folder Include="Entities\ProgramLogs\" />
   </ItemGroup>
   <ItemGroup>

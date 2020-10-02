@@ -8,7 +8,7 @@ namespace PowerLifting.Data.Entities.Exercises
     /// <summary>
     /// Represents all exercise muscle groups that can be worked
     /// </summary>
-    public class ExerciseMuscleGroup
+    public partial class ExerciseMuscleGroup
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ExerciseMuscleGroupId { get; set; }

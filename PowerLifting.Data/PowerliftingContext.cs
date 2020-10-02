@@ -59,7 +59,6 @@ namespace PowerLifting.Data.Entities
 
         //System
         public DbSet<Gender> Gender { get; set; }
-
         public DbSet<MemberStatus> MemberStatus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -112,7 +111,7 @@ namespace PowerLifting.Data.Entities
 
 
             modelBuilder.Entity<ProgramLogRepScheme>()
-                .HasOne<ProgramLog>()
+                .HasOne(x => x.ProgramLog)
                 .WithMany()
                 .HasForeignKey(x => x.ProgramLogId)
                 .OnDelete(DeleteBehavior.NoAction);

@@ -8,7 +8,7 @@ namespace PowerLifting.Data.Entities.ProgramLogs
     /// ProgramLog details information based on that specific weightlifting cycle
     /// Such as start, end date, the type of program and the days of the week the user is doing it
     /// </summary>
-    public class ProgramLog
+    public partial class ProgramLog
     {
         public int ProgramLogId { get; set; }
         public string CustomName { get; set; }
@@ -25,7 +25,5 @@ namespace PowerLifting.Data.Entities.ProgramLogs
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
         public bool Active { get; set; }
-        public IEnumerable<ProgramLogWeek> ProgramLogWeeks { get; set; }
-        public virtual TemplateProgram TemplateProgram { get; set; }
     }
 }

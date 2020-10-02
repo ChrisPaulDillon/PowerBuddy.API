@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using PowerLifting.Data.Entities.ProgramLogs;
-
-namespace PowerLifting.Data.Entities.Templates
+﻿namespace PowerLifting.Data.Entities.Templates
 {
-    public class TemplateProgram
+    public partial class TemplateProgram
     {
         public int TemplateProgramId { get; set; }
         public string Name { get; set; }
@@ -15,7 +11,5 @@ namespace PowerLifting.Data.Entities.Templates
         public string TemplateType { get; set; } //block training, autoregulation?
         public string WeightProgressionType { get; set; } //incremental, percentage based
         public bool IsPublished { get; set; }
-        public virtual IEnumerable<TemplateWeek> TemplateWeeks { get; set; }
-        public virtual IEnumerable<TemplateExerciseCollection> TemplateExerciseCollection { get; set; }
     }
 }

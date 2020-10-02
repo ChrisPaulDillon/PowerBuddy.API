@@ -16,6 +16,5 @@ namespace PowerLifting.Data.Entities.Account
         public bool FirstVisit { get; set; }
         public bool QuotesEnabled { get; set; }
         public int? MemberStatusId { get; set; }
-        public UserSetting UserSetting { get; set; }
     }
 }

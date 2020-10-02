@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MediatR;
-using PowerLifting.Data.Entities.Account;
+﻿using MediatR;
 using PowerLifting.MediatR.Users.Models;
 
 namespace PowerLifting.MediatR.Users.Query.Account
 {
     public class LoginUserQuery : IRequest<UserLoggedInDTO>
     {
-        public LoginModel LoginModel { get; }
+        public LoginModelDTO LoginModel { get; }
 
-        public LoginUserQuery(LoginModel loginModel)
+        public LoginUserQuery(LoginModelDTO loginModel)
         {
             LoginModel = loginModel;
         }

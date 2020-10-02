@@ -8,7 +8,7 @@ namespace PowerLifting.Data.Entities.Templates
     /// TemplateExercise represents on a fixed program template, a given exercise,
     /// its set, rep and percentage schema
     /// </summary>
-    public class TemplateExercise
+    public partial class TemplateExercise
     {
         public int TemplateExerciseId { get; set; }
         public int TemplateDayId { get; set; }
@@ -18,8 +18,5 @@ namespace PowerLifting.Data.Entities.Templates
         public string RepSchemeType { get; set; } //ramped, fixed
         public bool HasBackOffSets { get; set; }
         public string BackOffSetFormat { get; set; }
-
-        public virtual Exercise Exercise { get; set; }
-        public virtual IEnumerable<TemplateRepScheme> TemplateRepSchemes { get; set; }
     }
 }

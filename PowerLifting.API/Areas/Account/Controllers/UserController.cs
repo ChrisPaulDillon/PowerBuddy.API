@@ -35,7 +35,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiResponse<UserLoggedInDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> LoginUser(LoginModel loginModel)
+        public async Task<IActionResult> LoginUser(LoginModelDTO loginModel)
         {
             try
             {

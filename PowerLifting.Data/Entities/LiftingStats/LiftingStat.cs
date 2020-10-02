@@ -8,7 +8,7 @@ namespace PowerLifting.Data.Entities.LiftingStats
     /// Represents a users lifting stats for a given rep range, user will have multiple
     /// for each rep ranges such as 1RM, 2RM, 3RM, 4RM etc
     /// </summary>
-    public class LiftingStat
+    public partial class LiftingStat
     {
         public int LiftingStatId { get; set; }
         public string UserId { get; set; }
@@ -18,6 +18,5 @@ namespace PowerLifting.Data.Entities.LiftingStats
         public decimal? GoalWeight { get; set; }
         public decimal? PercentageToGoal { get; set; }
         public DateTime? LastUpdated { get; set; }
-        public virtual Exercise Exercise { get; set; }
     }
 }
