@@ -3,6 +3,7 @@
     public class ProgramLogRepSchemeDTO
     {
         public int ProgramLogRepSchemeId { get; set; }
+        public int ProgramLogId { get; set; }
         public int ProgramLogExerciseId { get; set; }
         public int SetNo { get; set; }
         public int NoOfReps { get; set; }

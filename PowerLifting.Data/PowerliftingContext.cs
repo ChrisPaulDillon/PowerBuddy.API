@@ -105,14 +105,17 @@ namespace PowerLifting.Data.Entities
                 .HasMany(x => x.ProgramLogRepSchemes)
                 .WithOne()
                 .HasForeignKey(x => x.ProgramLogExerciseId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
-            //    .HasOne(x => x.ProgramLogExercise)
-            //    .WithMany(x => x.ProgramLogRepSchemes)
-            //    .HasForeignKey(x => x.ProgramLogExerciseId)
-            //    .IsRequired(false)
-            //    .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<ProgramLogRepScheme>()
+                .HasOne<ProgramLog>()
+                .WithMany()
+                .HasForeignKey(x => x.ProgramLogId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
 

@@ -2,6 +2,7 @@
 {
     public class CProgramLogRepSchemeDTO
     {
+        public int ProgramLogId { get; set; }
         public int SetNo { get; set; }
         public int NoOfReps { get; set; }
         public decimal WeightLifted { get; set; }
