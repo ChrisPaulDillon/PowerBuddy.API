@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +13,6 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
-using PowerLifting.MediatR.ProgramLogDays.Query.Account;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
 using PowerLifting.MediatR.ProgramLogs.Query.Account;
 using PowerLifting.MediatR.ProgramLogWeeks.Query.Account;
@@ -91,6 +90,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new UpdateProgramLogCommand(programLogDTO, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
             catch (ProgramLogNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
@@ -112,6 +115,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, _userId))
                     .ConfigureAwait(false);
                 return Ok(Responses.Success(createdLog));
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(Responses.Error(ex));
             }
             catch (UnauthorisedUserException ex)
             {
@@ -135,6 +142,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var programLog = await _mediator.Send(new CreateProgramLogFromTemplateWithWeightInputCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLog));
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(Responses.Error(ex));
             }
             catch (TemplateProgramNotFoundException ex)
             {
@@ -170,6 +181,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLog));
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
             catch (TemplateProgramNotFoundException ex)
             {
                 return NotFound(Responses.Error(ex));
@@ -198,6 +213,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new DeleteProgramLogCommand(programLogId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(Responses.Error(ex));
             }
             catch (ProgramLogNotFoundException ex)
             {
