@@ -11,6 +11,8 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Entities.Templates;
+using PowerLifting.Service.ProgramLogs.Factories;
+using PowerLifting.Service.ProgramLogs.Util;
 
 namespace PowerLifting.Service.ProgramLogs
 {
@@ -33,14 +35,7 @@ namespace PowerLifting.Service.ProgramLogs
 
             foreach (var templateWeek in tp.TemplateWeeks)
             {
-                var programLogWeek = new ProgramLogWeekDTO()
-                {
-                    StartDate = currentDate,
-                    EndDate = currentDate.AddDays(7),
-                    WeekNo = templateWeek.WeekNo,
-                    UserId = userId,
-                    ProgramLogDays = new List<ProgramLogDayDTO>()
-                };
+                var programLogWeek = ProgramLogFactory.CreateProgramLogWeek(currentDate, templateWeek.WeekNo, userId);
                 currentDate = currentDate.AddDays(7);
                 listOfProgramWeeks.Add(programLogWeek);
             }
@@ -63,12 +58,7 @@ namespace PowerLifting.Service.ProgramLogs
                 {
                     var daysUntilSpecificDay = ((int) DayOfWeek.Monday - (int) startDate.DayOfWeek + 7) % 7;
                     var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = new ProgramLogDayDTO()
-                    {
-                        Date = nextDate,
-                        ProgramLogExercises = new List<ProgramLogExerciseDTO>(),
-                        UserId = programLogWeek.UserId
-                    };
+                    var programLogDay = ProgramLogFactory.CreateProgramLogDay(nextDate, userId);
                     programLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Tuesday.ToString())
@@ -154,17 +144,12 @@ namespace PowerLifting.Service.ProgramLogs
 
             foreach (var temExercise in templateDay.TemplateExercises)
             {
-                var programLogExercise = new ProgramLogExerciseDTO()
-                {
-                    NoOfSets = temExercise.NoOfSets,
-                    ExerciseId = temExercise.ExerciseId,
-                    ProgramLogRepSchemes = new List<ProgramLogRepSchemeDTO>()
-                };
+                var programLogExercise = ProgramLogFactory.CreateProgramLogExercise(temExercise.NoOfSets, temExercise.ExerciseId);
                 var user1RMOnLift = liftingStats.FirstOrDefault(x => x.ExerciseId == temExercise.ExerciseId);
 
                 foreach (var temReps in temExercise.TemplateRepSchemes)
                 {
-                    var programRepSchema = GenerateProgramLogRepScheme("PERCENTAGE", user1RMOnLift.Weight, temReps);
+                    var programRepSchema = GenerateProgramLogRepScheme(WeightProgressionTypeEnum.PERCENTAGE, user1RMOnLift.Weight, temReps);
                     programLogExercise.ProgramLogRepSchemes.Add(programRepSchema);
                 }
                 programLogExercises.Add(programLogExercise);
@@ -172,31 +157,10 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogExercises;
         }
 
-        public static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(string weightProgressionType, decimal? user1RM, TemplateRepSchemeDTO templateRepScheme)
+        public static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(WeightProgressionTypeEnum weightProgressionType, decimal? user1RM, TemplateRepSchemeDTO templateRepScheme)
         {
-            var weightToLift = 0.00M;
-
-            if (Enum.TryParse(weightProgressionType, out WeightProgressionTypeEnum weightProgressionTypeEnum))
-            {
-                switch (weightProgressionTypeEnum)
-                {
-                    case WeightProgressionTypeEnum.PERCENTAGE:
-                        var percent = templateRepScheme.Percentage / 100;
-                        weightToLift = Math.Round((decimal)((user1RM * percent) * 2), MidpointRounding.AwayFromZero) / 2;
-                        break;
-                    case WeightProgressionTypeEnum.INCREMENTAL:
-                        break;
-                }
-            }
-
-            return new ProgramLogRepSchemeDTO()
-            {
-                SetNo = templateRepScheme.SetNo,
-                NoOfReps = templateRepScheme.NoOfReps,
-                Percentage = templateRepScheme.Percentage,
-                WeightLifted = weightToLift,
-                AMRAP = templateRepScheme.AMRAP,
-            };
+            var weightToLift = ProgramLogHelper.CalculateRepSchemeWeight(weightProgressionType, user1RM ?? 0, templateRepScheme);
+            return ProgramLogFactory.CreateProgramLogRepScheme(templateRepScheme.SetNo, templateRepScheme.NoOfReps, templateRepScheme.Percentage?? 0, weightToLift, templateRepScheme.AMRAP);
         }
     }
 }

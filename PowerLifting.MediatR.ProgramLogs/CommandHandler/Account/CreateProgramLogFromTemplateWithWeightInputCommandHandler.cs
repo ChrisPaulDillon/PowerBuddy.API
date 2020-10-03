@@ -8,7 +8,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Common.Util;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities;
@@ -16,6 +15,7 @@ using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
+using PowerLifting.Service.ProgramLogs.Util;
 
 namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 {
@@ -62,9 +62,10 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
                 EndDate = request.ProgramLogDTO.StartDate.AddDays(templateProgram.NoOfWeeks * 7),
                 NoOfWeeks = templateProgram.NoOfWeeks,
                 Active = true,
-                ProgramLogWeeks = ProgramLogHelper.GenerateProgramWeekDates(request.ProgramLogDTO, templateProgram, request.ProgramLogDTO.WeightInputs, request.UserId)
+               // ProgramLogWeeks = ProgramLogHelper.GenerateProgramWeekDates(request.ProgramLogDTO, templateProgram, request.ProgramLogDTO.WeightInputs, request.UserId)
             };
 
+            //TODO FIX
             var programLog = _mapper.Map<ProgramLog>(createdLog);
             programLog.TemplateProgram = null;
             _context.ProgramLog.Add(programLog);

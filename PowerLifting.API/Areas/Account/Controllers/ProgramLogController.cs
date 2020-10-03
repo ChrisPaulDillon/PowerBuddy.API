@@ -112,8 +112,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, _userId))
-                    .ConfigureAwait(false);
+                var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(createdLog));
             }
             catch (ValidationException ex)
@@ -176,7 +175,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             try
             {
                 var liftingStatsToCreate = await _mediator.Send(new DoesUserHaveExerciseCollection1RMSetQuery(templateProgramId, _userId)).ConfigureAwait(false);
-                if (liftingStatsToCreate.ToList().Any()) return Ok(Responses.Success(liftingStatsToCreate));
+                if (liftingStatsToCreate.Any()) return Ok(Responses.Success(liftingStatsToCreate));
 
                 var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(programLog));

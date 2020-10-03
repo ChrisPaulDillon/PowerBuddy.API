@@ -5,7 +5,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Common.Util;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
@@ -15,6 +14,7 @@ using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
 using PowerLifting.Service.ProgramLogs;
+using PowerLifting.Service.ProgramLogs.Util;
 
 namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 {
@@ -33,25 +33,19 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
         public async Task<ProgramLogDTO> Handle(CreateProgramLogFromTemplateCommand request, CancellationToken cancellationToken)
         {
-            var doesExist = await _context.Set<ProgramLog>().AsNoTracking().AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
+            var doesExist = await _context.ProgramLog
+                .AsNoTracking()
+                .AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
+
             if (doesExist) throw new ProgramLogAlreadyActiveException();
 
-            var templateProgram = await _context.TemplateProgram.Where(x => x.TemplateProgramId == request.TemplateProgramId)
+            var templateProgram = await _context.TemplateProgram
+                .Where(x => x.TemplateProgramId == request.TemplateProgramId)
                 .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (templateProgram == null) throw new TemplateProgramNotFoundException();
-
             if (templateProgram.NoOfDaysPerWeek != request.ProgramLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
-
-            templateProgram.TemplateWeeks = templateProgram.TemplateWeeks.OrderBy(x => x.WeekNo);
-
-            request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
-
-            var liftingStats = await _context.LiftingStat
-                .Where(x => x.UserId == request.UserId && x.RepRange == 1)
-                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
 
             var createdLog = new ProgramLogDTO
             {
@@ -70,6 +64,13 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
                 Active = true,
                 ProgramLogWeeks = _programLogService.CreateProgramLogWeeksFromTemplate(templateProgram, request.ProgramLogDTO.StartDate, request.UserId) //create weeks based on template weeks
             };
+
+            request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
+
+            var liftingStats = await _context.LiftingStat
+                .Where(x => x.UserId == request.UserId && x.RepRange == 1)
+                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
 
             var templateWeeks = templateProgram.TemplateWeeks.ToList();
             var counter = 0;
@@ -91,13 +92,10 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             _context.ProgramLog.Add(programLog);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
-            if (modifiedRows > 0)
-            {
-                var createdProgramLog = _mapper.Map<ProgramLogDTO>(programLog);
-                return createdProgramLog;
-            }
+            if (modifiedRows <= 0) throw new ProgramLogAlreadyActiveException();
 
-            throw new ProgramLogAlreadyActiveException();
+            var createdProgramLog = _mapper.Map<ProgramLogDTO>(programLog);
+            return createdProgramLog;
         }
     }
 }
