@@ -6,6 +6,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Common.Util;
+using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities;
@@ -13,6 +14,7 @@ using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
+using PowerLifting.Service.ProgramLogs;
 
 namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 {
@@ -20,11 +22,13 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+        private readonly IProgramLogService _programLogService;
 
-        public CreateProgramLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public CreateProgramLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService)
         {
             _context = context;
             _mapper = mapper;
+            _programLogService = programLogService;
         }
 
         public async Task<ProgramLogDTO> Handle(CreateProgramLogFromTemplateCommand request, CancellationToken cancellationToken)
@@ -44,7 +48,10 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
             request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
 
-            var liftingStats = await _context.LiftingStat.Where(x => x.UserId == request.UserId && x.RepRange == 1).AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
+            var liftingStats = await _context.LiftingStat
+                .Where(x => x.UserId == request.UserId && x.RepRange == 1)
+                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
 
             var createdLog = new ProgramLogDTO
             {
@@ -61,8 +68,23 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
                 EndDate = request.ProgramLogDTO.StartDate.AddDays(templateProgram.NoOfWeeks * 7),
                 NoOfWeeks = templateProgram.NoOfWeeks,
                 Active = true,
-                ProgramLogWeeks = ProgramLogHelper.GenerateProgramWeekDates(request.ProgramLogDTO, templateProgram, liftingStats, request.UserId)
+                ProgramLogWeeks = _programLogService.CreateProgramLogWeeksFromTemplate(templateProgram, request.ProgramLogDTO.StartDate, request.UserId) //create weeks based on template weeks
             };
+
+            var templateWeeks = templateProgram.TemplateWeeks.ToList();
+            var counter = 0;
+
+            foreach (var programLogWeek in createdLog.ProgramLogWeeks)
+            {
+                var templateWeek = templateWeeks[counter++];
+                programLogWeek.ProgramLogDays = _programLogService.CreateProgramLogDaysForWeekFromTemplate(programLogWeek, request.ProgramLogDTO.ProgramDayOrder, templateWeek, request.UserId);
+                var dayCounter = 0;
+                foreach (var programLogDay in programLogWeek.ProgramLogDays)
+                {
+                    var templateDay = templateWeek.TemplateDays.ToList()[dayCounter++];
+                    programLogDay.ProgramLogExercises = _programLogService.CreateProgramLogExercisesForDay(templateDay, liftingStats);
+                }
+            }
 
             var programLog = _mapper.Map<ProgramLog>(createdLog);
             programLog.TemplateProgram = null;

@@ -38,7 +38,7 @@ namespace PowerLifting.MediatR.ProgramLogs.QueryHandler.Account
 
             foreach (var programLog in programLogStats)
             {
-                programLog.DayCount = programLog.ProgramLogWeeks.Sum(j => j.ProgramLogDays.Count);
+                programLog.DayCount = programLog.ProgramLogWeeks.Sum(j => j.ProgramLogDays.Count());
                 programLog.ExerciseCount = programLog.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises).Count();
                 programLog.ExerciseCompletedCount = programLog.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises.Where(x => x.Completed)).Count();
                 programLog.ProgramLogWeeks = null;

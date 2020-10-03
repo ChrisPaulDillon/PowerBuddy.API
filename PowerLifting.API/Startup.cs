@@ -18,6 +18,7 @@ using PowerLifting.API.GraphQL;
 using PowerLifting.Data.Entities;
 using PowerLifting.Service.Account;
 using PowerLifting.Service.LiftingStats;
+using PowerLifting.Service.ProgramLogs;
 
 namespace PowerLifting.API
 {
@@ -83,6 +84,7 @@ namespace PowerLifting.API
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ILiftingStatService, LiftingStatService>();
+            services.AddScoped<IProgramLogService, ProgramLogService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

@@ -25,10 +25,8 @@ namespace PowerLifting.MediatR.ProgramLogs.Command.Account
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.ProgramLogDTO.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.ProgramLogDTO.NoOfWeeks).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
-            RuleFor(x => x.ProgramLogDTO.UserId).Matches(x => x.UserId)
-                .WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.ProgramLogDTO.CustomName).MaximumLength(180)
-                .WithMessage("'{PropertyName}' should be no longer than {MaxLength} characters.");
+            RuleFor(x => x.ProgramLogDTO.UserId).Matches(x => x.UserId).WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.ProgramLogDTO.CustomName).MaximumLength(180).WithMessage("'{PropertyName}' should be no longer than {MaxLength} characters.");
         }
     }
 }

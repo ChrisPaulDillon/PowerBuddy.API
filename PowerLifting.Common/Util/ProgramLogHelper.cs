@@ -145,43 +145,43 @@ namespace PowerLifting.Common.Util
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Monday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
+                    //programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Tuesday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Tuesday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
+                    //programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Wednesday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Wednesday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
+                    //programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Thursday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Thursday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
+                   // programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Friday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Friday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
+                   // programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Saturday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Saturday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
+                   // programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Sunday.ToString())
                 {
                     var programLogDay = GenerateProgramLogDay(DayOfWeek.Sunday, templateDay, startDate, liftingStats);
                     programLogDay.UserId = programLogWeek.UserId;
-                    programLogWeek.ProgramLogDays.Add(programLogDay);
+                   // programLogWeek.ProgramLogDays.Add(programLogDay);
                 }
             }
             return programLogWeek;
