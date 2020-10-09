@@ -111,7 +111,6 @@ namespace PowerLifting.Data.AutoMapper
 
             CreateMap<ProgramLogRepScheme, ProgramLogRepSchemeDTO>()
                 .ForMember(x => x.ProgramLogRepSchemeId, d => d.MapFrom(src => src.ProgramLogRepSchemeId))
-                .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
                 .ForMember(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId))
                 .ForMember(x => x.SetNo, d => d.MapFrom(src => src.SetNo))
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))

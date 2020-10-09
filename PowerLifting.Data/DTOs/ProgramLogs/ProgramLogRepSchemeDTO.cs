@@ -3,7 +3,6 @@
     public class ProgramLogRepSchemeDTO
     {
         public int ProgramLogRepSchemeId { get; set; }
-        public int ProgramLogId { get; set; }
         public int ProgramLogExerciseId { get; set; }
         public int SetNo { get; set; }
         public int NoOfReps { get; set; }
@@ -14,6 +13,5 @@
         public int? RepsCompleted { get; set; }
         public bool? PersonalBest { get; set; }
         public ProgramLogExerciseDTO ProgramLogExercise { get; set; }
-        public ProgramLogDTO ProgramLog { get; set; }
     }
 }

@@ -109,13 +109,6 @@ namespace PowerLifting.Data.Entities
 
             modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
 
-
-            modelBuilder.Entity<ProgramLogRepScheme>()
-                .HasOne(x => x.ProgramLog)
-                .WithMany()
-                .HasForeignKey(x => x.ProgramLogId)
-                .OnDelete(DeleteBehavior.NoAction);
-
             modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
 
 
