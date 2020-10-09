@@ -46,6 +46,8 @@ using PowerLifting.MediatR.Users.QueryHandler.Account;
 using PowerLifting.MediatR.Users.QueryHandler.Admin;
 using PowerLifting.MediatR.Users.QueryHandler.Public;
 using PowerLifting.MediatR.System.QueryHandler.Public;
+using PowerLifting.Service.ProgramLogs.Factories;
+using PowerLifting.Service.ProgramLogs.Strategies;
 
 namespace PowerLifting.API.Extensions
 {
@@ -110,6 +112,11 @@ namespace PowerLifting.API.Extensions
             // QueryHandler Registration
             services.AddMediatR(typeof(GetActiveProgramLogByUserIdQueryHandler));
             services.AddMediatR(typeof(GetAllProgramLogStatsQueryHandler));
+
+            // Misc
+            services.AddScoped<ICalculateWeightFactory, CalculateWeightFactory>();
+            services.AddScoped<ICalculateRepWeight, CalculateRepWeightIncremental>();
+            services.AddScoped<ICalculateRepWeight, CalculateRepWeightPercentage>();
             return services;
         }
 

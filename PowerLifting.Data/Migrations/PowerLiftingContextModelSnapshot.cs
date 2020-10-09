@@ -641,9 +641,6 @@ namespace PowerLifting.Data.Migrations
                     b.Property<int?>("ProgramLogExerciseId1")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramLogId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("RepsCompleted")
                         .HasColumnType("int");
 

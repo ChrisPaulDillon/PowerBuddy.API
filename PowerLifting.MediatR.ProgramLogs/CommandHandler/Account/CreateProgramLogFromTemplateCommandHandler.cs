@@ -14,6 +14,8 @@ using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
 using PowerLifting.Service.ProgramLogs;
+using PowerLifting.Service.ProgramLogs.Factories;
+using PowerLifting.Service.ProgramLogs.Strategies;
 using PowerLifting.Service.ProgramLogs.Util;
 
 namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
@@ -23,12 +25,16 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IProgramLogService _programLogService;
+        private readonly ICalculateWeightFactory _calculateWeightFactory;
+        private ICalculateRepWeight _calculateRepWeight;
 
-        public CreateProgramLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService)
+        public CreateProgramLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService, ICalculateWeightFactory calculateWeightFactory, ICalculateRepWeight calculateRepWeight)
         {
             _context = context;
             _mapper = mapper;
             _programLogService = programLogService;
+            _calculateWeightFactory = calculateWeightFactory;
+            _calculateRepWeight = calculateRepWeight;
         }
 
         public async Task<ProgramLogDTO> Handle(CreateProgramLogFromTemplateCommand request, CancellationToken cancellationToken)
@@ -46,6 +52,8 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
             if (templateProgram == null) throw new TemplateProgramNotFoundException();
             if (templateProgram.NoOfDaysPerWeek != request.ProgramLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
+
+            _calculateRepWeight = _calculateWeightFactory.Create(templateProgram.WeightProgressionType);
 
             var createdLog = new ProgramLogDTO
             {
@@ -83,7 +91,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
                 foreach (var programLogDay in programLogWeek.ProgramLogDays)
                 {
                     var templateDay = templateWeek.TemplateDays.ToList()[dayCounter++];
-                    programLogDay.ProgramLogExercises = _programLogService.CreateProgramLogExercisesForDay(templateDay, liftingStats);
+                    programLogDay.ProgramLogExercises = _programLogService.CreateProgramLogExercisesForDay(templateDay, liftingStats, _calculateRepWeight);
                 }
             }
 

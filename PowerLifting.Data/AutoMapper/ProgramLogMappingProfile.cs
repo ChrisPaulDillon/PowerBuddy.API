@@ -120,7 +120,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Percentage, d => d.MapFrom(src => src.Percentage))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
                 .ForMember(x => x.AMRAP, d => d.MapFrom(src => src.AMRAP))
-                .ForMember(x => x.RepsCompleted, d => d.MapFrom(src => src.RepsCompleted))
+                .ForMember(x => x.RepsCompleted, d => d.MapFrom(src => src.RepsCompleted ?? src.NoOfReps)) //default to noOfReps if not been touched
                 .ForMember(x => x.ProgramLogExercise, d => d.MapFrom(src => src.ProgramLogExercise))
                 .ReverseMap();
 

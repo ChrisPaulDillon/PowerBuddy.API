@@ -12,6 +12,7 @@ using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Entities.Templates;
 using PowerLifting.Service.ProgramLogs.Factories;
+using PowerLifting.Service.ProgramLogs.Strategies;
 using PowerLifting.Service.ProgramLogs.Util;
 
 namespace PowerLifting.Service.ProgramLogs
@@ -138,7 +139,7 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogDays;
         }
 
-        public IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForDay(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats)
+        public IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForDay(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats, ICalculateRepWeight calculateRepWeight)
         {
             var programLogExercises = new List<ProgramLogExerciseDTO>();
 
@@ -147,9 +148,10 @@ namespace PowerLifting.Service.ProgramLogs
                 var programLogExercise = ProgramLogFactory.CreateProgramLogExercise(temExercise.NoOfSets, temExercise.ExerciseId);
                 var user1RMOnLift = liftingStats.FirstOrDefault(x => x.ExerciseId == temExercise.ExerciseId);
 
-                foreach (var temReps in temExercise.TemplateRepSchemes)
+                foreach (var temRepSet in temExercise.TemplateRepSchemes)
                 {
-                    var programRepSchema = GenerateProgramLogRepScheme(WeightProgressionTypeEnum.PERCENTAGE, user1RMOnLift.Weight, temReps);
+                    var weight = calculateRepWeight.CalculateWeight(user1RMOnLift.Weight ?? 0, temRepSet.Percentage?? 0);
+                    var programRepSchema = GenerateProgramLogRepScheme(weight, temRepSet);
                     programLogExercise.ProgramLogRepSchemes.Add(programRepSchema);
                 }
                 programLogExercises.Add(programLogExercise);
@@ -157,10 +159,9 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogExercises;
         }
 
-        public static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(WeightProgressionTypeEnum weightProgressionType, decimal? user1RM, TemplateRepSchemeDTO templateRepScheme)
+        public static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(decimal weight, TemplateRepSchemeDTO templateRepScheme)
         {
-            var weightToLift = ProgramLogHelper.CalculateRepSchemeWeight(weightProgressionType, user1RM ?? 0, templateRepScheme);
-            return ProgramLogFactory.CreateProgramLogRepScheme(templateRepScheme.SetNo, templateRepScheme.NoOfReps, templateRepScheme.Percentage?? 0, weightToLift, templateRepScheme.AMRAP);
+            return ProgramLogFactory.CreateProgramLogRepScheme(templateRepScheme.SetNo, templateRepScheme.NoOfReps, templateRepScheme.Percentage?? 0, weight, templateRepScheme.AMRAP);
         }
     }
 }
