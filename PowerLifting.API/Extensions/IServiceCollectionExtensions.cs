@@ -10,6 +10,7 @@ using System.Text;
 using PowerLifting.MediatR.Exercises.CommandHandler.Account;
 using MediatR;
 using PowerLifting.Data.Entities;
+using PowerLifting.Data.EntityFactories;
 using PowerLifting.MediaR.Quotes.CommandHandler.Account;
 using PowerLifting.MediaR.Quotes.CommandHandler.Admin;
 using PowerLifting.MediaR.Quotes.QueryHandler.Public;
@@ -46,8 +47,12 @@ using PowerLifting.MediatR.Users.QueryHandler.Account;
 using PowerLifting.MediatR.Users.QueryHandler.Admin;
 using PowerLifting.MediatR.Users.QueryHandler.Public;
 using PowerLifting.MediatR.System.QueryHandler.Public;
+using PowerLifting.Service.Account;
+using PowerLifting.Service.LiftingStats;
+using PowerLifting.Service.ProgramLogs;
 using PowerLifting.Service.ProgramLogs.Factories;
 using PowerLifting.Service.ProgramLogs.Strategies;
+using PowerLifting.Service.Tonnages;
 
 namespace PowerLifting.API.Extensions
 {
@@ -242,6 +247,24 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(GetAllExerciseMuscleGroupsQueryHandler));
             return services;
         }
+
+        public static IServiceCollection AddFactories(this IServiceCollection services)
+        {
+            services.AddScoped<ILiftingStatFactory, LiftingStatFactory>();
+            services.AddScoped<ITonnageFactory, TonnageFactory>();
+            return services;
+        }
+
+        public static IServiceCollection AddServiceClasses(this IServiceCollection services)
+        {
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ILiftingStatService, LiftingStatService>();
+            services.AddScoped<IProgramLogService, ProgramLogService>();
+            services.AddScoped<ITonnageService, TonnageService>();
+
+            return services;
+        }
+
 
         public static IServiceCollection AddPowerLiftingContext(this IServiceCollection services, string connectionStr)
         {

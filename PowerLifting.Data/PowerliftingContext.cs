@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Entities.Exercises;
@@ -7,6 +6,7 @@ using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Entities.System;
 using PowerLifting.Data.Entities.Templates;
+using PowerLifting.Data.Entities.Tonnage;
 
 namespace PowerLifting.Data.Entities
 {
@@ -61,8 +61,17 @@ namespace PowerLifting.Data.Entities
         public DbSet<Gender> Gender { get; set; }
         public DbSet<MemberStatus> MemberStatus { get; set; }
 
+        //Tonnage
+        public DbSet<TonnageLog> TonnageLog { get; set; }
+        public DbSet<TonnageWeek> TonnageWeek { get; set; }
+        public DbSet<TonnageDay> TonnageDay { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<TonnageLog>().ToTable("TonnageLog");
+            modelBuilder.Entity<TonnageWeek>().ToTable("TonnageWeek");
+            modelBuilder.Entity<TonnageDay>().ToTable("TonnageDay");
+
             //System
             modelBuilder.Entity<Gender>().ToTable("Gender");
             modelBuilder.Entity<MemberStatus>().ToTable("MemberStatus");

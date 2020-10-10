@@ -51,6 +51,8 @@ namespace PowerLifting.API
             services.AddUserMediatrHandlers();
             services.AddFriendsListsMediatrHandlers();
 
+            services.AddFactories();
+
             //services.AddScoped<IProgramLogService, ProgramLogService>();
 
             //Inject app settings
@@ -82,9 +84,7 @@ namespace PowerLifting.API
 
             services.AddControllers();
 
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<ILiftingStatService, LiftingStatService>();
-            services.AddScoped<IProgramLogService, ProgramLogService>();
+            services.AddServiceClasses();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

@@ -88,6 +88,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Date, d => d.MapFrom(src => src.Date))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
+                .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLog.ProgramLogId))
                 .ReverseMap();
 
             CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>()

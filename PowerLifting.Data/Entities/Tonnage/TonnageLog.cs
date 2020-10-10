@@ -1,10 +1,10 @@
 ﻿namespace PowerLifting.Data.Entities.Tonnage
 {
-    public partial class WeekTonnage
+    public partial class TonnageLog
     {
-        public int WeekTonnageId { get; set; }
+        public int TonnageLogId { get; set; }
         public string UserId { get; set; }
-        public int ProgramLogWeekId { get; set; }
+        public int ProgramLogId { get; set; }
         public int ExerciseId { get; set; }
         public decimal TotalTonnage { get; set; }
     }

@@ -81,6 +81,7 @@
     <ProjectReference Include="..\PowerLifting.Service.Account\PowerLifting.Service.Account.csproj" />
     <ProjectReference Include="..\PowerLifting.Service.LiftingStats\PowerLifting.Service.LiftingStats.csproj" />
     <ProjectReference Include="..\PowerLifting.Service.System\PowerLifting.Service.System.csproj" />
+    <ProjectReference Include="..\PowerLifting.Service.Tonnage\PowerLifting.Service.Tonnages.csproj" />
   </ItemGroup>
 
 

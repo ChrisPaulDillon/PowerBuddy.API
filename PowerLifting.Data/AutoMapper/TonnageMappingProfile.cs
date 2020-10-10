@@ -14,16 +14,16 @@ namespace PowerLifting.Data.AutoMapper
     {
         public TonnageMappingProfile()
         {
-            CreateMap<WeekTonnage, WeekTonnageDTO>()
-                .ForMember(dest => dest.WeekTonnageId, opt => opt.MapFrom(src => src.WeekTonnageId))
+            CreateMap<TonnageWeek, TonnageWeekDTO>()
+                .ForMember(dest => dest.TonnageWeekId, opt => opt.MapFrom(src => src.TonnageWeekId))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.ProgramLogWeekId, opt => opt.MapFrom(src => src.ProgramLogWeekId))
                 .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
-                .ForMember(dest => dest.TotalTonnage, opt => opt.MapFrom(src => src.TotalTonnage))
+                .ForMember(dest => dest.WeekTonnage, opt => opt.MapFrom(src => src.WeekTonnage))
                 .ReverseMap();
 
-            CreateMap<LogTonnage, LogTonnageDTO>()
-                .ForMember(dest => dest.LogTonnageId, opt => opt.MapFrom(src => src.LogTonnageId))
+            CreateMap<TonnageLog, TonnageLogDTO>()
+                .ForMember(dest => dest.TonnageLogId, opt => opt.MapFrom(src => src.TonnageLogId))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.ProgramLogId, opt => opt.MapFrom(src => src.ProgramLogId))
                 .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))

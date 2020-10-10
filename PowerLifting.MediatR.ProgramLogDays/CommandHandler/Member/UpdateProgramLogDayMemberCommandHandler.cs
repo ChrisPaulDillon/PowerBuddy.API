@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,12 +9,11 @@ using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Entities.Exercises;
-using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Entities.ProgramLogs;
+using PowerLifting.Data.EntityFactories;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogDays.Command.Member;
-using PowerLifting.Service.LiftingStats;
 
 namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
 {
@@ -23,14 +21,13 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly ILiftingStatService _lsService;
+        private readonly ILiftingStatFactory _lsFactory;
 
-
-        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, ILiftingStatService lsService)
+        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, ILiftingStatFactory lsFactory)
         {
             _context = context;
             _mapper = mapper;
-            _lsService = lsService;
+            _lsFactory = lsFactory;
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> Handle(UpdateProgramLogDayMemberCommand request, CancellationToken cancellationToken)
@@ -55,8 +52,7 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                 if (programExercise.Completed) continue; //Exercise has already been evaluated for PBs
 
                 //Get the highest weight lifted for the given exercise and each rep
-                var maxWeightRepSchemes = programExercise.ProgramLogRepSchemes.GroupBy(x => x.RepsCompleted)
-                    .Select(g => g.OrderByDescending(x => x.WeightLifted).First()).ToList();
+                var maxWeightRepSchemes = programExercise.ProgramLogRepSchemes.GroupBy(x => x.RepsCompleted).Select(g => g.OrderByDescending(x => x.WeightLifted).First()).ToList();
 
                 var updatedRepSchemes = programExercise.ProgramLogRepSchemes.ToList(); //repSchemes to be updated
 
@@ -80,15 +76,8 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                     }
                     else // Pb was hit, though no lifting stat exists for the current rep and exercise
                     {
-                        liftingStatPb = new LiftingStat()
-                        {
-                            ExerciseId = programExercise.ExerciseId,
-                            Exercise = _mapper.Map<Exercise>(programExercise.Exercise),
-                            Weight = repScheme.WeightLifted,
-                            RepRange = (int) repScheme.RepsCompleted,
-                            LastUpdated = request.ProgramLogDayDTO.Date,
-                            UserId = request.UserId
-                        };
+                        liftingStatPb = _lsFactory.Create(programExercise.ExerciseId, repScheme.WeightLifted, (int)repScheme.RepsCompleted, request.ProgramLogDayDTO.Date, request.UserId);
+                        liftingStatPb.Exercise = _mapper.Map<Exercise>(programExercise.Exercise);
                     }
 
                     totalPersonalBests.Add(_mapper.Map<LiftingStatDTO>(liftingStatPb));

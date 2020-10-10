@@ -13,5 +13,6 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public bool? PersonalBest { get; set; }
         public bool Completed { get; set; }
         public virtual IEnumerable<ProgramLogExerciseDTO> ProgramLogExercises { get; set; }
+        public int ProgramLogId { get; set; }
     }
 }
