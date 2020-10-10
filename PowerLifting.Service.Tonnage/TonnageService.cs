@@ -70,6 +70,8 @@ namespace PowerLifting.Service.Tonnages
                     .Select(x => x.TonnageDayExerciseId)
                     .FirstOrDefault();
             }
+
+            return null;
         }
     }
 }

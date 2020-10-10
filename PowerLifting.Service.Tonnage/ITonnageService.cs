@@ -11,6 +11,8 @@ namespace PowerLifting.Service.Tonnages
     {
         public Task<IEnumerable<TonnageDayExercise>> CreateTonnageBreakdownForDay(int programLogId, int programLogDayId, string userId);
 
-        public Task<IEnumerable<ProgramLogExerciseDTO>> AssignProgramLogExercisesTonnageId(IEnumerable<ProgramLogExerciseDTO> programLogExercises);
+        public Task<IEnumerable<ProgramLogExerciseDTO>> AssignProgramLogExercisesTonnageId(
+            IEnumerable<ProgramLogExerciseDTO> programLogExercises,
+            IEnumerable<TonnageDayExercise> tonnageDayExercises);
     }
 }
