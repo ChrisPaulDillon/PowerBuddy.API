@@ -11,5 +11,6 @@ namespace PowerLifting.Data.Entities
         public string Comment { get; set; }
         public bool? PersonalBest { get; set; }
         public bool Completed { get; set; }
+        public int? TonnageDayId { get; set; }
     }
 }

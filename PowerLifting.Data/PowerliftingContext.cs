@@ -148,6 +148,12 @@ namespace PowerLifting.Data
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
             modelBuilder.Entity<Notification>().ToTable("Notification");
             modelBuilder.Entity<NotificationInteraction>().ToTable("NotificationInteraction");
+
+            modelBuilder.Entity<ProgramLogDay>()
+                .HasOne(x => x.TonnageDay)
+                .WithOne()
+                .HasForeignKey<ProgramLogDay>(x => x.TonnageDayId)
+                .IsRequired(false);
         }
     }
 }

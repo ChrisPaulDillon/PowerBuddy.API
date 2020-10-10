@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -11,7 +9,6 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.EntityFactories;
 using PowerLifting.Data.Exceptions.ProgramLogs;
-using PowerLifting.Service.Tonnages.Models;
 
 namespace PowerLifting.Service.Tonnages
 {
@@ -38,17 +35,23 @@ namespace PowerLifting.Service.Tonnages
 
             if (programLogDay == null) throw new ProgramLogDayNotFoundException();
 
-            var individualExercises = programLogDay.ProgramLogExercises
-                .GroupBy(e => e.ExerciseId)
-                .Select(x => new { ExerciseId = x.Key, Items = x.ToList()})
-                .ToList();
-
             var tonnageList = new List<TonnageDay>();
 
             foreach (var logExercise in programLogDay.ProgramLogExercises)
             {
+                var tonnageDay = await _context.TonnageDay.FirstOrDefaultAsync(x => x.ProgramLogDayId == programLogDayId && x.ExerciseId == logExercise.ExerciseId);
                 var exerciseTonnage = logExercise.ProgramLogRepSchemes.Sum(x => TonnageHelper.CalculateTonnage(x.WeightLifted, (int) x.RepsCompleted));
-                tonnageList.Add(_tonnageFactory.CreateDay(programLogId, programLogDayId, logExercise.ExerciseId, exerciseTonnage, userId));
+                if (tonnageDay != null)
+                {
+                    tonnageDay.DayTonnage = exerciseTonnage;
+                    _context.TonnageDay.Update(tonnageDay);
+                }
+                else
+                {
+                    var newTonnageDay = _tonnageFactory.CreateDay(programLogId, programLogDayId, logExercise.ExerciseId, exerciseTonnage, userId);
+                    tonnageList.Add(newTonnageDay);
+                    _context.TonnageDay.Add(newTonnageDay);
+                }
             }
 
             return tonnageList;

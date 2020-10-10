@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PowerLifting.Data.DTOs.Tonnage;
 
 namespace PowerLifting.Data.DTOs.ProgramLogs
 {
@@ -12,7 +13,8 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public string Comment { get; set; }
         public bool? PersonalBest { get; set; }
         public bool Completed { get; set; }
+        public int? TonnageDayId { get; set; }
         public virtual IEnumerable<ProgramLogExerciseDTO> ProgramLogExercises { get; set; }
-        public int ProgramLogId { get; set; }
+        public TonnageDayDTO TonnageDay { get; set; }
     }
 }

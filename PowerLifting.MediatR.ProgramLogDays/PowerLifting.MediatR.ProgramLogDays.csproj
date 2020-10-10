@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -13,11 +13,13 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="8.1.0" />
+    <PackageReference Include="Salazar.EFCore.DbSet.AddOrUpdate" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
     <ProjectReference Include="..\PowerLifting.Service.LiftingStats\PowerLifting.Service.LiftingStats.csproj" />
+    <ProjectReference Include="..\PowerLifting.Service.Tonnage\PowerLifting.Service.Tonnages.csproj" />
   </ItemGroup>
 
 </Project>

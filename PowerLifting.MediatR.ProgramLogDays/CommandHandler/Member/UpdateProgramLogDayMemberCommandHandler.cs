@@ -13,6 +13,7 @@ using PowerLifting.Data.EntityFactories;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogDays.Command.Member;
+using PowerLifting.Service.Tonnages;
 
 namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
 {
@@ -21,18 +22,26 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly ILiftingStatFactory _lsFactory;
+        private readonly ITonnageService _tonnageService;
 
-        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, ILiftingStatFactory lsFactory)
+        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, ILiftingStatFactory lsFactory, ITonnageService tonnageService)
         {
             _context = context;
             _mapper = mapper;
             _lsFactory = lsFactory;
+            _tonnageService = tonnageService;
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> Handle(UpdateProgramLogDayMemberCommand request, CancellationToken cancellationToken)
         {
             var doesProgramLogDayExist = await _context.ProgramLogExercise.AsNoTracking()
                 .AnyAsync(x => x.ProgramLogDayId == request.ProgramLogDayDTO.ProgramLogDayId, cancellationToken: cancellationToken);
+
+            var programLogId = await _context.ProgramLogWeek
+                .AsNoTracking()
+                .Where(x => x.ProgramLogWeekId == request.ProgramLogDayDTO.ProgramLogWeekId)
+                .Select(x => x.ProgramLogId)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (!doesProgramLogDayExist) throw new ProgramLogDayNotFoundException();
 
@@ -67,6 +76,8 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                         {
                             liftingStatPb.Weight = repScheme.WeightLifted;
                             liftingStatPb.LastUpdated = request.ProgramLogDayDTO.Date;
+                            liftingStatPb.Exercise = null;
+                            _context.LiftingStat.Update(liftingStatPb);
                         }
                         else
                         {
@@ -76,13 +87,12 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                     else // Pb was hit, though no lifting stat exists for the current rep and exercise
                     {
                         liftingStatPb = _lsFactory.Create(programExercise.ExerciseId, repScheme.WeightLifted, (int)repScheme.RepsCompleted, request.ProgramLogDayDTO.Date, request.UserId);
-                        liftingStatPb.Exercise = _mapper.Map<Exercise>(programExercise.Exercise);
+                        liftingStatPb.Exercise = null;
+                        _context.LiftingStat.Add(liftingStatPb);
                     }
 
+                    liftingStatPb.Exercise = _mapper.Map<Exercise>(programExercise.Exercise);
                     totalPersonalBests.Add(_mapper.Map<LiftingStatDTO>(liftingStatPb));
-                    liftingStatPb.Exercise = null;
-                    _context.LiftingStat.Add(liftingStatPb);
-
                     repScheme.PersonalBest = true;
                     repScheme.NoOfReps = (int)repScheme.RepsCompleted;
                     programExercise.PersonalBest = true;
@@ -94,6 +104,8 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                 programExercise.ProgramLogRepSchemes = updatedRepSchemes;
                 updatedProgramLogExercises.Add(programExercise);
             }
+
+            var dayTonnages = await _tonnageService.CreateTonnageBreakdownForDay(programLogId, request.ProgramLogDayDTO.ProgramLogDayId, request.UserId);
 
             request.ProgramLogDayDTO.ProgramLogExercises = updatedProgramLogExercises;
 
