@@ -2,7 +2,6 @@
 using MediatR;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
-using PowerLifting.Data.Entities.ProgramLogs;
 
 namespace PowerLifting.MediatR.ProgramLogs.Command.Account
 {

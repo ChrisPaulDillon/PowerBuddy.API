@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using PowerLifting.Data.Entities;
 using System;
-using System.Threading.Tasks;
-using PowerLifting.Data.Entities.LiftingStats;
+using PowerLifting.Data;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Service.LiftingStats
 {

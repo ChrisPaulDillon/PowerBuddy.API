@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using PowerLifting.Data.DTOs.Users;
-using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.MediatR.Users.Models
 {

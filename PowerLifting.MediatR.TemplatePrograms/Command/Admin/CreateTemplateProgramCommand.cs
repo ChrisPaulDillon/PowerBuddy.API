@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using PowerLifting.Data.DTOs.Templates;
-using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.MediatR.TemplatePrograms.Command.Admin
 {

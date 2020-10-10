@@ -1,7 +1,7 @@
-﻿using PowerLifting.Data.Entities.Exercises;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Exercise = PowerLifting.Data.Entities.Exercise;
 
 namespace PowerLifting.Data.Builders.Exercises
 {

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using PowerLifting.Data.DTOs.ProgramLogs;
-using PowerLifting.Data.Entities.ProgramLogs;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.AutoMapper
 {

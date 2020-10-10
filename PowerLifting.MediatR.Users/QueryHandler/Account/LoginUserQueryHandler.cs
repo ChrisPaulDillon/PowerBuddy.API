@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -12,10 +11,9 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data;
 using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.Account;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Util;
 using PowerLifting.MediatR.Users.Models;

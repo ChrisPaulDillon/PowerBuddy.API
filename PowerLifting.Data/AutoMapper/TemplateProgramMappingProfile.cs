@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using PowerLifting.Data.DTOs.Templates;
-using PowerLifting.Data.Entities.Templates;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.AutoMapper
 {

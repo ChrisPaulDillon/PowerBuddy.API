@@ -8,11 +8,10 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.Exercises;
-using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.MediatR.LiftingStats.Query.Account;
 
 namespace PowerLifting.MediatR.LiftingStats.QueryHandler.Account

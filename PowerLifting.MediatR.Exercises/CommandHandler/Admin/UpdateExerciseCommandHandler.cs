@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.MediatR.Exercises.Command.Admin;
+using Exercise = PowerLifting.Data.Entities.Exercise;
 
 namespace PowerLifting.MediatR.Exercises.CommandHandler.Admin
 {

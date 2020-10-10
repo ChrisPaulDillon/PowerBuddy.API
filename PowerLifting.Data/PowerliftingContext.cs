@@ -1,14 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Data.Entities.Account;
-using PowerLifting.Data.Entities.Exercises;
-using PowerLifting.Data.Entities.LiftingStats;
-using PowerLifting.Data.Entities.ProgramLogs;
-using PowerLifting.Data.Entities.System;
-using PowerLifting.Data.Entities.Templates;
-using PowerLifting.Data.Entities.Tonnage;
+using PowerLifting.Data.Entities;
 
-namespace PowerLifting.Data.Entities
+namespace PowerLifting.Data
 {
     public class PowerLiftingContext : DbContext
     {

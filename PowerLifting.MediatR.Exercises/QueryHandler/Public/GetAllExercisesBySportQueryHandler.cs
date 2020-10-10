@@ -6,10 +6,11 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.MediatR.Exercises.Query.Public;
+using Exercise = PowerLifting.Data.Entities.Exercise;
 
 namespace PowerLifting.MediatR.Exercises.QueryHandler.Public
 {

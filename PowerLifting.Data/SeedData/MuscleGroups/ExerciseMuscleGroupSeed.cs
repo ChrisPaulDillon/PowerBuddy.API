@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using PowerLifting.Data.Entities.Exercises;
-using PowerLifting.Data.SeedData.MuscleGroups;
+﻿using PowerLifting.Data.Entities;
 
-namespace PowerLifting.Data.SeedData.Exercises
+namespace PowerLifting.Data.SeedData.MuscleGroups
 {
     public static class ExerciseMuscleGroupSeed
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using MediatR;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.Users;
 
 namespace PowerLifting.MediatR.Users.Query.Public
 {

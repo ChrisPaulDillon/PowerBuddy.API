@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using MediatR;
 using PowerLifting.Data.DTOs.Exercises;
-using PowerLifting.Data.Entities.Exercises;
+using Exercise = PowerLifting.Data.Entities.Exercise;
 
 namespace PowerLifting.MediatR.Exercises.Query.Public
 {

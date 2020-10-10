@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using MediatR;
 using PowerLifting.Data.DTOs.ProgramLogs;
-using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.MediatR.ProgramLogs.Query.Account
 {

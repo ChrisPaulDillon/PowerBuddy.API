@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.Users.Command.Admin;
 using PowerLifting.MediatR.Users.Query.Admin;

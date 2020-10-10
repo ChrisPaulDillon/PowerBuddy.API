@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace PowerLifting.Data.Entities
+namespace PowerLifting.Data
 {
     public class PowerLiftingContextFactory : IDesignTimeDbContextFactory<PowerLiftingContext>
     {

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Data.DTOs.Exercises;
+using PowerLifting.Data;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.Exercises;
-using PowerLifting.Data.Entities.ProgramLogs;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogs.Query.Account;
 

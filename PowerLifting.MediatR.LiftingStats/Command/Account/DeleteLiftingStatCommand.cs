@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using PowerLifting.Data.Entities.Account;
 
 namespace PowerLifting.MediatR.LiftingStats.Command.Account
 {

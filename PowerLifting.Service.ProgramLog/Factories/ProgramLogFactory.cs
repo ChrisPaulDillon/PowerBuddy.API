@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using PowerLifting.Data.DTOs.ProgramLogs;
-using PowerLifting.Data.Entities.ProgramLogs;
 
 namespace PowerLifting.Service.ProgramLogs.Factories
 {

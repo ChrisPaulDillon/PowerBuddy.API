@@ -4,7 +4,6 @@ using System.Text;
 using MediatR;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.ProgramLogs;
-using PowerLifting.Data.Entities.LiftingStats;
 
 namespace PowerLifting.MediatR.ProgramLogExercises.Command.Member
 {

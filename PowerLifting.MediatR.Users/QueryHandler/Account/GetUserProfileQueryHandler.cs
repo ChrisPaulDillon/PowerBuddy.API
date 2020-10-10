@@ -8,6 +8,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Entities;

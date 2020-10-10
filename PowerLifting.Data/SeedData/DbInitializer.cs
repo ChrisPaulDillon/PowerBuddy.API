@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.Exercises;
-using PowerLifting.Data.Entities.System;
 using PowerLifting.Data.SeedData.Exercises;
+using PowerLifting.Data.SeedData.MuscleGroups;
 using PowerLifting.Data.SeedData.TemplatePrograms;
 
 namespace PowerLifting.Data.SeedData

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
-using PowerLifting.Data.Entities.Templates;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Service.ProgramLogs.Util
 {

@@ -1,7 +1,5 @@
-﻿using PowerLifting.Data.Entities.Account;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.Builders.Account
 {

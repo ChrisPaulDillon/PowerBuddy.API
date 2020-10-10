@@ -6,9 +6,9 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.System;
 using PowerLifting.MediaR.Quotes.Query.Public;
 
 namespace PowerLifting.MediaR.Quotes.QueryHandler.Public

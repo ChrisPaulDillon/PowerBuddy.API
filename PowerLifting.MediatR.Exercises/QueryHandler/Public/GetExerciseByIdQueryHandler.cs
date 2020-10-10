@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.Exercises;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.MediatR.Exercises.Query.Public;
+using Exercise = PowerLifting.Data.Entities.Exercise;
 
 namespace PowerLifting.MediatR.Exercises.QueryHandler.Public
 {

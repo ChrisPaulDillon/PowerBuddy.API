@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using PowerLifting.Data.Entities.Templates;
+using PowerLifting.Data.Entities;
 using PowerLifting.Service.ProgramLogs.Strategies;
 
 namespace PowerLifting.Service.ProgramLogs.Factories

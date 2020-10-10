@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.MediatR.Exercises.Command.Admin;

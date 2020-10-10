@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
-using PowerLifting.Data.Entities.Exercises;
-using PowerLifting.Data.Entities.System;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.AutoMapper
 {

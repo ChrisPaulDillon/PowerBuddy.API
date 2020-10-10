@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Data.Builders.Account;
-using PowerLifting.Data.DTOs.Account;
+using PowerLifting.Data;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.Account;
-using PowerLifting.Data.Exceptions.Account;
-using Xunit;
 
 namespace PowerLifting.Accounts.Service.UnitTests
 {

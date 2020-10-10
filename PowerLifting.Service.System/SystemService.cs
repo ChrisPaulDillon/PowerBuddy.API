@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data;
 using PowerLifting.Data.DTOs.System;
 
 namespace PowerLifting.Service.System

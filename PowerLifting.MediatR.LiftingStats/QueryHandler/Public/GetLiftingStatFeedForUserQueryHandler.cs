@@ -8,9 +8,9 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerLifting.Data;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.LiftingStats.Query.Public;
 

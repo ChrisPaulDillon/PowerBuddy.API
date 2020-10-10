@@ -9,6 +9,7 @@ using System;
 using System.Text;
 using PowerLifting.MediatR.Exercises.CommandHandler.Account;
 using MediatR;
+using PowerLifting.Data;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.EntityFactories;
 using PowerLifting.MediaR.Quotes.CommandHandler.Account;

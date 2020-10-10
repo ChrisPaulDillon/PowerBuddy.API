@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoMapper;
-using PowerLifting.Data.DTOs.Templates;
+﻿using AutoMapper;
 using PowerLifting.Data.DTOs.Tonnage;
-using PowerLifting.Data.Entities.Templates;
-using PowerLifting.Data.Entities.Tonnage;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.AutoMapper
 {

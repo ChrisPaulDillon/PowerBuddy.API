@@ -1,4 +1,4 @@
-﻿namespace PowerLifting.Data.DTOs.Account
+﻿namespace PowerLifting.Data.DTOs.Users
 {
     public class AdminUserDTO
     {

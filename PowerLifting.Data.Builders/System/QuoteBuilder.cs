@@ -1,5 +1,5 @@
 ﻿using System;
-using PowerLifting.Data.Entities.System;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.Builders.System
 {

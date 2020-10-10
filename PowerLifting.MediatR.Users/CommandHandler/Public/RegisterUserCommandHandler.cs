@@ -7,12 +7,9 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PowerLifting.Common.Static;
+using PowerLifting.Data;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.Entities.Account;
-using PowerLifting.Data.Entities.Exercises;
-using PowerLifting.Data.Entities.LiftingStats;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.Users.Command.Public;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using PowerLifting.Data.DTOs.LiftingStats;
 
-namespace PowerLifting.Data.DTOs.Account
+namespace PowerLifting.Data.DTOs.Users
 {
     public class PublicUserDTO
     {

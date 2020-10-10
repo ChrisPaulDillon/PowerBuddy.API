@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.Users;
-using PowerLifting.Data.Entities.Account;
+using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.AutoMapper
 {

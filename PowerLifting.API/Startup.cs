@@ -12,13 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using PowerLifting.API.AuthorizationHandlers;
 using PowerLifting.API.Middleware;
 using PowerLifting.Data.AutoMapper;
-using PowerLifting.Data.Entities.Account;
 using PowerLifting.API.Extensions;
 using PowerLifting.API.GraphQL;
+using PowerLifting.Data;
 using PowerLifting.Data.Entities;
-using PowerLifting.Service.Account;
-using PowerLifting.Service.LiftingStats;
-using PowerLifting.Service.ProgramLogs;
 
 namespace PowerLifting.API
 {
