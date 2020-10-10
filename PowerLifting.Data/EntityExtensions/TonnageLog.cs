@@ -3,9 +3,9 @@ using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.Entities
 {
-    public partial class TonnageLog
+    public partial class TonnageLogExercise
     {
-        public IEnumerable<TonnageWeek> TonnageWeeks { get; set; }
-        public IEnumerable<TonnageDay> TonnageDays { get; set; }
+        public IEnumerable<TonnageWeekExercise> TonnageWeeks { get; set; }
+        public IEnumerable<TonnageDayExercise> TonnageDays { get; set; }
     }
 }

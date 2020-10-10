@@ -7,9 +7,9 @@ namespace PowerLifting.Data.EntityFactories
 {
     public class TonnageFactory : ITonnageFactory
     {
-        public TonnageDay CreateDay(int programLogId, int programLogDayId, int exerciseId, decimal dayTonnage, string userId)
+        public TonnageDayExercise CreateDay(int programLogId, int programLogDayId, int exerciseId, decimal dayTonnage, string userId)
         {
-            return new TonnageDay()
+            return new TonnageDayExercise()
             {
                 ProgramLogId = programLogId,
                 ProgramLogDayId = programLogDayId,

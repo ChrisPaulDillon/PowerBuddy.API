@@ -56,15 +56,15 @@ namespace PowerLifting.Data
         public DbSet<MemberStatus> MemberStatus { get; set; }
 
         //Tonnage
-        public DbSet<TonnageLog> TonnageLog { get; set; }
-        public DbSet<TonnageWeek> TonnageWeek { get; set; }
-        public DbSet<TonnageDay> TonnageDay { get; set; }
+        public DbSet<TonnageLogExercise> TonnageLogExercise { get; set; }
+        public DbSet<TonnageWeekExercise> TonnageWeekExercise { get; set; }
+        public DbSet<TonnageDayExercise> TonnageDayExercise { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TonnageLog>().ToTable("TonnageLog");
-            modelBuilder.Entity<TonnageWeek>().ToTable("TonnageWeek");
-            modelBuilder.Entity<TonnageDay>().ToTable("TonnageDay");
+            modelBuilder.Entity<TonnageLogExercise>().ToTable("TonnageLogExercise");
+            modelBuilder.Entity<TonnageWeekExercise>().ToTable("TonnageWeekExercise");
+            modelBuilder.Entity<TonnageDayExercise>().ToTable("TonnageDayExercise");
 
             //System
             modelBuilder.Entity<Gender>().ToTable("Gender");
@@ -149,10 +149,9 @@ namespace PowerLifting.Data
             modelBuilder.Entity<Notification>().ToTable("Notification");
             modelBuilder.Entity<NotificationInteraction>().ToTable("NotificationInteraction");
 
-            modelBuilder.Entity<ProgramLogDay>()
-                .HasOne(x => x.TonnageDay)
+            modelBuilder.Entity<ProgramLogExercise>()
+                .HasOne(x => x.TonnageDayExercise)
                 .WithOne()
-                .HasForeignKey<ProgramLogDay>(x => x.TonnageDayId)
                 .IsRequired(false);
         }
     }

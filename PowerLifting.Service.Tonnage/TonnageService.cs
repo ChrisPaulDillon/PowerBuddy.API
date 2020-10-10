@@ -25,7 +25,7 @@ namespace PowerLifting.Service.Tonnages
             _tonnageFactory = tonnageFactory;
         }
 
-        public async Task<IEnumerable<TonnageDay>> CreateTonnageBreakdownForDay(int programLogId, int programLogDayId, string userId)
+        public async Task<IEnumerable<TonnageDayExercise>> CreateTonnageBreakdownForDay(int programLogId, int programLogDayId, string userId)
         {
             var programLogDay = await _context.ProgramLogDay
                 .AsNoTracking()
@@ -35,27 +35,41 @@ namespace PowerLifting.Service.Tonnages
 
             if (programLogDay == null) throw new ProgramLogDayNotFoundException();
 
-            var tonnageList = new List<TonnageDay>();
+            var tonnageList = new List<TonnageDayExercise>();
 
             foreach (var logExercise in programLogDay.ProgramLogExercises)
             {
-                var tonnageDay = await _context.TonnageDay.FirstOrDefaultAsync(x => x.ProgramLogDayId == programLogDayId && x.ExerciseId == logExercise.ExerciseId);
+                var tonnageDay = await _context.TonnageDayExercise.FirstOrDefaultAsync(x => x.ProgramLogDayId == programLogDayId && x.ExerciseId == logExercise.ExerciseId);
                 var exerciseTonnage = logExercise.ProgramLogRepSchemes.Sum(x => TonnageHelper.CalculateTonnage(x.WeightLifted, (int) x.RepsCompleted));
                 if (tonnageDay != null)
                 {
                     tonnageDay.DayTonnage = exerciseTonnage;
-                    _context.TonnageDay.Update(tonnageDay);
+                    _context.TonnageDayExercise.Update(tonnageDay);
                 }
                 else
                 {
                     var newTonnageDay = _tonnageFactory.CreateDay(programLogId, programLogDayId, logExercise.ExerciseId, exerciseTonnage, userId);
                     tonnageList.Add(newTonnageDay);
-                    _context.TonnageDay.Add(newTonnageDay);
+                    _context.TonnageDayExercise.Add(newTonnageDay);
                 }
             }
 
+            await _context.SaveChangesAsync();
+
             return tonnageList;
 
+        }
+
+        public Task<IEnumerable<ProgramLogExerciseDTO>> AssignProgramLogExercisesTonnageId(IEnumerable<ProgramLogExerciseDTO> programLogExercises, IEnumerable<TonnageDayExercise> tonnageDayExercises)
+        {
+            foreach (var programLogExercise in programLogExercises)
+            {
+                var tonnageDayExerciseId = tonnageDayExercises
+                    .Where(x => x.ProgramLogDayId == programLogExercise.ProgramLogDayId &&
+                                x.ExerciseId == programLogExercise.ExerciseId)
+                    .Select(x => x.TonnageDayExerciseId)
+                    .FirstOrDefault();
+            }
         }
     }
 }

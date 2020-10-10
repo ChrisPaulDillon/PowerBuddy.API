@@ -10,8 +10,8 @@ using PowerLifting.Data;
 namespace PowerLifting.Data.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    [Migration("20201010143103_tonnagegg")]
-    partial class tonnagegg
+    [Migration("20201010154019_tonnagedayv3")]
+    partial class tonnagedayv3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -451,17 +451,12 @@ namespace PowerLifting.Data.Migrations
                     b.Property<int>("ProgramLogWeekId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TonnageDayId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProgramLogDayId");
 
                     b.HasIndex("ProgramLogWeekId");
-
-                    b.HasIndex("TonnageDayId");
 
                     b.ToTable("ProgramLogDay");
                 });
@@ -491,11 +486,18 @@ namespace PowerLifting.Data.Migrations
                     b.Property<int>("ProgramLogDayId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TonnageDayExerciseId")
+                        .HasColumnType("int");
+
                     b.HasKey("ProgramLogExerciseId");
 
                     b.HasIndex("ExerciseId");
 
                     b.HasIndex("ProgramLogDayId");
+
+                    b.HasIndex("TonnageDayExerciseId")
+                        .IsUnique()
+                        .HasFilter("[TonnageDayExerciseId] IS NOT NULL");
 
                     b.ToTable("ProgramLogExercise");
                 });
@@ -836,9 +838,9 @@ namespace PowerLifting.Data.Migrations
                     b.ToTable("TemplateWeek");
                 });
 
-            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageDay", b =>
+            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageDayExercise", b =>
                 {
-                    b.Property<int>("TonnageDayId")
+                    b.Property<int>("TonnageDayExerciseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -855,22 +857,22 @@ namespace PowerLifting.Data.Migrations
                     b.Property<int>("ProgramLogId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TonnageLogId")
+                    b.Property<int?>("TonnageLogExerciseId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TonnageDayId");
+                    b.HasKey("TonnageDayExerciseId");
 
-                    b.HasIndex("TonnageLogId");
+                    b.HasIndex("TonnageLogExerciseId");
 
-                    b.ToTable("TonnageDay");
+                    b.ToTable("TonnageDayExercise");
                 });
 
-            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageLog", b =>
+            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageLogExercise", b =>
                 {
-                    b.Property<int>("TonnageLogId")
+                    b.Property<int>("TonnageLogExerciseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -887,14 +889,14 @@ namespace PowerLifting.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TonnageLogId");
+                    b.HasKey("TonnageLogExerciseId");
 
-                    b.ToTable("TonnageLog");
+                    b.ToTable("TonnageLogExercise");
                 });
 
-            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageWeek", b =>
+            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageWeekExercise", b =>
                 {
-                    b.Property<int>("TonnageWeekId")
+                    b.Property<int>("TonnageWeekExerciseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -908,7 +910,7 @@ namespace PowerLifting.Data.Migrations
                     b.Property<int>("ProgramLogWeekId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TonnageLogId")
+                    b.Property<int?>("TonnageLogExerciseId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -917,11 +919,11 @@ namespace PowerLifting.Data.Migrations
                     b.Property<decimal>("WeekTonnage")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("TonnageWeekId");
+                    b.HasKey("TonnageWeekExerciseId");
 
-                    b.HasIndex("TonnageLogId");
+                    b.HasIndex("TonnageLogExerciseId");
 
-                    b.ToTable("TonnageWeek");
+                    b.ToTable("TonnageWeekExercise");
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.User", b =>
@@ -1106,10 +1108,6 @@ namespace PowerLifting.Data.Migrations
                         .HasForeignKey("ProgramLogWeekId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("PowerLifting.Data.Entities.TonnageDay", "TonnageDay")
-                        .WithMany()
-                        .HasForeignKey("TonnageDayId");
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogExercise", b =>
@@ -1124,6 +1122,10 @@ namespace PowerLifting.Data.Migrations
                         .WithMany("ProgramLogExercises")
                         .HasForeignKey("ProgramLogDayId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PowerLifting.Data.Entities.TonnageDayExercise", "TonnageDayExercise")
+                        .WithOne()
+                        .HasForeignKey("PowerLifting.Data.Entities.ProgramLogExercise", "TonnageDayExerciseId");
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.ProgramLogRepScheme", b =>
@@ -1196,18 +1198,18 @@ namespace PowerLifting.Data.Migrations
                         .HasForeignKey("TemplateProgramId");
                 });
 
-            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageDay", b =>
+            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageDayExercise", b =>
                 {
-                    b.HasOne("PowerLifting.Data.Entities.TonnageLog", null)
+                    b.HasOne("PowerLifting.Data.Entities.TonnageLogExercise", null)
                         .WithMany("TonnageDays")
-                        .HasForeignKey("TonnageLogId");
+                        .HasForeignKey("TonnageLogExerciseId");
                 });
 
-            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageWeek", b =>
+            modelBuilder.Entity("PowerLifting.Data.Entities.TonnageWeekExercise", b =>
                 {
-                    b.HasOne("PowerLifting.Data.Entities.TonnageLog", null)
+                    b.HasOne("PowerLifting.Data.Entities.TonnageLogExercise", null)
                         .WithMany("TonnageWeeks")
-                        .HasForeignKey("TonnageLogId");
+                        .HasForeignKey("TonnageLogExerciseId");
                 });
 
             modelBuilder.Entity("PowerLifting.Data.Entities.User", b =>

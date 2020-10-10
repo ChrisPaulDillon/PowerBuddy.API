@@ -13,8 +13,6 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public string Comment { get; set; }
         public bool? PersonalBest { get; set; }
         public bool Completed { get; set; }
-        public int? TonnageDayId { get; set; }
         public virtual IEnumerable<ProgramLogExerciseDTO> ProgramLogExercises { get; set; }
-        public TonnageDayDTO TonnageDay { get; set; }
     }
 }

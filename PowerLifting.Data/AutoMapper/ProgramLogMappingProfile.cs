@@ -88,8 +88,6 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Date, d => d.MapFrom(src => src.Date))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
-                .ForMember(x => x.TonnageDayId, d => d.MapFrom(src => src.TonnageDayId))
-                //.ForMember(x => x.TonnageDay, d => d.MapFrom(src => src.TonnageDay))
                 .ReverseMap();
 
             CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>()
@@ -100,6 +98,8 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
+                .ForMember(x => x.TonnageDayExerciseId, d => d.MapFrom(src => src.TonnageDayExerciseId))
+                .ForMember(x => x.TonnageDayExercise, d => d.MapFrom(src => src.TonnageDayExercise))
                 //.ForMember(x => x.Exercise, d => d.MapFrom(src => src.Exercise))
                 .ReverseMap();
 

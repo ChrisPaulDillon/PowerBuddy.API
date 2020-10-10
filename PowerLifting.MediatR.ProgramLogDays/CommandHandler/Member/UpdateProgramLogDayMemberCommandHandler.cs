@@ -105,7 +105,7 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                 updatedProgramLogExercises.Add(programExercise);
             }
 
-            var dayTonnages = await _tonnageService.CreateTonnageBreakdownForDay(programLogId, request.ProgramLogDayDTO.ProgramLogDayId, request.UserId);
+            //var dayTonnages = await _tonnageService.CreateTonnageBreakdownForDay(programLogId, request.ProgramLogDayDTO.ProgramLogDayId, request.UserId);
 
             request.ProgramLogDayDTO.ProgramLogExercises = updatedProgramLogExercises;
 

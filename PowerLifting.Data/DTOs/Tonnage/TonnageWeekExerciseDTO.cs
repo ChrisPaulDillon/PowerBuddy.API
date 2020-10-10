@@ -1,8 +1,8 @@
 ﻿namespace PowerLifting.Data.DTOs.Tonnage
 {
-    public class TonnageWeekDTO
+    public class TonnageWeekExerciseDTO
     {
-        public int TonnageWeekId { get; set; }
+        public int TonnageWeekExerciseId { get; set; }
         public string UserId { get; set; }
         public int ProgramLogWeekId { get; set; }
         public int ExerciseId { get; set; }

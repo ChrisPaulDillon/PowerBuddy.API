@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
+using PowerLifting.Data.DTOs.Tonnage;
 
 namespace PowerLifting.Data.DTOs.ProgramLogs
 {
@@ -17,11 +18,10 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public string Comment { get; set; }
         public bool Completed { get; set; }
         public bool? PersonalBest { get; set; }
-
-        public decimal? Weight { get; set; } //only used when repSchemeType is set to 'fixed'
-        public int? Reps { get; set; } //only used when repSchemeType is set to 'fixed'
+        public int? TonnageDayExerciseId { get; set; }
 
         public TopLevelExerciseDTO Exercise { get; set; }
         public ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
+        public virtual TonnageDayExerciseDTO TonnageDayExercise { get; set; }
     }
 }

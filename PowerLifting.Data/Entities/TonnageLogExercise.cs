@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PowerLifting.Data.DTOs.Tonnage
+﻿namespace PowerLifting.Data.Entities
 {
-    public class TonnageLogDTO
+    public partial class TonnageLogExercise
     {
-        public int TonnageLogId { get; set; }
+        public int TonnageLogExerciseId { get; set; }
         public string UserId { get; set; }
         public int ProgramLogId { get; set; }
         public int ExerciseId { get; set; }

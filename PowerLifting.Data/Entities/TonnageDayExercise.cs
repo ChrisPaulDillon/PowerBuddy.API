@@ -1,8 +1,8 @@
 ﻿namespace PowerLifting.Data.Entities
 {
-    public partial class TonnageDay
+    public partial class TonnageDayExercise
     {
-        public int TonnageDayId { get; set; }
+        public int TonnageDayExerciseId { get; set; }
         public string UserId { get; set; }
         public int ProgramLogId { get; set; }
         public int ProgramLogDayId { get; set; }

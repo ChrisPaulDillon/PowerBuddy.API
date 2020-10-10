@@ -7,6 +7,6 @@ namespace PowerLifting.Data.EntityFactories
 {
     public interface ITonnageFactory
     {
-        public TonnageDay CreateDay(int programLogId, int programLogDayId, int exerciseId, decimal dayTonnage, string userId);
+        public TonnageDayExercise CreateDay(int programLogId, int programLogDayId, int exerciseId, decimal dayTonnage, string userId);
     }
 }
