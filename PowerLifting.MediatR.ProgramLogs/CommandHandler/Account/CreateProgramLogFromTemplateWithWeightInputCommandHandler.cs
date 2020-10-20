@@ -42,29 +42,16 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             templateProgram.TemplateWeeks = templateProgram.TemplateWeeks.OrderBy(x => x.WeekNo);
             request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
 
-           // var liftingStats = await _context.LiftingStat.Where(x => x.UserId == request.UserId && x.RepRange == 1).AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
+            // var liftingStats = await _context.LiftingStat.Where(x => x.UserId == request.UserId && x.RepRange == 1).AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
 
-            var createdLog = new ProgramLogDTO
-            {
-                TemplateProgramId = templateProgram.TemplateProgramId,
-                UserId = request.UserId,
-                Monday = request.ProgramLogDTO.Monday,
-                Tuesday = request.ProgramLogDTO.Tuesday,
-                Wednesday = request.ProgramLogDTO.Wednesday,
-                Thursday = request.ProgramLogDTO.Thursday,
-                Friday = request.ProgramLogDTO.Friday,
-                Saturday = request.ProgramLogDTO.Saturday,
-                Sunday = request.ProgramLogDTO.Sunday,
-                StartDate = request.ProgramLogDTO.StartDate,
-                EndDate = request.ProgramLogDTO.StartDate.AddDays(templateProgram.NoOfWeeks * 7),
-                NoOfWeeks = templateProgram.NoOfWeeks,
-                Active = true,
-               // ProgramLogWeeks = ProgramLogHelper.GenerateProgramWeekDates(request.ProgramLogDTO, templateProgram, request.ProgramLogDTO.WeightInputs, request.UserId)
-            };
+            request.ProgramLogDTO.EndDate = request.ProgramLogDTO.StartDate.AddDays(templateProgram.NoOfWeeks * 7);
+            request.ProgramLogDTO.NoOfWeeks = templateProgram.NoOfWeeks;
+            //request.ProgramLogDTO.ProgramLogWeeks = _programLogService.CreateProgramLogWeeksFromTemplate(templateProgram, request.ProgramLogDTO.StartDate, request.UserId); //create weeks based on template weeks
+            request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
+
 
             //TODO FIX
-            var programLog = _mapper.Map<ProgramLog>(createdLog);
-            programLog.TemplateProgram = null;
+            var programLog = _mapper.Map<ProgramLog>(request.ProgramLogDTO);
             _context.ProgramLog.Add(programLog);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);

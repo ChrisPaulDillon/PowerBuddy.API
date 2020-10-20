@@ -108,7 +108,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateProgramLogFromScratch([FromBody] CProgramLogDTO programLog)
+        public async Task<IActionResult> CreateProgramLogFromScratch([FromBody] ProgramLogInputDTO programLog)
         {
             try
             {
@@ -170,7 +170,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] CProgramLogDTO programLogDTO)
+        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] ProgramLogInputDTO programLogDTO)
         {
             try
             {

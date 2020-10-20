@@ -31,7 +31,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
         {
             if (request.ProgramLogDTO.UserId != request.UserId) throw new UnauthorisedUserException();
 
-            var doesExist = await _context.Set<ProgramLog>().AsNoTracking().AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
+            var doesExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
             if (doesExist) throw new ProgramLogAlreadyActiveException();
 
             request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);

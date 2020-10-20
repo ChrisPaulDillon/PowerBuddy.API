@@ -23,7 +23,7 @@ namespace PowerLifting.Service.ProgramLogs.Util
             }
         }
 
-        public static Dictionary<int, string> CalculateDayOrder(CProgramLogDTO programLogDTO)
+        public static Dictionary<int, string> CalculateDayOrder(ProgramLogInputDTO programLogDTO)
         {
             var programDayOrder = new Dictionary<int, string>();
 

@@ -71,8 +71,8 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.ExerciseVarianceCount, opt => opt.Ignore())
                 .ReverseMap();
 
-            CreateMap<ProgramLog, CProgramLogDTO>()
-                .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
+            CreateMap<ProgramLog, ProgramLogInputDTO>()
+                .ForMember(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
                 .ForMember(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
                 .ForMember(x => x.Monday, d => d.MapFrom(src => src.Monday))
@@ -83,10 +83,9 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
                 .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
-                .ForMember(x => x.EndDate, d => d.MapFrom(src => src.StartDate.AddDays(src.NoOfWeeks * 7)))
                 .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
-                .ForMember(dest => dest.DayCount, opt => opt.Ignore())
-                .ReverseMap();
+                .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+                .ForMember(dest => dest.DayCount, opt => opt.Ignore());
 
             CreateMap<ProgramLogWeek, ProgramLogWeekDTO>()
                 .ForMember(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))

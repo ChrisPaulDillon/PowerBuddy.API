@@ -5,18 +5,14 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogs.Query.Account;
 using PowerLifting.MediatR.ProgramLogs.QueryHandler.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
-using PowerLifting.Data.Entities;
 
 namespace PowerLifting.MediatR.ProgramLogs.QueryHandler.Account
-{ 
+{
     public class GetAllProgramLogStatsQueryHandler : IRequestHandler<GetAllProgramLogStatsQuery, ProgramLogStatExtendedDTO>
     {
         private readonly PowerLiftingContext _context;

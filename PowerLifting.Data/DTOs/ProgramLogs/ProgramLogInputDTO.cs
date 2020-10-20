@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace PowerLifting.Data.DTOs.ProgramLogs
 {
-    public class CProgramLogDTO
+    public class ProgramLogInputDTO
     {
-        public int ProgramLogId { get; set; }
         public string UserId { get; set; }
         public string CustomName { get; set; }
         public int NoOfWeeks { get; set; }

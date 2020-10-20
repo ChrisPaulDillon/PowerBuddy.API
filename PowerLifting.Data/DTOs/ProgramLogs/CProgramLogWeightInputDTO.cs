@@ -5,7 +5,7 @@ using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.DTOs.ProgramLogs
 {
-    public class CProgramLogWeightInputDTO : CProgramLogDTO
+    public class CProgramLogWeightInputDTO : ProgramLogInputDTO
     {
         public IList<LiftingStat> WeightInputs { get; set; }
     }
