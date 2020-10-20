@@ -6,10 +6,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Factories;
 using PowerLifting.Service.ProgramLogs.Factories;
 using PowerLifting.Service.ProgramLogs.Strategies;
@@ -28,6 +30,12 @@ namespace PowerLifting.Service.ProgramLogs
             _context = context;
             _mapper = mapper;
             _dtoFactory = dtoFactory;
+        }
+
+        public async Task IsProgramLogAlreadyActive(string userId)
+        {
+            var doesExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.Active && x.UserId == userId);
+            if (doesExist) throw new ProgramLogAlreadyActiveException();
         }
 
         public IEnumerable<ProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramDTO tp, DateTime startDate, string userId)

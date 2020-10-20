@@ -12,6 +12,7 @@ using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
 using PowerLifting.MediatR.ProgramLogs.Command.Account;
+using PowerLifting.Service.ProgramLogs;
 using PowerLifting.Service.ProgramLogs.Util;
 
 namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
@@ -20,17 +21,18 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+        private readonly IProgramLogService _programLogService;
 
-        public CreateProgramLogFromTemplateWithWeightInputCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public CreateProgramLogFromTemplateWithWeightInputCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService)
         {
             _context = context;
             _mapper = mapper;
+            _programLogService = programLogService;
         }
 
         public async Task<ProgramLogDTO> Handle(CreateProgramLogFromTemplateWithWeightInputCommand request, CancellationToken cancellationToken)
         {
-            var doesExist = await _context.Set<ProgramLog>().AsNoTracking().AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
-            if (doesExist) throw new ProgramLogAlreadyActiveException();
+            await _programLogService.IsProgramLogAlreadyActive(request.UserId);
 
             var templateProgram = await _context.TemplateProgram.Where(x => x.TemplateProgramId == request.TemplateProgramId)
                 .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)

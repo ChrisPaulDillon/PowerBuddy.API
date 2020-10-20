@@ -39,11 +39,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
         public async Task<ProgramLogDTO> Handle(CreateProgramLogFromTemplateCommand request, CancellationToken cancellationToken)
         {
-            var doesExist = await _context.ProgramLog
-                .AsNoTracking()
-                .AnyAsync(x => x.Active && x.UserId == request.UserId, cancellationToken: cancellationToken);
-
-            if (doesExist) throw new ProgramLogAlreadyActiveException();
+            await _programLogService.IsProgramLogAlreadyActive(request.UserId);
 
             var templateProgram = await _context.TemplateProgram
                 .Where(x => x.TemplateProgramId == request.TemplateProgramId)

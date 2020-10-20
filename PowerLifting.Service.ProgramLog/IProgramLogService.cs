@@ -11,6 +11,8 @@ namespace PowerLifting.Service.ProgramLogs
 {
     public interface IProgramLogService
     {
+        Task IsProgramLogAlreadyActive(string userId);
+
         IEnumerable<ProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramDTO template, DateTime startDate, string userId);
 
         ICollection<ProgramLogDayDTO> CreateProgramLogDaysForWeekFromTemplate(ProgramLogWeekDTO programLogWeek, Dictionary<int, string> dayOrder, TemplateWeekDTO templateWeek, string userId);
