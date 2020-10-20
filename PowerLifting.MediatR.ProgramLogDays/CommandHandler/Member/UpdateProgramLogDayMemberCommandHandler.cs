@@ -9,9 +9,9 @@ using PowerLifting.Data;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.EntityFactories;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.Data.Factories;
 using PowerLifting.MediatR.ProgramLogDays.Command.Member;
 using PowerLifting.Service.Tonnages;
 
@@ -21,14 +21,14 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly ILiftingStatFactory _lsFactory;
+        private readonly IEntityFactory _entityFactory;
         private readonly ITonnageService _tonnageService;
 
-        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, ILiftingStatFactory lsFactory, ITonnageService tonnageService)
+        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IEntityFactory entityFactory, ITonnageService tonnageService)
         {
             _context = context;
             _mapper = mapper;
-            _lsFactory = lsFactory;
+            _entityFactory = entityFactory;
             _tonnageService = tonnageService;
         }
 
@@ -86,12 +86,11 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                     }
                     else // Pb was hit, though no lifting stat exists for the current rep and exercise
                     {
-                        liftingStatPb = _lsFactory.Create(programExercise.ExerciseId, repScheme.WeightLifted, (int)repScheme.RepsCompleted, request.ProgramLogDayDTO.Date, request.UserId);
+                        liftingStatPb = _entityFactory.CreateLiftingStat(programExercise.ExerciseId, repScheme.WeightLifted, (int)repScheme.RepsCompleted, request.UserId, request.ProgramLogDayDTO.Date);
                         liftingStatPb.Exercise = null;
                         _context.LiftingStat.Add(liftingStatPb);
                     }
 
-                    liftingStatPb.Exercise = _mapper.Map<Exercise>(programExercise.Exercise);
                     totalPersonalBests.Add(_mapper.Map<LiftingStatDTO>(liftingStatPb));
                     repScheme.PersonalBest = true;
                     repScheme.NoOfReps = (int)repScheme.RepsCompleted;

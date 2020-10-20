@@ -13,8 +13,10 @@ using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.Data.Factories;
 using PowerLifting.MediatR.ProgramLogExercises.Command.Account;
 using PowerLifting.MediatR.ProgramLogExercises.Util;
+using PowerLifting.Service.ProgramLogs;
 
 namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 {
@@ -23,25 +25,26 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
+        private readonly IProgramLogService _programLogService;
+        private readonly IEntityFactory _entityFactory;
 
-        public CreateProgramLogExerciseCommandHandler(PowerLiftingContext context, IMapper mapper, IMediator mediator)
+        public CreateProgramLogExerciseCommandHandler(PowerLiftingContext context, IMapper mapper, IMediator mediator, IProgramLogService programLogService, IEntityFactory entityFactory)
         {
             _context = context;
             _mapper = mapper;
             _mediator = mediator;
+            _programLogService = programLogService;
+            _entityFactory = entityFactory;
         }
 
         public async Task<ProgramLogExerciseDTO> Handle(CreateProgramLogExerciseCommand request, CancellationToken cancellationToken)
         {
-            var programLogDay = await _context.ProgramLogDay.FirstOrDefaultAsync(x => x.ProgramLogDayId == request.ProgramLogExerciseDTO.ProgramLogDayId);
-
+            var programLogDay = await _context.ProgramLogDay.FirstOrDefaultAsync(x => x.ProgramLogDayId == request.ProgramLogExerciseDTO.ProgramLogDayId, cancellationToken: cancellationToken);
             if (programLogDay == null) throw new ProgramLogDayNotFoundException();
 
             programLogDay.Completed = false; //day is no longer completed if an exercise is added to it
 
-            var doesExerciseExist = await _context.Exercise.AsNoTracking().AnyAsync(
-                x => x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId, cancellationToken: cancellationToken);
-
+            var doesExerciseExist = await _context.Exercise.AsNoTracking().AnyAsync(x => x.ExerciseId == request.ProgramLogExerciseDTO.ExerciseId, cancellationToken: cancellationToken);
             if (!doesExerciseExist) throw new ExerciseNotFoundException();
 
             var programLogExerciseEntity = await _context.ProgramLogExercise
@@ -51,54 +54,30 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 
             var noOfSetsToAdd = request.ProgramLogExerciseDTO.NoOfSets;
 
-            if (programLogExerciseEntity == null) //no exercise found for this day
-            { 
-                var repSchemeCollection = new List<CProgramLogRepSchemeDTO>();
+            if (programLogExerciseEntity == null) //no exercise found for this day, create a fresh one
+            {
+                var createdProgramLogExercise = _programLogService.CreateRepSchemesForExercise(request.ProgramLogExerciseDTO);
 
-                    for (var i = 1; i < noOfSetsToAdd + 1; i++)
-                    {
-                        if (request.ProgramLogExerciseDTO.Reps != null && request.ProgramLogExerciseDTO.Weight != null)
-                        {
-                            var repScheme = new CProgramLogRepSchemeDTO()
-                            {
-                                SetNo = i,
-                                NoOfReps = (int) request.ProgramLogExerciseDTO.Reps,
-                                WeightLifted = (decimal) request.ProgramLogExerciseDTO.Weight,
-                            };
-                            repSchemeCollection.Add(repScheme);
-                        }
-                    }
-
-                request.ProgramLogExerciseDTO.ProgramLogRepSchemes = repSchemeCollection;
-                
-                programLogExerciseEntity = _mapper.Map<ProgramLogExercise>(request.ProgramLogExerciseDTO);
+                programLogExerciseEntity = _mapper.Map<ProgramLogExercise>(createdProgramLogExercise);
                 _context.ProgramLogExercise.Add(programLogExerciseEntity);
 
                 await _mediator.Send(new CreateProgramLogExerciseAuditCommand(request.ProgramLogExerciseDTO.ExerciseId, request.UserId), cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 var mappedProgramLogExercise = _mapper.Map<ProgramLogExerciseDTO>(programLogExerciseEntity);
+                mappedProgramLogExercise.ExerciseName = await _context.Exercise.AsNoTracking().Where(x => x.ExerciseId == mappedProgramLogExercise.ExerciseId).Select(x => x.ExerciseName).FirstOrDefaultAsync(cancellationToken: cancellationToken);
                 return mappedProgramLogExercise;
             }
-            else //exercise already exists for the given day, add to it
+            else //update existing program log exercise
             {
                 var totalNoOfSets = programLogExerciseEntity.NoOfSets + noOfSetsToAdd;
-                if (totalNoOfSets >= ProgramLogExerciseConstants.MAX_NO_OF_SETS)
-                {
-                    throw new ReachedMaxSetsOnExerciseException();
-                }
-
+                if (totalNoOfSets >= ProgramLogExerciseConstants.MAX_NO_OF_SETS) throw new ReachedMaxSetsOnExerciseException();
+                
                 for (var i = 1; i < noOfSetsToAdd + 1; i++)
                 {
                     if (request.ProgramLogExerciseDTO.Reps != null && request.ProgramLogExerciseDTO.Weight != null)
                     {
-                        var repScheme = new ProgramLogRepScheme()
-                        {
-                            ProgramLogExerciseId = programLogExerciseEntity.ProgramLogExerciseId,
-                            SetNo = i,
-                            NoOfReps = (int) request.ProgramLogExerciseDTO.Reps,
-                            WeightLifted = (decimal) request.ProgramLogExerciseDTO.Weight,
-                        };
+                        var repScheme = _entityFactory.CreateRepScheme(programLogExerciseEntity.ProgramLogExerciseId, i, (int) request.ProgramLogExerciseDTO.Reps, (decimal) request.ProgramLogExerciseDTO.Weight);
                         programLogExerciseEntity.ProgramLogRepSchemes.Add(repScheme);
                     }
                 }

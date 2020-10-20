@@ -17,6 +17,6 @@ namespace PowerLifting.Data.DTOs.LiftingStats
         public decimal? GoalWeight { get; set; }
         public decimal? PercentageToGoal { get; set; }
         public DateTime? LastUpdated { get; set; }
-        public virtual TopLevelExerciseDTO Exercise { get; set; }
+        public string ExerciseName { get; set; }
     }
 }

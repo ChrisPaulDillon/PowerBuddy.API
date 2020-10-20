@@ -10,6 +10,7 @@ using PowerLifting.Data;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Factories;
 using PowerLifting.Service.ProgramLogs.Factories;
 using PowerLifting.Service.ProgramLogs.Strategies;
 using PowerLifting.Service.ProgramLogs.Util;
@@ -20,11 +21,13 @@ namespace PowerLifting.Service.ProgramLogs
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+        private readonly IDTOFactory _dtoFactory;
 
-        public ProgramLogService(PowerLiftingContext context, IMapper mapper)
+        public ProgramLogService(PowerLiftingContext context, IMapper mapper, IDTOFactory dtoFactory)
         {
             _context = context;
             _mapper = mapper;
+            _dtoFactory = dtoFactory;
         }
 
         public IEnumerable<ProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramDTO tp, DateTime startDate, string userId)
@@ -138,7 +141,7 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogDays;
         }
 
-        public IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForDay(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats, ICalculateRepWeight calculateRepWeight)
+        public IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats, ICalculateRepWeight calculateRepWeight)
         {
             var programLogExercises = new List<ProgramLogExerciseDTO>();
 
@@ -162,5 +165,23 @@ namespace PowerLifting.Service.ProgramLogs
         {
             return ProgramLogFactory.CreateProgramLogRepScheme(templateRepScheme.SetNo, templateRepScheme.NoOfReps, templateRepScheme.Percentage?? 0, weight, templateRepScheme.AMRAP);
         }
+
+        public CProgramLogExerciseDTO CreateRepSchemesForExercise(CProgramLogExerciseDTO programLogExercise)
+        {
+            var repSchemeCollection = new List<ProgramLogRepSchemeDTO>();
+
+            for (var i = 1; i < programLogExercise.NoOfSets + 1; i++)
+            {
+                if (programLogExercise.Reps != null && programLogExercise.Weight != null)
+                {
+                    var repScheme = _dtoFactory.CreateRepScheme(i, (int)programLogExercise.Reps, (decimal)programLogExercise.Weight);
+                    repSchemeCollection.Add(repScheme);
+                }
+            }
+
+            programLogExercise.ProgramLogRepSchemes = repSchemeCollection;
+            return programLogExercise;
+        }
+
     }
 }

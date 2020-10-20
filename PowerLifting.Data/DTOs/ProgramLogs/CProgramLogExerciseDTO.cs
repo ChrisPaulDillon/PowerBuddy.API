@@ -17,6 +17,6 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public decimal? Weight { get; set; } //only used when repSchemeType is set to 'fixed'
         public int? Reps { get; set; } //only used when repSchemeType is set to 'fixed'
 
-        public virtual IEnumerable<CProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
+        public virtual IEnumerable<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
     }
 }

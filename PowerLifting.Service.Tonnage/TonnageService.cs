@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.EntityFactories;
 using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.Data.Factories;
 
 namespace PowerLifting.Service.Tonnages
 {
@@ -16,13 +16,13 @@ namespace PowerLifting.Service.Tonnages
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly ITonnageFactory _tonnageFactory;
+        private readonly IEntityFactory _entityFactory;
 
-        public TonnageService(PowerLiftingContext context, IMapper mapper, ITonnageFactory tonnageFactory)
+        public TonnageService(PowerLiftingContext context, IMapper mapper, IEntityFactory entityFactory)
         {
             _context = context;
             _mapper = mapper;
-            _tonnageFactory = tonnageFactory;
+            _entityFactory = entityFactory;
         }
 
         public async Task<IEnumerable<TonnageDayExercise>> CreateTonnageBreakdownForDay(int programLogId, int programLogDayId, string userId)
@@ -48,7 +48,7 @@ namespace PowerLifting.Service.Tonnages
                 }
                 else
                 {
-                    var newTonnageDay = _tonnageFactory.CreateDay(programLogId, programLogDayId, logExercise.ExerciseId, exerciseTonnage, userId);
+                    var newTonnageDay = _entityFactory.CreateTonnageDayExercise(programLogId, programLogDayId, logExercise.ExerciseId, exerciseTonnage, userId);
                     tonnageList.Add(newTonnageDay);
                     _context.TonnageDayExercise.Add(newTonnageDay);
                 }

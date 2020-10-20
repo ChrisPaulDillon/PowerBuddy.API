@@ -11,7 +11,7 @@ using PowerLifting.MediatR.Exercises.CommandHandler.Account;
 using MediatR;
 using PowerLifting.Data;
 using PowerLifting.Data.Entities;
-using PowerLifting.Data.EntityFactories;
+using PowerLifting.Data.Factories;
 using PowerLifting.MediaR.Quotes.CommandHandler.Account;
 using PowerLifting.MediaR.Quotes.CommandHandler.Admin;
 using PowerLifting.MediaR.Quotes.QueryHandler.Public;
@@ -251,8 +251,8 @@ namespace PowerLifting.API.Extensions
 
         public static IServiceCollection AddFactories(this IServiceCollection services)
         {
-            services.AddScoped<ILiftingStatFactory, LiftingStatFactory>();
-            services.AddScoped<ITonnageFactory, TonnageFactory>();
+            services.AddScoped<IEntityFactory, EntityFactory>();
+            services.AddScoped<IDTOFactory, DTOFactory>();
             return services;
         }
 

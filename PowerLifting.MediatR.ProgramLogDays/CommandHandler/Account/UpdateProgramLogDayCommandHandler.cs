@@ -38,7 +38,6 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Account
             foreach (var programLogExercise in programLogExercises)
             {
                 programLogExercise.Completed = true;
-                programLogExercise.Exercise = null;
             }
 
             request.ProgramLogDayDTO.Completed = true;

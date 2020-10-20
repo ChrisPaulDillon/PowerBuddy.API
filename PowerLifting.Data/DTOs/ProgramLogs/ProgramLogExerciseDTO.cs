@@ -19,9 +19,8 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public bool Completed { get; set; }
         public bool? PersonalBest { get; set; }
         public int? TonnageDayExerciseId { get; set; }
-
-        public TopLevelExerciseDTO Exercise { get; set; }
-        public ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
-        public virtual TonnageDayExerciseDTO TonnageDayExercise { get; set; }
+        public string ExerciseName { get; set; }
+        public decimal? ExerciseTonnage { get; set; }
+        public ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; }
     }
 }

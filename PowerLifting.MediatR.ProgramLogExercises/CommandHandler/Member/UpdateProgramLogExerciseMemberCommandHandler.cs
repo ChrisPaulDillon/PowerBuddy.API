@@ -12,6 +12,7 @@ using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.Data.Factories;
 using PowerLifting.MediatR.LiftingStats.Command.Account;
 using PowerLifting.MediatR.ProgramLogExercises.Command.Member;
 
@@ -22,12 +23,14 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
+        private readonly IEntityFactory _entityFactory;
 
-        public UpdateProgramLogExerciseMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IMediator mediator)
+        public UpdateProgramLogExerciseMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IMediator mediator, IEntityFactory entityFactory)
         {
             _context = context;
             _mapper = mapper;
             _mediator = mediator;
+            _entityFactory = entityFactory;
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> Handle(UpdateProgramLogExerciseMemberCommand request, CancellationToken cancellationToken)
@@ -64,26 +67,20 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
 
                 if (lsSpecificRep != null)
                 {
-                    if (maxWeightLiftedInSet[0].WeightLifted > lsSpecificRep.Weight ||
-                        lsSpecificRep.Weight == null) //Pb was hit and lifting stat exists
+                    if (maxWeightLiftedInSet[0].WeightLifted > lsSpecificRep.Weight || lsSpecificRep.Weight == null) //Pb was hit and lifting stat exists
                     {
                         lsSpecificRep.Weight = maxWeightLiftedInSet[0].WeightLifted;
                         lsSpecificRep.LastUpdated = DateTime.UtcNow;
                         existingWeightNewPbs.Add(lsSpecificRep);
                     }
+                    else
+                    {
+                        continue;
+                    }
                 }
                 else //Pb was hit, though no lifting stat exists for the current rep and exercise
                 {
-                    lsSpecificRep = new LiftingStat()
-                    {
-                        ExerciseId = request.ProgramLogExerciseDTO.ExerciseId,
-                        Exercise = _mapper.Map<Exercise>(request.ProgramLogExerciseDTO.Exercise),
-                        Weight = maxWeightLiftedInSet[0].WeightLifted,
-                        RepRange = rep,
-                        LastUpdated = DateTime.UtcNow,
-                        UserId = request.UserId
-                    };
-
+                    lsSpecificRep = _entityFactory.CreateLiftingStat(request.ProgramLogExerciseDTO.ExerciseId, maxWeightLiftedInSet[0].WeightLifted, rep, request.UserId);
                     nonExistingWeightNewPbs.Add(lsSpecificRep);
                     lsSpecificRep.Exercise = null;
                 }

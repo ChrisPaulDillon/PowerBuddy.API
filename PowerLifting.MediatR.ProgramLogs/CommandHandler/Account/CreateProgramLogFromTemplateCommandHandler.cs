@@ -91,7 +91,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
                 foreach (var programLogDay in programLogWeek.ProgramLogDays)
                 {
                     var templateDay = templateWeek.TemplateDays.ToList()[dayCounter++];
-                    programLogDay.ProgramLogExercises = _programLogService.CreateProgramLogExercisesForDay(templateDay, liftingStats, _calculateRepWeight);
+                    programLogDay.ProgramLogExercises = _programLogService.CreateProgramLogExercisesForTemplateDay(templateDay, liftingStats, _calculateRepWeight);
                 }
             }
 

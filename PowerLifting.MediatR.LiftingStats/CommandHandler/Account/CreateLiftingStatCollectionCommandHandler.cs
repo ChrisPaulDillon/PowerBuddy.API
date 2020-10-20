@@ -31,7 +31,6 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
             var liftingStatsToUpdate = new List<LiftingStat>();
             foreach (var liftingStat in request.LiftingStatCollection.ToList())
             {
-                liftingStat.Exercise = null;
                 var liftingStatEntity = await _context.LiftingStat
                     .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.RepRange == liftingStat.RepRange && x.ExerciseId == liftingStat.ExerciseId, cancellationToken: cancellationToken);
 
