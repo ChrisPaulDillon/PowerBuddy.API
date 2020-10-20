@@ -32,7 +32,6 @@ namespace PowerLifting.MediatR.Exercises.CommandHandler.Admin
 
             if (!doesExerciseExist) throw new ExerciseNotFoundException();
 
-            request.Exercise.ExerciseType = null;
             request.Exercise.ExerciseSports = null;
             request.Exercise.ExerciseSports = null;
 

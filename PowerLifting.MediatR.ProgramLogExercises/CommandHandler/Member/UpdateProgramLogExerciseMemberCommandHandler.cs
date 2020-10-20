@@ -82,7 +82,6 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
                 {
                     lsSpecificRep = _entityFactory.CreateLiftingStat(request.ProgramLogExerciseDTO.ExerciseId, maxWeightLiftedInSet[0].WeightLifted, rep, request.UserId);
                     nonExistingWeightNewPbs.Add(lsSpecificRep);
-                    lsSpecificRep.Exercise = null;
                 }
  
                 var personalBestRepScheme = maxWeightLiftedInSet[0];
