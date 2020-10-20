@@ -2,6 +2,5 @@
 {
     public partial class ProgramLogRepScheme
     {
-        public ProgramLogExercise ProgramLogExercise { get; set; }
     }
 }

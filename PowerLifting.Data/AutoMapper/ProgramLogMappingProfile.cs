@@ -100,8 +100,20 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
                 .ForMember(x => x.TonnageDayExerciseId, d => d.MapFrom(src => src.TonnageDayExerciseId))
                 .ForMember(x => x.ExerciseName, d => d.MapFrom(src => src.Exercise.ExerciseName))
-                .ForMember(x => x.ExerciseTonnage, d => d.MapFrom(src => src.TonnageDayExercise.DayTonnage))
-                .ReverseMap();
+                .ForMember(x => x.ExerciseTonnage, d => d.MapFrom(src => src.TonnageDayExercise.DayTonnage));
+
+            CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>()
+                .ForMember(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId))
+                .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
+                .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
+                .ForMember(x => x.NoOfSets, d => d.MapFrom(src => src.NoOfSets))
+                .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
+                .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
+                .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
+                .ForMember(x => x.TonnageDayExerciseId, d => d.MapFrom(src => src.TonnageDayExerciseId))
+                .ForMember(x => x.Exercise, d => d.Ignore())
+                .ForMember(x => x.TonnageDayExercise, d => d.Ignore());
+
 
             CreateMap<ProgramLogExercise, CProgramLogExerciseDTO>()
                 .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
@@ -122,7 +134,6 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
                 .ForMember(x => x.AMRAP, d => d.MapFrom(src => src.AMRAP))
                 .ForMember(x => x.RepsCompleted, d => d.MapFrom(src => src.RepsCompleted ?? src.NoOfReps)) //default to noOfReps if not been touched
-                .ForMember(x => x.ProgramLogExercise, d => d.MapFrom(src => src.ProgramLogExercise))
                 .ReverseMap();
 
             CreateMap<ProgramLogRepScheme, CProgramLogRepSchemeDTO>()

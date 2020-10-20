@@ -76,7 +76,6 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                         {
                             liftingStatPb.Weight = repScheme.WeightLifted;
                             liftingStatPb.LastUpdated = request.ProgramLogDayDTO.Date;
-                            liftingStatPb.Exercise = null;
                             _context.LiftingStat.Update(liftingStatPb);
                         }
                         else
@@ -87,7 +86,6 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                     else // Pb was hit, though no lifting stat exists for the current rep and exercise
                     {
                         liftingStatPb = _entityFactory.CreateLiftingStat(programExercise.ExerciseId, repScheme.WeightLifted, (int)repScheme.RepsCompleted, request.UserId, request.ProgramLogDayDTO.Date);
-                        liftingStatPb.Exercise = null;
                         _context.LiftingStat.Add(liftingStatPb);
                     }
 

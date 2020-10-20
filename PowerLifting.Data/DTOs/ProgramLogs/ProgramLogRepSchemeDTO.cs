@@ -12,6 +12,5 @@
         public bool AMRAP { get; set; } //As many reps as possible for this set
         public int? RepsCompleted { get; set; }
         public bool? PersonalBest { get; set; }
-        public ProgramLogExerciseDTO ProgramLogExercise { get; set; }
     }
 }
