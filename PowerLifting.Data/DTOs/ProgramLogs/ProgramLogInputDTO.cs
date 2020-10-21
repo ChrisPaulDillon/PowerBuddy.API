@@ -7,6 +7,7 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
     {
         public string UserId { get; set; }
         public string CustomName { get; set; }
+        public int? TemplateProgramId { get; set; }
         public int NoOfWeeks { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

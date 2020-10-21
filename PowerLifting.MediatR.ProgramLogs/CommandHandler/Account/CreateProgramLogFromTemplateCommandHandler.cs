@@ -55,6 +55,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             request.ProgramLogDTO.NoOfWeeks = templateProgram.NoOfWeeks;
             request.ProgramLogDTO.ProgramLogWeeks = _programLogService.CreateProgramLogWeeksFromTemplate(templateProgram, request.ProgramLogDTO.StartDate, request.UserId); //create weeks based on template weeks
             request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
+            request.ProgramLogDTO.UserId = request.UserId;
 
             var liftingStats = await _context.LiftingStat
                 .Where(x => x.UserId == request.UserId && x.RepRange == 1)

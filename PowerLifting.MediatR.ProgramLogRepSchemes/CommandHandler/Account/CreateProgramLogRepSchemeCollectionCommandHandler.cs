@@ -31,12 +31,12 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account
 
             if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
 
-            var isUserAuthorized = await _context.ProgramLogDay
-                .AsNoTracking()
-                .AnyAsync(x => x.ProgramLogDayId == programLogExercise.ProgramLogDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
+            var programLogDay = await _context.ProgramLogDay
+                .FirstOrDefaultAsync(x => x.ProgramLogDayId == programLogExercise.ProgramLogDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
-            if (!isUserAuthorized) throw new UnauthorisedUserException();
+            if (programLogDay == null) throw new UnauthorisedUserException();
 
+            programLogDay.Completed = false;
             var repSchemeCollection = _mapper.Map<IList<ProgramLogRepScheme>>(request.RepSchemeCollectionDTO);
             programLogExercise.NoOfSets += repSchemeCollection.Count;
 

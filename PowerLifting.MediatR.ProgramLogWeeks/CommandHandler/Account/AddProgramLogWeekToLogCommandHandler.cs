@@ -45,6 +45,7 @@ namespace PowerLifting.MediatR.ProgramLogWeeks.CommandHandler.Account
 
             _context.ProgramLogWeek.Add(programLogWeek);
             programLog.NoOfWeeks++;
+            programLog.EndDate = programLog.EndDate.AddDays(7);
 
             await _context.SaveChangesAsync();
 

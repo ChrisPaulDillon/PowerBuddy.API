@@ -41,7 +41,6 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             if (templateProgram == null) throw new TemplateProgramNotFoundException();
             if (templateProgram.NoOfDaysPerWeek != request.ProgramLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
 
-            templateProgram.TemplateWeeks = templateProgram.TemplateWeeks.OrderBy(x => x.WeekNo);
             request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
 
             // var liftingStats = await _context.LiftingStat.Where(x => x.UserId == request.UserId && x.RepRange == 1).AsNoTracking().ToListAsync(cancellationToken: cancellationToken);

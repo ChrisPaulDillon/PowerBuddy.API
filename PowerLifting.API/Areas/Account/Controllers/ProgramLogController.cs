@@ -36,11 +36,11 @@ namespace PowerLifting.API.Areas.Account.Controllers
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
-        [HttpGet("All")]
+        [HttpGet("Stat")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogStatDTO>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAllUserProgramLogs()
+        public async Task<IActionResult> GetProgramLogStats()
         {
             try
             {
