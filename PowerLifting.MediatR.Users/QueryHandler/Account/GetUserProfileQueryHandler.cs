@@ -33,8 +33,8 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Account
 
             var user = await _context.User
                 .Where(x => x.Id == request.UserId)
-                .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
+                .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (user == null) throw new UserNotFoundException();

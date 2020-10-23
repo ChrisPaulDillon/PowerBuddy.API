@@ -42,7 +42,8 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Gender, d => d.MapFrom(src => src.Gender.GenderName))
                 .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.LiftingLevel))
                 .ForMember(x => x.LiftFeed, d => d.MapFrom(src => src.LiftingStatAudit))
-                .ReverseMap();
+                .ForMember(x => x.PendingFriendRequestFrom, d => d.MapFrom(src => src.FriendRequestFrom == null ? false : src.FriendRequestFrom.HasAccepted))
+                .ForMember(x => x.PendingFriendRequestTo, d => d.MapFrom(src => src.FriendRequestTo == null ? false : src.FriendRequestTo.HasAccepted));
 
             CreateMap<User, AdminUserDTO>()
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.Id))

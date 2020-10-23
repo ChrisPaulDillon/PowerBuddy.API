@@ -153,6 +153,18 @@ namespace PowerLifting.Data
                 .HasOne(x => x.TonnageDayExercise)
                 .WithOne()
                 .IsRequired(false);
+
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.FriendRequestTo)
+                .WithOne()
+                .HasForeignKey<FriendRequest>(x => x.UserToId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.FriendRequestFrom)
+                .WithOne()
+                .HasForeignKey<FriendRequest>(x => x.UserFromId)
+                .IsRequired(false);
         }
     }
 }

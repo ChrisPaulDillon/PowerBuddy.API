@@ -32,15 +32,15 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Account
             if (request.UserId != request.ProgramLogDayDTO.UserId) throw new UnauthorisedUserException();
 
             var programLogWeek = await _context.ProgramLogWeek.Where(x => x.ProgramLogWeekId == request.ProgramLogDayDTO.ProgramLogWeekId)
-                .Select(x => new ProgramLogWeek()
-                {
-                    StartDate = x.StartDate,
-                    EndDate = x.EndDate
-                })
                 .AsNoTracking()
+                .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
+
+            var hasDayOnDate = programLogWeek.ProgramLogDays.Any(x => x.Date.Date.CompareTo(request.ProgramLogDayDTO.Date) == 0);
+
+            if (hasDayOnDate) throw new ProgramLogDayOnDateAlreadyActiveException();
 
             if (request.ProgramLogDayDTO.Date >= programLogWeek.StartDate.AddDays(-1) && request.ProgramLogDayDTO.Date <= programLogWeek.EndDate.AddDays(1))
             {

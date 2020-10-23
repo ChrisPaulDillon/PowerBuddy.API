@@ -50,31 +50,27 @@ namespace PowerLifting.API
 
             services.AddFactories();
 
-            //services.AddScoped<IProgramLogService, ProgramLogService>();
-
             //Inject app settings
             services.AddJWTSettings(Configuration.GetSection("JWTSettings"));
             services.AddSentry(Configuration.GetSection("Sentry"));
-            //services.AddPowerLiftingContext(Configuration.GetConnectionString("DefaultConnection"));
             services.AddDbContext<PowerLiftingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddCorsPolicy(Configuration.GetSection("CorsPolicy"));
 
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
-                    builder => builder.WithOrigins(Configuration["CorsPolicy:Client_URL"].ToString())
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
+                    builder =>
+                    {
+                        builder.WithOrigins(Configuration["CorsPolicy:Client_URL"].ToString())
+                            .AllowAnyHeader()
+                            .WithMethods("GET", "PUT", "POST", "DELETE");
+                    });
             });
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
-
-            //services.AddDbContext<PowerliftingContext>(options =>
-            //  options.UseSqlite("DataSource = app.db"));
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PowerLiftingContext>();

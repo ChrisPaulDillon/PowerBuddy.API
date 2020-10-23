@@ -34,16 +34,16 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
 
         public async Task<IEnumerable<LiftingStatDTO>> Handle(UpdateProgramLogDayMemberCommand request, CancellationToken cancellationToken)
         {
-            var doesProgramLogDayExist = await _context.ProgramLogExercise.AsNoTracking()
+            var doesProgramLogDayExist = await _context.ProgramLogDay.AsNoTracking()
                 .AnyAsync(x => x.ProgramLogDayId == request.ProgramLogDayDTO.ProgramLogDayId, cancellationToken: cancellationToken);
+
+            if (!doesProgramLogDayExist) throw new ProgramLogDayNotFoundException();
 
             var programLogId = await _context.ProgramLogWeek
                 .AsNoTracking()
                 .Where(x => x.ProgramLogWeekId == request.ProgramLogDayDTO.ProgramLogWeekId)
                 .Select(x => x.ProgramLogId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-
-            if (!doesProgramLogDayExist) throw new ProgramLogDayNotFoundException();
 
             var isUserAuthorized = await _context.ProgramLogDay.AsNoTracking()
                 .AnyAsync(x => x.ProgramLogDayId == request.ProgramLogDayDTO.ProgramLogDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);

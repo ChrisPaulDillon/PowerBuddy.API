@@ -127,13 +127,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
             try
             {
                 var createdProgramLogDayDTO = await _mediator.Send(new CreateProgramLogDayCommand(programLogDayDTO, _userId)).ConfigureAwait(false);
-                return CreatedAtRoute(nameof(GetProgramLogDayById), new { programLogDayId = createdProgramLogDayDTO.ProgramLogDayId }, createdProgramLogDayDTO);
+                return CreatedAtRoute(nameof(GetProgramLogDayById), new {programLogDayId = createdProgramLogDayDTO.ProgramLogDayId}, createdProgramLogDayDTO);
             }
             catch (ProgramLogDayNotWithinWeekException ex)
             {
                 return BadRequest(Responses.Error(ex));
             }
             catch (ProgramLogWeekNotFoundException ex)
+            {
+                return BadRequest(Responses.Error(ex));
+            }
+            catch (ProgramLogDayOnDateAlreadyActiveException ex)
             {
                 return BadRequest(Responses.Error(ex));
             }

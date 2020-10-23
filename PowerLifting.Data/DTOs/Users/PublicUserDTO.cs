@@ -13,6 +13,8 @@ namespace PowerLifting.Data.DTOs.Users
         public int MemberStatusId { get; set; }
         public string Gender { get; set; }
         public string LiftingLevel { get; set; }
+        public bool PendingFriendRequestTo { get; set; }
+        public bool PendingFriendRequestFrom { get; set; }
         public IEnumerable<LiftFeedDTO> LiftFeed { get; set; }
     }
 }

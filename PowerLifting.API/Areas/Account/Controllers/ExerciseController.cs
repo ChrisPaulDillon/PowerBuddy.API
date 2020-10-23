@@ -18,7 +18,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
     [Route("api/[area]/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize(Policy = "Default")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Area("Account")]
     public class ExerciseController : ControllerBase
     {
