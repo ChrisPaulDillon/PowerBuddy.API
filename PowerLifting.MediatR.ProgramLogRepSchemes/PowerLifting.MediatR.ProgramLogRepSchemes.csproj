@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
+    <ProjectReference Include="..\PowerLifting.Service.ProgramLog\PowerLifting.Service.ProgramLogs.csproj" />
   </ItemGroup>
 
 </Project>

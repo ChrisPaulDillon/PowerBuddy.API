@@ -8,6 +8,7 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
     /// </summary>
     public class CProgramLogExerciseDTO
     {
+        public int ProgramLogExerciseId { get; set; }
         public int ProgramLogDayId { get; set; }
         public int ExerciseId { get; set; }
         public int NoOfSets { get; set; }
@@ -17,6 +18,7 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public decimal? Weight { get; set; } //only used when repSchemeType is set to 'fixed'
         public int? Reps { get; set; } //only used when repSchemeType is set to 'fixed'
 
-        public virtual IEnumerable<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
+        public ProgramLogExerciseTonnageDTO ProgramLogExerciseTonnageDTO { get; set; }
+        public virtual ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; } //Stores the number of reps for each set
     }
 }

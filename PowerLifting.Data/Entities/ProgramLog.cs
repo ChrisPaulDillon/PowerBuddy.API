@@ -23,5 +23,6 @@ namespace PowerLifting.Data.Entities
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
         public bool Active { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

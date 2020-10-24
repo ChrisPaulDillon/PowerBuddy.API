@@ -9,6 +9,11 @@ namespace PowerLifting.Service.ProgramLogs.Util
 {
     public static class ProgramLogHelper
     {
+        public static decimal CalculateTonnage(decimal weight, int reps)
+        {
+            return weight * reps;
+        }
+
         public static decimal CalculateRepSchemeWeight(WeightProgressionTypeEnum weightProgressionType, decimal user1RM, TemplateRepSchemeDTO templateRepScheme)
         {
             switch (weightProgressionType)

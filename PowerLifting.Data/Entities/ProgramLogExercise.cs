@@ -13,6 +13,6 @@
         public string Comment { get; set; }
         public bool Completed { get; set; }
         public bool? PersonalBest { get; set; }
-        public int? TonnageDayExerciseId { get; set; }
+        public int ProgramLogExerciseTonnageId { get; set; }
     }
 }

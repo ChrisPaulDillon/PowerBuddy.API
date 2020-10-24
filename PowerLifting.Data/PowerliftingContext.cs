@@ -30,7 +30,10 @@ namespace PowerLifting.Data
         public DbSet<ProgramLogDay> ProgramLogDay { get; set; }
         public DbSet<ProgramLogExercise> ProgramLogExercise { get; set; }
         public DbSet<ProgramLogExerciseAudit> ProgramLogExerciseAudit { get; set; }
+        public DbSet<ProgramLogExerciseTonnage> ProgramLogExerciseTonnage { get; set; }
         public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
+
+        //Lifting Stats
         public DbSet<LiftingStat> LiftingStat { get; set; }
         public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
         public DbSet<TemplateProgram> TemplateProgram { get; set; }
@@ -55,16 +58,9 @@ namespace PowerLifting.Data
         public DbSet<Gender> Gender { get; set; }
         public DbSet<MemberStatus> MemberStatus { get; set; }
 
-        //Tonnage
-        public DbSet<TonnageLogExercise> TonnageLogExercise { get; set; }
-        public DbSet<TonnageWeekExercise> TonnageWeekExercise { get; set; }
-        public DbSet<TonnageDayExercise> TonnageDayExercise { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TonnageLogExercise>().ToTable("TonnageLogExercise");
-            modelBuilder.Entity<TonnageWeekExercise>().ToTable("TonnageWeekExercise");
-            modelBuilder.Entity<TonnageDayExercise>().ToTable("TonnageDayExercise");
+            modelBuilder.Entity<ProgramLogExerciseTonnage>().ToTable("ProgramLogExerciseTonnage");
 
             //System
             modelBuilder.Entity<Gender>().ToTable("Gender");
@@ -150,7 +146,7 @@ namespace PowerLifting.Data
             modelBuilder.Entity<NotificationInteraction>().ToTable("NotificationInteraction");
 
             modelBuilder.Entity<ProgramLogExercise>()
-                .HasOne(x => x.TonnageDayExercise)
+                .HasOne(x => x.ProgramLogExerciseTonnage)
                 .WithOne()
                 .IsRequired(false);
 
@@ -170,6 +166,12 @@ namespace PowerLifting.Data
                 .HasMany(x => x.TemplateExerciseCollection)
                 .WithOne()
                 .HasForeignKey(x => x.TemplateProgramId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<ProgramLogExercise>()
+                .HasOne(x => x.ProgramLogExerciseTonnage)
+                .WithOne()
+                .HasForeignKey<ProgramLogExerciseTonnage>(x => x.ProgramLogExerciseId)
                 .IsRequired(false);
         }
     }

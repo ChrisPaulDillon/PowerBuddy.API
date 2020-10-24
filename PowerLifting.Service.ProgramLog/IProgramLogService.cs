@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.DTOs.Templates;
+using PowerLifting.Data.Entities;
 using PowerLifting.Service.ProgramLogs.Strategies;
 
 namespace PowerLifting.Service.ProgramLogs
@@ -13,12 +14,14 @@ namespace PowerLifting.Service.ProgramLogs
     {
         Task IsProgramLogAlreadyActive(string userId);
 
-        IEnumerable<ProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO template, DateTime startDate, string userId);
+        Task UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId);
 
-        ICollection<ProgramLogDayDTO> CreateProgramLogDaysForWeekFromTemplate(ProgramLogWeekDTO programLogWeek, Dictionary<int, string> dayOrder, TemplateWeekDTO templateWeek, string userId);
+        IEnumerable<CProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO template, DateTime startDate, string userId);
 
-        IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats, ICalculateRepWeight calculateRepWeight);
+        ICollection<CProgramLogDayDTO> CreateProgramLogDaysForWeekFromTemplate(CProgramLogWeekDTO programLogWeek, Dictionary<int, string> dayOrder, TemplateWeekDTO templateWeek, string userId);
 
-        CProgramLogExerciseDTO CreateRepSchemesForExercise(CProgramLogExerciseDTO programLogExercise);
+        IEnumerable<CProgramLogExerciseDTO> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats, ICalculateRepWeight calculateRepWeight, string userId);
+
+        CProgramLogExerciseDTO CreateRepSchemesForExercise(CProgramLogExerciseDTO programLogExercise, string userId);
     }
 }

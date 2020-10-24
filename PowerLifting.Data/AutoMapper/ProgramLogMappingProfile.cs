@@ -88,6 +88,15 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.TemplateProgram, d => d.Ignore());
 
+            CreateMap<CProgramLogWeekDTO, ProgramLogWeek>()
+                .ForMember(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))
+                .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
+                .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember(x => x.WeekNo, d => d.MapFrom(src => src.WeekNo))
+                .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+                .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays));
+
             CreateMap<ProgramLogWeek, ProgramLogWeekDTO>()
                 .ForMember(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))
                 .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
@@ -97,6 +106,15 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays.OrderBy(x => x.Date)))
                 .ReverseMap();
+
+            CreateMap<CProgramLogDayDTO, ProgramLogDay>()
+                .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
+                .ForMember(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))
+                .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
+                .ForMember(x => x.Date, d => d.MapFrom(src => src.Date))
+                .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
+                .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed));
 
             CreateMap<ProgramLogDay, ProgramLogDayDTO>()
                 .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
@@ -116,9 +134,9 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
-                .ForMember(x => x.TonnageDayExerciseId, d => d.MapFrom(src => src.TonnageDayExerciseId))
+                .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageId))
                 .ForMember(x => x.ExerciseName, d => d.MapFrom(src => src.Exercise.ExerciseName))
-                .ForMember(x => x.ExerciseTonnage, d => d.MapFrom(src => src.TonnageDayExercise.DayTonnage))
+                .ForMember(x => x.ExerciseTonnage, d => d.MapFrom(src => src.ProgramLogExerciseTonnage.ExerciseTonnage))
                 .ForMember(x => x.ProgramLogRepSchemes, d => d.MapFrom(src => src.ProgramLogRepSchemes.OrderBy(x => x.WeightLifted)));
 
             CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>()
@@ -129,17 +147,27 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
-                .ForMember(x => x.TonnageDayExerciseId, d => d.MapFrom(src => src.TonnageDayExerciseId))
+                .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageId))
                 .ForMember(x => x.Exercise, d => d.Ignore())
-                .ForMember(x => x.TonnageDayExercise, d => d.Ignore());
+                .ForMember(x => x.ProgramLogExerciseTonnage, d => d.Ignore());
 
 
-            CreateMap<ProgramLogExercise, CProgramLogExerciseDTO>()
+            CreateMap<CProgramLogExerciseDTO, ProgramLogExercise>()
+                .ForMember(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId))
                 .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
                 .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
                 .ForMember(x => x.NoOfSets, d => d.MapFrom(src => src.NoOfSets))
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
+                .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageDTO.ProgramLogExerciseTonnageId))
+                .ForMember(x => x.ProgramLogExerciseTonnage, d => d.MapFrom(src => src.ProgramLogExerciseTonnageDTO));
+
+            CreateMap<ProgramLogExerciseTonnage, ProgramLogExerciseTonnageDTO>()
+                .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageId))
+                .ForMember(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId))
+                .ForMember(x => x.ExerciseTonnage, d => d.MapFrom(src => src.ExerciseTonnage))
+                .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
                 .ReverseMap();
 
             CreateMap<ProgramLogRepScheme, ProgramLogRepSchemeDTO>()

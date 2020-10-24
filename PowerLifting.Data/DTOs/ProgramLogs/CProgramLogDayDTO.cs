@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace PowerLifting.Data.DTOs.ProgramLogs
 {
-    public class ProgramLogDayDTO
+    public class CProgramLogDayDTO
     {
         public int ProgramLogDayId { get; set; }
         public int ProgramLogWeekId { get; set; }
@@ -12,6 +13,6 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public string Comment { get; set; }
         public bool? PersonalBest { get; set; }
         public bool Completed { get; set; }
-        public virtual IEnumerable<ProgramLogExerciseDTO> ProgramLogExercises { get; set; }
+        public virtual IEnumerable<CProgramLogExerciseDTO> ProgramLogExercises { get; set; }
     }
 }

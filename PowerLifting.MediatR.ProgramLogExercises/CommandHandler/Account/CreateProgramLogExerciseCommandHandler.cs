@@ -56,7 +56,7 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
 
             if (programLogExerciseEntity == null) //no exercise found for this day, create a fresh one
             {
-                var createdProgramLogExercise = _programLogService.CreateRepSchemesForExercise(request.ProgramLogExerciseDTO);
+                var createdProgramLogExercise = _programLogService.CreateRepSchemesForExercise(request.ProgramLogExerciseDTO, request.UserId);
 
                 programLogExerciseEntity = _mapper.Map<ProgramLogExercise>(createdProgramLogExercise);
                 _context.ProgramLogExercise.Add(programLogExerciseEntity);

@@ -19,7 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.Data\PowerLifting.Data.csproj" />
     <ProjectReference Include="..\PowerLifting.Service.LiftingStats\PowerLifting.Service.LiftingStats.csproj" />
-    <ProjectReference Include="..\PowerLifting.Service.Tonnage\PowerLifting.Service.Tonnages.csproj" />
   </ItemGroup>
 
 </Project>

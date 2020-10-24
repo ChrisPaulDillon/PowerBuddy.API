@@ -13,7 +13,6 @@ using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Factories;
 using PowerLifting.MediatR.ProgramLogDays.Command.Member;
-using PowerLifting.Service.Tonnages;
 
 namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
 {
@@ -22,14 +21,12 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IEntityFactory _entityFactory;
-        private readonly ITonnageService _tonnageService;
 
-        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IEntityFactory entityFactory, ITonnageService tonnageService)
+        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IEntityFactory entityFactory)
         {
             _context = context;
             _mapper = mapper;
             _entityFactory = entityFactory;
-            _tonnageService = tonnageService;
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> Handle(UpdateProgramLogDayMemberCommand request, CancellationToken cancellationToken)

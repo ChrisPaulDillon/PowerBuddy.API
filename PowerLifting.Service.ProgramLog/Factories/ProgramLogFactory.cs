@@ -7,31 +7,21 @@ namespace PowerLifting.Service.ProgramLogs.Factories
 {
     public static class ProgramLogFactory
     {
-        public static ProgramLogWeekDTO CreateProgramLogWeek(DateTime startDate, int weekNo, string userId)
+        public static CProgramLogWeekDTO CreateProgramLogWeek(DateTime startDate, int weekNo, string userId)
         {
-            return new ProgramLogWeekDTO()
+            return new CProgramLogWeekDTO()
             {
                 StartDate = startDate,
                 EndDate = startDate.AddDays(7),
                 WeekNo = weekNo,
                 UserId = userId,
-                ProgramLogDays = new List<ProgramLogDayDTO>()
+                ProgramLogDays = new List<CProgramLogDayDTO>()
             };
         }
 
-        public static ProgramLogDayDTO CreateProgramLogDay(DateTime date, string userId)
+        public static CProgramLogExerciseDTO CreateProgramLogExercise(int noOfSets, int exerciseId)
         {
-            return new ProgramLogDayDTO()
-            {
-                Date = date,
-                UserId = userId,
-                ProgramLogExercises = new List<ProgramLogExerciseDTO>()
-            };
-        }
-
-        public static ProgramLogExerciseDTO CreateProgramLogExercise(int noOfSets, int exerciseId)
-        {
-            return new ProgramLogExerciseDTO()
+            return new CProgramLogExerciseDTO()
             {
                 ExerciseId = exerciseId,
                 NoOfSets = noOfSets,

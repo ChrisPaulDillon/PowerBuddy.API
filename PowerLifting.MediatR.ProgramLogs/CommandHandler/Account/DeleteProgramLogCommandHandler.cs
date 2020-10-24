@@ -23,11 +23,11 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
 
         public async Task<bool> Handle(DeleteProgramLogCommand request, CancellationToken cancellationToken)
         {
-            var doesLogExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.ProgramLogId == request.ProgramLogId && x.UserId == request.UserId, cancellationToken: cancellationToken);
+            var programLog = await _context.ProgramLog.FirstOrDefaultAsync(x => x.ProgramLogId == request.ProgramLogId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
-            if (!doesLogExist) throw new ProgramLogNotFoundException();
+            if (programLog == null) throw new ProgramLogNotFoundException();
 
-            _context.ProgramLog.Remove(new ProgramLog() { ProgramLogId = request.ProgramLogId });
+            programLog.IsDeleted = true;
 
             var changedRows = await _context.SaveChangesAsync(cancellationToken);
             return changedRows > 0;

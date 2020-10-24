@@ -6,6 +6,6 @@ namespace PowerLifting.Data.Entities
     {
         public virtual Exercise Exercise { get; set; }
         public virtual ICollection<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; }
-        public virtual TonnageDayExercise TonnageDayExercise { get; set; }
+        public virtual ProgramLogExerciseTonnage ProgramLogExerciseTonnage { get; set; }
     }
 }

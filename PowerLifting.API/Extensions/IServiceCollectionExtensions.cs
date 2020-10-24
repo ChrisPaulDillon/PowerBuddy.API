@@ -53,7 +53,6 @@ using PowerLifting.Service.LiftingStats;
 using PowerLifting.Service.ProgramLogs;
 using PowerLifting.Service.ProgramLogs.Factories;
 using PowerLifting.Service.ProgramLogs.Strategies;
-using PowerLifting.Service.Tonnages;
 
 namespace PowerLifting.API.Extensions
 {
@@ -261,7 +260,6 @@ namespace PowerLifting.API.Extensions
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ILiftingStatService, LiftingStatService>();
             services.AddScoped<IProgramLogService, ProgramLogService>();
-            services.AddScoped<ITonnageService, TonnageService>();
 
             return services;
         }

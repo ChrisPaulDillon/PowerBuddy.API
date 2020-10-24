@@ -17,18 +17,6 @@ namespace PowerLifting.Data.Factories
             };
         }
 
-        public TonnageDayExercise CreateTonnageDayExercise(int programLogId, int programLogDayId, int exerciseId, decimal dayTonnage, string userId)
-        {
-            return new TonnageDayExercise()
-            {
-                ProgramLogId = programLogId,
-                ProgramLogDayId = programLogDayId,
-                ExerciseId = exerciseId,
-                DayTonnage = dayTonnage,
-                UserId = userId
-            };
-        }
-
         public ProgramLogRepScheme CreateRepScheme(int programLogExerciseId, int setNo, int noOfReps, decimal weightLifted)
         {
             return new ProgramLogRepScheme()
@@ -37,6 +25,17 @@ namespace PowerLifting.Data.Factories
                 SetNo = setNo,
                 NoOfReps = noOfReps,
                 WeightLifted = weightLifted
+            };
+        }
+
+        public ProgramLogExerciseTonnage CreateProgramLogExerciseTonnage(int programLogExerciseId, decimal exerciseTonnage, string userId, int exerciseId)
+        {
+            return  new ProgramLogExerciseTonnage()
+            {
+                ProgramLogExerciseId = programLogExerciseId,
+                ExerciseTonnage = exerciseTonnage,
+                UserId = userId,
+                ExerciseId = exerciseId
             };
         }
     }
