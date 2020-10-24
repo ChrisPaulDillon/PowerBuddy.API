@@ -38,7 +38,7 @@ namespace PowerLifting.MediatR.TemplatePrograms.CommandHandler.Admin
 
             if (exercisesAlreadyExist) return false;
 
-            var templateProgram = await _context.TemplateProgram.ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider).FirstOrDefaultAsync(x => x.TemplateProgramId == request.TemplateProgramId, cancellationToken: cancellationToken);
+            var templateProgram = await _context.TemplateProgram.ProjectTo<TemplateProgramExtendedDTO>(_mapper.ConfigurationProvider).FirstOrDefaultAsync(x => x.TemplateProgramId == request.TemplateProgramId, cancellationToken: cancellationToken);
 
             var exercisesToAdd = new List<int>();
             foreach (var week in templateProgram.TemplateWeeks)
@@ -55,7 +55,7 @@ namespace PowerLifting.MediatR.TemplatePrograms.CommandHandler.Admin
                 }
             }
 
-            var templateExerciseCollections = exercisesToAdd.Select(exerciseId => new TemplateExerciseCollection() {ExerciseId = exerciseId, TemplateProgramId = request.TemplateProgramId}).ToList();
+            var templateExerciseCollections = exercisesToAdd.Select(exerciseId => new TemplateExerciseCollection() { ExerciseId = exerciseId, TemplateProgramId = request.TemplateProgramId }).ToList();
 
             _context.TemplateExerciseCollection.AddRange(templateExerciseCollections);
 

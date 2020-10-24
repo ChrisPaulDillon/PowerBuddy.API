@@ -42,8 +42,9 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             await _programLogService.IsProgramLogAlreadyActive(request.UserId);
 
             var templateProgram = await _context.TemplateProgram
+                .AsNoTracking()
                 .Where(x => x.TemplateProgramId == request.TemplateProgramId)
-                .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<TemplateProgramExtendedDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (templateProgram == null) throw new TemplateProgramNotFoundException();

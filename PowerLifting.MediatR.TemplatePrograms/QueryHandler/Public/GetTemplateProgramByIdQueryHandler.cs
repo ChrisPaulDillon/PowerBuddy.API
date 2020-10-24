@@ -13,7 +13,7 @@ using PowerLifting.MediatR.TemplatePrograms.Query.Public;
 
 namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Public
 {
-    public class GetTemplateProgramByIdQueryHandler : IRequestHandler<GetTemplateProgramByIdQuery, TemplateProgramDTO>
+    public class GetTemplateProgramByIdQueryHandler : IRequestHandler<GetTemplateProgramByIdQuery, TemplateProgramExtendedDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -24,11 +24,11 @@ namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Public
             _mapper = mapper;
         }
 
-        public async Task<TemplateProgramDTO> Handle(GetTemplateProgramByIdQuery request, CancellationToken cancellationToken)
+        public async Task<TemplateProgramExtendedDTO> Handle(GetTemplateProgramByIdQuery request, CancellationToken cancellationToken)
         {
-            var templateProgram = await _context.Set<TemplateProgram>().AsNoTracking()
+            var templateProgram = await _context.TemplateProgram.AsNoTracking()
                 .Where(x => x.TemplateProgramId == request.TemplateProgramId)
-                .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<TemplateProgramExtendedDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (templateProgram == null) throw new TemplateProgramNotFoundException();

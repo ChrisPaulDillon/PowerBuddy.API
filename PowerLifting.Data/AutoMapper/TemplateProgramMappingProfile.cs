@@ -16,15 +16,30 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(dest => dest.Difficulty, opt => opt.MapFrom(src => src.Difficulty))
                 .ForMember(dest => dest.NoOfDaysPerWeek, opt => opt.MapFrom(src => src.NoOfDaysPerWeek))
                 .ForMember(dest => dest.TemplateType, opt => opt.MapFrom(src => src.TemplateType))
+                .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom(src => src.WeightProgressionType));
+
+            CreateMap<TemplateProgram, TemplateProgramExtendedDTO>()
+                .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Difficulty, opt => opt.MapFrom(src => src.Difficulty))
+                .ForMember(dest => dest.NoOfDaysPerWeek, opt => opt.MapFrom(src => src.NoOfDaysPerWeek))
+                .ForMember(dest => dest.TemplateType, opt => opt.MapFrom(src => src.TemplateType))
                 .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom(src => src.WeightProgressionType))
-                .ForMember(dest => dest.TemplateWeeks, opt => opt.MapFrom(src => src.TemplateWeeks.OrderBy(x => x.WeekNo)))
-                .ReverseMap();
+                .ForMember(dest => dest.TemplateWeeks, opt => opt.MapFrom(src => src.TemplateWeeks))
+                .ForMember(dest => dest.TemplateExerciseCollection, opt => opt.MapFrom(src => src.TemplateExerciseCollection));
 
             CreateMap<TemplateExerciseCollection, TemplateExerciseCollectionDTO>()
                 .ForMember(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom(src => src.TemplateExerciseCollectionId))
                 .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
                 .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
-                .ReverseMap();
+                .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom(src => src.Exercise.ExerciseName));
+
+            CreateMap<TemplateExerciseCollectionDTO, TemplateExerciseCollection>()
+               .ForMember(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom(src => src.TemplateExerciseCollectionId))
+               .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
+               .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
+               .ForMember(dest => dest.Exercise, opt => opt.Ignore());
 
             CreateMap<TemplateWeek, TemplateWeekDTO>()
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom(src => src.TemplateWeekId))
@@ -37,7 +52,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom(src => src.TemplateWeekId))
                 .ForMember(dest => dest.DayNo, opt => opt.MapFrom(src => src.DayNo))
                 .ReverseMap();
-   
+
             CreateMap<TemplateExercise, TemplateExerciseDTO>()
                 .ForMember(dest => dest.TemplateExerciseId, opt => opt.MapFrom(src => src.TemplateExerciseId))
                 .ForMember(dest => dest.TemplateDayId, opt => opt.MapFrom(src => src.TemplateDayId))

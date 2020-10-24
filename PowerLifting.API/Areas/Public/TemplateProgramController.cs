@@ -36,7 +36,7 @@ namespace PowerLifting.API.Areas.Public
         }
 
         [HttpGet("{templateProgramId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<TemplateProgramDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<TemplateProgramExtendedDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTemplateProgramById(int templateProgramId)
         {
