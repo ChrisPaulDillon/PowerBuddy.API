@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -8,6 +9,7 @@ using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.MediatR.ProgramLogRepSchemes.Command.Account;
+using PowerLifting.Service.ProgramLogs;
 
 namespace PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account
 {
@@ -15,32 +17,36 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+        private readonly IProgramLogService _programLogService;
 
-        public DeleteProgramLogRepSchemeCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public DeleteProgramLogRepSchemeCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService)
         {
             _context = context;
             _mapper = mapper;
+            _programLogService = programLogService;
         }
 
         public async Task<bool> Handle(DeleteProgramLogRepSchemeCommand request, CancellationToken cancellationToken)
         {
-            var programLogRepScheme = await _context.Set<ProgramLogRepScheme>()
+            var programLogRepScheme = await _context.ProgramLogRepScheme
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ProgramLogRepSchemeId == request.ProgramLogRepSchemeId,
-                    cancellationToken: cancellationToken);
+                .FirstOrDefaultAsync(x => x.ProgramLogRepSchemeId == request.ProgramLogRepSchemeId, cancellationToken: cancellationToken);
 
             if (programLogRepScheme == null) throw new ProgramLogRepSchemeNotFoundException();
 
             var programLogExercise = await _context.ProgramLogExercise
-                .FirstOrDefaultAsync(x => x.ProgramLogExerciseId == programLogRepScheme.ProgramLogExerciseId, cancellationToken: cancellationToken);
+                .Where(x => x.ProgramLogExerciseId == programLogRepScheme.ProgramLogExerciseId)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();
 
-            var isUserAuthorized = await _context.ProgramLogDay
-                .AsNoTracking()
-                .AnyAsync(x => x.ProgramLogDayId == programLogExercise.ProgramLogDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
+            var programLogDay = await _context.ProgramLogDay
+                .Where(x => x.ProgramLogDayId == programLogExercise.ProgramLogDayId && x.UserId == request.UserId)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (!isUserAuthorized) throw new UnauthorisedUserException();
+            if (programLogDay == null) throw new UnauthorisedUserException();
+
+            programLogDay.Completed = false;
 
             if (programLogExercise.NoOfSets == 1) //last set in exercise, delete the full exercise
             {
@@ -50,10 +56,18 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account
             {
                 programLogExercise.NoOfSets--;
             }
-  
+
             _context.ProgramLogRepScheme.Remove(programLogRepScheme);
 
             var changedRows = await _context.SaveChangesAsync(cancellationToken);
+
+            var programLogExerciseTonnageUpdate = await _context.ProgramLogExercise
+                .AsNoTracking()
+                .Include(x => x.ProgramLogRepSchemes)
+                .FirstOrDefaultAsync(x => x.ProgramLogExerciseId == programLogExercise.ProgramLogExerciseId);
+
+            await _programLogService.UpdateExerciseTonnage(programLogExerciseTonnageUpdate, request.UserId);
+
             return changedRows > 0;
         }
     }
