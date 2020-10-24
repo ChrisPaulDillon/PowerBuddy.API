@@ -121,7 +121,7 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Member
             //TODO Add lifting stat audit for all ls commands
             foreach (var liftingStat in totalPersonalBests)
             {
-                await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStat.LiftingStatId, liftingStat.ExerciseId, liftingStat.RepRange, (decimal)liftingStat.Weight, liftingStat.UserId), cancellationToken);
+                //await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStat.LiftingStatId, liftingStat.ExerciseId, liftingStat.RepRange, (decimal)liftingStat.Weight, liftingStat.UserId), cancellationToken);
             }
 
             return totalPersonalBests;

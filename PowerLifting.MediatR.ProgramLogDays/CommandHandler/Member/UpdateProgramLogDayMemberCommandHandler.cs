@@ -87,6 +87,8 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
 
                     liftingStatPb.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == programExercise.ExerciseId);
                     totalPersonalBests.Add(_mapper.Map<LiftingStatDTO>(liftingStatPb));
+                    _context.Entry(liftingStatPb.Exercise).State = EntityState.Detached;
+
                     repScheme.PersonalBest = true;
                     repScheme.NoOfReps = (int)repScheme.RepsCompleted;
                     programExercise.PersonalBest = true;
