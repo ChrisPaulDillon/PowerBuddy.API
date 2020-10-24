@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Exercises;
+using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.MediatR.ExerciseMuscleGroups.Query.Public;
 using PowerLifting.MediatR.Exercises.Query.Public;
 using PowerLifting.MediatR.ExerciseTypes.Query.Public;
@@ -32,6 +33,22 @@ namespace PowerLifting.API.Areas.Public
         {
             var exercises = await _mediator.Send(new GetAllExercisesQuery()).ConfigureAwait(false);
             return Ok(Responses.Success(exercises));
+        }
+
+        [HttpGet("{exerciseId:int}")]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ExerciseDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetExerciseById(int exerciseId)
+        {
+            try
+            {
+                var exercise = await _mediator.Send(new GetExerciseByIdQuery(exerciseId)).ConfigureAwait(false);
+                return Ok(Responses.Success(exercise));
+            }
+            catch (ExerciseNotFoundException ex)
+            {
+                return NotFound(ex);
+            }
         }
 
         [HttpGet("ExerciseMuscleGroup")]

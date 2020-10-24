@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Exercises;
@@ -59,7 +59,7 @@ namespace PowerLifting.API.Areas.Admin.Controllers
                 var result = await _mediator.Send(new UpdateExerciseCommand(exerciseDTO, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(result));
             }
-            catch (ExerciseValidationException e)
+            catch (ValidationException e)
             {
                 return BadRequest(e.Message);
             }
@@ -90,7 +90,7 @@ namespace PowerLifting.API.Areas.Admin.Controllers
                 var exercises = await _mediator.Send(new ApproveExerciseCommand(exerciseId, userId)).ConfigureAwait(false);
                 return Ok(Responses.Success(exercises));
             }
-            catch(ExerciseValidationException e)
+            catch(ValidationException e)
             {
                 return BadRequest(e.Message);
             }

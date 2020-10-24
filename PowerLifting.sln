@@ -19,10 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mediatr", "Mediatr", "{F184
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.Exercises", "PowerLifting.MediatR.Exercises\PowerLifting.MediatR.Exercises.csproj", "{5A98542E-EBF7-4595-BF9F-9A9361C946DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ExerciseMuscleGroups", "PowerLifting.MediatR.ExerciseMuscleGroups\PowerLifting.MediatR.ExerciseMuscleGroups.csproj", "{935CBF63-4896-4A4B-9058-B1FFE26672AA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ExerciseTypes", "PowerLifting.MediatR.ExerciseTypes\PowerLifting.MediatR.ExerciseTypes.csproj", "{BFA4A0DD-2F45-4143-9138-CE601A957AE8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ProgramLogs", "PowerLifting.MediatR.ProgramLogs\PowerLifting.MediatR.ProgramLogs.csproj", "{BC906858-EA9B-41F2-BE8F-C42E52322437}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.ProgramLogExercises", "PowerLifting.MediatR.ProgramLogExercises\PowerLifting.MediatR.ProgramLogExercises.csproj", "{830612A3-6C1A-455D-B034-9B5E228AAA18}"
@@ -61,9 +57,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.MediatR.Tonnag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Service.ProgramLogs", "PowerLifting.Service.ProgramLog\PowerLifting.Service.ProgramLogs.csproj", "{7434896F-5D20-457A-9F57-C2959BA0AF1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Service.Tonnages", "PowerLifting.Service.Tonnage\PowerLifting.Service.Tonnages.csproj", "{479CD5CF-232D-4B25-9F3D-80CF2F7DE920}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Service.Tonnages", "PowerLifting.Service.Tonnage\PowerLifting.Service.Tonnages.csproj", "{479CD5CF-232D-4B25-9F3D-80CF2F7DE920}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLifting.Service.UnitTests", "PowerLifting.Service.UnitTests\PowerLifting.Service.UnitTests.csproj", "{8A4916C4-7713-4C63-88F0-0E01A8D1A748}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerLifting.Service.UnitTests", "PowerLifting.Service.UnitTests\PowerLifting.Service.UnitTests.csproj", "{8A4916C4-7713-4C63-88F0-0E01A8D1A748}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,14 +91,6 @@ Global
 		{5A98542E-EBF7-4595-BF9F-9A9361C946DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A98542E-EBF7-4595-BF9F-9A9361C946DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A98542E-EBF7-4595-BF9F-9A9361C946DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{935CBF63-4896-4A4B-9058-B1FFE26672AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{935CBF63-4896-4A4B-9058-B1FFE26672AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{935CBF63-4896-4A4B-9058-B1FFE26672AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{935CBF63-4896-4A4B-9058-B1FFE26672AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFA4A0DD-2F45-4143-9138-CE601A957AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFA4A0DD-2F45-4143-9138-CE601A957AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFA4A0DD-2F45-4143-9138-CE601A957AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFA4A0DD-2F45-4143-9138-CE601A957AE8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC906858-EA9B-41F2-BE8F-C42E52322437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC906858-EA9B-41F2-BE8F-C42E52322437}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC906858-EA9B-41F2-BE8F-C42E52322437}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -189,8 +177,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5A98542E-EBF7-4595-BF9F-9A9361C946DA} = {F184F21A-0499-4782-BB23-5A08B4AB5957}
-		{935CBF63-4896-4A4B-9058-B1FFE26672AA} = {F184F21A-0499-4782-BB23-5A08B4AB5957}
-		{BFA4A0DD-2F45-4143-9138-CE601A957AE8} = {F184F21A-0499-4782-BB23-5A08B4AB5957}
 		{BC906858-EA9B-41F2-BE8F-C42E52322437} = {F184F21A-0499-4782-BB23-5A08B4AB5957}
 		{830612A3-6C1A-455D-B034-9B5E228AAA18} = {F184F21A-0499-4782-BB23-5A08B4AB5957}
 		{2DF587CA-69BD-4F88-A0C6-8F191007E41C} = {F184F21A-0499-4782-BB23-5A08B4AB5957}

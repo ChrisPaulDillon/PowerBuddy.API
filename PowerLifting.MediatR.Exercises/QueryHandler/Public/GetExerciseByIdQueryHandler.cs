@@ -2,17 +2,18 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
+using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.Exercises;
 using PowerLifting.MediatR.Exercises.Query.Public;
-using Exercise = PowerLifting.Data.Entities.Exercise;
 
 namespace PowerLifting.MediatR.Exercises.QueryHandler.Public
 {
-    public class GetExerciseByIdQueryHandler : IRequestHandler<GetExerciseByIdQuery, Exercise>
+    public class GetExerciseByIdQueryHandler : IRequestHandler<GetExerciseByIdQuery, ExerciseDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -22,13 +23,12 @@ namespace PowerLifting.MediatR.Exercises.QueryHandler.Public
             _mapper = mapper;
         }
 
-        public async Task<Exercise> Handle(GetExerciseByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ExerciseDTO> Handle(GetExerciseByIdQuery request, CancellationToken cancellationToken)
         {
-            if (request.ExerciseId <= 0) throw new ExerciseValidationException("ExerciseId must be greater than zero");
-
-            var exercise = await _context.Set<Exercise>()
-                .Where(x => x.ExerciseId == request.ExerciseId)
+            var exercise = await _context.Exercise
                 .AsNoTracking()
+                .Where(x => x.ExerciseId == request.ExerciseId)
+                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
             if (exercise == null) throw new ExerciseNotFoundException();

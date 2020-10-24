@@ -61,9 +61,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerLifting.MediaR.Quotes\PowerLifting.MediaR.Quotes.csproj" />
-    <ProjectReference Include="..\PowerLifting.MediatR.ExerciseMuscleGroups\PowerLifting.MediatR.ExerciseMuscleGroups.csproj" />
     <ProjectReference Include="..\PowerLifting.MediatR.Exercises\PowerLifting.MediatR.Exercises.csproj" />
-    <ProjectReference Include="..\PowerLifting.MediatR.ExerciseTypes\PowerLifting.MediatR.ExerciseTypes.csproj" />
     <ProjectReference Include="..\PowerLifting.MediatR.FriendsLists\PowerLifting.MediatR.FriendsLists.csproj" />
     <ProjectReference Include="..\PowerLifting.MediatR.LiftingStats\PowerLifting.MediatR.LiftingStats.csproj" />
     <ProjectReference Include="..\PowerLifting.MediatR.Notifications\PowerLifting.MediatR.Notifications.csproj" />

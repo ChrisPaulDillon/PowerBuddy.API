@@ -22,9 +22,6 @@ namespace PowerLifting.MediatR.Exercises.CommandHandler.Admin
 
         public async Task<bool> Handle(ApproveExerciseCommand request, CancellationToken cancellationToken)
         {
-            if (request.ExerciseId <= 0) throw new ExerciseValidationException("ExerciseId must be greater than zero");
-            if (string.IsNullOrEmpty(request.UserId)) throw new UserValidationException("UserId cannot be null or invalid");
-
             var exercise = await _context.Exercise.FirstOrDefaultAsync(x => x.ExerciseId == request.ExerciseId, cancellationToken: cancellationToken);
 
             if (exercise == null) throw new ExerciseNotFoundException();

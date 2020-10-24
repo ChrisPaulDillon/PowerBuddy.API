@@ -165,6 +165,12 @@ namespace PowerLifting.Data
                 .WithOne()
                 .HasForeignKey<FriendRequest>(x => x.UserFromId)
                 .IsRequired(false);
+
+            modelBuilder.Entity<TemplateProgram>()
+                .HasMany(x => x.TemplateExerciseCollection)
+                .WithOne()
+                .HasForeignKey(x => x.TemplateProgramId)
+                .IsRequired(false);
         }
     }
 }
