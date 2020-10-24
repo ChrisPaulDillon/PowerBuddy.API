@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -12,6 +13,7 @@ using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Factories;
+using PowerLifting.MediatR.LiftingStats.Command.Account;
 using PowerLifting.MediatR.ProgramLogDays.Command.Member;
 
 namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
@@ -21,12 +23,14 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IEntityFactory _entityFactory;
+        private readonly IMediator _mediator;
 
-        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IEntityFactory entityFactory)
+        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IEntityFactory entityFactory, IMediator mediator)
         {
             _context = context;
             _mapper = mapper;
             _entityFactory = entityFactory;
+            _mediator = mediator;
         }
 
         public async Task<IEnumerable<LiftingStatDTO>> Handle(UpdateProgramLogDayMemberCommand request, CancellationToken cancellationToken)
@@ -86,6 +90,7 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                         _context.LiftingStat.Add(liftingStatPb);
                     }
 
+                    liftingStatPb.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == programExercise.ExerciseId);
                     totalPersonalBests.Add(_mapper.Map<LiftingStatDTO>(liftingStatPb));
                     repScheme.PersonalBest = true;
                     repScheme.NoOfReps = (int)repScheme.RepsCompleted;
@@ -93,6 +98,8 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
 
                     var index = updatedRepSchemes.FindIndex(a => a.ProgramLogRepSchemeId == repScheme.ProgramLogRepSchemeId);
                     updatedRepSchemes[index] = repScheme; //replace the current program log rep scheme with the newly updated PB
+
+                    await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStatPb.LiftingStatId, programExercise.ExerciseId, liftingStatPb.RepRange, (decimal)liftingStatPb.Weight, request.UserId), cancellationToken);
                 }
 
                 programExercise.ProgramLogRepSchemes = updatedRepSchemes;
