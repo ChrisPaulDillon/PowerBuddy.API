@@ -12,14 +12,16 @@ namespace PowerLifting.MediatR.LiftingStats.Command.Account
         public int RepRange { get; }
         public decimal Weight { get; }
         public string UserId { get; }
+        public DateTime Date { get; set; }
 
-        public CreateLiftingStatAuditCommand(int liftingStatId, int exerciseId, int repRange, decimal weight, string userId)
+        public CreateLiftingStatAuditCommand(int liftingStatId, int exerciseId, int repRange, decimal weight, string userId, DateTime date)
         {
             LiftingStatId = liftingStatId;
             ExerciseId = exerciseId;
             RepRange = repRange;
             Weight = weight;
             UserId = userId;
+            Date = date;
         }
     }
 }

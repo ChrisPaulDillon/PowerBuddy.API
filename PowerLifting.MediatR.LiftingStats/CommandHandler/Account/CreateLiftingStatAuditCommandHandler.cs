@@ -34,7 +34,7 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
                 RepRange = request.RepRange,
                 Weight = request.Weight,
                 UserId = request.UserId,
-                DateChanged = DateTime.UtcNow
+                DateChanged = request.Date
             };
 
             _context.LiftingStatAudit.Add(liftingStatAudit);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
@@ -40,16 +41,10 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
 
             if (!doesProgramLogDayExist) throw new ProgramLogDayNotFoundException();
 
-            var programLogId = await _context.ProgramLogWeek
-                .AsNoTracking()
-                .Where(x => x.ProgramLogWeekId == request.ProgramLogDayDTO.ProgramLogWeekId)
-                .Select(x => x.ProgramLogId)
-                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+            var programLogDay = await _context.ProgramLogDay.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.ProgramLogDayId == request.ProgramLogDayDTO.ProgramLogDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
-            var isUserAuthorized = await _context.ProgramLogDay.AsNoTracking()
-                .AnyAsync(x => x.ProgramLogDayId == request.ProgramLogDayDTO.ProgramLogDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
-
-            if (!isUserAuthorized) throw new UnauthorisedUserException();
+            if (programLogDay == null) throw new UnauthorisedUserException();
 
             var programLogExercises = request.ProgramLogDayDTO.ProgramLogExercises;
 
@@ -99,7 +94,7 @@ namespace PowerLifting.MediatR.ProgramLogDays.CommandHandler.Member
                     var index = updatedRepSchemes.FindIndex(a => a.ProgramLogRepSchemeId == repScheme.ProgramLogRepSchemeId);
                     updatedRepSchemes[index] = repScheme; //replace the current program log rep scheme with the newly updated PB
 
-                    await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStatPb.LiftingStatId, programExercise.ExerciseId, liftingStatPb.RepRange, (decimal)liftingStatPb.Weight, request.UserId), cancellationToken);
+                    await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStatPb.LiftingStatId, programExercise.ExerciseId, liftingStatPb.RepRange, (decimal)liftingStatPb.Weight, request.UserId, programLogDay.Date), cancellationToken);
                 }
 
                 programExercise.ProgramLogRepSchemes = updatedRepSchemes;

@@ -57,7 +57,7 @@ namespace PowerLifting.MediatR.LiftingStats.CommandHandler.Account
 
             _context.Add(createdLiftingStat);
 
-            await _mediator.Send(new CreateLiftingStatAuditCommand(createdLiftingStat.LiftingStatId, createdLiftingStat.ExerciseId, createdLiftingStat.RepRange, (decimal)createdLiftingStat.Weight, createdLiftingStat.UserId), cancellationToken);
+            await _mediator.Send(new CreateLiftingStatAuditCommand(createdLiftingStat.LiftingStatId, createdLiftingStat.ExerciseId, createdLiftingStat.RepRange, (decimal)createdLiftingStat.Weight, createdLiftingStat.UserId, DateTime.UtcNow), cancellationToken);
             //var createdAudit = await _repo.LiftingStatAudit.CreateLiftingStatAudit(liftingStatAudit);
 
             return request.LiftingStat;
