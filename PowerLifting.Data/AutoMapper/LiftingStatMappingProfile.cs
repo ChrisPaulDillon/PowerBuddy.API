@@ -16,7 +16,8 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Weight, d => d.MapFrom(src => src.Weight))
                 .ForMember(x => x.DateChanged, d => d.MapFrom(src => src.DateChanged))
                 .ForMember(x => x.ExerciseName, d => d.MapFrom(src => src.Exercise.ExerciseName))
-                .ForMember(x => x.LiftingStatId, d => d.MapFrom(src => src.LiftingStatId));
+                .ForMember(x => x.LiftingStatId, d => d.MapFrom(src => src.LiftingStatId))
+                .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId ?? 0));
 
             CreateMap<LiftingStat, LiftingStatDTO>()
                 .ForMember(x => x.LiftingStatId, d => d.MapFrom(src => src.LiftingStatId))

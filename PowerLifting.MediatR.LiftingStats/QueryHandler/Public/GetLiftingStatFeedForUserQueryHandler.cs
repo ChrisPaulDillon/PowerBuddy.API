@@ -41,6 +41,8 @@ namespace PowerLifting.MediatR.LiftingStats.QueryHandler.Public
                 .AsNoTracking()
                 .Where(x => x.UserId == user.Id)
                 .ProjectTo<LiftFeedDTO>(_mapper.ConfigurationProvider)
+                .OrderByDescending(x => x.DateChanged)
+                .Take(5)
                 .ToListAsync(cancellationToken: cancellationToken);
 
             return liftFeed;

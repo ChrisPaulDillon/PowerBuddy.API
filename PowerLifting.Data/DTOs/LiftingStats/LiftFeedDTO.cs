@@ -13,6 +13,7 @@ namespace PowerLifting.Data.DTOs.LiftingStats
         public DateTime DateChanged { get; set; }
         public string UserName { get; set; }
         public string ExerciseName { get; set; }
+        public int ExerciseId { get; set; }
 
     }
 }
