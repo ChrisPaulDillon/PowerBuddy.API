@@ -173,6 +173,12 @@ namespace PowerLifting.Data
                 .WithOne()
                 .HasForeignKey<ProgramLogExerciseTonnage>(x => x.ProgramLogExerciseId)
                 .IsRequired(false);
+
+            modelBuilder.Entity<LiftingStat>()
+                .HasMany(x => x.LiftingStatAudits)
+                .WithOne()
+                .HasForeignKey(x => x.LiftingStatId)
+                .IsRequired(false);
         }
     }
 }

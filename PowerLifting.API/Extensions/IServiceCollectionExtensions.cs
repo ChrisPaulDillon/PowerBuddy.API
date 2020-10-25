@@ -190,6 +190,7 @@ namespace PowerLifting.API.Extensions
             // Query Handlers
             services.AddMediatR(typeof(GetLiftingStatFeedForUserQueryHandler));
             services.AddMediatR(typeof(GetLiftingStatsByUserIdQueryHandler));
+            services.AddMediatR(typeof(GetLiftingStatByIdQueryHandler));
             return services;
         }
 

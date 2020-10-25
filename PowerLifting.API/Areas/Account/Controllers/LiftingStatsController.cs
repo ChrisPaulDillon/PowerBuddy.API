@@ -36,10 +36,20 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats()
         {
+            var liftingStats = await _mediator.Send(new GetLiftingStatsByUserIdQuery(_userId)).ConfigureAwait(false);
+            return Ok(Responses.Success(liftingStats));
+        }
+
+
+        [HttpGet("{liftingStatId:int}")]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<LiftingStatDetailedDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetLiftingStatById(int liftingStatId)
+        {
             try
             {
-                var liftingStats = await _mediator.Send(new GetLiftingStatsByUserIdQuery(_userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(liftingStats));
+                var liftingStatDetailed = await _mediator.Send(new GetLiftingStatByIdQuery(liftingStatId, _userId)).ConfigureAwait(false);
+                return Ok(Responses.Success(liftingStatDetailed));
             }
             catch (LiftingStatNotFoundException ex)
             {

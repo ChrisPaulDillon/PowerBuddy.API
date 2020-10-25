@@ -28,7 +28,7 @@ namespace PowerLifting.MediatR.LiftingStats.QueryHandler.Account
 
         public async Task<IEnumerable<LiftingStatDTO>> Handle(GetLiftingStatsByUserIdQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Set<LiftingStat>().Where(u => u.UserId == request.UserId)
+            return await _context.LiftingStat.Where(u => u.UserId == request.UserId)
                 .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken: cancellationToken);
