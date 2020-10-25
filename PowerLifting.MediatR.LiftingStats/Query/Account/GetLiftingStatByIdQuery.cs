@@ -8,12 +8,12 @@ namespace PowerLifting.MediatR.LiftingStats.Query.Account
 {
     public class GetLiftingStatByIdQuery : IRequest<LiftingStatDetailedDTO>
     {
-        public int LiftingStatId { get; set; }
+        public int ExerciseId { get; set; }
         public string UserId { get; }
 
-        public GetLiftingStatByIdQuery(int liftingStatId, string userId)
+        public GetLiftingStatByIdQuery(int exerciseId, string userId)
         {
-            LiftingStatId = liftingStatId;
+            ExerciseId = exerciseId;
             UserId = userId;
         }
     }

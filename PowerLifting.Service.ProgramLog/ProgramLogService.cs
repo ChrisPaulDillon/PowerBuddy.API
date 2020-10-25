@@ -161,7 +161,7 @@ namespace PowerLifting.Service.ProgramLogs
                 {
                     var weight = calculateRepWeight.CalculateWeight(user1RMOnLift.Weight ?? 0, temRepSet.Percentage ?? 0);
                     var programRepScheme = GenerateProgramLogRepScheme(weight, temRepSet);
-                    exerciseTonnage =+ ProgramLogHelper.CalculateTonnage(programRepScheme.WeightLifted, programLogExercise.NoOfSets);
+                    exerciseTonnage = +ProgramLogHelper.CalculateTonnage(programRepScheme.WeightLifted, programLogExercise.NoOfSets);
                     programLogExercise.ProgramLogRepSchemes.Add(programRepScheme);
                 }
 
@@ -186,7 +186,7 @@ namespace PowerLifting.Service.ProgramLogs
             {
                 if (programLogExercise.Reps != null && programLogExercise.Weight != null)
                 {
-                    exerciseTonnage =+ ProgramLogHelper.CalculateTonnage((decimal)programLogExercise.Weight, (int)programLogExercise.Reps);
+                    exerciseTonnage = +ProgramLogHelper.CalculateTonnage((decimal)programLogExercise.Weight, (int)programLogExercise.Reps);
                     var repScheme = _dtoFactory.CreateProgramLogRepSchemeDTO(i, (int)programLogExercise.Reps, (decimal)programLogExercise.Weight);
                     repSchemeCollection.Add(repScheme);
                 }
@@ -198,5 +198,9 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogExercise;
         }
 
+        public async Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId)
+        {
+            return await _context.ProgramLogExerciseTonnage.AsNoTracking().Where(x => x.UserId == userId && x.ExerciseId == exerciseId).SumAsync(x => x.ExerciseTonnage);
+        }
     }
 }
