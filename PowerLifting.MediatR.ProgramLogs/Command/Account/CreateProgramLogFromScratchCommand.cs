@@ -7,10 +7,10 @@ namespace PowerLifting.MediatR.ProgramLogs.Command.Account
 {
     public class CreateProgramLogFromScratchCommand : IRequest<ProgramLog>
     {
-        public ProgramLogInputDTO ProgramLogDTO { get; }
+        public ProgramLogInputScratchDTO ProgramLogDTO { get; }
         public string UserId { get; }
 
-        public CreateProgramLogFromScratchCommand(ProgramLogInputDTO programLogDTO, string userId)
+        public CreateProgramLogFromScratchCommand(ProgramLogInputScratchDTO programLogDTO, string userId)
         {
             ProgramLogDTO = programLogDTO;
             UserId = userId;

@@ -8,6 +8,7 @@ using PowerLifting.Data;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.ProgramLogs;
+using PowerLifting.Data.Factories;
 using PowerLifting.MediatR.ProgramLogWeeks.Command.Account;
 
 namespace PowerLifting.MediatR.ProgramLogWeeks.CommandHandler.Account
@@ -16,11 +17,13 @@ namespace PowerLifting.MediatR.ProgramLogWeeks.CommandHandler.Account
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+        private readonly IDTOFactory _dtoFactory;
 
-        public AddProgramLogWeekToLogCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public AddProgramLogWeekToLogCommandHandler(PowerLiftingContext context, IMapper mapper, IDTOFactory dtoFactory)
         {
             _context = context;
             _mapper = mapper;
+            _dtoFactory = dtoFactory;
         }
 
         public async Task<ProgramLogWeekDTO> Handle(AddProgramLogWeekToLogCommand request, CancellationToken cancellationToken)
@@ -34,16 +37,11 @@ namespace PowerLifting.MediatR.ProgramLogWeeks.CommandHandler.Account
 
             var lastProgramWeek = programLog.ProgramLogWeeks.OrderByDescending(x => x.WeekNo).FirstOrDefault();
 
-            var programLogWeek = new ProgramLogWeek()
-            {
-                StartDate = lastProgramWeek.EndDate,
-                EndDate = lastProgramWeek.EndDate.AddDays(7),
-                ProgramLogId = request.ProgramLogId,
-                UserId = request.UserId,
-                WeekNo = lastProgramWeek.WeekNo + 1
-            };
+            var programLogWeek = _dtoFactory.CreateProgramLogWeekDTO(lastProgramWeek.EndDate,lastProgramWeek.WeekNo + 1, request.UserId);
 
-            _context.ProgramLogWeek.Add(programLogWeek);
+            programLogWeek.ProgramLogId = lastProgramWeek.ProgramLogId;
+
+            _context.ProgramLogWeek.Add(_mapper.Map<ProgramLogWeek>(programLogWeek));
             programLog.NoOfWeeks++;
             programLog.EndDate = programLog.EndDate.AddDays(7);
 

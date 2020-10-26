@@ -18,7 +18,9 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public int ProgramLogExerciseTonnageId { get; set; }
         public string ExerciseName { get; set; }
         public decimal ExerciseTonnage { get; set; }
-        public ProgramLogExerciseTonnageDTO ProgramLogExerciseTonnage { get; set; }
-        public ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; }
+        public decimal? Weight { get; set; } //only used when repSchemeType is set to 'fixed'
+        public int? Reps { get; set; } //only used when repSchemeType is set to 'fixed'
+        public virtual ProgramLogExerciseTonnageDTO ProgramLogExerciseTonnageDTO { get; set; }
+        public virtual ICollection<ProgramLogRepSchemeDTO> ProgramLogRepSchemes { get; set; }
     }
 }

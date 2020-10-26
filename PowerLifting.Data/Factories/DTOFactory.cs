@@ -7,13 +7,34 @@ namespace PowerLifting.Data.Factories
 {
     public class DTOFactory : IDTOFactory
     {
-        public CProgramLogDayDTO CreateProgramLogDayDTO(DateTime date, string userId)
+        public ProgramLogWeekDTO CreateProgramLogWeekDTO(DateTime date, int weekNo, string userId)
         {
-            return new CProgramLogDayDTO()
+            return new ProgramLogWeekDTO()
+            {
+                StartDate = date,
+                WeekNo = weekNo,
+                EndDate = date.AddDays(7),
+                UserId = userId,
+                ProgramLogDays = new List<ProgramLogDayDTO>()
+                {
+                    CreateProgramLogDayDTO(date, userId),
+                    CreateProgramLogDayDTO(date.AddDays(1), userId),
+                    CreateProgramLogDayDTO(date.AddDays(2), userId),
+                    CreateProgramLogDayDTO(date.AddDays(3), userId),
+                    CreateProgramLogDayDTO(date.AddDays(4), userId),
+                    CreateProgramLogDayDTO(date.AddDays(5), userId),
+                    CreateProgramLogDayDTO(date.AddDays(6), userId),
+                },
+            };
+        }
+
+        public ProgramLogDayDTO CreateProgramLogDayDTO(DateTime date, string userId)
+        {
+            return new ProgramLogDayDTO()
             {
                 Date = date,
                 UserId = userId,
-                ProgramLogExercises = new List<CProgramLogExerciseDTO>(),
+                ProgramLogExercises = new List<ProgramLogExerciseDTO>(),
             };
         }
 

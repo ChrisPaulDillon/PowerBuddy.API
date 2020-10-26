@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using PowerLifting.Data.Entities;
 
 namespace PowerLifting.Data.Factories
@@ -27,6 +28,38 @@ namespace PowerLifting.Data.Factories
                 WeightLifted = weightLifted
             };
         }
+
+        public ProgramLogWeek CreateProgramLogWeek(int programLogId, DateTime startDate, string userId, int weekNo)
+        {
+            return new ProgramLogWeek()
+            {
+                StartDate = startDate,
+                WeekNo = weekNo,
+                EndDate = startDate.AddDays(7),
+                UserId = userId,
+                ProgramLogDays = new List<ProgramLogDay>()
+                {
+                    CreateProgramLogDay(startDate, userId),
+                    CreateProgramLogDay(startDate.AddDays(1), userId),
+                    CreateProgramLogDay(startDate.AddDays(2), userId),
+                    CreateProgramLogDay(startDate.AddDays(3), userId),
+                    CreateProgramLogDay(startDate.AddDays(4), userId),
+                    CreateProgramLogDay(startDate.AddDays(5), userId),
+                    CreateProgramLogDay(startDate.AddDays(6), userId),
+                },
+            };
+        }
+
+        public ProgramLogDay CreateProgramLogDay(DateTime date, string userId)
+        {
+            return new ProgramLogDay()
+            {
+                Date = date,
+                UserId = userId,
+                ProgramLogExercises = new List<ProgramLogExercise>(),
+            };
+        }
+
 
         public ProgramLogExerciseTonnage CreateProgramLogExerciseTonnage(int programLogExerciseId, decimal exerciseTonnage, string userId, int exerciseId)
         {

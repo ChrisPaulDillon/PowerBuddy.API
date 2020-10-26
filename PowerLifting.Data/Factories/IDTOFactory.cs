@@ -7,7 +7,8 @@ namespace PowerLifting.Data.Factories
 {
     public interface IDTOFactory
     {
-        public CProgramLogDayDTO CreateProgramLogDayDTO(DateTime date, string userId);
+        public ProgramLogWeekDTO CreateProgramLogWeekDTO(DateTime date, int weekNo, string userId);
+        public ProgramLogDayDTO CreateProgramLogDayDTO(DateTime date, string userId);
 
         public ProgramLogRepSchemeDTO CreateProgramLogRepSchemeDTO(int setNo, int noOfReps, decimal weightLifted);
 

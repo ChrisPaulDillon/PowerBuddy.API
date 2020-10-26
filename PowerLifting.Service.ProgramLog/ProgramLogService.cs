@@ -66,9 +66,9 @@ namespace PowerLifting.Service.ProgramLogs
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<CProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO tp, DateTime startDate, string userId)
+        public IEnumerable<ProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO tp, DateTime startDate, string userId)
         {
-            var listOfProgramWeeks = new List<CProgramLogWeekDTO>();
+            var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
 
             var currentDate = startDate;
 
@@ -82,11 +82,9 @@ namespace PowerLifting.Service.ProgramLogs
             return listOfProgramWeeks;
         }
 
-        public ICollection<CProgramLogDayDTO> CreateProgramLogDaysForWeekFromTemplate(CProgramLogWeekDTO programLogWeek, Dictionary<int, string> dayOrder, TemplateWeekDTO templateWeek, string userId)
+        public ICollection<ProgramLogDayDTO> CreateProgramLogDaysForWeekFromTemplate(ProgramLogWeekDTO programLogWeek, Dictionary<int, string> dayOrder, TemplateWeekDTO templateWeek, string userId)
         {
-            //if (programLogWeeks.Count() != template.NoOfWeeks) throw new ValidationException(); //program log weeks must equal the template weeks
-
-            var programLogDays = new List<CProgramLogDayDTO>();
+            var programLogDays = new List<ProgramLogDayDTO>();
 
             var startDate = programLogWeek.StartDate;
 
@@ -147,9 +145,9 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogDays;
         }
 
-        public IEnumerable<CProgramLogExerciseDTO> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats, ICalculateRepWeight calculateRepWeight, string userId)
         {
-            var programLogExercises = new List<CProgramLogExerciseDTO>();
+            var programLogExercises = new List<ProgramLogExerciseDTO>();
 
             foreach (var temExercise in templateDay.TemplateExercises)
             {
@@ -176,7 +174,7 @@ namespace PowerLifting.Service.ProgramLogs
             return ProgramLogFactory.CreateProgramLogRepScheme(templateRepScheme.SetNo, templateRepScheme.NoOfReps, templateRepScheme.Percentage ?? 0, weight, templateRepScheme.AMRAP);
         }
 
-        public CProgramLogExerciseDTO CreateRepSchemesForExercise(CProgramLogExerciseDTO programLogExercise, string userId)
+        public ProgramLogExerciseDTO CreateRepSchemesForExercise(ProgramLogExerciseDTO programLogExercise, string userId)
         {
             var repSchemeCollection = new List<ProgramLogRepSchemeDTO>();
 

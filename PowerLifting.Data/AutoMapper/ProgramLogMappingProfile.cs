@@ -71,11 +71,20 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.ExerciseVarianceCount, opt => opt.Ignore())
                 .ReverseMap();
 
-            CreateMap<ProgramLogInputDTO, ProgramLog>()
+            CreateMap<ProgramLogInputScratchDTO, ProgramLog>()
                 .ForMember(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
                 .ForMember(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
-                .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
+                .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+                .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
+                .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks))
+                .ForMember(x => x.TemplateProgram, d => d.Ignore());
+
+            CreateMap<ProgramLogTemplateInputDTO, ProgramLog>()
+                .ForMember(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
+                .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId))
                 .ForMember(x => x.Monday, d => d.MapFrom(src => src.Monday))
                 .ForMember(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday))
                 .ForMember(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday))
@@ -84,11 +93,13 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
                 .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.TemplateProgram, d => d.Ignore());
 
-            CreateMap<CProgramLogWeekDTO, ProgramLogWeek>()
+            //into entity
+            CreateMap<ProgramLogWeekDTO, ProgramLogWeek>()
                 .ForMember(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))
                 .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
@@ -97,6 +108,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays));
 
+            //into dto
             CreateMap<ProgramLogWeek, ProgramLogWeekDTO>()
                 .ForMember(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))
                 .ForMember(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
@@ -104,10 +116,10 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.WeekNo, d => d.MapFrom(src => src.WeekNo))
                 .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
-                .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays.OrderBy(x => x.Date)))
-                .ReverseMap();
+                .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays.OrderBy(x => x.Date)));
 
-            CreateMap<CProgramLogDayDTO, ProgramLogDay>()
+            //into entity
+            CreateMap<ProgramLogDayDTO, ProgramLogDay>()
                 .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
                 .ForMember(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
@@ -116,6 +128,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed));
 
+            //into dto
             CreateMap<ProgramLogDay, ProgramLogDayDTO>()
                 .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
                 .ForMember(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))
@@ -123,8 +136,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember(x => x.Date, d => d.MapFrom(src => src.Date))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
-                .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
-                .ReverseMap();
+                .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed));
 
             CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>()
                 .ForMember(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId))
@@ -139,7 +151,8 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.ExerciseTonnage, d => d.MapFrom(src => src.ProgramLogExerciseTonnage.ExerciseTonnage))
                 .ForMember(x => x.ProgramLogRepSchemes, d => d.MapFrom(src => src.ProgramLogRepSchemes.OrderBy(x => x.WeightLifted)));
 
-            CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>()
+            //into dto
+            CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>()
                 .ForMember(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId))
                 .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
                 .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
@@ -148,11 +161,11 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom(src => src.PersonalBest))
                 .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageId))
-                .ForMember(x => x.Exercise, d => d.Ignore())
-                .ForMember(x => x.ProgramLogExerciseTonnage, d => d.Ignore());
+                .ForMember(x => x.ExerciseName, d => d.MapFrom(src => src.Exercise.ExerciseName))
+                .ForMember(x => x.ExerciseTonnage, d => d.MapFrom(src => src.ProgramLogExerciseTonnage.ExerciseTonnage));
 
-
-            CreateMap<CProgramLogExerciseDTO, ProgramLogExercise>()
+            //into entity
+            CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>()
                 .ForMember(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId))
                 .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
                 .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
@@ -160,7 +173,8 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
                 .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageDTO.ProgramLogExerciseTonnageId))
-                .ForMember(x => x.ProgramLogExerciseTonnage, d => d.MapFrom(src => src.ProgramLogExerciseTonnageDTO));
+                .ForMember(x => x.ProgramLogExerciseTonnage, d => d.MapFrom(src => src.ProgramLogExerciseTonnageDTO))
+                .ForMember(x => x.Exercise, d => d.Ignore());
 
             CreateMap<ProgramLogExerciseTonnage, ProgramLogExerciseTonnageDTO>()
                 .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageId))

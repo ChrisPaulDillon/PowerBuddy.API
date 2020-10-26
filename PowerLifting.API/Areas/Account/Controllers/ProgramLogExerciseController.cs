@@ -43,7 +43,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateProgramLogExercise([FromBody] CProgramLogExerciseDTO programLogExerciseDTO)
+        public async Task<IActionResult> CreateProgramLogExercise([FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
         {
             try
             {
