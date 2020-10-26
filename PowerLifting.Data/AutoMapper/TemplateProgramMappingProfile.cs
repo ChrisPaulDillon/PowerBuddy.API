@@ -26,7 +26,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(dest => dest.NoOfDaysPerWeek, opt => opt.MapFrom(src => src.NoOfDaysPerWeek))
                 .ForMember(dest => dest.TemplateType, opt => opt.MapFrom(src => src.TemplateType))
                 .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom(src => src.WeightProgressionType))
-                .ForMember(dest => dest.TemplateWeeks, opt => opt.MapFrom(src => src.TemplateWeeks))
+                .ForMember(dest => dest.TemplateWeeks, opt => opt.MapFrom(src => src.TemplateWeeks.OrderBy(x => x.WeekNo)))
                 .ForMember(dest => dest.TemplateExerciseCollection, opt => opt.MapFrom(src => src.TemplateExerciseCollection));
 
             CreateMap<TemplateExerciseCollection, TemplateExerciseCollectionDTO>()
