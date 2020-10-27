@@ -172,6 +172,7 @@ namespace PowerLifting.Data
                 .HasOne(x => x.ProgramLogExerciseTonnage)
                 .WithOne()
                 .HasForeignKey<ProgramLogExerciseTonnage>(x => x.ProgramLogExerciseId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
             modelBuilder.Entity<LiftingStat>()

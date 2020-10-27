@@ -29,13 +29,13 @@ namespace PowerLifting.API.Areas.Public
         }
 
         [HttpGet("{userName}")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<LiftFeedDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<LiftFeedDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLiftFeedByUsername(string userName)
         {
             var userId = User.Claims.First(x => x.Type == "UserID").Value;
             var liftFeedCollection = await _mediator.Send(new GetLiftingStatFeedForUserQuery(userName, userId)).ConfigureAwait(false);
-            return Ok(Responses.Success(liftFeedCollection));
+            return Ok(liftFeedCollection);
         }
     }
 }

@@ -23,19 +23,19 @@ namespace PowerLifting.API.Areas.Public
         }
 
         [HttpGet("Gender")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<GenderDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<GenderDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllGenders()
         {
             var genders = await _mediator.Send(new GetAllGendersQuery()).ConfigureAwait(false);
-            return Ok(Responses.Success(genders));
+            return Ok(genders);
         }
 
         [HttpGet("MemberStatus")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<GenderDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<GenderDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllMemberStatus()
         {
             var memberStatus = await _mediator.Send(new GetAllMemberStatusQuery()).ConfigureAwait(false);
-            return Ok(Responses.Success(memberStatus));
+            return Ok(memberStatus);
         }
     }
 }

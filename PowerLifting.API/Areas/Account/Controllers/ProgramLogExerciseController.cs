@@ -32,17 +32,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpGet("{programLogExerciseId:int}", Name = "ProgramLogExerciseById")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogExerciseDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ProgramLogExerciseDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProgramLogDayExerciseById(int programLogExerciseId)
         {
             var programLogExercise = await _mediator.Send(new GetProgramLogExerciseByIdQuery(programLogExerciseId)).ConfigureAwait(false);
-            return Ok(Responses.Success(programLogExercise));
+            return Ok(programLogExercise);
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateProgramLogExercise([FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
         {
             try
@@ -52,74 +52,74 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (ReachedMaxSetsOnExerciseException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex);
             }
             catch (ProgramLogDayNotWithinWeekException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex);
             }
         }
 
         [HttpPut("{programLogExerciseId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateProgramLogExercise(int programLogExerciseId, [FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
         {
             try
             {
                 var result = await _mediator.Send(new UpdateProgramLogExerciseCommand(programLogExerciseDTO, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex);
             }
         }
 
         [HttpDelete("{programLogExerciseId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteProgramLogExercise(int programLogExerciseId)
         {
             try
             {
                 var result = await _mediator.Send(new DeleteProgramLogExerciseCommand(programLogExerciseId, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
             catch (UnauthorisedUserException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
         }
 
         [HttpPut("Note/{programLogExerciseId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateProgramLogExerciseNotes(int programLogExerciseId, string notes)
         {
             try
             {
                 var result = await _mediator.Send(new UpdateProgramLogExerciseNotesCommand(programLogExerciseId, notes, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
             catch (UnauthorisedUserException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
         }
     }

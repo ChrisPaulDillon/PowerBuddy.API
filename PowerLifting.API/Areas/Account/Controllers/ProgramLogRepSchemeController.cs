@@ -31,35 +31,35 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpPost("Collection")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogRepSchemeDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<ProgramLogRepSchemeDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateProgramLogRepSchemeCollection([FromBody] IList<ProgramLogRepSchemeDTO> programLogRepSchemeCollection)
         {
             try
             {
                 var result = await _mediator.Send(new CreateProgramLogRepSchemeCollectionCommand(programLogRepSchemeCollection, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex);
             }
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>),StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError),StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateProgramLogRepScheme([FromBody] ProgramLogRepSchemeDTO programLogRepSchemeDTO)
         {
             try
             {
                 var result = await _mediator.Send(new UpdateProgramLogRepSchemeCommand(programLogRepSchemeDTO, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (ProgramLogRepSchemeNotFoundException e)
             {
@@ -76,8 +76,8 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpDelete("{programLogRepSchemeId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteProgramLogRepScheme(int programLogRepSchemeId)
         {
             try

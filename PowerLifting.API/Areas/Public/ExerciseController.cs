@@ -27,23 +27,23 @@ namespace PowerLifting.API.Areas.Public
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ExerciseDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExercises()
         {
             var exercises = await _mediator.Send(new GetAllExercisesQuery()).ConfigureAwait(false);
-            return Ok(Responses.Success(exercises));
+            return Ok(exercises);
         }
 
         [HttpGet("{exerciseId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ExerciseDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int exerciseId)
         {
             try
             {
                 var exercise = await _mediator.Send(new GetExerciseByIdQuery(exerciseId)).ConfigureAwait(false);
-                return Ok(Responses.Success(exercise));
+                return Ok(exercise);
             }
             catch (ExerciseNotFoundException ex)
             {
@@ -52,21 +52,21 @@ namespace PowerLifting.API.Areas.Public
         }
 
         [HttpGet("ExerciseMuscleGroup")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ExerciseDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExerciseMuscleGroups()
         {
             var exerciseMuscleGroups = await _mediator.Send(new GetAllExerciseMuscleGroupsQuery()).ConfigureAwait(false);
-            return Ok(Responses.Success(exerciseMuscleGroups));
+            return Ok(exerciseMuscleGroups);
         }
 
         [HttpGet("ExerciseType")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ExerciseTypeDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseTypeDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExerciseTypes()
         {
             var exerciseTypes = await _mediator.Send(new GetAllExerciseTypesQuery()).ConfigureAwait(false);
-            return Ok(Responses.Success(exerciseTypes));
+            return Ok(exerciseTypes);
         }
     }
 }

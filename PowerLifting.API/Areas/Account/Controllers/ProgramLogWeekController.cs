@@ -37,39 +37,39 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpPost("{programLogId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProgramLogWeekDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateProgramLogWeek(int programLogId)
         {
             try
             {
                 var programLogWeek = await _mediator.Send(new AddProgramLogWeekToLogCommand(programLogId, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(programLogWeek));
+                return Ok(programLogWeek);
             }
             catch (ProgramLogNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
         }
 
         [HttpGet("Week/{date}")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProgramLogWeekDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetProgramLogWeekByDate(DateTime date)
         {
             try
             { 
                 var programLogWeek = await _mediator.Send(new GetProgramLogWeekBetweenDateQuery(date, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(programLogWeek));
+                return Ok(programLogWeek);
             }
             catch (ProgramLogWeekNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex);
             }
         }
     }

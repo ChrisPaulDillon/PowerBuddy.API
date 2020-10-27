@@ -27,35 +27,35 @@ namespace PowerLifting.API.Areas.Public
         }
 
         [HttpGet("Profile/{userName}")]
-        [ProducesResponseType(typeof(ApiResponse<PublicUserDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(PublicUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPublicUserProfile(string userName)
         {
             try
             {
                 var user = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName)).ConfigureAwait(false);
-                return Ok(Responses.Success(user));
+                return Ok(user);
             }
             catch (UserNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
         }
 
         [HttpGet("All")]
-        [ProducesResponseType(typeof(ApiResponse<PublicUserDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(PublicUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllActiveUserProfiles()
         {
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery(userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(userProfiles));
+                return Ok(userProfiles);
             }
             catch (UserNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
         }
     }

@@ -37,214 +37,214 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpGet("Stat")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProgramLogStatDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(IEnumerable<ProgramLogStatDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetProgramLogStats()
         {
             try
             {
                 var programLogStats = await _mediator.Send(new GetAllProgramLogStatsQuery(_userId)).ConfigureAwait(false);
 
-                return Ok(Responses.Success(programLogStats));
+                return Ok(programLogStats);
             }
             catch (ProgramLogNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetActiveProgramLog()
         {
             try
             {
                 var programLog = await _mediator.Send(new GetActiveProgramLogByUserIdQuery(_userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(programLog));
+                return Ok(programLog);
             }
             catch (ProgramLogNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex);
             }
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateProgramLog([FromBody] ProgramLogDTO programLogDTO)
         {
             try
             {
                 var result = await _mediator.Send(new UpdateProgramLogCommand(programLogDTO, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (ValidationException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
         }
 
         [HttpPost("Scratch")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateProgramLogFromScratch([FromBody] ProgramLogInputScratchDTO programLog)
         {
             try
             {
                 var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(createdLog));
+                return Ok(createdLog);
             }
             catch (ValidationException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
             catch (ProgramLogAlreadyActiveException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("Template/WeightInput/{templateProgramId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateProgramLogFromTemplateWithWeightInput(int templateProgramId, [FromBody] CProgramLogWeightInputDTO programLogDTO)
         {
             try
             {
                 var programLog = await _mediator.Send(new CreateProgramLogFromTemplateWithWeightInputCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(programLog));
+                return Ok(programLog);
             }
             catch (ValidationException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
             catch (TemplateProgramNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
             catch (TemplateExercise1RMNotSetForUserException ex)
             {
-                return Conflict(Responses.Error(ex));
+                return Conflict(ex.Message);
             }
             catch (ProgramDaysDoesNotMatchTemplateDaysException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogAlreadyActiveException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("Template/{templateProgramId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] ProgramLogTemplateInputDTO programLogDTO)
         {
             try
             {
                 var liftingStatsToCreate = await _mediator.Send(new DoesUserHaveExerciseCollection1RMSetQuery(templateProgramId, _userId)).ConfigureAwait(false);
-                if (liftingStatsToCreate.Any()) return Ok(Responses.Success(liftingStatsToCreate));
+                if (liftingStatsToCreate.Any()) return Ok(liftingStatsToCreate);
 
                 var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(programLog));
+                return Ok(programLog);
             }
             catch (ValidationException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
             catch (TemplateProgramNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
             catch (TemplateExercise1RMNotSetForUserException ex)
             {
-                return Conflict(Responses.Error(ex));
+                return Conflict(ex.Message);
             }
             catch (ProgramDaysDoesNotMatchTemplateDaysException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogAlreadyActiveException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpDelete("{programLogId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteProgramLog(int programLogId)
         {
             try
             {
                 var result = await _mediator.Send(new DeleteProgramLogCommand(programLogId, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (ValidationException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpGet("Week/{date}")]
-        [ProducesResponseType(typeof(ApiResponse<ProgramLogWeekDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProgramLogWeekDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetProgramLogWeekByDate(DateTime date)
         {
             try
             {
                 var programLogWeek = await _mediator.Send(new GetProgramLogWeekBetweenDateQuery(date, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(programLogWeek));
+                return Ok(programLogWeek);
             }
             catch (ProgramLogWeekNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
         }
 
@@ -255,15 +255,15 @@ namespace PowerLifting.API.Areas.Account.Controllers
             try
             {
                 var dates = await _mediator.Send(new GetAllProgramLogCalendarStatsQuery(_userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(dates));
+                return Ok(dates);
             }
             catch (ProgramLogDayNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
         }
     }

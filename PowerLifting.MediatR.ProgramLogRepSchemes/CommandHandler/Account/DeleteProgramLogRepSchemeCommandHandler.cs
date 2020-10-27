@@ -58,15 +58,18 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.CommandHandler.Account
             }
 
             _context.ProgramLogRepScheme.Remove(programLogRepScheme);
-
             var changedRows = await _context.SaveChangesAsync(cancellationToken);
 
-            var programLogExerciseTonnageUpdate = await _context.ProgramLogExercise
-                .AsNoTracking()
-                .Include(x => x.ProgramLogRepSchemes)
-                .FirstOrDefaultAsync(x => x.ProgramLogExerciseId == programLogExercise.ProgramLogExerciseId);
+            
+            // Update tonnage
 
-            await _programLogService.UpdateExerciseTonnage(programLogExerciseTonnageUpdate, request.UserId);
+            var programLogExerciseToUpdate = await _context.ProgramLogExercise
+                .AsNoTracking()
+                .Where(x => x.ProgramLogExerciseId == programLogExercise.ProgramLogExerciseId)
+                .Include(x => x.ProgramLogRepSchemes)
+                .FirstOrDefaultAsync();
+
+            await _programLogService.UpdateExerciseTonnage(programLogExerciseToUpdate, request.UserId);
 
             return changedRows > 0;
         }

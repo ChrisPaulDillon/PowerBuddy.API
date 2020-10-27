@@ -289,7 +289,7 @@ namespace PowerLifting.API.Extensions
         public static IServiceCollection AddSentry(this IServiceCollection services, IConfigurationSection sentryConfig)
         {
             //TODO
-            //services.Configure<ApplicationSettings>(applicationSettings);
+            //services.Configure<ApplicationSettings>(applicationSettings));
             return services;
         }
 

@@ -29,25 +29,25 @@ namespace PowerLifting.API.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<AdminUserDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AdminUserDTO), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAdminUsers()
         {
             var userId = User.Claims.First(x => x.Type == "UserID").Value;
             var users = await _mediator.Send(new GetAllUsersByAdminQuery(userId)).ConfigureAwait(false);
-            return Ok(Responses.Success(users));
+            return Ok(users);
         }
 
         [HttpPut("{bannedUserId}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> BanUser(string bannedUserId)
         {
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var result = await _mediator.Send(new BanUserCommand(bannedUserId, userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (UserValidationException e)
             {

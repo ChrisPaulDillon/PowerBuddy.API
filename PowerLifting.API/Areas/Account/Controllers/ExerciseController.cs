@@ -31,8 +31,8 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<TopLevelExerciseDTO>>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(IEnumerable<TopLevelExerciseDTO>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateExercise([FromBody] CExerciseDTO exerciseDTO)
         {
             try
@@ -47,14 +47,14 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpGet("{exerciseId:int}", Name = nameof(GetExerciseById))]
-        [ProducesResponseType(typeof(ApiResponse<TopLevelExerciseDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(TopLevelExerciseDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int exerciseId)
         {
             try
             {
                 var exercises = await _mediator.Send(new GetExerciseByIdQuery(exerciseId)).ConfigureAwait(false);
-                return Ok(Responses.Success(exercises));
+                return Ok(exercises);
             }
             catch (ExerciseNotFoundException e)
             {

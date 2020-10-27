@@ -25,19 +25,19 @@ namespace PowerLifting.API.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<NotificationDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(NotificationDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateNotification(NotificationDTO notificationDTO)
         {
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var notification = await _mediator.Send(new CreateNotificationCommand(notificationDTO, userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(notification));
+                return Ok(notification);
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex);
             }
         }
     }

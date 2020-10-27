@@ -29,8 +29,6 @@ namespace PowerLifting.MediatR.ProgramLogExercises.CommandHandler.Account
         public async Task<bool> Handle(DeleteProgramLogExerciseCommand request, CancellationToken cancellationToken)
         {
             var programLogExercise = await _context.ProgramLogExercise
-                .AsNoTracking()
-                .Include(x => x.ProgramLogRepSchemes)
                 .FirstOrDefaultAsync(x => x.ProgramLogExerciseId == request.ProgramLogExerciseId, cancellationToken: cancellationToken);
 
             if (programLogExercise == null) throw new ProgramLogExerciseNotFoundException();

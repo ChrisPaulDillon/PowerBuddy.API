@@ -31,15 +31,15 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpPost("Login")]
-        [ProducesResponseType(typeof(ApiResponse<UserLoggedInDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(UserLoggedInDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> LoginUser(LoginModelDTO loginModel)
         {
             try
             {
                 var userLoggedInProfile = await _mediator.Send(new LoginUserQuery(loginModel)).ConfigureAwait(false);
-                return Ok(Responses.Success(userLoggedInProfile));
+                return Ok(userLoggedInProfile);
             }
             catch (UserValidationException e)
             {
@@ -47,27 +47,27 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
             catch (UserNotFoundException ex)
             {
-                return BadRequest(Responses.Error(ex));
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpGet("Profile")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetLoggedInUsersProfile()
         {
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var user = await _mediator.Send(new GetUserProfileQuery(userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(user));
+                return Ok(user);
             }
             catch (UserValidationException e)
             {
@@ -75,24 +75,24 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (UserNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex);
             }
         }
 
         [HttpPost("Register")]
-        [ProducesResponseType(typeof(ApiResponse<UserDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDTO userDTO)
         {
             try
             {
                 var result = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (UserValidationException e)
             {
@@ -100,22 +100,22 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (EmailOrUserNameInUseException ex)
             {
-                return Conflict(Responses.Error(ex));
+                return Conflict(ex.Message);
             }
         }
 
         [HttpPost("FirstVisit")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status409Conflict)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> FirstVisit([FromBody] FirstVisitDTO firstVisitDTO)
         {
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDTO, userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (UserNotFoundException e)
             {

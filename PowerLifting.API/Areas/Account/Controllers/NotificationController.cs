@@ -31,18 +31,18 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<NotificationInteractionDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(IEnumerable<NotificationInteractionDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetUserNotifications()
         {
             try
             {
                 var notifications = await _mediator.Send(new GetUserNotificationsQuery(_userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(notifications));
+                return Ok(notifications);
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex);
             }
         }
     }

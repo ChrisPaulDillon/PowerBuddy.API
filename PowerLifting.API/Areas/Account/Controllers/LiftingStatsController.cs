@@ -32,128 +32,128 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<LiftingStatDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats()
         {
             var liftingStats = await _mediator.Send(new GetLiftingStatsByUserIdQuery(_userId)).ConfigureAwait(false);
-            return Ok(Responses.Success(liftingStats));
+            return Ok(liftingStats);
         }
 
 
         [HttpGet("{liftingStatId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<LiftingStatDetailedDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatDetailedDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLiftingStatById(int liftingStatId)
         {
             try
             {
                 var liftingStatDetailed = await _mediator.Send(new GetLiftingStatByIdQuery(liftingStatId, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(liftingStatDetailed));
+                return Ok(liftingStatDetailed);
             }
             catch (LiftingStatNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateLiftingStat([FromBody] LiftingStatDTO liftingStatDTO)
         {
             try
             {
                 var liftingStat = await _mediator.Send(new CreateLiftingStatCommand(liftingStatDTO, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(liftingStat));
+                return Ok(liftingStat);
             }
             catch (LiftingStatAlreadyExistsException e)
             {
-                return BadRequest(Responses.Error(e));
+                return BadRequest(e);
             }
             catch (UnauthorisedUserException e)
             {
-                return Unauthorized(Responses.Error(e));
+                return Unauthorized(e);
             }
         }
 
         [HttpPost("Collection")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateLiftingStatCollection([FromBody] IEnumerable<LiftingStatDTO> liftingStatCollectionDTO)
         {
             try
             {
                 var liftingStat = await _mediator.Send(new CreateLiftingStatCollectionCommand(liftingStatCollectionDTO, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(liftingStat));
+                return Ok(liftingStat);
             }
-            catch (UnauthorisedUserException e)
+            catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(e));
+                return Unauthorized(ex.Message);
             }
         }
 
         [HttpPut("Collection")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateLiftingStatCollection([FromBody] IEnumerable<LiftingStatDTO> liftingStatCollectionDTO)
         {
             try
             {
                 var liftingStat = await _mediator.Send(new UpdateLiftingStatCollectionCommand(liftingStatCollectionDTO, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(liftingStat));
+                return Ok(liftingStat);
             }
-            catch (LiftingStatAlreadyExistsException e)
+            catch (LiftingStatAlreadyExistsException ex)
             {
-                return BadRequest(Responses.Error(e));
+                return BadRequest(ex.Message);
             }
-            catch (UnauthorisedUserException e)
+            catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(e));
+                return Unauthorized(ex.Message);
             }
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateLiftingStat([FromBody] LiftingStatDTO liftingStats)
         {
             try
             {
                 var result = await _mediator.Send(new UpdateLiftingStatCommand(liftingStats, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (LiftingStatNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
         }
 
         [HttpDelete("{liftingStatId}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteLiftingStat(int liftingStatId)
         {
             try
             {
                 var result = await _mediator.Send(new DeleteLiftingStatCommand(liftingStatId, _userId)).ConfigureAwait(false);
-               return Ok(Responses.Success(result));
+               return Ok(result);
             }
             catch (LiftingStatNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
         }
     }

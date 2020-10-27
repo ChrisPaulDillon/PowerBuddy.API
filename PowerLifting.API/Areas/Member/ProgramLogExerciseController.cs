@@ -29,23 +29,23 @@ namespace PowerLifting.API.Areas.Member.Controllers
         }
 
         [HttpPut("{programLogExerciseId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateProgramLogExerciseMember(int programLogExerciseId, [FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
         {
             try
             {
                 var liftingStatsThatPb = await _mediator.Send(new UpdateProgramLogExerciseMemberCommand(programLogExerciseDTO, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(liftingStatsThatPb));
+                return Ok(liftingStatsThatPb);
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {
-                return NotFound(Responses.Error(ex));
+                return NotFound(ex);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex);
             }
         }
     }

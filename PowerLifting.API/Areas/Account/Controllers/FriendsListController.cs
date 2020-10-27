@@ -32,8 +32,8 @@ namespace PowerLifting.API.Areas.Account.Controllers
         }
 
         [HttpPost("Request/{friendUserId}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> SendFriendRequest(string friendUserId)
         {
             try
@@ -41,33 +41,33 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var requestSent = await _mediator.Send(new SendFriendRequestCommand(friendUserId, _userId)).ConfigureAwait(false);
 
                 //TODO create notification
-                return Ok(Responses.Success(requestSent));
+                return Ok(requestSent);
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
         }
 
         [HttpPost("Response/{friendsListId:int}")]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> RespondToFriendsRequest(int friendsListId, bool acceptRequest)
         {
             try
             {
                 var result = await _mediator.Send(new RespondToFriendRequestCommand(friendsListId, acceptRequest, _userId)).ConfigureAwait(false);
-                return Ok(Responses.Success(result));
+                return Ok(result);
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex);
             }
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetUserFriendsList()
         {
             try
@@ -87,17 +87,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
                     };
                     friendsListExtended.Add(friendList);
                 }
-                return Ok(Responses.Success(friendsListExtended));
+                return Ok(friendsListExtended);
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
         }
 
         [HttpGet("Pending")]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<FriendRequestDTO>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ApiError>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(IEnumerable<FriendRequestDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetAllUserPendingFriendRequests()
         {
             try
@@ -110,13 +110,11 @@ namespace PowerLifting.API.Areas.Account.Controllers
                     var user = new PublicUserDTO();
                     if (friendRequest.UserFromId != _userId)
                     {
-                        user = await _mediator.Send(new GetPublicUserProfileByIdQuery(friendRequest.UserFromId))
-                            .ConfigureAwait(false);
+                        user = await _mediator.Send(new GetPublicUserProfileByIdQuery(friendRequest.UserFromId)).ConfigureAwait(false);
                     }
                     else
                     {
-                        user = await _mediator.Send(new GetPublicUserProfileByIdQuery(friendRequest.UserToId))
-                            .ConfigureAwait(false);
+                        user = await _mediator.Send(new GetPublicUserProfileByIdQuery(friendRequest.UserToId)).ConfigureAwait(false);
                     }
 
                     var friendList = new FriendRequestExtended()
@@ -127,11 +125,11 @@ namespace PowerLifting.API.Areas.Account.Controllers
                     };
                     friendRequestsExtended.Add(friendList);
                 }
-                return Ok(Responses.Success(friendRequestsExtended));
+                return Ok(friendRequestsExtended);
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(Responses.Error(ex));
+                return Unauthorized(ex.Message);
             }
         }
     }

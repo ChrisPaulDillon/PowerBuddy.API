@@ -23,11 +23,11 @@ namespace PowerLifting.API.Areas.Public
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse<IEnumerable<QuoteDTO>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<QuoteDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllQuotes()
         {
             var quotes = await _mediator.Send(new GetAllQuotesQuery()).ConfigureAwait(false);
-            return Ok(Responses.Success(quotes));
+            return Ok(quotes);
         }
     }
 }
