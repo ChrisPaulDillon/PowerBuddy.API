@@ -12,6 +12,7 @@ using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.LiftingStats;
 using PowerLifting.MediatR.LiftingStats.Command.Account;
 using PowerLifting.MediatR.LiftingStats.Query.Account;
+using PowerLifting.MediatR.TemplatePrograms.Query.Account;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {
@@ -55,6 +56,14 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
+        }
+
+        [HttpGet("Template/{templateProgramId:int}")]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatDTO>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetPersonalBestsForTemplate(int templateProgramId)
+        {
+            var personalBests = await _mediator.Send(new GetPersonalBestsForTemplateExercisesQuery(templateProgramId, _userId)).ConfigureAwait(false);
+            return Ok(personalBests);
         }
 
         [HttpPost]

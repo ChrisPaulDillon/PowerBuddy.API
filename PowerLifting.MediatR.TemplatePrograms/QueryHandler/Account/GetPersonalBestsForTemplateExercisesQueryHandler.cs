@@ -17,25 +17,25 @@ using PowerLifting.MediatR.TemplatePrograms.Query.Public;
 
 namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account
 {
-    public class DoesUserHaveExerciseCollection1RMSetQueryHandler : IRequestHandler<DoesUserHaveExerciseCollection1RMSetQuery, IEnumerable<LiftingStatDTO>>
+    public class GetPersonalBestsForTemplateExercisesQueryHandler : IRequestHandler<GetPersonalBestsForTemplateExercisesQuery, IEnumerable<LiftingStatDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
 
-        public DoesUserHaveExerciseCollection1RMSetQueryHandler(PowerLiftingContext context, IMapper mapper)
+        public GetPersonalBestsForTemplateExercisesQueryHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<LiftingStatDTO>> Handle(DoesUserHaveExerciseCollection1RMSetQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<LiftingStatDTO>> Handle(GetPersonalBestsForTemplateExercisesQuery request, CancellationToken cancellationToken)
         {
             var tec = _context.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == request.TemplateProgramId)
                 .AsNoTracking()
                 .Select(x => x.ExerciseId)
                 .ToList();
 
-            var liftingStatsToCreate = await _context.LiftingStat.Where(x => x.RepRange == 1 && x.Weight == null && x.UserId == request.UserId &&
+            var personalBests = await _context.LiftingStat.Where(x => x.RepRange == 1 && x.Weight != null && x.UserId == request.UserId &&
                 tec.Any(j => j == x.ExerciseId))
                 .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
@@ -46,7 +46,7 @@ namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account
 
             //var liftingStatsToCreate = tec.Where(item1 => !liftingStats.Any(liftingStat => item1 != liftingStat.ExerciseId));
 
-            return liftingStatsToCreate;
+            return personalBests;
         }
     }
 }

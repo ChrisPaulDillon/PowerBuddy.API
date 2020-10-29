@@ -142,7 +142,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(CreateTemplateExerciseCollectionForTemplateCommandHandler));
 
             // QueryHandler Registration
-            services.AddMediatR(typeof(DoesUserHaveExerciseCollection1RMSetQueryHandler));
+            services.AddMediatR(typeof(GetPersonalBestsForTemplateExercisesQueryHandler));
             services.AddMediatR(typeof(GetAllTemplateProgramsQueryHandler));
             services.AddMediatR(typeof(GetTecByTemplateProgramIdQueryHandler));
             services.AddMediatR(typeof(GetTemplateProgramByIdQueryHandler));

@@ -6,11 +6,11 @@ using PowerLifting.Data.DTOs.LiftingStats;
 
 namespace PowerLifting.MediatR.TemplatePrograms.Query.Account
 { 
-    public class DoesUserHaveExerciseCollection1RMSetQuery : IRequest<IEnumerable<LiftingStatDTO>>
+    public class GetPersonalBestsForTemplateExercisesQuery : IRequest<IEnumerable<LiftingStatDTO>>
     {
         public int TemplateProgramId { get; }
         public string UserId { get; }
-        public DoesUserHaveExerciseCollection1RMSetQuery(int templateProgramId, string userId)
+        public GetPersonalBestsForTemplateExercisesQuery(int templateProgramId, string userId)
         {
             TemplateProgramId = templateProgramId;
             UserId = userId;
