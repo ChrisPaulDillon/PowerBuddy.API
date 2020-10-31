@@ -145,14 +145,14 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogDays;
         }
 
-        public IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<LiftingStatDTO> liftingStats, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
         {
             var programLogExercises = new List<ProgramLogExerciseDTO>();
 
             foreach (var temExercise in templateDay.TemplateExercises)
             {
                 var programLogExercise = ProgramLogFactory.CreateProgramLogExercise(temExercise.NoOfSets, temExercise.ExerciseId);
-                var user1RMOnLift = liftingStats.FirstOrDefault(x => x.ExerciseId == temExercise.ExerciseId);
+                var user1RMOnLift = weightInputs.FirstOrDefault(x => x.ExerciseId == temExercise.ExerciseId);
                 var exerciseTonnage = 0.00M;
 
                 foreach (var temRepSet in temExercise.TemplateRepSchemes)

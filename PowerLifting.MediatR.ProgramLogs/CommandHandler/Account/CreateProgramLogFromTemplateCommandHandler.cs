@@ -55,11 +55,6 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             request.ProgramLogDTO.ProgramLogWeeks = _programLogService.CreateProgramLogWeeksFromTemplate(templateProgram, request.ProgramLogDTO.StartDate, request.UserId); //create weeks based on template weeks
             request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
 
-            var liftingStats = await _context.LiftingStat
-                .Where(x => x.UserId == request.UserId && x.RepRange == 1)
-                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
-
             var templateWeeks = templateProgram.TemplateWeeks.ToList();
             var counter = 0;
 
@@ -71,7 +66,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
                 foreach (var programLogDay in programLogWeek.ProgramLogDays)
                 {
                     var templateDay = templateWeek.TemplateDays.ToList()[dayCounter++];
-                    programLogDay.ProgramLogExercises = _programLogService.CreateProgramLogExercisesForTemplateDay(templateDay, liftingStats, _calculateRepWeight, request.UserId);
+                    programLogDay.ProgramLogExercises = _programLogService.CreateProgramLogExercisesForTemplateDay(templateDay, request.ProgramLogDTO.WeightInputs, _calculateRepWeight, request.UserId);
                 }
             }
 

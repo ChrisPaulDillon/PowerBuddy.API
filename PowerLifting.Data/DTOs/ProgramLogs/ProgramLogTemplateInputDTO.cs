@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PowerLifting.Data.DTOs.Templates;
 
 namespace PowerLifting.Data.DTOs.ProgramLogs
 {
@@ -22,5 +23,6 @@ namespace PowerLifting.Data.DTOs.ProgramLogs
         public int DayCount { get; set; }
         public IEnumerable<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
         public Dictionary<int, string> ProgramDayOrder { get; set; }
+        public IEnumerable<TemplateWeightInputDTO> WeightInputs { get; set; }
     }
 }

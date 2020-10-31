@@ -174,9 +174,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var liftingStatsToCreate = await _mediator.Send(new GetPersonalBestsForTemplateExercisesQuery(templateProgramId, _userId)).ConfigureAwait(false);
-                if (liftingStatsToCreate.Any()) return Ok(liftingStatsToCreate);
-
                 var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
                 return Ok(programLog);
             }

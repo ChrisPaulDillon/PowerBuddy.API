@@ -13,11 +13,10 @@ using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities;
 using PowerLifting.MediatR.TemplatePrograms.Query.Account;
-using PowerLifting.MediatR.TemplatePrograms.Query.Public;
 
 namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account
 {
-    public class GetPersonalBestsForTemplateExercisesQueryHandler : IRequestHandler<GetPersonalBestsForTemplateExercisesQuery, IEnumerable<LiftingStatDTO>>
+    public class GetPersonalBestsForTemplateExercisesQueryHandler : IRequestHandler<GetPersonalBestsForTemplateExercisesQuery, IEnumerable<TemplateWeightInputDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -28,7 +27,7 @@ namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<LiftingStatDTO>> Handle(GetPersonalBestsForTemplateExercisesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TemplateWeightInputDTO>> Handle(GetPersonalBestsForTemplateExercisesQuery request, CancellationToken cancellationToken)
         {
             var tec = _context.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == request.TemplateProgramId)
                 .AsNoTracking()
@@ -40,13 +39,19 @@ namespace PowerLifting.MediatR.TemplatePrograms.QueryHandler.Account
                 .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            //var liftingStats = await _context.LiftingStat.Where(x => x.UserId == request.UserId && x.RepRange == 1 && x.Weight != null)
-            //    .AsNoTracking()
-            //    .ToListAsync(cancellationToken: cancellationToken);
+            var templateWeightInput = new List<TemplateWeightInputDTO>();
 
-            //var liftingStatsToCreate = tec.Where(item1 => !liftingStats.Any(liftingStat => item1 != liftingStat.ExerciseId));
-
-            return personalBests;
+            foreach (var templateExercise in tec)
+            {
+                var weightInput = new TemplateWeightInputDTO()
+                {
+                    ExerciseId = templateExercise,
+                    ExerciseName = await _context.Exercise.AsNoTracking().Where(x => x.ExerciseId == templateExercise).Select(x => x.ExerciseName).FirstOrDefaultAsync(),
+                    Weight = personalBests.Where(x => x.ExerciseId == templateExercise).Select(x => x.Weight).FirstOrDefault()
+                };
+                templateWeightInput.Add(weightInput);
+            }
+            return templateWeightInput;
         }
     }
 }
