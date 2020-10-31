@@ -129,41 +129,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
-        [HttpPost("Template/WeightInput/{templateProgramId:int}")]
-        [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateProgramLogFromTemplateWithWeightInput(int templateProgramId, [FromBody] CProgramLogWeightInputDTO programLogDTO)
-        {
-            try
-            {
-                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateWithWeightInputCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
-                return Ok(programLog);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (TemplateProgramNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (TemplateExercise1RMNotSetForUserException ex)
-            {
-                return Conflict(ex.Message);
-            }
-            catch (ProgramDaysDoesNotMatchTemplateDaysException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ProgramLogAlreadyActiveException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
         [HttpPost("Template/{templateProgramId:int}")]
         [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]

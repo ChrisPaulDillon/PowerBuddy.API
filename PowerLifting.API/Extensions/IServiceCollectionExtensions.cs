@@ -110,7 +110,6 @@ namespace PowerLifting.API.Extensions
             // CommandHandler Registration
             services.AddMediatR(typeof(CreateProgramLogFromScratchCommandHandler));
             services.AddMediatR(typeof(CreateProgramLogFromTemplateCommandHandler));
-            services.AddMediatR(typeof(CreateProgramLogFromTemplateWithWeightInputCommandHandler));
             services.AddMediatR(typeof(UpdateProgramLogCommandHandler));
             services.AddMediatR(typeof(DeleteProgramLogCommandHandler));
 
