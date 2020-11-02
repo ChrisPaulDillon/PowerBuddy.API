@@ -66,7 +66,6 @@ namespace PowerLifting.API.Extensions
             return services;
         }
 
-
         public static IServiceCollection AddProgramLogDayMediatrHandlers(this IServiceCollection services)
         {
             // CommandHandler Registration

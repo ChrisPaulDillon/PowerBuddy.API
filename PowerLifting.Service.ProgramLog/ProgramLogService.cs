@@ -157,7 +157,7 @@ namespace PowerLifting.Service.ProgramLogs
 
                 foreach (var temRepSet in temExercise.TemplateRepSchemes)
                 {
-                    var weight = calculateRepWeight.CalculateWeight(user1RMOnLift.Weight ?? 0, temRepSet.Percentage ?? 0);
+                    var weight = calculateRepWeight.CalculateWeight(user1RMOnLift.Weight ?? 0, temRepSet.Percentage ?? 2.5M);
                     var programRepScheme = GenerateProgramLogRepScheme(weight, temRepSet);
                     exerciseTonnage = +ProgramLogHelper.CalculateTonnage(programRepScheme.WeightLifted, programLogExercise.NoOfSets);
                     programLogExercise.ProgramLogRepSchemes.Add(programRepScheme);
@@ -194,6 +194,14 @@ namespace PowerLifting.Service.ProgramLogs
             programLogExercise.ProgramLogExerciseTonnageDTO = _dtoFactory.CreateProgramLogExerciseTonnageDTO(programLogExercise.ProgramLogExerciseId, exerciseTonnage, userId, programLogExercise.ExerciseId);
 
             return programLogExercise;
+        }
+
+        public async Task<IEnumerable<DateTime>> GetAllProgramLogDatesForUser(string userId)
+        {
+            return await _context.ProgramLogDay
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Date.Date)
+                .ToListAsync();
         }
 
         public async Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId)

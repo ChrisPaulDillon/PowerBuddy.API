@@ -25,5 +25,7 @@ namespace PowerLifting.Service.ProgramLogs
         IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId);
 
         ProgramLogExerciseDTO CreateRepSchemesForExercise(ProgramLogExerciseDTO programLogExercise, string userId);
+
+        Task<IEnumerable<DateTime>> GetAllProgramLogDatesForUser(string userId);
     }
 }

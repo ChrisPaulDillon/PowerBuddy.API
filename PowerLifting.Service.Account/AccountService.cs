@@ -57,5 +57,10 @@ namespace PowerLifting.Service.Account
         {
             return _context.User.AsNoTracking().Any(x => x.Id == userId && x.MemberStatusId >= 2);
         }
+
+        public async Task<bool> IsUserProfilePublic(string userId)
+        {
+            return await _context.User.AsNoTracking().AnyAsync(x => x.IsPublic == true);
+        }
     }
 }

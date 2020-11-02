@@ -6,10 +6,10 @@ namespace PowerLifting.Service.ProgramLogs.Strategies
 {
     public class CalculateRepWeightPercentage : ICalculateRepWeight
     {
-        public decimal CalculateWeight(decimal user1RM, decimal percentage)
+        public decimal CalculateWeight(decimal weightInput, decimal percentage)
         {
             var percent = percentage / 100;
-            return Math.Round((decimal)(user1RM * percent * 2), MidpointRounding.AwayFromZero) / 2;
+            return Math.Round((decimal)(weightInput * percent * 2), MidpointRounding.AwayFromZero) / 2;
         }
     }
 }

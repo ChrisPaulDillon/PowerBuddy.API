@@ -20,5 +20,7 @@ namespace PowerLifting.Service.Account
         IQueryable<LiftingStatDTO> GetLiftingStatsQueryable(string userId);
 
         bool IsUserModerator(string userId);
+
+        Task<bool> IsUserProfilePublic(string userId);
     }
 }

@@ -6,9 +6,9 @@ namespace PowerLifting.Service.ProgramLogs.Strategies
 {
     public class CalculateRepWeightIncremental : ICalculateRepWeight
     {
-        public decimal CalculateWeight(decimal user1RM, decimal percentage)
+        public decimal CalculateWeight(decimal weightInput, decimal baseIncrementalJump)
         {
-            return 0;
+            return weightInput + baseIncrementalJump;
         }
     }
 }

@@ -71,11 +71,37 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (ProgramLogNotFoundException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(ex);
+                return Unauthorized(ex.Message);
+            }
+        }
+
+        [HttpGet("{programLogId:int}")]
+        [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetProgramLogById(int programLogId)
+        {
+            try
+            {
+                var programLog = await _mediator.Send(new GetProgramLogByIdQuery(programLogId, _userId)).ConfigureAwait(false);
+                return Ok(programLog);
+            }
+            catch (UserProfileNotPublicException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ProgramLogNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
             }
         }
 
