@@ -33,20 +33,22 @@ namespace PowerLifting.API.Areas.Account.Controllers
         [HttpPost("Collection")]
         [ProducesResponseType(typeof(IEnumerable<ProgramLogRepSchemeDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateProgramLogRepSchemeCollection([FromBody] IList<ProgramLogRepSchemeDTO> programLogRepSchemeCollection)
         {
             try
             {
+                if (!programLogRepSchemeCollection.Any()) return BadRequest();
                 var result = await _mediator.Send(new CreateProgramLogRepSchemeCollectionCommand(programLogRepSchemeCollection, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (ProgramLogExerciseNotFoundException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(ex);
+                return Unauthorized(ex.Message);
             }
         }
 
@@ -61,17 +63,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new UpdateProgramLogRepSchemeCommand(programLogRepSchemeDTO, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
-            catch (ProgramLogRepSchemeNotFoundException e)
+            catch (ProgramLogRepSchemeNotFoundException ex)
             {
-                return NotFound(e);
+                return NotFound(ex.Message);
             }
-            catch (ProgramLogExerciseNotFoundException e)
+            catch (ProgramLogExerciseNotFoundException ex)
             {
-                return NotFound(e);
+                return NotFound(ex.Message);
             }
-            catch (UnauthorisedUserException e)
+            catch (UnauthorisedUserException ex)
             {
-                return Unauthorized(e);
+                return Unauthorized(ex.Message);
             }
         }
 

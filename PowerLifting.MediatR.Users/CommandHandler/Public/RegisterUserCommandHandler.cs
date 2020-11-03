@@ -48,33 +48,6 @@ namespace PowerLifting.MediatR.Users.CommandHandler.Public
             };
 
             var result = await _userManager.CreateAsync(userEntity, request.RegisterUserDTO.Password);
-
-            if (result.Succeeded)
-            {
-                var exercisesToAdd = await _context.Set<Exercise>() //temp
-                    .Where(x => x.ExerciseSports.Any(j => j.ExerciseSportStr.ToLower().Equals("PowerLifting".ToLower())) && x.IsApproved)
-                    .ProjectTo<TopLevelExerciseDTO>(_mapper.ConfigurationProvider)
-                    .AsNoTracking()
-                    .ToListAsync(cancellationToken: cancellationToken);
-
-                var repRanges = new int[] { 1, 2, 3, 5, 10 };
-                foreach (var exercise in exercisesToAdd)
-                {
-                    foreach (var repRange in repRanges)
-                    {
-                        _context.LiftingStat.Add(
-                            new LiftingStat()
-                            {
-                                UserId = userEntity.Id,
-                                ExerciseId = exercise.ExerciseId,
-                                RepRange = repRange,
-                                LastUpdated = DateTime.UtcNow
-                            });
-                    }
-                }
-
-                await _context.SaveChangesAsync(cancellationToken);
-            }
             return result.Succeeded;
         }
     }

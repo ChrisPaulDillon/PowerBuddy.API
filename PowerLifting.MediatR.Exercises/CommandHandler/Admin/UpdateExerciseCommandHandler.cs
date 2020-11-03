@@ -32,10 +32,8 @@ namespace PowerLifting.MediatR.Exercises.CommandHandler.Admin
 
             if (!doesExerciseExist) throw new ExerciseNotFoundException();
 
-            request.Exercise.ExerciseSports = null;
-            request.Exercise.ExerciseSports = null;
-
-            _context.Exercise.Update(_mapper.Map<Exercise>(request.Exercise));
+            var exercise = _mapper.Map<Exercise>(request.Exercise);
+            _context.Exercise.Update(exercise);
 
             var changedRows = await _context.SaveChangesAsync(cancellationToken);
             return changedRows > 0;
