@@ -7,12 +7,12 @@ namespace PowerLifting.MediatR.FriendsLists.Command.Account
 {
     public class RespondToFriendRequestCommand : IRequest<bool>
     {
-        public int FriendRequestId { get; }
+        public string FriendUserId { get; }
         public bool Response { get; }
         public string UserId { get; }
-        public RespondToFriendRequestCommand(int friendRequestId, bool response, string userId)
+        public RespondToFriendRequestCommand(string friendUserId, bool response, string userId)
         {
-            FriendRequestId = friendRequestId;
+            FriendUserId = friendUserId;
             Response = response;
             UserId = userId;
         }

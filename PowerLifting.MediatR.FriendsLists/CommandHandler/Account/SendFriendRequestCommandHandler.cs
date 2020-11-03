@@ -7,6 +7,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
+using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Entities;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.FriendsLists.Command.Account;
@@ -25,7 +26,7 @@ namespace PowerLifting.MediatR.FriendsLists.CommandHandler.Account
 
         public async Task<bool> Handle(SendFriendRequestCommand request, CancellationToken cancellationToken)
         {
-            var doesFriendExist = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.FriendUserId);
+            var doesFriendExist = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.FriendUserId, cancellationToken: cancellationToken);
 
             if (!doesFriendExist) return false;
 
@@ -36,8 +37,10 @@ namespace PowerLifting.MediatR.FriendsLists.CommandHandler.Account
 
             if (doesRequestExist) return false;
 
-            var friendsListReq = new FriendRequest() { UserToId = request.FriendUserId, UserFromId = request.UserId };
-            _context.FriendRequest.Add(friendsListReq);
+            var friendRequestDTO = new FriendRequestDTO() { UserToId = request.FriendUserId, UserFromId = request.UserId, HasAccepted = null};
+            var friendRequest = _mapper.Map<FriendRequest>(friendRequestDTO);
+
+            _context.FriendRequest.Add(friendRequest);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
             return modifiedRows > 0;

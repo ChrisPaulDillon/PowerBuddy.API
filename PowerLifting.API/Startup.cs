@@ -88,6 +88,7 @@ namespace PowerLifting.API
                  mc.AddProfile(new ProgramLogMappingProfile());
                  mc.AddProfile(new TemplateProgramMappingProfile());
                  mc.AddProfile(new AccountMappingProfile());
+                 mc.AddProfile(new FriendsListMappingProfile());
              });
 
             var mapper = mappingConfig.CreateMapper();

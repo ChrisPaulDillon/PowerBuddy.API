@@ -29,19 +29,22 @@ namespace PowerLifting.MediatR.FriendsLists.CommandHandler.Account
         public async Task<bool> Handle(RespondToFriendRequestCommand request, CancellationToken cancellationToken)
         {
             var friendRequest = await _context.FriendRequest
-                .FirstOrDefaultAsync(x => x.FriendRequestId == request.FriendRequestId && x.UserToId == request.UserId, cancellationToken: cancellationToken);
+                .FirstOrDefaultAsync(x => x.UserFromId == request.FriendUserId && x.UserToId == request.UserId, cancellationToken: cancellationToken);
 
             if (friendRequest == null) throw new FriendRequestNotFoundException();
 
             friendRequest.HasAccepted = request.Response;
 
-            var friendsListAssoc = new FriendsListAssoc()
+            if (request.Response)
             {
-                UserId = friendRequest.UserFromId,
-                OtherUserId = friendRequest.UserToId
-            };
+                var friendsListAssoc = new FriendsListAssoc()
+                {
+                    UserId = friendRequest.UserFromId,
+                    OtherUserId = friendRequest.UserToId
+                };
 
-            _context.FriendsListAssoc.Add(friendsListAssoc);
+                _context.FriendsListAssoc.Add(friendsListAssoc);
+            }
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
             return modifiedRows > 0;

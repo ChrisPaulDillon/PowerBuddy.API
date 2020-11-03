@@ -58,6 +58,7 @@ namespace PowerLifting.MediatR.ProgramLogs.CommandHandler.Account
             var templateWeeks = templateProgram.TemplateWeeks.ToList();
             var counter = 0;
 
+            //Apply exercises to days that have exercises on them
             foreach (var programLogWeek in request.ProgramLogDTO.ProgramLogWeeks)
             {
                 var templateWeek = templateWeeks[counter++];

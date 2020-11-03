@@ -31,7 +31,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
-        [HttpPost("Request/{friendUserId}")]
+        [HttpPut("Request/{friendUserId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> SendFriendRequest(string friendUserId)
@@ -49,19 +49,19 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
-        [HttpPost("Response/{friendsListId:int}")]
+        [HttpPut("Response/{friendUserId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> RespondToFriendsRequest(int friendsListId, bool acceptRequest)
+        public async Task<IActionResult> RespondToFriendsRequest(string friendUserId, bool acceptRequest)
         {
             try
             {
-                var result = await _mediator.Send(new RespondToFriendRequestCommand(friendsListId, acceptRequest, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new RespondToFriendRequestCommand(friendUserId, acceptRequest, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
-            catch (InvalidCredentialsException ex)
+            catch (FriendRequestNotFoundException ex)
             {
-                return Unauthorized(ex);
+                return BadRequest(ex.Message);
             }
         }
 
