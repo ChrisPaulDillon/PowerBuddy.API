@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
@@ -12,7 +10,6 @@ using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.MediatR.Users.Command.Account;
 using PowerLifting.MediatR.Users.Command.Public;
-using PowerLifting.MediatR.Users.CommandHandler.Public;
 using PowerLifting.MediatR.Users.Models;
 using PowerLifting.MediatR.Users.Query.Account;
 
@@ -44,9 +41,9 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var userLoggedInProfile = await _mediator.Send(new LoginUserQuery(loginModel)).ConfigureAwait(false);
                 return Ok(userLoggedInProfile);
             }
-            catch (UserValidationException e)
+            catch (UserValidationException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
             }
             catch (InvalidCredentialsException ex)
             {
@@ -71,9 +68,9 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var user = await _mediator.Send(new GetUserProfileQuery(_userId)).ConfigureAwait(false);
                 return Ok(user);
             }
-            catch (UserValidationException e)
+            catch (UserValidationException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
             }
             catch (UserNotFoundException ex)
             {
@@ -96,9 +93,9 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
                 return Ok(result);
             }
-            catch (UserValidationException e)
+            catch (UserValidationException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
             }
             catch (EmailOrUserNameInUseException ex)
             {
@@ -118,9 +115,32 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDTO, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
-            catch (UserNotFoundException e)
+            catch (UserNotFoundException ex)
             {
-                return NotFound(e.Message);
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPut("Profile")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> EditProfile([FromBody] EditProfileDTO editProfileDTO)
+        {
+            try
+            {
+                var result = await _mediator.Send(new EditProfileCommand(editProfileDTO, _userId)).ConfigureAwait(false);
+                return Ok(result);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
         }
     }

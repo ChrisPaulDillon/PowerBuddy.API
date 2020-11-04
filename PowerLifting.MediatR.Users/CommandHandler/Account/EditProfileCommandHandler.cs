@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -13,25 +14,27 @@ using PowerLifting.MediatR.Users.Command.Account;
 
 namespace PowerLifting.MediatR.Users.CommandHandler.Account
 {
-    public class CreateFirstVisitStatsCommandHandler : IRequestHandler<CreateFirstVisitStatsCommand, bool>
+    public class EditProfileCommandHandler : IRequestHandler<EditProfileCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        public CreateFirstVisitStatsCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public EditProfileCommandHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(CreateFirstVisitStatsCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(EditProfileCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.User.FirstOrDefaultAsync(x => x.Id == request.UserId , cancellationToken: cancellationToken);
+            if (request.UserId != request.EditProfileDTO.UserId) throw new UnauthorisedUserException();
+
+            var user = await _context.User.Include(x => x.UserSetting).FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken: cancellationToken);
+
             if (user == null) throw new UserNotFoundException();
 
-            //TODO fix
-            user.GenderId = request.FirstVisitDTO.GenderId;
-            //user.LiftingLevel = request.FirstVisitDTO.LiftingLevel;
-            user.FirstVisit = true;
+            var updatedProfile = _mapper.Map(request.EditProfileDTO, user);
+            updatedProfile.UserSetting = _mapper.Map(request.EditProfileDTO, updatedProfile.UserSetting);
+            _context.User.Update(updatedProfile);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
             return modifiedRows > 0;

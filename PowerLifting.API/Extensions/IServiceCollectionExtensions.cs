@@ -154,6 +154,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(BanUserCommandHandler));
             services.AddMediatR(typeof(RegisterUserCommandHandler));
             services.AddMediatR(typeof(CreateFirstVisitStatsCommandHandler));
+            services.AddMediatR(typeof(EditProfileCommandHandler));
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetAllUsersByAdminQueryHandler));

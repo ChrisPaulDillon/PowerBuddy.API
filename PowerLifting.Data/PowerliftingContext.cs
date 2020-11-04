@@ -57,6 +57,7 @@ namespace PowerLifting.Data
         //System
         public DbSet<Gender> Gender { get; set; }
         public DbSet<MemberStatus> MemberStatus { get; set; }
+        public DbSet<LiftingLevel> LiftingLevel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -76,6 +77,7 @@ namespace PowerLifting.Data
             modelBuilder.Entity<TemplateDifficulty>().ToTable("TemplateDifficulty");
             modelBuilder.Entity<RepSchemeType>().ToTable("RepSchemeType");
             modelBuilder.Entity<Quote>().ToTable("Quote");
+            modelBuilder.Entity<LiftingLevel>().ToTable("LiftingLevel");
 
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog")
                 .HasMany(x => x.ProgramLogWeeks)
@@ -179,6 +181,12 @@ namespace PowerLifting.Data
                 .HasMany(x => x.LiftingStatAudits)
                 .WithOne()
                 .HasForeignKey(x => x.LiftingStatId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<UserSetting>()
+                .HasOne(x => x.LiftingLevel)
+                .WithOne()
+                .HasForeignKey<LiftingLevel>(x => x.LiftingLevelId)
                 .IsRequired(false);
         }
     }

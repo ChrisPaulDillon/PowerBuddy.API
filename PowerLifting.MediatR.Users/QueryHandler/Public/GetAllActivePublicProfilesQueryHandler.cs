@@ -21,6 +21,7 @@ namespace PowerLifting.MediatR.Users.QueryHandler.Public
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+
         public GetAllActivePublicProfilesQueryHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
