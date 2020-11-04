@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.System;
-using PowerLifting.MediatR.System.Query.Public;
+using PowerLifting.Service.System;
 
 namespace PowerLifting.API.Areas.Public
 {
@@ -15,18 +13,18 @@ namespace PowerLifting.API.Areas.Public
     [Area("Public")]
     public class SystemController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly ISystemService _service;
 
-        public SystemController(IMediator mediator)
+        public SystemController(ISystemService service)
         {
-            _mediator = mediator;
+            _service = service;
         }
 
         [HttpGet("Gender")]
         [ProducesResponseType(typeof(IEnumerable<GenderDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllGenders()
         {
-            var genders = await _mediator.Send(new GetAllGendersQuery()).ConfigureAwait(false);
+            var genders = await _service.GetAllGenders();
             return Ok(genders);
         }
 
@@ -34,8 +32,16 @@ namespace PowerLifting.API.Areas.Public
         [ProducesResponseType(typeof(IEnumerable<GenderDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllMemberStatus()
         {
-            var memberStatus = await _mediator.Send(new GetAllMemberStatusQuery()).ConfigureAwait(false);
+            var memberStatus = await _service.GetAllMemberStatus();
             return Ok(memberStatus);
+        }
+
+        [HttpGet("LiftingLevel")]
+        [ProducesResponseType(typeof(IEnumerable<LiftingLevelDTO>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllLiftingLevels()
+        {
+            var liftingLevels = await _service.GetAllLiftingLevels();
+            return Ok(liftingLevels);
         }
     }
 }

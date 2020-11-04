@@ -50,7 +50,7 @@ namespace PowerLifting.Data.AutoMapper
 
             CreateMap<Gender, GenderDTO>();
             CreateMap<MemberStatus, MemberStatusDTO>();
-
+            CreateMap<LiftingLevel, LiftingLevelDTO>();
         }
     }
 }

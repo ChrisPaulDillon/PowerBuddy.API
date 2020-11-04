@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using PowerLifting.Data.DTOs.System;
 
 namespace PowerLifting.Service.System
 {
     public interface ISystemService
     {
-        IQueryable<GenderDTO> GetAllGendersQueryable();
+        Task<IEnumerable<GenderDTO>> GetAllGenders();
 
-        IQueryable<MemberStatusDTO> GetAllMemberStatusQueryable();
+        Task<IEnumerable<MemberStatusDTO>> GetAllMemberStatus();
+
+        Task<IEnumerable<LiftingLevelDTO>> GetAllLiftingLevels();
     }
 }
