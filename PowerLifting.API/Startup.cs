@@ -1,5 +1,4 @@
 using AutoMapper;
-using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +12,6 @@ using PowerLifting.API.AuthorizationHandlers;
 using PowerLifting.API.Middleware;
 using PowerLifting.Data.AutoMapper;
 using PowerLifting.API.Extensions;
-using PowerLifting.API.GraphQL;
 using PowerLifting.Data;
 using PowerLifting.Data.Entities;
 
@@ -93,7 +91,6 @@ namespace PowerLifting.API
             var mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddGraphQLServices();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -145,7 +142,6 @@ namespace PowerLifting.API
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseGraphQL("/graphql");
 
             app.UseEndpoints(endpoints =>
             {

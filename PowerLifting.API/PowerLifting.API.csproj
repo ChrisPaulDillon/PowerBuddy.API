@@ -18,11 +18,6 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
-    <PackageReference Include="HotChocolate" Version="10.5.2" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="10.5.2" />
-    <PackageReference Include="HotChocolate.Types" Version="10.5.2" />
-    <PackageReference Include="HotChocolate.Types.Filters" Version="10.5.2" />
-    <PackageReference Include="HotChocolate.Types.Selections" Version="10.5.2" />
     <PackageReference Include="HotChocolate.Types.Sorting" Version="10.5.2" />
     <PackageReference Include="MediatR" Version="8.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
@@ -55,7 +50,6 @@
     <PackageReference Include="Swashbuckle" Version="5.6.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.6" />
   </ItemGroup>
 
