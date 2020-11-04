@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.Users;
@@ -24,10 +25,12 @@ namespace PowerLifting.API.Areas.Account.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly string _userId;
 
-        public UserController(IMediator mediator)
+        public UserController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpPost("Login")]
@@ -65,8 +68,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var user = await _mediator.Send(new GetUserProfileQuery(userId)).ConfigureAwait(false);
+                var user = await _mediator.Send(new GetUserProfileQuery(_userId)).ConfigureAwait(false);
                 return Ok(user);
             }
             catch (UserValidationException e)
@@ -75,11 +77,11 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (UserNotFoundException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(ex);
+                return Unauthorized(ex.Message);
             }
         }
 
@@ -113,8 +115,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDTO, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDTO, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (UserNotFoundException e)

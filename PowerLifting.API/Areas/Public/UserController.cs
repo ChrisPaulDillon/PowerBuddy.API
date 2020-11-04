@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.Users;
@@ -20,10 +21,12 @@ namespace PowerLifting.API.Areas.Public
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly string _userId;
 
-        public UserController(IMediator mediator)
+        public UserController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpGet("Profile/{userName}")]
@@ -38,7 +41,7 @@ namespace PowerLifting.API.Areas.Public
             }
             catch (UserNotFoundException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
 
@@ -49,13 +52,12 @@ namespace PowerLifting.API.Areas.Public
         {
             try
             {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery(userId)).ConfigureAwait(false);
+                var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery(_userId)).ConfigureAwait(false);
                 return Ok(userProfiles);
             }
             catch (UserNotFoundException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
     }
