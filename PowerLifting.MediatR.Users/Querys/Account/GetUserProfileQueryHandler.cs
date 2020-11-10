@@ -3,11 +3,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
 using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Exceptions.Account;
+using PowerLifting.MediatR.Users.Commands.Public;
 
 namespace PowerLifting.MediatR.Users.Querys.Account
 {
@@ -18,6 +20,15 @@ namespace PowerLifting.MediatR.Users.Querys.Account
         public GetUserProfileQuery(string userId)
         {
             UserId = userId;
+            new GetUserProfileQueryValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class GetUserProfileQueryValidator : AbstractValidator<GetUserProfileQuery>
+    {
+        public GetUserProfileQueryValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

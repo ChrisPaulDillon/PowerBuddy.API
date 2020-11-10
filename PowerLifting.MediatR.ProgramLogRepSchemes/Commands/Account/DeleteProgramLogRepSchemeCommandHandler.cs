@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -20,8 +21,19 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.Commands.Account
         {
             ProgramLogRepSchemeId = programLogRepSchemeId;
             UserId = userId;
+            new DeleteProgramLogRepSchemeCommandValidator().ValidateAndThrow(this);
         }
     }
+
+    public class DeleteProgramLogRepSchemeCommandValidator : AbstractValidator<DeleteProgramLogRepSchemeCommand>
+    {
+        public DeleteProgramLogRepSchemeCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.ProgramLogRepSchemeId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+        }
+    }
+
     public class DeleteProgramLogRepSchemeCommandHandler : IRequestHandler<DeleteProgramLogRepSchemeCommand, bool>
     {
         private readonly PowerLiftingContext _context;

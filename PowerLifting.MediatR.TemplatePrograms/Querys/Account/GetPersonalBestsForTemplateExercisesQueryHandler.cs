@@ -4,12 +4,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities;
+using PowerLifting.MediatR.TemplatePrograms.Commands.Admin;
 
 namespace PowerLifting.MediatR.TemplatePrograms.Querys.Account
 {
@@ -21,6 +23,16 @@ namespace PowerLifting.MediatR.TemplatePrograms.Querys.Account
         {
             TemplateProgramId = templateProgramId;
             UserId = userId;
+            new GetPersonalBestsForTemplateExercisesQueryValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class GetPersonalBestsForTemplateExercisesQueryValidator : AbstractValidator<GetPersonalBestsForTemplateExercisesQuery>
+    {
+        public GetPersonalBestsForTemplateExercisesQueryValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

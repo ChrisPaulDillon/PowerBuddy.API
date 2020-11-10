@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -22,6 +23,16 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.Commands.Account
         {
             RepSchemeCollectionDTO = repSchemeDTOCollection;
             UserId = userId;
+            new CreateProgramLogRepSchemeCollectionCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class CreateProgramLogRepSchemeCollectionCommandValidator : AbstractValidator<CreateProgramLogRepSchemeCollectionCommand>
+    {
+        public CreateProgramLogRepSchemeCollectionCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.RepSchemeCollectionDTO.Count).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

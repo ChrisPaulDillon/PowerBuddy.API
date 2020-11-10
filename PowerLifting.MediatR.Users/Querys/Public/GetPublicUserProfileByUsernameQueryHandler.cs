@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -18,6 +19,15 @@ namespace PowerLifting.MediatR.Users.Querys.Public
         public GetPublicUserProfileByUsernameQuery(string username)
         {
             Username = username;
+            new GetPublicUserProfileByUsernameQueryValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class GetPublicUserProfileByUsernameQueryValidator : AbstractValidator<GetPublicUserProfileByUsernameQuery>
+    {
+        public GetPublicUserProfileByUsernameQueryValidator()
+        {
+            RuleFor(x => x.Username).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

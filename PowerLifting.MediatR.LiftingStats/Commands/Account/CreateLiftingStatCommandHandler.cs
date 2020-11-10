@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -22,8 +23,21 @@ namespace PowerLifting.MediatR.LiftingStats.Commands.Account
         {
             LiftingStat = liftingStat;
             UserId = userId;
+            new CreateLiftingStatCommandValidator().ValidateAndThrow(this);
         }
     }
+
+    public class CreateLiftingStatCommandValidator : AbstractValidator<CreateLiftingStatCommand>
+    {
+        public CreateLiftingStatCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.LiftingStat.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
+            RuleFor(x => x.LiftingStat.RepRange).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
+            RuleFor(x => x.LiftingStat.Weight).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
+        }
+    }
+
     public class CreateLiftingStatCommandHandler : IRequestHandler<CreateLiftingStatCommand, LiftingStatDTO>
     {
         private readonly PowerLiftingContext _context;

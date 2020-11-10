@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -20,6 +21,16 @@ namespace PowerLifting.MediatR.ProgramLogWeeks.Querys.Account
         {
             ProgramLogId = programLogId;
             WeekNo = weekNo;
+            new GetProgramLogWeekByWeekNoQueryValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class GetProgramLogWeekByWeekNoQueryValidator : AbstractValidator<GetProgramLogWeekByWeekNoQuery>
+    {
+        public GetProgramLogWeekByWeekNoQueryValidator()
+        {
+            RuleFor(x => x.WeekNo).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.ProgramLogId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

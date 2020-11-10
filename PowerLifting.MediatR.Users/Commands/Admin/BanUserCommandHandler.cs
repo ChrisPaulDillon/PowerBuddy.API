@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,16 @@ namespace PowerLifting.MediatR.Users.Commands.Admin
         {
             UserId = userId;
             AdminUserId = adminUserId;
+            new BanUserCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class BanUserCommandValidator : AbstractValidator<BanUserCommand>
+    {
+        public BanUserCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.AdminUserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -22,6 +23,16 @@ namespace PowerLifting.MediatR.ProgramLogDays.Commands.Account
         {
             ProgramLogDayDTO = programLogDayDTO;
             UserId = userId;
+            new CreateProgramLogDayCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class CreateProgramLogDayCommandValidator : AbstractValidator<CreateProgramLogDayCommand>
+    {
+        public CreateProgramLogDayCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.ProgramLogDayDTO.Date).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
         }
     }
 

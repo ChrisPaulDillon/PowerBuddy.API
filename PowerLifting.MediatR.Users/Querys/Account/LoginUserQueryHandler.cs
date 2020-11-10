@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +28,18 @@ namespace PowerLifting.MediatR.Users.Querys.Account
         public LoginUserQuery(LoginModelDTO loginModel)
         {
             LoginModel = loginModel;
+            new LoginUserQueryValidator().ValidateAndThrow(this);
         }
     }
+
+    public class LoginUserQueryValidator : AbstractValidator<LoginUserQuery>
+    {
+        public LoginUserQueryValidator()
+        {
+            RuleFor(x => x.LoginModel.Password).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
     public class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, UserLoggedInDTO>
     {
         private readonly PowerLiftingContext _context;

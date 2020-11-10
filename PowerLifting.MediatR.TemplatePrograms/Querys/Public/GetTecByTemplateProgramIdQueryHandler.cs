@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -15,6 +16,15 @@ namespace PowerLifting.MediatR.TemplatePrograms.Querys.Public
         public GetTecByTemplateProgramIdQuery(int templateProgramId)
         {
             TemplateProgramId = templateProgramId;
+            new GetTecByTemplateProgramIdQueryValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class GetTecByTemplateProgramIdQueryValidator : AbstractValidator<GetTecByTemplateProgramIdQuery>
+    {
+        public GetTecByTemplateProgramIdQueryValidator()
+        {
+            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

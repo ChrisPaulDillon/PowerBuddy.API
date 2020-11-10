@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -18,13 +19,25 @@ namespace PowerLifting.MediatR.ProgramLogDays.Querys.Account
         public int ProgramLogId { get; }
         public string UserId { get; }
 
-        public GetProgramSpecificDayByDateQuery(DateTime date, int programLog, string userId)
+        public GetProgramSpecificDayByDateQuery(DateTime date, int programLogId, string userId)
         {
             Date = date;
-            ProgramLogId = ProgramLogId;
+            ProgramLogId = programLogId;
             UserId = userId;
+            new GetProgramSpecificDayByDateQueryValidator().ValidateAndThrow(this);
         }
     }
+
+    public class GetProgramSpecificDayByDateQueryValidator : AbstractValidator<GetProgramSpecificDayByDateQuery>
+    {
+        public GetProgramSpecificDayByDateQueryValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.Date).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.ProgramLogId).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
+        }
+    }
+
     public class GetProgramSpecificDayByDateQueryHandler : IRequestHandler<GetProgramSpecificDayByDateQuery, ProgramLogDayDTO>
     {
         private readonly PowerLiftingContext _context;

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,17 @@ namespace PowerLifting.MediatR.Users.Commands.Public
         public RegisterUserCommand(RegisterUserDTO registerUserDTO)
         {
             RegisterUserDTO = registerUserDTO;
+            new RegisterUserCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+    {
+        public RegisterUserCommandValidator()
+        {
+            RuleFor(x => x.RegisterUserDTO.UserName).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RegisterUserDTO.Email).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RegisterUserDTO.Password).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

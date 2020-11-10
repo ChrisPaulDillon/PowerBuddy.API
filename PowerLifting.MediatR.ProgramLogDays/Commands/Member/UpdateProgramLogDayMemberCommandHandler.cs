@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -13,6 +14,7 @@ using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
 using PowerLifting.Data.Factories;
 using PowerLifting.MediatR.LiftingStats.Commands.Account;
+using PowerLifting.MediatR.ProgramLogDays.Commands.Account;
 
 namespace PowerLifting.MediatR.ProgramLogDays.Commands.Member
 {
@@ -25,6 +27,17 @@ namespace PowerLifting.MediatR.ProgramLogDays.Commands.Member
         {
             ProgramLogDayDTO = programLogDayDTO;
             UserId = userId;
+            new UpdateProgramLogDayMemberCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class UpdateProgramLogDayMemberCommandValidator : AbstractValidator<UpdateProgramLogDayMemberCommand>
+    {
+        public UpdateProgramLogDayMemberCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.ProgramLogDayDTO.Date).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.ProgramLogDayDTO.ProgramLogWeekId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

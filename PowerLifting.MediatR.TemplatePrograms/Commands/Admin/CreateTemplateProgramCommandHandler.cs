@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -19,6 +20,22 @@ namespace PowerLifting.MediatR.TemplatePrograms.Commands.Admin
         {
             TemplateProgramDTO = templateProgramDTO;
             UserId = userId;
+            new CreateTemplateProgramCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class CreateTemplateProgramCommandValidator : AbstractValidator<CreateTemplateProgramCommand>
+    {
+        public CreateTemplateProgramCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDTO.Name).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDTO.Description).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDTO.WeightProgressionType).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDTO.TemplateType).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDTO.Difficulty).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDTO.NoOfDaysPerWeek).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.TemplateProgramDTO.NoOfWeeks).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

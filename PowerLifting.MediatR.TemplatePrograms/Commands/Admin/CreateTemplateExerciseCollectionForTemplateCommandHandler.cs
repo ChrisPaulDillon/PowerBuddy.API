@@ -4,11 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Entities;
+using PowerLifting.Data.Exceptions.Account;
 
 namespace PowerLifting.MediatR.TemplatePrograms.Commands.Admin
 {
@@ -21,8 +23,19 @@ namespace PowerLifting.MediatR.TemplatePrograms.Commands.Admin
         {
             TemplateProgramId = templateProgramId;
             UserId = userId;
+            new CreateTemplateExerciseCollectionForTemplateCommandValidator().ValidateAndThrow(this);
         }
     }
+
+    public class CreateTemplateExerciseCollectionForTemplateCommandValidator : AbstractValidator<CreateTemplateExerciseCollectionForTemplateCommand>
+    {
+        public CreateTemplateExerciseCollectionForTemplateCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
     public class CreateTemplateExerciseCollectionForTemplateCommandHandler : IRequestHandler<CreateTemplateExerciseCollectionForTemplateCommand, bool>
     {
         private readonly PowerLiftingContext _context;
@@ -38,7 +51,7 @@ namespace PowerLifting.MediatR.TemplatePrograms.Commands.Admin
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
-            //if (!isUserAdmin) throw new UnauthorisedUserException();
+            if (!isUserAdmin) throw new UnauthorisedUserException();
 
             var exercisesAlreadyExist = await _context.TemplateExerciseCollection.AsNoTracking().AnyAsync(x => x.TemplateProgramId == request.TemplateProgramId);
 

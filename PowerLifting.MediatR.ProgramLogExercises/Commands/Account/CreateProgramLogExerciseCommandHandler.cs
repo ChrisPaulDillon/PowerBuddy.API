@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -24,8 +25,21 @@ namespace PowerLifting.MediatR.ProgramLogExercises.Commands.Account
         {
             ProgramLogExerciseDTO = programLogExerciseDTO;
             UserId = userId;
+            new CreateProgramLogExerciseCommandValidator().ValidateAndThrow(this);
         }
     }
+
+    public class CreateProgramLogExerciseCommandValidator : AbstractValidator<CreateProgramLogExerciseCommand>
+    {
+        public CreateProgramLogExerciseCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.ProgramLogExerciseDTO.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.ProgramLogExerciseDTO.NoOfSets).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.ProgramLogExerciseDTO.ProgramLogDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+        }
+    }
+
     public class CreateProgramLogExerciseCommandHandler : IRequestHandler<CreateProgramLogExerciseCommand, ProgramLogExerciseDTO>
     {
         private readonly PowerLiftingContext _context;

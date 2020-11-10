@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -19,6 +20,15 @@ namespace PowerLifting.MediatR.ProgramLogExercises.Querys.Account
         public GetProgramLogExerciseByIdQuery(int programLogExerciseId)
         {
             ProgramLogExerciseId = programLogExerciseId;
+            new GetProgramLogExerciseByIdQueryValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class GetProgramLogExerciseByIdQueryValidator : AbstractValidator<GetProgramLogExerciseByIdQuery>
+    {
+        public GetProgramLogExerciseByIdQueryValidator()
+        {
+            RuleFor(x => x.ProgramLogExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

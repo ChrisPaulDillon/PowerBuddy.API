@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -18,6 +19,16 @@ namespace PowerLifting.MediatR.ProgramLogDays.Commands.Account
         {
             ProgramLogDayId = programLogDayId;
             UserId = userId;
+            new DeleteProgramLogDayCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class DeleteProgramLogDayCommandValidator : AbstractValidator<DeleteProgramLogDayCommand>
+    {
+        public DeleteProgramLogDayCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.ProgramLogDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

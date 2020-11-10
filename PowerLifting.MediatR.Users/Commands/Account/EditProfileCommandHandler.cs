@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -18,6 +19,17 @@ namespace PowerLifting.MediatR.Users.Commands.Account
         {
             EditProfileDTO = editProfileDTO;
             UserId = userId;
+            new EditProfileCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class EditProfileCommandValidator : AbstractValidator<EditProfileCommand>
+    {
+        public EditProfileCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.EditProfileDTO.BodyWeight).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
+            RuleFor(x => x.EditProfileDTO.QuotesEnabled).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

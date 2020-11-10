@@ -132,7 +132,6 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(GetAllTemplateProgramsQueryHandler));
             services.AddMediatR(typeof(GetTecByTemplateProgramIdQueryHandler));
             services.AddMediatR(typeof(GetTemplateProgramByIdQueryHandler));
-            services.AddMediatR(typeof(GetTemplateProgramNameByIdQueryHandler));
             return services;
         }
 

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -18,8 +19,18 @@ namespace PowerLifting.MediatR.TemplatePrograms.Querys.Public
         public GetTemplateProgramByIdQuery(int templateProgramId)
         {
             TemplateProgramId = templateProgramId;
+            new GetTemplateProgramByIdQueryValidator().ValidateAndThrow(this);
         }
     }
+
+    public class GetTemplateProgramByIdQueryValidator : AbstractValidator<GetTemplateProgramByIdQuery>
+    {
+        public GetTemplateProgramByIdQueryValidator()
+        {
+            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+        }
+    }
+
     public class GetTemplateProgramByIdQueryHandler : IRequestHandler<GetTemplateProgramByIdQuery, TemplateProgramExtendedDTO>
     {
         private readonly PowerLiftingContext _context;

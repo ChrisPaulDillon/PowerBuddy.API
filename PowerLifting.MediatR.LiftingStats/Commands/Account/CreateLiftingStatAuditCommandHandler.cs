@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using PowerLifting.Data;
 using PowerLifting.Data.Entities;
@@ -15,7 +16,7 @@ namespace PowerLifting.MediatR.LiftingStats.Commands.Account
         public int RepRange { get; }
         public decimal Weight { get; }
         public string UserId { get; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; }
 
         public CreateLiftingStatAuditCommand(int liftingStatId, int exerciseId, int repRange, decimal weight, string userId, DateTime date)
         {
@@ -25,6 +26,19 @@ namespace PowerLifting.MediatR.LiftingStats.Commands.Account
             Weight = weight;
             UserId = userId;
             Date = date;
+            new CreateLiftingStatAuditCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class CreateLiftingStatAuditCommandValidator : AbstractValidator<CreateLiftingStatAuditCommand>
+    {
+        public CreateLiftingStatAuditCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.Date).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.RepRange).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
+            RuleFor(x => x.Weight).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
+            RuleFor(x => x.LiftingStatId).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
         }
     }
 

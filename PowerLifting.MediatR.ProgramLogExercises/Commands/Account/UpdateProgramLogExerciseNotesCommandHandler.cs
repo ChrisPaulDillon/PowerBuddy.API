@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -20,8 +21,20 @@ namespace PowerLifting.MediatR.ProgramLogExercises.Commands.Account
             ProgramLogExerciseId = programLogExerciseId;
             Notes = notes;
             UserId = userId;
+            new UpdateProgramLogExerciseNotesCommandValidator().ValidateAndThrow(this);
         }
     }
+
+    public class UpdateProgramLogExerciseNotesCommandValidator : AbstractValidator<UpdateProgramLogExerciseNotesCommand>
+    {
+        public UpdateProgramLogExerciseNotesCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.Notes).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.ProgramLogExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+        }
+    }
+
     public class UpdateProgramLogExerciseNotesCommandHandler : IRequestHandler<UpdateProgramLogExerciseNotesCommand, bool>
     {
         private readonly PowerLiftingContext _context;

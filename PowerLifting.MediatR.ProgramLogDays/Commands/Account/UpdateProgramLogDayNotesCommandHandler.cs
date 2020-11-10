@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
@@ -19,6 +20,17 @@ namespace PowerLifting.MediatR.ProgramLogDays.Commands.Account
             ProgramLogDayId = programLogDayId;
             Notes = notes;
             UserId = userId;
+            new UpdateProgramLogDayNotesCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class UpdateProgramLogDayNotesCommandValidator : AbstractValidator<UpdateProgramLogDayNotesCommand>
+    {
+        public UpdateProgramLogDayNotesCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.Notes).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.ProgramLogDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 
