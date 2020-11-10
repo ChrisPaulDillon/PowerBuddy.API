@@ -5,12 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CommandHandler\Admin\" />
-    <Folder Include="Command\Admin\" />
-    <Folder Include="QueryHandler\Account\" />
-    <Folder Include="QueryHandler\Admin\" />
-    <Folder Include="Query\Account\" />
-    <Folder Include="Query\Admin\" />
+    <Compile Remove="QueryHandler\**" />
+    <Compile Remove="Query\**" />
+    <EmbeddedResource Remove="QueryHandler\**" />
+    <EmbeddedResource Remove="Query\**" />
+    <None Remove="QueryHandler\**" />
+    <None Remove="Query\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Querys\" />
   </ItemGroup>
 
   <ItemGroup>

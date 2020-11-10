@@ -10,7 +10,7 @@ using PowerLifting.API.Extensions;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.MediatR.Notifications.Query.Account;
+using PowerLifting.MediatR.Notifications.Querys.Account;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {

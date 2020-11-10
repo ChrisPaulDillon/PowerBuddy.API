@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
-using PowerLifting.MediatR.ProgramLogRepSchemes.Command.Account;
-using PowerLifting.MediatR.TemplatePrograms.Command.Admin;
-using PowerLifting.MediatR.TemplatePrograms.Query.Public;
+using PowerLifting.MediatR.TemplatePrograms.Commands.Admin;
+using PowerLifting.MediatR.TemplatePrograms.Querys.Public;
 
 namespace PowerLifting.API.Areas.Public
 {

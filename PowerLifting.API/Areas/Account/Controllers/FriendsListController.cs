@@ -10,9 +10,9 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.DTOs.Users;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.MediatR.FriendsLists.Command.Account;
-using PowerLifting.MediatR.FriendsLists.Query.Account;
-using PowerLifting.MediatR.Users.Query.Public;
+using PowerLifting.MediatR.FriendsLists.Commands.Account;
+using PowerLifting.MediatR.FriendsLists.Querys.Account;
+using PowerLifting.MediatR.Users.Querys.Public;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {
@@ -31,7 +31,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
-        [HttpPut("Request/{friendUserId}")]
+        [HttpPost("Request/{friendUserId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> SendFriendRequest(string friendUserId)

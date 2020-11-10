@@ -10,8 +10,8 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.System;
 using PowerLifting.Data.Exceptions.Exercises;
-using PowerLifting.MediatR.Exercises.Command.Account;
-using PowerLifting.MediatR.Exercises.Query.Public;
+using PowerLifting.MediatR.Exercises.Commands.Account;
+using PowerLifting.MediatR.Exercises.Querys.Public;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {

@@ -8,10 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.DTOs.LiftingStats;
-using PowerLifting.MediatR.ExerciseMuscleGroups.Query.Public;
-using PowerLifting.MediatR.Exercises.Query.Public;
-using PowerLifting.MediatR.ExerciseTypes.Query.Public;
-using PowerLifting.MediatR.LiftingStats.Query.Public;
+using PowerLifting.MediatR.LiftingStats.Querys.Public;
 
 namespace PowerLifting.API.Areas.Public
 {

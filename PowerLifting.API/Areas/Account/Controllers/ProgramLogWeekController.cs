@@ -11,12 +11,8 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
-using PowerLifting.Data.Exceptions.TemplatePrograms;
-using PowerLifting.MediatR.ProgramLogs.Command.Account;
-using PowerLifting.MediatR.ProgramLogs.Query.Account;
-using PowerLifting.MediatR.ProgramLogWeeks.Command.Account;
-using PowerLifting.MediatR.ProgramLogWeeks.Query.Account;
-using PowerLifting.MediatR.TemplatePrograms.Query.Account;
+using PowerLifting.MediatR.ProgramLogWeeks.Commands.Account;
+using PowerLifting.MediatR.ProgramLogWeeks.Querys.Account;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {

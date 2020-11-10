@@ -10,8 +10,8 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.ProgramLogs;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.ProgramLogs;
-using PowerLifting.MediatR.ProgramLogExercises.Command.Account;
-using PowerLifting.MediatR.ProgramLogExercises.Query.Account;
+using PowerLifting.MediatR.ProgramLogExercises.Commands.Account;
+using PowerLifting.MediatR.ProgramLogExercises.Querys.Account;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {
@@ -57,27 +57,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
             catch (ProgramLogDayNotWithinWeekException ex)
             {
                 return BadRequest(ex);
-            }
-        }
-
-        [HttpPut("{programLogExerciseId:int}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateProgramLogExercise(int programLogExerciseId, [FromBody] ProgramLogExerciseDTO programLogExerciseDTO)
-        {
-            try
-            {
-                var result = await _mediator.Send(new UpdateProgramLogExerciseCommand(programLogExerciseDTO, _userId)).ConfigureAwait(false);
-                return Ok(result);
-            }
-            catch (ProgramLogExerciseNotFoundException ex)
-            {
-                return NotFound(ex);
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex);
             }
         }
 

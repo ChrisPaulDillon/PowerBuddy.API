@@ -7,7 +7,7 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Templates;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.TemplatePrograms;
-using PowerLifting.MediatR.TemplatePrograms.Command.Admin;
+using PowerLifting.MediatR.TemplatePrograms.Commands.Admin;
 
 namespace PowerLifting.API.Areas.Admin.Controllers
 {

@@ -10,9 +10,9 @@ using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.LiftingStats;
 using PowerLifting.Data.Exceptions.Account;
 using PowerLifting.Data.Exceptions.LiftingStats;
-using PowerLifting.MediatR.LiftingStats.Command.Account;
-using PowerLifting.MediatR.LiftingStats.Query.Account;
-using PowerLifting.MediatR.TemplatePrograms.Query.Account;
+using PowerLifting.MediatR.LiftingStats.Commands.Account;
+using PowerLifting.MediatR.LiftingStats.Querys.Account;
+using PowerLifting.MediatR.TemplatePrograms.Querys.Account;
 
 namespace PowerLifting.API.Areas.Account.Controllers
 {

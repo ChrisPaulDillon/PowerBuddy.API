@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.System;
-using PowerLifting.MediaR.Quotes.Query.Public;
+using PowerLifting.MediaR.Quotes.Querys.Public;
 
 namespace PowerLifting.API.Areas.Public
 {

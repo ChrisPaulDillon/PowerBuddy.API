@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Account;
 using PowerLifting.Data.Exceptions.Account;
-using PowerLifting.MediatR.Exercises.Query.Admin;
-using PowerLifting.MediatR.Notifications.Command.Admin;
+using PowerLifting.MediatR.Notifications.Commands.Admin;
 
 namespace PowerLifting.API.Areas.Admin.Controllers
 {

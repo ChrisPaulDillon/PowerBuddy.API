@@ -5,19 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CommandHandler\Admin\" />
-    <Folder Include="CommandHandler\Public\" />
-    <Folder Include="CommandHandler\Shared\" />
-    <Folder Include="Command\Admin\" />
-    <Folder Include="Command\Public\" />
-    <Folder Include="Command\Shared\" />
-    <Folder Include="QueryHandler\Admin\" />
-    <Folder Include="QueryHandler\Shared\" />
-    <Folder Include="Query\Admin\" />
-    <Folder Include="Query\Shared\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MediatR" Version="8.1.0" />
   </ItemGroup>
 

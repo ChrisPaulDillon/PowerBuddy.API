@@ -7,9 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerLifting.API.Models;
 using PowerLifting.Data.DTOs.Exercises;
 using PowerLifting.Data.Exceptions.Exercises;
-using PowerLifting.MediatR.ExerciseMuscleGroups.Query.Public;
-using PowerLifting.MediatR.Exercises.Query.Public;
-using PowerLifting.MediatR.ExerciseTypes.Query.Public;
+using PowerLifting.MediatR.Exercises.Querys.Public;
 
 namespace PowerLifting.API.Areas.Public
 {
@@ -47,7 +45,7 @@ namespace PowerLifting.API.Areas.Public
             }
             catch (ExerciseNotFoundException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
 
