@@ -42,7 +42,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(ex);
+                return Unauthorized(ex.Message);
             }
         }
     }

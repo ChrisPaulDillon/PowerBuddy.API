@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -52,6 +53,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var liftingStatDetailed = await _mediator.Send(new GetLiftingStatByIdQuery(liftingStatId, _userId)).ConfigureAwait(false);
                 return Ok(liftingStatDetailed);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (LiftingStatNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -77,13 +82,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var liftingStat = await _mediator.Send(new CreateLiftingStatCommand(liftingStatDTO, _userId)).ConfigureAwait(false);
                 return Ok(liftingStat);
             }
-            catch (LiftingStatAlreadyExistsException e)
+            catch (ValidationException ex)
             {
-                return BadRequest(e);
+                return BadRequest(ex.Message);
             }
-            catch (UnauthorisedUserException e)
+            catch (LiftingStatAlreadyExistsException ex)
             {
-                return Unauthorized(e);
+                return BadRequest(ex.Message);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
             }
         }
 
@@ -96,6 +105,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var liftingStat = await _mediator.Send(new CreateLiftingStatCollectionCommand(liftingStatCollectionDTO, _userId)).ConfigureAwait(false);
                 return Ok(liftingStat);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
@@ -113,6 +126,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var liftingStat = await _mediator.Send(new UpdateLiftingStatCollectionCommand(liftingStatCollectionDTO, _userId)).ConfigureAwait(false);
                 return Ok(liftingStat);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (LiftingStatAlreadyExistsException ex)
             {

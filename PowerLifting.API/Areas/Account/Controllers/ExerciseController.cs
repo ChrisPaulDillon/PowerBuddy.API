@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +41,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var exercise = await _mediator.Send(new CreateExerciseCommand(exerciseDTO)).ConfigureAwait(false);
                 return CreatedAtRoute(nameof(GetExerciseById), new { exerciseId = exercise.ExerciseId }, exercise);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ExerciseAlreadyExistsException e)
             {
                 return BadRequest();
@@ -55,6 +60,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var exercises = await _mediator.Send(new GetExerciseByIdQuery(exerciseId)).ConfigureAwait(false);
                 return Ok(exercises);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ExerciseNotFoundException e)
             {

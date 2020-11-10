@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -42,6 +43,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new CreateProgramLogRepSchemeCollectionCommand(programLogRepSchemeCollection, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ProgramLogExerciseNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -62,6 +67,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new UpdateProgramLogRepSchemeCommand(programLogRepSchemeDTO, _userId)).ConfigureAwait(false);
                 return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogRepSchemeNotFoundException ex)
             {
@@ -87,9 +96,21 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new DeleteProgramLogRepSchemeCommand(programLogRepSchemeId, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
-            catch (ProgramLogDayNotWithinWeekException e)
+            catch (ValidationException ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (ProgramLogRepSchemeNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ProgramLogExerciseNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
             }
         }
     }

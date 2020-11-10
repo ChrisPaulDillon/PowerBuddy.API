@@ -18,6 +18,15 @@ namespace PowerLifting.MediatR.Exercises.Querys.Admin
         public GetAllUnapprovedExercisesQuery(string userId)
         {
             UserId = userId;
+            new GetAllUnapprovedExercisesQueryValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class GetAllUnapprovedExercisesQueryValidator : AbstractValidator<GetAllUnapprovedExercisesQuery>
+    {
+        public GetAllUnapprovedExercisesQueryValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
         }
     }
 

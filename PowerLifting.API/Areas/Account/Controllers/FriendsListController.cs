@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,6 +44,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 //TODO create notification
                 return Ok(requestSent);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (InvalidCredentialsException ex)
             {
                 return Unauthorized(ex.Message);
@@ -58,6 +63,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new RespondToFriendRequestCommand(friendUserId, acceptRequest, _userId)).ConfigureAwait(false);
                 return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (FriendRequestNotFoundException ex)
             {
@@ -88,6 +97,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                     friendsListExtended.Add(friendList);
                 }
                 return Ok(friendsListExtended);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (InvalidCredentialsException ex)
             {
@@ -126,6 +139,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                     friendRequestsExtended.Add(friendList);
                 }
                 return Ok(friendRequestsExtended);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (InvalidCredentialsException ex)
             {

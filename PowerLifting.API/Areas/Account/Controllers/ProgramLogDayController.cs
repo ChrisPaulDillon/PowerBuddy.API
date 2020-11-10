@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,6 +44,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var programLogDay = await _mediator.Send(new GetProgramLogDayByDateQuery(dateSelected, _userId)).ConfigureAwait(false);
                 return Ok(programLogDay);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ProgramLogDayNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -64,6 +69,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var programLogDay = await _mediator.Send(new GetProgramSpecificDayByDateQuery(dateSelected, programLogId, _userId)).ConfigureAwait(false);
                 return Ok(programLogDay);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ProgramLogDayNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -84,6 +93,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var programLogDayDTO = await _mediator.Send(new GetProgramLogDayByIdQuery(programLogDayId, _userId)).ConfigureAwait(false);
                 return Ok(programLogDayDTO);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogDayNotFoundException ex)
             {
@@ -108,6 +121,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var liftingStatsThatPb = await _mediator.Send(new UpdateProgramLogDayMemberCommand(programLogDayDTO, _userId)).ConfigureAwait(false);
                 return Ok(liftingStatsThatPb);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(ex.Message);
@@ -128,6 +145,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var createdProgramLogDayDTO = await _mediator.Send(new CreateProgramLogDayCommand(programLogDayDTO, _userId)).ConfigureAwait(false);
                 return CreatedAtRoute(nameof(GetProgramLogDayById), new {programLogDayId = createdProgramLogDayDTO.ProgramLogDayId}, createdProgramLogDayDTO);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogDayNotWithinWeekException ex)
             {
@@ -158,6 +179,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new DeleteProgramLogDayCommand(programLogDayId, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ProgramLogDayNotFoundException ex)
             {
                 return BadRequest(ex.Message);
@@ -177,6 +202,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new UpdateProgramLogDayNotesCommand(programLogDayId, notes, _userId)).ConfigureAwait(false);
                 return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogDayNotFoundException ex)
             {

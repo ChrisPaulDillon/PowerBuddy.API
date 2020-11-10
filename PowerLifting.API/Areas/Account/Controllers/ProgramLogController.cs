@@ -43,8 +43,11 @@ namespace PowerLifting.API.Areas.Account.Controllers
             try
             {
                 var programLogStats = await _mediator.Send(new GetAllProgramLogStatsQuery(_userId)).ConfigureAwait(false);
-
                 return Ok(programLogStats);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogNotFoundException ex)
             {
@@ -67,6 +70,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var programLog = await _mediator.Send(new GetActiveProgramLogByUserIdQuery(_userId)).ConfigureAwait(false);
                 return Ok(programLog);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ProgramLogNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -88,6 +95,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var programLog = await _mediator.Send(new GetProgramLogByIdQuery(programLogId, _userId)).ConfigureAwait(false);
                 return Ok(programLog);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (UserProfileNotPublicException ex)
             {
@@ -221,6 +232,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var dates = await _mediator.Send(new GetAllProgramLogCalendarStatsQuery(_userId)).ConfigureAwait(false);
                 return Ok(dates);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogDayNotFoundException ex)
             {

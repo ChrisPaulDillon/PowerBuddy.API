@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -50,13 +51,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var programLogExercise = await _mediator.Send(new CreateProgramLogExerciseCommand(programLogExerciseDTO, _userId)).ConfigureAwait(false);
                 return CreatedAtRoute("ProgramLogExerciseById", new { programLogExerciseId = programLogExercise.ProgramLogExerciseId }, programLogExercise);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ReachedMaxSetsOnExerciseException ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
             catch (ProgramLogDayNotWithinWeekException ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -71,13 +76,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new DeleteProgramLogExerciseCommand(programLogExerciseId, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ProgramLogExerciseNotFoundException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
 
@@ -92,13 +101,17 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new UpdateProgramLogExerciseNotesCommand(programLogExerciseId, notes, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (ProgramLogExerciseNotFoundException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
     }
