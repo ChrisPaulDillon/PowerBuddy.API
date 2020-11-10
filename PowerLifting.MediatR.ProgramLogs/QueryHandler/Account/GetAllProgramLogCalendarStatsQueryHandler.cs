@@ -23,7 +23,7 @@ namespace PowerLifting.MediatR.ProgramLogs.QueryHandler.Account
 
         public async Task<ProgramLogCalendarDTO> Handle(GetAllProgramLogCalendarStatsQuery request, CancellationToken cancellationToken)
         {
-            var workoutDates = await _context.Set<ProgramLogDay>()
+            var workoutDates = await _context.ProgramLogDay
                 .AsNoTracking()
                 .Where(x => x.UserId == request.UserId)
                 .Select(x => x.Date)

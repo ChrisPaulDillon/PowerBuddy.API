@@ -215,27 +215,6 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
-        [HttpGet("Week/{date}")]
-        [ProducesResponseType(typeof(ProgramLogWeekDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetProgramLogWeekByDate(DateTime date)
-        {
-            try
-            {
-                var programLogWeek = await _mediator.Send(new GetProgramLogWeekBetweenDateQuery(date, _userId)).ConfigureAwait(false);
-                return Ok(programLogWeek);
-            }
-            catch (ProgramLogWeekNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
-        }
-
         [HttpGet("Calendar")]
         [ProducesResponseType(typeof(IEnumerable<DateTime>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProgramLogCalendarStats()
