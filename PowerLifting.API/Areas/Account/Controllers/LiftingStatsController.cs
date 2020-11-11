@@ -152,6 +152,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new UpdateLiftingStatCommand(liftingStats, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (LiftingStatNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -172,6 +176,10 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new DeleteLiftingStatCommand(liftingStatId, _userId)).ConfigureAwait(false);
                return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (LiftingStatNotFoundException ex)
             {
