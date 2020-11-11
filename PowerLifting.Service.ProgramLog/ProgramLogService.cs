@@ -34,9 +34,12 @@ namespace PowerLifting.Service.ProgramLogs
             _entityFactory = entityFactory;
         }
 
-        public async Task IsProgramLogAlreadyActive(string userId)
+        public async Task IsProgramLogAlreadyActive(DateTime startDate, DateTime endDate, string userId)
         {
-            var doesExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.Active && x.UserId == userId && x.IsDeleted == false);
+            var doesExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.UserId == userId 
+                                                                                   && x.IsDeleted == false 
+                                                                                   && x.StartDate.Date < endDate
+                                                                                   && x.StartDate.Date > startDate);
             if (doesExist) throw new ProgramLogAlreadyActiveException();
         }
 

@@ -12,9 +12,9 @@ namespace PowerLifting.Service.ProgramLogs
 {
     public interface IProgramLogService
     {
-        Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId);
+        Task IsProgramLogAlreadyActive(DateTime startDate, DateTime endDate, string userId);
 
-        Task IsProgramLogAlreadyActive(string userId);
+        Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId);
 
         Task UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId);
 

@@ -55,7 +55,7 @@ namespace PowerLifting.MediatR.ProgramLogs.Commands.Account
         public async Task<ProgramLog> Handle(CreateProgramLogFromScratchCommand request, CancellationToken cancellationToken)
         {
             if (request.ProgramLogDTO.UserId != request.UserId) throw new UnauthorisedUserException();
-            await _programLogService.IsProgramLogAlreadyActive(request.UserId);
+            await _programLogService.IsProgramLogAlreadyActive(request.ProgramLogDTO.StartDate, request.ProgramLogDTO.EndDate, request.UserId);
 
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
 

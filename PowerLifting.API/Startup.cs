@@ -58,7 +58,7 @@ namespace PowerLifting.API
                 options.AddPolicy(MyAllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins(Configuration["CorsPolicy:Client_URL"].ToString())
+                        builder.WithOrigins(Configuration["CorsPolicy:Client_URL"])
                             .AllowAnyHeader()
                             .WithMethods("GET", "PUT", "POST", "DELETE");
                     });
