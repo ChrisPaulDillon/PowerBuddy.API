@@ -62,6 +62,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(DeleteProgramLogDayCommandHandler));
             services.AddMediatR(typeof(UpdateProgramLogDayNotesCommandHandler));
             services.AddMediatR(typeof(UpdateProgramLogDayMemberCommandHandler));
+            services.AddMediatR(typeof(MoveProgramLogDayCommandHandler));
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetAllProgramLogCalendarStatsQueryHandler));
@@ -216,7 +217,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(GetAllExercisesBySportQueryHandler));
             services.AddMediatR(typeof(GetExerciseByIdQueryHandler));
             services.AddMediatR(typeof(GetAllExercisesQueryHandler));
-  
+
             return services;
         }
 
