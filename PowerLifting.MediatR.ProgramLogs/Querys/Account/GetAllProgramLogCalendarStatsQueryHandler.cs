@@ -18,6 +18,7 @@ namespace PowerLifting.MediatR.ProgramLogs.Querys.Account
             UserId = userId;
         }
     }
+
     public class GetAllProgramLogCalendarStatsQueryHandler : IRequestHandler<GetAllProgramLogCalendarStatsQuery, ProgramLogCalendarDTO>
     {
         private readonly PowerLiftingContext _context;

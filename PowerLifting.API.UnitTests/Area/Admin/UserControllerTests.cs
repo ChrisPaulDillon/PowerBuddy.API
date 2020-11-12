@@ -17,7 +17,7 @@ using MockFactory = PowerLifting.API.UnitTests.Util.MockFactory;
 
 namespace PowerLifting.API.UnitTests.Area.Admin
 {
-    public class AccountControllerTests
+    public class UserControllerTests
     {
         private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
         private readonly Mock<IMediator> _mediator;
@@ -26,7 +26,7 @@ namespace PowerLifting.API.UnitTests.Area.Admin
 
         private readonly UserController _controller;
 
-        public AccountControllerTests()
+        public UserControllerTests()
         {
             _random = new Random();
             _httpContextAccessor = new Mock<IHttpContextAccessor>(MockBehavior.Strict);

@@ -34,19 +34,15 @@ namespace PowerLifting.MediatR.ProgramLogs.Querys.Account
 
         public async Task<ProgramLogDTO> Handle(GetActiveProgramLogByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var programLogDTO = await _context.ProgramLog.Where(x => x.UserId == request.UserId && x.Active && x.IsDeleted == false)
+            var programLogDTO = await _context.ProgramLog.Where(x => x.UserId == request.UserId && x.IsDeleted == false)
                 .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+                .OrderByDescending(x => x.StartDate)
+                .ToListAsync(cancellationToken: cancellationToken);
 
             if (programLogDTO == null) throw new ProgramLogNotFoundException();
 
-            programLogDTO.LogDates = await _context.Set<ProgramLogDay>()
-                .Where(x => x.UserId == request.UserId)
-                .Select(x => x.Date.Date)
-                .ToListAsync(cancellationToken: cancellationToken);
-
-            return programLogDTO;
+            return programLogDTO[0];
         }
     }
 }
