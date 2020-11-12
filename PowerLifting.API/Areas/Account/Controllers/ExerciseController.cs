@@ -25,6 +25,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
     {
         private readonly IMediator _mediator;
         private readonly string _userId;
+
         public ExerciseController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
