@@ -32,7 +32,7 @@ namespace PowerLifting.MediatR.Exercises.Querys.Public
                 .Where(x => x.IsApproved == true)
                 .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

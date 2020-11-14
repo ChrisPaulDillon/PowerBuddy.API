@@ -10,6 +10,7 @@ namespace PowerLifting.Data.AutoMapper
         public LiftingStatMappingProfile()
         {
             CreateMap<LiftingStatAudit, LiftFeedDTO>()
+                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom(src => src.LiftingStatAuditId))
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
                 .ForMember(x => x.UserName, d => d.MapFrom(src => src.User.UserName))
                 .ForMember(x => x.RepRange, d => d.MapFrom(src => src.RepRange))

@@ -32,9 +32,7 @@ namespace PowerLifting.MediatR.LiftingStats.Commands.Account
 
         public async Task<bool> Handle(DeleteLiftingStatCommand request, CancellationToken cancellationToken)
         {
-            var liftingStat = await _context.LiftingStat
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ExerciseId == request.LiftingStatId, cancellationToken: cancellationToken);
+            var liftingStat = await _context.LiftingStat.FirstOrDefaultAsync(x => x.LiftingStatId == request.LiftingStatId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (liftingStat == null) throw new LiftingStatNotFoundException();
 

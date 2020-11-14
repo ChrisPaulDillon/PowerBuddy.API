@@ -172,6 +172,7 @@ namespace PowerLifting.API.Extensions
             services.AddMediatR(typeof(UpdateLiftingStatCollectionCommandHandler));
             services.AddMediatR(typeof(UpdateLiftingStatCommandHandler));
             services.AddMediatR(typeof(CreateLiftingStatCollectionCommandHandler));
+            services.AddMediatR(typeof(DeleteLiftingStatAuditCommandHandler));
 
             // Query Handlers
             services.AddMediatR(typeof(GetLiftingStatFeedForUserQueryHandler));

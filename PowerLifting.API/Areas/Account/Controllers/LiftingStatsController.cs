@@ -166,7 +166,7 @@ namespace PowerLifting.API.Areas.Account.Controllers
             }
         }
 
-        [HttpDelete("{liftingStatId}")]
+        [HttpDelete("{liftingStatId:int}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
@@ -176,6 +176,31 @@ namespace PowerLifting.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new DeleteLiftingStatCommand(liftingStatId, _userId)).ConfigureAwait(false);
                return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (LiftingStatNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+        }
+
+        [HttpDelete("Audit/{liftingStatAuditId:int}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeleteLiftingStatAudit(int liftingStatAuditId)
+        {
+            try
+            {
+                var result = await _mediator.Send(new DeleteLiftingStatAuditCommand(liftingStatAuditId, _userId)).ConfigureAwait(false);
+                return Ok(result);
             }
             catch (ValidationException ex)
             {

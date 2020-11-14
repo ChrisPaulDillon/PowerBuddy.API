@@ -38,7 +38,6 @@ namespace PowerLifting.MediatR.LiftingStats.Commands.Account
             RuleFor(x => x.Date).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
             RuleFor(x => x.RepRange).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
             RuleFor(x => x.Weight).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
-            RuleFor(x => x.LiftingStatId).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
         }
     }
 
