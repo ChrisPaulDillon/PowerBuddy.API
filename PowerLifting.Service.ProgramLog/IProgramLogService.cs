@@ -16,7 +16,7 @@ namespace PowerLifting.Service.ProgramLogs
 
         Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId);
 
-        Task UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId);
+        Task<ProgramLogExerciseTonnage> UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId);
 
         IEnumerable<ProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO template, DateTime startDate, string userId);
 

@@ -64,8 +64,6 @@ namespace PowerLifting.MediatR.LiftingStats.Commands.Account
             };
 
             _context.LiftingStatAudit.Add(liftingStatAudit);
-
-            await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
     }

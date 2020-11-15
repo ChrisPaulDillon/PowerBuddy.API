@@ -43,7 +43,7 @@ namespace PowerLifting.Service.ProgramLogs
             if (doesExist) throw new ProgramLogAlreadyActiveException();
         }
 
-        public async Task UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId)
+        public async Task<ProgramLogExerciseTonnage> UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId)
         {
             var programLogExerciseTonnage = await _context.ProgramLogExerciseTonnage.FirstOrDefaultAsync(x =>
                 x.ProgramLogExerciseId == programLogExercise.ProgramLogExerciseId);
@@ -65,8 +65,7 @@ namespace PowerLifting.Service.ProgramLogs
                 programLogExerciseTonnage.ExerciseTonnage = exerciseTonnage;
             }
 
-
-            await _context.SaveChangesAsync();
+            return programLogExerciseTonnage;
         }
 
         public IEnumerable<ProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO tp, DateTime startDate, string userId)

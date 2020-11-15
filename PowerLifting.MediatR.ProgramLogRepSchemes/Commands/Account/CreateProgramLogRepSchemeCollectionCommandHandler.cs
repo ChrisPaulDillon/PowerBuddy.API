@@ -66,7 +66,8 @@ namespace PowerLifting.MediatR.ProgramLogRepSchemes.Commands.Account
             var repSchemeCollection = _mapper.Map<IList<ProgramLogRepScheme>>(request.RepSchemeCollectionDTO);
             programLogExercise.NoOfSets += repSchemeCollection.Count;
 
-            await _service.UpdateExerciseTonnage(programLogExercise, request.UserId);
+            var exerciseTonnage = await _service.UpdateExerciseTonnage(programLogExercise, request.UserId);
+            programLogExercise.ProgramLogExerciseTonnageId = exerciseTonnage.ProgramLogExerciseTonnageId;
 
             _context.ProgramLogRepScheme.AddRange(repSchemeCollection);
             await _context.SaveChangesAsync(cancellationToken);

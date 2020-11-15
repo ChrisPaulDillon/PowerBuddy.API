@@ -167,7 +167,7 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.NoOfSets, d => d.MapFrom(src => src.NoOfSets))
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
-                .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageDTO.ProgramLogExerciseTonnageId))
+                .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageId))
                 .ForMember(x => x.ProgramLogExerciseTonnage, d => d.MapFrom(src => src.ProgramLogExerciseTonnageDTO))
                 .ForMember(x => x.Exercise, d => d.Ignore());
 

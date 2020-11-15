@@ -40,7 +40,7 @@ namespace PowerLifting.MediatR.ProgramLogs.Querys.Account
                 .OrderByDescending(x => x.StartDate)
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            if (programLogDTO == null) throw new ProgramLogNotFoundException();
+            if (!programLogDTO.Any()) throw new ProgramLogNotFoundException();
 
             return programLogDTO[0];
         }

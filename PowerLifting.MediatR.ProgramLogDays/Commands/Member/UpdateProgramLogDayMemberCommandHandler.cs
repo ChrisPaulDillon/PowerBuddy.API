@@ -85,8 +85,9 @@ namespace PowerLifting.MediatR.ProgramLogDays.Commands.Member
                 foreach (var repScheme in maxWeightRepSchemes.Where(repScheme => repScheme.RepsCompleted != 0))
                 {
                     var liftingStatPb = await _context.LiftingStat
-                        .FirstOrDefaultAsync(
-                            x => x.RepRange == repScheme.RepsCompleted && x.ExerciseId == programExercise.ExerciseId && x.UserId == request.UserId, cancellationToken: cancellationToken);
+                        .FirstOrDefaultAsync(x => x.RepRange == repScheme.RepsCompleted && 
+                                                  x.ExerciseId == programExercise.ExerciseId 
+                                                  && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
                     if (liftingStatPb != null) //Personal best exists
                     {
