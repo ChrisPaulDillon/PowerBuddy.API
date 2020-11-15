@@ -42,7 +42,7 @@ namespace PowerLifting.Service.Account
         public IQueryable<ProgramLogDTO> GetProgramLogQueryable(string userId)
         {
             return _context.ProgramLog.AsNoTracking()
-                .Where(x => x.UserId == userId && x.Active == true)
+                .Where(x => x.UserId == userId)
                 .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider);
         }
 

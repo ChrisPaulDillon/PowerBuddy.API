@@ -48,7 +48,7 @@ namespace PowerLifting.API
             services.AddFactories();
 
             //Inject app settings
-            services.AddJWTSettings(Configuration.GetSection("JWT_Secret"));
+            services.AddJWTSettings(Configuration.GetSection("JWT_Config"));
             services.AddSentry(Configuration.GetSection("Sentry"));
             services.AddDbContext<PowerLiftingContext>(options =>
                 options.UseSqlServer(Configuration.GetSection("PbDbConnection").Value));

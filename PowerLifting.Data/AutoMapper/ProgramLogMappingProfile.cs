@@ -24,7 +24,6 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Friday, d => d.MapFrom(src => src.Friday))
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
-                .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
                 .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks.OrderBy(x => x.WeekNo)))
                 .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.TemplateProgram.Name))
                 .ForMember(x => x.LogDates, opt => opt.Ignore());
@@ -44,7 +43,6 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Friday, d => d.MapFrom(src => src.Friday))
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
-                .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
                 .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks.OrderBy(x => x.WeekNo)))
                 .ForMember(x => x.TemplateProgram, opt => opt.Ignore());
 
@@ -63,7 +61,6 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Friday, d => d.MapFrom(src => src.Friday))
                 .ForMember(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
-                .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
                 .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks.OrderBy(x => x.WeekNo)))
                 .ForMember(x => x.DayCount, opt => opt.Ignore())
                 .ForMember(x => x.ExerciseCount, opt => opt.Ignore())
@@ -77,7 +74,6 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
                 .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
-                .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
                 .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks))
                 .ForMember(x => x.TemplateProgram, d => d.Ignore());
 
@@ -94,7 +90,6 @@ namespace PowerLifting.Data.AutoMapper
                 .ForMember(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
                 .ForMember(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
-                .ForMember(x => x.Active, d => d.MapFrom(src => src.Active))
                 .ForMember(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.TemplateProgram, d => d.Ignore());
 
