@@ -23,7 +23,7 @@ using Sentry;
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddEnvironmentVariables()
-                //.AddJsonFile("appsettings.json", optional: false)
+                .AddJsonFile("appsettings.json", optional: false)
                 .AddUserSecrets<Program>()
                 .Build();
 
