@@ -51,7 +51,7 @@ namespace PowerLifting.API
             services.AddJWTSettings(Configuration.GetSection("JWT_Secret"));
             services.AddSentry(Configuration.GetSection("Sentry"));
             services.AddDbContext<PowerLiftingContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("PbDbConnection")));
+                options.UseSqlServer(Configuration.GetSection("PbDbConnection").Value));
 
             services.AddCors(options =>
             {
