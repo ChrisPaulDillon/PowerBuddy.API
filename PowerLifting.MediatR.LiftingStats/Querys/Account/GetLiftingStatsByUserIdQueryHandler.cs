@@ -8,10 +8,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerLifting.Data;
 using PowerLifting.Data.DTOs.LiftingStats;
+using PowerLifting.MediatR.LiftingStats.Models;
 
 namespace PowerLifting.MediatR.LiftingStats.Querys.Account
 {
-    public class GetLiftingStatsByUserIdQuery : IRequest<IEnumerable<LiftingStatDTO>>
+    public class GetLiftingStatsByUserIdQuery : IRequest<IEnumerable<LiftingStatGroupedDTO>>
     {
         public string UserId { get; }
 
@@ -21,7 +22,7 @@ namespace PowerLifting.MediatR.LiftingStats.Querys.Account
         }
     }
 
-    public class GetLiftingStatsByUserIdQueryHandler : IRequestHandler<GetLiftingStatsByUserIdQuery, IEnumerable<LiftingStatDTO>>
+    public class GetLiftingStatsByUserIdQueryHandler : IRequestHandler<GetLiftingStatsByUserIdQuery, IEnumerable<LiftingStatGroupedDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -31,12 +32,23 @@ namespace PowerLifting.MediatR.LiftingStats.Querys.Account
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<LiftingStatDTO>> Handle(GetLiftingStatsByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<LiftingStatGroupedDTO>> Handle(GetLiftingStatsByUserIdQuery request, CancellationToken cancellationToken)
         {
-            return await _context.LiftingStat.Where(u => u.UserId == request.UserId)
+            var stats = await _context.LiftingStat.AsNoTracking()
+                .Where(u => u.UserId == request.UserId)
                 .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking()
-                .ToListAsync(cancellationToken: cancellationToken);
+                .ToListAsync();
+
+            var groupedStats = stats
+                .GroupBy(x => x.ExerciseName)
+                .Select(x => new LiftingStatGroupedDTO
+                {
+                    ExerciseName = x.Key,
+                    LiftingStats = x
+                })
+                .ToList();
+
+            return groupedStats;
         }
     }
 }

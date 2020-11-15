@@ -48,17 +48,17 @@ namespace PowerLifting.API
             services.AddFactories();
 
             //Inject app settings
-            services.AddJWTSettings(Configuration.GetSection("JWTSettings"));
+            services.AddJWTSettings(Configuration.GetSection("JWT_Secret"));
             services.AddSentry(Configuration.GetSection("Sentry"));
             services.AddDbContext<PowerLiftingContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("PbDbConnection")));
 
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins(Configuration["CorsPolicy:Client_URL"])
+                        builder.WithOrigins(Configuration["CorsPolicyClientUrl"])
                             .AllowAnyOrigin()
                             .AllowAnyHeader()
                             .WithMethods("GET", "PUT", "POST", "DELETE");

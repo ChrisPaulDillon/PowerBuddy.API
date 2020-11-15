@@ -285,7 +285,7 @@ namespace PowerLifting.API.Extensions
         {
             services.Configure<JWTSettings>(jwtSettings);
             services.AddSingleton(svc => svc.GetService<IOptions<JWTSettings>>().Value);
-            var key = Encoding.UTF8.GetBytes(jwtSettings["JWT_Secret"].ToString());
+            var key = Encoding.UTF8.GetBytes(jwtSettings.Value);
 
             services.AddAuthentication(x =>
             {
