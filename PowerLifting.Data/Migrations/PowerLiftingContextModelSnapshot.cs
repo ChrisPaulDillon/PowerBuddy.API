@@ -410,9 +410,6 @@ namespace PowerLifting.Data.Migrations
                     b.Property<bool>("Friday")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("Monday")
                         .HasColumnType("bit");
 
