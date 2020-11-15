@@ -1,6 +1,6 @@
 ﻿namespace PowerLifting.Data.Entities
 {
-    public class ProgramLogExerciseTonnage
+    public partial class ProgramLogExerciseTonnage
     {
         public int ProgramLogExerciseTonnageId { get; set; }
         public int ProgramLogExerciseId { get; set; }

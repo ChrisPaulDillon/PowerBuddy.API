@@ -36,8 +36,7 @@ namespace PowerLifting.Service.ProgramLogs
 
         public async Task IsProgramLogAlreadyActive(DateTime startDate, DateTime endDate, string userId)
         {
-            var doesExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.UserId == userId 
-                                                                                   && x.IsDeleted == false 
+            var doesExist = await _context.ProgramLog.AsNoTracking().AnyAsync(x => x.UserId == userId
                                                                                    && x.StartDate.Date < endDate
                                                                                    && x.StartDate.Date > startDate);
             if (doesExist) throw new ProgramLogAlreadyActiveException();
@@ -68,15 +67,15 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogExerciseTonnage;
         }
 
-        public IEnumerable<ProgramLogWeekDTO> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO tp, DateTime startDate, string userId)
+        public IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO tp, DateTime startDate, string userId)
         {
-            var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
+            var listOfProgramWeeks = new List<ProgramLogWeek>();
 
             var currentDate = startDate;
 
             foreach (var templateWeek in tp.TemplateWeeks)
             {
-                var programLogWeek = ProgramLogFactory.CreateProgramLogWeek(currentDate, templateWeek.WeekNo, userId);
+                var programLogWeek = _entityFactory.CreateProgramLogWeek(currentDate, templateWeek.WeekNo, userId);
                 currentDate = currentDate.AddDays(7);
                 listOfProgramWeeks.Add(programLogWeek);
             }
@@ -84,9 +83,9 @@ namespace PowerLifting.Service.ProgramLogs
             return listOfProgramWeeks;
         }
 
-        public ICollection<ProgramLogDayDTO> CreateProgramLogDaysForWeekFromTemplate(ProgramLogWeekDTO programLogWeek, Dictionary<int, string> dayOrder, TemplateWeekDTO templateWeek, string userId)
+        public ICollection<ProgramLogDay> CreateProgramLogDaysForWeekFromTemplate(ProgramLogWeek programLogWeek, Dictionary<int, string> dayOrder, TemplateWeekDTO templateWeek, string userId)
         {
-            var programLogDays = new List<ProgramLogDayDTO>();
+            var programLogDays = new List<ProgramLogDay>();
 
             var startDate = programLogWeek.StartDate;
 
@@ -97,49 +96,49 @@ namespace PowerLifting.Service.ProgramLogs
                 {
                     var daysUntilSpecificDay = ((int)DayOfWeek.Monday - (int)startDate.DayOfWeek + 7) % 7;
                     var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, userId);
+                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
                     programLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Tuesday.ToString())
                 {
                     var daysUntilSpecificDay = ((int)DayOfWeek.Tuesday - (int)startDate.DayOfWeek + 7) % 7;
                     var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, userId);
+                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
                     programLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Wednesday.ToString())
                 {
                     var daysUntilSpecificDay = ((int)DayOfWeek.Wednesday - (int)startDate.DayOfWeek + 7) % 7;
                     var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, userId);
+                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
                     programLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Thursday.ToString())
                 {
                     var daysUntilSpecificDay = ((int)DayOfWeek.Thursday - (int)startDate.DayOfWeek + 7) % 7;
                     var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, userId);
+                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
                     programLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Friday.ToString())
                 {
                     var daysUntilSpecificDay = ((int)DayOfWeek.Friday - (int)startDate.DayOfWeek + 7) % 7;
                     var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, userId);
+                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
                     programLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Saturday.ToString())
                 {
                     var daysUntilSpecificDay = ((int)DayOfWeek.Saturday - (int)startDate.DayOfWeek + 7) % 7;
                     var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, userId);
+                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
                     programLogDays.Add(programLogDay);
                 }
                 else if (dayOfWeek == DayOfWeek.Sunday.ToString())
                 {
                     var daysUntilSpecificDay = ((int)DayOfWeek.Sunday - (int)startDate.DayOfWeek + 7) % 7;
                     var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, userId);
+                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
                     programLogDays.Add(programLogDay);
                 }
             }
@@ -147,13 +146,13 @@ namespace PowerLifting.Service.ProgramLogs
             return programLogDays;
         }
 
-        public IEnumerable<ProgramLogExerciseDTO> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<ProgramLogExercise> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
         {
-            var programLogExercises = new List<ProgramLogExerciseDTO>();
+            var programLogExercises = new List<ProgramLogExercise>();
 
             foreach (var temExercise in templateDay.TemplateExercises)
             {
-                var programLogExercise = ProgramLogFactory.CreateProgramLogExercise(temExercise.NoOfSets, temExercise.ExerciseId);
+                var programLogExercise = _entityFactory.CreateProgramLogExercise(temExercise.NoOfSets, temExercise.ExerciseId);
                 var user1RMOnLift = weightInputs.FirstOrDefault(x => x.ExerciseId == temExercise.ExerciseId);
                 var exerciseTonnage = 0.00M;
 
@@ -161,19 +160,20 @@ namespace PowerLifting.Service.ProgramLogs
                 {
                     var weight = calculateRepWeight.CalculateWeight(user1RMOnLift.Weight ?? 0, temRepSet.Percentage ?? 2.5M);
                     var programRepScheme = GenerateProgramLogRepScheme(weight, temRepSet);
-                    exerciseTonnage = +ProgramLogHelper.CalculateTonnage(programRepScheme.WeightLifted, programLogExercise.NoOfSets);
+                    exerciseTonnage += ProgramLogHelper.CalculateTonnage(programRepScheme.WeightLifted, programRepScheme.NoOfReps);
                     programLogExercise.ProgramLogRepSchemes.Add(programRepScheme);
                 }
 
-                programLogExercise.ProgramLogExerciseTonnageDTO = _dtoFactory.CreateProgramLogExerciseTonnageDTO(programLogExercise.ProgramLogExerciseId, exerciseTonnage, userId, programLogExercise.ExerciseId);
+                programLogExercise.ProgramLogExerciseTonnage = _entityFactory.CreateProgramLogExerciseTonnage(programLogExercise.ProgramLogExerciseId, exerciseTonnage, userId, programLogExercise.ExerciseId);
+                programLogExercise.ProgramLogExerciseTonnageId = programLogExercise.ProgramLogExerciseTonnage.ProgramLogExerciseTonnageId;
                 programLogExercises.Add(programLogExercise);
             }
             return programLogExercises;
         }
 
-        public static ProgramLogRepSchemeDTO GenerateProgramLogRepScheme(decimal weight, TemplateRepSchemeDTO templateRepScheme)
+        public ProgramLogRepScheme GenerateProgramLogRepScheme(decimal weight, TemplateRepSchemeDTO templateRepScheme)
         {
-            return ProgramLogFactory.CreateProgramLogRepScheme(templateRepScheme.SetNo, templateRepScheme.NoOfReps, templateRepScheme.Percentage ?? 0, weight, templateRepScheme.AMRAP);
+            return _entityFactory.CreateProgramLogRepScheme(templateRepScheme.SetNo, templateRepScheme.NoOfReps, templateRepScheme.Percentage ?? 0, weight, templateRepScheme.AMRAP);
         }
 
         public ProgramLogExerciseDTO CreateRepSchemesForExercise(ProgramLogExerciseDTO programLogExercise, string userId)
@@ -186,7 +186,7 @@ namespace PowerLifting.Service.ProgramLogs
             {
                 if (programLogExercise.Reps != null && programLogExercise.Weight != null)
                 {
-                    exerciseTonnage = +ProgramLogHelper.CalculateTonnage((decimal)programLogExercise.Weight, (int)programLogExercise.Reps);
+                    exerciseTonnage += ProgramLogHelper.CalculateTonnage((decimal)programLogExercise.Weight, (int)programLogExercise.Reps);
                     var repScheme = _dtoFactory.CreateProgramLogRepSchemeDTO(i, (int)programLogExercise.Reps, (decimal)programLogExercise.Weight);
                     repSchemeCollection.Add(repScheme);
                 }

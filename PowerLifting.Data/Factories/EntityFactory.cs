@@ -29,7 +29,19 @@ namespace PowerLifting.Data.Factories
             };
         }
 
-        public ProgramLogWeek CreateProgramLogWeek(int programLogId, DateTime startDate, string userId, int weekNo)
+        public ProgramLogWeek CreateProgramLogWeek(DateTime startDate, int weekNo, string userId)
+        {
+            return new ProgramLogWeek()
+            {
+                StartDate = startDate,
+                WeekNo = weekNo,
+                EndDate = startDate.AddDays(7),
+                UserId = userId,
+                ProgramLogDays = new List<ProgramLogDay>()
+            };
+        }
+
+        public ProgramLogWeek CreateProgramLogWeekWithDays(DateTime startDate, int weekNo, string userId)
         {
             return new ProgramLogWeek()
             {
@@ -60,6 +72,28 @@ namespace PowerLifting.Data.Factories
             };
         }
 
+        public ProgramLogExercise CreateProgramLogExercise(int noOfSets, int exerciseId)
+        {
+            return new ProgramLogExercise()
+            {
+                NoOfSets = noOfSets,
+                ExerciseId = exerciseId, 
+                ProgramLogRepSchemes = new List<ProgramLogRepScheme>(),
+                ProgramLogExerciseTonnage = new ProgramLogExerciseTonnage()
+            };
+        }
+
+        public ProgramLogRepScheme CreateProgramLogRepScheme(int setNo, int noOfReps, decimal percentage, decimal weightLifted, bool amrap)
+        {
+            return new ProgramLogRepScheme()
+            {
+                SetNo = setNo,
+                NoOfReps = noOfReps,
+                Percentage = percentage,
+                WeightLifted = weightLifted,
+                AMRAP = amrap,
+            };
+        }
 
         public ProgramLogExerciseTonnage CreateProgramLogExerciseTonnage(int programLogExerciseId, decimal exerciseTonnage, string userId, int exerciseId)
         {

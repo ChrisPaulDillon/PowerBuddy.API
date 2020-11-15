@@ -48,7 +48,7 @@ namespace PowerLifting.MediatR.ProgramLogs.Commands.Account
 
             if (programLog == null) throw new ProgramLogNotFoundException();
 
-            programLog.IsDeleted = true;
+            _context.ProgramLog.Remove(programLog);
 
             var changedRows = await _context.SaveChangesAsync(cancellationToken);
             return changedRows > 0;

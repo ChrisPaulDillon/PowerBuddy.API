@@ -34,7 +34,7 @@ namespace PowerLifting.MediatR.ProgramLogs.Querys.Account
 
         public async Task<ProgramLogDTO> Handle(GetActiveProgramLogByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var programLogDTO = await _context.ProgramLog.Where(x => x.UserId == request.UserId && x.IsDeleted == false)
+            var programLogDTO = await _context.ProgramLog.Where(x => x.UserId == request.UserId)
                 .ProjectTo<ProgramLogDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .OrderByDescending(x => x.StartDate)

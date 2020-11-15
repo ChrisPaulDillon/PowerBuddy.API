@@ -74,17 +74,19 @@ namespace PowerLifting.MediatR.ProgramLogs.Commands.Account
 
             _calculateRepWeight = _calculateWeightFactory.Create(templateProgram.WeightProgressionType);
 
-            request.ProgramLogDTO.ProgramLogWeeks = _programLogService.CreateProgramLogWeeksFromTemplate(templateProgram, request.ProgramLogDTO.StartDate, request.UserId); //create weeks based on template weeks
-            request.ProgramLogDTO.ProgramDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
+            var programDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
+            var programLog = _mapper.Map<ProgramLog>(request.ProgramLogDTO);
+
+            programLog.ProgramLogWeeks = _programLogService.CreateProgramLogWeeksFromTemplate(templateProgram, request.ProgramLogDTO.StartDate, request.UserId); //create weeks based on template weeks
 
             var templateWeeks = templateProgram.TemplateWeeks.ToList();
             var counter = 0;
 
             //Apply exercises to days that have exercises on them
-            foreach (var programLogWeek in request.ProgramLogDTO.ProgramLogWeeks)
+            foreach (var programLogWeek in programLog.ProgramLogWeeks)
             {
                 var templateWeek = templateWeeks[counter++];
-                programLogWeek.ProgramLogDays = _programLogService.CreateProgramLogDaysForWeekFromTemplate(programLogWeek, request.ProgramLogDTO.ProgramDayOrder, templateWeek, request.UserId);
+                programLogWeek.ProgramLogDays = _programLogService.CreateProgramLogDaysForWeekFromTemplate(programLogWeek, programDayOrder, templateWeek, request.UserId);
                 var dayCounter = 0;
                 foreach (var programLogDay in programLogWeek.ProgramLogDays)
                 {
@@ -93,7 +95,6 @@ namespace PowerLifting.MediatR.ProgramLogs.Commands.Account
                 }
             }
 
-            var programLog = _mapper.Map<ProgramLog>(request.ProgramLogDTO);
             _context.ProgramLog.Add(programLog);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
