@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="ProgramLogRepSchemes\Querys\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="9.3.0" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerBuddy.Context\PowerBuddy.Data.Context.csproj" />
+    <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
+    <ProjectReference Include="..\PowerBuddy.Services\PowerBuddy.Services.csproj" />
+  </ItemGroup>
+
+</Project>

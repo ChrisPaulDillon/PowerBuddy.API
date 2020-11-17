@@ -1,0 +1,76 @@
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
+using FluentValidation;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using PowerBuddy.Context;
+using PowerBuddy.Data.DTOs.ProgramLogs;
+using PowerBuddy.Data.Entities;
+using PowerBuddy.Data.Exceptions.ProgramLogs;
+using PowerBuddy.Data.Factories;
+
+namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands.Account
+{
+    public class AddProgramLogWeekToLogCommand : IRequest<ProgramLogWeekDTO>
+    {
+        public int ProgramLogId { get; }
+        public string UserId { get; }
+
+        public AddProgramLogWeekToLogCommand(int programLogId, string userId)
+        {
+            ProgramLogId = programLogId;
+            UserId = userId;
+            new AddProgramLogWeekToLogCommandValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class AddProgramLogWeekToLogCommandValidator : AbstractValidator<AddProgramLogWeekToLogCommand>
+    {
+        public AddProgramLogWeekToLogCommandValidator()
+        {
+            RuleFor(x => x.ProgramLogId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
+    public class AddProgramLogWeekToLogCommandHandler : IRequestHandler<AddProgramLogWeekToLogCommand, ProgramLogWeekDTO>
+    {
+        private readonly PowerLiftingContext _context;
+        private readonly IMapper _mapper;
+        private readonly IDTOFactory _dtoFactory;
+
+        public AddProgramLogWeekToLogCommandHandler(PowerLiftingContext context, IMapper mapper, IDTOFactory dtoFactory)
+        {
+            _context = context;
+            _mapper = mapper;
+            _dtoFactory = dtoFactory;
+        }
+
+        public async Task<ProgramLogWeekDTO> Handle(AddProgramLogWeekToLogCommand request, CancellationToken cancellationToken)
+        {
+            var programLog = await _context.ProgramLog
+                .Where(x => x.ProgramLogId == request.ProgramLogId && x.UserId == request.UserId)
+                .Include(x => x.ProgramLogWeeks)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+            if (programLog == null) throw new ProgramLogNotFoundException();
+
+            var lastProgramWeek = programLog.ProgramLogWeeks.OrderByDescending(x => x.WeekNo).FirstOrDefault();
+
+            var programLogWeek = _dtoFactory.CreateProgramLogWeekDTO(lastProgramWeek.EndDate,lastProgramWeek.WeekNo + 1, request.UserId);
+
+            programLogWeek.ProgramLogId = lastProgramWeek.ProgramLogId;
+
+            _context.ProgramLogWeek.Add(_mapper.Map<ProgramLogWeek>(programLogWeek));
+            programLog.NoOfWeeks++;
+            programLog.EndDate = programLog.EndDate.AddDays(7);
+
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<ProgramLogWeekDTO>(programLogWeek);
+
+        }
+    }
+}

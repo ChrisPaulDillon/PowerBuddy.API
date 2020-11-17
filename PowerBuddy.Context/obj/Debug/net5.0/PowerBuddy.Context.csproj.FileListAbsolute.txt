@@ -1,0 +1,11 @@
+C:\Users\ChrisLifts\Desktop\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.csprojAssemblyReference.cache
+C:\Users\ChrisLifts\Desktop\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ChrisLifts\Desktop\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.AssemblyInfoInputs.cache
+C:\Users\ChrisLifts\Desktop\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.AssemblyInfo.cs
+C:\Users\ChrisLifts\Desktop\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.csproj.CoreCompileInputs.cache
+C:\Users\ChrisLifts\Desktop\PowerBuddy.Context\bin\Debug\net5.0\PowerBuddy.Data.dll
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.csprojAssemblyReference.cache
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.AssemblyInfoInputs.cache
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.AssemblyInfo.cs
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Context.csproj.CoreCompileInputs.cache
