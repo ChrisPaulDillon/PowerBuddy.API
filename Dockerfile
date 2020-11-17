@@ -4,7 +4,7 @@ EXPOSE 5000/tcp
 ENV ASPNETCORE_URLS http://*:5000
 ENV ASPNETCORE_ENVIRONMENT Production
 
-FROM mcr.microsoft.com/dotnet/core/sdk:5 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:5.0.100 AS build
 WORKDIR /src
 COPY ["PowerBuddy.API/PowerBuddy.API.csproj", "PowerBuddy.API/"]
 RUN dotnet restore "PowerBuddy.API/PowerBuddy.API.csproj"
