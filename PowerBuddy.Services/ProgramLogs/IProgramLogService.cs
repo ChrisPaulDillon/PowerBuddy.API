@@ -12,18 +12,20 @@ namespace PowerBuddy.Services.ProgramLogs
     {
         Task IsProgramLogAlreadyActive(DateTime startDate, DateTime endDate, string userId);
 
+        bool IsDateOnWorkoutDay(DateTime date, Dictionary<int, string> dayOrder, int counter);
+
         Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId);
 
         Task<ProgramLogExerciseTonnage> UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId);
 
-        IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO template, DateTime startDate, string userId);
-
-        ICollection<ProgramLogDay> CreateProgramLogDaysForWeekFromTemplate(ProgramLogWeek programLogWeek, Dictionary<int, string> dayOrder, TemplateWeekDTO templateWeek, string userId);
+        IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO template, DateTime startDate, int iteration, string userId);
 
         IEnumerable<ProgramLogExercise> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId);
 
         ProgramLogExerciseDTO CreateRepSchemesForExercise(ProgramLogExerciseDTO programLogExercise, string userId);
 
         Task<IEnumerable<DateTime>> GetAllProgramLogDatesForUser(string userId);
+
+        Task<TemplateProgramExtendedDTO> GetTemplateProgramById(int templateProgramId);
     }
 }

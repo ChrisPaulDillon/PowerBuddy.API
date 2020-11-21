@@ -18,10 +18,10 @@ namespace PowerBuddy.Data.DTOs.ProgramLogs
         public bool Friday { get; set; }
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
-        public bool Active { get; set; }
         public int DayCount { get; set; }
         public IEnumerable<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
-        public Dictionary<int, string> ProgramDayOrder { get; set; }
         public IEnumerable<TemplateWeightInputDTO> WeightInputs { get; set; }
+        public IEnumerable<TemplateWeightInputDTO> IncrementalWeightInputs { get; set; }
+        public int RepeatProgramCount { get; set; }
     }
 }

@@ -160,6 +160,16 @@
         "runtime": {
           "lib/netcoreapp2.0/_._": {}
         }
+      },
+      "PowerBuddy.Util/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/PowerBuddy.Util.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PowerBuddy.Util.dll": {}
+        }
       }
     }
   },
@@ -528,12 +538,18 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "PowerBuddy.Util/1.0.0": {
+      "type": "project",
+      "path": "../PowerBuddy.Util/PowerBuddy.Util.csproj",
+      "msbuildProject": "../PowerBuddy.Util/PowerBuddy.Util.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "AutoMapper >= 10.1.1",
-      "Microsoft.Extensions.Identity.Stores >= 5.0.0"
+      "Microsoft.Extensions.Identity.Stores >= 5.0.0",
+      "PowerBuddy.Util >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -572,7 +588,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\ChrisLifts\\Desktop\\PowerBuddy.API\\PowerBuddy.Util\\PowerBuddy.Util.csproj": {
+              "projectPath": "C:\\Users\\ChrisLifts\\Desktop\\PowerBuddy.API\\PowerBuddy.Util\\PowerBuddy.Util.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

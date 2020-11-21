@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PowerBuddy.Context\PowerBuddy.Data.Context.csproj" />
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
+    <ProjectReference Include="..\PowerBuddy.Util\PowerBuddy.Util.csproj" />
   </ItemGroup>
 
 </Project>

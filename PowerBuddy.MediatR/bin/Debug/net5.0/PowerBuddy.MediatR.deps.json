@@ -12,7 +12,8 @@
           "MediatR": "9.0.0",
           "PowerBuddy.Data": "1.0.0",
           "PowerBuddy.Data.Context": "1.0.0",
-          "PowerBuddy.Services": "1.0.0"
+          "PowerBuddy.Services": "1.0.0",
+          "PowerBuddy.Util": "1.0.0"
         },
         "runtime": {
           "PowerBuddy.MediatR.dll": {}
@@ -1379,7 +1380,8 @@
       "PowerBuddy.Data/1.0.0": {
         "dependencies": {
           "AutoMapper": "10.1.1",
-          "Microsoft.Extensions.Identity.Stores": "5.0.0"
+          "Microsoft.Extensions.Identity.Stores": "5.0.0",
+          "PowerBuddy.Util": "1.0.0"
         },
         "runtime": {
           "PowerBuddy.Data.dll": {}
@@ -1400,10 +1402,16 @@
       "PowerBuddy.Services/1.0.0": {
         "dependencies": {
           "PowerBuddy.Data": "1.0.0",
-          "PowerBuddy.Data.Context": "1.0.0"
+          "PowerBuddy.Data.Context": "1.0.0",
+          "PowerBuddy.Util": "1.0.0"
         },
         "runtime": {
           "PowerBuddy.Services.dll": {}
+        }
+      },
+      "PowerBuddy.Util/1.0.0": {
+        "runtime": {
+          "PowerBuddy.Util.dll": {}
         }
       }
     }
@@ -2293,6 +2301,11 @@
       "sha512": ""
     },
     "PowerBuddy.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PowerBuddy.Util/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

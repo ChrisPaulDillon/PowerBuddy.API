@@ -49,9 +49,9 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Commands.Admin
 
         public async Task<bool> Handle(CreateTemplateExerciseCollectionForTemplateCommand request, CancellationToken cancellationToken)
         {
-            var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
+            //var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
-            if (!isUserAdmin) throw new UnauthorisedUserException();
+            //if (!isUserAdmin) throw new UnauthorisedUserException();
 
             var exercisesAlreadyExist = await _context.TemplateExerciseCollection.AsNoTracking().AnyAsync(x => x.TemplateProgramId == request.TemplateProgramId);
 

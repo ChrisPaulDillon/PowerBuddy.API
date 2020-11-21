@@ -10,7 +10,6 @@ namespace PowerBuddy.Data.DTOs.ProgramLogs
         public DateTime EndDate { get; set; }
         public string UserId { get; set; }
         public string CustomName { get; set; }
-        public bool Active { get; set; } = true;
         public IEnumerable<ProgramLogWeekDTO> ProgramLogWeeks { get; set; }
     }
 }

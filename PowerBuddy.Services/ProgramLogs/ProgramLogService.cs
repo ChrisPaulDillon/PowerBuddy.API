@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
+using PowerBuddy.Data.Exceptions.TemplatePrograms;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.ProgramLogs.Util;
@@ -38,6 +40,16 @@ namespace PowerBuddy.Services.ProgramLogs
             if (doesExist) throw new ProgramLogAlreadyActiveException();
         }
 
+        public bool IsDateOnWorkoutDay(DateTime date, Dictionary<int, string> dayOrder, int counter)
+        {
+            var dayOfWeek = date.DayOfWeek.ToString();
+            var dayOfWorkout = dayOrder[counter + 1]; //Get the correct day order the user selected
+
+            if (dayOfWeek == dayOfWorkout) return true;
+
+            return false;
+        }
+
         public async Task<ProgramLogExerciseTonnage> UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId)
         {
             var programLogExerciseTonnage = await _context.ProgramLogExerciseTonnage.FirstOrDefaultAsync(x =>
@@ -63,7 +75,7 @@ namespace PowerBuddy.Services.ProgramLogs
             return programLogExerciseTonnage;
         }
 
-        public IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO tp, DateTime startDate, string userId)
+        public IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO tp, DateTime startDate, int iteration, string userId)
         {
             var listOfProgramWeeks = new List<ProgramLogWeek>();
 
@@ -71,75 +83,12 @@ namespace PowerBuddy.Services.ProgramLogs
 
             foreach (var templateWeek in tp.TemplateWeeks)
             {
-                var programLogWeek = _entityFactory.CreateProgramLogWeek(currentDate, templateWeek.WeekNo, userId);
+                var programLogWeek = _entityFactory.CreateProgramLogWeekWithDays(currentDate, templateWeek.WeekNo + (iteration * tp.NoOfWeeks), userId);
                 currentDate = currentDate.AddDays(7);
                 listOfProgramWeeks.Add(programLogWeek);
             }
 
             return listOfProgramWeeks;
-        }
-
-        public ICollection<ProgramLogDay> CreateProgramLogDaysForWeekFromTemplate(ProgramLogWeek programLogWeek, Dictionary<int, string> dayOrder, TemplateWeekDTO templateWeek, string userId)
-        {
-            var programLogDays = new List<ProgramLogDay>();
-
-            var startDate = programLogWeek.StartDate;
-
-            foreach (var templateDay in templateWeek.TemplateDays)
-            {
-                var dayOfWeek = dayOrder[templateDay.DayNo]; //Get the correct day order the user selected
-                if (dayOfWeek == DayOfWeek.Monday.ToString())
-                {
-                    var daysUntilSpecificDay = ((int)DayOfWeek.Monday - (int)startDate.DayOfWeek + 7) % 7;
-                    var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
-                    programLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Tuesday.ToString())
-                {
-                    var daysUntilSpecificDay = ((int)DayOfWeek.Tuesday - (int)startDate.DayOfWeek + 7) % 7;
-                    var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
-                    programLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Wednesday.ToString())
-                {
-                    var daysUntilSpecificDay = ((int)DayOfWeek.Wednesday - (int)startDate.DayOfWeek + 7) % 7;
-                    var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
-                    programLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Thursday.ToString())
-                {
-                    var daysUntilSpecificDay = ((int)DayOfWeek.Thursday - (int)startDate.DayOfWeek + 7) % 7;
-                    var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
-                    programLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Friday.ToString())
-                {
-                    var daysUntilSpecificDay = ((int)DayOfWeek.Friday - (int)startDate.DayOfWeek + 7) % 7;
-                    var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
-                    programLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Saturday.ToString())
-                {
-                    var daysUntilSpecificDay = ((int)DayOfWeek.Saturday - (int)startDate.DayOfWeek + 7) % 7;
-                    var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
-                    programLogDays.Add(programLogDay);
-                }
-                else if (dayOfWeek == DayOfWeek.Sunday.ToString())
-                {
-                    var daysUntilSpecificDay = ((int)DayOfWeek.Sunday - (int)startDate.DayOfWeek + 7) % 7;
-                    var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                    var programLogDay = _entityFactory.CreateProgramLogDay(nextDate, userId);
-                    programLogDays.Add(programLogDay);
-                }
-            }
-
-            return programLogDays;
         }
 
         public IEnumerable<ProgramLogExercise> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
@@ -200,6 +149,19 @@ namespace PowerBuddy.Services.ProgramLogs
                 .Where(x => x.UserId == userId)
                 .Select(x => x.Date.Date)
                 .ToListAsync();
+        }
+
+        public async Task<TemplateProgramExtendedDTO> GetTemplateProgramById(int templateProgramId)
+        {
+            var templateProgram = await _context.TemplateProgram
+                .AsNoTracking()
+                .Where(x => x.TemplateProgramId == templateProgramId)
+                .ProjectTo<TemplateProgramExtendedDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            if (templateProgram == null) throw new TemplateProgramNotFoundException();
+
+            return templateProgram;
         }
 
         public async Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId)

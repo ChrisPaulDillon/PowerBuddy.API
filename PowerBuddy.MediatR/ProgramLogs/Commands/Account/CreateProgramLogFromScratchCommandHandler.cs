@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,6 +11,7 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Services.ProgramLogs;
+using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
 {
@@ -59,72 +61,18 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
 
             var listOfProgramWeeks = new List<ProgramLogWeekDTO>();
 
-            var startDate = request.ProgramLogDTO.StartDate;
+            var startDate = request.ProgramLogDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
 
             for (var i = 0; i < request.ProgramLogDTO.NoOfWeeks; i++)
             {
                 var programLogWeek = _dtoFactory.CreateProgramLogWeekDTO(startDate, i + 1, request.UserId);
-
-                //for (var j = 1; j < request.ProgramLogDTO.DayCount + 1; j++)
-                //{
-                //    var dayOfWeek = request.ProgramLogDTO.ProgramDayOrder[j];
-
-                //    if (dayOfWeek == DayOfWeek.Monday.ToString())
-                //    {
-                //        var daysUntilSpecificDay = ((int)DayOfWeek.Monday - (int)startDate.DayOfWeek + 7) % 7;
-                //        var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                //        var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, request.UserId);
-                //        programLogWeek.ProgramLogDays.Add(programLogDay);
-                //    }
-                //    else if (dayOfWeek == DayOfWeek.Tuesday.ToString())
-                //    {
-                //        var daysUntilSpecificDay = ((int)DayOfWeek.Tuesday - (int)startDate.DayOfWeek + 7) % 7;
-                //        var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                //        var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, request.UserId);
-                //        programLogWeek.ProgramLogDays.Add(programLogDay);
-                //    }
-                //    else if (dayOfWeek == DayOfWeek.Wednesday.ToString())
-                //    {
-                //        var daysUntilSpecificDay = ((int)DayOfWeek.Wednesday - (int)startDate.DayOfWeek + 7) % 7;
-                //        var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                //        var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, request.UserId);
-                //        programLogWeek.ProgramLogDays.Add(programLogDay);
-                //    }
-                //    else if (dayOfWeek == DayOfWeek.Thursday.ToString())
-                //    {
-                //        var daysUntilSpecificDay = ((int)DayOfWeek.Thursday - (int)startDate.DayOfWeek + 7) % 7;
-                //        var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                //        var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, request.UserId);
-                //        programLogWeek.ProgramLogDays.Add(programLogDay);
-                //    }
-                //    else if (dayOfWeek == DayOfWeek.Friday.ToString())
-                //    {
-                //        var daysUntilSpecificDay = ((int)DayOfWeek.Friday - (int)startDate.DayOfWeek + 7) % 7;
-                //        var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                //        var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, request.UserId);
-                //        programLogWeek.ProgramLogDays.Add(programLogDay);
-                //    }
-                //    else if (dayOfWeek == DayOfWeek.Saturday.ToString())
-                //    {
-                //        var daysUntilSpecificDay = ((int)DayOfWeek.Saturday - (int)startDate.DayOfWeek + 7) % 7;
-                //        var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                //        var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, request.UserId);
-                //        programLogWeek.ProgramLogDays.Add(programLogDay);
-                //    }
-                //    else if (dayOfWeek == DayOfWeek.Sunday.ToString())
-                //    {
-                //        var daysUntilSpecificDay = ((int)DayOfWeek.Sunday - (int)startDate.DayOfWeek + 7) % 7;
-                //        var nextDate = startDate.AddDays(daysUntilSpecificDay);
-                //        var programLogDay = _dtoFactory.CreateProgramLogDayDTO(nextDate, request.UserId);
-                //        programLogWeek.ProgramLogDays.Add(programLogDay);
-                //    }
-                //}
                 startDate = startDate.AddDays(7);
                 listOfProgramWeeks.Add(programLogWeek);
             }
 
             request.ProgramLogDTO.ProgramLogWeeks = listOfProgramWeeks;
-            request.ProgramLogDTO.CustomName = "Custom Program";
+            request.ProgramLogDTO.StartDate = request.ProgramLogDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
+            request.ProgramLogDTO.EndDate = startDate.AddDays(request.ProgramLogDTO.NoOfWeeks);
 
             var programLogEntity = _mapper.Map<ProgramLog>(request.ProgramLogDTO);
             _context.ProgramLog.Add(programLogEntity);

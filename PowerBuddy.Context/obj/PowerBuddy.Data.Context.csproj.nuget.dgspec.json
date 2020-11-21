@@ -119,7 +119,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\ChrisLifts\\Desktop\\PowerBuddy.API\\PowerBuddy.Util\\PowerBuddy.Util.csproj": {
+                "projectPath": "C:\\Users\\ChrisLifts\\Desktop\\PowerBuddy.API\\PowerBuddy.Util\\PowerBuddy.Util.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -141,6 +145,68 @@
               "version": "[5.0.0, )"
             }
           },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ChrisLifts\\Desktop\\PowerBuddy.API\\PowerBuddy.Util\\PowerBuddy.Util.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ChrisLifts\\Desktop\\PowerBuddy.API\\PowerBuddy.Util\\PowerBuddy.Util.csproj",
+        "projectName": "PowerBuddy.Util",
+        "projectPath": "C:\\Users\\ChrisLifts\\Desktop\\PowerBuddy.API\\PowerBuddy.Util\\PowerBuddy.Util.csproj",
+        "packagesPath": "C:\\Users\\ChrisLifts\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ChrisLifts\\Desktop\\PowerBuddy.API\\PowerBuddy.Util\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\ChrisLifts\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\ChrisLifts\\Desktop\\Github\\PowerBuddy.API\\PowerLifting.Cypto\\bin\\Debug": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/sa-aws/_packaging/adultwork-nuget/nuget/v3/index.json": {},
+          "https://www.myget.org/F/discord-net/api/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
           "imports": [
             "net461",
             "net462",

@@ -9,7 +9,8 @@
       "PowerBuddy.Data/1.0.0": {
         "dependencies": {
           "AutoMapper": "10.1.1",
-          "Microsoft.Extensions.Identity.Stores": "5.0.0"
+          "Microsoft.Extensions.Identity.Stores": "5.0.0",
+          "PowerBuddy.Util": "1.0.0"
         },
         "runtime": {
           "PowerBuddy.Data.dll": {}
@@ -145,7 +146,12 @@
           }
         }
       },
-      "System.Reflection.Emit/4.7.0": {}
+      "System.Reflection.Emit/4.7.0": {},
+      "PowerBuddy.Util/1.0.0": {
+        "runtime": {
+          "PowerBuddy.Util.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -251,6 +257,11 @@
       "sha512": "sha512-VR4kk8XLKebQ4MZuKuIni/7oh+QGFmZW3qORd1GvBq/8026OpW501SzT/oypwiQl4TvT8ErnReh/NzY9u+C6wQ==",
       "path": "system.reflection.emit/4.7.0",
       "hashPath": "system.reflection.emit.4.7.0.nupkg.sha512"
+    },
+    "PowerBuddy.Util/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

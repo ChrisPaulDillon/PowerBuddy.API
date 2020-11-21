@@ -1,21 +1,22 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
-using PowerBuddy.Data.Exceptions.TemplatePrograms;
+using PowerBuddy.Services.LiftingStats;
 using PowerBuddy.Services.ProgramLogs;
 using PowerBuddy.Services.ProgramLogs.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.ProgramLogs.Util;
+using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
 {
@@ -47,14 +48,16 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IProgramLogService _programLogService;
+        private readonly ILiftingStatService _liftingStatService;
         private readonly ICalculateWeightFactory _calculateWeightFactory;
         private ICalculateRepWeight _calculateRepWeight;
 
-        public CreateProgramLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService, ICalculateWeightFactory calculateWeightFactory, ICalculateRepWeight calculateRepWeight)
+        public CreateProgramLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService, ILiftingStatService liftingStatService, ICalculateWeightFactory calculateWeightFactory, ICalculateRepWeight calculateRepWeight)
         {
             _context = context;
             _mapper = mapper;
             _programLogService = programLogService;
+            _liftingStatService = liftingStatService;
             _calculateWeightFactory = calculateWeightFactory;
             _calculateRepWeight = calculateRepWeight;
         }
@@ -63,42 +66,64 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
         {
             await _programLogService.IsProgramLogAlreadyActive(request.ProgramLogDTO.StartDate, request.ProgramLogDTO.EndDate, request.UserId);
 
-            var templateProgram = await _context.TemplateProgram
-                .AsNoTracking()
-                .Where(x => x.TemplateProgramId == request.TemplateProgramId)
-                .ProjectTo<TemplateProgramExtendedDTO>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-
-            if (templateProgram == null) throw new TemplateProgramNotFoundException();
+            var templateProgram = await _programLogService.GetTemplateProgramById(request.TemplateProgramId);
             if (templateProgram.NoOfDaysPerWeek != request.ProgramLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
+            var templateWeeks = templateProgram.TemplateWeeks.ToList();
 
             _calculateRepWeight = _calculateWeightFactory.Create(templateProgram.WeightProgressionType);
 
-            var programDayOrder = ProgramLogHelper.CalculateDayOrder(request.ProgramLogDTO);
             var programLog = _mapper.Map<ProgramLog>(request.ProgramLogDTO);
+            var programLogWeeks = programLog.ProgramLogWeeks.ToList();
+            var startDate = request.ProgramLogDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
+            
 
-            programLog.ProgramLogWeeks = _programLogService.CreateProgramLogWeeksFromTemplate(templateProgram, request.ProgramLogDTO.StartDate, request.UserId); //create weeks based on template weeks
+            for (var i = 0; i < request.ProgramLogDTO.RepeatProgramCount; i++)
+            {
+                programLogWeeks.AddRange(_programLogService.CreateProgramLogWeeksFromTemplate(templateProgram, startDate, i, request.UserId)); //create weeks based on template weeks
+                startDate = startDate.AddDays(programLog.NoOfWeeks * 7);
+            }
 
-            var templateWeeks = templateProgram.TemplateWeeks.ToList();
+            programLog.ProgramLogWeeks = programLogWeeks;
+            programLog.StartDate = request.ProgramLogDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
+            programLog.EndDate = programLog.StartDate.AddDays((programLog.NoOfWeeks * request.ProgramLogDTO.RepeatProgramCount) * 7);
+
+            var incrementWeightsDic = new Dictionary<int, decimal>();
+            if (request.ProgramLogDTO.IncrementalWeightInputs != null && request.ProgramLogDTO.IncrementalWeightInputs.Any())
+            {
+                incrementWeightsDic = request.ProgramLogDTO.IncrementalWeightInputs.ToDictionary(x => x.ExerciseId, x => (decimal)x.Weight);
+            }
+
+            var templateWeek = new TemplateWeekDTO();
+            var programDayOrder = ProgramLogHelper.CalculateDayOrder(programLog);
+            var currentWeightInputs = request.ProgramLogDTO.WeightInputs;
             var counter = 0;
 
             //Apply exercises to days that have exercises on them
             foreach (var programLogWeek in programLog.ProgramLogWeeks)
             {
-                var templateWeek = templateWeeks[counter++];
-                programLogWeek.ProgramLogDays = _programLogService.CreateProgramLogDaysForWeekFromTemplate(programLogWeek, programDayOrder, templateWeek, request.UserId);
+                templateWeek = templateWeeks[counter++];
+
+                if (counter >= templateProgram.NoOfWeeks) //reset the templates back to week 1 for new cycle
+                {
+                    currentWeightInputs = _liftingStatService.CalculateNewWeightInput(currentWeightInputs, incrementWeightsDic);
+                    counter = 0;
+                }
+
                 var dayCounter = 0;
                 foreach (var programLogDay in programLogWeek.ProgramLogDays)
                 {
-                    var templateDay = templateWeek.TemplateDays.ToList()[dayCounter++];
-                    programLogDay.ProgramLogExercises = _programLogService.CreateProgramLogExercisesForTemplateDay(templateDay, request.ProgramLogDTO.WeightInputs, _calculateRepWeight, request.UserId);
+                    if (dayCounter >= programDayOrder.Count) break; //We have already populated all exercises for this week
+
+                    if (_programLogService.IsDateOnWorkoutDay(programLogDay.Date, programDayOrder, dayCounter)) //we have found a workout date
+                    {
+                        var templateDay = templateWeek.TemplateDays.ToList()[dayCounter++];
+                        programLogDay.ProgramLogExercises = _programLogService.CreateProgramLogExercisesForTemplateDay(templateDay, currentWeightInputs, _calculateRepWeight, request.UserId);
+                    }
                 }
             }
 
             _context.ProgramLog.Add(programLog);
-
-            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
-            if (modifiedRows <= 0) throw new ProgramLogAlreadyActiveException();
+            await _context.SaveChangesAsync(cancellationToken);
 
             var createdProgramLog = _mapper.Map<ProgramLogDTO>(programLog);
             return createdProgramLog;

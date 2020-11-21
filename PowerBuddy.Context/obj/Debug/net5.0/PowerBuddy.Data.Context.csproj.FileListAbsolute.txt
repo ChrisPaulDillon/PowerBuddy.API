@@ -13,3 +13,5 @@ C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\P
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Data.Context.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\ref\PowerBuddy.Data.Context.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Data.Context.pdb
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\bin\Debug\net5.0\PowerBuddy.Util.dll
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\bin\Debug\net5.0\PowerBuddy.Util.pdb

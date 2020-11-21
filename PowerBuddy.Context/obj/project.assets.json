@@ -1852,13 +1852,24 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "AutoMapper": "10.1.1",
-          "Microsoft.Extensions.Identity.Stores": "5.0.0"
+          "Microsoft.Extensions.Identity.Stores": "5.0.0",
+          "PowerBuddy.Util": "1.0.0"
         },
         "compile": {
           "bin/placeholder/PowerBuddy.Data.dll": {}
         },
         "runtime": {
           "bin/placeholder/PowerBuddy.Data.dll": {}
+        }
+      },
+      "PowerBuddy.Util/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/PowerBuddy.Util.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PowerBuddy.Util.dll": {}
         }
       }
     }
@@ -6524,6 +6535,11 @@
       "type": "project",
       "path": "../PowerBuddy.Data/PowerBuddy.Data.csproj",
       "msbuildProject": "../PowerBuddy.Data/PowerBuddy.Data.csproj"
+    },
+    "PowerBuddy.Util/1.0.0": {
+      "type": "project",
+      "path": "../PowerBuddy.Util/PowerBuddy.Util.csproj",
+      "msbuildProject": "../PowerBuddy.Util/PowerBuddy.Util.csproj"
     }
   },
   "projectFileDependencyGroups": {

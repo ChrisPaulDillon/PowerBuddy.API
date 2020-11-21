@@ -9,7 +9,8 @@
       "PowerBuddy.Services/1.0.0": {
         "dependencies": {
           "PowerBuddy.Data": "1.0.0",
-          "PowerBuddy.Data.Context": "1.0.0"
+          "PowerBuddy.Data.Context": "1.0.0",
+          "PowerBuddy.Util": "1.0.0"
         },
         "runtime": {
           "PowerBuddy.Services.dll": {}
@@ -1360,7 +1361,8 @@
       "PowerBuddy.Data/1.0.0": {
         "dependencies": {
           "AutoMapper": "10.1.1",
-          "Microsoft.Extensions.Identity.Stores": "5.0.0"
+          "Microsoft.Extensions.Identity.Stores": "5.0.0",
+          "PowerBuddy.Util": "1.0.0"
         },
         "runtime": {
           "PowerBuddy.Data.dll": {}
@@ -1376,6 +1378,11 @@
         },
         "runtime": {
           "PowerBuddy.Data.Context.dll": {}
+        }
+      },
+      "PowerBuddy.Util/1.0.0": {
+        "runtime": {
+          "PowerBuddy.Util.dll": {}
         }
       }
     }
@@ -2246,6 +2253,11 @@
       "sha512": ""
     },
     "PowerBuddy.Data.Context/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PowerBuddy.Util/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

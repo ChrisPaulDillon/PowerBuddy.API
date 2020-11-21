@@ -125,3 +125,5 @@ C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\Power
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\PowerBuddy.Util.dll
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\PowerBuddy.Util.pdb

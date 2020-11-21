@@ -25,3 +25,5 @@ C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.MediatR\obj\Debug\net5.0\P
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.MediatR\obj\Debug\net5.0\PowerBuddy.MediatR.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.MediatR\obj\Debug\net5.0\ref\PowerBuddy.MediatR.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.MediatR\obj\Debug\net5.0\PowerBuddy.MediatR.pdb
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.MediatR\bin\Debug\net5.0\PowerBuddy.Util.dll
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.MediatR\bin\Debug\net5.0\PowerBuddy.Util.pdb
