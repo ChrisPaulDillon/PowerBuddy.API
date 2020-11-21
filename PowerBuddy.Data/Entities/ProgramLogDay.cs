@@ -9,7 +9,6 @@ namespace PowerBuddy.Data.Entities
         public string UserId { get; set; }
         public DateTime Date { get; set; }
         public string Comment { get; set; }
-        public bool? PersonalBest { get; set; }
         public bool Completed { get; set; }
     }
 }

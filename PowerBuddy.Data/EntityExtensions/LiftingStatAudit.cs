@@ -4,5 +4,6 @@
     {
         public Exercise Exercise { get; set; }
         public User User { get; set; }
+        public LiftingStat LiftingStat { get; set; }
     }
 }

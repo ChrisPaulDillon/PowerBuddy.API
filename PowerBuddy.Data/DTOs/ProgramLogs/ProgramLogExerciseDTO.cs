@@ -13,7 +13,6 @@ namespace PowerBuddy.Data.DTOs.ProgramLogs
         public int ExerciseId { get; set; }
         public int NoOfSets { get; set; }
         public string Comment { get; set; }
-        public bool? PersonalBest { get; set; }
         public int ProgramLogExerciseTonnageId { get; set; }
         public string ExerciseName { get; set; }
         public decimal ExerciseTonnage { get; set; }

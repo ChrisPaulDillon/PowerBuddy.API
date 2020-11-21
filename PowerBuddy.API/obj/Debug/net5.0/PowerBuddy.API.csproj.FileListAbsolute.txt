@@ -127,3 +127,5 @@ C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\Micro
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\PowerBuddy.Util.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\PowerBuddy.Util.pdb
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\Humanizer.dll
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll

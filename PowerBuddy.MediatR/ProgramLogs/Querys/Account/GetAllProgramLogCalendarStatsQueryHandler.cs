@@ -37,16 +37,15 @@ namespace PowerBuddy.MediatR.ProgramLogs.Querys.Account
                 .Select(x => x.Date)
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            var personalBests = await _context.ProgramLogDay
-                .AsNoTracking()
-                .Where(x => x.PersonalBest == true && x.UserId == request.UserId)
-                .Select(x => x.Date)
-                .ToListAsync(cancellationToken: cancellationToken);
+            //var personalBests = await _context.ProgramLogDay
+            //    .AsNoTracking()
+            //    .Where(x => x.PersonalBest == true && x.UserId == request.UserId)
+            //    .Select(x => x.Date)
+            //    .ToListAsync(cancellationToken: cancellationToken);
 
             var programLogCalendarDTO = new ProgramLogCalendarDTO()
             {
-                WorkoutDates = workoutDates,
-                PersonalBestDates = personalBests
+                WorkoutDates = workoutDates
             };
 
             return programLogCalendarDTO;

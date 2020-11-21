@@ -74,18 +74,21 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Member
 
             foreach (var programExercise in programLogExercises)
             {
-
                 //Get the highest weight lifted for the given exercise and each rep
-                var maxWeightRepSchemes = programExercise.ProgramLogRepSchemes.GroupBy(x => x.RepsCompleted).Select(g => g.OrderByDescending(x => x.WeightLifted).First()).ToList();
+                var maxWeightRepSchemes = programExercise.ProgramLogRepSchemes
+                    .GroupBy(x => x.RepsCompleted)
+                    .Select(g => g.OrderByDescending(x => x.WeightLifted).First())
+                    .ToList();
 
                 var updatedRepSchemes = programExercise.ProgramLogRepSchemes.ToList(); //repSchemes to be updated
 
                 foreach (var repScheme in maxWeightRepSchemes.Where(repScheme => repScheme.RepsCompleted != 0))
                 {
                     var liftingStatPb = await _context.LiftingStat
-                        .FirstOrDefaultAsync(x => x.RepRange == repScheme.RepsCompleted && 
-                                                  x.ExerciseId == programExercise.ExerciseId 
-                                                  && x.UserId == request.UserId, cancellationToken: cancellationToken);
+                        .FirstOrDefaultAsync(x => 
+                            x.RepRange == repScheme.RepsCompleted && 
+                            x.ExerciseId == programExercise.ExerciseId && 
+                            x.UserId == request.UserId, cancellationToken: cancellationToken);
 
                     if (liftingStatPb != null) //Personal best exists
                     {
@@ -112,7 +115,6 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Member
 
                     repScheme.PersonalBest = true;
                     repScheme.NoOfReps = (int)repScheme.RepsCompleted;
-                    programExercise.PersonalBest = true;
 
                     var index = updatedRepSchemes.FindIndex(a => a.ProgramLogRepSchemeId == repScheme.ProgramLogRepSchemeId);
                     updatedRepSchemes[index] = repScheme; //replace the current program log rep scheme with the newly updated PB

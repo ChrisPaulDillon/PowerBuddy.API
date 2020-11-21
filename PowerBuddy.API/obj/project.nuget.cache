@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "++HNs+XTvzKCL8AFX+31G9KCU9ph5Ka500HjuCn3lCuhxIkv8k+xDueEaBWbCWShPTIVeGtOHw0H80/tuGAcIw==",
+  "dgSpecHash": "lIEqmsdUFu9wnG+4rjsXuRmHiuOXT+8AXXw1zxWXqR+IzYSvkfEn6WpRyKkuOLZBda4VLE372EkETCldrjIHqQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ChrisLifts\\Desktop\\PowerBuddy.API\\PowerBuddy.API\\PowerBuddy.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512",
+    "C:\\Users\\ChrisLifts\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\9.0.0\\mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
@@ -34,6 +35,7 @@
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.0\\microsoft.entityframeworkcore.5.0.0.nupkg.sha512",
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.0\\microsoft.entityframeworkcore.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\5.0.0\\microsoft.entityframeworkcore.analyzers.5.0.0.nupkg.sha512",
+    "C:\\Users\\ChrisLifts\\.nuget\\packages\\microsoft.entityframeworkcore.design\\5.0.0\\microsoft.entityframeworkcore.design.5.0.0.nupkg.sha512",
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\5.0.0\\microsoft.entityframeworkcore.relational.5.0.0.nupkg.sha512",
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.0\\microsoft.entityframeworkcore.sqlserver.5.0.0.nupkg.sha512",
     "C:\\Users\\ChrisLifts\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",

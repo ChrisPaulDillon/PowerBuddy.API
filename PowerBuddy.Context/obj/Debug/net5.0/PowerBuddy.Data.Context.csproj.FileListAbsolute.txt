@@ -15,3 +15,6 @@ C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\r
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Data.Context.pdb
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\bin\Debug\net5.0\PowerBuddy.Util.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\bin\Debug\net5.0\PowerBuddy.Util.pdb
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\bin\Debug\net5.0\PowerBuddy.Data.Context.runtimeconfig.json
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\bin\Debug\net5.0\PowerBuddy.Data.Context.runtimeconfig.dev.json
+C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Context\obj\Debug\net5.0\PowerBuddy.Data.Context.genruntimeconfig.cache
