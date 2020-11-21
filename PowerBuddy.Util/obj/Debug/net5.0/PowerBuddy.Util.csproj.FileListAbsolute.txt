@@ -2,7 +2,6 @@ C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Util\bin\Debug\net5.0\Powe
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Util\bin\Debug\net5.0\PowerBuddy.Util.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Util\bin\Debug\net5.0\ref\PowerBuddy.Util.dll
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Util\bin\Debug\net5.0\PowerBuddy.Util.pdb
-C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Util\obj\Debug\net5.0\PowerBuddy.Util.csprojAssemblyReference.cache
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Util\obj\Debug\net5.0\PowerBuddy.Util.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Util\obj\Debug\net5.0\PowerBuddy.Util.AssemblyInfoInputs.cache
 C:\Users\ChrisLifts\Desktop\PowerBuddy.API\PowerBuddy.Util\obj\Debug\net5.0\PowerBuddy.Util.AssemblyInfo.cs

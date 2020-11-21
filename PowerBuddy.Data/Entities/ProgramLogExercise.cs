@@ -11,7 +11,6 @@
         public int ExerciseId { get; set; }
         public int NoOfSets { get; set; }
         public string Comment { get; set; }
-        public bool Completed { get; set; }
         public bool? PersonalBest { get; set; }
         public int ProgramLogExerciseTonnageId { get; set; }
     }

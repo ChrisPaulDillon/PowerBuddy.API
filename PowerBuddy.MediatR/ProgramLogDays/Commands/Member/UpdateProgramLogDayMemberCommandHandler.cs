@@ -74,7 +74,6 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Member
 
             foreach (var programExercise in programLogExercises)
             {
-                if (programExercise.Completed) continue; //Exercise has already been evaluated for PBs
 
                 //Get the highest weight lifted for the given exercise and each rep
                 var maxWeightRepSchemes = programExercise.ProgramLogRepSchemes.GroupBy(x => x.RepsCompleted).Select(g => g.OrderByDescending(x => x.WeightLifted).First()).ToList();

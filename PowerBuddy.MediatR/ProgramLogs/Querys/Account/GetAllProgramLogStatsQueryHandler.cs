@@ -45,7 +45,6 @@ namespace PowerBuddy.MediatR.ProgramLogs.Querys.Account
             {
                 programLog.DayCount = programLog.ProgramLogWeeks.Sum(j => j.ProgramLogDays.Count());
                 programLog.ExerciseCount = programLog.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises).Count();
-                programLog.ExerciseCompletedCount = programLog.ProgramLogWeeks.SelectMany(c => c.ProgramLogDays).SelectMany(p => p.ProgramLogExercises.Where(x => x.Completed)).Count();
                 programLog.ProgramLogWeeks = null;
             }
 
@@ -55,7 +54,6 @@ namespace PowerBuddy.MediatR.ProgramLogs.Querys.Account
                 LifetimeLogCount = programLogStats.Count(),
                 LifetimeDayCount = programLogStats.Sum(j => j.DayCount),
                 LifetimeExerciseCount = programLogStats.Sum(x => x.ExerciseCount),
-                LifetimeExerciseCompletedCount = programLogStats.Sum(x => x.ExerciseCompletedCount),
                 ProgramLogStats = programLogStats
             };
 

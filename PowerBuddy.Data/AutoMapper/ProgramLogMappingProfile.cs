@@ -95,7 +95,6 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.ExerciseId, d => d.MapFrom<int>(src => src.ExerciseId))
                 .ForMember(x => x.NoOfSets, d => d.MapFrom<int>(src => src.NoOfSets))
                 .ForMember(x => x.Comment, d => d.MapFrom<string>(src => src.Comment))
-                .ForMember(x => x.Completed, d => d.MapFrom<bool>(src => src.Completed))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom<bool?>(src => src.PersonalBest))
                 .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom<int>(src => src.ProgramLogExerciseTonnageId))
                 .ForMember(x => x.ExerciseName, d => d.MapFrom<string>(src => src.Exercise.ExerciseName))
@@ -109,14 +108,19 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.ExerciseId, d => d.MapFrom<int>(src => src.ExerciseId))
                 .ForMember(x => x.NoOfSets, d => d.MapFrom<int>(src => src.NoOfSets))
                 .ForMember(x => x.Comment, d => d.MapFrom<string>(src => src.Comment))
-                .ForMember(x => x.Completed, d => d.MapFrom<bool>(src => src.Completed))
                 .ForMember(x => x.PersonalBest, d => d.MapFrom<bool?>(src => src.PersonalBest))
                 .ForMember(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom<int>(src => src.ProgramLogExerciseTonnageId))
                 .ForMember(x => x.ExerciseName, d => d.MapFrom<string>(src => src.Exercise.ExerciseName))
                 .ForMember(x => x.ExerciseTonnage, d => d.MapFrom<decimal>(src => src.ProgramLogExerciseTonnage.ExerciseTonnage));
 
             //into entity
-            CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>().ForMember<int>(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId)).ForMember<int>(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId)).ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId)).ForMember<int>(x => x.NoOfSets, d => d.MapFrom(src => src.NoOfSets)).ForMember<string>(x => x.Comment, d => d.MapFrom(src => src.Comment)).ForMember<bool>(x => x.Completed, d => d.MapFrom(src => src.Completed)).ForMember<int>(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageId))
+            CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>()
+                .ForMember<int>(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId))
+                .ForMember<int>(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
+                .ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
+                .ForMember<int>(x => x.NoOfSets, d => d.MapFrom(src => src.NoOfSets))
+                .ForMember<string>(x => x.Comment, d => d.MapFrom(src => src.Comment))
+                .ForMember<int>(x => x.ProgramLogExerciseTonnageId, d => d.MapFrom(src => src.ProgramLogExerciseTonnageId))
                 .ForMember(x => x.ProgramLogExerciseTonnage, d => d.MapFrom(src => src.ProgramLogExerciseTonnageDTO))
                 .ForMember(x => x.Exercise, d => d.Ignore());
 

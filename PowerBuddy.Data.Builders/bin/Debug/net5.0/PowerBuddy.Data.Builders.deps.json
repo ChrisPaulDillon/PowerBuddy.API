@@ -148,10 +148,16 @@
       "PowerBuddy.Data/1.0.0": {
         "dependencies": {
           "AutoMapper": "10.1.1",
-          "Microsoft.Extensions.Identity.Stores": "5.0.0"
+          "Microsoft.Extensions.Identity.Stores": "5.0.0",
+          "PowerBuddy.Util": "1.0.0"
         },
         "runtime": {
           "PowerBuddy.Data.dll": {}
+        }
+      },
+      "PowerBuddy.Util/1.0.0": {
+        "runtime": {
+          "PowerBuddy.Util.dll": {}
         }
       }
     }
@@ -261,6 +267,11 @@
       "hashPath": "system.reflection.emit.4.7.0.nupkg.sha512"
     },
     "PowerBuddy.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PowerBuddy.Util/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

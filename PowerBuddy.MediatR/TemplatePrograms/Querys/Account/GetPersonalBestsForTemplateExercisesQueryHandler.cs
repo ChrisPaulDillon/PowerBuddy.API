@@ -66,7 +66,7 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys.Account
                 {
                     ExerciseId = templateExercise,
                     ExerciseName = await _context.Exercise.AsNoTracking().Where(x => x.ExerciseId == templateExercise).Select(x => x.ExerciseName).FirstOrDefaultAsync(),
-                    Weight = personalBests.Where(x => x.ExerciseId == templateExercise).Select(x => x.Weight).FirstOrDefault()
+                    Weight = personalBests.Where(x => x.ExerciseId == templateExercise).Select(x => x.Weight).FirstOrDefault() ?? 0
                 };
                 templateWeightInput.Add(weightInput);
             }
