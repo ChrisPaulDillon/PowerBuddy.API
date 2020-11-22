@@ -143,7 +143,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.NoOfReps, d => d.MapFrom<int>(src => src.NoOfReps))
                 .ForMember(x => x.WeightLifted, d => d.MapFrom<decimal>(src => src.WeightLifted))
                 .ForMember(x => x.Percentage, d => d.MapFrom<decimal?>(src => src.Percentage))
-                .ForMember(x => x.PersonalBest, d => d.MapFrom<bool?>(src => src.PersonalBest))
+                .ForMember(x => x.PersonalBest, d => d.MapFrom<bool?>(src => src.LiftingStatAudit != null? true : false ))
                 .ForMember(x => x.AMRAP, d => d.MapFrom<bool>(src => src.AMRAP))
                 .ForMember(x => x.RepsCompleted, d => d.MapFrom<int>(src => src.RepsCompleted ?? src.NoOfReps)) //default to noOfReps if not been touched
                 .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int?>(src => src.LiftingStatAuditId)) 
