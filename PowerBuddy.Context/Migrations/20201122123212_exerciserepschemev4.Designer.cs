@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBuddy.Context;
 
-namespace PowerBuddy.Context.Migrations
+namespace PowerBuddy.Data.Context.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20201122123212_exerciserepschemev4")]
+    partial class exerciserepschemev4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1001,9 +1003,10 @@ namespace PowerBuddy.Context.Migrations
             modelBuilder.Entity("PowerBuddy.Data.Entities.LiftingStatAudit", b =>
                 {
                     b.HasOne("PowerBuddy.Data.Entities.Exercise", "Exercise")
-                        .WithMany("LiftingStatAudit")
+                        .WithMany()
                         .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PowerBuddy.Data.Entities.ProgramLogRepScheme", "ProgramLogRepScheme")
                         .WithOne("LiftingStatAudit")
@@ -1166,8 +1169,6 @@ namespace PowerBuddy.Context.Migrations
                     b.Navigation("ExerciseMuscleGroups");
 
                     b.Navigation("ExerciseSports");
-
-                    b.Navigation("LiftingStatAudit");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.Gender", b =>

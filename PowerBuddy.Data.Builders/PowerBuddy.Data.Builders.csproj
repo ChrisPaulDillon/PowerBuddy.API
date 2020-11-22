@@ -8,8 +8,4 @@
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="LiftingStats\" />
-  </ItemGroup>
-
 </Project>

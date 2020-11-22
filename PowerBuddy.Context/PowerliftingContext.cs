@@ -180,10 +180,18 @@ namespace PowerBuddy.Context
                 .HasForeignKey<LiftingLevel>(x => x.LiftingLevelId)
                 .IsRequired(false);
 
-            modelBuilder.Entity<LiftingStatAudit>()
-                .HasOne(x => x.Exercise)
-                .WithOne()
-                .HasForeignKey<LiftingStatAudit>(x => x.ExerciseId)
+            modelBuilder.Entity<ProgramLogRepScheme>()
+                .HasOne(x => x.LiftingStatAudit)
+                .WithOne(x => x.ProgramLogRepScheme)
+                .HasForeignKey<LiftingStatAudit>(x => x.ProgramLogRepSchemeId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Exercise>()
+                .HasMany(x => x.LiftingStatAudit)
+                .WithOne(x => x.Exercise)
+                .HasForeignKey(x => x.ExerciseId)
+                .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
         }
     }

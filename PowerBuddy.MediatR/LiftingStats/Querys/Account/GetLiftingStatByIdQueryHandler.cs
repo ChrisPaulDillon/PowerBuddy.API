@@ -46,8 +46,6 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
 
             var liftingStats = await _liftingStatService.GetTopLiftingStatForExercise(request.ExerciseId, request.UserId);
 
-            var liftingStatsMapped = _mapper.Map<IEnumerable<LiftingStatAuditDTO>>(liftingStats);
-
             var liftFeed = await _context.LiftingStatAudit.Where(x => x.UserId == request.UserId && x.ExerciseId == request.ExerciseId)
                 .ProjectTo<LiftFeedDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
@@ -63,7 +61,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
             {
                 ExerciseName = exerciseName,
                 LifeTimeTonnage = lifetimeTonnage,
-                LiftingStats = liftingStatsMapped,
+                LiftingStats = liftingStats,
                 LiftFeed = liftFeed
             };
 

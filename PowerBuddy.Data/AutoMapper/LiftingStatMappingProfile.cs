@@ -36,9 +36,6 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.DateChanged, d => d.MapFrom<DateTime>(src => src.DateChanged))
                 .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
                 .ForMember(x => x.Exercise, d => d.Ignore());
-
-
-            CreateMap<LiftingStatAudit, LiftingStatAuditDTO>().ReverseMap();
         }
     }
 }

@@ -11,8 +11,8 @@ namespace PowerBuddy.Data.Context.Migrations
                 name: "FK_LiftingStatAudit_LiftingStat_LiftingStatId",
                 table: "LiftingStatAudit");
 
-            migrationBuilder.DropTable(
-                name: "LiftingStat");
+            //migrationBuilder.DropTable(
+            //    name: "LiftingStat");
 
             migrationBuilder.DropIndex(
                 name: "IX_LiftingStatAudit_LiftingStatId",

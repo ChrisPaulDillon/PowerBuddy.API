@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBuddy.Context;
 
-namespace PowerBuddy.Context.Migrations
+namespace PowerBuddy.Data.Context.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20201122112142_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -300,9 +302,6 @@ namespace PowerBuddy.Context.Migrations
                     b.HasKey("LiftingStatAuditId");
 
                     b.HasIndex("ExerciseId");
-
-                    b.HasIndex("ProgramLogRepSchemeId")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -1002,21 +1001,13 @@ namespace PowerBuddy.Context.Migrations
                 {
                     b.HasOne("PowerBuddy.Data.Entities.Exercise", "Exercise")
                         .WithMany("LiftingStatAudit")
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("PowerBuddy.Data.Entities.ProgramLogRepScheme", "ProgramLogRepScheme")
-                        .WithOne("LiftingStatAudit")
-                        .HasForeignKey("PowerBuddy.Data.Entities.LiftingStatAudit", "ProgramLogRepSchemeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ExerciseId");
 
                     b.HasOne("PowerBuddy.Data.Entities.User", "User")
                         .WithMany("LiftingStatAudit")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Exercise");
-
-                    b.Navigation("ProgramLogRepScheme");
 
                     b.Navigation("User");
                 });
@@ -1195,11 +1186,6 @@ namespace PowerBuddy.Context.Migrations
                     b.Navigation("ProgramLogExerciseTonnage");
 
                     b.Navigation("ProgramLogRepSchemes");
-                });
-
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogRepScheme", b =>
-                {
-                    b.Navigation("LiftingStatAudit");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogWeek", b =>

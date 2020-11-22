@@ -2,5 +2,6 @@
 {
     public partial class ProgramLogRepScheme
     {
+        public LiftingStatAudit LiftingStatAudit { get; set; }
     }
 }

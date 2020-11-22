@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
 using PowerBuddy.Data.DTOs.LiftingStats;
@@ -56,25 +57,32 @@ namespace PowerBuddy.Services.LiftingStats
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<LiftingStatAudit>> GetTopLiftingStatForExercise(int exerciseId, string userId)
+        public async Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatForExercise(int exerciseId, string userId)
         {
-            return await _context.LiftingStatAudit.Where(x => x.UserId == userId && x.ExerciseId == exerciseId)
-                .GroupBy(x => x.RepRange)
-                .Select(g => g.OrderByDescending(x => x.Weight).First())
+            var stats = await _context.LiftingStatAudit.AsNoTracking()
+                .Where(x => x.UserId == userId && x.ExerciseId == exerciseId)
+                .ProjectTo<LiftingStatAuditDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
-        }
-
-        public async Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatCollection(string userId)
-        {
-            var stats = await _context.LiftingStatAudit.AsNoTracking().Where(x => x.UserId == userId).ToListAsync();
 
             var groupedStats = stats.GroupBy(x => new { x.RepRange, x.ExerciseId })
                 .Select(x => x.OrderByDescending(x => x.Weight).FirstOrDefault())
                 .ToList();
 
-            var mappedStats = _mapper.Map<IEnumerable<LiftingStatAuditDTO>>(groupedStats);
+            return groupedStats;
+        }
 
-            return mappedStats;
+        public async Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatCollection(string userId)
+        {
+            var stats = await _context.LiftingStatAudit.AsNoTracking()
+                .Where(x => x.UserId == userId)
+                .ProjectTo<LiftingStatAuditDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            var groupedStats = stats.GroupBy(x => new { x.RepRange, x.ExerciseId })
+                .Select(x => x.OrderByDescending(x => x.Weight).FirstOrDefault())
+                .ToList();
+
+            return groupedStats;
         }
     }
 }

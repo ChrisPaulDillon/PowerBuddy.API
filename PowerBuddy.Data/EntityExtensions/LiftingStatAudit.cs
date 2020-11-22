@@ -2,7 +2,8 @@
 {
     public partial class LiftingStatAudit
     {
-        public Exercise Exercise { get; set; }
-        public User User { get; set; }
+        public virtual Exercise Exercise { get; set; }
+        public virtual User User { get; set; }
+        public virtual ProgramLogRepScheme ProgramLogRepScheme { get; set; }
     }
 }

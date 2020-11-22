@@ -14,7 +14,7 @@ namespace PowerBuddy.Services.LiftingStats
 
         Task<LiftingStatAudit> GetTopLiftingStatForRepRange(int repRange, int exerciseId, string userId);
 
-        Task<IEnumerable<LiftingStatAudit>> GetTopLiftingStatForExercise(int exerciseId, string userId);
+        Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatForExercise(int exerciseId, string userId);
 
         Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatCollection(string userId);
     }
