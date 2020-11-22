@@ -164,6 +164,14 @@ namespace PowerBuddy.Services.ProgramLogs
             return templateProgram;
         }
 
+        public IEnumerable<ProgramLogRepSchemeDTO> GetHighestWeightRepSchemeForEachRepFromCollection(ICollection<ProgramLogRepSchemeDTO> repSchemes)
+        {
+            return repSchemes
+                .GroupBy(x => x.RepsCompleted)
+                .Select(g => g.OrderByDescending(x => x.WeightLifted).First())
+                .ToList();
+        }
+
         public async Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId)
         {
             return await _context.ProgramLogExerciseTonnage.AsNoTracking().Where(x => x.UserId == userId && x.ExerciseId == exerciseId).SumAsync(x => x.ExerciseTonnage);

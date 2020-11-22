@@ -33,7 +33,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<LiftingStatDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats()
         {
@@ -63,131 +63,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpGet("Template/{templateProgramId:int}")]
-        [ProducesResponseType(typeof(IEnumerable<LiftingStatDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetPersonalBestsForTemplate(int templateProgramId)
         {
             var personalBests = await _mediator.Send(new GetPersonalBestsForTemplateExercisesQuery(templateProgramId, _userId)).ConfigureAwait(false);
             return Ok(personalBests);
-        }
-
-        [HttpPost]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateLiftingStat([FromBody] LiftingStatDTO liftingStatDTO)
-        {
-            try
-            {
-                var liftingStat = await _mediator.Send(new CreateLiftingStatCommand(liftingStatDTO, _userId)).ConfigureAwait(false);
-                return Ok(liftingStat);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (LiftingStatAlreadyExistsException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
-        }
-
-        [HttpPost("Collection")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateLiftingStatCollection([FromBody] IEnumerable<LiftingStatDTO> liftingStatCollectionDTO)
-        {
-            try
-            {
-                var liftingStat = await _mediator.Send(new CreateLiftingStatCollectionCommand(liftingStatCollectionDTO, _userId)).ConfigureAwait(false);
-                return Ok(liftingStat);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
-        }
-
-        [HttpPut("Collection")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateLiftingStatCollection([FromBody] IEnumerable<LiftingStatDTO> liftingStatCollectionDTO)
-        {
-            try
-            {
-                var liftingStat = await _mediator.Send(new UpdateLiftingStatCollectionCommand(liftingStatCollectionDTO, _userId)).ConfigureAwait(false);
-                return Ok(liftingStat);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (LiftingStatAlreadyExistsException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
-        }
-
-        [HttpPut]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateLiftingStat([FromBody] LiftingStatDTO liftingStats)
-        {
-            try
-            {
-                var result = await _mediator.Send(new UpdateLiftingStatCommand(liftingStats, _userId)).ConfigureAwait(false);
-                return Ok(result);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (LiftingStatNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
-        }
-
-        [HttpDelete("{liftingStatId:int}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteLiftingStat(int liftingStatId)
-        {
-            try
-            {
-                var result = await _mediator.Send(new DeleteLiftingStatCommand(liftingStatId, _userId)).ConfigureAwait(false);
-               return Ok(result);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (LiftingStatNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
         }
 
         [HttpDelete("Audit/{liftingStatAuditId:int}")]

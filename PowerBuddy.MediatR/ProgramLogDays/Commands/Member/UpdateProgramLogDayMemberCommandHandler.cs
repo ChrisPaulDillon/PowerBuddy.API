@@ -13,11 +13,12 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.Data.Factories;
-using PowerBuddy.MediatR.LiftingStats.Commands.Account;
+using PowerBuddy.Services.LiftingStats;
+using PowerBuddy.Services.ProgramLogs;
 
 namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Member
 {
-    public class UpdateProgramLogDayMemberCommand : IRequest<IEnumerable<LiftingStatDTO>>
+    public class UpdateProgramLogDayMemberCommand : IRequest<IEnumerable<LiftingStatAuditDTO>>
     {
         public ProgramLogDayDTO ProgramLogDayDTO { get; }
         public string UserId { get; }
@@ -40,22 +41,24 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Member
         }
     }
 
-    public class UpdateProgramLogDayMemberCommandHandler : IRequestHandler<UpdateProgramLogDayMemberCommand, IEnumerable<LiftingStatDTO>>
+    public class UpdateProgramLogDayMemberCommandHandler : IRequestHandler<UpdateProgramLogDayMemberCommand, IEnumerable<LiftingStatAuditDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+        private readonly IProgramLogService _programLogService;
+        private readonly ILiftingStatService _liftingStatService;
         private readonly IEntityFactory _entityFactory;
-        private readonly IMediator _mediator;
 
-        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IEntityFactory entityFactory, IMediator mediator)
+        public UpdateProgramLogDayMemberCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService, ILiftingStatService liftingStatService, IEntityFactory entityFactory)
         {
             _context = context;
             _mapper = mapper;
+            _programLogService = programLogService;
+            _liftingStatService = liftingStatService;
             _entityFactory = entityFactory;
-            _mediator = mediator;
         }
 
-        public async Task<IEnumerable<LiftingStatDTO>> Handle(UpdateProgramLogDayMemberCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<LiftingStatAuditDTO>> Handle(UpdateProgramLogDayMemberCommand request, CancellationToken cancellationToken)
         {
             var doesProgramLogDayExist = await _context.ProgramLogDay.AsNoTracking()
                 .AnyAsync(x => x.ProgramLogDayId == request.ProgramLogDayDTO.ProgramLogDayId, cancellationToken: cancellationToken);
@@ -69,64 +72,55 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Member
 
             var programLogExercises = request.ProgramLogDayDTO.ProgramLogExercises;
 
-            var totalPersonalBests = new List<LiftingStatDTO>();
+            var totalPersonalBests = new List<LiftingStatAuditDTO>();
             var updatedProgramLogExercises = new List<ProgramLogExerciseDTO>();
 
             foreach (var programExercise in programLogExercises)
             {
                 //Get the highest weight lifted for the given exercise and each rep
-                var maxWeightRepSchemes = programExercise.ProgramLogRepSchemes
-                    .GroupBy(x => x.RepsCompleted)
-                    .Select(g => g.OrderByDescending(x => x.WeightLifted).First())
-                    .ToList();
+
+                var maxWeightRepSchemes = _programLogService.GetHighestWeightRepSchemeForEachRepFromCollection(programExercise.ProgramLogRepSchemes);
 
                 var updatedRepSchemes = programExercise.ProgramLogRepSchemes.ToList(); //repSchemes to be updated
 
                 foreach (var repScheme in maxWeightRepSchemes.Where(repScheme => repScheme.RepsCompleted != 0))
                 {
-                    var liftingStatPb = await _context.LiftingStat
-                        .FirstOrDefaultAsync(x => 
-                            x.RepRange == repScheme.RepsCompleted && 
-                            x.ExerciseId == programExercise.ExerciseId && 
-                            x.UserId == request.UserId, cancellationToken: cancellationToken);
+                    var liftingStatPb = await _liftingStatService.GetTopLiftingStatForRepRange((int)repScheme.RepsCompleted, programExercise.ExerciseId, request.UserId);
 
                     if (liftingStatPb != null) //Personal best exists
                     {
-                        if (repScheme.WeightLifted > liftingStatPb.Weight || liftingStatPb.Weight == null) //Pb was hit and lifting stat exists
+                        if (repScheme.WeightLifted <= liftingStatPb.Weight)
                         {
-                            liftingStatPb.Weight = repScheme.WeightLifted;
-                            liftingStatPb.LastUpdated = request.ProgramLogDayDTO.Date;
-                            _context.LiftingStat.Update(liftingStatPb);
+                            continue; //Personal best was higher than max weight
                         }
-                        else
-                        {
-                            continue; //Personal best was higher than max weight lifted
-                        }
-                    }
-                    else // Pb was hit, though no lifting stat exists for the current rep and exercise
-                    {
-                        liftingStatPb = _entityFactory.CreateLiftingStat(programExercise.ExerciseId, repScheme.WeightLifted, (int)repScheme.RepsCompleted, request.UserId, request.ProgramLogDayDTO.Date);
-                        _context.LiftingStat.Add(liftingStatPb);
                     }
 
-                    liftingStatPb.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == programExercise.ExerciseId);
-                    totalPersonalBests.Add(_mapper.Map<LiftingStatDTO>(liftingStatPb));
-                    _context.Entry(liftingStatPb.Exercise).State = EntityState.Detached;
+                    var hitPersonalBest = _entityFactory.CreateLiftingStatAudit(
+                        programExercise.ExerciseId, 
+                        (int)repScheme.RepsCompleted, 
+                        repScheme.WeightLifted, 
+                        request.ProgramLogDayDTO.Date, 
+                        repScheme.ProgramLogRepSchemeId, 
+                        request.UserId);
+
+                    _context.LiftingStatAudit.Add(hitPersonalBest);
+                    await _context.SaveChangesAsync();
+
+                    hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == programExercise.ExerciseId);
+                    totalPersonalBests.Add(_mapper.Map<LiftingStatAuditDTO>(hitPersonalBest));
+                    _context.Entry(hitPersonalBest.Exercise).State = EntityState.Detached;
 
                     repScheme.PersonalBest = true;
                     repScheme.NoOfReps = (int)repScheme.RepsCompleted;
+                    repScheme.LiftingStatAuditId = hitPersonalBest.LiftingStatAuditId;
 
                     var index = updatedRepSchemes.FindIndex(a => a.ProgramLogRepSchemeId == repScheme.ProgramLogRepSchemeId);
                     updatedRepSchemes[index] = repScheme; //replace the current program log rep scheme with the newly updated PB
-
-                    await _mediator.Send(new CreateLiftingStatAuditCommand(liftingStatPb.LiftingStatId, programExercise.ExerciseId, liftingStatPb.RepRange, (decimal)liftingStatPb.Weight, request.UserId, programLogDay.Date), cancellationToken);
                 }
 
                 programExercise.ProgramLogRepSchemes = updatedRepSchemes;
                 updatedProgramLogExercises.Add(programExercise);
             }
-
-            //var dayTonnages = await _tonnageService.CreateTonnageBreakdownForDay(programLogId, request.ProgramLogDayDTO.ProgramLogDayId, request.UserId);
 
             request.ProgramLogDayDTO.ProgramLogExercises = updatedProgramLogExercises;
 

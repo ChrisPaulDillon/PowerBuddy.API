@@ -166,11 +166,6 @@ namespace PowerBuddy.API.Extensions
         public static IServiceCollection AddLiftingStatsMediatrHandlers(this IServiceCollection services)
         {
             // CommandHandler Registration
-            services.AddMediatR(typeof(CreateLiftingStatCommandHandler));
-            services.AddMediatR(typeof(DeleteLiftingStatCommandHandler));
-            services.AddMediatR(typeof(UpdateLiftingStatCollectionCommandHandler));
-            services.AddMediatR(typeof(UpdateLiftingStatCommandHandler));
-            services.AddMediatR(typeof(CreateLiftingStatCollectionCommandHandler));
             services.AddMediatR(typeof(DeleteLiftingStatAuditCommandHandler));
 
             // Query Handlers

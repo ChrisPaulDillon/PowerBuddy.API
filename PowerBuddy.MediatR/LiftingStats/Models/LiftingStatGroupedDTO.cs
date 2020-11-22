@@ -6,6 +6,6 @@ namespace PowerBuddy.MediatR.LiftingStats.Models
     public class LiftingStatGroupedDTO
     {
         public string ExerciseName { get; set; }
-        public IEnumerable<LiftingStatDTO> LiftingStats { get; set; }
+        public IEnumerable<LiftingStatAuditDTO> LiftingStats { get; set; }
     }
 }

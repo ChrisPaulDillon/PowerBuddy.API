@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBuddy.Context;
 
-namespace PowerBuddy.Context.Migrations
+namespace PowerBuddy.Data.Context.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20201121152035_liftingstat")]
+    partial class liftingstat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,9 +287,6 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<int?>("ExerciseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramLogRepSchemeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RepRange")
                         .HasColumnType("int");
 
@@ -537,8 +536,8 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LiftingStatAuditId")
-                        .HasColumnType("int");
+                    b.Property<bool>("Completed")
+                        .HasColumnType("bit");
 
                     b.Property<int>("NoOfReps")
                         .HasColumnType("int");

@@ -55,7 +55,6 @@ namespace PowerBuddy.MediatR.LiftingStats.Commands.Account
         {
             var liftingStatAudit = new LiftingStatAudit()
             {
-                LiftingStatId = request.LiftingStatId,
                 ExerciseId = request.ExerciseId,
                 RepRange = request.RepRange,
                 Weight = request.Weight,

@@ -1,11 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.DTOs.ProgramLogs;
+using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.Factories
 {
     public class DTOFactory : IDTOFactory
     {
+        public LiftingStatAuditDTO CreateLiftingStatAudit(int exerciseId, int repRange, decimal weight, DateTime date, int programLogRepSchemeId, string userId)
+        {
+            return new LiftingStatAuditDTO()
+            {
+                RepRange = repRange,
+                ExerciseId = exerciseId,
+                Weight = weight,
+                DateChanged = date,
+                ProgramLogRepSchemeId = programLogRepSchemeId,
+                UserId = userId,
+            };
+        }
+
         public ProgramLogWeekDTO CreateProgramLogWeekDTO(DateTime date, int weekNo, string userId)
         {
             return new ProgramLogWeekDTO()

@@ -34,7 +34,6 @@ namespace PowerBuddy.Context
         public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
 
         //Lifting Stats
-        public DbSet<LiftingStat> LiftingStat { get; set; }
         public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
         public DbSet<TemplateProgram> TemplateProgram { get; set; }
         public DbSet<TemplateWeek> TemplateWeek { get; set; }
@@ -112,8 +111,6 @@ namespace PowerBuddy.Context
 
             modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
 
-
-            modelBuilder.Entity<LiftingStat>().ToTable("LiftingStat");
             modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
 
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
@@ -177,16 +174,16 @@ namespace PowerBuddy.Context
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
-            modelBuilder.Entity<LiftingStat>()
-                .HasMany(x => x.LiftingStatAudits)
-                .WithOne()
-                .HasForeignKey(x => x.LiftingStatId)
-                .IsRequired(false);
-
             modelBuilder.Entity<UserSetting>()
                 .HasOne(x => x.LiftingLevel)
                 .WithOne()
                 .HasForeignKey<LiftingLevel>(x => x.LiftingLevelId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<LiftingStatAudit>()
+                .HasOne(x => x.Exercise)
+                .WithOne()
+                .HasForeignKey<LiftingStatAudit>(x => x.ExerciseId)
                 .IsRequired(false);
         }
     }

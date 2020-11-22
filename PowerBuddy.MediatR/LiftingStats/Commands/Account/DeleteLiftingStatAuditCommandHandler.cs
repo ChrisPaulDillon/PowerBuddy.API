@@ -39,31 +39,6 @@ namespace PowerBuddy.MediatR.LiftingStats.Commands.Account
             if (liftingStatAudit == null) throw new LiftingStatNotFoundException();
             if (liftingStatAudit.UserId != request.UserId) throw new UnauthorisedUserException();
 
-            //Check if the current lifting stat being deleted is the users current personal best
-            var liftingStat = await _context.LiftingStat 
-                .FirstOrDefaultAsync(x =>
-                    x.ExerciseId == liftingStatAudit.ExerciseId && 
-                    x.RepRange == liftingStatAudit.RepRange && 
-                    x.Weight == liftingStatAudit.Weight);
-
-            if (liftingStat != null)
-            {
-                var liftingStatAudits = await _context.LiftingStatAudit
-                    .AsNoTracking()
-                    .Where(x => x.ExerciseId == liftingStatAudit.ExerciseId && x.RepRange == liftingStatAudit.RepRange && x.UserId == request.UserId)
-                    .OrderByDescending(x => x.Weight)
-                    .ToListAsync(cancellationToken: cancellationToken);
-
-                if (liftingStatAudits.Count > 1) //There is an audit entry the personal best can be rolled back to
-                {
-                    liftingStat.Weight = liftingStatAudits[1].Weight; //Update weight to previous PB
-                }
-                else //This was the only personal best for the user, delete it & the audit trail
-                {
-                    _context.LiftingStat.Remove(liftingStat);
-                }
-            }
-
             _context.LiftingStatAudit.Remove(liftingStatAudit); 
             
             var changedRows = await _context.SaveChangesAsync(cancellationToken);

@@ -1,10 +1,12 @@
 ﻿using System;
+using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 
 namespace PowerBuddy.Data.Factories
 {
     public interface IDTOFactory
     {
+        public LiftingStatAuditDTO CreateLiftingStatAudit(int exerciseId, int repRange, decimal weight, DateTime date, int programLogRepSchemeId, string userId);
         public ProgramLogWeekDTO CreateProgramLogWeekDTO(DateTime date, int weekNo, string userId);
         public ProgramLogDayDTO CreateProgramLogDayDTO(DateTime date, string userId);
 

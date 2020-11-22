@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.MediatR.LiftingStats.Models;
+using PowerBuddy.Services.LiftingStats;
 
 namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
 {
@@ -26,20 +27,22 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        public GetLiftingStatsByUserIdQueryHandler(PowerLiftingContext context, IMapper mapper)
+        private readonly ILiftingStatService _liftingStatService;
+
+        public GetLiftingStatsByUserIdQueryHandler(PowerLiftingContext context, IMapper mapper, ILiftingStatService liftingStatService)
         {
             _context = context;
             _mapper = mapper;
+            _liftingStatService = liftingStatService;
         }
 
         public async Task<IEnumerable<LiftingStatGroupedDTO>> Handle(GetLiftingStatsByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var stats = await _context.LiftingStat.AsNoTracking()
-                .Where(u => u.UserId == request.UserId)
-                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+            var liftingStats = await _liftingStatService.GetTopLiftingStatCollection(request.UserId);
 
-            var groupedStats = stats
+            //var stats = _mapper.Map<IEnumerable<LiftingStatAuditDTO>>(liftingStats);
+      
+            var groupedStats = liftingStats
                 .GroupBy(x => x.ExerciseName)
                 .Select(x => new LiftingStatGroupedDTO
                 {

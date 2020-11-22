@@ -48,15 +48,16 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys.Account
 
         public async Task<IEnumerable<TemplateWeightInputDTO>> Handle(GetPersonalBestsForTemplateExercisesQuery request, CancellationToken cancellationToken)
         {
+            //TODO
             var tec = _context.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == request.TemplateProgramId)
                 .AsNoTracking()
                 .Select(x => x.ExerciseId)
                 .ToList();
 
-            var personalBests = await _context.LiftingStat.Where(x => x.RepRange == 1 && x.Weight != null && x.UserId == request.UserId &&
-                tec.Any(j => j == x.ExerciseId))
-                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken: cancellationToken);
+            //var personalBests = await _context.LiftingStat.Where(x => x.RepRange == 1 && x.Weight != null && x.UserId == request.UserId &&
+            //    tec.Any(j => j == x.ExerciseId))
+            //    .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
+            //    .ToListAsync(cancellationToken: cancellationToken);
 
             var templateWeightInput = new List<TemplateWeightInputDTO>();
 
@@ -66,7 +67,7 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys.Account
                 {
                     ExerciseId = templateExercise,
                     ExerciseName = await _context.Exercise.AsNoTracking().Where(x => x.ExerciseId == templateExercise).Select(x => x.ExerciseName).FirstOrDefaultAsync(),
-                    Weight = personalBests.Where(x => x.ExerciseId == templateExercise).Select(x => x.Weight).FirstOrDefault() ?? 0
+                    //Weight = personalBests.Where(x => x.ExerciseId == templateExercise).Select(x => x.Weight).FirstOrDefault() ?? 0
                 };
                 templateWeightInput.Add(weightInput);
             }

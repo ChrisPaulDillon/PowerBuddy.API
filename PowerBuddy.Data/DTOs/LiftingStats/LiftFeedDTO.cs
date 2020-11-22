@@ -13,6 +13,6 @@ namespace PowerBuddy.Data.DTOs.LiftingStats
         public string UserName { get; set; }
         public string ExerciseName { get; set; }
         public int ExerciseId { get; set; }
-
+        public int ProgramLogRepSchemeId { get; set; }
     }
 }

@@ -146,6 +146,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.PersonalBest, d => d.MapFrom<bool?>(src => src.PersonalBest))
                 .ForMember(x => x.AMRAP, d => d.MapFrom<bool>(src => src.AMRAP))
                 .ForMember(x => x.RepsCompleted, d => d.MapFrom<int>(src => src.RepsCompleted ?? src.NoOfReps)) //default to noOfReps if not been touched
+                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int?>(src => src.LiftingStatAuditId)) 
                 .ReverseMap();
 
             CreateMap<ProgramLogRepScheme, CProgramLogRepSchemeDTO>()

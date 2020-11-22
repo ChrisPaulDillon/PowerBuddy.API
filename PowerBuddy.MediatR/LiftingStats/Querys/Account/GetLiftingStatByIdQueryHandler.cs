@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.Exceptions.LiftingStats;
+using PowerBuddy.Services.LiftingStats;
 using PowerBuddy.Services.ProgramLogs;
 
 namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
@@ -28,20 +30,23 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IProgramLogService _programLogService;
+        private readonly ILiftingStatService _liftingStatService;
 
-        public GetLiftingStatByIdQueryHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService)
+        public GetLiftingStatByIdQueryHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService, ILiftingStatService liftingStatService)
         {
             _context = context;
             _mapper = mapper;
             _programLogService = programLogService;
+            _liftingStatService = liftingStatService;
         }
 
         public async Task<LiftingStatDetailedDTO> Handle(GetLiftingStatByIdQuery request, CancellationToken cancellationToken)
         {
-            var liftingStats = await _context.LiftingStat.Where(x => x.UserId == request.UserId && x.ExerciseId == request.ExerciseId)
-                .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking()
-                .ToListAsync(cancellationToken: cancellationToken);
+            //TODO FIX
+
+            var liftingStats = await _liftingStatService.GetTopLiftingStatForExercise(request.ExerciseId, request.UserId);
+
+            var liftingStatsMapped = _mapper.Map<IEnumerable<LiftingStatAuditDTO>>(liftingStats);
 
             var liftFeed = await _context.LiftingStatAudit.Where(x => x.UserId == request.UserId && x.ExerciseId == request.ExerciseId)
                 .ProjectTo<LiftFeedDTO>(_mapper.ConfigurationProvider)
@@ -58,7 +63,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
             {
                 ExerciseName = exerciseName,
                 LifeTimeTonnage = lifetimeTonnage,
-                LiftingStats = liftingStats,
+                LiftingStats = liftingStatsMapped,
                 LiftFeed = liftFeed
             };
 

@@ -6,7 +6,7 @@ namespace PowerBuddy.Data.DTOs.LiftingStats
     {
         public string ExerciseName { get; set; }
         public decimal LifeTimeTonnage { get; set; }
-        public IEnumerable<LiftingStatDTO> LiftingStats { get; set; }
+        public IEnumerable<LiftingStatAuditDTO> LiftingStats { get; set; }
         public IEnumerable<LiftFeedDTO> LiftFeed { get; set; }
     }
 }

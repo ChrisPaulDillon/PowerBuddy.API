@@ -6,15 +6,16 @@ namespace PowerBuddy.Data.Factories
 {
     public class EntityFactory : IEntityFactory
     {
-        public LiftingStat CreateLiftingStat(int exerciseId, decimal weight, int repRange, string userId, DateTime? lastUpdated = null)
+        public LiftingStatAudit CreateLiftingStatAudit(int exerciseId, int repRange, decimal weight, DateTime date, int programLogRepSchemeId, string userId)
         {
-            return new LiftingStat()
+            return new LiftingStatAudit()
             {
+                RepRange = repRange,
                 ExerciseId = exerciseId,
                 Weight = weight,
-                RepRange = repRange,
-                LastUpdated = lastUpdated ?? DateTime.UtcNow,
-                UserId = userId
+                DateChanged = date,
+                ProgramLogRepSchemeId = programLogRepSchemeId,
+                UserId = userId,
             };
         }
 
