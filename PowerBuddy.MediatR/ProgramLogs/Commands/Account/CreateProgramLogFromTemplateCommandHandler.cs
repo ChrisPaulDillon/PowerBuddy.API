@@ -88,7 +88,7 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
             programLog.EndDate = programLog.StartDate.AddDays((programLog.NoOfWeeks * request.ProgramLogDTO.RepeatProgramCount) * 7);
 
             var incrementWeightsDic = new Dictionary<int, decimal>();
-            if (request.ProgramLogDTO.IncrementalWeightInputs != null && request.ProgramLogDTO.IncrementalWeightInputs.Any())
+            if (request.ProgramLogDTO.IncrementalWeightInputs != null && request.ProgramLogDTO.IncrementalWeightInputs.Any() && request.ProgramLogDTO.RepeatProgramCount > 1)
             {
                 incrementWeightsDic = request.ProgramLogDTO.IncrementalWeightInputs.ToDictionary(x => x.ExerciseId, x => (decimal)x.Weight);
             }
@@ -103,7 +103,7 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
             {
                 templateWeek = templateWeeks[counter++];
 
-                if (counter >= templateProgram.NoOfWeeks) //reset the templates back to week 1 for new cycle
+                if (counter >= templateProgram.NoOfWeeks && request.ProgramLogDTO.RepeatProgramCount > 1) //reset the templates back to week 1 for new cycle
                 {
                     currentWeightInputs = _liftingStatService.CalculateNewWeightInput(currentWeightInputs, incrementWeightsDic);
                     counter = 0;
