@@ -59,7 +59,8 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands.Account
 
             var lastProgramWeek = programLog.ProgramLogWeeks.OrderByDescending(x => x.WeekNo).FirstOrDefault();
 
-            var programLogWeek = _dtoFactory.CreateProgramLogWeekDTO(lastProgramWeek.EndDate,lastProgramWeek.WeekNo + 1, request.UserId);
+            var weekStartDate = lastProgramWeek.EndDate.AddDays(1);
+            var programLogWeek = _dtoFactory.CreateProgramLogWeekDTO(weekStartDate, lastProgramWeek.WeekNo + 1, request.UserId);
 
             programLogWeek.ProgramLogId = lastProgramWeek.ProgramLogId;
 
