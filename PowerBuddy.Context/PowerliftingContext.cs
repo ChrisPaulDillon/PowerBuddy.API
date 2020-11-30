@@ -65,6 +65,16 @@ namespace PowerBuddy.Context
             //System
             modelBuilder.Entity<Gender>().ToTable("Gender");
             modelBuilder.Entity<MemberStatus>().ToTable("MemberStatus");
+            modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey().ToTable("IdentityUserRole");
+            modelBuilder.Entity<IdentityRole>().ToTable("IdentityRole");
+            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
+            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
+
+            modelBuilder.Entity<FriendRequest>().ToTable("FriendRequest");
+            modelBuilder.Entity<FriendsListAssoc>().ToTable("FriendsListAssoc");
+            modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
+            modelBuilder.Entity<Notification>().ToTable("Notification");
+            modelBuilder.Entity<NotificationInteraction>().ToTable("NotificationInteraction");
 
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
             modelBuilder.Entity<Exercise>().ToTable("Exercise");
@@ -77,10 +87,12 @@ namespace PowerBuddy.Context
             modelBuilder.Entity<RepSchemeType>().ToTable("RepSchemeType");
             modelBuilder.Entity<Quote>().ToTable("Quote");
             modelBuilder.Entity<LiftingLevel>().ToTable("LiftingLevel");
+            modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
 
-            modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog")
+            modelBuilder.Entity<ProgramLog>()
                 .HasMany(x => x.ProgramLogWeeks)
-                .WithOne()
+                .WithOne(x => x.ProgramLog)
+                .HasForeignKey(x => x.ProgramLogId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             //modelBuilder.Entity<ProgramLog>()
@@ -132,17 +144,6 @@ namespace PowerBuddy.Context
             //    .HasMany(x => x.Users)
             //    .WithOne(x => x.MemberStatus)
             //    .IsRequired(false);
-
-            modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey().ToTable("IdentityUserRole");
-            modelBuilder.Entity<IdentityRole>().ToTable("IdentityRole");
-            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
-            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
-
-            modelBuilder.Entity<FriendRequest>().ToTable("FriendRequest");
-            modelBuilder.Entity<FriendsListAssoc>().ToTable("FriendsListAssoc");
-            modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
-            modelBuilder.Entity<Notification>().ToTable("Notification");
-            modelBuilder.Entity<NotificationInteraction>().ToTable("NotificationInteraction");
 
             modelBuilder.Entity<ProgramLogExercise>()
                 .HasOne(x => x.ProgramLogExerciseTonnage)

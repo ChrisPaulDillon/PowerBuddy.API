@@ -29,7 +29,21 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.TemplateName, d => d.MapFrom<string>(src => src.TemplateProgram.Name))
                 .ForMember(x => x.LogDates, opt => opt.Ignore());
 
-            CreateMap<ProgramLogDTO, ProgramLog>().ForMember<int>(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId)).ForMember<string>(x => x.CustomName, d => d.MapFrom(src => src.CustomName)).ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId)).ForMember<int?>(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0)).ForMember<int>(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks)).ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate)).ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate)).ForMember<bool>(x => x.Monday, d => d.MapFrom(src => src.Monday)).ForMember<bool>(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday)).ForMember<bool>(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday)).ForMember<bool>(x => x.Thursday, d => d.MapFrom(src => src.Thursday)).ForMember<bool>(x => x.Friday, d => d.MapFrom(src => src.Friday)).ForMember<bool>(x => x.Saturday, d => d.MapFrom(src => src.Saturday)).ForMember<bool>(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
+            CreateMap<ProgramLogDTO, ProgramLog>()
+                .ForMember<int>(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
+                .ForMember<string>(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
+                .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember<int?>(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
+                .ForMember<int>(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
+                .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+                .ForMember<bool>(x => x.Monday, d => d.MapFrom(src => src.Monday))
+                .ForMember<bool>(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday))
+                .ForMember<bool>(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday))
+                .ForMember<bool>(x => x.Thursday, d => d.MapFrom(src => src.Thursday))
+                .ForMember<bool>(x => x.Friday, d => d.MapFrom(src => src.Friday))
+                .ForMember<bool>(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
+                .ForMember<bool>(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
                 .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks.OrderBy(x => x.WeekNo)))
                 .ForMember(x => x.TemplateProgram, opt => opt.Ignore());
 
@@ -55,15 +69,35 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.ExerciseVarianceCount, opt => opt.Ignore())
                 .ReverseMap();
 
-            CreateMap<ProgramLogInputScratchDTO, ProgramLog>().ForMember<int>(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks)).ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId)).ForMember<string>(x => x.CustomName, d => d.MapFrom(src => src.CustomName)).ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate)).ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+            CreateMap<ProgramLogInputScratchDTO, ProgramLog>().ForMember<int>(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
+                .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember<string>(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
+                .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.ProgramLogWeeks, d => d.MapFrom(src => src.ProgramLogWeeks))
                 .ForMember(x => x.TemplateProgram, d => d.Ignore());
 
-            CreateMap<ProgramLogTemplateInputDTO, ProgramLog>().ForMember<int>(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks)).ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId)).ForMember<int?>(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId)).ForMember<bool>(x => x.Monday, d => d.MapFrom(src => src.Monday)).ForMember<bool>(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday)).ForMember<bool>(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday)).ForMember<bool>(x => x.Thursday, d => d.MapFrom(src => src.Thursday)).ForMember<bool>(x => x.Friday, d => d.MapFrom(src => src.Friday)).ForMember<bool>(x => x.Saturday, d => d.MapFrom(src => src.Saturday)).ForMember<bool>(x => x.Sunday, d => d.MapFrom(src => src.Sunday)).ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate)).ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate)).ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+            CreateMap<ProgramLogTemplateInputDTO, ProgramLog>().ForMember<int>(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
+                .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember<int?>(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId))
+                .ForMember<bool>(x => x.Monday, d => d.MapFrom(src => src.Monday))
+                .ForMember<bool>(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday))
+                .ForMember<bool>(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday))
+                .ForMember<bool>(x => x.Thursday, d => d.MapFrom(src => src.Thursday))
+                .ForMember<bool>(x => x.Friday, d => d.MapFrom(src => src.Friday))
+                .ForMember<bool>(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
+                .ForMember<bool>(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
+                .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate)).ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+                .ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.TemplateProgram, d => d.Ignore());
 
             //into entity
-            CreateMap<ProgramLogWeekDTO, ProgramLogWeek>().ForMember<int>(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId)).ForMember<int>(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId)).ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId)).ForMember<int>(x => x.WeekNo, d => d.MapFrom(src => src.WeekNo)).ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate)).ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+            CreateMap<ProgramLogWeekDTO, ProgramLogWeek>()
+                .ForMember<int>(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))
+                .ForMember<int>(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
+                .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId)).ForMember<int>(x => x.WeekNo, d => d.MapFrom(src => src.WeekNo))
+                .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays));
 
             //into dto
@@ -75,6 +109,30 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.StartDate, d => d.MapFrom<DateTime>(src => src.StartDate))
                 .ForMember(x => x.EndDate, d => d.MapFrom<DateTime>(src => src.EndDate))
                 .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays.OrderBy<ProgramLogDay, DateTime>(x => x.Date)));
+
+            //into entity
+            CreateMap<ProgramLogWeekExtendedDTO, ProgramLogWeek>()
+                .ForMember<int>(x => x.ProgramLogWeekId, d => d.MapFrom(src => src.ProgramLogWeekId))
+                .ForMember<int>(x => x.ProgramLogId, d => d.MapFrom(src => src.ProgramLogId))
+                .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember<int>(x => x.WeekNo, d => d.MapFrom(src => src.WeekNo))
+                .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
+                .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays));
+
+            //into dto
+            CreateMap<ProgramLogWeek, ProgramLogWeekExtendedDTO>()
+                .ForMember(x => x.ProgramLogWeekId, d => d.MapFrom<int>(src => src.ProgramLogWeekId))
+                .ForMember(x => x.ProgramLogId, d => d.MapFrom<int>(src => src.ProgramLogId))
+                .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.UserId))
+                .ForMember(x => x.WeekNo, d => d.MapFrom<int>(src => src.WeekNo))
+                .ForMember(x => x.StartDate, d => d.MapFrom<DateTime>(src => src.StartDate))
+                .ForMember(x => x.EndDate, d => d.MapFrom<DateTime>(src => src.EndDate))
+                .ForMember(x => x.ProgramLogDays, d => d.MapFrom(src => src.ProgramLogDays.OrderBy<ProgramLogDay, DateTime>(x => x.Date)))
+                .ForMember(x => x.NoOfWeeks, d => d.MapFrom(src => src.ProgramLog.NoOfWeeks))
+                .ForMember(x => x.CustomName, d => d.MapFrom(src => src.ProgramLog.TemplateProgram.Name))
+                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.ProgramLog.CustomName))
+                .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.ProgramLog.TemplateProgramId ?? 0));
 
             //into entity
             CreateMap<ProgramLogDayDTO, ProgramLogDay>()

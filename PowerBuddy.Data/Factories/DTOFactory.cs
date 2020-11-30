@@ -27,7 +27,7 @@ namespace PowerBuddy.Data.Factories
             {
                 StartDate = date,
                 WeekNo = weekNo,
-                EndDate = date.AddDays(7),
+                EndDate = date.AddDays(6),
                 UserId = userId,
                 ProgramLogDays = new List<ProgramLogDayDTO>()
                 {

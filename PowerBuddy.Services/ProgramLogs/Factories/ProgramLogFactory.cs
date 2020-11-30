@@ -11,7 +11,7 @@ namespace PowerBuddy.Services.ProgramLogs.Factories
             return new ProgramLogWeekDTO()
             {
                 StartDate = startDate,
-                EndDate = startDate.AddDays(7),
+                EndDate = startDate.AddDays(6),
                 WeekNo = weekNo,
                 UserId = userId,
                 ProgramLogDays = new List<ProgramLogDayDTO>()

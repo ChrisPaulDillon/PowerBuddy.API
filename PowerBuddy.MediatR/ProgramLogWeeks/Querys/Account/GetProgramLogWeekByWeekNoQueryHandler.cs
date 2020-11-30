@@ -12,15 +12,17 @@ using PowerBuddy.Data.Exceptions.ProgramLogs;
 
 namespace PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account
 {
-    public class GetProgramLogWeekByWeekNoQuery : IRequest<ProgramLogWeekDTO>
+    public class GetProgramLogWeekByWeekNoQuery : IRequest<ProgramLogWeekExtendedDTO>
     {
         public int ProgramLogId { get; }
         public int WeekNo { get; }
+        public string UserId { get; }
 
-        public GetProgramLogWeekByWeekNoQuery(int programLogId, int weekNo)
+        public GetProgramLogWeekByWeekNoQuery(int programLogId, int weekNo, string userId)
         {
             ProgramLogId = programLogId;
             WeekNo = weekNo;
+            UserId = userId;
             new GetProgramLogWeekByWeekNoQueryValidator().ValidateAndThrow(this);
         }
     }
@@ -31,10 +33,11 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account
         {
             RuleFor(x => x.WeekNo).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
             RuleFor(x => x.ProgramLogId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must be valid");
         }
     }
 
-    public class GetProgramLogWeekByWeekNoQueryHandler : IRequestHandler<GetProgramLogWeekByWeekNoQuery, ProgramLogWeekDTO>
+    public class GetProgramLogWeekByWeekNoQueryHandler : IRequestHandler<GetProgramLogWeekByWeekNoQuery, ProgramLogWeekExtendedDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -45,13 +48,24 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account
             _mapper = mapper;
         }
 
-        public async Task<ProgramLogWeekDTO> Handle(GetProgramLogWeekByWeekNoQuery request, CancellationToken cancellationToken)
+        public async Task<ProgramLogWeekExtendedDTO> Handle(GetProgramLogWeekByWeekNoQuery request, CancellationToken cancellationToken)
         {
             var programLogWeek = await _context.ProgramLogWeek
                 .AsNoTracking()
-                .Where(x => x.ProgramLogId == request.ProgramLogId && x.WeekNo == request.WeekNo)
-                .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
+                .Where(x => x.ProgramLogId == request.ProgramLogId && x.WeekNo == request.WeekNo && x.UserId == request.UserId)
+                .ProjectTo<ProgramLogWeekExtendedDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+            if (programLogWeek.TemplateProgramId != 0)
+            {
+                var templateName = await _context.TemplateProgram
+                    .AsNoTracking()
+                    .Where(x => x.TemplateProgramId == programLogWeek.TemplateProgramId)
+                    .Select(x => x.Name)
+                    .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+                programLogWeek.TemplateName = templateName;
+            }
 
             if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
             return programLogWeek;

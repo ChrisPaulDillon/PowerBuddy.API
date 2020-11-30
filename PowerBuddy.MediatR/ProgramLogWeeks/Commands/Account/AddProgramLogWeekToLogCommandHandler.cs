@@ -13,7 +13,7 @@ using PowerBuddy.Data.Factories;
 
 namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands.Account
 {
-    public class AddProgramLogWeekToLogCommand : IRequest<ProgramLogWeekDTO>
+    public class AddProgramLogWeekToLogCommand : IRequest<ProgramLogWeekExtendedDTO>
     {
         public int ProgramLogId { get; }
         public string UserId { get; }
@@ -35,7 +35,7 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands.Account
         }
     }
 
-    public class AddProgramLogWeekToLogCommandHandler : IRequestHandler<AddProgramLogWeekToLogCommand, ProgramLogWeekDTO>
+    public class AddProgramLogWeekToLogCommandHandler : IRequestHandler<AddProgramLogWeekToLogCommand, ProgramLogWeekExtendedDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -48,7 +48,7 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands.Account
             _dtoFactory = dtoFactory;
         }
 
-        public async Task<ProgramLogWeekDTO> Handle(AddProgramLogWeekToLogCommand request, CancellationToken cancellationToken)
+        public async Task<ProgramLogWeekExtendedDTO> Handle(AddProgramLogWeekToLogCommand request, CancellationToken cancellationToken)
         {
             var programLog = await _context.ProgramLog
                 .Where(x => x.ProgramLogId == request.ProgramLogId && x.UserId == request.UserId)
@@ -63,13 +63,15 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands.Account
 
             programLogWeek.ProgramLogId = lastProgramWeek.ProgramLogId;
 
-            _context.ProgramLogWeek.Add(_mapper.Map<ProgramLogWeek>(programLogWeek));
+            var programLogWeekEntity = _mapper.Map<ProgramLogWeek>(programLogWeek);
+            _context.ProgramLogWeek.Add(programLogWeekEntity);
+
             programLog.NoOfWeeks++;
-            programLog.EndDate = programLog.EndDate.AddDays(7);
+            programLog.EndDate = programLog.EndDate.AddDays(6);
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<ProgramLogWeekDTO>(programLogWeek);
+            return _mapper.Map<ProgramLogWeekExtendedDTO>(programLogWeekEntity);
 
         }
     }

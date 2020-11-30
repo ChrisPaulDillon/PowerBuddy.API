@@ -31,8 +31,36 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
+        [HttpGet("{programLogId:int}")]
+        [ProducesResponseType(typeof(ProgramLogWeekExtendedDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetProgramLogWeek(int programLogId, int weekNo)
+        {
+            try
+            {
+                if (programLogId != 0)
+                {
+                    var programLogWeek = await _mediator.Send(new GetProgramLogWeekByWeekNoQuery(programLogId, weekNo, _userId)).ConfigureAwait(false);
+                    return Ok(programLogWeek);
+                }
+                else
+                { //User is accessing current week
+                    var programLogWeek = await _mediator.Send(new GetProgramLogWeekBetweenDateQuery(DateTime.UtcNow, _userId)).ConfigureAwait(false);
+                    return Ok(programLogWeek);
+                }
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ProgramLogWeekNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         [HttpPost("{programLogId:int}")]
-        [ProducesResponseType(typeof(ProgramLogWeekDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProgramLogWeekExtendedDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateProgramLogWeek(int programLogId)
         {
@@ -51,7 +79,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-        [HttpGet("Week/{date}")]
+        [HttpGet("{date}")]
         [ProducesResponseType(typeof(ProgramLogWeekDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]

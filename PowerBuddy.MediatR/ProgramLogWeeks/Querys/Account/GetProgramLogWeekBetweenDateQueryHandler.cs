@@ -14,7 +14,7 @@ using PowerBuddy.Data.Exceptions.ProgramLogs;
 
 namespace PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account
 {
-    public class GetProgramLogWeekBetweenDateQuery : IRequest<ProgramLogWeekDTO>
+    public class GetProgramLogWeekBetweenDateQuery : IRequest<ProgramLogWeekExtendedDTO>
     {
         public DateTime Date { get; }
         public string UserId { get; }
@@ -36,7 +36,7 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account
         }
     }
 
-    public class GetProgramLogWeekBetweenDateQueryHandler : IRequestHandler<GetProgramLogWeekBetweenDateQuery, ProgramLogWeekDTO>
+    public class GetProgramLogWeekBetweenDateQueryHandler : IRequestHandler<GetProgramLogWeekBetweenDateQuery, ProgramLogWeekExtendedDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -47,14 +47,15 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account
             _mapper = mapper;
         }
 
-        public async Task<ProgramLogWeekDTO> Handle(GetProgramLogWeekBetweenDateQuery request, CancellationToken cancellationToken)
+        public async Task<ProgramLogWeekExtendedDTO> Handle(GetProgramLogWeekBetweenDateQuery request, CancellationToken cancellationToken)
         {
-            var programLogWeek = await _context.Set<ProgramLogWeek>()
-                .Where(x => x.UserId == request.UserId && request.Date.Date >= x.StartDate.Date &&
-                            request.Date.Date <= x.EndDate.Date)
-                .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
+            var programLogWeek = await _context.ProgramLogWeek
+                                    .AsNoTracking()
+                                    .Where(x => x.UserId == request.UserId &&
+                                                x.StartDate.Date <= request.Date.Date &&
+                                                x.EndDate.Date >= request.Date.Date)
+                                    .ProjectTo<ProgramLogWeekExtendedDTO>(_mapper.ConfigurationProvider)
+                                    .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
             return programLogWeek;
