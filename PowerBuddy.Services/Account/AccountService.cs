@@ -7,6 +7,7 @@ using PowerBuddy.Context;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.DTOs.Users;
+using NotImplementedException = System.NotImplementedException;
 
 namespace PowerBuddy.Services.Account
 {
@@ -29,6 +30,11 @@ namespace PowerBuddy.Services.Account
         public async Task<bool> IsUserProfilePublic(string userId)
         {
             return await _context.User.AsNoTracking().AnyAsync(x => x.IsPublic == true);
+        }
+
+        public async Task<int> GetTotalUserCount()
+        {
+            return await _context.User.AsNoTracking().CountAsync();
         }
     }
 }

@@ -27,5 +27,7 @@ namespace PowerBuddy.Services.ProgramLogs
         Task<IEnumerable<DateTime>> GetAllProgramLogDatesForUser(string userId);
 
         IEnumerable<ProgramLogRepSchemeDTO> GetHighestWeightRepSchemeForEachRepFromCollection(ICollection<ProgramLogRepSchemeDTO> repSchemes);
+
+        Task<int> GetTotalRepSchemeCount();
     }
 }

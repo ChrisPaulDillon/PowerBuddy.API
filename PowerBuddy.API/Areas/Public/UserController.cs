@@ -7,6 +7,7 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.MediatR.Users.Querys.Public;
+using PowerBuddy.Services.Account;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -17,11 +18,13 @@ namespace PowerBuddy.API.Areas.Public
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IAccountService _accountService;
         private readonly string _userId;
 
-        public UserController(IMediator mediator, IHttpContextAccessor accessor)
+        public UserController(IMediator mediator, IAccountService accountService, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _accountService = accountService;
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
@@ -55,6 +58,16 @@ namespace PowerBuddy.API.Areas.Public
             {
                 return NotFound(ex.Message);
             }
+        }
+
+
+        [HttpGet("Count")]
+        [ProducesResponseType(typeof(PublicUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetTotalUserCount()
+        {
+            var userCount = await _accountService.GetTotalUserCount();
+            return Ok(userCount);
         }
     }
 }

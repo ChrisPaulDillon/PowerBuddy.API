@@ -7,5 +7,7 @@ namespace PowerBuddy.Services.Account
         bool IsUserModerator(string userId);
 
         Task<bool> IsUserProfilePublic(string userId);
+
+        Task<int> GetTotalUserCount();
     }
 }

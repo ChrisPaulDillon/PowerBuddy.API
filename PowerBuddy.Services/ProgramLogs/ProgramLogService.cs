@@ -159,6 +159,11 @@ namespace PowerBuddy.Services.ProgramLogs
                 .ToList();
         }
 
+        public async Task<int> GetTotalRepSchemeCount()
+        {
+            return await _context.ProgramLogRepScheme.AsNoTracking().CountAsync();
+        }
+
         public async Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId)
         {
             return await _context.ProgramLogExerciseTonnage.AsNoTracking().Where(x => x.UserId == userId && x.ExerciseId == exerciseId).SumAsync(x => x.ExerciseTonnage);

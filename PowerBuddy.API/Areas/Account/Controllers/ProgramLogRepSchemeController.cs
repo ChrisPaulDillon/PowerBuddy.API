@@ -12,6 +12,7 @@ using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.MediatR.ProgramLogRepSchemes.Commands.Account;
+using PowerBuddy.Services.ProgramLogs;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -23,11 +24,13 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class ProgramLogRepSchemeController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IProgramLogService _programLogService;
         private readonly string _userId;
 
-        public ProgramLogRepSchemeController(IMediator mediator, IHttpContextAccessor accessor)
+        public ProgramLogRepSchemeController(IMediator mediator, IProgramLogService programLogService, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _programLogService = programLogService;
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
@@ -112,6 +115,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return Unauthorized(ex.Message);
             }
+        }
+
+        [HttpGet("Count")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetTotalRepCount()
+        {
+            var totalCount = await _programLogService.GetTotalRepSchemeCount();
+            return Ok(totalCount);
         }
     }
 }
