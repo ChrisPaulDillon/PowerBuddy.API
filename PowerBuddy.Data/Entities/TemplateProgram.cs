@@ -11,5 +11,6 @@
         public string TemplateType { get; set; } //block training, autoregulation?
         public string WeightProgressionType { get; set; } //incremental, percentage based
         public bool IsPublished { get; set; }
+        public int ActiveUsersCount { get; set; }
     }
 }

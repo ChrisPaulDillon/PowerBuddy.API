@@ -36,6 +36,7 @@ namespace PowerBuddy.Context
         //Lifting Stats
         public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
         public DbSet<TemplateProgram> TemplateProgram { get; set; }
+        public DbSet<TemplateProgramAudit> TemplateProgramAudit { get; set; }
         public DbSet<TemplateWeek> TemplateWeek { get; set; }
         public DbSet<TemplateDay> TemplateDay { get; set; }
         public DbSet<TemplateExercise> TemplateExercise { get; set; }
@@ -88,6 +89,8 @@ namespace PowerBuddy.Context
             modelBuilder.Entity<Quote>().ToTable("Quote");
             modelBuilder.Entity<LiftingLevel>().ToTable("LiftingLevel");
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
+
+            modelBuilder.Entity<TemplateProgramAudit>().ToTable("TemplateProgramAudit");
 
             modelBuilder.Entity<ProgramLog>()
                 .HasMany(x => x.ProgramLogWeeks)

@@ -106,5 +106,15 @@ namespace PowerBuddy.Data.Factories
                 ExerciseId = exerciseId
             };
         }
+
+        public TemplateProgramAudit CreateTemplateProgramAudit(int templateProgramId, string userId, DateTime dateAdded)
+        {
+            return new TemplateProgramAudit()
+            {
+                TemplateProgramId = templateProgramId,
+                UserId = userId,
+                DateCreated = dateAdded
+            };
+        }
     }
 }

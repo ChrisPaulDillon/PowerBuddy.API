@@ -49,6 +49,7 @@ using PowerBuddy.Services.ProgramLogs;
 using PowerBuddy.Services.ProgramLogs.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.System;
+using PowerBuddy.Services.Templates;
 
 namespace PowerBuddy.API.Extensions
 {
@@ -132,6 +133,7 @@ namespace PowerBuddy.API.Extensions
             services.AddMediatR(typeof(GetAllTemplateProgramsQueryHandler));
             services.AddMediatR(typeof(GetTecByTemplateProgramIdQueryHandler));
             services.AddMediatR(typeof(GetTemplateProgramByIdQueryHandler));
+            services.AddMediatR(typeof(GetTemplateActivityFeedQueryHandler));
             return services;
         }
 
@@ -243,6 +245,7 @@ namespace PowerBuddy.API.Extensions
             services.AddScoped<ILiftingStatService, LiftingStatService>();
             services.AddScoped<IProgramLogService, ProgramLogService>();
             services.AddScoped<ISystemService, SystemService>();
+            services.AddScoped<ITemplateService, TemplateService>();
 
             return services;
         }

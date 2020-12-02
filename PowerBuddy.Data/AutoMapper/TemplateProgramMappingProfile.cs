@@ -16,7 +16,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.Difficulty, opt => opt.MapFrom<string>(src => src.Difficulty))
                 .ForMember(dest => dest.NoOfDaysPerWeek, opt => opt.MapFrom<int>(src => src.NoOfDaysPerWeek))
                 .ForMember(dest => dest.TemplateType, opt => opt.MapFrom<string>(src => src.TemplateType))
-                .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom<string>(src => src.WeightProgressionType));
+                .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom<string>(src => src.WeightProgressionType))
+                .ForMember(dest => dest.ActiveUsersCount, opt => opt.MapFrom(src => src.ActiveUsersCount));
 
             CreateMap<TemplateProgram, TemplateProgramExtendedDTO>()
                 .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom<int>(src => src.TemplateProgramId))
@@ -71,6 +72,11 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.IsBackOffSet, opt => opt.MapFrom(src => src.IsBackOffSet))
                 .ForMember(dest => dest.AMRAP, opt => opt.MapFrom(src => src.AMRAP))
                 .ReverseMap();
+
+            CreateMap<TemplateProgramAudit, TemplateProgramAuditDTO>()
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.UserName))
+                .ForMember(dest => dest.TemplateName, opt => opt.MapFrom(src => src.TemplateProgram.Name))
+                .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src.DateCreated));
         }
     }
 }

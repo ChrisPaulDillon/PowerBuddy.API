@@ -10,5 +10,6 @@
         public int NoOfDaysPerWeek { get; set; }
         public string TemplateType { get; set; } //incremental, percentage based
         public string WeightProgressionType { get; set; } //incremental, percentage based
+        public int ActiveUsersCount { get; set; }
     }
 }

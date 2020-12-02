@@ -56,6 +56,8 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account
                 .ProjectTo<ProgramLogWeekExtendedDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
+            if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
+
             if (programLogWeek.TemplateProgramId != 0)
             {
                 var templateName = await _context.TemplateProgram
@@ -67,7 +69,7 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account
                 programLogWeek.TemplateName = templateName;
             }
 
-            if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
+
             return programLogWeek;
         }
     }

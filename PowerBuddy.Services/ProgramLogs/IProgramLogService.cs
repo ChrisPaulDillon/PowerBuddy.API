@@ -18,15 +18,13 @@ namespace PowerBuddy.Services.ProgramLogs
 
         Task<ProgramLogExerciseTonnage> UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId);
 
-        IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO template, DateTime startDate, int iteration, string userId);
+        IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgram template, DateTime startDate, int iteration, string userId);
 
-        IEnumerable<ProgramLogExercise> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId);
+        IEnumerable<ProgramLogExercise> CreateProgramLogExercisesForTemplateDay(TemplateDay templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId);
 
         ProgramLogExerciseDTO CreateRepSchemesForExercise(ProgramLogExerciseDTO programLogExercise, string userId);
 
         Task<IEnumerable<DateTime>> GetAllProgramLogDatesForUser(string userId);
-
-        Task<TemplateProgramExtendedDTO> GetTemplateProgramById(int templateProgramId);
 
         IEnumerable<ProgramLogRepSchemeDTO> GetHighestWeightRepSchemeForEachRepFromCollection(ICollection<ProgramLogRepSchemeDTO> repSchemes);
     }

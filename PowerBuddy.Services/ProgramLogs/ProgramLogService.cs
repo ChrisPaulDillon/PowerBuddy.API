@@ -75,7 +75,7 @@ namespace PowerBuddy.Services.ProgramLogs
             return programLogExerciseTonnage;
         }
 
-        public IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgramExtendedDTO tp, DateTime startDate, int iteration, string userId)
+        public IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgram tp, DateTime startDate, int iteration, string userId)
         {
             var listOfProgramWeeks = new List<ProgramLogWeek>();
 
@@ -91,7 +91,7 @@ namespace PowerBuddy.Services.ProgramLogs
             return listOfProgramWeeks;
         }
 
-        public IEnumerable<ProgramLogExercise> CreateProgramLogExercisesForTemplateDay(TemplateDayDTO templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<ProgramLogExercise> CreateProgramLogExercisesForTemplateDay(TemplateDay templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
         {
             var programLogExercises = new List<ProgramLogExercise>();
 
@@ -116,7 +116,7 @@ namespace PowerBuddy.Services.ProgramLogs
             return programLogExercises;
         }
 
-        public ProgramLogRepScheme GenerateProgramLogRepScheme(decimal weight, TemplateRepSchemeDTO templateRepScheme)
+        public ProgramLogRepScheme GenerateProgramLogRepScheme(decimal weight, TemplateRepScheme templateRepScheme)
         {
             return _entityFactory.CreateProgramLogRepScheme(templateRepScheme.SetNo, templateRepScheme.NoOfReps, templateRepScheme.Percentage ?? 0, weight, templateRepScheme.AMRAP);
         }
@@ -149,19 +149,6 @@ namespace PowerBuddy.Services.ProgramLogs
                 .Where(x => x.UserId == userId)
                 .Select(x => x.Date.Date)
                 .ToListAsync();
-        }
-
-        public async Task<TemplateProgramExtendedDTO> GetTemplateProgramById(int templateProgramId)
-        {
-            var templateProgram = await _context.TemplateProgram
-                .AsNoTracking()
-                .Where(x => x.TemplateProgramId == templateProgramId)
-                .ProjectTo<TemplateProgramExtendedDTO>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync();
-
-            if (templateProgram == null) throw new TemplateProgramNotFoundException();
-
-            return templateProgram;
         }
 
         public IEnumerable<ProgramLogRepSchemeDTO> GetHighestWeightRepSchemeForEachRepFromCollection(ICollection<ProgramLogRepSchemeDTO> repSchemes)

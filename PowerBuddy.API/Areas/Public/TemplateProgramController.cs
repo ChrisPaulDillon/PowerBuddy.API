@@ -34,6 +34,14 @@ namespace PowerBuddy.API.Areas.Public
             return Ok(templatePrograms);
         }
 
+        [HttpGet("Feed")]
+        [ProducesResponseType(typeof(IEnumerable<TemplateProgramAuditDTO>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTemplateProgramFeed()
+        {
+            var templateProgramFeed = await _mediator.Send(new GetTemplateActivityFeedQuery()).ConfigureAwait(false);
+            return Ok(templateProgramFeed);
+        }
+
         [HttpGet("{templateProgramId:int}")]
         [ProducesResponseType(typeof(TemplateProgramExtendedDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]

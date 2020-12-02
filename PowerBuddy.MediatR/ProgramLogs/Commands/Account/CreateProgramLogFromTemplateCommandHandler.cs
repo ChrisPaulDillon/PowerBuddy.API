@@ -16,6 +16,7 @@ using PowerBuddy.Services.ProgramLogs;
 using PowerBuddy.Services.ProgramLogs.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.ProgramLogs.Util;
+using PowerBuddy.Services.Templates;
 using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
@@ -49,15 +50,17 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
         private readonly IMapper _mapper;
         private readonly IProgramLogService _programLogService;
         private readonly ILiftingStatService _liftingStatService;
+        private readonly ITemplateService _templateService;
         private readonly ICalculateWeightFactory _calculateWeightFactory;
         private ICalculateRepWeight _calculateRepWeight;
 
-        public CreateProgramLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService, ILiftingStatService liftingStatService, ICalculateWeightFactory calculateWeightFactory, ICalculateRepWeight calculateRepWeight)
+        public CreateProgramLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IProgramLogService programLogService, ILiftingStatService liftingStatService, ITemplateService templateService, ICalculateWeightFactory calculateWeightFactory, ICalculateRepWeight calculateRepWeight)
         {
             _context = context;
             _mapper = mapper;
             _programLogService = programLogService;
             _liftingStatService = liftingStatService;
+            _templateService = templateService;
             _calculateWeightFactory = calculateWeightFactory;
             _calculateRepWeight = calculateRepWeight;
         }
@@ -66,9 +69,11 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
         {
             await _programLogService.IsProgramLogAlreadyActive(request.ProgramLogDTO.StartDate, request.ProgramLogDTO.EndDate, request.UserId);
 
-            var templateProgram = await _programLogService.GetTemplateProgramById(request.TemplateProgramId);
+            var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
             if (templateProgram.NoOfDaysPerWeek != request.ProgramLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
             var templateWeeks = templateProgram.TemplateWeeks.ToList();
+            templateProgram.ActiveUsersCount++;
+            _templateService.AddTemplateProgramAudit(request.TemplateProgramId, request.UserId, DateTime.UtcNow);
 
             _calculateRepWeight = _calculateWeightFactory.Create(templateProgram.WeightProgressionType);
 
@@ -93,7 +98,7 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands.Account
                 incrementWeightsDic = request.ProgramLogDTO.IncrementalWeightInputs.ToDictionary(x => x.ExerciseId, x => (decimal)x.Weight);
             }
 
-            var templateWeek = new TemplateWeekDTO();
+            var templateWeek = new TemplateWeek();
             var programDayOrder = ProgramLogHelper.CalculateDayOrder(programLog);
             var currentWeightInputs = request.ProgramLogDTO.WeightInputs;
             var counter = 0;
