@@ -12,7 +12,7 @@ namespace PowerBuddy.Data.DTOs.Templates
         public int NoOfDaysPerWeek { get; set; }
         public string TemplateType { get; set; } //incremental, percentage based
         public string WeightProgressionType { get; set; } //incremental, percentage based
-
+        public int ActiveUsersCount { get; set; }
         public virtual IEnumerable<TemplateWeekDTO> TemplateWeeks { get; set; }
         public IEnumerable<TemplateExerciseCollectionDTO> TemplateExerciseCollection { get; set; }
     }

@@ -27,6 +27,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.NoOfDaysPerWeek, opt => opt.MapFrom<int>(src => src.NoOfDaysPerWeek))
                 .ForMember(dest => dest.TemplateType, opt => opt.MapFrom<string>(src => src.TemplateType))
                 .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom<string>(src => src.WeightProgressionType))
+                .ForMember(dest => dest.ActiveUsersCount, opt => opt.MapFrom(src => src.ActiveUsersCount))
                 .ForMember(dest => dest.TemplateWeeks, opt => opt.MapFrom(src => src.TemplateWeeks.OrderBy<TemplateWeek, int>(x => x.WeekNo)))
                 .ForMember(dest => dest.TemplateExerciseCollection, opt => opt.MapFrom(src => src.TemplateExerciseCollection));
 
