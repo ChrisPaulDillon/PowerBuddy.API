@@ -68,7 +68,7 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands.Account
             _context.ProgramLogWeek.Add(programLogWeekEntity);
 
             programLog.NoOfWeeks++;
-            programLog.EndDate = programLog.EndDate.AddDays(6);
+            programLog.EndDate = programLog.EndDate.AddDays(7);
 
             await _context.SaveChangesAsync(cancellationToken);
 

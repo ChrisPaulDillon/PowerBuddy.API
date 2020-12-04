@@ -69,6 +69,8 @@ namespace PowerBuddy.API.Extensions
             services.AddMediatR(typeof(GetProgramLogDayByDateQueryHandler));
             services.AddMediatR(typeof(GetProgramLogDayByIdQueryHandler));
             services.AddMediatR(typeof(GetProgramSpecificDayByDateQueryHandler));
+            services.AddMediatR(typeof(GetLatestWorkoutDaySummariesQueryHandler));
+
             return services;
         }
 

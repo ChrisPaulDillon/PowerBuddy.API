@@ -31,6 +31,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             _mediator = mediator;
             _userId = accessor.HttpContext.User.FindUserId();
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(ProgramLogDayDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
@@ -53,6 +54,23 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(ex.Message);
+            }
+        }
+
+        [HttpGet("Summary")]
+        [ProducesResponseType(typeof(WorkoutDayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetLatestWorkoutSummaries()
+        {
+            try
+            {
+                var workoutSummaries = await _mediator.Send(new GetLatestWorkoutDaySummariesQuery(_userId)).ConfigureAwait(false);
+                return Ok(workoutSummaries);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

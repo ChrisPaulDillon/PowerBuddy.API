@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using PowerBuddy.Data.DTOs.ProgramLogs;
+using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.AutoMapper
@@ -215,6 +216,17 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.Percentage, d => d.MapFrom<decimal?>(src => src.Percentage))
                 .ForMember(x => x.AMRAP, d => d.MapFrom<bool>(src => src.AMRAP))
                .ReverseMap();
+
+            //into dto
+            CreateMap<ProgramLogDay, WorkoutDayDTO>()
+                .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
+                .ForMember(x => x.Date, d => d.MapFrom(src => src.Date))
+                .ForMember(x => x.WorkoutExerciseSummaries, d => d.MapFrom(src => src.ProgramLogExercises))
+                .ForMember(x => x.PersonalBestCount, d => d.MapFrom(src => src.ProgramLogExercises.Where(x => x.ProgramLogRepSchemes.Any(x => x.LiftingStatAuditId != null)).Count()));
+
+            CreateMap<ProgramLogExercise, WorkoutExerciseSummaryDTO>()
+                .ForMember(x => x.ExerciseName, d => d.MapFrom(src => src.Exercise.ExerciseName))
+                .ForMember(x => x.NoOfSets, d => d.MapFrom(src => src.NoOfSets));
         }
     }
 }

@@ -88,7 +88,11 @@ namespace PowerBuddy.Context
             modelBuilder.Entity<RepSchemeType>().ToTable("RepSchemeType");
             modelBuilder.Entity<Quote>().ToTable("Quote");
             modelBuilder.Entity<LiftingLevel>().ToTable("LiftingLevel");
+
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
+            modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");
+            modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay");
+            modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
 
             modelBuilder.Entity<TemplateProgramAudit>().ToTable("TemplateProgramAudit");
 
@@ -103,19 +107,18 @@ namespace PowerBuddy.Context
             //    .WithOne()
             //    .IsRequired(false);
 
-            modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek")
+            modelBuilder.Entity<ProgramLogWeek>()
                 .HasMany(x => x.ProgramLogDays)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay")
+            modelBuilder.Entity<ProgramLogDay>()
                 .HasMany(x => x.ProgramLogExercises)
                 .WithOne()
                 .HasForeignKey(x => x.ProgramLogDayId)
-                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise")
+            modelBuilder.Entity<ProgramLogExercise>()
                 .HasMany(x => x.ProgramLogRepSchemes)
                 .WithOne()
                 .HasForeignKey(x => x.ProgramLogExerciseId)
