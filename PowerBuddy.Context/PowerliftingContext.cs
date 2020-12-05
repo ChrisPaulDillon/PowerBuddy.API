@@ -33,6 +33,8 @@ namespace PowerBuddy.Context
         public DbSet<ProgramLogExerciseTonnage> ProgramLogExerciseTonnage { get; set; }
         public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
 
+        public DbSet<WorkoutTemplate> WorkoutTemplate { get; set; }
+
         //Lifting Stats
         public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
         public DbSet<TemplateProgram> TemplateProgram { get; set; }
@@ -94,7 +96,21 @@ namespace PowerBuddy.Context
             modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay");
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
 
+            modelBuilder.Entity<WorkoutTemplate>().ToTable("WorkoutTemplate");
+
             modelBuilder.Entity<TemplateProgramAudit>().ToTable("TemplateProgramAudit");
+
+            modelBuilder.Entity<User>().ToTable("IdentityUser");
+
+            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
+            modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
+            modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
+            modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
+            modelBuilder.Entity<TemplateWeek>().ToTable("TemplateWeek");
+            modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
+            modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
+            modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
+            modelBuilder.Entity<TemplateExerciseCollection>().ToTable("TemplateExerciseCollection");
 
             modelBuilder.Entity<ProgramLog>()
                 .HasMany(x => x.ProgramLogWeeks)
@@ -125,21 +141,14 @@ namespace PowerBuddy.Context
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
-
-            modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
-
-            modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
-
-            modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
-            modelBuilder.Entity<TemplateWeek>().ToTable("TemplateWeek");
-            modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
-            modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
-            modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
-            modelBuilder.Entity<TemplateExerciseCollection>().ToTable("TemplateExerciseCollection");
+            //modelBuilder.Entity<WorkoutTemplate>()
+            //  .HasMany(x => x.WorkoutExercises)
+            //  .WithOne()
+            //  .HasForeignKey(x => x.ProgramLogExerciseId)
+            //  .IsRequired(false);
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
-            modelBuilder.Entity<User>().ToTable("IdentityUser");
+
 
             //modelBuilder.Entity<Gender>()
             //    .HasMany(x => x.Users)
