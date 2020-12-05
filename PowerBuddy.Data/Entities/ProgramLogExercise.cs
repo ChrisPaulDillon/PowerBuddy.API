@@ -7,7 +7,7 @@
     public partial class ProgramLogExercise
     {
         public int ProgramLogExerciseId { get; set; }
-        public int? ProgramLogDayId { get; set; }
+        public int ProgramLogDayId { get; set; }
         public int? WorkoutTemplateId { get; set; }
         public int ExerciseId { get; set; }
         public int NoOfSets { get; set; }

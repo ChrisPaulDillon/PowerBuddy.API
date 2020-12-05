@@ -155,7 +155,7 @@ namespace PowerBuddy.Data.AutoMapper
 
             CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>()
                 .ForMember(x => x.ProgramLogExerciseId, d => d.MapFrom<int>(src => src.ProgramLogExerciseId))
-                .ForMember(x => x.ProgramLogDayId, d => d.MapFrom<int>(src => src.ProgramLogDayId ?? 0))
+                .ForMember(x => x.ProgramLogDayId, d => d.MapFrom<int>(src => src.ProgramLogDayId))
                 .ForMember(x => x.ExerciseId, d => d.MapFrom<int>(src => src.ExerciseId))
                 .ForMember(x => x.NoOfSets, d => d.MapFrom<int>(src => src.NoOfSets))
                 .ForMember(x => x.Comment, d => d.MapFrom<string>(src => src.Comment))
@@ -167,7 +167,7 @@ namespace PowerBuddy.Data.AutoMapper
             //into dto
             CreateMap<ProgramLogExercise, ProgramLogExerciseDTO>()
                 .ForMember(x => x.ProgramLogExerciseId, d => d.MapFrom<int>(src => src.ProgramLogExerciseId))
-                .ForMember(x => x.ProgramLogDayId, d => d.MapFrom<int>(src => src.ProgramLogDayId ?? 0))
+                .ForMember(x => x.ProgramLogDayId, d => d.MapFrom<int>(src => src.ProgramLogDayId))
                 .ForMember(x => x.ExerciseId, d => d.MapFrom<int>(src => src.ExerciseId))
                 .ForMember(x => x.NoOfSets, d => d.MapFrom<int>(src => src.NoOfSets))
                 .ForMember(x => x.Comment, d => d.MapFrom<string>(src => src.Comment))
@@ -178,7 +178,7 @@ namespace PowerBuddy.Data.AutoMapper
             //into entity
             CreateMap<ProgramLogExerciseDTO, ProgramLogExercise>()
                 .ForMember<int>(x => x.ProgramLogExerciseId, d => d.MapFrom(src => src.ProgramLogExerciseId))
-                .ForMember<int>(x => x.ProgramLogDayId ?? 0, d => d.MapFrom(src => src.ProgramLogDayId))
+                .ForMember<int>(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
                 .ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
                 .ForMember<int>(x => x.NoOfSets, d => d.MapFrom(src => src.NoOfSets))
                 .ForMember<string>(x => x.Comment, d => d.MapFrom(src => src.Comment))

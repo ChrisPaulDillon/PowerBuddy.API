@@ -141,11 +141,11 @@ namespace PowerBuddy.Context
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<WorkoutTemplate>()
-            //  .HasMany(x => x.WorkoutExercises)
-            //  .WithOne()
-            //  .HasForeignKey(x => x.ProgramLogExerciseId)
-            //  .IsRequired(false);
+            modelBuilder.Entity<ProgramLogExercise>() // This one should always be the table with the foreign key inside of it, NOT the primary key
+              .HasOne(x => x.WorkoutTemplate)
+              .WithMany(x => x.WorkoutExercises)
+              .HasForeignKey(x => x.WorkoutTemplateId)
+              .IsRequired(false);
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
 

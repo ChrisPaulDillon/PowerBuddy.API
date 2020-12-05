@@ -7,5 +7,6 @@ namespace PowerBuddy.Data.Entities
         public virtual Exercise Exercise { get; set; }
         public virtual ICollection<ProgramLogRepScheme> ProgramLogRepSchemes { get; set; }
         public virtual ProgramLogExerciseTonnage ProgramLogExerciseTonnage { get; set; }
+        public virtual WorkoutTemplate WorkoutTemplate { get; set; }
     }
 }
