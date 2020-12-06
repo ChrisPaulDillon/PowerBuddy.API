@@ -43,6 +43,7 @@ using PowerBuddy.MediatR.Users.Commands.Public;
 using PowerBuddy.MediatR.Users.Querys.Account;
 using PowerBuddy.MediatR.Users.Querys.Admin;
 using PowerBuddy.MediatR.Users.Querys.Public;
+using PowerBuddy.MediatR.Workouts.Commands;
 using PowerBuddy.Services.Account;
 using PowerBuddy.Services.LiftingStats;
 using PowerBuddy.Services.ProgramLogs;
@@ -216,6 +217,16 @@ namespace PowerBuddy.API.Extensions
             services.AddMediatR(typeof(GetAllExercisesBySportQueryHandler));
             services.AddMediatR(typeof(GetExerciseByIdQueryHandler));
             services.AddMediatR(typeof(GetAllExercisesQueryHandler));
+
+            return services;
+        }
+
+        public static IServiceCollection AddWorkoutMediatrHandlers(this IServiceCollection services)
+        {
+            // CommandHandler Registration
+            services.AddMediatR(typeof(CreateWorkoutTemplateCommandHandler));
+
+            // QueryHandler Registration
 
             return services;
         }

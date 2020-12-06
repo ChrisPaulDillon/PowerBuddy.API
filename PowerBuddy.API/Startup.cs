@@ -44,6 +44,7 @@ namespace PowerBuddy.API
             services.AddTemplateProgramMediatrHandlers();
             services.AddUserMediatrHandlers();
             services.AddFriendsListsMediatrHandlers();
+            services.AddWorkoutMediatrHandlers();
 
             services.AddFactories();
             services.AddServiceClasses();
@@ -79,6 +80,7 @@ namespace PowerBuddy.API
                 mc.AddProfile(new TemplateProgramMappingProfile());
                 mc.AddProfile(new AccountMappingProfile());
                 mc.AddProfile(new FriendsListMappingProfile());
+                mc.AddProfile(new WorkoutMappingProfile());
             });
 
             var mapper = mappingConfig.CreateMapper();

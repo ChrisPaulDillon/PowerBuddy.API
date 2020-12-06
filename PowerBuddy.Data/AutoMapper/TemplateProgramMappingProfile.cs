@@ -44,12 +44,15 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom<int>(src => src.TemplateWeekId))
                 .ForMember(dest => dest.TemplateId, opt => opt.MapFrom<int>(src => src.TemplateId))
                 .ForMember(dest => dest.WeekNo, opt => opt.MapFrom<int>(src => src.WeekNo))
+                .ForMember(dest => dest.TemplateDays, opt => opt.MapFrom(src => src.TemplateDays.OrderBy(x => x.DayNo)))
                 .ReverseMap();
 
             CreateMap<TemplateDay, TemplateDayDTO>()
                 .ForMember(dest => dest.TemplateDayId, opt => opt.MapFrom<int>(src => src.TemplateDayId))
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom<int>(src => src.TemplateWeekId))
                 .ForMember(dest => dest.DayNo, opt => opt.MapFrom<int>(src => src.DayNo))
+                .ForMember(dest => dest.TemplateExercises, opt => opt.MapFrom(src => src.TemplateExercises))
+
                 .ReverseMap();
 
             CreateMap<TemplateExercise, TemplateExerciseDTO>()
@@ -61,6 +64,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.RepSchemeType, opt => opt.MapFrom<string>(src => src.RepSchemeType))
                 .ForMember(dest => dest.HasBackOffSets, opt => opt.MapFrom<bool>(src => src.HasBackOffSets))
                 .ForMember(dest => dest.BackOffSetFormat, opt => opt.MapFrom<string>(src => src.BackOffSetFormat))
+                .ForMember(dest => dest.TemplateRepSchemes, opt => opt.MapFrom(src => src.TemplateRepSchemes.OrderBy(x => x.SetNo)))
                 .ReverseMap();
 
             CreateMap<TemplateRepScheme, TemplateRepSchemeDTO>()
