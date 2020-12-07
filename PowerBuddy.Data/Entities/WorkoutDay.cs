@@ -5,7 +5,7 @@ namespace PowerBuddy.Data.Entities
     public partial class WorkoutDay
     {
         public int WorkoutDayId { get; set; }
-        public int? ProgramLogId { get; set; }
+        public int? WorkoutLogId { get; set; }
         public int? WeekNo { get; set; }
         public string UserId { get; set; }
         public DateTime Date { get; set; }

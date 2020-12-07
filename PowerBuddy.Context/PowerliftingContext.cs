@@ -33,6 +33,7 @@ namespace PowerBuddy.Context
         public DbSet<ProgramLogExerciseTonnage> ProgramLogExerciseTonnage { get; set; }
         public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
 
+        public DbSet<WorkoutLog> WorkoutLog { get; set; }
         public DbSet<WorkoutDay> WorkoutDay { get; set; }
         public DbSet<WorkoutExercise> WorkoutExercise { get; set; }
         public DbSet<WorkoutSet> WorkoutSet { get; set; }
@@ -100,6 +101,7 @@ namespace PowerBuddy.Context
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
             modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
 
+            modelBuilder.Entity<WorkoutLog>().ToTable("WorkoutLog");
             modelBuilder.Entity<WorkoutDay>().ToTable("WorkoutDay");
             modelBuilder.Entity<WorkoutExercise>().ToTable("WorkoutExercise");
             modelBuilder.Entity<WorkoutSet>().ToTable("WorkoutSet");
@@ -156,6 +158,24 @@ namespace PowerBuddy.Context
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
 
+            modelBuilder.Entity<WorkoutLog>()
+                .HasMany(x => x.WorkoutDays)
+                .WithOne()
+                .HasForeignKey(x => x.WorkoutLogId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<WorkoutDay>()
+                .HasMany(x => x.WorkoutExercises)
+                .WithOne()
+                .HasForeignKey(x => x.WorkoutDayId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<WorkoutExercise>()
+                .HasMany(x => x.WorkoutSets)
+                .WithOne()
+                .HasForeignKey(x => x.WorkoutExerciseId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
 
             //modelBuilder.Entity<Gender>()
             //    .HasMany(x => x.Users)
