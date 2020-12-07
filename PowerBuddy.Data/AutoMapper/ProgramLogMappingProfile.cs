@@ -218,7 +218,7 @@ namespace PowerBuddy.Data.AutoMapper
                .ReverseMap();
 
             //into dto
-            CreateMap<ProgramLogDay, WorkoutDayDTO>()
+            CreateMap<ProgramLogDay, WorkoutDaySummaryDTO>()
                 .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
                 .ForMember(x => x.Date, d => d.MapFrom(src => src.Date))
                 .ForMember(x => x.WorkoutExerciseSummaries, d => d.MapFrom(src => src.ProgramLogExercises))

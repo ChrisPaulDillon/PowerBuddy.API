@@ -33,6 +33,9 @@ namespace PowerBuddy.Context
         public DbSet<ProgramLogExerciseTonnage> ProgramLogExerciseTonnage { get; set; }
         public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
 
+        public DbSet<WorkoutDay> WorkoutDay { get; set; }
+        public DbSet<WorkoutExercise> WorkoutExercise { get; set; }
+        public DbSet<WorkoutSet> WorkoutSet { get; set; }
         public DbSet<WorkoutTemplate> WorkoutTemplate { get; set; }
 
         //Lifting Stats
@@ -95,14 +98,18 @@ namespace PowerBuddy.Context
             modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");
             modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay");
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
+            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
 
+            modelBuilder.Entity<WorkoutDay>().ToTable("WorkoutDay");
+            modelBuilder.Entity<WorkoutExercise>().ToTable("WorkoutExercise");
+            modelBuilder.Entity<WorkoutSet>().ToTable("WorkoutSet");
             modelBuilder.Entity<WorkoutTemplate>().ToTable("WorkoutTemplate");
 
             modelBuilder.Entity<TemplateProgramAudit>().ToTable("TemplateProgramAudit");
 
             modelBuilder.Entity<User>().ToTable("IdentityUser");
 
-            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
+
             modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
             modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");

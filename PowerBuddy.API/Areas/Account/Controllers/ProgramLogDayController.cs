@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.ProgramLogs;
+using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.MediatR.ProgramLogDays.Commands.Account;
@@ -58,7 +59,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpGet("Summary")]
-        [ProducesResponseType(typeof(WorkoutDayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(WorkoutDaySummaryDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetLatestWorkoutSummaries()

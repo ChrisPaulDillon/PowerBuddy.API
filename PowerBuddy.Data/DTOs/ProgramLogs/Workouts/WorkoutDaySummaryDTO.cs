@@ -1,10 +1,9 @@
-﻿using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace PowerBuddy.Data.DTOs.ProgramLogs
+namespace PowerBuddy.Data.DTOs.ProgramLogs.Workouts
 {
-    public class WorkoutDayDTO
+    public class WorkoutDaySummaryDTO
     {
         public int ProgramLogDayId { get; set; }
         public DateTime Date { get; set; }
