@@ -18,6 +18,7 @@ using PowerBuddy.MediatR.FriendsLists.Querys.Account;
 using PowerBuddy.MediatR.LiftingStats.Commands.Account;
 using PowerBuddy.MediatR.LiftingStats.Querys.Account;
 using PowerBuddy.MediatR.LiftingStats.Querys.Public;
+using PowerBuddy.MediatR.Metrics.Querys;
 using PowerBuddy.MediatR.Notifications.Commands.Account;
 using PowerBuddy.MediatR.Notifications.Commands.Admin;
 using PowerBuddy.MediatR.Notifications.Querys.Account;
@@ -242,6 +243,12 @@ namespace PowerBuddy.API.Extensions
         public static IServiceCollection AddExerciseMuscleGroupHandlers(this IServiceCollection services)
         {
             services.AddMediatR(typeof(GetAllExerciseMuscleGroupsQueryHandler));
+            return services;
+        }
+
+        public static IServiceCollection AddMetricMediatrHandlers(this IServiceCollection services)
+        {
+            services.AddMediatR(typeof(GetLandingPageMetricsQueryHandler));
             return services;
         }
 

@@ -117,13 +117,5 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-        [HttpGet("Count")]
-        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetTotalRepCount()
-        {
-            var totalCount = await _programLogService.GetTotalRepSchemeCount();
-            return Ok(totalCount);
-        }
     }
 }

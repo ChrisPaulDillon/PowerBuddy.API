@@ -45,6 +45,7 @@ namespace PowerBuddy.API
             services.AddUserMediatrHandlers();
             services.AddFriendsListsMediatrHandlers();
             services.AddWorkoutMediatrHandlers();
+            services.AddMetricMediatrHandlers();
 
             services.AddFactories();
             services.AddServiceClasses();
