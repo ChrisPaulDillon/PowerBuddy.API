@@ -7,6 +7,7 @@ using PowerBuddy.Data.DTOs.Workouts;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.MediatR.Workouts.Commands

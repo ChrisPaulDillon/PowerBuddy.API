@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PowerBuddy.Context;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Context.SeedData;
 using Sentry;
 using Serilog;

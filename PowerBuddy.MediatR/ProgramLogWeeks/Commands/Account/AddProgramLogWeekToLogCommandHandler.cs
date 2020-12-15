@@ -6,6 +6,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.ProgramLogs;

@@ -4,6 +4,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Exceptions.Exercises;
 
 namespace PowerBuddy.MediatR.Exercises.Commands.Admin

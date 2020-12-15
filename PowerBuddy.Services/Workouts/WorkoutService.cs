@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PowerBuddy.Context;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Factories;
 
 namespace PowerBuddy.Services.Workouts

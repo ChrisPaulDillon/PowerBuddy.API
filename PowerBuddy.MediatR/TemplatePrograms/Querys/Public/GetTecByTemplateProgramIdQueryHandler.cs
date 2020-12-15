@@ -7,6 +7,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
+using PowerBuddy.Data.Context;
 
 namespace PowerBuddy.MediatR.TemplatePrograms.Querys.Public
 {

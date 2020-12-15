@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
 
 namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account

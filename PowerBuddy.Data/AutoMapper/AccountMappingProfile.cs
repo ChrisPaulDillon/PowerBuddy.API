@@ -39,9 +39,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.MemberStatusId, d => d.MapFrom<int?>(src => src.MemberStatusId))
                 .ForMember(x => x.Gender, d => d.MapFrom<string>(src => src.Gender.GenderName))
                 .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.UserSetting.LiftingLevel.LiftingLevelStr))
-                .ForMember(x => x.LiftFeed, d => d.MapFrom(src => src.LiftingStatAudit))
-                .ForMember(x => x.PendingFriendRequestFrom, d => d.MapFrom(src => src.FriendRequestFrom == null ? false : src.FriendRequestFrom.HasAccepted == null? true : false))
-                .ForMember(x => x.PendingFriendRequestTo, d => d.MapFrom(src => src.FriendRequestTo == null ? false : src.FriendRequestFrom.HasAccepted == null ? true : false));
+                .ForMember(x => x.LiftFeed, d => d.MapFrom(src => src.LiftingStatAudit));
 
             CreateMap<User, AdminUserDTO>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))
@@ -56,12 +54,6 @@ namespace PowerBuddy.Data.AutoMapper
                 .ReverseMap();
 
             CreateMap<UserSetting, UserSettingDTO>().ReverseMap();
-
-            CreateMap<NotificationDTO, Notification>().ReverseMap();
-            CreateMap<NotificationInteraction, NotificationInteractionDTO>().ReverseMap();
-
-            CreateMap<FriendRequest, FriendRequestDTO>().ReverseMap();
-            CreateMap<FriendsListAssoc, FriendsListAssocDTO>().ReverseMap();
         }
     }
 }

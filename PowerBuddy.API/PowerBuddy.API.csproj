@@ -30,4 +30,8 @@
     <ProjectReference Include="..\PowerBuddy.MediatR\PowerBuddy.MediatR.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Account\Models\" />
+  </ItemGroup>
+
 </Project>

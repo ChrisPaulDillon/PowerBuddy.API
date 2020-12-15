@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Context;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 
 namespace PowerBuddy.MediatR.ProgramLogs.Querys.Account

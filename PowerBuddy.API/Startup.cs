@@ -12,6 +12,7 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Middleware;
 using PowerBuddy.Context;
 using PowerBuddy.Data.AutoMapper;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.API
@@ -40,10 +41,8 @@ namespace PowerBuddy.API
             services.AddExerciseTypeMediatrHandlers();
             services.AddQuoteMediatrHandlers();
             services.AddLiftingStatsMediatrHandlers();
-            services.AddNotificationsMediatrHandlers();
             services.AddTemplateProgramMediatrHandlers();
             services.AddUserMediatrHandlers();
-            services.AddFriendsListsMediatrHandlers();
             services.AddWorkoutMediatrHandlers();
             services.AddMetricMediatrHandlers();
 
@@ -80,7 +79,6 @@ namespace PowerBuddy.API
                 mc.AddProfile(new ProgramLogMappingProfile());
                 mc.AddProfile(new TemplateProgramMappingProfile());
                 mc.AddProfile(new AccountMappingProfile());
-                mc.AddProfile(new FriendsListMappingProfile());
                 mc.AddProfile(new WorkoutMappingProfile());
             });
 

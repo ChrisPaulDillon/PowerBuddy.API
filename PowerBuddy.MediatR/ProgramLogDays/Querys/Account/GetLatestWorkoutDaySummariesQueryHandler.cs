@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
 
 namespace PowerBuddy.MediatR.ProgramLogDays.Querys.Account

@@ -8,20 +8,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PowerBuddy.Context;
+using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Data.Util;
 using PowerBuddy.MediatR.Exercises.Commands.Account;
 using PowerBuddy.MediatR.Exercises.Querys.Admin;
 using PowerBuddy.MediatR.Exercises.Querys.Public;
-using PowerBuddy.MediatR.FriendsLists.Commands.Account;
-using PowerBuddy.MediatR.FriendsLists.Querys.Account;
 using PowerBuddy.MediatR.LiftingStats.Commands.Account;
 using PowerBuddy.MediatR.LiftingStats.Querys.Account;
 using PowerBuddy.MediatR.LiftingStats.Querys.Public;
 using PowerBuddy.MediatR.Metrics.Querys;
-using PowerBuddy.MediatR.Notifications.Commands.Account;
-using PowerBuddy.MediatR.Notifications.Commands.Admin;
-using PowerBuddy.MediatR.Notifications.Querys.Account;
 using PowerBuddy.MediatR.ProgramLogDays.Commands.Account;
 using PowerBuddy.MediatR.ProgramLogDays.Commands.Member;
 using PowerBuddy.MediatR.ProgramLogDays.Querys.Account;
@@ -167,19 +163,6 @@ namespace PowerBuddy.API.Extensions
             services.AddMediatR(typeof(GetLiftingStatFeedForUserQueryHandler));
             services.AddMediatR(typeof(GetLiftingStatsByUserIdQueryHandler));
             services.AddMediatR(typeof(GetLiftingStatByIdQueryHandler));
-            return services;
-        }
-
-        public static IServiceCollection AddFriendsListsMediatrHandlers(this IServiceCollection services)
-        {
-            // CommandHandler Registration
-            services.AddMediatR(typeof(RespondToFriendRequestCommandHandler));
-            services.AddMediatR(typeof(SendFriendRequestCommandHandler));
-
-            // QueryHandler Registration
-            services.AddMediatR(typeof(GetAllPendingFriendRequestsQueryHandler));
-            services.AddMediatR(typeof(GetPendingFriendRequestQueryHandler));
-            services.AddMediatR(typeof(GetUserFriendsListQueryHandler));
             return services;
         }
 

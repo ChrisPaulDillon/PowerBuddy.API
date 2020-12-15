@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Entities;
 
-namespace PowerBuddy.Context
+namespace PowerBuddy.Data.Context
 {
     public class PowerLiftingContext : DbContext
     {
@@ -54,11 +54,7 @@ namespace PowerBuddy.Context
         public DbSet<IdentityUserRole<string>> UserRole { get; set; }
         public DbSet<IdentityUserToken<string>> UserToken { get; set; }
 
-        public DbSet<FriendRequest> FriendRequest { get; set; }
-        public DbSet<FriendsListAssoc> FriendsListAssoc { get; set; }
         public DbSet<UserSetting> UserSetting { get; set; }
-        public DbSet<Notification> Notification { get; set; }
-        public DbSet<NotificationInteraction> NotificationInteraction { get; set; }
 
         //System
         public DbSet<Gender> Gender { get; set; }
@@ -77,11 +73,7 @@ namespace PowerBuddy.Context
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
 
-            modelBuilder.Entity<FriendRequest>().ToTable("FriendRequest");
-            modelBuilder.Entity<FriendsListAssoc>().ToTable("FriendsListAssoc");
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
-            modelBuilder.Entity<Notification>().ToTable("Notification");
-            modelBuilder.Entity<NotificationInteraction>().ToTable("NotificationInteraction");
 
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
             modelBuilder.Entity<Exercise>().ToTable("Exercise");
@@ -190,18 +182,6 @@ namespace PowerBuddy.Context
             modelBuilder.Entity<ProgramLogExercise>()
                 .HasOne(x => x.ProgramLogExerciseTonnage)
                 .WithOne()
-                .IsRequired(false);
-
-            modelBuilder.Entity<User>()
-                .HasOne(x => x.FriendRequestTo)
-                .WithOne()
-                .HasForeignKey<FriendRequest>(x => x.UserToId)
-                .IsRequired(false);
-
-            modelBuilder.Entity<User>()
-                .HasOne(x => x.FriendRequestFrom)
-                .WithOne()
-                .HasForeignKey<FriendRequest>(x => x.UserFromId)
                 .IsRequired(false);
 
             modelBuilder.Entity<TemplateProgram>()

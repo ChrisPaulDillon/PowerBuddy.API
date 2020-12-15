@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBuddy.Context;
+using PowerBuddy.Data.Context;
 
 namespace PowerBuddy.Context.Migrations
 {
