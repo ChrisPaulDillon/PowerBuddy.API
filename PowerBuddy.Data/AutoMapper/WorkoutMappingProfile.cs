@@ -151,6 +151,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.NoOfReps, d => d.MapFrom<int>(src => src.NoOfReps))
                 .ForMember(x => x.WeightLifted, d => d.MapFrom<decimal>(src => src.WeightLifted))
                 .ForMember(x => x.AMRAP, d => d.MapFrom<bool>(src => src.AMRAP))
+                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int>(src => src.LiftingStatAuditId))
                .ReverseMap();
 
         }

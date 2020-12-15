@@ -236,6 +236,23 @@ namespace PowerBuddy.Context
                 .HasForeignKey(x => x.ExerciseId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
+
+            //Workouts
+
+            modelBuilder.Entity<WorkoutExercise>()
+                .HasOne(x => x.WorkoutExerciseTonnage)
+                .WithOne()
+                .HasForeignKey<WorkoutExerciseTonnage>(x => x.WorkoutExerciseId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(false);
+
+
+            modelBuilder.Entity<WorkoutSet>()
+                .HasOne(x => x.LiftingStatAudit)
+                .WithOne()
+                .HasForeignKey<LiftingStatAudit>(x => x.WorkoutSetId)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
         }
     }
 }
