@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.ProgramLogs;
+using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
 using PowerBuddy.MediatR.ProgramLogs.Commands.Account;
 using PowerBuddy.MediatR.ProgramLogs.Querys.Account;
+using PowerBuddy.MediatR.Workouts.Commands;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -23,12 +25,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     [Produces("application/json")]
     [Area("Account")]
     [Authorize(AuthenticationSchemes = "Bearer")]
-    public class WorkoutController : ControllerBase
+    public class WorkoutLogController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly string _userId;
 
-        public WorkoutController(IMediator mediator, IHttpContextAccessor accessor)
+        public WorkoutLogController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
             _userId = accessor.HttpContext.User.FindUserId();
@@ -170,12 +172,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] WorkoutLogTemplateInputDTO programLogDTO)
+        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] WorkoutLogTemplateInputDTO workoutLogDTO)
         {
             try
             {
-                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
-                return Ok(programLog);
+                var isCreated = await _mediator.Send(new CreateWorkoutLogFromTemplateCommand(workoutLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
+                return Ok(isCreated);
             }
             catch (ValidationException ex)
             {

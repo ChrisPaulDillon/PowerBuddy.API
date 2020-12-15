@@ -37,12 +37,15 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom<int>(src => src.ExerciseId))
                 .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom<string>(src => src.Exercise.ExerciseName));
 
-            CreateMap<TemplateExerciseCollectionDTO, TemplateExerciseCollection>().ForMember<int>(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom(src => src.TemplateExerciseCollectionId)).ForMember<int>(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId)).ForMember<int>(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
+            CreateMap<TemplateExerciseCollectionDTO, TemplateExerciseCollection>()
+                .ForMember<int>(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom(src => src.TemplateExerciseCollectionId))
+                .ForMember<int>(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
+                .ForMember<int>(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
                .ForMember(dest => dest.Exercise, opt => opt.Ignore());
 
             CreateMap<TemplateWeek, TemplateWeekDTO>()
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom<int>(src => src.TemplateWeekId))
-                .ForMember(dest => dest.TemplateId, opt => opt.MapFrom<int>(src => src.TemplateId))
+                .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom<int>(src => src.TemplateProgramId))
                 .ForMember(dest => dest.WeekNo, opt => opt.MapFrom<int>(src => src.WeekNo))
                 .ForMember(dest => dest.TemplateDays, opt => opt.MapFrom(src => src.TemplateDays.OrderBy(x => x.DayNo)))
                 .ReverseMap();
@@ -52,7 +55,6 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom<int>(src => src.TemplateWeekId))
                 .ForMember(dest => dest.DayNo, opt => opt.MapFrom<int>(src => src.DayNo))
                 .ForMember(dest => dest.TemplateExercises, opt => opt.MapFrom(src => src.TemplateExercises))
-
                 .ReverseMap();
 
             CreateMap<TemplateExercise, TemplateExerciseDTO>()

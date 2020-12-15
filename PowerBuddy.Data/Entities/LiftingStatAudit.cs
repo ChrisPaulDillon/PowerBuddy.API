@@ -14,5 +14,6 @@ namespace PowerBuddy.Data.Entities
         public string UserId { get; set; }
         public DateTime DateChanged { get; set; }
         public int ProgramLogRepSchemeId { get; set; }
+        public int WorkoutSetId { get; set; }
     }
 }

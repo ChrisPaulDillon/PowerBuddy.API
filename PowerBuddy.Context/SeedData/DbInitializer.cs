@@ -124,25 +124,22 @@ namespace PowerBuddy.Data.Context.SeedData
                 context.SaveChanges();
             }
 
-            var exercises = ExerciseSeed.CreateExercises();
+            //var exercises = ExerciseSeed.CreateExercises();
 
-            if (!context.Exercise.Any())
-            {
-                foreach (var e in exercises)
-                {
-                    context.Exercise.Add(e);
-                }
-                context.SaveChanges();
-            }
+            //if (!context.Exercise.Any())
+            //{
+            //    foreach (var e in exercises)
+            //    {
+            //        context.Exercise.Add(e);
+            //    }
+            //    context.SaveChanges();
+            //}
 
             var templateExercises = context.Exercise.ToList();
-            if (!context.TemplateProgram.Any())
+            if (!context.TemplateProgram.Any() && templateExercises.Any())
             {
                 var createdTemplates = TemplateProgramSeed.CreateTemplatePrograms(templateExercises);
-                foreach (var e in createdTemplates)
-                {
-                    context.TemplateProgram.Add(e);
-                }
+                context.TemplateProgram.AddRange(createdTemplates);
                 context.SaveChanges();
             }
         }

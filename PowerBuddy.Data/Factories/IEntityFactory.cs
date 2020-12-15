@@ -18,5 +18,11 @@ namespace PowerBuddy.Data.Factories
         public ProgramLogExerciseTonnage CreateProgramLogExerciseTonnage(int programLogExerciseId, decimal exerciseTonnage, string userId, int exerciseId);
 
         public TemplateProgramAudit CreateTemplateProgramAudit(int templateProgramId, string userId, DateTime dateAdded);
+
+        //Workouts
+
+        public WorkoutDay CreateWorkoutDay(int weekNo, DateTime date, string userId);
+        public WorkoutExercise CreateWorkoutExercise(int exerciseId);
+        public WorkoutSet CreateWorkoutSet(int noOfReps, decimal weightLifted, bool amrap);
     }
 }

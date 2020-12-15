@@ -48,11 +48,13 @@ using PowerBuddy.Services.ProgramLogs.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.System;
 using PowerBuddy.Services.Templates;
+using PowerBuddy.Services.Workouts;
 
 namespace PowerBuddy.API.Extensions
 {
     public static class IServiceCollectionExtensions
     {
+
         public static IServiceCollection AddProgramLogDayMediatrHandlers(this IServiceCollection services)
         {
             // CommandHandler Registration
@@ -197,6 +199,7 @@ namespace PowerBuddy.API.Extensions
         public static IServiceCollection AddWorkoutMediatrHandlers(this IServiceCollection services)
         {
             // CommandHandler Registration
+            services.AddMediatR(typeof(CreateWorkoutLogFromTemplateCommandHandler));
             services.AddMediatR(typeof(CreateWorkoutTemplateCommandHandler));
 
             // QueryHandler Registration
@@ -238,6 +241,7 @@ namespace PowerBuddy.API.Extensions
             services.AddScoped<IProgramLogService, ProgramLogService>();
             services.AddScoped<ISystemService, SystemService>();
             services.AddScoped<ITemplateService, TemplateService>();
+            services.AddScoped<IWorkoutService, WorkoutService>();
 
             return services;
         }

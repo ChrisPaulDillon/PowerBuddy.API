@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.MediatR.Metrics.Querys;
-using PowerBuddy.Services.Account;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -16,7 +15,6 @@ namespace PowerBuddy.API.Areas.Public
     public class MetricController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IAccountService _accountService;
 
         public MetricController(IMediator mediator)
         {
