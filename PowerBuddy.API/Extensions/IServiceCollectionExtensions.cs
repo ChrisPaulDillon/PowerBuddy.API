@@ -158,17 +158,6 @@ namespace PowerBuddy.API.Extensions
             return services;
         }
 
-        public static IServiceCollection AddNotificationsMediatrHandlers(this IServiceCollection services)
-        {
-            // CommandHandler Registration
-            services.AddMediatR(typeof(MarkNotificationReadCommandHandler));
-            services.AddMediatR(typeof(CreateNotificationCommandHandler));
-
-            // QueryHandler Registration
-            services.AddMediatR(typeof(GetUserNotificationsQueryHandler));
-            return services;
-        }
-
         public static IServiceCollection AddLiftingStatsMediatrHandlers(this IServiceCollection services)
         {
             // CommandHandler Registration
