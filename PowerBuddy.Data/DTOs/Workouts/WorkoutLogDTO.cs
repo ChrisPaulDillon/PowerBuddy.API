@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PowerBuddy.Data.Entities
+namespace PowerBuddy.Data.DTOs.Workouts
 {
-    public partial class WorkoutLog
+    public class WorkoutLogDTO
     {
         public int WorkoutLogId { get; set; }
         public string CustomName { get; set; }
         public string UserId { get; set; }
         public int? TemplateProgramId { get; set; }
+        public int NoOfWeeks { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool Monday { get; set; }
@@ -17,5 +22,8 @@ namespace PowerBuddy.Data.Entities
         public bool Friday { get; set; }
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
+        public IEnumerable<WorkoutDayDTO> WorkoutDays { get; set; }
+        public string TemplateName { get; set; }
+        public IEnumerable<DateTime> LogDates { get; set; }
     }
 }
