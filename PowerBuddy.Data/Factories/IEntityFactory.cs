@@ -23,6 +23,7 @@ namespace PowerBuddy.Data.Factories
 
         public WorkoutDay CreateWorkoutDay(int weekNo, DateTime date, string userId);
         public WorkoutExercise CreateWorkoutExercise(int exerciseId);
+        public WorkoutExerciseTonnage CreateWorkoutExerciseTonnage(decimal exerciseTonnage, int exerciseId, string userId);
         public WorkoutSet CreateWorkoutSet(int noOfReps, decimal weightLifted, bool amrap);
     }
 }

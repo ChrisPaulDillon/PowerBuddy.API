@@ -136,6 +136,16 @@ namespace PowerBuddy.Data.Factories
             };
         }
 
+        public WorkoutExerciseTonnage CreateWorkoutExerciseTonnage(decimal exerciseTonnage, int exerciseId, string userId)
+        {
+            return new WorkoutExerciseTonnage()
+            {
+                ExerciseTonnage = exerciseId,
+                ExerciseId = exerciseId,
+                UserId = userId,
+            };
+        }
+
         public WorkoutSet CreateWorkoutSet(int noOfReps, decimal weightLifted, bool amrap)
         {
             return new WorkoutSet()

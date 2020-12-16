@@ -81,8 +81,7 @@ namespace PowerBuddy.Services.Workouts
                     workoutExercise.WorkoutSets.Add(workoutSet);
                 }
 
-                //workoutExercise.wor = _entityFactory.CreateProgramLogExerciseTonnage(programLogExercise.ProgramLogExerciseId, exerciseTonnage, userId, programLogExercise.ExerciseId);
-                //workoutExercise.ProgramLogExerciseTonnageId = programLogExercise.ProgramLogExerciseTonnage.ProgramLogExerciseTonnageId;
+                workoutExercise.WorkoutExerciseTonnage = _entityFactory.CreateWorkoutExerciseTonnage(exerciseTonnage, workoutExercise.ExerciseId, userId);
                 workoutExercises.Add(workoutExercise);
             }
             return workoutExercises;
