@@ -12,6 +12,7 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
 using PowerBuddy.MediatR.Workouts.Commands;
+using PowerBuddy.MediatR.Workouts.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -28,7 +29,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         public WorkoutLogController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
-            _userId = accessor.HttpContext.User.FindUserId();
+            if (accessor.HttpContext != null) _userId = accessor.HttpContext.User.FindUserId();
         }
 
         //[HttpGet("Stat")]
@@ -56,30 +57,26 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         //    }
         //}
 
-        //[HttpGet]
-        //[ProducesResponseType(typeof(WorkoutLogDTO), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        //public async Task<IActionResult> GetActiveWorkoutLog()
-        //{
-        //    try
-        //    {
-        //        var WorkoutLog = await _mediator.Send(new GetActiveWorkoutLogByUserIdQuery(_userId)).ConfigureAwait(false);
-        //        return Ok(WorkoutLog);
-        //    }
-        //    catch (ValidationException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (WorkoutLogNotFoundException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //    catch (UnauthorisedUserException ex)
-        //    {
-        //        return Unauthorized(ex.Message);
-        //    }
-        //}
+        [HttpGet("Week")]
+        [ProducesResponseType(typeof(WorkoutLogDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetWorkoutWeekByDate()
+        {
+            try
+            {
+                var WorkoutLog = await _mediator.Send(new GetWorkoutWeekByDateQuery(DateTime.UtcNow, _userId)).ConfigureAwait(false);
+                return Ok(WorkoutLog);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+        }
 
         //[HttpGet("{WorkoutLogId:int}")]
         //[ProducesResponseType(typeof(WorkoutLogDTO), StatusCodes.Status200OK)]

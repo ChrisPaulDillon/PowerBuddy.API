@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 
@@ -92,7 +89,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
                 .ForMember<string>(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember<DateTime>(x => x.Date, d => d.MapFrom(src => src.Date))
-                .ForMember<bool>(x => x.Completed, d => d.MapFrom(src => src.Completed));
+                .ForMember<bool>(x => x.Completed, d => d.MapFrom(src => src.Completed))
+                .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises));
 
             //into dto
             CreateMap<WorkoutDay, WorkoutDayDTO>()
@@ -101,7 +99,9 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.UserId))
                 .ForMember(x => x.Comment, d => d.MapFrom<string>(src => src.Comment))
                 .ForMember(x => x.Date, d => d.MapFrom<DateTime>(src => src.Date))
-                .ForMember(x => x.Completed, d => d.MapFrom<bool>(src => src.Completed));
+                .ForMember(x => x.Completed, d => d.MapFrom<bool>(src => src.Completed))
+                .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises))
+                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName ?? null));
 
             CreateMap<WorkoutExercise, WorkoutExerciseDTO>()
                 .ForMember(x => x.WorkoutExerciseId, d => d.MapFrom<int>(src => src.WorkoutExerciseId))

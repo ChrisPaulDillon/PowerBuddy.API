@@ -40,7 +40,10 @@ using PowerBuddy.MediatR.Users.Commands.Public;
 using PowerBuddy.MediatR.Users.Querys.Account;
 using PowerBuddy.MediatR.Users.Querys.Admin;
 using PowerBuddy.MediatR.Users.Querys.Public;
+using PowerBuddy.MediatR.WorkoutExercises.Commands;
 using PowerBuddy.MediatR.Workouts.Commands;
+using PowerBuddy.MediatR.Workouts.Querys;
+using PowerBuddy.MediatR.WorkoutSets.Commands;
 using PowerBuddy.Services.Account;
 using PowerBuddy.Services.LiftingStats;
 using PowerBuddy.Services.ProgramLogs;
@@ -198,11 +201,20 @@ namespace PowerBuddy.API.Extensions
 
         public static IServiceCollection AddWorkoutMediatrHandlers(this IServiceCollection services)
         {
-            // CommandHandler Registration
+            // Workout Logs Query & Command Handlers
             services.AddMediatR(typeof(CreateWorkoutLogFromTemplateCommandHandler));
             services.AddMediatR(typeof(CreateWorkoutTemplateCommandHandler));
+            services.AddMediatR(typeof(GetWorkoutWeekByDateQueryHandler));
 
-            // QueryHandler Registration
+            // Workout Exercises
+            services.AddMediatR(typeof(CreateWorkoutExerciseCommandHandler));
+            services.AddMediatR(typeof(DeleteWorkoutExerciseCommandHandler));
+            services.AddMediatR(typeof(UpdateWorkoutExerciseNotesCommandHandler));
+
+            // Workout Sets
+            services.AddMediatR(typeof(DeleteWorkoutSetCommandHandler));
+            services.AddMediatR(typeof(QuickAddWorkoutSetsCommandHandler));
+            services.AddMediatR(typeof(UpdateWorkoutSetCommandHandler));
 
             return services;
         }
