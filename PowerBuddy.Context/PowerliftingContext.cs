@@ -37,6 +37,7 @@ namespace PowerBuddy.Data.Context
         public DbSet<WorkoutDay> WorkoutDay { get; set; }
         public DbSet<WorkoutExerciseAudit> WorkoutExerciseAudit { get; set; }
         public DbSet<WorkoutExercise> WorkoutExercise { get; set; }
+        public DbSet<WorkoutExerciseTonnage> WorkoutExerciseTonnage { get; set; }
         public DbSet<WorkoutSet> WorkoutSet { get; set; }
         public DbSet<WorkoutTemplate> WorkoutTemplate { get; set; }
 
@@ -98,6 +99,7 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<WorkoutLog>().ToTable("WorkoutLog");
             modelBuilder.Entity<WorkoutDay>().ToTable("WorkoutDay");
             modelBuilder.Entity<WorkoutExercise>().ToTable("WorkoutExercise");
+            modelBuilder.Entity<WorkoutExerciseTonnage>().ToTable("WorkoutExerciseTonnage");
             modelBuilder.Entity<WorkoutExerciseAudit>().ToTable("WorkoutExerciseAudit");
             modelBuilder.Entity<WorkoutSet>().ToTable("WorkoutSet");
             modelBuilder.Entity<WorkoutTemplate>().ToTable("WorkoutTemplate");

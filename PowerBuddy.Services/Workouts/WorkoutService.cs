@@ -137,5 +137,30 @@ namespace PowerBuddy.Services.Workouts
                 exerciseAudit.SelectedCount++;
             }
         }
+
+        public async Task<WorkoutExerciseTonnage> UpdateExerciseTonnage(WorkoutExercise workoutExercise, string userId)
+        {
+            var workoutExerciseTonnage = await _context.WorkoutExerciseTonnage
+                .FirstOrDefaultAsync(x => x.WorkoutExerciseId == workoutExercise.WorkoutExerciseId);
+
+            var exerciseTonnage = 0.00M;
+
+            foreach (var repScheme in workoutExercise.WorkoutSets)
+            {
+                exerciseTonnage += WorkoutHelper.CalculateTonnage((decimal)repScheme.WeightLifted, repScheme.RepsCompleted ?? repScheme.NoOfReps);
+            }
+
+            if (workoutExerciseTonnage == null)
+            {
+                workoutExerciseTonnage = _entityFactory.CreateWorkoutExerciseTonnage(exerciseTonnage, workoutExercise.ExerciseId, userId);
+                _context.WorkoutExerciseTonnage.Add(workoutExerciseTonnage);
+            }
+            else
+            {
+                workoutExerciseTonnage.ExerciseTonnage = exerciseTonnage;
+            }
+
+            return workoutExerciseTonnage;
+        }
     }
 }
