@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.ProgramLogs.Util;
+using PowerBuddy.Services.Workouts.Models;
 using PowerBuddy.Services.Workouts.Util;
 using PowerBuddy.Util.Extensions;
 
@@ -85,6 +88,54 @@ namespace PowerBuddy.Services.Workouts
                 workoutExercises.Add(workoutExercise);
             }
             return workoutExercises;
+        }
+
+        public WorkoutExercise CreateSetsForExercise(CreateWorkoutExerciseDTO createWorkoutExercise, string userId)
+        {
+            var setCollection = new List<WorkoutSet>();
+
+            var exerciseTonnage = 0.00M;
+
+            var workoutExercise = new WorkoutExercise()
+            {
+                ExerciseId = createWorkoutExercise.ExerciseId,
+                WorkoutDayId = createWorkoutExercise.WorkoutDayId,
+            };
+
+            for (var i = 1; i < createWorkoutExercise.Sets + 1; i++)
+            {
+                exerciseTonnage += ProgramLogHelper.CalculateTonnage(createWorkoutExercise.Weight, createWorkoutExercise.Reps);
+                var set = _entityFactory.CreateWorkoutSet(createWorkoutExercise.Reps, createWorkoutExercise.Weight, false);
+                setCollection.Add(set);
+                
+            }
+
+            workoutExercise.WorkoutSets = setCollection;
+            workoutExercise.WorkoutExerciseTonnage = _entityFactory.CreateWorkoutExerciseTonnage(exerciseTonnage, workoutExercise.ExerciseId, userId);
+
+            return workoutExercise;
+        }
+
+        public async Task CreateWorkoutExerciseAudit(int exerciseId, string userId)
+        {
+            var exerciseAudit = await _context.WorkoutExerciseAudit
+                .Where(x => x.UserId == userId && x.ExerciseId == exerciseId)
+                .FirstOrDefaultAsync();
+
+            if (exerciseAudit == null)
+            {
+                exerciseAudit = new WorkoutExerciseAudit()
+                {
+                    ExerciseId = exerciseId, 
+                    UserId = userId,
+                    SelectedCount = 1
+                };
+                _context.WorkoutExerciseAudit.Add(exerciseAudit);
+            }
+            else
+            {
+                exerciseAudit.SelectedCount++;
+            }
         }
     }
 }

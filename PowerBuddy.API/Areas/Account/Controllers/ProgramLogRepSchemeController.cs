@@ -12,7 +12,6 @@ using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.MediatR.ProgramLogRepSchemes.Commands.Account;
-using PowerBuddy.Services.ProgramLogs;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -24,13 +23,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class ProgramLogRepSchemeController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IProgramLogService _programLogService;
         private readonly string _userId;
 
-        public ProgramLogRepSchemeController(IMediator mediator, IProgramLogService programLogService, IHttpContextAccessor accessor)
+        public ProgramLogRepSchemeController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
-            _programLogService = programLogService;
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
@@ -38,12 +35,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(IEnumerable<ProgramLogRepSchemeDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateProgramLogRepSchemeCollection([FromBody] IList<ProgramLogRepSchemeDTO> programLogRepSchemeCollection)
+        public async Task<IActionResult> CreateProgramLogRepSchemeCollection([FromBody] IList<ProgramLogRepSchemeDTO> ProgramLogRepSchemeCollection)
         {
             try
             {
-                if (!programLogRepSchemeCollection.Any()) return BadRequest();
-                var result = await _mediator.Send(new CreateProgramLogRepSchemeCollectionCommand(programLogRepSchemeCollection, _userId)).ConfigureAwait(false);
+                if (!ProgramLogRepSchemeCollection.Any()) return BadRequest();
+                var result = await _mediator.Send(new CreateProgramLogRepSchemeCollectionCommand(ProgramLogRepSchemeCollection, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (ValidationException ex)
@@ -64,11 +61,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError),StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateProgramLogRepScheme([FromBody] ProgramLogRepSchemeDTO programLogRepSchemeDTO)
+        public async Task<IActionResult> UpdateProgramLogRepScheme([FromBody] ProgramLogRepSchemeDTO ProgramLogRepSchemeDTO)
         {
             try
             {
-                var result = await _mediator.Send(new UpdateProgramLogRepSchemeCommand(programLogRepSchemeDTO, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateProgramLogRepSchemeCommand(ProgramLogRepSchemeDTO, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (ValidationException ex)
@@ -89,14 +86,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-        [HttpDelete("{programLogRepSchemeId:int}")]
+        [HttpDelete("{ProgramLogRepSchemeId:int}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteProgramLogRepScheme(int programLogRepSchemeId)
+        public async Task<IActionResult> DeleteProgramLogRepScheme(int ProgramLogRepSchemeId)
         {
             try
             {
-                var result = await _mediator.Send(new DeleteProgramLogRepSchemeCommand(programLogRepSchemeId, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteProgramLogRepSchemeCommand(ProgramLogRepSchemeId, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (ValidationException ex)

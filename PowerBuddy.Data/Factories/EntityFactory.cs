@@ -155,5 +155,16 @@ namespace PowerBuddy.Data.Factories
                 AMRAP = amrap
             };
         }
+
+        public WorkoutSet CreateWorkoutSet(int workoutExerciseId, int noOfReps, decimal weightLifted, bool amrap)
+        {
+            return new WorkoutSet()
+            {
+                WorkoutExerciseId = workoutExerciseId,
+                NoOfReps = noOfReps,
+                WeightLifted = weightLifted,
+                AMRAP = amrap
+            };
+        }
     }
 }

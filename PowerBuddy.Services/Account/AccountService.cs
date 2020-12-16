@@ -1,14 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using PowerBuddy.Context;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.LiftingStats;
-using PowerBuddy.Data.DTOs.ProgramLogs;
-using PowerBuddy.Data.DTOs.Users;
-using NotImplementedException = System.NotImplementedException;
 
 namespace PowerBuddy.Services.Account
 {

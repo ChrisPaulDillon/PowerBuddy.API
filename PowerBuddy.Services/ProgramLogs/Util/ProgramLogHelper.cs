@@ -28,15 +28,15 @@ namespace PowerBuddy.Services.ProgramLogs.Util
             }
         }
 
-        public static Dictionary<int, string> CalculateDayOrder(ProgramLog programLog)
+        public static Dictionary<int, string> CalculateDayOrder(ProgramLog ProgramLog)
         {
-            var programDayOrder = new Dictionary<int, string>();
+            var ProgramDayOrder = new Dictionary<int, string>();
 
-            var startingDay = programLog.StartDate.DayOfWeek;
-            var startingNo = (int)programLog.StartDate.DayOfWeek;
+            var startingDay = ProgramLog.StartDate.DayOfWeek;
+            var startingNo = (int)ProgramLog.StartDate.DayOfWeek;
 
             var counter = 1;
-            programDayOrder.Add(counter, startingDay.ToString());
+            ProgramDayOrder.Add(counter, startingDay.ToString());
 
             foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)).OfType<DayOfWeek>().ToList().Skip(startingNo + 1))
             {
@@ -44,37 +44,37 @@ namespace PowerBuddy.Services.ProgramLogs.Util
                 {
                     case DayOfWeek.Monday:
                     {
-                        if (programLog.Monday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Monday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Tuesday:
                     {
-                        if (programLog.Tuesday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Tuesday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Wednesday:
                     {
-                        if (programLog.Wednesday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Wednesday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Thursday:
                     {
-                        if (programLog.Thursday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Thursday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Friday:
                     {
-                        if (programLog.Friday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Friday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Saturday:
                     {
-                        if (programLog.Saturday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Saturday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Sunday:
                     {
-                        if (programLog.Sunday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Sunday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                 }
@@ -91,43 +91,43 @@ namespace PowerBuddy.Services.ProgramLogs.Util
                 {
                     case DayOfWeek.Monday:
                     {
-                        if (programLog.Monday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Monday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Tuesday:
                     {
-                        if (programLog.Tuesday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Tuesday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Wednesday:
                     {
-                        if (programLog.Wednesday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Wednesday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Thursday:
                     {
-                        if (programLog.Thursday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Thursday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Friday:
                     {
-                        if (programLog.Friday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Friday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Saturday:
                     {
-                        if (programLog.Saturday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Saturday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                     case DayOfWeek.Sunday:
                     {
-                        if (programLog.Sunday) programDayOrder.Add(++counter, day.ToString());
+                        if (ProgramLog.Sunday) ProgramDayOrder.Add(++counter, day.ToString());
                         break;
                     }
                 }
             }
 
-            return programDayOrder;
+            return ProgramDayOrder;
         }
     }
 }

@@ -16,7 +16,7 @@ using Serilog;
 
 namespace PowerBuddy.API
 {
-    public class Program
+    public class Workout
     {
         public static void Main(string[] args)
         {
@@ -24,7 +24,7 @@ namespace PowerBuddy.API
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddEnvironmentVariables()
                 .AddJsonFile("appsettings.json", optional: false)
-                .AddUserSecrets<Program>()
+                .AddUserSecrets<Workout>()
                 .Build();
 
             var sentryDSN = config.GetSection("Sentry_DSN");
@@ -40,7 +40,7 @@ namespace PowerBuddy.API
                 }
                 catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    var logger = services.GetRequiredService<ILogger<Workout>>();
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using PowerBuddy.Data.DTOs.ProgramLogs;
 
 namespace PowerBuddy.Data.DTOs.Workouts
 {

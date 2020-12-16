@@ -286,7 +286,7 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<int>("ExerciseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramLogRepSchemeId")
+                    b.Property<int>("WorkoutLogRepSchemeId")
                         .HasColumnType("int");
 
                     b.Property<int>("RepRange")
@@ -302,7 +302,7 @@ namespace PowerBuddy.Context.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.HasIndex("ProgramLogRepSchemeId")
+                    b.HasIndex("WorkoutLogRepSchemeId")
                         .IsUnique();
 
                     b.HasIndex("UserId");
@@ -361,9 +361,9 @@ namespace PowerBuddy.Context.Migrations
                     b.ToTable("NotificationInteraction");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLog", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLog", b =>
                 {
-                    b.Property<int>("ProgramLogId")
+                    b.Property<int>("WorkoutLogId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -392,7 +392,7 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<bool>("Sunday")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TemplateProgramId")
+                    b.Property<int?>("TemplateWorkoutId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Thursday")
@@ -407,16 +407,16 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<bool>("Wednesday")
                         .HasColumnType("bit");
 
-                    b.HasKey("ProgramLogId");
+                    b.HasKey("WorkoutLogId");
 
-                    b.HasIndex("TemplateProgramId");
+                    b.HasIndex("TemplateWorkoutId");
 
-                    b.ToTable("ProgramLog");
+                    b.ToTable("WorkoutLog");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogDay", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogDay", b =>
                 {
-                    b.Property<int>("ProgramLogDayId")
+                    b.Property<int>("WorkoutLogDayId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -430,22 +430,22 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProgramLogWeekId")
+                    b.Property<int>("WorkoutLogWeekId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProgramLogDayId");
+                    b.HasKey("WorkoutLogDayId");
 
-                    b.HasIndex("ProgramLogWeekId");
+                    b.HasIndex("WorkoutLogWeekId");
 
-                    b.ToTable("ProgramLogDay");
+                    b.ToTable("WorkoutLogDay");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogExercise", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogExercise", b =>
                 {
-                    b.Property<int>("ProgramLogExerciseId")
+                    b.Property<int>("WorkoutLogExerciseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -462,29 +462,29 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<bool?>("PersonalBest")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ProgramLogDayId")
+                    b.Property<int>("WorkoutLogDayId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramLogExerciseTonnageId")
+                    b.Property<int>("WorkoutLogExerciseTonnageId")
                         .HasColumnType("int");
 
                     b.Property<int?>("WorkoutTemplateId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProgramLogExerciseId");
+                    b.HasKey("WorkoutLogExerciseId");
 
                     b.HasIndex("ExerciseId");
 
-                    b.HasIndex("ProgramLogDayId");
+                    b.HasIndex("WorkoutLogDayId");
 
                     b.HasIndex("WorkoutTemplateId");
 
-                    b.ToTable("ProgramLogExercise");
+                    b.ToTable("WorkoutLogExercise");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogExerciseAudit", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogExerciseAudit", b =>
                 {
-                    b.Property<int>("ProgramLogExerciseAuditId")
+                    b.Property<int>("WorkoutLogExerciseAuditId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -501,14 +501,14 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProgramLogExerciseAuditId");
+                    b.HasKey("WorkoutLogExerciseAuditId");
 
-                    b.ToTable("ProgramLogExerciseAudit");
+                    b.ToTable("WorkoutLogExerciseAudit");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogExerciseTonnage", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogExerciseTonnage", b =>
                 {
-                    b.Property<int>("ProgramLogExerciseTonnageId")
+                    b.Property<int>("WorkoutLogExerciseTonnageId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -519,23 +519,23 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<decimal>("ExerciseTonnage")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProgramLogExerciseId")
+                    b.Property<int>("WorkoutLogExerciseId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProgramLogExerciseTonnageId");
+                    b.HasKey("WorkoutLogExerciseTonnageId");
 
-                    b.HasIndex("ProgramLogExerciseId")
+                    b.HasIndex("WorkoutLogExerciseId")
                         .IsUnique();
 
-                    b.ToTable("ProgramLogExerciseTonnage");
+                    b.ToTable("WorkoutLogExerciseTonnage");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogRepScheme", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogRepScheme", b =>
                 {
-                    b.Property<int>("ProgramLogRepSchemeId")
+                    b.Property<int>("WorkoutLogRepSchemeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -555,7 +555,7 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<decimal?>("Percentage")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProgramLogExerciseId")
+                    b.Property<int>("WorkoutLogExerciseId")
                         .HasColumnType("int");
 
                     b.Property<int?>("RepsCompleted")
@@ -567,16 +567,16 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<decimal>("WeightLifted")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("ProgramLogRepSchemeId");
+                    b.HasKey("WorkoutLogRepSchemeId");
 
-                    b.HasIndex("ProgramLogExerciseId");
+                    b.HasIndex("WorkoutLogExerciseId");
 
-                    b.ToTable("ProgramLogRepScheme");
+                    b.ToTable("WorkoutLogRepScheme");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogWeek", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogWeek", b =>
                 {
-                    b.Property<int>("ProgramLogWeekId")
+                    b.Property<int>("WorkoutLogWeekId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -584,7 +584,7 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProgramLogId")
+                    b.Property<int>("WorkoutLogId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
@@ -596,11 +596,11 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<int>("WeekNo")
                         .HasColumnType("int");
 
-                    b.HasKey("ProgramLogWeekId");
+                    b.HasKey("WorkoutLogWeekId");
 
-                    b.HasIndex("ProgramLogId");
+                    b.HasIndex("WorkoutLogId");
 
-                    b.ToTable("ProgramLogWeek");
+                    b.ToTable("WorkoutLogWeek");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.Quote", b =>
@@ -733,21 +733,21 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<int>("ExerciseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TemplateProgramId")
+                    b.Property<int>("TemplateWorkoutId")
                         .HasColumnType("int");
 
                     b.HasKey("TemplateExerciseCollectionId");
 
                     b.HasIndex("ExerciseId");
 
-                    b.HasIndex("TemplateProgramId");
+                    b.HasIndex("TemplateWorkoutId");
 
                     b.ToTable("TemplateExerciseCollection");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateProgram", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateWorkout", b =>
                 {
-                    b.Property<int>("TemplateProgramId")
+                    b.Property<int>("TemplateWorkoutId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -779,14 +779,14 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<string>("WeightProgressionType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TemplateProgramId");
+                    b.HasKey("TemplateWorkoutId");
 
-                    b.ToTable("TemplateProgram");
+                    b.ToTable("TemplateWorkout");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateProgramAudit", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateWorkoutAudit", b =>
                 {
-                    b.Property<int>("TemplateProgramAuditId")
+                    b.Property<int>("TemplateWorkoutAuditId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -794,19 +794,19 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TemplateProgramId")
+                    b.Property<int>("TemplateWorkoutId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("TemplateProgramAuditId");
+                    b.HasKey("TemplateWorkoutAuditId");
 
-                    b.HasIndex("TemplateProgramId");
+                    b.HasIndex("TemplateWorkoutId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TemplateProgramAudit");
+                    b.ToTable("TemplateWorkoutAudit");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateRepScheme", b =>
@@ -854,7 +854,7 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<int>("TemplateId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TemplateProgramId")
+                    b.Property<int?>("TemplateWorkoutId")
                         .HasColumnType("int");
 
                     b.Property<int>("WeekNo")
@@ -862,7 +862,7 @@ namespace PowerBuddy.Context.Migrations
 
                     b.HasKey("TemplateWeekId");
 
-                    b.HasIndex("TemplateProgramId");
+                    b.HasIndex("TemplateWorkoutId");
 
                     b.ToTable("TemplateWeek");
                 });
@@ -1073,7 +1073,7 @@ namespace PowerBuddy.Context.Migrations
                     b.Property<bool>("Sunday")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TemplateProgramId")
+                    b.Property<int?>("TemplateWorkoutId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Thursday")
@@ -1201,9 +1201,9 @@ namespace PowerBuddy.Context.Migrations
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("PowerBuddy.Data.Entities.ProgramLogRepScheme", "ProgramLogRepScheme")
+                    b.HasOne("PowerBuddy.Data.Entities.WorkoutLogRepScheme", "WorkoutLogRepScheme")
                         .WithOne("LiftingStatAudit")
-                        .HasForeignKey("PowerBuddy.Data.Entities.LiftingStatAudit", "ProgramLogRepSchemeId")
+                        .HasForeignKey("PowerBuddy.Data.Entities.LiftingStatAudit", "WorkoutLogRepSchemeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PowerBuddy.Data.Entities.User", "User")
@@ -1212,30 +1212,30 @@ namespace PowerBuddy.Context.Migrations
 
                     b.Navigation("Exercise");
 
-                    b.Navigation("ProgramLogRepScheme");
+                    b.Navigation("WorkoutLogRepScheme");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLog", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLog", b =>
                 {
-                    b.HasOne("PowerBuddy.Data.Entities.TemplateProgram", "TemplateProgram")
+                    b.HasOne("PowerBuddy.Data.Entities.TemplateWorkout", "TemplateWorkout")
                         .WithMany()
-                        .HasForeignKey("TemplateProgramId");
+                        .HasForeignKey("TemplateWorkoutId");
 
-                    b.Navigation("TemplateProgram");
+                    b.Navigation("TemplateWorkout");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogDay", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogDay", b =>
                 {
-                    b.HasOne("PowerBuddy.Data.Entities.ProgramLogWeek", null)
-                        .WithMany("ProgramLogDays")
-                        .HasForeignKey("ProgramLogWeekId")
+                    b.HasOne("PowerBuddy.Data.Entities.WorkoutLogWeek", null)
+                        .WithMany("WorkoutLogDays")
+                        .HasForeignKey("WorkoutLogWeekId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogExercise", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogExercise", b =>
                 {
                     b.HasOne("PowerBuddy.Data.Entities.Exercise", "Exercise")
                         .WithMany()
@@ -1243,9 +1243,9 @@ namespace PowerBuddy.Context.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PowerBuddy.Data.Entities.ProgramLogDay", null)
-                        .WithMany("ProgramLogExercises")
-                        .HasForeignKey("ProgramLogDayId")
+                    b.HasOne("PowerBuddy.Data.Entities.WorkoutLogDay", null)
+                        .WithMany("WorkoutLogExercises")
+                        .HasForeignKey("WorkoutLogDayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1258,33 +1258,33 @@ namespace PowerBuddy.Context.Migrations
                     b.Navigation("WorkoutTemplate");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogExerciseTonnage", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogExerciseTonnage", b =>
                 {
-                    b.HasOne("PowerBuddy.Data.Entities.ProgramLogExercise", "ProgramLogExercise")
-                        .WithOne("ProgramLogExerciseTonnage")
-                        .HasForeignKey("PowerBuddy.Data.Entities.ProgramLogExerciseTonnage", "ProgramLogExerciseId")
+                    b.HasOne("PowerBuddy.Data.Entities.WorkoutLogExercise", "WorkoutLogExercise")
+                        .WithOne("WorkoutLogExerciseTonnage")
+                        .HasForeignKey("PowerBuddy.Data.Entities.WorkoutLogExerciseTonnage", "WorkoutLogExerciseId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Navigation("ProgramLogExercise");
+                    b.Navigation("WorkoutLogExercise");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogRepScheme", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogRepScheme", b =>
                 {
-                    b.HasOne("PowerBuddy.Data.Entities.ProgramLogExercise", null)
-                        .WithMany("ProgramLogRepSchemes")
-                        .HasForeignKey("ProgramLogExerciseId")
+                    b.HasOne("PowerBuddy.Data.Entities.WorkoutLogExercise", null)
+                        .WithMany("WorkoutLogRepSchemes")
+                        .HasForeignKey("WorkoutLogExerciseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogWeek", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogWeek", b =>
                 {
-                    b.HasOne("PowerBuddy.Data.Entities.ProgramLog", "ProgramLog")
-                        .WithMany("ProgramLogWeeks")
-                        .HasForeignKey("ProgramLogId")
+                    b.HasOne("PowerBuddy.Data.Entities.WorkoutLog", "WorkoutLog")
+                        .WithMany("WorkoutLogWeeks")
+                        .HasForeignKey("WorkoutLogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProgramLog");
+                    b.Navigation("WorkoutLog");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateDay", b =>
@@ -1321,18 +1321,18 @@ namespace PowerBuddy.Context.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PowerBuddy.Data.Entities.TemplateProgram", null)
+                    b.HasOne("PowerBuddy.Data.Entities.TemplateWorkout", null)
                         .WithMany("TemplateExerciseCollection")
-                        .HasForeignKey("TemplateProgramId");
+                        .HasForeignKey("TemplateWorkoutId");
 
                     b.Navigation("Exercise");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateProgramAudit", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateWorkoutAudit", b =>
                 {
-                    b.HasOne("PowerBuddy.Data.Entities.TemplateProgram", "TemplateProgram")
+                    b.HasOne("PowerBuddy.Data.Entities.TemplateWorkout", "TemplateWorkout")
                         .WithMany()
-                        .HasForeignKey("TemplateProgramId")
+                        .HasForeignKey("TemplateWorkoutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1340,7 +1340,7 @@ namespace PowerBuddy.Context.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("TemplateProgram");
+                    b.Navigation("TemplateWorkout");
 
                     b.Navigation("User");
                 });
@@ -1356,9 +1356,9 @@ namespace PowerBuddy.Context.Migrations
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateWeek", b =>
                 {
-                    b.HasOne("PowerBuddy.Data.Entities.TemplateProgram", null)
+                    b.HasOne("PowerBuddy.Data.Entities.TemplateWorkout", null)
                         .WithMany("TemplateWeeks")
-                        .HasForeignKey("TemplateProgramId");
+                        .HasForeignKey("TemplateWorkoutId");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.User", b =>
@@ -1426,31 +1426,31 @@ namespace PowerBuddy.Context.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLog", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLog", b =>
                 {
-                    b.Navigation("ProgramLogWeeks");
+                    b.Navigation("WorkoutLogWeeks");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogDay", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogDay", b =>
                 {
-                    b.Navigation("ProgramLogExercises");
+                    b.Navigation("WorkoutLogExercises");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogExercise", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogExercise", b =>
                 {
-                    b.Navigation("ProgramLogExerciseTonnage");
+                    b.Navigation("WorkoutLogExerciseTonnage");
 
-                    b.Navigation("ProgramLogRepSchemes");
+                    b.Navigation("WorkoutLogRepSchemes");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogRepScheme", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogRepScheme", b =>
                 {
                     b.Navigation("LiftingStatAudit");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogWeek", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLogWeek", b =>
                 {
-                    b.Navigation("ProgramLogDays");
+                    b.Navigation("WorkoutLogDays");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateDay", b =>
@@ -1463,7 +1463,7 @@ namespace PowerBuddy.Context.Migrations
                     b.Navigation("TemplateRepSchemes");
                 });
 
-            modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateProgram", b =>
+            modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateWorkout", b =>
                 {
                     b.Navigation("TemplateExerciseCollection");
 

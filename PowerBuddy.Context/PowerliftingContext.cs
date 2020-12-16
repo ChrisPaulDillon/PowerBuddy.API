@@ -35,6 +35,7 @@ namespace PowerBuddy.Data.Context
 
         public DbSet<WorkoutLog> WorkoutLog { get; set; }
         public DbSet<WorkoutDay> WorkoutDay { get; set; }
+        public DbSet<WorkoutExerciseAudit> WorkoutExerciseAudit { get; set; }
         public DbSet<WorkoutExercise> WorkoutExercise { get; set; }
         public DbSet<WorkoutSet> WorkoutSet { get; set; }
         public DbSet<WorkoutTemplate> WorkoutTemplate { get; set; }
@@ -63,8 +64,6 @@ namespace PowerBuddy.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProgramLogExerciseTonnage>().ToTable("ProgramLogExerciseTonnage");
-
             //System
             modelBuilder.Entity<Gender>().ToTable("Gender");
             modelBuilder.Entity<MemberStatus>().ToTable("MemberStatus");
@@ -72,6 +71,7 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<IdentityRole>().ToTable("IdentityRole");
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
+            modelBuilder.Entity<User>().ToTable("IdentityUser");
 
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
 
@@ -91,21 +91,22 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");
             modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay");
             modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
+            modelBuilder.Entity<ProgramLogExerciseTonnage>().ToTable("ProgramLogExerciseTonnage");
+            modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
             modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
 
             modelBuilder.Entity<WorkoutLog>().ToTable("WorkoutLog");
             modelBuilder.Entity<WorkoutDay>().ToTable("WorkoutDay");
             modelBuilder.Entity<WorkoutExercise>().ToTable("WorkoutExercise");
+            modelBuilder.Entity<WorkoutExerciseAudit>().ToTable("WorkoutExerciseAudit");
             modelBuilder.Entity<WorkoutSet>().ToTable("WorkoutSet");
             modelBuilder.Entity<WorkoutTemplate>().ToTable("WorkoutTemplate");
 
             modelBuilder.Entity<TemplateProgramAudit>().ToTable("TemplateProgramAudit");
 
-            modelBuilder.Entity<User>().ToTable("IdentityUser");
 
-
-            modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
             modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
+
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
             modelBuilder.Entity<TemplateWeek>().ToTable("TemplateWeek");
             modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
@@ -142,11 +143,11 @@ namespace PowerBuddy.Data.Context
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ProgramLogExercise>() // This one should always be the table with the foreign key inside of it, NOT the primary key
-              .HasOne(x => x.WorkoutTemplate)
-              .WithMany(x => x.WorkoutExercises)
-              .HasForeignKey(x => x.WorkoutTemplateId)
-              .IsRequired(false);
+            //modelBuilder.Entity<ProgramLogExercise>() // This one should always be the table with the foreign key inside of it, NOT the primary key
+            //  .HasOne(x => x.ProgramTemplate)
+            //  .WithMany(x => x.ProgramExercises)
+            //  .HasForeignKey(x => x.ProgramTemplateId)
+            //  .IsRequired(false);
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
 
@@ -217,7 +218,7 @@ namespace PowerBuddy.Data.Context
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
 
-            //Workouts
+            //Programs
 
             modelBuilder.Entity<WorkoutExercise>()
                 .HasOne(x => x.WorkoutExerciseTonnage)
@@ -225,7 +226,6 @@ namespace PowerBuddy.Data.Context
                 .HasForeignKey<WorkoutExerciseTonnage>(x => x.WorkoutExerciseId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
-
 
             modelBuilder.Entity<WorkoutSet>()
                 .HasOne(x => x.LiftingStatAudit)

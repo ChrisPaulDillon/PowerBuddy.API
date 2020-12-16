@@ -41,8 +41,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var programLogStats = await _mediator.Send(new GetAllProgramLogStatsQuery(_userId)).ConfigureAwait(false);
-                return Ok(programLogStats);
+                var ProgramLogStats = await _mediator.Send(new GetAllProgramLogStatsQuery(_userId)).ConfigureAwait(false);
+                return Ok(ProgramLogStats);
             }
             catch (ValidationException ex)
             {
@@ -66,8 +66,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var programLog = await _mediator.Send(new GetActiveProgramLogByUserIdQuery(_userId)).ConfigureAwait(false);
-                return Ok(programLog);
+                var ProgramLog = await _mediator.Send(new GetActiveProgramLogByUserIdQuery(_userId)).ConfigureAwait(false);
+                return Ok(ProgramLog);
             }
             catch (ValidationException ex)
             {
@@ -83,17 +83,17 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-        [HttpGet("{programLogId:int}")]
+        [HttpGet("{ProgramLogId:int}")]
         [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetProgramLogById(int programLogId)
+        public async Task<IActionResult> GetProgramLogById(int ProgramLogId)
         {
             try
             {
-                var programLog = await _mediator.Send(new GetProgramLogByIdQuery(programLogId, _userId)).ConfigureAwait(false);
-                return Ok(programLog);
+                var ProgramLog = await _mediator.Send(new GetProgramLogByIdQuery(ProgramLogId, _userId)).ConfigureAwait(false);
+                return Ok(ProgramLog);
             }
             catch (ValidationException ex)
             {
@@ -117,11 +117,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateProgramLog([FromBody] ProgramLogDTO programLogDTO)
+        public async Task<IActionResult> UpdateProgramLog([FromBody] ProgramLogDTO ProgramLogDTO)
         {
             try
             {
-                var result = await _mediator.Send(new UpdateProgramLogCommand(programLogDTO, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateProgramLogCommand(ProgramLogDTO, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (ValidationException ex)
@@ -142,11 +142,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ProgramLogDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateProgramLogFromScratch([FromBody] ProgramLogInputScratchDTO programLog)
+        public async Task<IActionResult> CreateProgramLogFromScratch([FromBody] ProgramLogInputScratchDTO ProgramLog)
         {
             try
             {
-                var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(programLog, _userId)).ConfigureAwait(false);
+                var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(ProgramLog, _userId)).ConfigureAwait(false);
                 return Ok(createdLog);
             }
             catch (ValidationException ex)
@@ -169,12 +169,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] ProgramLogTemplateInputDTO programLogDTO)
+        public async Task<IActionResult> CreateProgramLogFromTemplate(int templateProgramId, [FromBody] ProgramLogTemplateInputDTO ProgramLogDTO)
         {
             try
             {
-                var programLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(programLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
-                return Ok(programLog);
+                var ProgramLog = await _mediator.Send(new CreateProgramLogFromTemplateCommand(ProgramLogDTO, templateProgramId, _userId)).ConfigureAwait(false);
+                return Ok(ProgramLog);
             }
             catch (ValidationException ex)
             {
@@ -198,15 +198,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-        [HttpDelete("{programLogId:int}")]
+        [HttpDelete("{ProgramLogId:int}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteProgramLog(int programLogId)
+        public async Task<IActionResult> DeleteProgramLog(int ProgramLogId)
         {
             try
             {
-                var result = await _mediator.Send(new DeleteProgramLogCommand(programLogId, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteProgramLogCommand(ProgramLogId, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (ValidationException ex)

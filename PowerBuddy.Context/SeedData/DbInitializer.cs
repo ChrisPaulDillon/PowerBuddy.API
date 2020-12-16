@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using PowerBuddy.Context;
-using PowerBuddy.Data.Context.SeedData.Exercises;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.SeedData.MuscleGroups;
 using PowerBuddy.Data.SeedData.TemplatePrograms;
