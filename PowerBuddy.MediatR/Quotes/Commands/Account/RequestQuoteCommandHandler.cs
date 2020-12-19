@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using PowerBuddy.Context;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.System;
 using PowerBuddy.Data.Entities;

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
-using PowerBuddy.Context;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 

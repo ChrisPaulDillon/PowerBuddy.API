@@ -7,7 +7,6 @@ using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PowerBuddy.Context;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Exceptions.Account;

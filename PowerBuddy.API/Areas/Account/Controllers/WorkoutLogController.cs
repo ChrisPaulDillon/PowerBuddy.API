@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
@@ -11,6 +10,7 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
+using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.MediatR.Workouts.Commands;
 using PowerBuddy.MediatR.Workouts.Querys;
 
@@ -160,30 +160,30 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-        //[HttpDelete("{WorkoutLogId:int}")]
-        //[ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        //public async Task<IActionResult> DeleteWorkoutLog(int WorkoutLogId)
-        //{
-        //    try
-        //    {
-        //        var result = await _mediator.Send(new DeleteWorkoutLogCommand(WorkoutLogId, _userId)).ConfigureAwait(false);
-        //        return Ok(result);
-        //    }
-        //    catch (ValidationException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (WorkoutLogNotFoundException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //    catch (UnauthorisedUserException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        [HttpDelete("{WorkoutLogId:int}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeleteWorkoutLog(int workoutLogId)
+        {
+            try
+            {
+                var result = await _mediator.Send(new DeleteWorkoutLogCommand(workoutLogId, _userId)).ConfigureAwait(false);
+                return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (WorkoutLogNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         //[HttpGet("Calendar")]
         //[ProducesResponseType(typeof(IEnumerable<DateTime>), StatusCodes.Status200OK)]

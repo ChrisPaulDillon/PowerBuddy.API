@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.DTOs.ProgramLogs;
-using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.Factories
 {

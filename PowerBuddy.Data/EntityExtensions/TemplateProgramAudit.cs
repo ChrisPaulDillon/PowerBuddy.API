@@ -1,6 +1,4 @@
-﻿using PowerBuddy.Data.Entities;
-
-namespace PowerBuddy.Data.Entities
+﻿namespace PowerBuddy.Data.Entities
 {
     public partial class TemplateProgramAudit
     {

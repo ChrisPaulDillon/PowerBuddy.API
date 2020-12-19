@@ -80,7 +80,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<bool>(x => x.Friday, d => d.MapFrom(src => src.Friday))
                 .ForMember<bool>(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember<bool>(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
-                .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate));
+                .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
+                .ForMember(x => x.CustomName, d => d.MapFrom(src => src.CustomName));
 
             //into entity
             CreateMap<WorkoutDayDTO, WorkoutDay>()
@@ -101,7 +102,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.Date, d => d.MapFrom<DateTime>(src => src.Date))
                 .ForMember(x => x.Completed, d => d.MapFrom<bool>(src => src.Completed))
                 .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises))
-                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName ?? null));
+                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName));
 
             CreateMap<WorkoutExercise, WorkoutExerciseDTO>()
                 .ForMember(x => x.WorkoutExerciseId, d => d.MapFrom<int>(src => src.WorkoutExerciseId))

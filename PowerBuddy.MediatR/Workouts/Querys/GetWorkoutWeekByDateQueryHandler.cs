@@ -10,7 +10,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
-using PowerBuddy.Data.Entities;
 using PowerBuddy.Services.Workouts;
 
 namespace PowerBuddy.MediatR.Workouts.Querys
@@ -55,8 +54,8 @@ namespace PowerBuddy.MediatR.Workouts.Querys
 
             var workouts = await _context.WorkoutDay
                 .AsNoTracking()
-                .Where(x => x.Date >= minDate && x.Date <= maxDate)
-                //.ProjectTo<WorkoutDayDTO>(_mapper.ConfigurationProvider)
+                .Where(x => x.Date >= minDate && x.Date <= maxDate && x.UserId == request.UserId)
+                .ProjectTo<WorkoutDayDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             var weekDates = Enumerable
@@ -72,10 +71,10 @@ namespace PowerBuddy.MediatR.Workouts.Querys
                 {
                     continue;
                 }
-                workouts.Add(new WorkoutDay() { Date = dayDate});
+                workouts.Add(new WorkoutDayDTO() { Date = dayDate});
             }
 
-            return new List<WorkoutDayDTO>();
+            return workouts;
         }
     }
 }

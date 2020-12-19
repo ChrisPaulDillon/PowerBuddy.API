@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.API.AuthorizationHandlers;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Middleware;
-using PowerBuddy.Context;
 using PowerBuddy.Data.AutoMapper;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;

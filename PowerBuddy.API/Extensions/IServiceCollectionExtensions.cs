@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using PowerBuddy.Context;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Data.Util;
@@ -204,6 +203,8 @@ namespace PowerBuddy.API.Extensions
             // Workout Logs Query & Command Handlers
             services.AddMediatR(typeof(CreateWorkoutLogFromTemplateCommandHandler));
             services.AddMediatR(typeof(CreateWorkoutTemplateCommandHandler));
+            services.AddMediatR(typeof(DeleteWorkoutLogCommandHandler));
+
             services.AddMediatR(typeof(GetWorkoutWeekByDateQueryHandler));
 
             // Workout Exercises

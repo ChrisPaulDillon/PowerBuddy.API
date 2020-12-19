@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.Entities
 {

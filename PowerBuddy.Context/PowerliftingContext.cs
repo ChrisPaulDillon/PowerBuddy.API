@@ -155,7 +155,7 @@ namespace PowerBuddy.Data.Context
 
             modelBuilder.Entity<WorkoutLog>()
                 .HasMany(x => x.WorkoutDays)
-                .WithOne()
+                .WithOne(x => x.WorkoutLog)
                 .HasForeignKey(x => x.WorkoutLogId)
                 .OnDelete(DeleteBehavior.Cascade);
 

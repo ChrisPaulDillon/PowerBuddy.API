@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Entities;
 

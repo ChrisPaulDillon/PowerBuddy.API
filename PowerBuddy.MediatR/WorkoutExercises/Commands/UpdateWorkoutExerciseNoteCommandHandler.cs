@@ -5,7 +5,6 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Exceptions.Account;
 
 namespace PowerBuddy.MediatR.WorkoutExercises.Commands
 {

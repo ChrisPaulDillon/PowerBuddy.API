@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -84,6 +83,7 @@ namespace PowerBuddy.MediatR.Workouts.Commands
             workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
             workoutLog.StartDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
             workoutLog.EndDate = workoutLog.StartDate.AddDays(templateProgram.NoOfWeeks * 7);
+            workoutLog.CustomName ??= templateProgram.Name;
 
             _context.WorkoutLog.Add(workoutLog);
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);

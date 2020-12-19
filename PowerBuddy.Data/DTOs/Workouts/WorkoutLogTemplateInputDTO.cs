@@ -17,6 +17,7 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
         public int DayCount { get; set; }
+        public string CustomName { get; set; }
         public IEnumerable<TemplateWeightInputDTO> WeightInputs { get; set; }
         public IEnumerable<TemplateWeightInputDTO> IncrementalWeightInputs { get; set; }
         public int RepeatProgramCount { get; set; }
