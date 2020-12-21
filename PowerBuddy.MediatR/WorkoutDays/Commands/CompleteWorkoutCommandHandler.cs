@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,14 +9,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.LiftingStats;
-using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Services.LiftingStats;
-using PowerBuddy.Services.ProgramLogs;
 using PowerBuddy.Services.Workouts;
 
 namespace PowerBuddy.MediatR.WorkoutDays.Commands
@@ -74,58 +70,55 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
             var workoutExercises = request.WorkoutDayDTO.WorkoutExercises.ToList();
 
             var totalPersonalBests = new List<LiftingStatAuditDTO>();
-            var updatedWorkoutExercises = new List<WorkoutExerciseDTO>();
-
+  
             foreach (var workoutExercise in workoutExercises)
             {
                 //Get the highest weight lifted for the given exercise and each rep
                 var maxWeightForEachSet = _workoutService.GetHighestWeightRepSchemeForEachRepFromCollection(workoutExercise.WorkoutSets);
                 var repRangesForExercise = maxWeightForEachSet.Select(x => (int)x.RepsCompleted).ToList();
-                var liftingStatPb = await _liftingStatService.GetPersonalBestsForRepRangeAndExercise(repRangesForExercise, workoutExercise.ExerciseId, request.UserId);
+                var personalBestsOnExercise = await _liftingStatService.GetPersonalBestsForRepRangeAndExercise(repRangesForExercise, workoutExercise.ExerciseId, request.UserId);
 
-                var updateWorkoutSets = workoutExercise.WorkoutSets.ToList(); //repSchemes to be updated
+                var personalBest = new LiftingStatAudit();
+                foreach (var workoutSet in maxWeightForEachSet.Where(repScheme => repScheme.RepsCompleted != 0))
+                {
 
-                //foreach (var workoutSet in maxWeightForEachSet.Where(repScheme => repScheme.RepsCompleted != 0))
-                //{
-                  
+                    if (personalBestsOnExercise.TryGetValue(Tuple.Create(workoutExercise.ExerciseId, (int)workoutSet.RepsCompleted), out personalBest)) //Personal best exists
+                    {
+                        if (workoutSet.WeightLifted <= personalBest.Weight)
+                        {
+                            continue; //Personal best was higher than max weight
+                        }
+                    }
 
-                //    if (liftingStatPb != null) //Personal best exists
-                //    {
-                //        if (workoutSet.WeightLifted <= liftingStatPb.Weight)
-                //        {
-                //            continue; //Personal best was higher than max weight
-                //        }
-                //    }
+                    var hitPersonalBest = _entityFactory.CreateLiftingStatAudit(
+                        workoutExercise.ExerciseId,
+                        (int)workoutSet.RepsCompleted,
+                        workoutSet.WeightLifted,
+                        request.WorkoutDayDTO.Date,
+                        request.UserId);
 
-                //    var hitPersonalBest = _entityFactory.CreateLiftingStatAudit(
-                //        workoutExercise.ExerciseId,
-                //        (int)workoutSet.RepsCompleted,
-                //        workoutSet.WeightLifted,
-                //        request.WorkoutDayDTO.Date,
-                //        workoutSet.WorkoutSetId,
-                //        request.UserId);
+                    //_context.LiftingStatAudit.Add(hitPersonalBest);
 
-                //    _context.LiftingStatAudit.Add(hitPersonalBest);
+                    //hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == workoutExercise.ExerciseId);
+                    totalPersonalBests.Add(_mapper.Map<LiftingStatAuditDTO>(hitPersonalBest));
+                    //_context.Entry(hitPersonalBest.Exercise).State = EntityState.Detached;
 
-                //    hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == workoutExercise.ExerciseId);
-                //    totalPersonalBests.Add(_mapper.Map<LiftingStatAuditDTO>(hitPersonalBest));
-                //    _context.Entry(hitPersonalBest.Exercise).State = EntityState.Detached;
+    
+                    workoutSet.NoOfReps = (int)workoutSet.RepsCompleted;
+                    var setEntity = _mapper.Map<WorkoutSet>(workoutSet);
+                    hitPersonalBest.WorkoutSet = setEntity;
+                    //setEntity.LiftingStatAudit = hitPersonalBest;
+                    //setEntity.LiftingStatAuditId = hitPersonalBest.LiftingStatAuditId;
+                    _context.LiftingStatAudit.Add(hitPersonalBest);
 
-                //    workoutSet.PersonalBest = true;
-                //    workoutSet.NoOfReps = (int)workoutSet.RepsCompleted;
-                //    workoutSet.LiftingStatAuditId = hitPersonalBest.LiftingStatAuditId;
+                    // workoutSet.LiftingStatAuditId = hitPersonalBest.LiftingStatAuditId;
 
-                //    var index = updateWorkoutSets.FindIndex(a => a.WorkoutSetId == workoutSet.WorkoutSetId);
-                //    updateWorkoutSets[index] = workoutSet; //replace the current program log rep scheme with the newly updated PB
-                //}
-
-                workoutExercise.WorkoutSets= updateWorkoutSets;
-                updatedWorkoutExercises.Add(workoutExercise);
+                    //var index = updateWorkoutSets.FindIndex(a => a.WorkoutSetId == workoutSet.WorkoutSetId);
+                    //updateWorkoutSets[index] = workoutSet; //replace the current program log rep scheme with the newly updated PB
+                }
             }
 
-            request.WorkoutDayDTO.WorkoutExercises = updatedWorkoutExercises;
-
-            _context.WorkoutDay.Update(_mapper.Map<WorkoutDay>(request.WorkoutDayDTO));
+            workoutDay.Completed = true;
             await _context.SaveChangesAsync(cancellationToken);
 
             return totalPersonalBests;

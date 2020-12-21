@@ -5,5 +5,6 @@
         public virtual Exercise Exercise { get; set; }
         public virtual User User { get; set; }
         public virtual ProgramLogRepScheme ProgramLogRepScheme { get; set; }
+        public WorkoutSet WorkoutSet { get; set; }
     }
 }

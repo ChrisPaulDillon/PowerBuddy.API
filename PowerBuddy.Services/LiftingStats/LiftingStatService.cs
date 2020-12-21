@@ -49,7 +49,7 @@ namespace PowerBuddy.Services.LiftingStats
             return weightInputs;
         }
 
-        public async Task<IEnumerable<LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId)
+        public async Task<IDictionary<Tuple<int,int>, LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId)
         {
             var parameters = new string[repRanges.Count() + 1];
             var sqlParameters = new List<SqlParameter>();
@@ -61,7 +61,7 @@ namespace PowerBuddy.Services.LiftingStats
 
             var rawCommand = string
                 .Format(
-                    @"SELECT t.LiftingStatAuditId, t.UserId, t.RepRange, t.Weight, t.ExerciseId, t.DateChanged, t.WorkoutSetId FROM(SELECT RepRange, ExerciseId, UserId, MAX(weight) as weightMax FROM LiftingStatAudit GROUP BY RepRange, ExerciseId, UserId HAVING ExerciseId IN ({0})",
+                    @"SELECT t.LiftingStatAuditId, t.UserId, t.RepRange, t.Weight, t.ExerciseId, t.DateChanged, t.WorkoutSetId FROM(SELECT RepRange, ExerciseId, UserId, MAX(weight) as weightMax FROM LiftingStatAudit GROUP BY RepRange, ExerciseId, UserId HAVING RepRange IN ({0})",
                     string.Join(", ", parameters));
 
             int index = rawCommand.LastIndexOf(',');
@@ -70,8 +70,10 @@ namespace PowerBuddy.Services.LiftingStats
 
             var completeSqlCmd = fixedCmd + rawCommand2;
 
-            return await _context.LiftingStatAudit.FromSqlRaw(completeSqlCmd, sqlParameters.ToArray()).ToListAsync();
-
+            return await _context.LiftingStatAudit
+                .FromSqlRaw(completeSqlCmd, sqlParameters.ToArray())
+                .AsNoTracking()
+                .ToDictionaryAsync(x => new Tuple<int, int>(x.ExerciseId, x.RepRange), x => x);
 
             //return await _context.LiftingStatAudit
             //    .Where(x => repRanges.Any(j => j == x.RepRange) && x.ExerciseId == exerciseId && x.UserId == userId)

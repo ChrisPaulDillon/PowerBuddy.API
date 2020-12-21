@@ -100,7 +100,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Member
                         (int)repScheme.RepsCompleted, 
                         repScheme.WeightLifted, 
                         request.ProgramLogDayDTO.Date, 
-                        repScheme.ProgramLogRepSchemeId, 
+                       // repScheme.ProgramLogRepSchemeId, 
                         request.UserId);
 
                     _context.LiftingStatAudit.Add(hitPersonalBest);

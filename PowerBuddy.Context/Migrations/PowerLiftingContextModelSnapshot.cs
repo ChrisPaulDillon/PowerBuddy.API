@@ -253,9 +253,6 @@ namespace PowerBuddy.Data.Context.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("WorkoutSetId")
-                        .IsUnique();
-
                     b.ToTable("LiftingStatAudit");
                 });
 
@@ -1072,7 +1069,7 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LiftingStatAuditId")
+                    b.Property<int?>("LiftingStatAuditId")
                         .HasColumnType("int");
 
                     b.Property<int>("NoOfReps")
@@ -1088,6 +1085,8 @@ namespace PowerBuddy.Data.Context.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("WorkoutSetId");
+
+                    b.HasIndex("LiftingStatAuditId");
 
                     b.HasIndex("WorkoutExerciseId");
 
@@ -1159,11 +1158,6 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.HasOne("PowerBuddy.Data.Entities.User", "User")
                         .WithMany("LiftingStatAudit")
                         .HasForeignKey("UserId");
-
-                    b.HasOne("PowerBuddy.Data.Entities.WorkoutSet", null)
-                        .WithOne("LiftingStatAudit")
-                        .HasForeignKey("PowerBuddy.Data.Entities.LiftingStatAudit", "WorkoutSetId")
-                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Exercise");
 
@@ -1390,10 +1384,17 @@ namespace PowerBuddy.Data.Context.Migrations
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutSet", b =>
                 {
+                    b.HasOne("PowerBuddy.Data.Entities.LiftingStatAudit", null)
+                        .WithOne("WorkoutSet")
+                        .HasForeignKey("PowerBuddy.Data.Entities.WorkoutSet", "LiftingStatAuditId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("PowerBuddy.Data.Entities.WorkoutExercise", null)
                         .WithMany("WorkoutSets")
                         .HasForeignKey("WorkoutExerciseId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("LiftingStatAudit");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.Exercise", b =>
@@ -1413,6 +1414,8 @@ namespace PowerBuddy.Data.Context.Migrations
             modelBuilder.Entity("PowerBuddy.Data.Entities.LiftingStatAudit", b =>
                 {
                     b.Navigation("ProgramLogRepScheme");
+
+                    b.Navigation("WorkoutSet");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.MemberStatus", b =>
@@ -1491,11 +1494,6 @@ namespace PowerBuddy.Data.Context.Migrations
             modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutLog", b =>
                 {
                     b.Navigation("WorkoutDays");
-                });
-
-            modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutSet", b =>
-                {
-                    b.Navigation("LiftingStatAudit");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutTemplate", b =>

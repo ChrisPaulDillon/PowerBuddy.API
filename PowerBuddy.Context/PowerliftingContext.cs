@@ -229,10 +229,17 @@ namespace PowerBuddy.Data.Context
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
-            modelBuilder.Entity<WorkoutSet>()
-                .HasOne(x => x.LiftingStatAudit)
-                .WithOne()
-                .HasForeignKey<LiftingStatAudit>(x => x.WorkoutSetId)
+            //modelBuilder.Entity<WorkoutSet>()
+            //    .HasOne(x => x.LiftingStatAudit)
+            //    .WithOne(x => x.WorkoutSet)
+            //    .HasForeignKey<LiftingStatAudit>(x => x.WorkoutSetId)
+            //    .OnDelete(DeleteBehavior.NoAction)
+            //    .IsRequired(false);
+
+            modelBuilder.Entity<LiftingStatAudit>()
+                .HasOne(x => x.WorkoutSet)
+                .WithOne(x => x.LiftingStatAudit)
+                .HasForeignKey<WorkoutSet>(x => x.LiftingStatAuditId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
         }

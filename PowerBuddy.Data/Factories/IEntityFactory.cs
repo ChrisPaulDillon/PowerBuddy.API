@@ -5,7 +5,7 @@ namespace PowerBuddy.Data.Factories
 {
     public interface IEntityFactory
     {
-        public LiftingStatAudit CreateLiftingStatAudit(int exerciseId, int repRange, decimal weight, DateTime date, int programLogRepSchemeId, string userId);
+        public LiftingStatAudit CreateLiftingStatAudit(int exerciseId, int repRange, decimal weight, DateTime date, string userId);
 
         //ProgramLogs
         public ProgramLogRepScheme CreateRepScheme(int programLogExerciseId, int setNo, int noOfReps, decimal weightLifted);

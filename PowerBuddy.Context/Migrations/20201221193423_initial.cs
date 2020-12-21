@@ -444,6 +444,35 @@ namespace PowerBuddy.Data.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LiftingStatAudit",
+                columns: table => new
+                {
+                    LiftingStatAuditId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExerciseId = table.Column<int>(type: "int", nullable: false),
+                    Weight = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RepRange = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DateChanged = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    WorkoutSetId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LiftingStatAudit", x => x.LiftingStatAuditId);
+                    table.ForeignKey(
+                        name: "FK_LiftingStatAudit_Exercise_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalTable: "Exercise",
+                        principalColumn: "ExerciseId");
+                    table.ForeignKey(
+                        name: "FK_LiftingStatAudit_IdentityUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "IdentityUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TemplateProgramAudit",
                 columns: table => new
                 {
@@ -757,11 +786,23 @@ namespace PowerBuddy.Data.Context.Migrations
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AMRAP = table.Column<bool>(type: "bit", nullable: false),
                     RepsCompleted = table.Column<int>(type: "int", nullable: true),
-                    LiftingStatAuditId = table.Column<int>(type: "int", nullable: false)
+                    LiftingStatAuditId = table.Column<int>(type: "int", nullable: true),
+                    LiftingStatAuditId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkoutSet", x => x.WorkoutSetId);
+                    table.ForeignKey(
+                        name: "FK_WorkoutSet_LiftingStatAudit_LiftingStatAuditId",
+                        column: x => x.LiftingStatAuditId,
+                        principalTable: "LiftingStatAudit",
+                        principalColumn: "LiftingStatAuditId");
+                    table.ForeignKey(
+                        name: "FK_WorkoutSet_LiftingStatAudit_LiftingStatAuditId1",
+                        column: x => x.LiftingStatAuditId1,
+                        principalTable: "LiftingStatAudit",
+                        principalColumn: "LiftingStatAuditId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_WorkoutSet_WorkoutExercise_WorkoutExerciseId",
                         column: x => x.WorkoutExerciseId,
@@ -812,52 +853,17 @@ namespace PowerBuddy.Data.Context.Migrations
                 {
                     table.PrimaryKey("PK_ProgramLogRepScheme", x => x.ProgramLogRepSchemeId);
                     table.ForeignKey(
+                        name: "FK_ProgramLogRepScheme_LiftingStatAudit_LiftingStatAuditId",
+                        column: x => x.LiftingStatAuditId,
+                        principalTable: "LiftingStatAudit",
+                        principalColumn: "LiftingStatAuditId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_ProgramLogRepScheme_ProgramLogExercise_ProgramLogExerciseId",
                         column: x => x.ProgramLogExerciseId,
                         principalTable: "ProgramLogExercise",
                         principalColumn: "ProgramLogExerciseId",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LiftingStatAudit",
-                columns: table => new
-                {
-                    LiftingStatAuditId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ExerciseId = table.Column<int>(type: "int", nullable: false),
-                    Weight = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RepRange = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    DateChanged = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ProgramLogRepSchemeId = table.Column<int>(type: "int", nullable: false),
-                    WorkoutSetId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LiftingStatAudit", x => x.LiftingStatAuditId);
-                    table.ForeignKey(
-                        name: "FK_LiftingStatAudit_Exercise_ExerciseId",
-                        column: x => x.ExerciseId,
-                        principalTable: "Exercise",
-                        principalColumn: "ExerciseId");
-                    table.ForeignKey(
-                        name: "FK_LiftingStatAudit_IdentityUser_UserId",
-                        column: x => x.UserId,
-                        principalTable: "IdentityUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_LiftingStatAudit_ProgramLogRepScheme_ProgramLogRepSchemeId",
-                        column: x => x.ProgramLogRepSchemeId,
-                        principalTable: "ProgramLogRepScheme",
-                        principalColumn: "ProgramLogRepSchemeId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_LiftingStatAudit_WorkoutSet_WorkoutSetId",
-                        column: x => x.WorkoutSetId,
-                        principalTable: "WorkoutSet",
-                        principalColumn: "WorkoutSetId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -891,21 +897,9 @@ namespace PowerBuddy.Data.Context.Migrations
                 column: "ExerciseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LiftingStatAudit_ProgramLogRepSchemeId",
-                table: "LiftingStatAudit",
-                column: "ProgramLogRepSchemeId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LiftingStatAudit_UserId",
                 table: "LiftingStatAudit",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LiftingStatAudit_WorkoutSetId",
-                table: "LiftingStatAudit",
-                column: "WorkoutSetId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProgramLog_TemplateProgramId",
@@ -937,6 +931,13 @@ namespace PowerBuddy.Data.Context.Migrations
                 table: "ProgramLogExerciseTonnage",
                 column: "ProgramLogExerciseId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProgramLogRepScheme_LiftingStatAuditId",
+                table: "ProgramLogRepScheme",
+                column: "LiftingStatAuditId",
+                unique: true,
+                filter: "[LiftingStatAuditId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProgramLogRepScheme_ProgramLogExerciseId",
@@ -1027,6 +1028,18 @@ namespace PowerBuddy.Data.Context.Migrations
                 column: "TemplateProgramId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_WorkoutSet_LiftingStatAuditId",
+                table: "WorkoutSet",
+                column: "LiftingStatAuditId",
+                unique: true,
+                filter: "[LiftingStatAuditId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkoutSet_LiftingStatAuditId1",
+                table: "WorkoutSet",
+                column: "LiftingStatAuditId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WorkoutSet_WorkoutExerciseId",
                 table: "WorkoutSet",
                 column: "WorkoutExerciseId");
@@ -1059,13 +1072,13 @@ namespace PowerBuddy.Data.Context.Migrations
                 name: "LiftingLevel");
 
             migrationBuilder.DropTable(
-                name: "LiftingStatAudit");
-
-            migrationBuilder.DropTable(
                 name: "ProgramLogExerciseAudit");
 
             migrationBuilder.DropTable(
                 name: "ProgramLogExerciseTonnage");
+
+            migrationBuilder.DropTable(
+                name: "ProgramLogRepScheme");
 
             migrationBuilder.DropTable(
                 name: "Quote");
@@ -1092,34 +1105,22 @@ namespace PowerBuddy.Data.Context.Migrations
                 name: "WorkoutExerciseTonnage");
 
             migrationBuilder.DropTable(
-                name: "UserSetting");
-
-            migrationBuilder.DropTable(
-                name: "ProgramLogRepScheme");
-
-            migrationBuilder.DropTable(
                 name: "WorkoutSet");
 
             migrationBuilder.DropTable(
-                name: "TemplateExercise");
-
-            migrationBuilder.DropTable(
-                name: "IdentityUser");
+                name: "UserSetting");
 
             migrationBuilder.DropTable(
                 name: "ProgramLogExercise");
 
             migrationBuilder.DropTable(
+                name: "TemplateExercise");
+
+            migrationBuilder.DropTable(
+                name: "LiftingStatAudit");
+
+            migrationBuilder.DropTable(
                 name: "WorkoutExercise");
-
-            migrationBuilder.DropTable(
-                name: "TemplateDay");
-
-            migrationBuilder.DropTable(
-                name: "Gender");
-
-            migrationBuilder.DropTable(
-                name: "MemberStatus");
 
             migrationBuilder.DropTable(
                 name: "ProgramLogDay");
@@ -1128,16 +1129,28 @@ namespace PowerBuddy.Data.Context.Migrations
                 name: "WorkoutTemplate");
 
             migrationBuilder.DropTable(
+                name: "TemplateDay");
+
+            migrationBuilder.DropTable(
+                name: "IdentityUser");
+
+            migrationBuilder.DropTable(
                 name: "Exercise");
 
             migrationBuilder.DropTable(
                 name: "WorkoutDay");
 
             migrationBuilder.DropTable(
+                name: "ProgramLogWeek");
+
+            migrationBuilder.DropTable(
                 name: "TemplateWeek");
 
             migrationBuilder.DropTable(
-                name: "ProgramLogWeek");
+                name: "Gender");
+
+            migrationBuilder.DropTable(
+                name: "MemberStatus");
 
             migrationBuilder.DropTable(
                 name: "ExerciseType");

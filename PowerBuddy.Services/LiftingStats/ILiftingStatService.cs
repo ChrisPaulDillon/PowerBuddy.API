@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.DTOs.Templates;
@@ -12,7 +13,7 @@ namespace PowerBuddy.Services.LiftingStats
 
         IEnumerable<TemplateWeightInputDTO> CalculateNewWeightInput(IEnumerable<TemplateWeightInputDTO> weightInputs, Dictionary<int, decimal> weightIncrements);
 
-        Task<IEnumerable<LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId);
+        Task<IDictionary<Tuple<int, int>, LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId);
 
         Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatForExercise(int exerciseId, string userId);
 
