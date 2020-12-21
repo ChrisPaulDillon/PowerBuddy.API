@@ -7,7 +7,7 @@ namespace PowerBuddy.Data.Factories
 {
     public class DTOFactory : IDTOFactory
     {
-        public LiftingStatAuditDTO CreateLiftingStatAudit(int exerciseId, int repRange, decimal weight, DateTime date, int programLogRepSchemeId, string userId)
+        public LiftingStatAuditDTO CreateLiftingStatAudit(int exerciseId, int repRange, decimal weight, DateTime date, int workoutSetId, string userId)
         {
             return new LiftingStatAuditDTO()
             {
@@ -15,7 +15,7 @@ namespace PowerBuddy.Data.Factories
                 ExerciseId = exerciseId,
                 Weight = weight,
                 DateChanged = date,
-                ProgramLogRepSchemeId = programLogRepSchemeId,
+                WorkoutSetId = workoutSetId,
                 UserId = userId,
             };
         }

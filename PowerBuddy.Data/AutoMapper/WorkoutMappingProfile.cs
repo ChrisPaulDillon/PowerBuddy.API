@@ -124,9 +124,11 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
                 .ForMember<string>(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember<int>(x => x.WorkoutExerciseTonnageId, d => d.MapFrom(src => src.WorkoutExerciseTonnageId))
-                //.ForMember(x => x.WorkoutExerciseTonnage, d => d.MapFrom(src => src.WorkoutExerciseTonnageDTO))
+                .ForMember(x => x.WorkoutExerciseTonnage, d => d.MapFrom(src => src.WorkoutExerciseTonnage))
+                .ForMember(x => x.WorkoutSets, d => d.MapFrom(src => src.WorkoutSets))
                 .ForMember(x => x.Exercise, d => d.Ignore());
 
+            //into DTO
             CreateMap<WorkoutSet, WorkoutSetDTO>()
                 .ForMember(x => x.WorkoutSetId, d => d.MapFrom<int>(src => src.WorkoutSetId))
                 .ForMember(x => x.WorkoutExerciseId, d => d.MapFrom<int>(src => src.WorkoutExerciseId))
@@ -137,15 +139,18 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.AMRAP, d => d.MapFrom<bool>(src => src.AMRAP))
                 .ForMember(x => x.RepsCompleted, d => d.MapFrom<int>(src => src.RepsCompleted ?? src.NoOfReps)) //default to noOfReps if not been touched
                 .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int?>(src => src.LiftingStatAuditId))
-                .ReverseMap();
+                .ForMember(x => x.PersonalBest, d => d.MapFrom<bool?>(src => src.LiftingStatAudit != null ? true : false));
 
-            CreateMap<WorkoutSet, WorkoutSetDTO>()
+            //into entity
+            CreateMap<WorkoutSetDTO, WorkoutSet>()
+                .ForMember(x => x.WorkoutSetId, d => d.MapFrom(src => src.WorkoutSetId))
+                .ForMember(x => x.WorkoutExerciseId, d => d.MapFrom(src => src.WorkoutExerciseId))
                 .ForMember(x => x.Comment, d => d.MapFrom<string>(src => src.Comment))
                 .ForMember(x => x.NoOfReps, d => d.MapFrom<int>(src => src.NoOfReps))
+                .ForMember(x => x.RepsCompleted, d => d.MapFrom(src => src.RepsCompleted))
                 .ForMember(x => x.WeightLifted, d => d.MapFrom<decimal>(src => src.WeightLifted))
                 .ForMember(x => x.AMRAP, d => d.MapFrom<bool>(src => src.AMRAP))
-                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int>(src => src.LiftingStatAuditId))
-               .ReverseMap();
+                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int>(src => src.LiftingStatAuditId));
 
             CreateMap<WorkoutDay, WorkoutDaySummaryDTO>()
                 .ForMember(x => x.WorkoutDayId, d => d.MapFrom(src => src.WorkoutDayId))

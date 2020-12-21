@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.DTOs.Workouts
 {
@@ -13,5 +14,6 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public decimal ExerciseTonnage { get; set; }
         public int NoOfSets { get; set; }
         public virtual IEnumerable<WorkoutSetDTO> WorkoutSets { get; set; }
+        public WorkoutExerciseTonnage WorkoutExerciseTonnage { get; set; }
     }
 }

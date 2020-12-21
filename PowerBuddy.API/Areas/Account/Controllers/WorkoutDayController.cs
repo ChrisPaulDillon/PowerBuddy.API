@@ -9,6 +9,7 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Workouts;
+using PowerBuddy.MediatR.WorkoutDays.Commands;
 using PowerBuddy.MediatR.WorkoutDays.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
@@ -63,19 +64,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                //var result = await _mediator.Send(new UpdateWorkoutDayCommand(workoutDayDTO, _userId)).ConfigureAwait(false);
-                //return Ok(result);
-
-                var liftingStatsThatPb = await _mediator.Send(new UpdateWorkoutDayCommand(workoutDayDTO, _userId)).ConfigureAwait(false);
+                var liftingStatsThatPb = await _mediator.Send(new CompleteWorkoutCommand(workoutDayDTO, _userId)).ConfigureAwait(false);
                 return Ok(liftingStatsThatPb);
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex.Message);
             }
             catch (WorkoutDayNotFoundException ex)
             {

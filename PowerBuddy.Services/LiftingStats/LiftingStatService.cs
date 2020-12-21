@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.LiftingStats;
@@ -48,14 +49,46 @@ namespace PowerBuddy.Services.LiftingStats
             return weightInputs;
         }
 
-        public async Task<LiftingStatAudit> GetTopLiftingStatForRepRange(int repRange, int exerciseId, string userId)
+        public async Task<IEnumerable<LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId)
         {
-            return await _context.LiftingStatAudit
-                .Where(x => x.RepRange == repRange && x.ExerciseId == exerciseId && x.UserId == userId)
-                .OrderByDescending(x => x.Weight)
-                .FirstOrDefaultAsync();
+            var parameters = new string[repRanges.Count() + 1];
+            var sqlParameters = new List<SqlParameter>();
+            for (var i = 0; i < repRanges.Count(); i++)
+            {
+                parameters[i] = string.Format("@p{0}", i);
+                sqlParameters.Add(new SqlParameter(parameters[i], repRanges[i]));
+            }
+
+            var rawCommand = string
+                .Format(
+                    @"SELECT t.LiftingStatAuditId, t.UserId, t.RepRange, t.Weight, t.ExerciseId, t.DateChanged, t.WorkoutSetId FROM(SELECT RepRange, ExerciseId, UserId, MAX(weight) as weightMax FROM LiftingStatAudit GROUP BY RepRange, ExerciseId, UserId HAVING ExerciseId IN ({0})",
+                    string.Join(", ", parameters));
+
+            int index = rawCommand.LastIndexOf(',');
+            var fixedCmd = rawCommand.Remove(index, 1);
+            var rawCommand2 = string.Format($"AND UserId = '{userId}') AS m INNER JOIN LiftingStatAudit AS t ON t.RepRange = m.RepRange AND t.Weight = weightMax WHERE t.ExerciseId = {exerciseId}");
+
+            var completeSqlCmd = fixedCmd + rawCommand2;
+
+            return await _context.LiftingStatAudit.FromSqlRaw(completeSqlCmd, sqlParameters.ToArray()).ToListAsync();
+
+
+            //return await _context.LiftingStatAudit
+            //    .Where(x => repRanges.Any(j => j == x.RepRange) && x.ExerciseId == exerciseId && x.UserId == userId)
+            //    .GroupBy(x => x.RepRange)
+            //    .Select(x => new TestModel()
+            //    {
+            //        RepRange = x.Key, 
+            //        MaxWeightPersonalBest = x
+            //    })
+            //    .ToListAsync();
         }
 
+        public class TestModel
+        {
+            public int RepRange { get; set; }
+            public IEnumerable<LiftingStatAudit> MaxWeightPersonalBest { get; set; }
+        }
         public async Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatForExercise(int exerciseId, string userId)
         {
             var stats = await _context.LiftingStatAudit.AsNoTracking()

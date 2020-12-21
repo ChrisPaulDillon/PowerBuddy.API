@@ -12,7 +12,7 @@ namespace PowerBuddy.Services.LiftingStats
 
         IEnumerable<TemplateWeightInputDTO> CalculateNewWeightInput(IEnumerable<TemplateWeightInputDTO> weightInputs, Dictionary<int, decimal> weightIncrements);
 
-        Task<LiftingStatAudit> GetTopLiftingStatForRepRange(int repRange, int exerciseId, string userId);
+        Task<IEnumerable<LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId);
 
         Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatForExercise(int exerciseId, string userId);
 

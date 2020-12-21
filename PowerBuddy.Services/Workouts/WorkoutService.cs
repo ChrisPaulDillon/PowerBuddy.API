@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
@@ -161,6 +162,14 @@ namespace PowerBuddy.Services.Workouts
             }
 
             return workoutExerciseTonnage;
+        }
+
+        public IEnumerable<WorkoutSetDTO> GetHighestWeightRepSchemeForEachRepFromCollection(IEnumerable<WorkoutSetDTO> workoutSets)
+        {
+            return workoutSets
+                .GroupBy(x => x.RepsCompleted)
+                .Select(g => g.OrderByDescending(x => x.WeightLifted).First())
+                .ToList();
         }
     }
 }

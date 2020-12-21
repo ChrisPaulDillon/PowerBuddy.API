@@ -85,8 +85,8 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Member
 
                 foreach (var repScheme in maxWeightRepSchemes.Where(repScheme => repScheme.RepsCompleted != 0))
                 {
-                    var liftingStatPb = await _liftingStatService.GetTopLiftingStatForRepRange((int)repScheme.RepsCompleted, programExercise.ExerciseId, request.UserId);
-
+                   // var liftingStatPb = await _liftingStatService.GetTopLiftingStatForRepRange((int)repScheme.RepsCompleted, programExercise.ExerciseId, request.UserId);
+                   var liftingStatPb = new LiftingStatAuditDTO();
                     if (liftingStatPb != null) //Personal best exists
                     {
                         if (repScheme.WeightLifted <= liftingStatPb.Weight)

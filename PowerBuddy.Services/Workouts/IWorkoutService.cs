@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.Workouts.Models;
@@ -16,5 +17,7 @@ namespace PowerBuddy.Services.Workouts
         public WorkoutExercise CreateSetsForExercise(CreateWorkoutExerciseDTO createWorkoutExercise, string userId);
         public Task CreateWorkoutExerciseAudit(int exerciseId, string userId);
         public Task<WorkoutExerciseTonnage> UpdateExerciseTonnage(WorkoutExercise workoutExercise, string userId);
+
+        IEnumerable<WorkoutSetDTO> GetHighestWeightRepSchemeForEachRepFromCollection(IEnumerable<WorkoutSetDTO> workoutSets);
     }
 }
