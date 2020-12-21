@@ -218,11 +218,11 @@ namespace PowerBuddy.Data.AutoMapper
                .ReverseMap();
 
             //into dto
-            CreateMap<ProgramLogDay, WorkoutDaySummaryDTO>()
-                .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
-                .ForMember(x => x.Date, d => d.MapFrom(src => src.Date))
-                .ForMember(x => x.WorkoutExerciseSummaries, d => d.MapFrom(src => src.ProgramLogExercises))
-                .ForMember(x => x.PersonalBestCount, d => d.MapFrom(src => src.ProgramLogExercises.Where(x => x.ProgramLogRepSchemes.Any(x => x.LiftingStatAuditId != null)).Count()));
+            //CreateMap<ProgramLogDay, WorkoutDaySummaryDTO>()
+            //    .ForMember(x => x.ProgramLogDayId, d => d.MapFrom(src => src.ProgramLogDayId))
+            //    .ForMember(x => x.Date, d => d.MapFrom(src => src.Date))
+            //    .ForMember(x => x.WorkoutExerciseSummaries, d => d.MapFrom(src => src.ProgramLogExercises))
+            //    .ForMember(x => x.PersonalBestCount, d => d.MapFrom(src => src.ProgramLogExercises.Where(x => x.ProgramLogRepSchemes.Any(x => x.LiftingStatAuditId != null)).Count()));
 
             CreateMap<ProgramLogExercise, WorkoutExerciseSummaryDTO>()
                 .ForMember(x => x.ExerciseName, d => d.MapFrom(src => src.Exercise.ExerciseName))

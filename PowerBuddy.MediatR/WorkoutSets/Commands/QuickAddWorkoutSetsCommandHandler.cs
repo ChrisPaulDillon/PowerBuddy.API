@@ -10,6 +10,7 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
+using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Services.Workouts;
 
 namespace PowerBuddy.MediatR.WorkoutSets.Commands
@@ -55,10 +56,10 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
                 .Include(x => x.WorkoutSets)
                 .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetList[0].WorkoutExerciseId);
 
-            if (workoutExercise == null) throw new ProgramLogExerciseNotFoundException();
+            if (workoutExercise == null) throw new WorkoutExerciseNotFoundException();
 
-            var workoutDay = await _context.ProgramLogDay
-                .FirstOrDefaultAsync(x => x.ProgramLogDayId == workoutExercise.WorkoutDayId && x.UserId == request.UserId);
+            var workoutDay = await _context.WorkoutDay
+                .FirstOrDefaultAsync(x => x.WorkoutDayId == workoutExercise.WorkoutDayId && x.UserId == request.UserId);
 
             if (workoutDay == null) throw new UnauthorisedUserException();
 

@@ -12,14 +12,14 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
 {
     public class UpdateWorkoutSetCommand : IRequest<bool>
     {
-        public WorkoutSetDTO WorkoutSetDTO { get; }
         public int WorkoutDayId { get; }
+        public WorkoutSetDTO WorkoutSetDTO { get; }
         public string UserId { get; }
 
-        public UpdateWorkoutSetCommand(WorkoutSetDTO workoutSetDTO, int workoutDayId, string userId)
+        public UpdateWorkoutSetCommand(int workoutDayId, WorkoutSetDTO workoutSetDTO, string userId)
         {
-            WorkoutSetDTO = workoutSetDTO;
             WorkoutDayId = workoutDayId;
+            WorkoutSetDTO = workoutSetDTO;
             UserId = userId;
         }
     }

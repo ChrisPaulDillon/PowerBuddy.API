@@ -11,6 +11,7 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public string ExerciseName { get; set; }
         public int WorkoutExerciseTonnageId { get; set; }
         public decimal ExerciseTonnage { get; set; }
+        public int NoOfSets { get; set; }
         public virtual IEnumerable<WorkoutSetDTO> WorkoutSets { get; set; }
     }
 }

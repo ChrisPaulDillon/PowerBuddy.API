@@ -39,6 +39,7 @@ using PowerBuddy.MediatR.Users.Commands.Public;
 using PowerBuddy.MediatR.Users.Querys.Account;
 using PowerBuddy.MediatR.Users.Querys.Admin;
 using PowerBuddy.MediatR.Users.Querys.Public;
+using PowerBuddy.MediatR.WorkoutDays.Querys;
 using PowerBuddy.MediatR.WorkoutExercises.Commands;
 using PowerBuddy.MediatR.Workouts.Commands;
 using PowerBuddy.MediatR.Workouts.Querys;
@@ -206,6 +207,10 @@ namespace PowerBuddy.API.Extensions
             services.AddMediatR(typeof(DeleteWorkoutLogCommandHandler));
 
             services.AddMediatR(typeof(GetWorkoutWeekByDateQueryHandler));
+
+            // Workout Days
+
+            services.AddMediatR(typeof(GetWorkoutDayByIdQueryHandler));
 
             // Workout Exercises
             services.AddMediatR(typeof(CreateWorkoutExerciseCommandHandler));

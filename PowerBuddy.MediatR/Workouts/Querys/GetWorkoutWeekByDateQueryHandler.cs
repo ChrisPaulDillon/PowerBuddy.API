@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,12 +8,13 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
+using PowerBuddy.MediatR.Workouts.Models;
 using PowerBuddy.Services.Workouts;
 
 namespace PowerBuddy.MediatR.Workouts.Querys
 {
-    public class GetWorkoutWeekByDateQuery : IRequest<IEnumerable<WorkoutDayDTO>>
+    public class GetWorkoutWeekByDateQuery : IRequest<WorkoutWeekSummaryDTO>
     {
         public DateTime Date { get; }
         public string UserId { get; }
@@ -34,7 +34,7 @@ namespace PowerBuddy.MediatR.Workouts.Querys
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
-    public class GetWorkoutWeekByDateQueryHandler : IRequestHandler<GetWorkoutWeekByDateQuery, IEnumerable<WorkoutDayDTO>>
+    public class GetWorkoutWeekByDateQueryHandler : IRequestHandler<GetWorkoutWeekByDateQuery, WorkoutWeekSummaryDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -47,7 +47,7 @@ namespace PowerBuddy.MediatR.Workouts.Querys
             _workoutService = WorkoutService;
         }
 
-        public async Task<IEnumerable<WorkoutDayDTO>> Handle(GetWorkoutWeekByDateQuery request, CancellationToken cancellationToken)
+        public async Task<WorkoutWeekSummaryDTO> Handle(GetWorkoutWeekByDateQuery request, CancellationToken cancellationToken)
         {
             var minDate = request.Date.AddDays(-3);
             var maxDate = request.Date.AddDays(3);
@@ -55,7 +55,7 @@ namespace PowerBuddy.MediatR.Workouts.Querys
             var workouts = await _context.WorkoutDay
                 .AsNoTracking()
                 .Where(x => x.Date >= minDate && x.Date <= maxDate && x.UserId == request.UserId)
-                .ProjectTo<WorkoutDayDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkoutDaySummaryDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             var weekDates = Enumerable
@@ -71,10 +71,16 @@ namespace PowerBuddy.MediatR.Workouts.Querys
                 {
                     continue;
                 }
-                workouts.Add(new WorkoutDayDTO() { Date = dayDate});
+                workouts.Add(new WorkoutDaySummaryDTO() { Date = dayDate, HasWorkoutData = false});
             }
 
-            return workouts;
+            var workoutWeekSummary = new WorkoutWeekSummaryDTO()
+            {
+                WeekNo = workouts[0].WeekNo,
+                WorkoutDays = workouts.OrderBy(x => x.Date)
+            };
+
+            return workoutWeekSummary;
         }
     }
 }
