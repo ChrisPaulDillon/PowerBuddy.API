@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
@@ -33,30 +34,26 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             if (accessor.HttpContext != null) _userId = accessor.HttpContext.User.FindUserId();
         }
 
-        //[HttpGet("Stat")]
-        //[ProducesResponseType(typeof(IEnumerable<WorkoutLogStatDTO>), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        //public async Task<IActionResult> GetWorkoutLogStats()
-        //{
-        //    try
-        //    {
-        //        var WorkoutLogStats = await _mediator.Send(new GetAllWorkoutLogStatsQuery(_userId)).ConfigureAwait(false);
-        //        return Ok(WorkoutLogStats);
-        //    }
-        //    catch (ValidationException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (WorkoutLogNotFoundException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //    catch (UnauthorisedUserException ex)
-        //    {
-        //        return Unauthorized(ex.Message);
-        //    }
-        //}
+        [HttpGet("Stat")]
+        [ProducesResponseType(typeof(IEnumerable<WorkoutStatExtendedDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetWorkoutLogStats()
+        {
+            try
+            {
+                var workoutLogStats = await _mediator.Send(new GetAllWorkoutStatsQuery(_userId)).ConfigureAwait(false);
+                return Ok(workoutLogStats);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (WorkoutLogNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
         [HttpGet("Week")]
         [ProducesResponseType(typeof(WorkoutWeekSummaryDTO), StatusCodes.Status200OK)]

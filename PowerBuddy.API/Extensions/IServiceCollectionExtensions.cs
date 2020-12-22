@@ -208,6 +208,7 @@ namespace PowerBuddy.API.Extensions
             services.AddMediatR(typeof(DeleteWorkoutLogCommandHandler));
 
             services.AddMediatR(typeof(GetWorkoutWeekByDateQueryHandler));
+            services.AddMediatR(typeof(GetAllWorkoutStatsQueryHandler));
 
             // Workout Days
             services.AddMediatR(typeof(GetWorkoutDayByIdQueryHandler));
