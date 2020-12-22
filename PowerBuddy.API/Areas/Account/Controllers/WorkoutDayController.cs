@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,7 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.MediatR.WorkoutDays.Commands;
+using PowerBuddy.MediatR.WorkoutDays.Models;
 using PowerBuddy.MediatR.WorkoutDays.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
@@ -34,6 +36,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(WorkoutDayDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetWorkoutDayById(int workoutDayId)
         {
             try
@@ -54,6 +57,43 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(WorkoutDayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> CreateWorkoutDay([FromBody] CreateWorkoutDayOptions createWorkoutOptions)
+        {
+            try
+            {
+                var workoutDay = await _mediator.Send(new CreateWorkoutDayCommand(createWorkoutOptions, _userId));
+
+                return Ok(workoutDay);
+            }
+            catch (WorkoutDayAlreadyExistsException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("Today")]
+        [ProducesResponseType(typeof(WorkoutDayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetWorkoutDayIdByDate()
+        {
+            try
+            {
+                var workoutDay = await _mediator.Send(new GetWorkoutDayIdByDateQuery(DateTime.UtcNow, _userId));
+                return Ok(workoutDay);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

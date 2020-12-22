@@ -101,22 +101,13 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
 
                     _context.LiftingStatAudit.Add(hitPersonalBest);
 
-                    //hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == workoutExercise.ExerciseId);
+                    hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == workoutExercise.ExerciseId);
                     totalPersonalBests.Add(_mapper.Map<LiftingStatAuditDTO>(hitPersonalBest));
-                    //_context.Entry(hitPersonalBest.Exercise).State = EntityState.Detached;
+                    _context.Entry(hitPersonalBest.Exercise).State = EntityState.Detached;
 
-    
                     workoutSet.NoOfReps = (int)workoutSet.RepsCompleted;
                     var setEntity = _mapper.Map<WorkoutSet>(workoutSet);
                     hitPersonalBest.WorkoutSet = setEntity;
-                    //setEntity.LiftingStatAudit = hitPersonalBest;
-                    //setEntity.LiftingStatAuditId = hitPersonalBest.LiftingStatAuditId;
-                   // _context.LiftingStatAudit.Add(hitPersonalBest);
-
-                    // workoutSet.LiftingStatAuditId = hitPersonalBest.LiftingStatAuditId;
-
-                    //var index = updateWorkoutSets.FindIndex(a => a.WorkoutSetId == workoutSet.WorkoutSetId);
-                    //updateWorkoutSets[index] = workoutSet; //replace the current program log rep scheme with the newly updated PB
                 }
             }
 

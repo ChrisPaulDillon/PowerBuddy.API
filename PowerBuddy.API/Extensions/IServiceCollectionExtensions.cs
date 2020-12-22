@@ -212,6 +212,8 @@ namespace PowerBuddy.API.Extensions
             // Workout Days
             services.AddMediatR(typeof(GetWorkoutDayByIdQueryHandler));
             services.AddMediatR(typeof(CompleteWorkoutCommandHandler));
+            services.AddMediatR(typeof(GetWorkoutDayIdByDateQueryHandler));
+            services.AddMediatR(typeof(CreateWorkoutDayCommandHandler));
 
             // Workout Exercises
             services.AddMediatR(typeof(CreateWorkoutExerciseCommandHandler));

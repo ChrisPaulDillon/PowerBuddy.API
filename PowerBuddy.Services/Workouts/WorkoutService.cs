@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Templates;
@@ -170,6 +171,19 @@ namespace PowerBuddy.Services.Workouts
                 .GroupBy(x => x.RepsCompleted)
                 .Select(g => g.OrderByDescending(x => x.WeightLifted).First())
                 .ToList();
+        }
+
+        public async Task<WorkoutDayDTO> GetWorkoutLogDetailsForWeek(DateTime workoutDate, string userId)
+        {
+            var minDate = workoutDate.StartOfWeek(DayOfWeek.Monday);
+            var maxDate = workoutDate.EndOfWeek(DayOfWeek.Sunday);
+
+            //Gets the workout log details (if they exist) on the given week so they can be used to create a workout day on the same week
+            return await _context.WorkoutDay
+                .AsNoTracking()
+                .Where(x => x.Date >= minDate && x.Date <= maxDate && x.UserId == userId && x.WorkoutLogId != null)
+                .ProjectTo<WorkoutDayDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
         }
     }
 }

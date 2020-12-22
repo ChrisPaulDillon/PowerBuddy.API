@@ -11,6 +11,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
 using PowerBuddy.MediatR.Workouts.Models;
 using PowerBuddy.Services.Workouts;
+using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.MediatR.Workouts.Querys
 {
@@ -49,8 +50,8 @@ namespace PowerBuddy.MediatR.Workouts.Querys
 
         public async Task<WorkoutWeekSummaryDTO> Handle(GetWorkoutWeekByDateQuery request, CancellationToken cancellationToken)
         {
-            var minDate = request.Date.AddDays(-3);
-            var maxDate = request.Date.AddDays(3);
+            var minDate = request.Date.StartOfWeek(DayOfWeek.Monday);
+            var maxDate = request.Date.EndOfWeek(DayOfWeek.Sunday);
 
             var workouts = await _context.WorkoutDay
                 .AsNoTracking()
@@ -76,7 +77,7 @@ namespace PowerBuddy.MediatR.Workouts.Querys
 
             var workoutWeekSummary = new WorkoutWeekSummaryDTO()
             {
-                WeekNo = workouts[0].WeekNo,
+                WeekNo = workouts.Count > 0 ? workouts[0].WeekNo : 0,
                 WorkoutDays = workouts.OrderBy(x => x.Date)
             };
 

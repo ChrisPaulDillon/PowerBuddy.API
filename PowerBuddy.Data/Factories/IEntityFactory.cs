@@ -22,6 +22,7 @@ namespace PowerBuddy.Data.Factories
         //Workouts
 
         public WorkoutDay CreateWorkoutDay(int weekNo, DateTime date, string userId);
+        public WorkoutDay CreateWorkoutDayWithProgram(int weekNo, DateTime date, int workoutLogId, string userId);
         public WorkoutExercise CreateWorkoutExercise(int exerciseId);
         public WorkoutExerciseTonnage CreateWorkoutExerciseTonnage(decimal exerciseTonnage, int exerciseId, string userId);
         public WorkoutSet CreateWorkoutSet(int noOfReps, decimal weightLifted, bool amrap);

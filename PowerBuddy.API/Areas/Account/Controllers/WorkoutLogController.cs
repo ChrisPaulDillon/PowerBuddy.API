@@ -12,6 +12,7 @@ using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.MediatR.Workouts.Commands;
+using PowerBuddy.MediatR.Workouts.Models;
 using PowerBuddy.MediatR.Workouts.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
@@ -58,15 +59,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         //}
 
         [HttpGet("Week")]
-        [ProducesResponseType(typeof(WorkoutLogDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(WorkoutWeekSummaryDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetWorkoutWeekByDate()
+        public async Task<IActionResult> GetWorkoutWeekByDate(DateTime date)
         {
             try
             {
-                var WorkoutLog = await _mediator.Send(new GetWorkoutWeekByDateQuery(DateTime.UtcNow, _userId)).ConfigureAwait(false);
-                return Ok(WorkoutLog);
+                var workoutWeek = await _mediator.Send(new GetWorkoutWeekByDateQuery(date, _userId)).ConfigureAwait(false);
+                return Ok(workoutWeek);
             }
             catch (ValidationException ex)
             {

@@ -126,6 +126,18 @@ namespace PowerBuddy.Data.Factories
             };
         }
 
+
+        public WorkoutDay CreateWorkoutDayWithProgram(int weekNo, DateTime date, int workoutLogId, string userId)
+        {
+            return new WorkoutDay()
+            {
+                WeekNo = weekNo,
+                Date = date,
+                UserId = userId,
+                WorkoutLogId = workoutLogId
+            };
+        }
+
         public WorkoutExercise CreateWorkoutExercise(int exerciseId)
         {
             return new WorkoutExercise()
