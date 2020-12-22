@@ -47,15 +47,15 @@ namespace PowerBuddy.Services.Workouts
                 foreach (var templateDay in templateWeek.TemplateDays)
                 {
                     var workoutDayOfWeek = workoutOrder[counter];
-                    DateTime date = DateTime.UtcNow;
+                    var date = DateTime.UtcNow;
 
                     if (DayOfWeek.Monday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Monday);
-                    if (DayOfWeek.Tuesday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Tuesday);
-                    if (DayOfWeek.Wednesday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Wednesday);
-                    if (DayOfWeek.Thursday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Thursday);
-                    if (DayOfWeek.Friday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Friday);
-                    if (DayOfWeek.Saturday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Saturday);
-                    if (DayOfWeek.Sunday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Sunday);
+                    else if (DayOfWeek.Tuesday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Tuesday);
+                    else if (DayOfWeek.Wednesday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Wednesday);
+                    else if (DayOfWeek.Thursday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Thursday);
+                    else if (DayOfWeek.Friday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Friday);
+                    else if (DayOfWeek.Saturday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Saturday);
+                    else if (DayOfWeek.Sunday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Sunday);
 
                     var workoutDay = _entityFactory.CreateWorkoutDay(templateWeek.WeekNo, date, userId);
                     workoutDay.WorkoutExercises = CreateWorkoutExercisesForTemplateDay(templateDay, weightInputs, calculateRepWeight, userId);

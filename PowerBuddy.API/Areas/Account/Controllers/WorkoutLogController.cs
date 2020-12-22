@@ -62,11 +62,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(WorkoutWeekSummaryDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetWorkoutWeekByDate(DateTime date)
+        public async Task<IActionResult> GetWorkoutWeekByDate(DateTime? date)
         {
             try
             {
-                var workoutWeek = await _mediator.Send(new GetWorkoutWeekByDateQuery(date, _userId)).ConfigureAwait(false);
+                var workoutWeek = await _mediator.Send(new GetWorkoutWeekByDateQuery(date?? DateTime.UtcNow, _userId)).ConfigureAwait(false);
                 return Ok(workoutWeek);
             }
             catch (ValidationException ex)

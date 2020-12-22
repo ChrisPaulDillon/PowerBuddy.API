@@ -76,12 +76,10 @@ namespace PowerBuddy.MediatR.Workouts.Commands
 
             var workoutLog = _mapper.Map<WorkoutLog>(request.WorkoutInputDTO);
 
-            var startDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
-
+            workoutLog.StartDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
             var workoutOrder = WorkoutHelper.CalculateDayOrder(workoutLog);
 
-            workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
-            workoutLog.StartDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
+            workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, workoutLog.StartDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
             workoutLog.EndDate = workoutLog.StartDate.AddDays(templateProgram.NoOfWeeks * 7);
             workoutLog.CustomName ??= templateProgram.Name;
 

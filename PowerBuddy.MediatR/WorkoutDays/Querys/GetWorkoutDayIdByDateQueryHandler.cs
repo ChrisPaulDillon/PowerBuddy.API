@@ -63,7 +63,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Querys
                     WorkoutDayId = 0,
                     WorkoutLogId = workoutDayDetails?.WorkoutLogId,
                     TemplateName = workoutDayDetails?.TemplateName,
-                    WeekNo = workoutDayDetails.WeekNo ?? 0
+                    WeekNo = workoutDayDetails?.WeekNo ?? 0
                 };
                 return getWorkoutResponse;
             }
