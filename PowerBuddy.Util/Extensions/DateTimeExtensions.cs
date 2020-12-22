@@ -15,5 +15,11 @@ namespace PowerBuddy.Util.Extensions
             int diff = (7 + (dt.DayOfWeek - endOfWeek)) % 7;
             return dt.AddDays((-1 * diff) + 7).Date;
         }
+
+        public static DateTime ClosestDateByDay(this DateTime dt, DayOfWeek day)
+        {
+            var daysUntilSpecificDay = ((int)day - (int)dt.DayOfWeek + 7) % 7;
+            return dt.AddDays(daysUntilSpecificDay);
+        }
     }
 }

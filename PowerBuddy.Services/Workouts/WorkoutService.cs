@@ -47,17 +47,16 @@ namespace PowerBuddy.Services.Workouts
                 foreach (var templateDay in templateWeek.TemplateDays)
                 {
                     var workoutDayOfWeek = workoutOrder[counter];
-                    var date = DateTime.UtcNow;
 
-                    if (DayOfWeek.Monday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Monday);
-                    else if (DayOfWeek.Tuesday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Tuesday);
-                    else if (DayOfWeek.Wednesday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Wednesday);
-                    else if (DayOfWeek.Thursday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Thursday);
-                    else if (DayOfWeek.Friday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Friday);
-                    else if (DayOfWeek.Saturday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Saturday);
-                    else if (DayOfWeek.Sunday.ToString() == workoutDayOfWeek) date = currentDate.StartOfWeek(DayOfWeek.Sunday);
+                    if (DayOfWeek.Monday.ToString() == workoutDayOfWeek) currentDate = currentDate.ClosestDateByDay(DayOfWeek.Monday);
+                    else if (DayOfWeek.Tuesday.ToString() == workoutDayOfWeek) currentDate = currentDate.ClosestDateByDay(DayOfWeek.Tuesday);
+                    else if (DayOfWeek.Wednesday.ToString() == workoutDayOfWeek) currentDate = currentDate.ClosestDateByDay(DayOfWeek.Wednesday);
+                    else if (DayOfWeek.Thursday.ToString() == workoutDayOfWeek) currentDate = currentDate.ClosestDateByDay(DayOfWeek.Thursday);
+                    else if (DayOfWeek.Friday.ToString() == workoutDayOfWeek) currentDate = currentDate.ClosestDateByDay(DayOfWeek.Friday);
+                    else if (DayOfWeek.Saturday.ToString() == workoutDayOfWeek) currentDate = currentDate.ClosestDateByDay(DayOfWeek.Saturday);
+                    else if (DayOfWeek.Sunday.ToString() == workoutDayOfWeek) currentDate = currentDate.ClosestDateByDay(DayOfWeek.Sunday);
 
-                    var workoutDay = _entityFactory.CreateWorkoutDay(templateWeek.WeekNo, date, userId);
+                    var workoutDay = _entityFactory.CreateWorkoutDay(templateWeek.WeekNo, currentDate, userId);
                     workoutDay.WorkoutExercises = CreateWorkoutExercisesForTemplateDay(templateDay, weightInputs, calculateRepWeight, userId);
                     listOfDays.Add(workoutDay);
                     counter++;
