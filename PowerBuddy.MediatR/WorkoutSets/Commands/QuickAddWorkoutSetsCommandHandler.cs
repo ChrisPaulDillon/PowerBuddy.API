@@ -67,8 +67,8 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
 
             var workoutSetCollection = _mapper.Map<IEnumerable<WorkoutSet>>(request.WorkoutSetList);
 
-            var workoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExercise, request.UserId);
-            workoutExercise.WorkoutExerciseTonnage = workoutExerciseTonnage;
+            //var workoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExercise, request.UserId);
+            //workoutExercise.WorkoutExerciseTonnage = workoutExerciseTonnage;
 
             _context.WorkoutSet.AddRange(workoutSetCollection);
             await _context.SaveChangesAsync(cancellationToken);

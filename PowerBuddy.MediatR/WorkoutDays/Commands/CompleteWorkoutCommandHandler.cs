@@ -97,7 +97,9 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
                         request.WorkoutDayDTO.Date,
                         request.UserId);
 
-                    //_context.LiftingStatAudit.Add(hitPersonalBest);
+                    hitPersonalBest.WorkoutSetId = workoutSet.WorkoutSetId;
+
+                    _context.LiftingStatAudit.Add(hitPersonalBest);
 
                     //hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == workoutExercise.ExerciseId);
                     totalPersonalBests.Add(_mapper.Map<LiftingStatAuditDTO>(hitPersonalBest));
@@ -109,7 +111,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
                     hitPersonalBest.WorkoutSet = setEntity;
                     //setEntity.LiftingStatAudit = hitPersonalBest;
                     //setEntity.LiftingStatAuditId = hitPersonalBest.LiftingStatAuditId;
-                    _context.LiftingStatAudit.Add(hitPersonalBest);
+                   // _context.LiftingStatAudit.Add(hitPersonalBest);
 
                     // workoutSet.LiftingStatAuditId = hitPersonalBest.LiftingStatAuditId;
 

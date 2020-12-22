@@ -150,7 +150,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.RepsCompleted, d => d.MapFrom(src => src.RepsCompleted))
                 .ForMember(x => x.WeightLifted, d => d.MapFrom<decimal>(src => src.WeightLifted))
                 .ForMember(x => x.AMRAP, d => d.MapFrom<bool>(src => src.AMRAP))
-                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int>(src => src.LiftingStatAuditId));
+                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int?>(src => src.LiftingStatAuditId));
 
             CreateMap<WorkoutDay, WorkoutDaySummaryDTO>()
                 .ForMember(x => x.WorkoutDayId, d => d.MapFrom(src => src.WorkoutDayId))
