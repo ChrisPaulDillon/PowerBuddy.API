@@ -34,6 +34,14 @@ namespace PowerBuddy.API.Areas.Public
             return Ok(templatePrograms);
         }
 
+        [HttpGet("Search")]
+        [ProducesResponseType(typeof(IEnumerable<TemplateKeyValuePairDTO>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTemplateProgramSearchResults(string searchTerm)
+        {
+            var templatePrograms = await _mediator.Send(new GetTemplateProgramsBySearchQuery(searchTerm)).ConfigureAwait(false);
+            return Ok(templatePrograms);
+        }
+
         [HttpGet("Feed")]
         [ProducesResponseType(typeof(IEnumerable<TemplateProgramAuditDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTemplateProgramFeed()

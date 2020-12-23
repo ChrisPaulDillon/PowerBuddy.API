@@ -140,6 +140,7 @@ namespace PowerBuddy.API.Extensions
             services.AddMediatR(typeof(GetTecByTemplateProgramIdQueryHandler));
             services.AddMediatR(typeof(GetTemplateProgramByIdQueryHandler));
             services.AddMediatR(typeof(GetTemplateActivityFeedQueryHandler));
+            services.AddMediatR(typeof(GetTemplateProgramsBySearchQueryHandler));
             return services;
         }
 

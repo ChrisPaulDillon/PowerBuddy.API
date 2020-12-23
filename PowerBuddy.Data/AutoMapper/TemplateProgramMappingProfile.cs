@@ -41,7 +41,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<int>(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom(src => src.TemplateExerciseCollectionId))
                 .ForMember<int>(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
                 .ForMember<int>(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
-               .ForMember(dest => dest.Exercise, opt => opt.Ignore());
+                .ForMember(dest => dest.Exercise, opt => opt.Ignore());
 
             CreateMap<TemplateWeek, TemplateWeekDTO>()
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom<int>(src => src.TemplateWeekId))
@@ -85,6 +85,10 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.UserName))
                 .ForMember(dest => dest.TemplateName, opt => opt.MapFrom(src => src.TemplateProgram.Name))
                 .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src.DateCreated));
+
+            CreateMap<TemplateProgram, TemplateKeyValuePairDTO>()
+                .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
+                .ForMember(dest => dest.TemplateName, opt => opt.MapFrom(src => src.Name));
         }
     }
 }
