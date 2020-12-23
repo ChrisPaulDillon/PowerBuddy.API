@@ -51,7 +51,7 @@ namespace PowerBuddy.MediatR.Workouts.Querys
         public async Task<WorkoutWeekSummaryDTO> Handle(GetWorkoutWeekByDateQuery request, CancellationToken cancellationToken)
         {
             var minDate = request.Date.StartOfWeek(DayOfWeek.Monday);
-            var maxDate = request.Date.EndOfWeek(DayOfWeek.Sunday);
+            var maxDate = request.Date.ClosestDateByDay(DayOfWeek.Sunday);
 
             var workouts = await _context.WorkoutDay
                 .AsNoTracking()
