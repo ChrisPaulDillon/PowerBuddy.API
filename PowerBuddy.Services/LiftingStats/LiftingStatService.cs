@@ -51,6 +51,7 @@ namespace PowerBuddy.Services.LiftingStats
 
         public async Task<IDictionary<Tuple<int,int>, LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId)
         {
+
             var parameters = new string[repRanges.Count() + 1];
             var sqlParameters = new List<SqlParameter>();
             for (var i = 0; i < repRanges.Count(); i++)
@@ -59,14 +60,12 @@ namespace PowerBuddy.Services.LiftingStats
                 sqlParameters.Add(new SqlParameter(parameters[i], repRanges[i]));
             }
 
-            var rawCommand = string
-                .Format(
-                    @"SELECT t.LiftingStatAuditId, t.UserId, t.RepRange, t.Weight, t.ExerciseId, t.DateChanged, t.WorkoutSetId FROM(SELECT RepRange, ExerciseId, UserId, MAX(weight) as weightMax FROM LiftingStatAudit GROUP BY RepRange, ExerciseId, UserId HAVING RepRange IN ({0})",
-                    string.Join(", ", parameters));
+            var rawCommand =
+                $@"SELECT t.LiftingStatAuditId, t.UserId, t.RepRange, t.Weight, t.ExerciseId, t.DateChanged, t.WorkoutSetId FROM(SELECT RepRange, ExerciseId, UserId, MAX(weight) as weightMax FROM LiftingStatAudit GROUP BY RepRange, ExerciseId, UserId HAVING RepRange IN ({string.Join(", ", parameters)})";
 
-            int index = rawCommand.LastIndexOf(',');
+            var index = rawCommand.LastIndexOf(',');
             var fixedCmd = rawCommand.Remove(index, 1);
-            var rawCommand2 = string.Format($"AND UserId = '{userId}') AS m INNER JOIN LiftingStatAudit AS t ON t.RepRange = m.RepRange AND t.Weight = weightMax WHERE t.ExerciseId = {exerciseId}");
+            var rawCommand2 = string.Format($"AND UserId = '{userId}' AND ExerciseId = {exerciseId}) AS m INNER JOIN LiftingStatAudit AS t ON t.RepRange = m.RepRange AND t.Weight = weightMax WHERE t.ExerciseId = {exerciseId}");
 
             var completeSqlCmd = fixedCmd + rawCommand2;
 
@@ -86,11 +85,6 @@ namespace PowerBuddy.Services.LiftingStats
             //    .ToListAsync();
         }
 
-        public class TestModel
-        {
-            public int RepRange { get; set; }
-            public IEnumerable<LiftingStatAudit> MaxWeightPersonalBest { get; set; }
-        }
         public async Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatForExercise(int exerciseId, string userId)
         {
             var stats = await _context.LiftingStatAudit.AsNoTracking()
