@@ -15,9 +15,11 @@ using PowerBuddy.API.Middleware;
 using PowerBuddy.Data.AutoMapper;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Data.Extensions;
 using PowerBuddy.EmailService.Extensions;
 using PowerBuddy.MediatR.Extensions;
 using PowerBuddy.Services;
+using PowerBuddy.Services.Extensions;
 
 namespace PowerBuddy.API
 {
@@ -34,8 +36,16 @@ namespace PowerBuddy.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<EmailConfig>((serviceProvider => new EmailConfig()
+            {
+                Host = Configuration.GetValue<string>("SMTPHost"),
+                Port = Configuration.GetValue<int>("SMTPPort"),
+                UserName = Configuration.GetValue<string>("SMTPUsername"),
+                Password = Configuration.GetValue<string>("SMTPPassword")
+            }));
+
             services.AddMediatrHandlers();
-            services.AddEmailServices();
+            //services.AddEmailServices();
             services.AddFactories();
             services.AddServiceClasses();
 
@@ -48,24 +58,6 @@ namespace PowerBuddy.API
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PowerLiftingContext>();
-
-            services.AddSingleton<EmailConfig>((serviceProvider => new EmailConfig()
-            {
-                Host = Configuration.GetValue<string>("SMTPHost"),
-                Port = Configuration.GetValue<int>("SMTPPort"),
-                UserName = Configuration.GetValue<string>("SMTPUsername"),
-                Password = Configuration.GetValue<string>("SMTPPassword")
-            }));
-
-            services.AddScoped<SmtpClient>((serviceProvider) => new SmtpClient()
-            {
-                Host = Configuration.GetValue<string>("SMTPHost"),
-                Port = Configuration.GetValue<int>("SMTPPort"),
-                Credentials = new NetworkCredential(
-                    Configuration.GetValue<string>("SMTPUsername"),
-                    Configuration.GetValue<string>("SMTPPassword")
-                )
-            });
 
             services.AddCors(options =>
             {

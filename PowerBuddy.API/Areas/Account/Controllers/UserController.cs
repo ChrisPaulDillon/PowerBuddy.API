@@ -9,6 +9,8 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Account;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.EmailService;
+using PowerBuddy.EmailService.Models;
 using PowerBuddy.MediatR.Users.Commands.Account;
 using PowerBuddy.MediatR.Users.Commands.Public;
 using PowerBuddy.MediatR.Users.Models;
@@ -23,14 +25,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly SmtpClient _smtpClient;
+        private readonly EmailConfig _emailSender;
         private readonly string _userId;
 
-        public UserController(IMediator mediator, IHttpContextAccessor accessor, SmtpClient smtpClient)
+        public UserController(IMediator mediator, IHttpContextAccessor accessor, EmailConfig emailSender)
         {
             _mediator = mediator;
             _userId = accessor.HttpContext.User.FindUserId();
-            _smtpClient = smtpClient;
+            _emailSender = emailSender;
         }
 
         [HttpPost("Login")]
@@ -43,10 +45,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var userLoggedInProfile = await _mediator.Send(new LoginUserQuery(loginModel)).ConfigureAwait(false);
                 return Ok(userLoggedInProfile);
-            }
-            catch (UserValidationException ex)
-            {
-                return BadRequest(ex.Message);
             }
             catch (InvalidCredentialsException ex)
             {
@@ -153,13 +151,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                await _smtpClient.SendMailAsync(new MailMessage(
-                    from: "admin@powerbuddy.gg",
-                    to: "chrispauldillon@live.com",
-                    subject: "Test message subject",
-                    body: "Test message body"
-                ));
-
+                var message = new EmailMessage(new string[] { "chrispauldillon@live.com"}, "Test Email", "Test body" );
+               // await _emailSender.SendEmailAsync(message);
                 return Ok("OK");
             }
             catch (UnauthorisedUserException ex)

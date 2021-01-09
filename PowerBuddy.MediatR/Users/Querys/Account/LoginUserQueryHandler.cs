@@ -36,6 +36,8 @@ namespace PowerBuddy.MediatR.Users.Querys.Account
     {
         public LoginUserQueryValidator()
         {
+            RuleFor(x => x.LoginModel.UserName).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.LoginModel.Email).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.LoginModel.Password).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
@@ -56,10 +58,6 @@ namespace PowerBuddy.MediatR.Users.Querys.Account
 
         public async Task<UserLoggedInDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(request.LoginModel.Email)) throw new UserValidationException("Email cannot be empty");
-            if (string.IsNullOrEmpty(request.LoginModel.Password)) throw new UserValidationException("Password cannot be empty");
-            if (string.IsNullOrEmpty(request.LoginModel.UserName)) throw new UserValidationException("UserName cannot be empty");
-
             var user = await _context.User.AsNoTracking()
                 .FirstOrDefaultAsync(x =>
                     x.NormalizedEmail == request.LoginModel.Email.ToUpper() ||

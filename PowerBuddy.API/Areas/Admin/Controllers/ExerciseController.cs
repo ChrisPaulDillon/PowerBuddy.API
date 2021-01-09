@@ -63,10 +63,6 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             {
                 return BadRequest(e.Message);
             }
-            catch (UserValidationException e)
-            {
-                return BadRequest(e.Message);
-            }
             catch (ExerciseNotFoundException e)
             {
                 return NotFound(e.Message);
@@ -91,10 +87,6 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
                 return Ok(exercises);
             }
             catch(ValidationException e)
-            {
-                return BadRequest(e.Message);
-            }
-            catch(UserValidationException e)
             {
                 return BadRequest(e.Message);
             }
