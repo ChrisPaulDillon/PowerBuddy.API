@@ -47,11 +47,6 @@ namespace PowerBuddy.MediatR.Users.Commands.Public
 
         public async Task<bool> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(request.RegisterUserDTO.Email)) throw new UserValidationException("Email cannot be empty");
-            if (string.IsNullOrEmpty(request.RegisterUserDTO.Password)) throw new UserValidationException("Password cannot be empty");
-            if (string.IsNullOrEmpty(request.RegisterUserDTO.UserName)) throw new UserValidationException("UserName cannot be empty");
-            //if (!Enum.IsDefined(typeof(SportEnum), request.RegisterUserDTO.SportType.ToUpper())) throw new UserValidationException("Incorrect Sport");
-
             var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == request.RegisterUserDTO.Email || x.NormalizedUserName == request.RegisterUserDTO.UserName.ToUpper(), cancellationToken: cancellationToken);
             if (doesUserExist) throw new EmailOrUserNameInUseException();
 

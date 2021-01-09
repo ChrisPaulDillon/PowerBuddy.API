@@ -69,10 +69,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var user = await _mediator.Send(new GetUserProfileQuery(_userId)).ConfigureAwait(false);
                 return Ok(user);
             }
-            catch (UserValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
             catch (UserNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -93,10 +89,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
                 return Ok(result);
-            }
-            catch (UserValidationException ex)
-            {
-                return BadRequest(ex.Message);
             }
             catch (EmailOrUserNameInUseException ex)
             {

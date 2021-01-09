@@ -43,8 +43,6 @@ namespace PowerBuddy.MediatR.Users.Querys.Public
 
         public async Task<PublicUserDTO> Handle(GetPublicUserProfileByIdQuery request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(request.UserId)) throw new UserValidationException("UserId cannot be empty");
-
             var user = await _context.User.Where(x => x.Id == request.UserId)
                 .AsNoTracking()
                 .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)

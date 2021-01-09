@@ -47,10 +47,6 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
                 var result = await _mediator.Send(new BanUserCommand(bannedUserId, _userId)).ConfigureAwait(false);
                 return Ok(result);
             }
-            catch (UserValidationException e)
-            {
-                return BadRequest(e.Message);
-            }
             catch (UserNotFoundException e)
             {
                 return NotFound(e.Message);
