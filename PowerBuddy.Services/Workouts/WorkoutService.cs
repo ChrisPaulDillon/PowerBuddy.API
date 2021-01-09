@@ -11,7 +11,6 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
-using PowerBuddy.Services.ProgramLogs.Util;
 using PowerBuddy.Services.Workouts.Models;
 using PowerBuddy.Services.Workouts.Util;
 using PowerBuddy.Util.Extensions;
@@ -48,8 +47,7 @@ namespace PowerBuddy.Services.Workouts
                 foreach (var templateDay in templateWeek.TemplateDays)
                 {
                     var workoutDayOfWeek = workoutOrder[counter];
-                   
-
+                    
                     if (DayOfWeek.Monday.ToString() == workoutDayOfWeek) dateOfWorkout = currentDate.ClosestDateByDay(DayOfWeek.Monday);
                     else if (DayOfWeek.Tuesday.ToString() == workoutDayOfWeek) dateOfWorkout = currentDate.ClosestDateByDay(DayOfWeek.Tuesday);
                     else if (DayOfWeek.Wednesday.ToString() == workoutDayOfWeek) dateOfWorkout = currentDate.ClosestDateByDay(DayOfWeek.Wednesday);
@@ -87,7 +85,9 @@ namespace PowerBuddy.Services.Workouts
                     workoutExercise.WorkoutSets.Add(workoutSet);
                 }
 
-                workoutExercise.WorkoutExerciseTonnage = _entityFactory.CreateWorkoutExerciseTonnage(exerciseTonnage, workoutExercise.ExerciseId, userId);
+                var workoutExerciseTonnage = _entityFactory.CreateWorkoutExerciseTonnage(exerciseTonnage, workoutExercise.ExerciseId, userId);
+                workoutExerciseTonnage.WorkoutExercise = workoutExercise;
+                _context.WorkoutExerciseTonnage.Add(workoutExerciseTonnage);
                 workoutExercises.Add(workoutExercise);
             }
             return workoutExercises;
@@ -107,7 +107,7 @@ namespace PowerBuddy.Services.Workouts
 
             for (var i = 1; i < createWorkoutExercise.Sets + 1; i++)
             {
-                exerciseTonnage += ProgramLogHelper.CalculateTonnage(createWorkoutExercise.Weight, createWorkoutExercise.Reps);
+                exerciseTonnage += WorkoutHelper.CalculateTonnage(createWorkoutExercise.Weight, createWorkoutExercise.Reps);
                 var set = _entityFactory.CreateWorkoutSet(createWorkoutExercise.Reps, createWorkoutExercise.Weight, false);
                 setCollection.Add(set);
                 
@@ -150,7 +150,7 @@ namespace PowerBuddy.Services.Workouts
 
             foreach (var repScheme in workoutExercise.WorkoutSets)
             {
-                exerciseTonnage += WorkoutHelper.CalculateTonnage((decimal)repScheme.WeightLifted, repScheme.RepsCompleted ?? repScheme.NoOfReps);
+                exerciseTonnage += WorkoutHelper.CalculateTonnage(repScheme.WeightLifted, repScheme.RepsCompleted ?? repScheme.NoOfReps);
             }
 
             if (workoutExerciseTonnage == null)

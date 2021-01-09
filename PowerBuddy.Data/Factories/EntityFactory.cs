@@ -151,7 +151,7 @@ namespace PowerBuddy.Data.Factories
         {
             return new WorkoutExerciseTonnage()
             {
-                ExerciseTonnage = exerciseId,
+                ExerciseTonnage = exerciseTonnage,
                 ExerciseId = exerciseId,
                 UserId = userId,
             };

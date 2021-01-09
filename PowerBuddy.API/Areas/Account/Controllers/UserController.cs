@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Mail;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,12 +23,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly SmtpClient _smtpClient;
         private readonly string _userId;
 
-        public UserController(IMediator mediator, IHttpContextAccessor accessor)
+        public UserController(IMediator mediator, IHttpContextAccessor accessor, SmtpClient smtpClient)
         {
             _mediator = mediator;
             _userId = accessor.HttpContext.User.FindUserId();
+            _smtpClient = smtpClient;
         }
 
         [HttpPost("Login")]
@@ -133,6 +136,31 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new EditProfileCommand(editProfileDTO, _userId)).ConfigureAwait(false);
                 return Ok(result);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPost("ResetPassword")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        public async Task<IActionResult> ResetPassword()
+        {
+            try
+            {
+                await _smtpClient.SendMailAsync(new MailMessage(
+                    from: "admin@powerbuddy.gg",
+                    to: "chrispauldillon@live.com",
+                    subject: "Test message subject",
+                    body: "Test message body"
+                ));
+
+                return Ok("OK");
             }
             catch (UnauthorisedUserException ex)
             {
