@@ -2,9 +2,6 @@
 
 namespace PowerBuddy.Data.DTOs.Exercises
 {
-    /// <summary>
-    /// Used for a lookups table for each individual lift
-    /// </summary>
     public class ExerciseDTO
     {
         public int ExerciseId { get; set; }

@@ -17,8 +17,8 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Extensions;
 using PowerBuddy.EmailService.Extensions;
+using PowerBuddy.EmailService.Models;
 using PowerBuddy.MediatR.Extensions;
-using PowerBuddy.Services;
 using PowerBuddy.Services.Extensions;
 
 namespace PowerBuddy.API
@@ -36,16 +36,14 @@ namespace PowerBuddy.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<EmailConfig>((serviceProvider => new EmailConfig()
-            {
-                Host = Configuration.GetValue<string>("SMTPHost"),
-                Port = Configuration.GetValue<int>("SMTPPort"),
-                UserName = Configuration.GetValue<string>("SMTPUsername"),
-                Password = Configuration.GetValue<string>("SMTPPassword")
-            }));
-
             services.AddMediatrHandlers();
-            //services.AddEmailServices();
+
+            services.AddEmailServices
+                (Configuration.GetValue<string>("SMTPHost"), 
+                Configuration.GetValue<int>("SMTPPort"), 
+                Configuration.GetValue<string>("SMTPUsername"), 
+                Configuration.GetValue<string>("SMTPPassword"));
+
             services.AddFactories();
             services.AddServiceClasses();
 

@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System.Collections.Generic;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,10 +26,10 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly EmailConfig _emailSender;
+        private readonly IEmailSender _emailSender;
         private readonly string _userId;
 
-        public UserController(IMediator mediator, IHttpContextAccessor accessor, EmailConfig emailSender)
+        public UserController(IMediator mediator, IHttpContextAccessor accessor, IEmailSender emailSender)
         {
             _mediator = mediator;
             _userId = accessor.HttpContext.User.FindUserId();
@@ -143,8 +144,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var message = new EmailMessage(new string[] { "chrispauldillon@live.com"}, "Test Email", "Test body" );
-               // await _emailSender.SendEmailAsync(message);
+                var message = new EmailMessage(new List<string>() { "chrispauldillon@live.com"}, "Test Email", "Test body" );
+                await _emailSender.SendEmailAsync(message);
                 return Ok("OK");
             }
             catch (UnauthorisedUserException ex)

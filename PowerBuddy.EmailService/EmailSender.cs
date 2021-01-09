@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
+using MailKit.Security;
 using MimeKit;
 using PowerBuddy.EmailService.Models;
 
@@ -8,9 +9,9 @@ namespace PowerBuddy.EmailService
 {
     public class EmailSender : IEmailSender
     {
-        private readonly EmailConfig _emailConfig;
+        private readonly IEmailConfig _emailConfig;
 
-        public EmailSender(EmailConfig emailConfig)
+        public EmailSender(IEmailConfig emailConfig)
         {
             _emailConfig = emailConfig;
         }
@@ -30,12 +31,12 @@ namespace PowerBuddy.EmailService
             {
                 try
                 {
-                    await client.ConnectAsync(_emailConfig.Host, _emailConfig.Port, true);
+                    await client.ConnectAsync(_emailConfig.Host, _emailConfig.Port, SecureSocketOptions.StartTls);
                     client.AuthenticationMechanisms.Remove("XOAUTH2");
                     await client.AuthenticateAsync(_emailConfig.UserName, _emailConfig.Password);
                     await client.SendAsync(emailMessage);
                 }
-                catch
+                catch(Exception ex)
                 {
                     throw;
                 }
