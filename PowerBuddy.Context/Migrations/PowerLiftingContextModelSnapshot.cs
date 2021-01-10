@@ -87,6 +87,36 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.ToTable("IdentityUserToken");
                 });
 
+            modelBuilder.Entity("PowerBuddy.Data.Entities.EmailTemplate", b =>
+                {
+                    b.Property<int>("EmailTemplateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FromEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FromName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TemplateName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EmailTemplateId");
+
+                    b.ToTable("EmailTemplate");
+                });
+
             modelBuilder.Entity("PowerBuddy.Data.Entities.Exercise", b =>
                 {
                     b.Property<int>("ExerciseId")

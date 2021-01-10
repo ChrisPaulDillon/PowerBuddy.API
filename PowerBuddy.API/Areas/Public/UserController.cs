@@ -6,7 +6,7 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Users.Querys.Public;
+using PowerBuddy.MediatR.Users.Querys;
 using PowerBuddy.Services.Account;
 
 namespace PowerBuddy.API.Areas.Public

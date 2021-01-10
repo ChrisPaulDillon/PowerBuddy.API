@@ -9,7 +9,6 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Services.Workouts;
 
@@ -28,7 +27,7 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
         }
     }
 
-    public class QuickAddWorkoutSetsCommandValidator : AbstractValidator<QuickAddWorkoutSetsCommand>
+    internal class QuickAddWorkoutSetsCommandValidator : AbstractValidator<QuickAddWorkoutSetsCommand>
     {
         public QuickAddWorkoutSetsCommandValidator()
         {
@@ -37,7 +36,7 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
         }
     }
 
-    public class QuickAddWorkoutSetsCommandHandler : IRequestHandler<QuickAddWorkoutSetsCommand, IEnumerable<WorkoutSetDTO>>
+    internal class QuickAddWorkoutSetsCommandHandler : IRequestHandler<QuickAddWorkoutSetsCommand, IEnumerable<WorkoutSetDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IWorkoutService _workoutService;

@@ -11,7 +11,7 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
-using PowerBuddy.MediatR.ProgramLogRepSchemes.Commands.Account;
+using PowerBuddy.MediatR.ProgramLogRepSchemes.Commands;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

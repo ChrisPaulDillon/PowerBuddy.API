@@ -29,7 +29,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Commands.Account
         }
     }
 
-    public class CreateProgramLogExerciseCommandValidator : AbstractValidator<CreateProgramLogExerciseCommand>
+    internal class CreateProgramLogExerciseCommandValidator : AbstractValidator<CreateProgramLogExerciseCommand>
     {
         public CreateProgramLogExerciseCommandValidator()
         {
@@ -40,7 +40,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Commands.Account
         }
     }
 
-    public class CreateProgramLogExerciseCommandHandler : IRequestHandler<CreateProgramLogExerciseCommand, ProgramLogExerciseDTO>
+    internal class CreateProgramLogExerciseCommandHandler : IRequestHandler<CreateProgramLogExerciseCommand, ProgramLogExerciseDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

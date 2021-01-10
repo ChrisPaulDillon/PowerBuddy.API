@@ -10,8 +10,8 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
-using PowerBuddy.MediatR.ProgramLogWeeks.Commands.Account;
-using PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account;
+using PowerBuddy.MediatR.ProgramLogWeeks.Commands;
+using PowerBuddy.MediatR.ProgramLogWeeks.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

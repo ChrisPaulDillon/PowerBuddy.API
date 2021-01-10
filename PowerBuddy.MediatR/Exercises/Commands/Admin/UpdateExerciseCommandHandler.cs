@@ -21,7 +21,7 @@ namespace PowerBuddy.MediatR.Exercises.Commands.Admin
             UserId = userId;
         }
     }
-    public class UpdateExerciseCommandHandler : IRequestHandler<UpdateExerciseCommand, bool>
+    internal class UpdateExerciseCommandHandler : IRequestHandler<UpdateExerciseCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

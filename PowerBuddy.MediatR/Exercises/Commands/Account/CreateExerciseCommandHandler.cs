@@ -19,7 +19,7 @@ namespace PowerBuddy.MediatR.Exercises.Commands.Account
             Exercise = exercise;
         }
     }
-    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, ExerciseDTO>
+    internal class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, ExerciseDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

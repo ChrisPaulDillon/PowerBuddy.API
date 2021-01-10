@@ -22,7 +22,7 @@ namespace PowerBuddy.MediatR.Workouts.Commands
         }
     }
 
-    public class DeleteWorkoutLogCommandValidator : AbstractValidator<DeleteWorkoutLogCommand>
+    internal class DeleteWorkoutLogCommandValidator : AbstractValidator<DeleteWorkoutLogCommand>
     {
         public DeleteWorkoutLogCommandValidator()
         {
@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Workouts.Commands
         }
     }
 
-    public class DeleteWorkoutLogCommandHandler : IRequestHandler<DeleteWorkoutLogCommand, bool>
+    internal class DeleteWorkoutLogCommandHandler : IRequestHandler<DeleteWorkoutLogCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

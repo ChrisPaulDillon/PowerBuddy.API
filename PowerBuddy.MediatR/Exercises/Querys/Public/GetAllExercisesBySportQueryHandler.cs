@@ -20,7 +20,7 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Public
         }
     }
 
-    public class GetAllExercisesBySportQueryHandler : IRequestHandler<GetAllExercisesBySportQuery, IEnumerable<TopLevelExerciseDTO>>
+    internal class GetAllExercisesBySportQueryHandler : IRequestHandler<GetAllExercisesBySportQuery, IEnumerable<TopLevelExerciseDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

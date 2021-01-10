@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Services.Account
 {
@@ -9,5 +10,7 @@ namespace PowerBuddy.Services.Account
         Task<bool> IsUserProfilePublic(string userId);
 
         Task<int> GetTotalUserCount();
+
+        Task<string> CreateEmailConfirmationToken(User user);
     }
 }

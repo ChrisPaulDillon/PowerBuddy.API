@@ -23,7 +23,7 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
         }
     }
 
-    public class UpdateWorkoutExerciseNotesCommandValidator : AbstractValidator<UpdateWorkoutExerciseNoteCommand>
+    internal class UpdateWorkoutExerciseNotesCommandValidator : AbstractValidator<UpdateWorkoutExerciseNoteCommand>
     {
         public UpdateWorkoutExerciseNotesCommandValidator()
         {
@@ -33,7 +33,7 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
         }
     }
 
-    public class UpdateWorkoutExerciseNotesCommandHandler : IRequestHandler<UpdateWorkoutExerciseNoteCommand, bool>
+    internal class UpdateWorkoutExerciseNotesCommandHandler : IRequestHandler<UpdateWorkoutExerciseNoteCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

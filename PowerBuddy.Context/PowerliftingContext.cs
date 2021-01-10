@@ -62,6 +62,7 @@ namespace PowerBuddy.Data.Context
         public DbSet<Gender> Gender { get; set; }
         public DbSet<MemberStatus> MemberStatus { get; set; }
         public DbSet<LiftingLevel> LiftingLevel { get; set; }
+        public DbSet<EmailTemplate> EmailTemplate { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -73,7 +74,6 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
             modelBuilder.Entity<User>().ToTable("IdentityUser");
-
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
 
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
@@ -87,6 +87,7 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<RepSchemeType>().ToTable("RepSchemeType");
             modelBuilder.Entity<Quote>().ToTable("Quote");
             modelBuilder.Entity<LiftingLevel>().ToTable("LiftingLevel");
+            modelBuilder.Entity<EmailTemplate>().ToTable("EmailTemplate");
 
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
             modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");

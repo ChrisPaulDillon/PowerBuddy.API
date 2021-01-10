@@ -22,7 +22,7 @@ namespace PowerBuddy.MediatR.Workouts.Commands
         }
     }
 
-    public class CreateWorkoutTemplateCommandValidator : AbstractValidator<CreateWorkoutTemplateCommand>
+    internal class CreateWorkoutTemplateCommandValidator : AbstractValidator<CreateWorkoutTemplateCommand>
     {
         public CreateWorkoutTemplateCommandValidator()
         {
@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Workouts.Commands
         }
     }
 
-    public class CreateWorkoutTemplateCommandHandler : IRequestHandler<CreateWorkoutTemplateCommand, Unit>
+    internal class CreateWorkoutTemplateCommandHandler : IRequestHandler<CreateWorkoutTemplateCommand, Unit>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

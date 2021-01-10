@@ -25,7 +25,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Querys
         }
     }
 
-    public class GetWorkoutDayIdByDateQueryValidator : AbstractValidator<GetWorkoutDayIdByDateQuery>
+    internal class GetWorkoutDayIdByDateQueryValidator : AbstractValidator<GetWorkoutDayIdByDateQuery>
     {
         public GetWorkoutDayIdByDateQueryValidator()
         {
@@ -34,7 +34,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Querys
         }
     }
 
-    public class GetWorkoutDayIdByDateQueryHandler : IRequestHandler<GetWorkoutDayIdByDateQuery, GetWorkoutIdResponse>
+    internal class GetWorkoutDayIdByDateQueryHandler : IRequestHandler<GetWorkoutDayIdByDateQuery, GetWorkoutIdResponse>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

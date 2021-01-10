@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using PowerBuddy.MediatR.Exercises.Commands.Account;
+using PowerBuddy.MediatR.Emails.Commands;
+using PowerBuddy.MediatR.Emails.Extensions;
 using PowerBuddy.MediatR.Exercises.Querys.Admin;
 using PowerBuddy.MediatR.Exercises.Querys.Public;
 using PowerBuddy.MediatR.LiftingStats.Commands.Account;
@@ -12,23 +13,18 @@ using PowerBuddy.MediatR.ProgramLogDays.Commands.Member;
 using PowerBuddy.MediatR.ProgramLogDays.Querys.Account;
 using PowerBuddy.MediatR.ProgramLogExercises.Commands.Account;
 using PowerBuddy.MediatR.ProgramLogExercises.Querys.Account;
-using PowerBuddy.MediatR.ProgramLogRepSchemes.Commands.Account;
-using PowerBuddy.MediatR.ProgramLogs.Commands.Account;
-using PowerBuddy.MediatR.ProgramLogs.Querys.Account;
-using PowerBuddy.MediatR.ProgramLogWeeks.Commands.Account;
-using PowerBuddy.MediatR.ProgramLogWeeks.Querys.Account;
-using PowerBuddy.MediatR.Quotes.Commands.Account;
-using PowerBuddy.MediatR.Quotes.Commands.Admin;
-using PowerBuddy.MediatR.Quotes.Querys.Public;
-using PowerBuddy.MediatR.TemplatePrograms.Commands.Admin;
-using PowerBuddy.MediatR.TemplatePrograms.Querys.Account;
-using PowerBuddy.MediatR.TemplatePrograms.Querys.Public;
+using PowerBuddy.MediatR.ProgramLogRepSchemes.Commands;
+using PowerBuddy.MediatR.ProgramLogs.Commands;
+using PowerBuddy.MediatR.ProgramLogs.Querys;
+using PowerBuddy.MediatR.ProgramLogWeeks.Commands;
+using PowerBuddy.MediatR.ProgramLogWeeks.Querys;
+using PowerBuddy.MediatR.Quotes.Commands;
+using PowerBuddy.MediatR.Quotes.Querys;
+using PowerBuddy.MediatR.TemplatePrograms.Commands;
+using PowerBuddy.MediatR.TemplatePrograms.Querys;
+using PowerBuddy.MediatR.Users.Commands;
 using PowerBuddy.MediatR.Users.Commands.Account;
-using PowerBuddy.MediatR.Users.Commands.Admin;
-using PowerBuddy.MediatR.Users.Commands.Public;
-using PowerBuddy.MediatR.Users.Querys.Account;
-using PowerBuddy.MediatR.Users.Querys.Admin;
-using PowerBuddy.MediatR.Users.Querys.Public;
+using PowerBuddy.MediatR.Users.Querys;
 using PowerBuddy.MediatR.WorkoutDays.Commands;
 using PowerBuddy.MediatR.WorkoutDays.Querys;
 using PowerBuddy.MediatR.WorkoutExercises.Commands;
@@ -56,6 +52,8 @@ namespace PowerBuddy.MediatR.Extensions
             services.AddUserMediatrHandlers();
             services.AddWorkoutMediatrHandlers();
             services.AddMetricMediatrHandlers();
+
+            services.AddEmailMediatrHandlers();
 
             return services;
         }
@@ -191,7 +189,6 @@ namespace PowerBuddy.MediatR.Extensions
         private static IServiceCollection AddExerciseMediatrHandlers(this IServiceCollection services)
         {
             // CommandHandler Registration
-            services.AddMediatR(typeof(CreateExerciseCommandHandler));
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetAllUnapprovedExercisesQueryHandler));

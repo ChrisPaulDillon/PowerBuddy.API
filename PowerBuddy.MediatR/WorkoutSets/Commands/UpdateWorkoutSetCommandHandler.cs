@@ -24,7 +24,7 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
         }
     }
 
-    public class UpdateWorkoutSetCommandHandler : IRequestHandler<UpdateWorkoutSetCommand, bool>
+    internal class UpdateWorkoutSetCommandHandler : IRequestHandler<UpdateWorkoutSetCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

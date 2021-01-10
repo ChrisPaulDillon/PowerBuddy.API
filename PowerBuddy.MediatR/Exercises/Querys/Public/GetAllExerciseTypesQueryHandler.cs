@@ -15,7 +15,7 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Public
     {
     }
 
-    public class GetAllExerciseTypesQueryHandler : IRequestHandler<GetAllExerciseTypesQuery, IEnumerable<ExerciseTypeDTO>>
+    internal class GetAllExerciseTypesQueryHandler : IRequestHandler<GetAllExerciseTypesQuery, IEnumerable<ExerciseTypeDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

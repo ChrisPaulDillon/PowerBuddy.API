@@ -12,10 +12,10 @@ using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.EmailService;
 using PowerBuddy.EmailService.Models;
+using PowerBuddy.MediatR.Users.Commands;
 using PowerBuddy.MediatR.Users.Commands.Account;
-using PowerBuddy.MediatR.Users.Commands.Public;
 using PowerBuddy.MediatR.Users.Models;
-using PowerBuddy.MediatR.Users.Querys.Account;
+using PowerBuddy.MediatR.Users.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

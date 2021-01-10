@@ -26,7 +26,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Querys.Account
         }
     }
 
-    public class GetProgramLogDayByIdQueryValidator : AbstractValidator<GetProgramLogDayByIdQuery>
+    internal class GetProgramLogDayByIdQueryValidator : AbstractValidator<GetProgramLogDayByIdQuery>
     {
         public GetProgramLogDayByIdQueryValidator()
         {
@@ -35,7 +35,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Querys.Account
         }
     }
 
-    public class GetProgramLogDayByIdQueryHandler : IRequestHandler<GetProgramLogDayByIdQuery, ProgramLogDayDTO>
+    internal class GetProgramLogDayByIdQueryHandler : IRequestHandler<GetProgramLogDayByIdQuery, ProgramLogDayDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

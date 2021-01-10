@@ -23,7 +23,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Commands.Account
         }
     }
 
-    public class DeleteProgramLogExerciseCommandValidator : AbstractValidator<DeleteProgramLogExerciseCommand>
+    internal class DeleteProgramLogExerciseCommandValidator : AbstractValidator<DeleteProgramLogExerciseCommand>
     {
         public DeleteProgramLogExerciseCommandValidator()
         {
@@ -32,7 +32,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Commands.Account
         }
     }
 
-    public class DeleteProgramLogExerciseCommandHandler : IRequestHandler<DeleteProgramLogExerciseCommand, bool>
+    internal class DeleteProgramLogExerciseCommandHandler : IRequestHandler<DeleteProgramLogExerciseCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
