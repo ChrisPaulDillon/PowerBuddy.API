@@ -12,13 +12,11 @@ namespace PowerBuddy.Services.Account
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
 
         public AccountService(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
-            _userManager = userManager;
         }
 
         public bool IsUserModerator(string userId)
@@ -34,11 +32,6 @@ namespace PowerBuddy.Services.Account
         public async Task<int> GetTotalUserCount()
         {
             return await _context.User.AsNoTracking().CountAsync();
-        }
-
-        public async Task<string> CreateEmailConfirmationToken(User user)
-        {
-            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
         }
     }
 }

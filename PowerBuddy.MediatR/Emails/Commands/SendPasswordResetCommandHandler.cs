@@ -11,6 +11,7 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.EmailService;
 using PowerBuddy.EmailService.Models;
+using PowerBuddy.MediatR.Emails.Models;
 
 namespace PowerBuddy.MediatR.Emails.Commands
 {
@@ -26,14 +27,14 @@ namespace PowerBuddy.MediatR.Emails.Commands
     internal class SendPasswordResetCommandHandler : IRequestHandler<SendPasswordResetCommand, Unit>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
+        private readonly IEmailAssistant _emailHelper;
         private readonly IEmailClient _emailClient;
         private readonly UserManager<User> _userManager;
 
-        public SendPasswordResetCommandHandler(PowerLiftingContext context, IMapper mapper, IEmailClient emailClient, UserManager<User> userManager)
+        public SendPasswordResetCommandHandler(PowerLiftingContext context, IEmailAssistant emailHelper, IEmailClient emailClient, UserManager<User> userManager)
         {
             _context = context;
-            _mapper = mapper;
+            _emailHelper = emailHelper;
             _emailClient = emailClient;
             _userManager = userManager;
         }
@@ -54,7 +55,7 @@ namespace PowerBuddy.MediatR.Emails.Commands
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var resetLink = $"http://localhost:3000/account/changepassword?userId={user.Id}&token={token}";
+            var resetLink = $"{_emailHelper.BaseUrl}/account/changepassword?userId={user.Id}&token={token}";
 
             var emailMessage = new EmailMessage(new List<string>() { user.Email }, "PowerBuddy - Reset Password", resetLink);
 

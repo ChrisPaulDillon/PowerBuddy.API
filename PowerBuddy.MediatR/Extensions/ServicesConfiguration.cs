@@ -39,7 +39,7 @@ namespace PowerBuddy.MediatR.Extensions
 {
     public static class ServicesConfiguration
     {
-        public static IServiceCollection AddMediatrHandlers(this IServiceCollection services)
+        public static IServiceCollection AddMediatrHandlers(this IServiceCollection services, string baseUrl, string siteName)
         {
             services.AddProgramLogDayMediatrHandlers();
             services.AddProgramLogMediatrHandlers();
@@ -54,7 +54,7 @@ namespace PowerBuddy.MediatR.Extensions
             services.AddWorkoutMediatrHandlers();
             services.AddMetricMediatrHandlers();
 
-            services.AddEmailMediatrHandlers();
+            services.AddEmailMediatrHandlers(baseUrl, siteName);
 
             return services;
         }
