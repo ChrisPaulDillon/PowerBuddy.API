@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.Data.DTOs.System;
-using PowerBuddy.MediatR.Quotes.Querys.Public;
+using PowerBuddy.MediatR.Quotes.Querys;
 
 namespace PowerBuddy.API.Areas.Public
 {

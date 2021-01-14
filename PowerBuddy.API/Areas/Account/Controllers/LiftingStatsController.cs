@@ -12,7 +12,7 @@ using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.LiftingStats;
 using PowerBuddy.MediatR.LiftingStats.Commands.Account;
 using PowerBuddy.MediatR.LiftingStats.Querys.Account;
-using PowerBuddy.MediatR.TemplatePrograms.Querys.Account;
+using PowerBuddy.MediatR.TemplatePrograms.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

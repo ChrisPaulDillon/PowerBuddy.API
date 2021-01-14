@@ -25,7 +25,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Commands.Account
         }
     }
 
-    public class UpdateProgramLogExerciseNotesCommandValidator : AbstractValidator<UpdateProgramLogExerciseNotesCommand>
+    internal class UpdateProgramLogExerciseNotesCommandValidator : AbstractValidator<UpdateProgramLogExerciseNotesCommand>
     {
         public UpdateProgramLogExerciseNotesCommandValidator()
         {
@@ -35,7 +35,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Commands.Account
         }
     }
 
-    public class UpdateProgramLogExerciseNotesCommandHandler : IRequestHandler<UpdateProgramLogExerciseNotesCommand, bool>
+    internal class UpdateProgramLogExerciseNotesCommandHandler : IRequestHandler<UpdateProgramLogExerciseNotesCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

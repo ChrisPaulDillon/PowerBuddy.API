@@ -17,9 +17,7 @@ namespace PowerBuddy.Services.Workouts
         public WorkoutExercise CreateSetsForExercise(CreateWorkoutExerciseDTO createWorkoutExercise, string userId);
         public Task CreateWorkoutExerciseAudit(int exerciseId, string userId);
         public Task<WorkoutExerciseTonnage> UpdateExerciseTonnage(WorkoutExercise workoutExercise, string userId);
-
         IEnumerable<WorkoutSetDTO> GetHighestWeightRepSchemeForEachRepFromCollection(IEnumerable<WorkoutSetDTO> workoutSets);
-
         public Task<WorkoutDayDTO> GetWorkoutLogDetailsForWeek(DateTime workoutDate, string userId);
     }
 }

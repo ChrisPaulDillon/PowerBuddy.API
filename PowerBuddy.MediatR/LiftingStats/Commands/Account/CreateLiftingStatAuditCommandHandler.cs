@@ -30,7 +30,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Commands.Account
         }
     }
 
-    public class CreateLiftingStatAuditCommandValidator : AbstractValidator<CreateLiftingStatAuditCommand>
+    internal class CreateLiftingStatAuditCommandValidator : AbstractValidator<CreateLiftingStatAuditCommand>
     {
         public CreateLiftingStatAuditCommandValidator()
         {
@@ -41,7 +41,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Commands.Account
         }
     }
 
-    public class CreateLiftingStatAuditCommandHandler : IRequestHandler<CreateLiftingStatAuditCommand, Unit>
+    internal class CreateLiftingStatAuditCommandHandler : IRequestHandler<CreateLiftingStatAuditCommand, Unit>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

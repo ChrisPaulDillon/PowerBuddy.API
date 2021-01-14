@@ -28,14 +28,14 @@ namespace PowerBuddy.MediatR.Workouts.Querys
         }
     }
 
-    public class GetWorkoutWeekByDateQueryValidator : AbstractValidator<GetWorkoutWeekByDateQuery>
+    internal class GetWorkoutWeekByDateQueryValidator : AbstractValidator<GetWorkoutWeekByDateQuery>
     {
         public GetWorkoutWeekByDateQueryValidator()
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
-    public class GetWorkoutWeekByDateQueryHandler : IRequestHandler<GetWorkoutWeekByDateQuery, WorkoutWeekSummaryDTO>
+    internal class GetWorkoutWeekByDateQueryHandler : IRequestHandler<GetWorkoutWeekByDateQuery, WorkoutWeekSummaryDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

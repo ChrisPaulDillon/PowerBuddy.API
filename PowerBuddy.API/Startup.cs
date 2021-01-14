@@ -1,7 +1,10 @@
+using System.Net;
+using System.Net.Mail;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +16,10 @@ using PowerBuddy.API.Middleware;
 using PowerBuddy.Data.AutoMapper;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Data.Extensions;
+using PowerBuddy.EmailService.Extensions;
+using PowerBuddy.MediatR.Extensions;
+using PowerBuddy.Services;
 
 namespace PowerBuddy.API
 {
@@ -29,21 +36,13 @@ namespace PowerBuddy.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Mediatr Services
-            services.AddProgramLogDayMediatrHandlers();
-            services.AddProgramLogMediatrHandlers();
-            services.AddProgramLogWeekMediatrHandlers();
-            services.AddProgramLogExerciseMediatrHandlers();
-            services.AddProgramLogRepSchemesMediatrHandlers();
-            services.AddExerciseMediatrHandlers();
-            services.AddExerciseMuscleGroupHandlers();
-            services.AddExerciseTypeMediatrHandlers();
-            services.AddQuoteMediatrHandlers();
-            services.AddLiftingStatsMediatrHandlers();
-            services.AddTemplateProgramMediatrHandlers();
-            services.AddUserMediatrHandlers();
-            services.AddWorkoutMediatrHandlers();
-            services.AddMetricMediatrHandlers();
+            services.AddMediatrHandlers(Configuration.GetValue<string>("EmailBaseUrl"), Configuration.GetValue<string>("EmailSiteName"));
+
+            services.AddEmailServices
+                (Configuration.GetValue<string>("SMTPHost"), 
+                Configuration.GetValue<int>("SMTPPort"), 
+                Configuration.GetValue<string>("SMTPUsername"), 
+                Configuration.GetValue<string>("SMTPPassword"));
 
             services.AddFactories();
             services.AddServiceClasses();
@@ -56,8 +55,8 @@ namespace PowerBuddy.API
 
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<PowerLiftingContext>();
-
+                .AddEntityFrameworkStores<PowerLiftingContext>()
+                .AddDefaultTokenProviders();
 
             services.AddCors(options =>
             {

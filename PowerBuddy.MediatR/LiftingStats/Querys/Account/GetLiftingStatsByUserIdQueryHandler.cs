@@ -20,7 +20,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
         }
     }
 
-    public class GetLiftingStatsByUserIdQueryHandler : IRequestHandler<GetLiftingStatsByUserIdQuery, IEnumerable<LiftingStatGroupedDTO>>
+    internal class GetLiftingStatsByUserIdQueryHandler : IRequestHandler<GetLiftingStatsByUserIdQuery, IEnumerable<LiftingStatGroupedDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

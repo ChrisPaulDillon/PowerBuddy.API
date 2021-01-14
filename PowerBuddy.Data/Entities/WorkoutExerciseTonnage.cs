@@ -1,6 +1,6 @@
 ﻿namespace PowerBuddy.Data.Entities
 {
-    public class WorkoutExerciseTonnage
+    public partial class WorkoutExerciseTonnage
     {
         public int WorkoutExerciseTonnageId { get; set; }
         public int WorkoutExerciseId { get; set; }

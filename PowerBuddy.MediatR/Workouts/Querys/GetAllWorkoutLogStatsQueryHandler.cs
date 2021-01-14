@@ -20,7 +20,7 @@ namespace PowerBuddy.MediatR.Workouts.Querys
         }
     }
 
-    public class GetAllWorkoutStatsQueryHandler : IRequestHandler<GetAllWorkoutStatsQuery, WorkoutStatExtendedDTO>
+    internal class GetAllWorkoutStatsQueryHandler : IRequestHandler<GetAllWorkoutStatsQuery, WorkoutStatExtendedDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

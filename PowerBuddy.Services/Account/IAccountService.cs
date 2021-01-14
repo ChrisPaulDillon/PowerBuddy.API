@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Services.Account
 {

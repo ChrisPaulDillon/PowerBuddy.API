@@ -15,7 +15,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
 {
     public class GetLiftingStatByIdQuery : IRequest<LiftingStatDetailedDTO>
     {
-        public int ExerciseId { get; set; }
+        public int ExerciseId { get; }
         public string UserId { get; }
 
         public GetLiftingStatByIdQuery(int exerciseId, string userId)
@@ -24,7 +24,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
             UserId = userId;
         }
     }
-    public class GetLiftingStatByIdQueryHandler : IRequestHandler<GetLiftingStatByIdQuery, LiftingStatDetailedDTO>
+    internal class GetLiftingStatByIdQueryHandler : IRequestHandler<GetLiftingStatByIdQuery, LiftingStatDetailedDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

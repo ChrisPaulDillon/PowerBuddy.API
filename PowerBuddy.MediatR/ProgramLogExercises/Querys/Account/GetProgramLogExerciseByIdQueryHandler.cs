@@ -24,7 +24,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Querys.Account
         }
     }
 
-    public class GetProgramLogExerciseByIdQueryValidator : AbstractValidator<GetProgramLogExerciseByIdQuery>
+    internal class GetProgramLogExerciseByIdQueryValidator : AbstractValidator<GetProgramLogExerciseByIdQuery>
     {
         public GetProgramLogExerciseByIdQueryValidator()
         {
@@ -32,7 +32,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Querys.Account
         }
     }
 
-    public class GetProgramLogExerciseByIdQueryHandler : IRequestHandler<GetProgramLogExerciseByIdQuery, ProgramLogExerciseDTO>
+    internal class GetProgramLogExerciseByIdQueryHandler : IRequestHandler<GetProgramLogExerciseByIdQuery, ProgramLogExerciseDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

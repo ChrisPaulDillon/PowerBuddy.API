@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
         }
     }
 
-    public class CompleteWorkoutMemberCommandValidator : AbstractValidator<CompleteWorkoutCommand>
+    internal class CompleteWorkoutMemberCommandValidator : AbstractValidator<CompleteWorkoutCommand>
     {
         public CompleteWorkoutMemberCommandValidator()
         {
@@ -40,7 +40,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
         }
     }
 
-    public class CompleteWorkoutCommandHandler : IRequestHandler<CompleteWorkoutCommand, IEnumerable<LiftingStatAuditDTO>>
+    internal class CompleteWorkoutCommandHandler : IRequestHandler<CompleteWorkoutCommand, IEnumerable<LiftingStatAuditDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

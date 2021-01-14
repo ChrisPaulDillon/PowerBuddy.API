@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +8,8 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Users.Querys.Public;
+using PowerBuddy.MediatR.Emails.Commands;
+using PowerBuddy.MediatR.Users.Querys;
 using PowerBuddy.Services.Account;
 
 namespace PowerBuddy.API.Areas.Public
@@ -60,14 +63,20 @@ namespace PowerBuddy.API.Areas.Public
             }
         }
 
-
-        [HttpGet("Count")]
-        [ProducesResponseType(typeof(PublicUserDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetTotalUserCount()
+        [HttpPost("ResetPassword/{emailAddress}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> SendPasswordReset(string emailAddress)
         {
-            var userCount = await _accountService.GetTotalUserCount();
-            return Ok(userCount);
+            try
+            {
+                var userCount = await _mediator.Send(new SendPasswordResetCommand(emailAddress)).ConfigureAwait(false);
+                return Ok(userCount);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

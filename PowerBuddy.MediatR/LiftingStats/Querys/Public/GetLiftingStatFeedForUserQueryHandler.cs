@@ -24,7 +24,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Public
         }
     }
 
-    public class GetLiftingStatFeedForUserQueryHandler : IRequestHandler<GetLiftingStatFeedForUserQuery, IEnumerable<LiftFeedDTO>>
+    internal class GetLiftingStatFeedForUserQueryHandler : IRequestHandler<GetLiftingStatFeedForUserQuery, IEnumerable<LiftFeedDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

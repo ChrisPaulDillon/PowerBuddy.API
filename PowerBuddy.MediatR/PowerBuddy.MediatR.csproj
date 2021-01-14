@@ -5,17 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Exercises\Commands\Account\" />
     <Folder Include="ProgramLogRepSchemes\Querys\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="9.3.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PowerBuddy.Context\PowerBuddy.Data.Context.csproj" />
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
+    <ProjectReference Include="..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj" />
     <ProjectReference Include="..\PowerBuddy.Services\PowerBuddy.Services.csproj" />
     <ProjectReference Include="..\PowerBuddy.Util\PowerBuddy.Util.csproj" />
   </ItemGroup>

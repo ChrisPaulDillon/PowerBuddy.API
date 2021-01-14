@@ -15,7 +15,7 @@ namespace PowerBuddy.MediatR.Metrics.Querys
         }
     }
 
-    public class GetLandingPageMetricsQueryHandler : IRequestHandler<GetLandingPageMetricsQuery, LandingPageMetrics>
+    internal class GetLandingPageMetricsQueryHandler : IRequestHandler<GetLandingPageMetricsQuery, LandingPageMetrics>
     {
         private readonly IProgramLogService _programLogService;
         private readonly IAccountService _accountService;

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -8,10 +10,10 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Account;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.MediatR.Users.Commands;
 using PowerBuddy.MediatR.Users.Commands.Account;
-using PowerBuddy.MediatR.Users.Commands.Public;
 using PowerBuddy.MediatR.Users.Models;
-using PowerBuddy.MediatR.Users.Querys.Account;
+using PowerBuddy.MediatR.Users.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -41,10 +43,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var userLoggedInProfile = await _mediator.Send(new LoginUserQuery(loginModel)).ConfigureAwait(false);
                 return Ok(userLoggedInProfile);
             }
-            catch (UserValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
             catch (InvalidCredentialsException ex)
             {
                 return Unauthorized(ex.Message);
@@ -68,10 +66,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var user = await _mediator.Send(new GetUserProfileQuery(_userId)).ConfigureAwait(false);
                 return Ok(user);
             }
-            catch (UserValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
             catch (UserNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -92,10 +86,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
                 return Ok(result);
-            }
-            catch (UserValidationException ex)
-            {
-                return BadRequest(ex.Message);
             }
             catch (EmailOrUserNameInUseException ex)
             {
@@ -141,6 +131,22 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (UserNotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPost("ChangePassword/{userId}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ResetPassword(string userId, [FromBody] ChangePasswordInputDTO changePasswordInputDTO)
+        {
+            try
+            {
+                var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDTO)).ConfigureAwait(false);
+                return Ok(result);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
             }
         }
     }

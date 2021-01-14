@@ -20,7 +20,7 @@ namespace PowerBuddy.MediatR.Exercises.Commands.Admin
             UserId = userId;
         }
     }
-    public class ApproveExerciseCommandHandler : IRequestHandler<ApproveExerciseCommand, bool>
+    internal class ApproveExerciseCommandHandler : IRequestHandler<ApproveExerciseCommand, bool>
     {
         private readonly PowerLiftingContext _context;
 

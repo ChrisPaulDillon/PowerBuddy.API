@@ -62,6 +62,7 @@ namespace PowerBuddy.Data.Context
         public DbSet<Gender> Gender { get; set; }
         public DbSet<MemberStatus> MemberStatus { get; set; }
         public DbSet<LiftingLevel> LiftingLevel { get; set; }
+        public DbSet<EmailTemplate> EmailTemplate { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -73,7 +74,6 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
             modelBuilder.Entity<User>().ToTable("IdentityUser");
-
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
 
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
@@ -87,6 +87,7 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<RepSchemeType>().ToTable("RepSchemeType");
             modelBuilder.Entity<Quote>().ToTable("Quote");
             modelBuilder.Entity<LiftingLevel>().ToTable("LiftingLevel");
+            modelBuilder.Entity<EmailTemplate>().ToTable("EmailTemplate");
 
             modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
             modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");
@@ -224,7 +225,7 @@ namespace PowerBuddy.Data.Context
 
             modelBuilder.Entity<WorkoutExercise>()
                 .HasOne(x => x.WorkoutExerciseTonnage)
-                .WithOne()
+                .WithOne(x => x.WorkoutExercise)
                 .HasForeignKey<WorkoutExerciseTonnage>(x => x.WorkoutExerciseId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
@@ -236,10 +237,10 @@ namespace PowerBuddy.Data.Context
             //    .OnDelete(DeleteBehavior.NoAction)
             //    .IsRequired(false);
 
-            modelBuilder.Entity<LiftingStatAudit>()
-                .HasOne(x => x.WorkoutSet)
-                .WithOne(x => x.LiftingStatAudit)
-                .HasForeignKey<WorkoutSet>(x => x.LiftingStatAuditId)
+            modelBuilder.Entity<WorkoutSet>()
+                .HasOne(x => x.LiftingStatAudit)
+                .WithOne(x => x.WorkoutSet)
+                .HasForeignKey<LiftingStatAudit>(x => x.WorkoutSetId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
         }

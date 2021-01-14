@@ -30,7 +30,7 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
         }
     }
 
-    public class CreateWorkoutLogExerciseCommandValidator : AbstractValidator<CreateWorkoutExerciseCommand>
+    internal class CreateWorkoutLogExerciseCommandValidator : AbstractValidator<CreateWorkoutExerciseCommand>
     {
         public CreateWorkoutLogExerciseCommandValidator()
         {
@@ -41,7 +41,7 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
         }
     }
 
-    public class CreateWorkoutExerciseCommandHandler : IRequestHandler<CreateWorkoutExerciseCommand, WorkoutExerciseDTO>
+    internal class CreateWorkoutExerciseCommandHandler : IRequestHandler<CreateWorkoutExerciseCommand, WorkoutExerciseDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

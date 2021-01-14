@@ -21,7 +21,7 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Public
         }
     }
 
-    public class GetExerciseByIdQueryHandler : IRequestHandler<GetExerciseByIdQuery, ExerciseDTO>
+    internal class GetExerciseByIdQueryHandler : IRequestHandler<GetExerciseByIdQuery, ExerciseDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

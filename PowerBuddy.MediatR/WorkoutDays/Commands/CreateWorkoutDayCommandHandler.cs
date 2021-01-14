@@ -24,7 +24,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
         }
     }
 
-    public class CreateWorkoutDayCommandValidator : AbstractValidator<CreateWorkoutDayCommand>
+    internal class CreateWorkoutDayCommandValidator : AbstractValidator<CreateWorkoutDayCommand>
     {
         public CreateWorkoutDayCommandValidator()
         {
@@ -33,7 +33,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
         }
     }
 
-    public class CreateWorkoutDayCommandHandler : IRequestHandler<CreateWorkoutDayCommand, int>
+    internal class CreateWorkoutDayCommandHandler : IRequestHandler<CreateWorkoutDayCommand, int>
     {
         private readonly PowerLiftingContext _context;
         private readonly IEntityFactory _entityFactory;

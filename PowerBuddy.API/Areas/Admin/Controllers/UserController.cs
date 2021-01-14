@@ -7,8 +7,8 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Users.Commands.Admin;
-using PowerBuddy.MediatR.Users.Querys.Admin;
+using PowerBuddy.MediatR.Users.Commands;
+using PowerBuddy.MediatR.Users.Querys;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {
@@ -46,10 +46,6 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             {
                 var result = await _mediator.Send(new BanUserCommand(bannedUserId, _userId)).ConfigureAwait(false);
                 return Ok(result);
-            }
-            catch (UserValidationException e)
-            {
-                return BadRequest(e.Message);
             }
             catch (UserNotFoundException e)
             {

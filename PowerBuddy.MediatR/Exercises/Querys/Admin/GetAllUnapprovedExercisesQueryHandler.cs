@@ -23,7 +23,7 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Admin
         }
     }
 
-    public class GetAllUnapprovedExercisesQueryValidator : AbstractValidator<GetAllUnapprovedExercisesQuery>
+    internal class GetAllUnapprovedExercisesQueryValidator : AbstractValidator<GetAllUnapprovedExercisesQuery>
     {
         public GetAllUnapprovedExercisesQueryValidator()
         {
@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Admin
         }
     }
 
-    public class GetAllUnapprovedExercisesQueryHandler : IRequestHandler<GetAllUnapprovedExercisesQuery, IEnumerable<ExerciseDTO>>
+    internal class GetAllUnapprovedExercisesQueryHandler : IRequestHandler<GetAllUnapprovedExercisesQuery, IEnumerable<ExerciseDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

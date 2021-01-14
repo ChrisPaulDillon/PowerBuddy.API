@@ -33,7 +33,7 @@ namespace PowerBuddy.MediatR.Workouts.Commands
         }
     }
 
-    public class CreateWorkoutLogFromTemplateCommandValidator : AbstractValidator<CreateWorkoutLogFromTemplateCommand>
+    internal class CreateWorkoutLogFromTemplateCommandValidator : AbstractValidator<CreateWorkoutLogFromTemplateCommand>
     {
         public CreateWorkoutLogFromTemplateCommandValidator()
         {
@@ -41,7 +41,7 @@ namespace PowerBuddy.MediatR.Workouts.Commands
             RuleFor(x => x.TemplateProgramId).NotNull().GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
         }
     }
-    public class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, bool>
+    internal class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

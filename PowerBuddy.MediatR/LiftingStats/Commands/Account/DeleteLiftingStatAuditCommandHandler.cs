@@ -20,7 +20,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Commands.Account
             UserId = userId;
         }
     }
-    public class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, bool>
+    internal class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
