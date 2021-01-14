@@ -7,11 +7,11 @@ using PowerBuddy.EmailService.Models;
 
 namespace PowerBuddy.EmailService
 {
-    public class EmailSender : IEmailSender
+    public class EmailClient : IEmailClient
     {
         private readonly IEmailConfig _emailConfig;
 
-        public EmailSender(IEmailConfig emailConfig)
+        public EmailClient(IEmailConfig emailConfig)
         {
             _emailConfig = emailConfig;
         }

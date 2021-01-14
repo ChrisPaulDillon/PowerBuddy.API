@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using PowerBuddy.MediatR.Emails;
 using PowerBuddy.MediatR.Emails.Commands;
-using PowerBuddy.MediatR.Emails.Extensions;
 using PowerBuddy.MediatR.Exercises.Querys.Admin;
 using PowerBuddy.MediatR.Exercises.Querys.Public;
 using PowerBuddy.MediatR.LiftingStats.Commands.Account;
@@ -22,6 +22,7 @@ using PowerBuddy.MediatR.Quotes.Commands;
 using PowerBuddy.MediatR.Quotes.Querys;
 using PowerBuddy.MediatR.TemplatePrograms.Commands;
 using PowerBuddy.MediatR.TemplatePrograms.Querys;
+using PowerBuddy.MediatR.Users;
 using PowerBuddy.MediatR.Users.Commands;
 using PowerBuddy.MediatR.Users.Commands.Account;
 using PowerBuddy.MediatR.Users.Querys;
@@ -140,23 +141,6 @@ namespace PowerBuddy.MediatR.Extensions
             services.AddMediatR(typeof(GetTemplateProgramByIdQueryHandler));
             services.AddMediatR(typeof(GetTemplateActivityFeedQueryHandler));
             services.AddMediatR(typeof(GetTemplateProgramsBySearchQueryHandler));
-            return services;
-        }
-
-        private static IServiceCollection AddUserMediatrHandlers(this IServiceCollection services)
-        {
-            // CommandHandler Registration
-            services.AddMediatR(typeof(BanUserCommandHandler));
-            services.AddMediatR(typeof(RegisterUserCommandHandler));
-            services.AddMediatR(typeof(CreateFirstVisitStatsCommandHandler));
-            services.AddMediatR(typeof(EditProfileCommandHandler));
-
-            // QueryHandler Registration
-            services.AddMediatR(typeof(GetAllUsersByAdminQueryHandler));
-            services.AddMediatR(typeof(GetPublicUserProfileByIdQueryHandler));
-            services.AddMediatR(typeof(GetPublicUserProfileByUsernameQueryHandler));
-            services.AddMediatR(typeof(LoginUserQueryHandler));
-            services.AddMediatR(typeof(GetUserProfileQueryHandler));
             return services;
         }
 

@@ -25,13 +25,13 @@ namespace PowerBuddy.MediatR.Emails.Commands
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IEmailService _emailService;
+        private readonly IEmailClient _emailClient;
 
-        public ConfirmEmailCommandHandler(PowerLiftingContext context, IMapper mapper, IEmailService emailService)
+        public ConfirmEmailCommandHandler(PowerLiftingContext context, IMapper mapper, IEmailClient emailClient)
         {
             _context = context;
             _mapper = mapper;
-            _emailService = emailService;
+            _emailClient = emailClient;
         }
 
         public async Task<Unit> Handle(ConfirmEmailCommand request, CancellationToken cancellationToken)
@@ -50,7 +50,7 @@ namespace PowerBuddy.MediatR.Emails.Commands
 
             var emailMessage = new EmailMessage(new List<string>() { user.Email }, emailTemplate.Subject, emailTemplate.Message );
 
-            await _emailService.SendEmailAsync(emailMessage);
+            await _emailClient.SendEmailAsync(emailMessage);
 
             return Unit.Value;
         }

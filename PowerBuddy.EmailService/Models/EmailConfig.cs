@@ -1,6 +1,6 @@
 ﻿namespace PowerBuddy.EmailService.Models
 {
-    public class EmailConfig : IEmailConfig
+    internal class EmailConfig : IEmailConfig
     {
         public string Host { get; }
         public int Port { get; }

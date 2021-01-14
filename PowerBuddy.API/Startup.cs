@@ -18,9 +18,8 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Extensions;
 using PowerBuddy.EmailService.Extensions;
-using PowerBuddy.EmailService.Models;
 using PowerBuddy.MediatR.Extensions;
-using PowerBuddy.Services.Extensions;
+using PowerBuddy.Services;
 
 namespace PowerBuddy.API
 {

@@ -6,7 +6,7 @@ using PowerBuddy.Services.System;
 using PowerBuddy.Services.Templates;
 using PowerBuddy.Services.Workouts;
 
-namespace PowerBuddy.Services.Extensions
+namespace PowerBuddy.Services
 {
     public static class ServicesConfiguration
     {

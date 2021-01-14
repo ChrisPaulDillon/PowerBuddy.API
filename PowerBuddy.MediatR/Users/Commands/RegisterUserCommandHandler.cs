@@ -9,6 +9,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Services.Account;
 
 namespace PowerBuddy.MediatR.Users.Commands
 {
@@ -38,16 +39,22 @@ namespace PowerBuddy.MediatR.Users.Commands
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        public RegisterUserCommandHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager)
+        private readonly IAccountService _accountService;
+
+        public RegisterUserCommandHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, IAccountService accountService)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+            _accountService = accountService;
         }
 
         public async Task<bool> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var doesUserExist = await _context.User.AsNoTracking().AnyAsync(x => x.Email == request.RegisterUserDTO.Email || x.NormalizedUserName == request.RegisterUserDTO.UserName.ToUpper(), cancellationToken: cancellationToken);
+            var doesUserExist = await _context.User
+                .AsNoTracking()
+                .AnyAsync(x => x.Email == request.RegisterUserDTO.Email || x.NormalizedUserName == request.RegisterUserDTO.UserName.ToUpper());
+
             if (doesUserExist) throw new EmailOrUserNameInUseException();
 
             request.RegisterUserDTO.SportType = "PowerLifting";
@@ -61,6 +68,11 @@ namespace PowerBuddy.MediatR.Users.Commands
             };
 
             var result = await _userManager.CreateAsync(userEntity, request.RegisterUserDTO.Password);
+
+            var user = await _userManager.FindByEmailAsync(request.RegisterUserDTO.Email);
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
             return result.Succeeded;
         }
     }

@@ -10,8 +10,6 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Account;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.EmailService;
-using PowerBuddy.EmailService.Models;
 using PowerBuddy.MediatR.Users.Commands;
 using PowerBuddy.MediatR.Users.Commands.Account;
 using PowerBuddy.MediatR.Users.Models;
@@ -26,14 +24,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IEmailSender _emailSender;
         private readonly string _userId;
 
-        public UserController(IMediator mediator, IHttpContextAccessor accessor, IEmailSender emailSender)
+        public UserController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
             _userId = accessor.HttpContext.User.FindUserId();
-            _emailSender = emailSender;
         }
 
         [HttpPost("Login")]
@@ -138,23 +134,19 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-        [HttpPost("ResetPassword")]
+        [HttpPost("ChangePassword/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        public async Task<IActionResult> ResetPassword()
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ResetPassword(string userId, [FromBody] ChangePasswordInputDTO changePasswordInputDTO)
         {
             try
             {
-                var message = new EmailMessage(new List<string>() { "chrispauldillon@live.com"}, "Test Email", "Test body" );
-                await _emailSender.SendEmailAsync(message);
-                return Ok("OK");
+                var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDTO)).ConfigureAwait(false);
+                return Ok(result);
             }
             catch (UnauthorisedUserException ex)
             {
                 return Unauthorized(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(ex.Message);
             }
         }
     }

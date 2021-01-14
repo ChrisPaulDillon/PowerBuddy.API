@@ -3,7 +3,7 @@ using PowerBuddy.EmailService.Models;
 
 namespace PowerBuddy.EmailService
 {
-    public interface IEmailSender
+    public interface IEmailClient
     {
         public Task SendEmailAsync(EmailMessage message);
     }
