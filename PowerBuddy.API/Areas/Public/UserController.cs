@@ -62,37 +62,5 @@ namespace PowerBuddy.API.Areas.Public
                 return NotFound(ex.Message);
             }
         }
-
-        [HttpPost("ResetPassword/{emailAddress}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SendPasswordReset(string emailAddress)
-        {
-            try
-            {
-                var userCount = await _mediator.Send(new SendPasswordResetCommand(emailAddress)).ConfigureAwait(false);
-                return Ok(userCount);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("VerifyEmail/{userId}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> VerifyEmail(string userId)
-        {
-            try
-            {
-                var result = await _mediator.Send(new SendConfirmEmailCommand(userId));
-                return Ok(result);
-            }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
-        }
     }
 }
