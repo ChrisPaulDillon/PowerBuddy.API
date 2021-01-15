@@ -17,6 +17,7 @@ namespace PowerBuddy.MediatR.Users
             services.AddMediatR(typeof(CreateFirstVisitStatsCommandHandler));
             services.AddMediatR(typeof(EditProfileCommandHandler));
             services.AddMediatR(typeof(ResetPasswordCommandHandler));
+            services.AddMediatR(typeof(VerifyEmailCommandHandler));
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetAllUsersByAdminQueryHandler));

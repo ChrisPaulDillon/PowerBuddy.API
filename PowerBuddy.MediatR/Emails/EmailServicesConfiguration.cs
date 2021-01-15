@@ -12,7 +12,7 @@ namespace PowerBuddy.MediatR.Emails
             services.AddSingleton<IEmailAssistant>(serviceProvider => new EmailAssistant(baseUrl, siteName));
 
             // CommandHandler Registration
-            services.AddMediatR(typeof(ConfirmEmailCommandHandler));
+            services.AddMediatR(typeof(SendConfirmEmailCommandHandler));
             services.AddMediatR(typeof(SendPasswordResetCommandHandler));
 
             // QueryHandler Registration
