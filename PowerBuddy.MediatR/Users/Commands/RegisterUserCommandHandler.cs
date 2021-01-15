@@ -69,6 +69,8 @@ namespace PowerBuddy.MediatR.Users.Commands
 
             var result = await _userManager.CreateAsync(userEntity, request.RegisterUserDTO.Password);
 
+            userEntity = null;
+
             if (result.Succeeded)
             {
                 return userEntity.Id;
