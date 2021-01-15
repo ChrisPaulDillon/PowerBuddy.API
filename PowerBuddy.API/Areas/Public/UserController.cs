@@ -78,5 +78,21 @@ namespace PowerBuddy.API.Areas.Public
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("VerifyEmail/{userId}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> VerifyEmail(string userId)
+        {
+            try
+            {
+                var result = await _mediator.Send(new SendConfirmEmailCommand(userId));
+                return Ok(result);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+        }
     }
 }
