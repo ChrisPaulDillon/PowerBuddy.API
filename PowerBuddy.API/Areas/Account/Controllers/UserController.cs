@@ -96,7 +96,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                     await _mediator.Send(new SendConfirmEmailCommand(userId));
                 }
 
-                return Ok();
+                return Ok(userId);
             }
             catch (EmailOrUserNameInUseException ex)
             {
