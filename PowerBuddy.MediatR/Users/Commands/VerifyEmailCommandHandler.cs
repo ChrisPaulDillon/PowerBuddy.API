@@ -37,7 +37,6 @@ namespace PowerBuddy.MediatR.Users.Commands
         public async Task<bool> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.User
-                .AsNoTracking()
                 .Where(x => x.Id == request.UserId)
                 .FirstOrDefaultAsync();
 

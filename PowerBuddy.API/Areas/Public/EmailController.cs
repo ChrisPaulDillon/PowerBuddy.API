@@ -44,7 +44,7 @@ namespace PowerBuddy.API.Areas.Public
         [HttpPost("ConfirmEmail/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> VerifyEmail(string userId)
+        public async Task<IActionResult> SendConfirmationEmail(string userId)
         {
             try
             {
