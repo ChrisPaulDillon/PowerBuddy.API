@@ -29,7 +29,7 @@ namespace PowerBuddy.MediatR.Users.Commands
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.EditProfileDTO.BodyWeight).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
-            RuleFor(x => x.EditProfileDTO.QuotesEnabled).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.EditProfileDTO.QuotesEnabled).NotNull().WithMessage("'{PropertyName}' cannot be null.");
         }
     }
 
@@ -37,6 +37,7 @@ namespace PowerBuddy.MediatR.Users.Commands
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+
         public EditProfileCommandHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;

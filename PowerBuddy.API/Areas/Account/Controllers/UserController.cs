@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -121,8 +122,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new EditProfileCommand(editProfileDTO, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new EditProfileCommand(editProfileDTO, _userId));
                 return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (UnauthorisedUserException ex)
             {
