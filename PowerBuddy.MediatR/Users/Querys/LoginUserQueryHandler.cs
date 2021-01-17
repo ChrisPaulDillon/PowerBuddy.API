@@ -36,9 +36,9 @@ namespace PowerBuddy.MediatR.Users.Querys
     {
         public LoginUserQueryValidator()
         {
-            RuleFor(x => x.LoginModel.UserName).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.LoginModel.Email).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.LoginModel.Password).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.LoginModel.UserName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.LoginModel.Email).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.LoginModel.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 
@@ -63,7 +63,15 @@ namespace PowerBuddy.MediatR.Users.Querys
                     x.NormalizedEmail == request.LoginModel.Email.ToUpper() ||
                     x.NormalizedUserName == request.LoginModel.UserName, cancellationToken: cancellationToken);
 
-            if (user == null) throw new UserNotFoundException();
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+
+            if (!user.EmailConfirmed)
+            {
+                throw new EmailNotConfirmedException(user.Id);
+            }
 
             if (await _userManager.CheckPasswordAsync(user, request.LoginModel.Password))
             {

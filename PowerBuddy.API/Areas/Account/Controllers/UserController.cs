@@ -11,6 +11,7 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Account;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.MediatR.Emails.Commands;
 using PowerBuddy.MediatR.Users.Commands;
 using PowerBuddy.MediatR.Users.Commands.Account;
 using PowerBuddy.MediatR.Users.Models;
@@ -41,7 +42,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var userLoggedInProfile = await _mediator.Send(new LoginUserQuery(loginModel)).ConfigureAwait(false);
+                var userLoggedInProfile = await _mediator.Send(new LoginUserQuery(loginModel));
                 return Ok(userLoggedInProfile);
             }
             catch (InvalidCredentialsException ex)
@@ -51,6 +52,10 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (UserNotFoundException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (EmailNotConfirmedException ex)
+            {
+                return BadRequest(new { Code = nameof(EmailNotConfirmedException), ex.Message });
             }
         }
 
@@ -78,15 +83,21 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Register")]
-        [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDTO userDTO)
         {
             try
             {
-                var result = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
-                return Ok(result);
+                var userId = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
+
+                if (userId != null)
+                {
+                    await _mediator.Send(new SendConfirmEmailCommand(userId));
+                }
+
+                return Ok(userId);
             }
             catch (EmailOrUserNameInUseException ex)
             {
@@ -147,6 +158,22 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDTO)).ConfigureAwait(false);
+                return Ok(result);
+            }
+            catch (UnauthorisedUserException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+        }
+
+        [HttpPost("VerifyEmail/{userId}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> VerifyEmail(string userId, [FromBody] ChangePasswordInputDTO token)
+        {
+            try
+            {
+                var result = await _mediator.Send(new VerifyEmailCommand(userId, token.Token));
                 return Ok(result);
             }
             catch (UnauthorisedUserException ex)

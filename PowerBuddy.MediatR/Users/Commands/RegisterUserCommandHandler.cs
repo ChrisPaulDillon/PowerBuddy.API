@@ -13,7 +13,7 @@ using PowerBuddy.Services.Account;
 
 namespace PowerBuddy.MediatR.Users.Commands
 {
-    public class RegisterUserCommand : IRequest<bool>
+    public class RegisterUserCommand : IRequest<string>
     {
         public RegisterUserDTO RegisterUserDTO { get; }
 
@@ -34,7 +34,7 @@ namespace PowerBuddy.MediatR.Users.Commands
         }
     }
 
-    internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, bool>
+    internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, string>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -49,7 +49,7 @@ namespace PowerBuddy.MediatR.Users.Commands
             _accountService = accountService;
         }
 
-        public async Task<bool> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             var doesUserExist = await _context.User
                 .AsNoTracking()
@@ -69,11 +69,14 @@ namespace PowerBuddy.MediatR.Users.Commands
 
             var result = await _userManager.CreateAsync(userEntity, request.RegisterUserDTO.Password);
 
-            var user = await _userManager.FindByEmailAsync(request.RegisterUserDTO.Email);
+            userEntity = null;
 
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            if (result.Succeeded)
+            {
+                return userEntity.Id;
+            }
 
-            return result.Succeeded;
+            return null;
         }
     }
 }
