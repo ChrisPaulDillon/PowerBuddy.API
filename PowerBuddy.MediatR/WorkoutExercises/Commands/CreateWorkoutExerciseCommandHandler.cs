@@ -108,6 +108,7 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
                 await _context.SaveChangesAsync(cancellationToken);
 
                 var mappedWorkoutLogExercise = _mapper.Map<WorkoutExerciseDTO>(workoutExerciseEntity);
+                mappedWorkoutLogExercise.ExerciseName = await _context.Exercise.AsNoTracking().Where(x => x.ExerciseId == mappedWorkoutLogExercise.ExerciseId).Select(x => x.ExerciseName).FirstOrDefaultAsync(cancellationToken: cancellationToken);
                 return mappedWorkoutLogExercise;
             }
         }

@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using PowerBuddy.MediatR.Emails.Commands;
 using PowerBuddy.MediatR.Users.Commands;
 using PowerBuddy.MediatR.Users.Commands.Account;
+using PowerBuddy.MediatR.Users.Commands.PowerBuddy.MediatR.Users.Querys;
 using PowerBuddy.MediatR.Users.Querys;
 
 namespace PowerBuddy.MediatR.Users
@@ -18,6 +18,7 @@ namespace PowerBuddy.MediatR.Users
             services.AddMediatR(typeof(EditProfileCommandHandler));
             services.AddMediatR(typeof(ResetPasswordCommandHandler));
             services.AddMediatR(typeof(VerifyEmailCommandHandler));
+            services.AddMediatR(typeof(UpdatePasswordCommandHandler));
 
             // QueryHandler Registration
             services.AddMediatR(typeof(GetAllUsersByAdminQueryHandler));
@@ -25,6 +26,8 @@ namespace PowerBuddy.MediatR.Users
             services.AddMediatR(typeof(GetPublicUserProfileByUsernameQueryHandler));
             services.AddMediatR(typeof(LoginUserQueryHandler));
             services.AddMediatR(typeof(GetUserProfileQueryHandler));
+
+
             return services;
         }
     }

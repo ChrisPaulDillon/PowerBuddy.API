@@ -14,6 +14,7 @@ using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.MediatR.Emails.Commands;
 using PowerBuddy.MediatR.Users.Commands;
 using PowerBuddy.MediatR.Users.Commands.Account;
+using PowerBuddy.MediatR.Users.Commands.PowerBuddy.MediatR.Users.Querys;
 using PowerBuddy.MediatR.Users.Models;
 using PowerBuddy.MediatR.Users.Querys;
 
@@ -150,10 +151,32 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-        [HttpPost("ChangePassword/{userId}")]
+        [HttpPut("UpdatePassword")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ResetPassword(string userId, [FromBody] ChangePasswordInputDTO changePasswordInputDTO)
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordInputGuiDTO changePasswordInputDTO)
+        {
+            try
+            {
+                var result  = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDTO, _userId));
+                return Ok(result);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (InvalidCredentialsException ex)
+            {
+                return BadRequest(new { Code = nameof(InvalidCredentialsException), ex.Message });
+            }
+        }
+
+        [HttpPost("ChangePassword/Token/{userId}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ResetPasswordViaEmail(string userId, [FromBody] ChangePasswordInputDTO changePasswordInputDTO)
         {
             try
             {
