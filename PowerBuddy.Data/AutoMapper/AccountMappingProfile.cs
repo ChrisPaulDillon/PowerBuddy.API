@@ -16,6 +16,8 @@ namespace PowerBuddy.Data.AutoMapper
             CreateMap<User, UserDTO>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))
                 .ForMember(x => x.UserName, d => d.MapFrom<string>(src => src.UserName))
+                .ForMember(x => x.PhoneNumber, d => d.MapFrom<string>(src => src.PhoneNumber))
+                .ForMember(x => x.PhoneNumberConfirmed, d => d.MapFrom<bool>(src => src.PhoneNumberConfirmed))
                 .ForMember(x => x.BodyWeight, d => d.MapFrom<decimal>(src => src.UserSetting.BodyWeight))
                 .ForMember(x => x.QuotesEnabled, d => d.MapFrom<bool>(src => src.UserSetting.QuotesEnabled))
                 .ForMember(x => x.Email, d => d.MapFrom<string>(src => src.Email))

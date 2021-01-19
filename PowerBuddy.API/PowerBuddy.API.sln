@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.Data.Context", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.Util", "..\PowerBuddy.Util\PowerBuddy.Util.csproj", "{9D65CB87-475C-4A31-839C-5B0088609A2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBuddy.EmailService", "..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj", "{4C2C4D8A-A783-401E-A6F3-87047F62883A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.EmailService", "..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj", "{4C2C4D8A-A783-401E-A6F3-87047F62883A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBuddy.SmsService", "..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj", "{AA16F1E0-A1D0-4760-8DA9-EC12F654A9A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{4C2C4D8A-A783-401E-A6F3-87047F62883A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C2C4D8A-A783-401E-A6F3-87047F62883A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C2C4D8A-A783-401E-A6F3-87047F62883A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA16F1E0-A1D0-4760-8DA9-EC12F654A9A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA16F1E0-A1D0-4760-8DA9-EC12F654A9A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA16F1E0-A1D0-4760-8DA9-EC12F654A9A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA16F1E0-A1D0-4760-8DA9-EC12F654A9A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

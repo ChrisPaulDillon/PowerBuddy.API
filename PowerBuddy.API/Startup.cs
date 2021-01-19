@@ -1,5 +1,3 @@
-using System.Net;
-using System.Net.Mail;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +18,7 @@ using PowerBuddy.Data.Extensions;
 using PowerBuddy.EmailService.Extensions;
 using PowerBuddy.MediatR.Extensions;
 using PowerBuddy.Services;
+using PowerBuddy.SmsService.Extensions;
 
 namespace PowerBuddy.API
 {
@@ -36,6 +35,12 @@ namespace PowerBuddy.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSmsServices(
+                Configuration.GetValue<string>("TwilioAccountSID"),
+                Configuration.GetValue<string>("TwilioAuthToken"), 
+                Configuration.GetValue<string>("TwilioVerificationServiceSID")
+                );
+
             services.AddMediatrHandlers(Configuration.GetValue<string>("EmailBaseUrl"), Configuration.GetValue<string>("EmailSiteName"));
 
             services.AddEmailServices

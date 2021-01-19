@@ -29,10 +29,7 @@
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
     <ProjectReference Include="..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj" />
     <ProjectReference Include="..\PowerBuddy.MediatR\PowerBuddy.MediatR.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Account\Models\" />
+    <ProjectReference Include="..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj" />
   </ItemGroup>
 
 </Project>
