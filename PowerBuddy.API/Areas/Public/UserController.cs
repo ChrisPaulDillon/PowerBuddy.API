@@ -21,13 +21,11 @@ namespace PowerBuddy.API.Areas.Public
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IAccountService _accountService;
         private readonly string _userId;
 
-        public UserController(IMediator mediator, IAccountService accountService, IHttpContextAccessor accessor)
+        public UserController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
-            _accountService = accountService;
             _userId = accessor.HttpContext.User.FindUserId();
         }
 

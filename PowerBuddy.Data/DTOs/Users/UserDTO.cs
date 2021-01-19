@@ -16,5 +16,7 @@
         public UserSettingDTO UserSetting { get; set; }
         public string Gender { get; set; }
         public int MemberStatusId { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
     }
 }
