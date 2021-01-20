@@ -35,7 +35,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
                 var result = await _mediator.Send(new CreateAllTemplateExerciseCollectionForTemplateCommand(userId)).ConfigureAwait(false);
                 return Ok(result);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return Conflict(ex);
             }
@@ -52,7 +52,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
                 var result = await _mediator.Send(new CreateTemplateExerciseCollectionForTemplateCommand(templateProgramId, userId)).ConfigureAwait(false);
                 return Ok(result);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return Unauthorized(ex);
             }

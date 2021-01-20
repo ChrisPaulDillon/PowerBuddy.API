@@ -44,7 +44,7 @@ namespace PowerBuddy.MediatR.Users.Commands
 
             if (user == null)
             {
-                throw new UnauthorisedUserException();
+                throw new UserNotFoundException();
             }
 
             var numberIsVerified = await _smsClient.VerifyPhoneNumber(request.PhoneNumber, request.Code);

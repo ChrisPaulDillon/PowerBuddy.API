@@ -40,7 +40,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
                 var exercises = await _mediator.Send(new GetAllUnapprovedExercisesQuery(userId)).ConfigureAwait(false);
                 return Ok(exercises);
             }
-            catch (UnauthorisedUserException)
+            catch (UserNotFoundException)
             {
                 return Unauthorized();
             }
@@ -67,7 +67,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             {
                 return NotFound(e.Message);
             }
-            catch (UnauthorisedUserException e)
+            catch (UserNotFoundException e)
             {
                 return Unauthorized(e.Message);
             }
@@ -94,7 +94,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             {
                 return NotFound(e.Message);
             }
-            catch(UnauthorisedUserException e)
+            catch(UserNotFoundException e)
             {
                 return Unauthorized(e.Message);
             }

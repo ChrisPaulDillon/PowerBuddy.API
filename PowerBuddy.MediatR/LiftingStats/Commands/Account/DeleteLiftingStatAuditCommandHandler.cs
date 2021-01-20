@@ -36,7 +36,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Commands.Account
                 .FirstOrDefaultAsync(x => x.LiftingStatAuditId == request.LiftingStatAuditId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (liftingStatAudit == null) throw new LiftingStatNotFoundException();
-            if (liftingStatAudit.UserId != request.UserId) throw new UnauthorisedUserException();
+            if (liftingStatAudit.UserId != request.UserId) throw new UserNotFoundException();
 
             _context.LiftingStatAudit.Remove(liftingStatAudit); 
             

@@ -65,7 +65,7 @@ namespace PowerBuddy.MediatR.ProgramLogRepSchemes.Commands
                 .Where(x => x.ProgramLogDayId == programLogExercise.ProgramLogDayId && x.UserId == request.UserId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (programLogDay == null) throw new UnauthorisedUserException();
+            if (programLogDay == null) throw new UserNotFoundException();
 
             programLogDay.Completed = false;
 

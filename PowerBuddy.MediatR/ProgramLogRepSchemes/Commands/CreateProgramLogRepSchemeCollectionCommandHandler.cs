@@ -60,7 +60,7 @@ namespace PowerBuddy.MediatR.ProgramLogRepSchemes.Commands
             var programLogDay = await _context.ProgramLogDay
                 .FirstOrDefaultAsync(x => x.ProgramLogDayId == programLogExercise.ProgramLogDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
-            if (programLogDay == null) throw new UnauthorisedUserException();
+            if (programLogDay == null) throw new UserNotFoundException();
 
             programLogDay.Completed = false;
             var repSchemeCollection = _mapper.Map<IList<ProgramLogRepScheme>>(request.RepSchemeCollectionDTO);

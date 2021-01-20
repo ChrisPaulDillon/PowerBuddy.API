@@ -35,7 +35,7 @@ namespace PowerBuddy.MediatR.Quotes.Commands
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
-            if (!isUserAdmin) throw new UnauthorisedUserException();
+            if (!isUserAdmin) throw new UserNotFoundException();
 
             var quoteEntity = _mapper.Map<Quote>(request.QuoteDTO); //TODO validate request
             _context.Quote.Add(quoteEntity);

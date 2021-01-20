@@ -52,7 +52,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return Unauthorized(ex.Message);
             }
@@ -77,7 +77,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return Unauthorized(ex.Message);
             }
@@ -107,7 +107,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return Unauthorized(ex.Message);
             }
@@ -132,7 +132,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return Unauthorized(ex.Message);
             }
@@ -153,7 +153,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return Unauthorized(ex.Message);
             }
@@ -217,7 +217,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -240,7 +240,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return Unauthorized(ex.Message);
             }

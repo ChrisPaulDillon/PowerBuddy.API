@@ -46,22 +46,21 @@ namespace PowerBuddy.MediatR.Users.Querys
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly JWTSettings _jwtSettings;
-        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, JWTSettings jwtSettings)
+
+        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, JWTSettings jwtSettings)
         {
             _context = context;
             _mapper = mapper;
-            _userManager = userManager;
+            _signInManager = signInManager;
             _jwtSettings = jwtSettings;
         }
 
         public async Task<UserLoggedInDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _context.User.AsNoTracking()
-                .FirstOrDefaultAsync(x =>
-                    x.NormalizedEmail == request.LoginModel.Email.ToUpper() ||
-                    x.NormalizedUserName == request.LoginModel.UserName, cancellationToken: cancellationToken);
+            var user = await _context.User
+	            .FirstOrDefaultAsync(x => x.NormalizedEmail == request.LoginModel.Email.ToUpper() || x.NormalizedUserName == request.LoginModel.UserName.ToUpper());
 
             if (user == null)
             {
@@ -73,9 +72,16 @@ namespace PowerBuddy.MediatR.Users.Querys
                 throw new EmailNotConfirmedException(user.Id);
             }
 
-            if (await _userManager.CheckPasswordAsync(user, request.LoginModel.Password))
+            var result = await _signInManager.PasswordSignInAsync(user, request.LoginModel.Password, true, true);
+
+            if (result.IsLockedOut)
             {
-                var key = Encoding.UTF8.GetBytes(_jwtSettings.JWT_Secret);
+	            throw new AccountLockoutException();
+            }
+
+            if (result.Succeeded)
+            {
+	            var key = Encoding.UTF8.GetBytes(_jwtSettings.JWT_Secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
@@ -89,13 +95,12 @@ namespace PowerBuddy.MediatR.Users.Querys
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
 
-                var userProfile = await _context.User
-                    .Where(x => x.Id == user.Id)
-                    .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+                var userProfile = _mapper.Map<UserDTO>(user);
 
-                if (userProfile == null) throw new UserNotFoundException();
+                if (userProfile == null)
+                {
+	                throw new UserNotFoundException();
+                }
 
                 userProfile.UserSetting = await _context.UserSetting
                     .AsNoTracking()
@@ -107,6 +112,7 @@ namespace PowerBuddy.MediatR.Users.Querys
                     Token = token,
                     User = userProfile
                 };
+
                 return userWithToken;
             }
             throw new InvalidCredentialsException();

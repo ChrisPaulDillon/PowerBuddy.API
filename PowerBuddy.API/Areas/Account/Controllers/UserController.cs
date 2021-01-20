@@ -40,6 +40,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(UserLoggedInDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         public async Task<IActionResult> LoginUser(LoginModelDTO loginModel)
         {
             try
@@ -49,11 +50,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(ex.Message);
+	            return Unauthorized(new { Code = nameof(InvalidCredentialsException), ex.Message });
             }
             catch (UserNotFoundException ex)
             {
-                return BadRequest(ex.Message);
+	            return NotFound(new { Code = nameof(UserNotFoundException), ex.Message });
+            }
+            catch (AccountLockoutException ex)
+            {
+	            return Conflict(new { Code = nameof(AccountLockoutException), ex.Message });
             }
             catch (EmailNotConfirmedException ex)
             {
@@ -142,10 +147,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
             catch (UserNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -166,7 +167,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
             catch (UserNotFoundException ex)
             {
-                return NotFound(ex.Message);
+	            return NotFound(new { Code = nameof(UserNotFoundException), ex.Message });
             }
             catch (InvalidCredentialsException ex)
             {
@@ -184,9 +185,9 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDTO)).ConfigureAwait(false);
                 return Ok(result);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
-                return Unauthorized(ex.Message);
+	            return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
             }
         }
 
@@ -200,9 +201,9 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new VerifyEmailCommand(userId, token.Token));
                 return Ok(result);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
-                return Unauthorized(ex.Message);
+	            return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
             }
         }
 
@@ -218,9 +219,9 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new RequestSmsVerificationCommand(phoneNumber.PhoneNumber, _userId));
                 return Ok(result);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
-                return Unauthorized(ex.Message);
+	            return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
             }
         }
 
@@ -235,9 +236,9 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new SendSmsVerificationCommand(input.PhoneNumber, input.Code, _userId));
                 return Ok(result);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
-                return Unauthorized(ex.Message);
+	            return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
             }
         }
     }

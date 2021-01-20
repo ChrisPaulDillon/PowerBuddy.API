@@ -68,7 +68,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Member
             var programLogDay = await _context.ProgramLogDay.AsNoTracking()
                 .FirstOrDefaultAsync(x => x.ProgramLogDayId == request.ProgramLogDayDTO.ProgramLogDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
-            if (programLogDay == null) throw new UnauthorisedUserException();
+            if (programLogDay == null) throw new UserNotFoundException();
 
             var programLogExercises = request.ProgramLogDayDTO.ProgramLogExercises;
 

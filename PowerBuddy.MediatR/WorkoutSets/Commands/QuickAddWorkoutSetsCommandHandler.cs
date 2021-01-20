@@ -60,7 +60,7 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             var workoutDay = await _context.WorkoutDay
                 .FirstOrDefaultAsync(x => x.WorkoutDayId == workoutExercise.WorkoutDayId && x.UserId == request.UserId);
 
-            if (workoutDay == null) throw new UnauthorisedUserException();
+            if (workoutDay == null) throw new UserNotFoundException();
 
             workoutDay.Completed = false;
 

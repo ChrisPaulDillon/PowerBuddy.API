@@ -58,7 +58,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Commands.Account
                 .AnyAsync(x => x.ProgramLogDayId == programLogExercise.ProgramLogDayId && x.UserId == request.UserId,
                     cancellationToken: cancellationToken);
 
-            if (!isUserAuthorized) throw new UnauthorisedUserException();
+            if (!isUserAuthorized) throw new UserNotFoundException();
 
             programLogExercise.Comment = request.Notes;
 

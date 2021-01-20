@@ -45,7 +45,7 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Admin
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2);
 
-            if (!isUserAdmin) throw new UnauthorisedUserException();
+            if (!isUserAdmin) throw new UserNotFoundException();
 
             return await _context.Exercise.Where(x => x.IsApproved == false)
                 .AsNoTracking()

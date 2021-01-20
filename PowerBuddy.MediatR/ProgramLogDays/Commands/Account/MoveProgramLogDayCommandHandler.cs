@@ -55,7 +55,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account
 
         public async Task<ProgramLogDayDTO> Handle(MoveProgramLogDayCommand request, CancellationToken cancellationToken)
         {
-            if (request.UserId != request.ProgramLogDayDTO.UserId) throw new UnauthorisedUserException();
+            if (request.UserId != request.ProgramLogDayDTO.UserId) throw new UserNotFoundException();
 
             var programLogWeek = await _context.ProgramLogWeek.Where(x => x.ProgramLogWeekId == request.ProgramLogDayDTO.ProgramLogWeekId)
                 .AsNoTracking()

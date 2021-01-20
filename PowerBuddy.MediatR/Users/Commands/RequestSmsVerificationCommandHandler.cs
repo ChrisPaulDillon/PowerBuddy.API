@@ -41,7 +41,7 @@ namespace PowerBuddy.MediatR.Users.Commands
                 .AsNoTracking()
                 .AnyAsync(x => x.Id == request.UserId);
 
-            if (!doesUserExist) throw new UnauthorisedUserException();
+            if (!doesUserExist) throw new UserNotFoundException();
 
             var result = await  _smsClient.SendPhoneNumberVerification(request.PhoneNumber);
 

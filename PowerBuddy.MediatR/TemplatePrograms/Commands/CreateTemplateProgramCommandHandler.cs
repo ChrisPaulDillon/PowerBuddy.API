@@ -54,7 +54,7 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Commands
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
-            if (!isUserAdmin) throw new UnauthorisedUserException();
+            if (!isUserAdmin) throw new UserNotFoundException();
 
             var isTaken = await _context.Set<TemplateProgram>().AsNoTracking().AnyAsync(x => x.Name == request.TemplateProgramDTO.Name, cancellationToken: cancellationToken);
             if (isTaken) throw new TemplateProgramNameAlreadyExistsException();

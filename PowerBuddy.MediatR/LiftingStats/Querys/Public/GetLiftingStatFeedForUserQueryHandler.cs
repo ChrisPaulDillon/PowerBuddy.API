@@ -42,7 +42,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Public
 
             if (user.Id != request.UserId && !user.IsPublic)
             {
-                throw new UnauthorisedUserException();
+                throw new UserNotFoundException();
             }
 
             var liftFeed = await _context.LiftingStatAudit

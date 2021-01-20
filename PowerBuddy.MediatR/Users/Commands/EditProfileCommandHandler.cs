@@ -46,7 +46,7 @@ namespace PowerBuddy.MediatR.Users.Commands
 
         public async Task<bool> Handle(EditProfileCommand request, CancellationToken cancellationToken)
         {
-            if (request.UserId != request.EditProfileDTO.UserId) throw new UnauthorisedUserException();
+            if (request.UserId != request.EditProfileDTO.UserId) throw new UserNotFoundException();
 
             var user = await _context.User.Include(x => x.UserSetting).FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken: cancellationToken);
 

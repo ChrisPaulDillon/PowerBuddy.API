@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -59,9 +60,20 @@ namespace PowerBuddy.API
                 options.UseSqlServer(Configuration.GetSection("PbDbConnection").Value));
 
 
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<User>(options =>
+	            {
+		            options.SignIn.RequireConfirmedAccount = true;
+		            options.Lockout.MaxFailedAccessAttempts = 10;
+		            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+	            })
                 .AddEntityFrameworkStores<PowerLiftingContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+	            options.Lockout.MaxFailedAccessAttempts = 10;
+	            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+            });
 
             services.AddCors(options =>
             {

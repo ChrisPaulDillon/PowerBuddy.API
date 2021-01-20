@@ -45,7 +45,7 @@ namespace PowerBuddy.MediatR.Users.Querys
         {
             var isUserAuthorized = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2);
 
-            if (!isUserAuthorized) throw new UnauthorisedUserException();
+            if (!isUserAuthorized) throw new UserNotFoundException();
 
             var users = await _context.User.ProjectTo<AdminUserDTO>(_mapper.ConfigurationProvider).AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
             return users;

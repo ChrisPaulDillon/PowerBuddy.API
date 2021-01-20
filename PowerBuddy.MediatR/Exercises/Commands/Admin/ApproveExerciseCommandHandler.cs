@@ -40,7 +40,7 @@ namespace PowerBuddy.MediatR.Exercises.Commands.Admin
                 .Select(x => x.UserName)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (userName == null) throw new UnauthorisedUserException();
+            if (userName == null) throw new UserNotFoundException();
 
             exercise.IsApproved = true;
             exercise.AdminApprover = userName;

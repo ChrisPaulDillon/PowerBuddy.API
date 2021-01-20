@@ -40,7 +40,7 @@ namespace PowerBuddy.MediatR.Users.Commands
                 .Where(x => x.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
-            if (user == null) throw new UnauthorisedUserException();
+            if (user == null) throw new UserNotFoundException();
 
             var result = await _userManager.ConfirmEmailAsync(user, request.Token);
 

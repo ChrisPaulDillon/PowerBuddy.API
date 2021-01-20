@@ -83,7 +83,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -108,7 +108,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (UnauthorisedUserException ex)
+            catch (UserNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }

@@ -54,7 +54,7 @@ namespace PowerBuddy.MediatR.ProgramLogExercises.Commands.Account
                 .AsNoTracking()
                 .AnyAsync(x => x.ProgramLogDayId == programLogExercise.ProgramLogDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
-            if (!isUserAuthorized) throw new UnauthorisedUserException();
+            if (!isUserAuthorized) throw new UserNotFoundException();
 
             _context.ProgramLogExercise.Remove(programLogExercise);
 
