@@ -65,7 +65,16 @@ namespace PowerBuddy.API
 		            options.SignIn.RequireConfirmedAccount = true;
 		            options.Lockout.MaxFailedAccessAttempts = 10;
 		            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
-	            })
+
+		            options.Password.RequireDigit = true;
+		            options.Password.RequireLowercase = true;
+		            options.Password.RequireNonAlphanumeric = false;
+		            options.Password.RequireUppercase = true;
+		            options.Password.RequiredLength = 6;
+
+		            options.User.AllowedUserNameCharacters =
+			            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                })
                 .AddEntityFrameworkStores<PowerLiftingContext>()
                 .AddDefaultTokenProviders();
 

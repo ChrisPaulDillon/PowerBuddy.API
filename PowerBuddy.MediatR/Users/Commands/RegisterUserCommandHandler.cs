@@ -39,23 +39,24 @@ namespace PowerBuddy.MediatR.Users.Commands
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        private readonly IAccountService _accountService;
 
-        public RegisterUserCommandHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, IAccountService accountService)
+        public RegisterUserCommandHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
-            _accountService = accountService;
         }
 
         public async Task<string> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             var doesUserExist = await _context.User
                 .AsNoTracking()
-                .AnyAsync(x => x.Email == request.RegisterUserDTO.Email || x.NormalizedUserName == request.RegisterUserDTO.UserName.ToUpper());
+                .AnyAsync(x => x.NormalizedEmail == request.RegisterUserDTO.Email.ToUpper() || x.NormalizedUserName == request.RegisterUserDTO.UserName.ToUpper());
 
-            if (doesUserExist) throw new EmailOrUserNameInUseException();
+            if (doesUserExist)
+            {
+	            throw new EmailOrUserNameInUseException();
+            }
 
             request.RegisterUserDTO.SportType = "PowerLifting";
 
