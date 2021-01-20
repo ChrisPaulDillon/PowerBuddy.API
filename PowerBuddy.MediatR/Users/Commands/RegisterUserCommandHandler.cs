@@ -65,7 +65,8 @@ namespace PowerBuddy.MediatR.Users.Commands
 
             userEntity.UserSetting = new UserSetting()
             {
-                UserId = userEntity.Id
+                UserId = userEntity.Id,
+                UsingMetric = true
             };
 
             var result = await _userManager.CreateAsync(userEntity, request.RegisterUserDTO.Password);

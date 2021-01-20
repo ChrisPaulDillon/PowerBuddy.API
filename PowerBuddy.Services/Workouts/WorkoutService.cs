@@ -110,7 +110,6 @@ namespace PowerBuddy.Services.Workouts
                 exerciseTonnage += WorkoutHelper.CalculateTonnage(createWorkoutExercise.Weight, createWorkoutExercise.Reps);
                 var set = _entityFactory.CreateWorkoutSet(createWorkoutExercise.Reps, createWorkoutExercise.Weight, false);
                 setCollection.Add(set);
-                
             }
 
             workoutExercise.WorkoutSets = setCollection;

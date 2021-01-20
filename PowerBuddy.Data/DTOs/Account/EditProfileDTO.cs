@@ -7,5 +7,6 @@
         public string LastName { get; set; }
         public decimal BodyWeight { get; set; }
         public bool QuotesEnabled { get; set; }
+        public bool UsingMetric { get; set; }
     }
 }

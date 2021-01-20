@@ -28,7 +28,6 @@ namespace PowerBuddy.MediatR.Users.Commands
         public EditProfileCommandValidator()
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.EditProfileDTO.BodyWeight).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
             RuleFor(x => x.EditProfileDTO.QuotesEnabled).NotNull().WithMessage("'{PropertyName}' cannot be null.");
         }
     }

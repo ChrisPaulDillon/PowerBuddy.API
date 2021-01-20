@@ -9,9 +9,15 @@ namespace PowerBuddy.Data.AutoMapper
     {
         public AccountMappingProfile()
         {
-            CreateMap<EditProfileDTO, User>().ForMember<string>(x => x.Id, d => d.MapFrom(src => src.UserId)).ForMember<string>(x => x.FirstName, d => d.MapFrom(src => src.FirstName)).ForMember<string>(x => x.LastName, d => d.MapFrom(src => src.LastName));
+            CreateMap<EditProfileDTO, User>()
+                .ForMember<string>(x => x.Id, d => d.MapFrom(src => src.UserId))
+                .ForMember<string>(x => x.FirstName, d => d.MapFrom(src => src.FirstName))
+                .ForMember<string>(x => x.LastName, d => d.MapFrom(src => src.LastName));
 
-            CreateMap<EditProfileDTO, UserSetting>().ForMember<decimal>(x => x.BodyWeight, d => d.MapFrom(src => src.BodyWeight)).ForMember<bool>(x => x.QuotesEnabled, d => d.MapFrom(src => src.QuotesEnabled));
+            CreateMap<EditProfileDTO, UserSetting>()
+                .ForMember<decimal>(x => x.BodyWeight, d => d.MapFrom(src => src.BodyWeight))
+                .ForMember<bool>(x => x.QuotesEnabled, d => d.MapFrom(src => src.QuotesEnabled))
+                .ForMember<bool>(x => x.UsingMetric, d => d.MapFrom(src => src.UsingMetric));
 
             CreateMap<User, UserDTO>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))
@@ -30,7 +36,11 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.Gender, d => d.MapFrom<string>(src => src.Gender.GenderName))
                 .ForMember(x => x.MemberStatusId, d => d.MapFrom<int?>(src => src.MemberStatusId));
 
-            CreateMap<RegisterUserDTO, User>().ForMember<string>(x => x.UserName, d => d.MapFrom(src => src.UserName)).ForMember<string>(x => x.PasswordHash, d => d.MapFrom(src => src.Password)).ForMember<string>(x => x.Email, d => d.MapFrom(src => src.Email)).ForMember<string>(x => x.SportType, d => d.MapFrom(src => src.SportType));
+            CreateMap<RegisterUserDTO, User>()
+                .ForMember<string>(x => x.UserName, d => d.MapFrom(src => src.UserName))
+                .ForMember<string>(x => x.PasswordHash, d => d.MapFrom(src => src.Password))
+                .ForMember<string>(x => x.Email, d => d.MapFrom(src => src.Email))
+                .ForMember<string>(x => x.SportType, d => d.MapFrom(src => src.SportType));
 
             CreateMap<User, PublicUserDTO>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))

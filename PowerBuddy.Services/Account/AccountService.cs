@@ -33,5 +33,14 @@ namespace PowerBuddy.Services.Account
         {
             return await _context.User.AsNoTracking().CountAsync();
         }
+
+        public async Task<bool> IsUserUsingMetric(string userId)
+        {
+            return await _context.UserSetting
+                .AsNoTracking()
+                .Where(x => x.UserId == userId)
+                .Select(x => x.UsingMetric)
+                .FirstOrDefaultAsync();
+        }
     }
 }
