@@ -103,7 +103,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.Date, d => d.MapFrom<DateTime>(src => src.Date))
                 .ForMember(x => x.Completed, d => d.MapFrom<bool>(src => src.Completed))
                 .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises))
-                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName));
+                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName))
+                .ForMember(x => x.UsingMetric, d => d.MapFrom(src => src.User.UserSetting.UsingMetric));
 
             //into dto
             CreateMap<WorkoutExercise, WorkoutExerciseDTO>()

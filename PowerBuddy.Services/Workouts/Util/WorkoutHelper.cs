@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Util.Workouts;
 
 namespace PowerBuddy.Services.Workouts.Util
 {
@@ -13,18 +15,15 @@ namespace PowerBuddy.Services.Workouts.Util
             return weight * reps;
         }
 
-        public static decimal CalculateRepSchemeWeight(WeightProgressionTypeEnum weightProgressionType, decimal user1RM, TemplateRepSchemeDTO templateRepScheme)
+
+        public static IEnumerable<WorkoutSetDTO> RoundAndCalculateSetWeights(bool isMetric, IEnumerable<WorkoutSetDTO> workoutSets)
         {
-            switch (weightProgressionType)
+            foreach (var workoutSet in workoutSets)
             {
-                case WeightProgressionTypeEnum.PERCENTAGE:
-                    var percent = templateRepScheme.Percentage / 100;
-                    return Math.Round((decimal)(user1RM * percent * 2), MidpointRounding.AwayFromZero) / 2;
-                case WeightProgressionTypeEnum.INCREMENTAL:
-                    return 0;
-                default:
-                    return 0;
+                workoutSet.WeightLifted = WeightConvertorHelper.CalculateWeight(isMetric, workoutSet.WeightLifted);
             }
+
+            return workoutSets;
         }
 
         public static Dictionary<int, string> CalculateDayOrder(WorkoutLog Workout)

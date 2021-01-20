@@ -10,7 +10,9 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Workouts;
+using PowerBuddy.Services.Account;
 using PowerBuddy.Services.Workouts;
+using PowerBuddy.Services.Workouts.Util;
 
 namespace PowerBuddy.MediatR.WorkoutSets.Commands
 {
@@ -40,17 +42,23 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
     {
         private readonly PowerLiftingContext _context;
         private readonly IWorkoutService _workoutService;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
 
-        public QuickAddWorkoutSetsCommandHandler(PowerLiftingContext context, IWorkoutService workoutService, IMapper mapper)
+        public QuickAddWorkoutSetsCommandHandler(PowerLiftingContext context, IWorkoutService workoutService, IAccountService accountService, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            _accountService = accountService;
             _workoutService = workoutService;
         }
 
         public async Task<IEnumerable<WorkoutSetDTO>> Handle(QuickAddWorkoutSetsCommand request, CancellationToken cancellationToken)
         {
+            var isMetric = await _accountService.IsUserUsingMetric(request.UserId);
+
+            //TODO if user is not using metric, reverse the weight before inserting into db
+
             var workoutExercise = await _context.WorkoutExercise
                 .Include(x => x.WorkoutSets)
                 .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetList[0].WorkoutExerciseId);
@@ -72,7 +80,8 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             _context.WorkoutSet.AddRange(workoutSetCollection);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<IEnumerable<WorkoutSetDTO>>(workoutSetCollection);
+            var workoutSets =  _mapper.Map<IEnumerable<WorkoutSetDTO>>(workoutSetCollection);
+            return workoutSets;
         }
     }
 }
