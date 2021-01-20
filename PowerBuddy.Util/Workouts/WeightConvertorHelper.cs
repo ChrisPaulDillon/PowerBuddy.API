@@ -13,5 +13,17 @@ namespace PowerBuddy.Util.Workouts
         {
             return RoundWeight(weight * 2.2M);
         }
+
+        public static decimal CalculateWeight(bool isMetric, decimal weight)
+        {
+            if (isMetric)
+            {
+                return RoundWeight(weight);
+            }
+            else
+            {
+                return ConvertWeightToPounds(weight);
+            }
+        }
     }
 }
