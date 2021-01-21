@@ -20,7 +20,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     [Route("api/[area]/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize]
     [Area("Account")]
     public class ProgramLogDayController : ControllerBase
     {
