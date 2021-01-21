@@ -16,7 +16,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
     [ApiController]
     [Produces("application/json")]
     [Area("Admin")]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;

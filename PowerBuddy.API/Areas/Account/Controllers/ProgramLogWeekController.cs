@@ -19,7 +19,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     [ApiController]
     [Produces("application/json")]
     [Area("Account")]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize]
     public class ProgramLogWeekController : ControllerBase
     {
         private readonly IMediator _mediator;

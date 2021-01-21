@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
@@ -16,7 +16,6 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Util;
 using PowerBuddy.MediatR.Users.Models;
 
 namespace PowerBuddy.MediatR.Users.Querys
@@ -47,14 +46,14 @@ namespace PowerBuddy.MediatR.Users.Querys
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly SignInManager<User> _signInManager;
-        private readonly JWTSettings _jwtSettings;
+        private readonly IJwtConfig _jwtConfig;
 
-        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, JWTSettings jwtSettings)
+        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, IJwtConfig jwtConfig)
         {
             _context = context;
             _mapper = mapper;
             _signInManager = signInManager;
-            _jwtSettings = jwtSettings;
+            _jwtConfig = jwtConfig;
         }
 
         public async Task<UserLoggedInDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
@@ -81,19 +80,22 @@ namespace PowerBuddy.MediatR.Users.Querys
 
             if (result.Succeeded)
             {
-	            var key = Encoding.UTF8.GetBytes(_jwtSettings.JWT_Secret);
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new Claim[]
+	            var key = Encoding.UTF8.GetBytes(_jwtConfig.Key);
+                var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
+
+                var tokenOptions = new JwtSecurityToken(
+                    issuer: _jwtConfig.Issuer,
+                    audience: _jwtConfig.Issuer, 
+                    new List<Claim>()
                     {
-                        new Claim("UserID", user.Id.ToString())
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(5),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
+                        new Claim("UserId", user.Id.ToString())
+                    }, 
+                    expires: DateTime.Now.AddDays(5), 
+                    signingCredentials: signingCredentials
+                    );
+            
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                var token = tokenHandler.WriteToken(securityToken);
+                var token = tokenHandler.WriteToken(tokenOptions);
 
                 var userProfile = _mapper.Map<UserDTO>(user);
 

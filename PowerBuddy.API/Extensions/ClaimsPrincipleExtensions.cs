@@ -10,7 +10,7 @@ namespace PowerBuddy.API.Extensions
         {
             try
             {
-                var userId = claimsPrincipal.FindFirstValue("UserID");
+                var userId = claimsPrincipal.FindFirstValue("UserId");
                 return userId;
             }
             catch (Exception ex) when (
