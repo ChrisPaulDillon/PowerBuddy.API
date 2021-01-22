@@ -1,5 +1,5 @@
 ﻿
-namespace PowerBuddy.MediatR.Users.Models
+namespace PowerBuddy.AuthenticationService.Configuration
 {
     public class JwtConfig : IJwtConfig
     {

@@ -1,6 +1,6 @@
 ﻿using PowerBuddy.Data.DTOs.Users;
 
-namespace PowerBuddy.MediatR.Users.Models
+namespace PowerBuddy.MediatR.Authentication.Models
 {
     public class UserLoggedInDTO 
     {

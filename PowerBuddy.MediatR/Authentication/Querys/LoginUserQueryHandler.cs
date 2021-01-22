@@ -12,13 +12,15 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PowerBuddy.AuthenticationService;
+using PowerBuddy.AuthenticationService.Configuration;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Users.Models;
+using PowerBuddy.MediatR.Authentication.Models;
 
-namespace PowerBuddy.MediatR.Users.Querys
+namespace PowerBuddy.MediatR.Authentication.Querys
 {
     public class LoginUserQuery : IRequest<UserLoggedInDTO>
     {
@@ -46,14 +48,14 @@ namespace PowerBuddy.MediatR.Users.Querys
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly SignInManager<User> _signInManager;
-        private readonly IJwtConfig _jwtConfig;
+        private readonly IAuthService _authService;
 
-        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, IJwtConfig jwtConfig)
+        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, IAuthService authService)
         {
             _context = context;
             _mapper = mapper;
             _signInManager = signInManager;
-            _jwtConfig = jwtConfig;
+            _authService = authService;
         }
 
         public async Task<UserLoggedInDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
@@ -80,22 +82,7 @@ namespace PowerBuddy.MediatR.Users.Querys
 
             if (result.Succeeded)
             {
-	            var key = Encoding.UTF8.GetBytes(_jwtConfig.Key);
-                var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
-
-                var tokenOptions = new JwtSecurityToken(
-                    issuer: _jwtConfig.Issuer,
-                    audience: _jwtConfig.Issuer, 
-                    new List<Claim>()
-                    {
-                        new Claim("UserId", user.Id.ToString())
-                    }, 
-                    expires: DateTime.Now.AddDays(5), 
-                    signingCredentials: signingCredentials
-                    );
-            
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var token = tokenHandler.WriteToken(tokenOptions);
+                var token = _authService.GenerateJwtToken(user.Id);
 
                 var userProfile = _mapper.Map<UserDTO>(user);
 

@@ -13,17 +13,16 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PowerBuddy.API.AuthorizationHandlers;
-using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Middleware;
+using PowerBuddy.AuthenticationService.Configuration;
 using PowerBuddy.Data.AutoMapper;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Extensions;
 using PowerBuddy.EmailService.Extensions;
-using PowerBuddy.MediatR.Extensions;
-using PowerBuddy.MediatR.Users.Models;
 using PowerBuddy.Services;
 using PowerBuddy.SmsService.Extensions;
+using PowerBuddy.MediatR;
 
 namespace PowerBuddy.API
 {
@@ -75,8 +74,6 @@ namespace PowerBuddy.API
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JWT_Key"))),
                     };
                 });
-
-            services.AddSingleton<IJwtConfig>(serviceProvider => new JwtConfig(Configuration.GetValue<string>("JWT_Key"), Configuration.GetValue<string>("JWT_Issuer")));
 
             //Inject app settings
             services.AddDbContext<PowerLiftingContext>(options =>
@@ -139,6 +136,24 @@ namespace PowerBuddy.API
                 options.AddPolicy("IsModerator",policy => policy.Requirements.Add(new IsModeratorValidationRequirement()));
                 options.AddPolicy("IsValidUser",policy => policy.Requirements.Add(new IsValidUserValidationRequirement()));
             });
+
+            services.AddAuthServices(
+                Configuration.GetValue<string>("JWT_Key"),
+                Configuration.GetValue<string>("JWT_Issuer"),
+                Configuration.GetValue<string>("FacebookAppId"), 
+                Configuration.GetValue<string>("FacebookAppSecret"));
+
+            services.AddAuthentication()
+	            .AddGoogle(opt =>
+	            {
+                    opt.ClientId = Configuration.GetValue<string>("GoogleClientId");
+                    opt.ClientSecret = Configuration.GetValue<string>("GoogleClientSecret");
+                })
+	            .AddFacebook(opt =>
+	            {
+		            opt.AppId = Configuration.GetValue<string>("FacebookAppId");
+		            opt.AppSecret = Configuration.GetValue<string>("FacebookAppSecret");
+	            });
 
             services.AddTransient<IAuthorizationHandler, IsModeratorAuthorizationHandler>();
             services.AddTransient<IAuthorizationHandler, IsValidUserAuthorizationHandler>();
