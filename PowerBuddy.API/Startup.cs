@@ -122,6 +122,18 @@ namespace PowerBuddy.API
                 options.AddPolicy("IsModerator",
                     policy => policy.Requirements.Add(new IsModeratorValidationRequirement()));
             });
+
+            services.AddAuthentication()
+	            .AddGoogle(opt =>
+	            {
+                    opt.ClientId = Configuration.GetValue<string>("GoogleClientId");
+                    opt.ClientSecret = Configuration.GetValue<string>("GoogleClientSecret");
+                })
+	            .AddFacebook(opt =>
+	            {
+		            opt.AppId = Configuration.GetValue<string>("FacebookAppId");
+		            opt.AppSecret = Configuration.GetValue<string>("FacebookAppSecret");
+	            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
