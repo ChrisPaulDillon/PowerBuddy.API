@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
+using NotImplementedException = System.NotImplementedException;
 
 namespace PowerBuddy.Services.Account
 {
@@ -17,6 +18,11 @@ namespace PowerBuddy.Services.Account
         {
             _context = context;
             _mapper = mapper;
+        }
+
+        public async Task<bool> DoesUserExist(string userId)
+        {
+            return await _context.User.AsNoTracking().AnyAsync(x => x.Id == userId);
         }
 
         public bool IsUserModerator(string userId)

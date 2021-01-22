@@ -134,13 +134,14 @@ namespace PowerBuddy.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PowerBuddy.API", Version = "v1" });
             });
 
-            services.AddTransient<IAuthorizationHandler, IsModeratorAuthorizationHandler>();
-
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("IsModerator",
-                    policy => policy.Requirements.Add(new IsModeratorValidationRequirement()));
+                options.AddPolicy("IsModerator",policy => policy.Requirements.Add(new IsModeratorValidationRequirement()));
+                options.AddPolicy("IsValidUser",policy => policy.Requirements.Add(new IsValidUserValidationRequirement()));
             });
+
+            services.AddTransient<IAuthorizationHandler, IsModeratorAuthorizationHandler>();
+            services.AddTransient<IAuthorizationHandler, IsValidUserAuthorizationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
