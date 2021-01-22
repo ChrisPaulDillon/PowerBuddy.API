@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.MediatR.Authentication.Models;
 
@@ -36,16 +37,16 @@ namespace PowerBuddy.MediatR.Authentication.Querys
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly SignInManager<User> _signInManager;
         private readonly IFacebookAuthService _facebookAuthService;
+        private readonly IAuthService _authService;
         private readonly UserManager<User> _userManager;
 
-        public LoginWithFacebookQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, IFacebookAuthService facebookAuthService, UserManager<User> userManager)
+        public LoginWithFacebookQueryHandler(PowerLiftingContext context, IMapper mapper, IFacebookAuthService facebookAuthService, IAuthService authService, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
-            _signInManager = signInManager;
             _facebookAuthService = facebookAuthService;
+            _authService = authService;
             _userManager = userManager;
         }
 
@@ -64,20 +65,31 @@ namespace PowerBuddy.MediatR.Authentication.Querys
 
             if (user == null)
             {
-                var firstTimeUser = new User()
+                user = new User()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Email = userInfo.Email,
-                    UserName = userInfo.Email
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
                 };
 
-                var createdResult = await _userManager.CreateAsync(firstTimeUser);
+                var createdResult = await _userManager.CreateAsync(user);
 
-                if (createdResult.Succeeded)
+                if (!createdResult.Succeeded)
                 {
 
                 }
             }
+
+            var jwtToken = _authService.GenerateJwtToken(user.Id);
+
+            var userExtended = new UserLoggedInDTO()
+            {
+                User = _mapper.Map<UserDTO>(user),
+                Token = jwtToken
+            };
+
+            return userExtended;
         }
     }
 }

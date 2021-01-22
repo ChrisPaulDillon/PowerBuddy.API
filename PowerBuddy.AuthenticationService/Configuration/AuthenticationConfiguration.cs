@@ -8,6 +8,8 @@ namespace PowerBuddy.AuthenticationService.Configuration
         {
             services.AddSingleton<IJwtConfig>(serviceProvider => new JwtConfig(jwtKey, jwtIssuer));
             services.AddScoped<IAuthService, AuthService>();
+            services.AddHttpClient();
+
             services.AddFacebookAuthServices(facebookAppId, facebookSecret);
         }
 
