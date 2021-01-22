@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -67,10 +68,17 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         public async Task<IActionResult> LoginUserWithFacebook([FromBody] FacebookAuthRequest facebookAuthRequest)
         {
-            var userLoggedInProfile = await _mediator.Send(new LoginWithFacebookQuery(facebookAuthRequest.AccessToken));
-            return Ok(userLoggedInProfile);
+            try
+            {
+                var userLoggedInProfile =
+                    await _mediator.Send(new LoginWithFacebookQuery(facebookAuthRequest.AccessToken));
+                return Ok(userLoggedInProfile);
+            }
+            catch (HttpRequestException ex)
+            {
+                return BadRequest(new { Code = nameof(HttpRequestException), ex.Message });
+            }
         }
-
 
         [HttpPost("Register")]
         [ProducesResponseType(StatusCodes.Status200OK)]

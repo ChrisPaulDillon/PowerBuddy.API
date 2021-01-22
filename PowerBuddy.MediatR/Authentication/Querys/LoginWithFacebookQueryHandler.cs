@@ -74,11 +74,6 @@ namespace PowerBuddy.MediatR.Authentication.Querys
                 };
 
                 var createdResult = await _userManager.CreateAsync(user);
-
-                if (!createdResult.Succeeded)
-                {
-
-                }
             }
 
             var jwtToken = _authService.GenerateJwtToken(user.Id);

@@ -25,7 +25,14 @@ namespace PowerBuddy.AuthenticationService
             var formattedUrl = string.Format(TokenValidationUrl, accessToken, _facebookConfig.AppId, _facebookConfig.AppSecret);
 
             var result = await _httpClientFactory.CreateClient().GetAsync(formattedUrl);
-            result.EnsureSuccessStatusCode();
+            try
+            {
+                result.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
 
             var responseStr = await result.Content.ReadAsStringAsync();
 
@@ -37,7 +44,15 @@ namespace PowerBuddy.AuthenticationService
             var formattedUrl = string.Format(UserInfoUrl, accessToken);
 
             var result = await _httpClientFactory.CreateClient().GetAsync(formattedUrl);
-            result.EnsureSuccessStatusCode();
+
+            try
+            {
+                result.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
 
             var responseStr = await result.Content.ReadAsStringAsync();
 
