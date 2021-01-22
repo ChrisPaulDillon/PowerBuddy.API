@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using PowerBuddy.ExternalLoginProviderService.Models;
+using PowerBuddy.AuthenticationService.Models;
 
-namespace PowerBuddy.ExternalLoginProviderService
+namespace PowerBuddy.AuthenticationService
 {
     public interface IFacebookAuthService
     {

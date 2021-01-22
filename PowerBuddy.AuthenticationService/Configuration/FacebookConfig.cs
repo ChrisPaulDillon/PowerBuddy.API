@@ -1,4 +1,4 @@
-﻿namespace PowerBuddy.ExternalLoginProviderService.Configuration
+﻿namespace PowerBuddy.AuthenticationService.Configuration
 {
     public class FacebookConfig : IFacebookConfig
     {

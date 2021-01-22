@@ -68,7 +68,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpGet("Profile")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
@@ -132,7 +131,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPut("Profile")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = "IsValidUser")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]

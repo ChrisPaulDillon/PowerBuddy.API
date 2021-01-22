@@ -6,10 +6,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Util;
-using PowerBuddy.ExternalLoginProviderService;
 using PowerBuddy.MediatR.Authentication.Models;
 
 namespace PowerBuddy.MediatR.Authentication.Querys
@@ -38,16 +37,14 @@ namespace PowerBuddy.MediatR.Authentication.Querys
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly SignInManager<User> _signInManager;
-        private readonly JWTSettings _jwtSettings;
         private readonly IFacebookAuthService _facebookAuthService;
         private readonly UserManager<User> _userManager;
 
-        public LoginWithFacebookQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, JWTSettings jwtSettings, IFacebookAuthService facebookAuthService, UserManager<User> userManager)
+        public LoginWithFacebookQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, IFacebookAuthService facebookAuthService, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
             _signInManager = signInManager;
-            _jwtSettings = jwtSettings;
             _facebookAuthService = facebookAuthService;
             _userManager = userManager;
         }

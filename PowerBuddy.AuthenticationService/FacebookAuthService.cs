@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PowerBuddy.ExternalLoginProviderService.Configuration;
-using PowerBuddy.ExternalLoginProviderService.Models;
+using PowerBuddy.AuthenticationService.Configuration;
+using PowerBuddy.AuthenticationService.Models;
 
-namespace PowerBuddy.ExternalLoginProviderService
+namespace PowerBuddy.AuthenticationService
 {
     public class FacebookAuthService : IFacebookAuthService
     {

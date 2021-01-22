@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.EmailService", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.SmsService", "..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj", "{AA16F1E0-A1D0-4760-8DA9-EC12F654A9A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBuddy.ExternalLoginProviderService", "..\PowerBuddy.ExternalLoginProviderService\PowerBuddy.ExternalLoginProviderService.csproj", "{25539B32-3C5D-46A1-9C2E-9EDBBB64D73C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBuddy.AuthenticationService", "..\PowerBuddy.AuthenticationService\PowerBuddy.AuthenticationService.csproj", "{653C5682-1322-49B3-9A82-2DDB70A7B77C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,10 +67,10 @@ Global
 		{AA16F1E0-A1D0-4760-8DA9-EC12F654A9A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA16F1E0-A1D0-4760-8DA9-EC12F654A9A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA16F1E0-A1D0-4760-8DA9-EC12F654A9A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{25539B32-3C5D-46A1-9C2E-9EDBBB64D73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25539B32-3C5D-46A1-9C2E-9EDBBB64D73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25539B32-3C5D-46A1-9C2E-9EDBBB64D73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{25539B32-3C5D-46A1-9C2E-9EDBBB64D73C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{653C5682-1322-49B3-9A82-2DDB70A7B77C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{653C5682-1322-49B3-9A82-2DDB70A7B77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{653C5682-1322-49B3-9A82-2DDB70A7B77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{653C5682-1322-49B3-9A82-2DDB70A7B77C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
