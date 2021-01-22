@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
@@ -17,9 +16,9 @@ using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Util;
-using PowerBuddy.MediatR.Users.Models;
+using PowerBuddy.MediatR.Authentication.Models;
 
-namespace PowerBuddy.MediatR.Users.Querys
+namespace PowerBuddy.MediatR.Authentication.Querys
 {
     public class LoginUserQuery : IRequest<UserLoggedInDTO>
     {

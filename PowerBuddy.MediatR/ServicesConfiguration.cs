@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PowerBuddy.MediatR.Emails;
-using PowerBuddy.MediatR.Emails.Commands;
 using PowerBuddy.MediatR.Exercises.Querys.Admin;
 using PowerBuddy.MediatR.Exercises.Querys.Public;
 using PowerBuddy.MediatR.LiftingStats.Commands.Account;
@@ -23,9 +22,6 @@ using PowerBuddy.MediatR.Quotes.Querys;
 using PowerBuddy.MediatR.TemplatePrograms.Commands;
 using PowerBuddy.MediatR.TemplatePrograms.Querys;
 using PowerBuddy.MediatR.Users;
-using PowerBuddy.MediatR.Users.Commands;
-using PowerBuddy.MediatR.Users.Commands.Account;
-using PowerBuddy.MediatR.Users.Querys;
 using PowerBuddy.MediatR.WorkoutDays.Commands;
 using PowerBuddy.MediatR.WorkoutDays.Querys;
 using PowerBuddy.MediatR.WorkoutExercises.Commands;
@@ -35,7 +31,7 @@ using PowerBuddy.MediatR.WorkoutSets.Commands;
 using PowerBuddy.Services.ProgramLogs.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
 
-namespace PowerBuddy.MediatR.Extensions
+namespace PowerBuddy.MediatR
 {
     public static class ServicesConfiguration
     {
@@ -53,6 +49,7 @@ namespace PowerBuddy.MediatR.Extensions
             services.AddUserMediatrHandlers();
             services.AddWorkoutMediatrHandlers();
             services.AddMetricMediatrHandlers();
+            services.AddAuthentication();
 
             services.AddEmailMediatrHandlers(baseUrl, siteName);
 

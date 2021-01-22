@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Users.Models;
+using PowerBuddy.MediatR.Authentication.Models;
 
 namespace PowerBuddy.MediatR.Users.Commands
 {

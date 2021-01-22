@@ -17,10 +17,10 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Extensions;
 using PowerBuddy.EmailService.Extensions;
-using PowerBuddy.MediatR.Extensions;
 using PowerBuddy.Services;
 using PowerBuddy.SmsService.Extensions;
 using PowerBuddy.ExternalLoginProviderService.Configuration;
+using PowerBuddy.MediatR;
 
 namespace PowerBuddy.API
 {
