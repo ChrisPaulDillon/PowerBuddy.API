@@ -20,6 +20,7 @@ using PowerBuddy.EmailService.Extensions;
 using PowerBuddy.MediatR.Extensions;
 using PowerBuddy.Services;
 using PowerBuddy.SmsService.Extensions;
+using PowerBuddy.ExternalLoginProviderService.Configuration;
 
 namespace PowerBuddy.API
 {
@@ -122,6 +123,8 @@ namespace PowerBuddy.API
                 options.AddPolicy("IsModerator",
                     policy => policy.Requirements.Add(new IsModeratorValidationRequirement()));
             });
+
+            services.AddFacebookAuthServices(Configuration.GetValue<string>("FacebookAppId"), Configuration.GetValue<string>("FacebookAppSecret"));
 
             services.AddAuthentication()
 	            .AddGoogle(opt =>

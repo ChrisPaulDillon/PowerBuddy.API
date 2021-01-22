@@ -30,6 +30,7 @@
     <ProjectReference Include="..\PowerBuddy.Context\PowerBuddy.Data.Context.csproj" />
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
     <ProjectReference Include="..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj" />
+    <ProjectReference Include="..\PowerBuddy.ExternalLoginProviderService\PowerBuddy.ExternalLoginProviderService.csproj" />
     <ProjectReference Include="..\PowerBuddy.MediatR\PowerBuddy.MediatR.csproj" />
     <ProjectReference Include="..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj" />
   </ItemGroup>
