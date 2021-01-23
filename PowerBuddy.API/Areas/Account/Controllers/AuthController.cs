@@ -49,7 +49,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
             catch (InvalidCredentialsException ex)
             {
-                return Unauthorized(new { Code = nameof(InvalidCredentialsException), ex.Message });
+                return BadRequest(new { Code = nameof(InvalidCredentialsException), ex.Message });
             }
             catch (UserNotFoundException ex)
             {
