@@ -19,6 +19,11 @@ namespace PowerBuddy.Services.Account
             _mapper = mapper;
         }
 
+        public async Task<bool> DoesUserExist(string userId)
+        {
+            return await _context.User.AsNoTracking().AnyAsync(x => x.Id == userId);
+        }
+
         public bool IsUserModerator(string userId)
         {
             return _context.User.AsNoTracking().Any(x => x.Id == userId && x.MemberStatusId >= 2);

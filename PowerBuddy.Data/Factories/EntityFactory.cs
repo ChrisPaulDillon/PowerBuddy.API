@@ -177,5 +177,17 @@ namespace PowerBuddy.Data.Factories
                 AMRAP = amrap
             };
         }
+
+        public RefreshToken CreateRefreshToken(string jwtId, string userId)
+        {
+            return new RefreshToken()
+            {
+                Token = Guid.NewGuid().ToString(),
+                JwtId = jwtId,
+                UserId = userId,
+                CreationDate = DateTime.UtcNow,
+                ExpiryDate = DateTime.UtcNow.AddMonths(6)
+            };
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace PowerBuddy.MediatR.Users.Models
+﻿namespace PowerBuddy.MediatR.Authentication.Models
 {
     public class ChangePasswordInputDTO
     {

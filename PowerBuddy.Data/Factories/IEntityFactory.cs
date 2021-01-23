@@ -27,5 +27,7 @@ namespace PowerBuddy.Data.Factories
         public WorkoutExerciseTonnage CreateWorkoutExerciseTonnage(decimal exerciseTonnage, int exerciseId, string userId);
         public WorkoutSet CreateWorkoutSet(int noOfReps, decimal weightLifted, bool amrap);
         public WorkoutSet CreateWorkoutSet(int workoutExerciseId, int noOfReps, decimal weightLifted, bool amrap);
+
+        public RefreshToken CreateRefreshToken(string jwtId, string userId);
     }
 }

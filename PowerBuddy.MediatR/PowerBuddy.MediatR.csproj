@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PowerBuddy.AuthenticationService\PowerBuddy.AuthenticationService.csproj" />
     <ProjectReference Include="..\PowerBuddy.Context\PowerBuddy.Data.Context.csproj" />
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
     <ProjectReference Include="..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj" />

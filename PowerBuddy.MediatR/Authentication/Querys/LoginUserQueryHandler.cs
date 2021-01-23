@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
@@ -12,16 +12,20 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PowerBuddy.AuthenticationService;
+using PowerBuddy.AuthenticationService.Configuration;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Util;
-using PowerBuddy.MediatR.Users.Models;
+using PowerBuddy.Data.Factories;
+using PowerBuddy.MediatR.Authentication.Models;
+using PowerBuddy.Services.Authentication;
+using PowerBuddy.Services.Authentication.Models;
 
-namespace PowerBuddy.MediatR.Users.Querys
+namespace PowerBuddy.MediatR.Authentication.Querys
 {
-    public class LoginUserQuery : IRequest<UserLoggedInDTO>
+    public class LoginUserQuery : IRequest<AuthenticatedUserDTO>
     {
         public LoginModelDTO LoginModel { get; }
 
@@ -42,22 +46,22 @@ namespace PowerBuddy.MediatR.Users.Querys
         }
     }
 
-    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, UserLoggedInDTO>
+    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, AuthenticatedUserDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly SignInManager<User> _signInManager;
-        private readonly JWTSettings _jwtSettings;
+        private readonly ITokenService _tokenService;
 
-        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, JWTSettings jwtSettings)
+        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, ITokenService tokenService)
         {
             _context = context;
             _mapper = mapper;
             _signInManager = signInManager;
-            _jwtSettings = jwtSettings;
+            _tokenService = tokenService;
         }
 
-        public async Task<UserLoggedInDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
+        public async Task<AuthenticatedUserDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User
 	            .FirstOrDefaultAsync(x => x.NormalizedEmail == request.LoginModel.Email.ToUpper() || x.NormalizedUserName == request.LoginModel.UserName.ToUpper());
@@ -81,40 +85,10 @@ namespace PowerBuddy.MediatR.Users.Querys
 
             if (result.Succeeded)
             {
-	            var key = Encoding.UTF8.GetBytes(_jwtSettings.JWT_Secret);
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim("UserID", user.Id.ToString())
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(5),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                var token = tokenHandler.WriteToken(securityToken);
-
-                var userProfile = _mapper.Map<UserDTO>(user);
-
-                if (userProfile == null)
-                {
-	                throw new UserNotFoundException();
-                }
-
-                userProfile.UserSetting = await _context.UserSetting
-                    .AsNoTracking()
-                    .ProjectTo<UserSettingDTO>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.UserId == user.Id, cancellationToken: cancellationToken);
-
-                var userWithToken = new UserLoggedInDTO()
-                {
-                    Token = token,
-                    User = userProfile
-                };
-
-                return userWithToken;
+                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(user.Id);
+                return authenticatedUser;
             }
+
             throw new InvalidCredentialsException();
         }
     }

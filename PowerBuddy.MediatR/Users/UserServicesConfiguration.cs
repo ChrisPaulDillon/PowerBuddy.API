@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using PowerBuddy.MediatR.Authentication.Commands;
+using PowerBuddy.MediatR.Authentication.Querys;
 using PowerBuddy.MediatR.Users.Commands;
 using PowerBuddy.MediatR.Users.Commands.Account;
 using PowerBuddy.MediatR.Users.Commands.PowerBuddy.MediatR.Users.Querys;
