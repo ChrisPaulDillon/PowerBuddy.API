@@ -92,14 +92,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var userId = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
+                var authenticatedUser = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
 
-                if (userId != null)
+                if (authenticatedUser != null)
                 {
-                    await _mediator.Send(new SendConfirmEmailCommand(userId));
+                    await _mediator.Send(new SendConfirmEmailCommand(authenticatedUser.User.UserId));
                 }
 
-                return Ok(userId);
+                return Ok(authenticatedUser);
             }
             catch (EmailOrUserNameInUseException ex)
             {

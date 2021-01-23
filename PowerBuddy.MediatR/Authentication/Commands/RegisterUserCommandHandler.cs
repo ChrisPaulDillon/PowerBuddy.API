@@ -9,11 +9,12 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Services.Account;
+using PowerBuddy.Services.Authentication;
+using PowerBuddy.Services.Authentication.Models;
 
-namespace PowerBuddy.MediatR.Users.Commands
+namespace PowerBuddy.MediatR.Authentication.Commands
 {
-    public class RegisterUserCommand : IRequest<string>
+    public class RegisterUserCommand : IRequest<AuthenticatedUserDTO>
     {
         public RegisterUserDTO RegisterUserDTO { get; }
 
@@ -34,20 +35,22 @@ namespace PowerBuddy.MediatR.Users.Commands
         }
     }
 
-    internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, string>
+    internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, AuthenticatedUserDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
+        private readonly ITokenService _tokenService;
 
-        public RegisterUserCommandHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager)
+        public RegisterUserCommandHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager, ITokenService tokenService)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
-        public async Task<string> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<AuthenticatedUserDTO> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             var doesUserExist = await _context.User
                 .AsNoTracking()
@@ -70,11 +73,10 @@ namespace PowerBuddy.MediatR.Users.Commands
 
             var result = await _userManager.CreateAsync(userEntity, request.RegisterUserDTO.Password);
 
-            userEntity = null;
-
             if (result.Succeeded)
             {
-                return userEntity.Id;
+                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(userEntity.Id);
+                return authenticatedUser;
             }
 
             return null;
