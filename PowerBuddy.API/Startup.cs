@@ -140,6 +140,7 @@ namespace PowerBuddy.API
             services.AddAuthServices(
                 Configuration.GetValue<string>("JWT_Key"),
                 Configuration.GetValue<string>("JWT_Issuer"),
+                Configuration.GetValue<TimeSpan>("JWT_Lifetime"),
                 Configuration.GetValue<string>("FacebookAppId"), 
                 Configuration.GetValue<string>("FacebookAppSecret"));
 

@@ -13,6 +13,7 @@ using PowerBuddy.MediatR.Authentication.Models;
 using PowerBuddy.MediatR.Authentication.Querys;
 using PowerBuddy.MediatR.Emails.Commands;
 using PowerBuddy.MediatR.Users.Commands;
+using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -32,7 +33,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Login")]
-        [ProducesResponseType(typeof(UserLoggedInDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthenticatedUserDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
@@ -62,7 +63,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Login/Facebook")]
-        [ProducesResponseType(typeof(UserLoggedInDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthenticatedUserDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]

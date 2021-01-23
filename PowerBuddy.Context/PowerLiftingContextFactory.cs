@@ -8,7 +8,7 @@ namespace PowerBuddy.Data.Context
         public PowerLiftingContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<PowerLiftingContext>();
-            optionsBuilder.UseSqlServer("Server=161.35.32.66,1433;Database=PowerBuddy-livev2;User Id=sa;Password=Pizza123@");
+            optionsBuilder.UseSqlServer("Server=161.35.32.66,1433;Database=PowerBuddy-developmentv2;User Id=sa;Password=Pizza123@");
 
             return new PowerLiftingContext(optionsBuilder.Options);
         }

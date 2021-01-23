@@ -57,6 +57,7 @@ namespace PowerBuddy.Data.Context
         public DbSet<IdentityUserToken<string>> UserToken { get; set; }
 
         public DbSet<UserSetting> UserSetting { get; set; }
+        public DbSet<RefreshToken> RefreshToken { get; set; }
 
         //System
         public DbSet<Gender> Gender { get; set; }
@@ -75,6 +76,7 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey().ToTable("IdentityUserToken");
             modelBuilder.Entity<User>().ToTable("IdentityUser");
             modelBuilder.Entity<UserSetting>().ToTable("UserSetting");
+            modelBuilder.Entity<RefreshToken>().ToTable("RefreshTokens");
 
             modelBuilder.Entity<Exercise>().HasAlternateKey(u => u.ExerciseName);
             modelBuilder.Entity<Exercise>().ToTable("Exercise");

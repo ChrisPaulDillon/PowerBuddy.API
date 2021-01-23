@@ -18,11 +18,14 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Factories;
 using PowerBuddy.MediatR.Authentication.Models;
+using PowerBuddy.Services.Authentication;
+using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.MediatR.Authentication.Querys
 {
-    public class LoginUserQuery : IRequest<UserLoggedInDTO>
+    public class LoginUserQuery : IRequest<AuthenticatedUserDTO>
     {
         public LoginModelDTO LoginModel { get; }
 
@@ -43,22 +46,22 @@ namespace PowerBuddy.MediatR.Authentication.Querys
         }
     }
 
-    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, UserLoggedInDTO>
+    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, AuthenticatedUserDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly SignInManager<User> _signInManager;
-        private readonly IAuthService _authService;
+        private readonly ITokenService _tokenService;
 
-        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, IAuthService authService)
+        public LoginUserQueryHandler(PowerLiftingContext context, IMapper mapper, SignInManager<User> signInManager, ITokenService tokenService)
         {
             _context = context;
             _mapper = mapper;
             _signInManager = signInManager;
-            _authService = authService;
+            _tokenService = tokenService;
         }
 
-        public async Task<UserLoggedInDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
+        public async Task<AuthenticatedUserDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User
 	            .FirstOrDefaultAsync(x => x.NormalizedEmail == request.LoginModel.Email.ToUpper() || x.NormalizedUserName == request.LoginModel.UserName.ToUpper());
@@ -82,28 +85,10 @@ namespace PowerBuddy.MediatR.Authentication.Querys
 
             if (result.Succeeded)
             {
-                var token = _authService.GenerateJwtToken(user.Id);
-
-                var userProfile = _mapper.Map<UserDTO>(user);
-
-                if (userProfile == null)
-                {
-	                throw new UserNotFoundException();
-                }
-
-                userProfile.UserSetting = await _context.UserSetting
-                    .AsNoTracking()
-                    .ProjectTo<UserSettingDTO>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.UserId == user.Id, cancellationToken: cancellationToken);
-
-                var userWithToken = new UserLoggedInDTO()
-                {
-                    Token = token,
-                    User = userProfile
-                };
-
-                return userWithToken;
+                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(user.Id);
+                return authenticatedUser;
             }
+
             throw new InvalidCredentialsException();
         }
     }
