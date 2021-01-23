@@ -16,13 +16,11 @@ namespace PowerBuddy.MediatR.Authentication.Commands
     {
         public string AccessToken { get; }
         public string RefreshToken { get; }
-        public string UserId { get; }
 
-        public RefreshTokenCommand(string accessToken, string refreshToken, string userId)
+        public RefreshTokenCommand(string accessToken, string refreshToken)
         {
             AccessToken = accessToken;
             RefreshToken = refreshToken;
-            UserId = userId;
             new RefreshTokenCommandValidator().ValidateAndThrow(this);
         }
     }
@@ -33,7 +31,6 @@ namespace PowerBuddy.MediatR.Authentication.Commands
         {
             RuleFor(x => x.RefreshToken).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.AccessToken).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 
@@ -52,7 +49,7 @@ namespace PowerBuddy.MediatR.Authentication.Commands
 
         public async Task<AuthenticatedUserDTO> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var refreshToken = await _context.RefreshToken.FirstOrDefaultAsync(x => x.Token == request.RefreshToken && x.UserId == request.UserId);
+            var refreshToken = await _context.RefreshToken.FirstOrDefaultAsync(x => x.Token == request.RefreshToken);
 
             if (refreshToken == null)
             {
@@ -77,7 +74,7 @@ namespace PowerBuddy.MediatR.Authentication.Commands
             refreshToken.IsUsed = true;
             await _context.SaveChangesAsync();
 
-            var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(request.UserId);
+            var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(refreshToken.UserId);
 
             return authenticatedUser;
         }

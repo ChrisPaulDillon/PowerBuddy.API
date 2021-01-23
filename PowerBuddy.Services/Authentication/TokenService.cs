@@ -48,5 +48,20 @@ namespace PowerBuddy.Services.Authentication
 
             return authenticatedUser;
         }
+
+        public async Task<bool> RevokeRefreshTokenAsync(string refreshToken)
+        {
+            var token = await _context.RefreshToken.FirstOrDefaultAsync(x => x.Token == refreshToken);
+
+            if (token == null)
+            {
+                return false;
+            }
+
+            token.IsUsed = true;
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

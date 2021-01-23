@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using NotImplementedException = System.NotImplementedException;
 
 namespace PowerBuddy.Services.Account
 {

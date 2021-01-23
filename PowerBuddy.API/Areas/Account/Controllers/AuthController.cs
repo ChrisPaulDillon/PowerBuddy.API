@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,8 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.MediatR.Authentication.Commands;
+using PowerBuddy.MediatR.Authentication.Exceptions;
 using PowerBuddy.MediatR.Authentication.Models;
 using PowerBuddy.MediatR.Authentication.Querys;
 using PowerBuddy.MediatR.Emails.Commands;
@@ -104,6 +107,49 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
+
+        [HttpPost("Logout/{refreshToken}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> LogoutAndRevokeToken(string refreshToken)
+        {
+            try
+            {
+                var result = await _mediator.Send(new LogoutCommand(refreshToken));
+                return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("Refresh")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest refreshTokenRequest)
+        {
+            try
+            {
+                var result = await _mediator.Send(new RefreshTokenCommand(refreshTokenRequest.AccessToken,
+                    refreshTokenRequest.RefreshToken));
+                return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (RefreshTokenNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (InvalidRefreshTokenException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("ChangePassword/Token/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]

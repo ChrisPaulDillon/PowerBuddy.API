@@ -11,5 +11,7 @@ namespace PowerBuddy.Services.Authentication
         /// <param name="userId"></param>
         /// <returns></returns>
         public Task<AuthenticatedUserDTO> CreateRefreshTokenAuthenticationResult(string userId);
+
+        public Task<bool> RevokeRefreshTokenAsync(string refreshToken);
     }
 }
