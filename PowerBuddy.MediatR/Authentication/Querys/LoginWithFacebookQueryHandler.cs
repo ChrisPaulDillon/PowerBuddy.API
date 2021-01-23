@@ -11,10 +11,12 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.MediatR.Authentication.Models;
+using PowerBuddy.Services.Authentication;
+using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.MediatR.Authentication.Querys
 {
-    public class LoginWithFacebookQuery : IRequest<UserLoggedInDTO>
+    public class LoginWithFacebookQuery : IRequest<AuthenticatedUserDTO>
     {
         public string AccessToken { get; }
 
@@ -33,24 +35,24 @@ namespace PowerBuddy.MediatR.Authentication.Querys
         }
     }
 
-    internal class LoginWithFacebookQueryHandler : IRequestHandler<LoginWithFacebookQuery, UserLoggedInDTO>
+    internal class LoginWithFacebookQueryHandler : IRequestHandler<LoginWithFacebookQuery, AuthenticatedUserDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IFacebookAuthService _facebookAuthService;
-        private readonly IAuthService _authService;
+        private readonly ITokenService _tokenService;
         private readonly UserManager<User> _userManager;
 
-        public LoginWithFacebookQueryHandler(PowerLiftingContext context, IMapper mapper, IFacebookAuthService facebookAuthService, IAuthService authService, UserManager<User> userManager)
+        public LoginWithFacebookQueryHandler(PowerLiftingContext context, IMapper mapper, IFacebookAuthService facebookAuthService, ITokenService tokenService, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
             _facebookAuthService = facebookAuthService;
-            _authService = authService;
+            _tokenService = tokenService;
             _userManager = userManager;
         }
 
-        public async Task<UserLoggedInDTO> Handle(LoginWithFacebookQuery request, CancellationToken cancellationToken)
+        public async Task<AuthenticatedUserDTO> Handle(LoginWithFacebookQuery request, CancellationToken cancellationToken)
         {
             var validationTokenResult = await _facebookAuthService.ValidateAccessTokenAsync(request.AccessToken);
 
@@ -76,15 +78,9 @@ namespace PowerBuddy.MediatR.Authentication.Querys
                 var createdResult = await _userManager.CreateAsync(user);
             }
 
-            var jwtToken = _authService.GenerateJwtToken(user.Id);
+            var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(user.Id);
 
-            var userExtended = new UserLoggedInDTO()
-            {
-                User = _mapper.Map<UserDTO>(user),
-                Token = jwtToken
-            };
-
-            return userExtended;
+            return authenticatedUser;
         }
     }
 }

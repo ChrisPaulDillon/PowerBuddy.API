@@ -56,25 +56,6 @@ namespace PowerBuddy.API
             services.AddFactories();
             services.AddServiceClasses();
 
-            services.AddAuthentication(opt =>
-                {
-                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(opt =>
-                {
-                    opt.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuer = true,
-                        ValidateLifetime = true,
-                        ValidateAudience = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration.GetValue<string>("JWT_Issuer"),
-                        ValidAudience = Configuration.GetValue<string>("JWT_Issuer"),
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JWT_Key"))),
-                    };
-                });
-
             //Inject app settings
             services.AddDbContext<PowerLiftingContext>(options =>
                 options.UseSqlServer(Configuration.GetSection("PbDbConnection").Value));
@@ -133,6 +114,7 @@ namespace PowerBuddy.API
 
             services.AddAuthorization(options =>
             {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
                 options.AddPolicy("IsModerator",policy => policy.Requirements.Add(new IsModeratorValidationRequirement()));
                 options.AddPolicy("IsValidUser",policy => policy.Requirements.Add(new IsValidUserValidationRequirement()));
             });
@@ -140,11 +122,30 @@ namespace PowerBuddy.API
             services.AddAuthServices(
                 Configuration.GetValue<string>("JWT_Key"),
                 Configuration.GetValue<string>("JWT_Issuer"),
+                Configuration.GetValue<TimeSpan>("JWT_Lifetime"),
                 Configuration.GetValue<string>("FacebookAppId"), 
                 Configuration.GetValue<string>("FacebookAppSecret"));
 
-            services.AddAuthentication()
-	            .AddGoogle(opt =>
+            services.AddAuthentication(opt =>
+                {
+                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(opt =>
+                {
+                    opt.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateLifetime = true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration.GetValue<string>("JWT_Issuer"),
+                        ValidAudience = Configuration.GetValue<string>("JWT_Issuer"),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JWT_Key"))),
+                        RequireExpirationTime = true,
+                    };
+                })
+                .AddGoogle(opt =>
 	            {
                     opt.ClientId = Configuration.GetValue<string>("GoogleClientId");
                     opt.ClientSecret = Configuration.GetValue<string>("GoogleClientSecret");
