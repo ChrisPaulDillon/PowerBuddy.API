@@ -24,8 +24,6 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.UserName, d => d.MapFrom<string>(src => src.UserName))
                 .ForMember(x => x.PhoneNumber, d => d.MapFrom<string>(src => src.PhoneNumber))
                 .ForMember(x => x.PhoneNumberConfirmed, d => d.MapFrom<bool>(src => src.PhoneNumberConfirmed))
-                .ForMember(x => x.BodyWeight, d => d.MapFrom<decimal>(src => src.UserSetting.BodyWeight))
-                .ForMember(x => x.QuotesEnabled, d => d.MapFrom<bool>(src => src.UserSetting.QuotesEnabled))
                 .ForMember(x => x.Email, d => d.MapFrom<string>(src => src.Email))
                 .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.UserSetting.LiftingLevel.LiftingLevelStr))
                 .ForMember(x => x.FirstName, d => d.MapFrom<string>(src => src.FirstName))
@@ -34,7 +32,10 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.SportType, d => d.MapFrom<string>(src => src.SportType))
                 .ForMember(x => x.FirstVisit, d => d.MapFrom<bool>(src => src.FirstVisit))
                 .ForMember(x => x.Gender, d => d.MapFrom<string>(src => src.Gender.GenderName))
-                .ForMember(x => x.MemberStatusId, d => d.MapFrom<int?>(src => src.MemberStatusId));
+                .ForMember(x => x.MemberStatusId, d => d.MapFrom<int?>(src => src.MemberStatusId))
+                .ForMember(x => x.UsingMetric, d => d.MapFrom(src => src.UserSetting.UsingMetric))
+                .ForMember(x => x.BodyWeight, d => d.MapFrom<decimal>(src => src.UserSetting.BodyWeight))
+                .ForMember(x => x.QuotesEnabled, d => d.MapFrom<bool>(src => src.UserSetting.QuotesEnabled));
 
             CreateMap<RegisterUserDTO, User>()
                 .ForMember<string>(x => x.UserName, d => d.MapFrom(src => src.UserName))

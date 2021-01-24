@@ -11,6 +11,7 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Services.Account;
+using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
 using PowerBuddy.Services.Workouts.Util;
 
@@ -41,16 +42,16 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
     internal class QuickAddWorkoutSetsCommandHandler : IRequestHandler<QuickAddWorkoutSetsCommand, IEnumerable<WorkoutSetDTO>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IWorkoutService _workoutService;
+        private readonly IWeightService _weightService;
         private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
 
-        public QuickAddWorkoutSetsCommandHandler(PowerLiftingContext context, IWorkoutService workoutService, IAccountService accountService, IMapper mapper)
+        public QuickAddWorkoutSetsCommandHandler(PowerLiftingContext context, IWeightService weightService, IAccountService accountService, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            _weightService = weightService;
             _accountService = accountService;
-            _workoutService = workoutService;
         }
 
         public async Task<IEnumerable<WorkoutSetDTO>> Handle(QuickAddWorkoutSetsCommand request, CancellationToken cancellationToken)
@@ -74,10 +75,9 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             }
 
             workoutDay.Completed = false;
-
-            var convertedWorkoutSets = WorkoutHelper.ConvertInsertWeightSetsToKg(request.WorkoutSetList);
-            var workoutSetCollection = _mapper.Map<IEnumerable<WorkoutSet>>(convertedWorkoutSets);
-
+            
+            var workoutSetCollection = _mapper.Map<IEnumerable<WorkoutSet>>(request.WorkoutSetList);
+            workoutSetCollection = _weightService.ConvertInsertWeightSetsToDbSuitable(isMetric, workoutSetCollection);
             //var workoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExercise, request.UserId);
             //workoutExercise.WorkoutExerciseTonnage = workoutExerciseTonnage;
 
@@ -87,7 +87,7 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             await _context.SaveChangesAsync(cancellationToken);
 
             var workoutSets =  _mapper.Map<IEnumerable<WorkoutSetDTO>>(workoutSetCollection);
-            workoutSets = WorkoutHelper.ConvertReturnedWorkoutSets(isMetric, workoutSets);
+            workoutSets = _weightService.ConvertReturnedWorkoutSets(isMetric, workoutSets);
 
             return workoutSets;
         }

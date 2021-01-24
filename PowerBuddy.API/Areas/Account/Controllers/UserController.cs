@@ -77,7 +77,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPut("Profile")]
-        [Authorize(Policy = "IsValidUser")]
+        [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
@@ -96,28 +96,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (UserNotFoundException ex)
             {
                 return NotFound(ex.Message);
-            }
-        }
-
-        [HttpPut("UpdatePassword")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordInputGuiDTO changePasswordInputDTO)
-        {
-            try
-            {
-                var result  = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDTO, _userId));
-                return Ok(result);
-            }
-            catch (UserNotFoundException ex)
-            {
-	            return NotFound(new { Code = nameof(UserNotFoundException), ex.Message });
-            }
-            catch (InvalidCredentialsException ex)
-            {
-                return BadRequest(new { Code = nameof(InvalidCredentialsException), ex.Message });
             }
         }
     }

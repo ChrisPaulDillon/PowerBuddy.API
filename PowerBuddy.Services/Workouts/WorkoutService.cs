@@ -11,10 +11,10 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
+using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts.Models;
 using PowerBuddy.Services.Workouts.Util;
 using PowerBuddy.Util.Extensions;
-using PowerBuddy.Util.Workouts;
 
 namespace PowerBuddy.Services.Workouts
 {
@@ -22,20 +22,20 @@ namespace PowerBuddy.Services.Workouts
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IDTOFactory _dtoFactory;
+        private readonly IWeightService _weightService;
         private readonly IEntityFactory _entityFactory;
 
-        public WorkoutService(PowerLiftingContext context, IMapper mapper, IDTOFactory dtoFactory, IEntityFactory entityFactory)
+        public WorkoutService(PowerLiftingContext context, IMapper mapper, IWeightService weightService, IEntityFactory entityFactory)
         {
             _context = context;
             _mapper = mapper;
-            _dtoFactory = dtoFactory;
+            _weightService = weightService;
             _entityFactory = entityFactory;
         }
 
         public IEnumerable<WorkoutDay> CreateWorkoutDaysFromTemplate(TemplateProgram tp, 
             DateTime startDate, Dictionary<int, string> workoutOrder, IEnumerable<TemplateWeightInputDTO> weightInputs, 
-            ICalculateRepWeight calculateRepWeight, string userId)
+            ICalculateRepWeight calculateRepWeight, string userId, bool isMetric)
         {
             var listOfDays = new List<WorkoutDay>();
 
@@ -58,7 +58,7 @@ namespace PowerBuddy.Services.Workouts
                     else if (DayOfWeek.Sunday.ToString() == workoutDayOfWeek) dateOfWorkout = currentDate.ClosestDateByDay(DayOfWeek.Sunday);
 
                     var workoutDay = _entityFactory.CreateWorkoutDay(templateWeek.WeekNo, dateOfWorkout, userId);
-                    workoutDay.WorkoutExercises = CreateWorkoutExercisesForTemplateDay(templateDay, weightInputs, calculateRepWeight, userId);
+                    workoutDay.WorkoutExercises = CreateWorkoutExercisesForTemplateDay(templateDay, weightInputs, calculateRepWeight, userId, isMetric);
                     listOfDays.Add(workoutDay);
                     counter++;
                 }
@@ -68,7 +68,7 @@ namespace PowerBuddy.Services.Workouts
             return listOfDays;
         }
 
-        public IEnumerable<WorkoutExercise> CreateWorkoutExercisesForTemplateDay(TemplateDay templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<WorkoutExercise> CreateWorkoutExercisesForTemplateDay(TemplateDay templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId, bool isMetric)
         {
             var workoutExercises = new List<WorkoutExercise>();
 
@@ -82,6 +82,7 @@ namespace PowerBuddy.Services.Workouts
                 {
                     var weight = calculateRepWeight.CalculateWeight(weightInputForExercise?.Weight ?? 0, templateSet.Percentage ?? 2.5M);
                     var workoutSet = _entityFactory.CreateWorkoutSet(templateSet.NoOfReps, weight, templateSet.AMRAP);
+                    workoutSet = _weightService.ConvertInsertWeightSetToDbSuitable(isMetric, workoutSet);
                     exerciseTonnage += WorkoutHelper.CalculateTonnage(workoutSet.WeightLifted, workoutSet.NoOfReps);
                     workoutExercise.WorkoutSets.Add(workoutSet);
                 }
@@ -94,7 +95,7 @@ namespace PowerBuddy.Services.Workouts
             return workoutExercises;
         }
 
-        public WorkoutExercise CreateSetsForExercise(CreateWorkoutExerciseDTO createWorkoutExercise, string userId)
+        public WorkoutExercise CreateSetsForExercise(CreateWorkoutExerciseDTO createWorkoutExercise, string userId, bool isMetric)
         {
             var setCollection = new List<WorkoutSet>();
 
@@ -110,6 +111,7 @@ namespace PowerBuddy.Services.Workouts
             {
                 exerciseTonnage += WorkoutHelper.CalculateTonnage(createWorkoutExercise.Weight, createWorkoutExercise.Reps);
                 var set = _entityFactory.CreateWorkoutSet(createWorkoutExercise.Reps, createWorkoutExercise.Weight, false);
+                set = _weightService.ConvertInsertWeightSetToDbSuitable(isMetric, set);
                 setCollection.Add(set);
             }
 
@@ -117,11 +119,6 @@ namespace PowerBuddy.Services.Workouts
             workoutExercise.WorkoutExerciseTonnage = _entityFactory.CreateWorkoutExerciseTonnage(exerciseTonnage, workoutExercise.ExerciseId, userId);
 
             return workoutExercise;
-        }
-
-        public WorkoutSet CreateWorkoutSet(int noOfReps, decimal weight, bool amrap)
-        {
-            return _entityFactory.CreateWorkoutSet(noOfReps, WeightConvertorHelper.RoundWeightToNearestQuarter(weight), amrap);
         }
 
         public async Task CreateWorkoutExerciseAudit(int exerciseId, string userId)

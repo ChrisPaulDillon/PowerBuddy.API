@@ -6,6 +6,6 @@
         public string UserId { get; set; }
         public bool UsingMetric { get; set; }
         public decimal BodyWeight { get; set; }
-        public bool ActivateQuotes { get; set; } = true;
+        public bool QuotesEnabled { get; set; } = true;
     }
 }

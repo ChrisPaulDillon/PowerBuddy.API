@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections;
+using PowerBuddy.Services.Weights.Util;
 
-namespace PowerBuddy.Util.Workouts
+namespace PowerBuddy.WeightHelper
 {
-    public static class WeightConvertorHelper
+    public static class WeightConversionHelper
     {
-        private const decimal POUNDS_TO_KILOGRAM = 0.45359237M;
-        private const decimal KILOGRAM_TO_POUNDS = 2.20462262185M;
-
         public static decimal RoundWeightToNearestQuarter(decimal weight)
         {
             return Math.Round(weight * 4, MidpointRounding.ToEven) / 4;
@@ -15,7 +12,7 @@ namespace PowerBuddy.Util.Workouts
 
         public static decimal ConvertWeightToPounds(decimal weight)
         {
-            return RoundWeightToNearestQuarter(weight * KILOGRAM_TO_POUNDS);
+            return RoundWeightToNearestQuarter(weight * WeightConstants.KILOGRAM_TO_POUNDS);
         }
 
         /// <summary>
@@ -25,7 +22,7 @@ namespace PowerBuddy.Util.Workouts
         /// <returns></returns>
         public static decimal ConvertWeightToKg(decimal weight)
         {
-            return RoundWeightToNearestQuarter(weight * POUNDS_TO_KILOGRAM);
+            return RoundWeightToNearestQuarter(weight * WeightConstants.POUNDS_TO_KILOGRAM);
         }
     }
 }
