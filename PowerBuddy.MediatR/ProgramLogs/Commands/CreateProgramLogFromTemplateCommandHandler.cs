@@ -69,7 +69,7 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands
             await _programLogService.IsProgramLogAlreadyActive(request.ProgramLogDTO.StartDate, request.ProgramLogDTO.EndDate, request.UserId);
 
             var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
-            if (templateProgram.NoOfDaysPerWeek != request.ProgramLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
+            //if (templateProgram.NoOfDaysPerWeek != request.ProgramLogDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
             var templateWeeks = templateProgram.TemplateWeeks.ToList();
             templateProgram.ActiveUsersCount++;
             _templateService.AddTemplateProgramAudit(request.TemplateProgramId, request.UserId, DateTime.UtcNow);

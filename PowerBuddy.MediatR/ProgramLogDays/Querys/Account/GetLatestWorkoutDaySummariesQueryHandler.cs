@@ -52,7 +52,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Querys.Account
                 .OrderByDescending(x => x.Date)
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
+           // if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
             return programLogDayDTO;
         }
     }

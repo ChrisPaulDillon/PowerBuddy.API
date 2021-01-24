@@ -188,5 +188,10 @@ namespace PowerBuddy.Services.Workouts
                 .ProjectTo<WorkoutDayDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<long> GetTotalWorkoutSetsCount()
+        {
+            return await _context.WorkoutSet.AsNoTracking().LongCountAsync();
+        }
     }
 }
