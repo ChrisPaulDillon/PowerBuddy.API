@@ -59,7 +59,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("FirstVisit")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]

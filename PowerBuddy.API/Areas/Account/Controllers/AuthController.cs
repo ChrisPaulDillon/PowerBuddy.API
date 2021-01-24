@@ -186,7 +186,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
 
         [HttpPost("Sms/RequestVerification")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RequestSmsVerification([FromBody] PhoneNumberInputDTO phoneNumber)
@@ -203,7 +203,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Sms/SendVerification")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendSmsVerification([FromBody] PhoneNumberCodeInputDTO input)
@@ -221,7 +221,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
 
         [HttpPut("UpdatePassword")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
