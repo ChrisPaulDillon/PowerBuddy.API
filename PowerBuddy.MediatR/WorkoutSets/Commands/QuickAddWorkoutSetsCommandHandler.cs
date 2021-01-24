@@ -58,8 +58,6 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
         {
             var isMetric = await _accountService.IsUserUsingMetric(request.UserId);
 
-            //TODO if user is not using metric, reverse the weight before inserting into db
-
             var workoutExercise = await _context.WorkoutExercise
                 .Include(x => x.WorkoutSets)
                 .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetList[0].WorkoutExerciseId);
@@ -80,8 +78,6 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             workoutSetCollection = _weightService.ConvertInsertWeightSetsToDbSuitable(isMetric, workoutSetCollection);
             //var workoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExercise, request.UserId);
             //workoutExercise.WorkoutExerciseTonnage = workoutExerciseTonnage;
-
-
 
             _context.WorkoutSet.AddRange(workoutSetCollection);
             await _context.SaveChangesAsync(cancellationToken);
