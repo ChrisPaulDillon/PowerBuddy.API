@@ -68,19 +68,27 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             var workoutDay = await _context.WorkoutDay
                 .FirstOrDefaultAsync(x => x.WorkoutDayId == workoutExercise.WorkoutDayId && x.UserId == request.UserId);
 
-            if (workoutDay == null) throw new UserNotFoundException();
+            if (workoutDay == null)
+            {
+                throw new WorkoutDayNotFoundException();
+            }
 
             workoutDay.Completed = false;
 
-            var workoutSetCollection = _mapper.Map<IEnumerable<WorkoutSet>>(request.WorkoutSetList);
+            var convertedWorkoutSets = WorkoutHelper.ConvertInsertWeightSetsToKg(request.WorkoutSetList);
+            var workoutSetCollection = _mapper.Map<IEnumerable<WorkoutSet>>(convertedWorkoutSets);
 
             //var workoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExercise, request.UserId);
             //workoutExercise.WorkoutExerciseTonnage = workoutExerciseTonnage;
+
+
 
             _context.WorkoutSet.AddRange(workoutSetCollection);
             await _context.SaveChangesAsync(cancellationToken);
 
             var workoutSets =  _mapper.Map<IEnumerable<WorkoutSetDTO>>(workoutSetCollection);
+            workoutSets = WorkoutHelper.ConvertReturnedWorkoutSets(isMetric, workoutSets);
+
             return workoutSets;
         }
     }

@@ -5,26 +5,27 @@ namespace PowerBuddy.Util.Workouts
 {
     public static class WeightConvertorHelper
     {
-        public static decimal RoundWeight(decimal weight)
+        private const decimal POUNDS_TO_KILOGRAM = 0.45359237M;
+        private const decimal KILOGRAM_TO_POUNDS = 2.20462262185M;
+
+        public static decimal RoundWeightToNearestQuarter(decimal weight)
         {
-            return Math.Round((decimal)(weight * 2), MidpointRounding.AwayFromZero) / 2;
+            return Math.Round(weight * 4, MidpointRounding.ToEven) / 4;
         }
 
         public static decimal ConvertWeightToPounds(decimal weight)
         {
-            return RoundWeight(weight * 2.2M);
+            return RoundWeightToNearestQuarter(weight * KILOGRAM_TO_POUNDS);
         }
 
-        public static decimal CalculateWeight(bool isMetric, decimal weight)
+        /// <summary>
+        /// Only used for returned weights, not db inserts
+        /// </summary>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        public static decimal ConvertWeightToKg(decimal weight)
         {
-            if (isMetric)
-            {
-                return RoundWeight(weight);
-            }
-            else
-            {
-                return ConvertWeightToPounds(weight);
-            }
+            return RoundWeightToNearestQuarter(weight * POUNDS_TO_KILOGRAM);
         }
     }
 }

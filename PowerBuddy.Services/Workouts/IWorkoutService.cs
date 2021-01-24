@@ -15,6 +15,7 @@ namespace PowerBuddy.Services.Workouts
 
         public IEnumerable<WorkoutExercise> CreateWorkoutExercisesForTemplateDay(TemplateDay templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId);
         public WorkoutExercise CreateSetsForExercise(CreateWorkoutExerciseDTO createWorkoutExercise, string userId);
+        public WorkoutSet CreateWorkoutSet(int noOfReps, decimal weight, bool amrap);
         public Task CreateWorkoutExerciseAudit(int exerciseId, string userId);
         public Task<WorkoutExerciseTonnage> UpdateExerciseTonnage(WorkoutExercise workoutExercise, string userId);
         IEnumerable<WorkoutSetDTO> GetHighestWeightRepSchemeForEachRepFromCollection(IEnumerable<WorkoutSetDTO> workoutSets);

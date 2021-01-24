@@ -15,12 +15,66 @@ namespace PowerBuddy.Services.Workouts.Util
             return weight * reps;
         }
 
+        public static WorkoutSetDTO ConvertReturnedWorkoutSet(bool isMetric, WorkoutSetDTO workoutSet)
+        {
+            if (isMetric)
+            {
+                workoutSet.WeightLifted = WeightConvertorHelper.RoundWeightToNearestQuarter(workoutSet.WeightLifted);
+            }
+            else
+            {
+                workoutSet.WeightLifted = WeightConvertorHelper.RoundWeightToNearestQuarter(WeightConvertorHelper.ConvertWeightToPounds(workoutSet.WeightLifted));
+            }
 
-        public static IEnumerable<WorkoutSetDTO> RoundAndCalculateSetWeights(bool isMetric, IEnumerable<WorkoutSetDTO> workoutSets)
+            return workoutSet;
+        }
+
+        public static IEnumerable<WorkoutSetDTO> ConvertReturnedWorkoutSets(bool isMetric, IEnumerable<WorkoutSetDTO> workoutSets)
+        {
+            return isMetric ? ConvertReturnedWeightSetsToKg(workoutSets) : ConvertReturnedSetsToPounds(workoutSets);
+        }
+
+        /// <summary>
+        /// Used to convert weights to pounds to show to the user if they are using lbs
+        /// </summary>
+        /// <param name="workoutSets"></param>
+        /// <returns></returns>
+        private static IEnumerable<WorkoutSetDTO> ConvertReturnedSetsToPounds(IEnumerable<WorkoutSetDTO> workoutSets)
         {
             foreach (var workoutSet in workoutSets)
             {
-                workoutSet.WeightLifted = WeightConvertorHelper.CalculateWeight(isMetric, workoutSet.WeightLifted);
+                workoutSet.WeightLifted = WeightConvertorHelper.RoundWeightToNearestQuarter(WeightConvertorHelper.ConvertWeightToPounds(workoutSet.WeightLifted));
+            }
+
+            return workoutSets;
+        }
+
+        /// <summary>
+        /// Used to round existing kg weights in db. These should normally return the same value but may vary if
+        /// the user has inserted weights from the pounds perspective
+        /// </summary>
+        /// <param name="workoutSets"></param>
+        /// <returns></returns>
+        private static IEnumerable<WorkoutSetDTO> ConvertReturnedWeightSetsToKg(IEnumerable<WorkoutSetDTO> workoutSets)
+        {
+            foreach (var workoutSet in workoutSets)
+            {
+                workoutSet.WeightLifted = WeightConvertorHelper.RoundWeightToNearestQuarter(workoutSet.WeightLifted);
+            }
+
+            return workoutSets;
+        }
+
+        /// <summary>
+        /// Used to convert weights back into Kg before Db insert
+        /// </summary>
+        /// <param name="workoutSets"></param>
+        /// <returns></returns>
+        public static IEnumerable<WorkoutSetDTO> ConvertInsertWeightSetsToKg(IEnumerable<WorkoutSetDTO> workoutSets)
+        {
+            foreach (var workoutSet in workoutSets)
+            {
+                workoutSet.WeightLifted = WeightConvertorHelper.ConvertWeightToKg(workoutSet.WeightLifted);
             }
 
             return workoutSets;

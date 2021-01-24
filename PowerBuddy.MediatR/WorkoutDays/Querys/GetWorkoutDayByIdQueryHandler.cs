@@ -65,8 +65,9 @@ namespace PowerBuddy.MediatR.WorkoutDays.Querys
 
             foreach (var workoutExercise in workoutDay.WorkoutExercises)
             {
-                workoutExercise.WorkoutSets = WorkoutHelper.RoundAndCalculateSetWeights(isMetric, workoutExercise.WorkoutSets);
+                WorkoutHelper.ConvertReturnedWorkoutSets(isMetric, workoutExercise.WorkoutSets);
             }
+
             return workoutDay;
         }
     }

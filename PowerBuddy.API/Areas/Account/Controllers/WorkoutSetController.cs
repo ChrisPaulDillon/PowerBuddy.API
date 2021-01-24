@@ -51,9 +51,9 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (UserNotFoundException ex)
+            catch (WorkoutDayNotFoundException ex)
             {
-                return Unauthorized(ex.Message);
+                return NotFound(ex.Message);
             }
         }
 

@@ -14,6 +14,7 @@ using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.Workouts.Models;
 using PowerBuddy.Services.Workouts.Util;
 using PowerBuddy.Util.Extensions;
+using PowerBuddy.Util.Workouts;
 
 namespace PowerBuddy.Services.Workouts
 {
@@ -116,6 +117,11 @@ namespace PowerBuddy.Services.Workouts
             workoutExercise.WorkoutExerciseTonnage = _entityFactory.CreateWorkoutExerciseTonnage(exerciseTonnage, workoutExercise.ExerciseId, userId);
 
             return workoutExercise;
+        }
+
+        public WorkoutSet CreateWorkoutSet(int noOfReps, decimal weight, bool amrap)
+        {
+            return _entityFactory.CreateWorkoutSet(noOfReps, WeightConvertorHelper.RoundWeightToNearestQuarter(weight), amrap);
         }
 
         public async Task CreateWorkoutExerciseAudit(int exerciseId, string userId)
