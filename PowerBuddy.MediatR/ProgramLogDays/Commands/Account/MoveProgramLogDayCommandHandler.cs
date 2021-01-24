@@ -62,7 +62,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account
                 .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
+          //  if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
 
             var programLogOnMoveDate = programLogWeek.ProgramLogDays.FirstOrDefault(x => x.Date.Date.CompareTo(request.ProgramLogDayDTO.Date) == 0);
 

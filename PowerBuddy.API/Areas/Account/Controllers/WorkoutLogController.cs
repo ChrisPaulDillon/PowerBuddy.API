@@ -156,6 +156,10 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return Conflict(ex.Message);
             }
+            catch (WorkoutDaysDoesNotMatchTemplateDaysException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{WorkoutLogId:int}")]

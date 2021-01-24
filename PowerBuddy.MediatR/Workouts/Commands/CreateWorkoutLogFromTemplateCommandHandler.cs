@@ -8,6 +8,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
+using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Services.Account;
 using PowerBuddy.Services.LiftingStats;
 using PowerBuddy.Services.ProgramLogs.Factories;
@@ -73,7 +74,10 @@ namespace PowerBuddy.MediatR.Workouts.Commands
            var isMetric = await _accountService.IsUserUsingMetric(request.UserId);
 
            var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
-            if (templateProgram.NoOfDaysPerWeek != request.WorkoutInputDTO.DayCount) throw new ProgramDaysDoesNotMatchTemplateDaysException();
+           if (templateProgram.NoOfDaysPerWeek != request.WorkoutInputDTO.DayCount)
+           {
+               throw new WorkoutDaysDoesNotMatchTemplateDaysException();
+           }
 
             templateProgram.ActiveUsersCount++;
             _templateService.AddTemplateProgramAudit(request.TemplateProgramId, request.UserId, DateTime.UtcNow);

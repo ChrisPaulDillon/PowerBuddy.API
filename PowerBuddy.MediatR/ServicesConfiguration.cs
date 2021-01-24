@@ -8,15 +8,11 @@ using PowerBuddy.MediatR.LiftingStats.Querys.Account;
 using PowerBuddy.MediatR.LiftingStats.Querys.Public;
 using PowerBuddy.MediatR.Metrics.Querys;
 using PowerBuddy.MediatR.ProgramLogDays.Commands.Account;
-using PowerBuddy.MediatR.ProgramLogDays.Commands.Member;
 using PowerBuddy.MediatR.ProgramLogDays.Querys.Account;
-using PowerBuddy.MediatR.ProgramLogExercises.Commands.Account;
-using PowerBuddy.MediatR.ProgramLogExercises.Querys.Account;
 using PowerBuddy.MediatR.ProgramLogRepSchemes.Commands;
 using PowerBuddy.MediatR.ProgramLogs.Commands;
 using PowerBuddy.MediatR.ProgramLogs.Querys;
 using PowerBuddy.MediatR.ProgramLogWeeks.Commands;
-using PowerBuddy.MediatR.ProgramLogWeeks.Querys;
 using PowerBuddy.MediatR.Quotes.Commands;
 using PowerBuddy.MediatR.Quotes.Querys;
 using PowerBuddy.MediatR.TemplatePrograms.Commands;
@@ -40,7 +36,6 @@ namespace PowerBuddy.MediatR
             services.AddProgramLogDayMediatrHandlers();
             services.AddProgramLogMediatrHandlers();
             services.AddProgramLogWeekMediatrHandlers();
-            services.AddProgramLogExerciseMediatrHandlers();
             services.AddProgramLogRepSchemesMediatrHandlers();
             services.AddExerciseMediatrHandlers();
             services.AddQuoteMediatrHandlers();
@@ -59,31 +54,11 @@ namespace PowerBuddy.MediatR
         private static IServiceCollection AddProgramLogDayMediatrHandlers(this IServiceCollection services)
         {
             // CommandHandler Registration
-            services.AddMediatR(typeof(CreateProgramLogDayCommandHandler));
-            services.AddMediatR(typeof(DeleteProgramLogDayCommandHandler));
-            services.AddMediatR(typeof(UpdateProgramLogDayNotesCommandHandler));
-            services.AddMediatR(typeof(UpdateProgramLogDayMemberCommandHandler));
             services.AddMediatR(typeof(MoveProgramLogDayCommandHandler));
 
             // QueryHandler Registration
-            services.AddMediatR(typeof(GetAllProgramLogCalendarStatsQueryHandler));
-            services.AddMediatR(typeof(GetProgramLogDayByDateQueryHandler));
-            services.AddMediatR(typeof(GetProgramLogDayByIdQueryHandler));
-            services.AddMediatR(typeof(GetProgramSpecificDayByDateQueryHandler));
             services.AddMediatR(typeof(GetLatestWorkoutDaySummariesQueryHandler));
 
-            return services;
-        }
-
-        private static IServiceCollection AddProgramLogExerciseMediatrHandlers(this IServiceCollection services)
-        {
-            // CommandHandler Registration
-            services.AddMediatR(typeof(CreateProgramLogExerciseCommandHandler));
-            services.AddMediatR(typeof(DeleteProgramLogExerciseCommandHandler));
-            services.AddMediatR(typeof(UpdateProgramLogExerciseNotesCommandHandler));
-
-            // QueryHandler Registration
-            services.AddMediatR(typeof(GetProgramLogExerciseByIdQueryHandler));
             return services;
         }
 
@@ -92,7 +67,6 @@ namespace PowerBuddy.MediatR
             // CommandHandler Registration
             services.AddMediatR(typeof(CreateProgramLogRepSchemeCollectionCommandHandler));
             services.AddMediatR(typeof(UpdateProgramLogRepSchemeCommandHandler));
-            services.AddMediatR(typeof(DeleteProgramLogRepSchemeCommandHandler));
             return services;
         }
 
@@ -101,11 +75,8 @@ namespace PowerBuddy.MediatR
             // CommandHandler Registration
             services.AddMediatR(typeof(CreateProgramLogFromScratchCommandHandler));
             services.AddMediatR(typeof(CreateProgramLogFromTemplateCommandHandler));
-            services.AddMediatR(typeof(UpdateProgramLogCommandHandler));
-            services.AddMediatR(typeof(DeleteProgramLogCommandHandler));
 
             // QueryHandler Registration
-            services.AddMediatR(typeof(GetActiveProgramLogByUserIdQueryHandler));
             services.AddMediatR(typeof(GetAllProgramLogStatsQueryHandler));
 
             // Misc
@@ -121,7 +92,6 @@ namespace PowerBuddy.MediatR
             services.AddMediatR(typeof(AddProgramLogWeekToLogCommandHandler));
 
             // QueryHandler Registration
-            services.AddMediatR(typeof(GetProgramLogWeekBetweenDateQueryHandler));
             return services;
         }
 

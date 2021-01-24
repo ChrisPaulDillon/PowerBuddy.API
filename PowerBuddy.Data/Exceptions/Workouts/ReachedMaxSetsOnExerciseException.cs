@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PowerBuddy.Data.Exceptions.ProgramLogs
+namespace PowerBuddy.Data.Exceptions.Workouts
 {
     public class ReachedMaxSetsOnExerciseException : Exception
     {
