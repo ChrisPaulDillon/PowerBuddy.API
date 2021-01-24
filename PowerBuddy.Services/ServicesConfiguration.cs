@@ -5,6 +5,7 @@ using PowerBuddy.Services.LiftingStats;
 using PowerBuddy.Services.ProgramLogs;
 using PowerBuddy.Services.System;
 using PowerBuddy.Services.Templates;
+using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
 
 namespace PowerBuddy.Services
@@ -20,6 +21,7 @@ namespace PowerBuddy.Services
             services.AddScoped<ISystemService, SystemService>();
             services.AddScoped<ITemplateService, TemplateService>();
             services.AddScoped<IWorkoutService, WorkoutService>();
+            services.AddScoped<IWeightService, WeightService>();
 
             return services;
         }

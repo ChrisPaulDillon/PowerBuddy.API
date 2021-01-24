@@ -10,7 +10,10 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Workouts;
+using PowerBuddy.Services.Account;
+using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
+using PowerBuddy.Services.Workouts.Util;
 
 namespace PowerBuddy.MediatR.WorkoutSets.Commands
 {
@@ -39,18 +42,22 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
     internal class QuickAddWorkoutSetsCommandHandler : IRequestHandler<QuickAddWorkoutSetsCommand, IEnumerable<WorkoutSetDTO>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IWorkoutService _workoutService;
+        private readonly IWeightService _weightService;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
 
-        public QuickAddWorkoutSetsCommandHandler(PowerLiftingContext context, IWorkoutService workoutService, IMapper mapper)
+        public QuickAddWorkoutSetsCommandHandler(PowerLiftingContext context, IWeightService weightService, IAccountService accountService, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _workoutService = workoutService;
+            _weightService = weightService;
+            _accountService = accountService;
         }
 
         public async Task<IEnumerable<WorkoutSetDTO>> Handle(QuickAddWorkoutSetsCommand request, CancellationToken cancellationToken)
         {
+            var isMetric = await _accountService.IsUserUsingMetric(request.UserId);
+
             var workoutExercise = await _context.WorkoutExercise
                 .Include(x => x.WorkoutSets)
                 .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetList[0].WorkoutExerciseId);
@@ -60,19 +67,25 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             var workoutDay = await _context.WorkoutDay
                 .FirstOrDefaultAsync(x => x.WorkoutDayId == workoutExercise.WorkoutDayId && x.UserId == request.UserId);
 
-            if (workoutDay == null) throw new UserNotFoundException();
+            if (workoutDay == null)
+            {
+                throw new WorkoutDayNotFoundException();
+            }
 
             workoutDay.Completed = false;
-
+            
             var workoutSetCollection = _mapper.Map<IEnumerable<WorkoutSet>>(request.WorkoutSetList);
-
+            workoutSetCollection = _weightService.ConvertInsertWeightSetsToDbSuitable(isMetric, workoutSetCollection);
             //var workoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExercise, request.UserId);
             //workoutExercise.WorkoutExerciseTonnage = workoutExerciseTonnage;
 
             _context.WorkoutSet.AddRange(workoutSetCollection);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<IEnumerable<WorkoutSetDTO>>(workoutSetCollection);
+            var workoutSets =  _mapper.Map<IEnumerable<WorkoutSetDTO>>(workoutSetCollection);
+            workoutSets = _weightService.ConvertReturnedWorkoutSets(isMetric, workoutSets);
+
+            return workoutSets;
         }
     }
 }

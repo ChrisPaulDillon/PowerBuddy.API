@@ -16,6 +16,7 @@ using PowerBuddy.MediatR.Authentication.Models;
 using PowerBuddy.MediatR.Authentication.Querys;
 using PowerBuddy.MediatR.Emails.Commands;
 using PowerBuddy.MediatR.Users.Commands;
+using PowerBuddy.MediatR.Users.Commands.PowerBuddy.MediatR.Users.Querys;
 using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
@@ -185,7 +186,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
 
         [HttpPost("Sms/RequestVerification")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RequestSmsVerification([FromBody] PhoneNumberInputDTO phoneNumber)
@@ -202,7 +203,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Sms/SendVerification")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendSmsVerification([FromBody] PhoneNumberCodeInputDTO input)
@@ -215,6 +216,29 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (UserNotFoundException ex)
             {
                 return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
+            }
+        }
+
+
+        [HttpPut("UpdatePassword")]
+        [Authorize]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordInputGuiDTO changePasswordInputDTO)
+        {
+            try
+            {
+                var result = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDTO, _userId));
+                return Ok(result);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(new { Code = nameof(UserNotFoundException), ex.Message });
+            }
+            catch (InvalidCredentialsException ex)
+            {
+                return BadRequest(new { Code = nameof(InvalidCredentialsException), ex.Message });
             }
         }
     }

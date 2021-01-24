@@ -11,5 +11,7 @@ namespace PowerBuddy.Services.Account
         Task<bool> IsUserProfilePublic(string userId);
 
         Task<int> GetTotalUserCount();
+
+        Task<bool> IsUserUsingMetric(string userId);
     }
 }

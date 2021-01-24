@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Services.Account;
+using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
 
 namespace PowerBuddy.MediatR.WorkoutSets.Commands
@@ -29,12 +31,16 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IWorkoutService _workoutService;
+        private readonly IAccountService _accountService;
+        private readonly IWeightService _weightService;
 
-        public UpdateWorkoutSetCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService)
+        public UpdateWorkoutSetCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService, IAccountService accountService, IWeightService weightService)
         {
             _context = context;
             _mapper = mapper;
             _workoutService = workoutService;
+            _accountService = accountService;
+            _weightService = weightService;
         }
 
         public async Task<bool> Handle(UpdateWorkoutSetCommand request, CancellationToken cancellationToken)
@@ -54,6 +60,10 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             workoutDay.Completed = false;
 
             var workoutSet = _mapper.Map<WorkoutSet>(request.WorkoutSetDTO);
+
+            var isMetric = await _accountService.IsUserUsingMetric(request.UserId);
+            workoutSet = _weightService.ConvertInsertWeightSetToDbSuitable(isMetric, workoutSet);
+
             _context.WorkoutSet.Update(workoutSet);
 
             await _context.SaveChangesAsync(cancellationToken);

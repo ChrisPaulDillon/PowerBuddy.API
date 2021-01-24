@@ -977,7 +977,7 @@ namespace PowerBuddy.Data.Context.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("WeekNo")
                         .HasColumnType("int");
@@ -986,6 +986,8 @@ namespace PowerBuddy.Data.Context.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("WorkoutDayId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("WorkoutLogId");
 
@@ -1419,10 +1421,16 @@ namespace PowerBuddy.Data.Context.Migrations
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.WorkoutDay", b =>
                 {
+                    b.HasOne("PowerBuddy.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.HasOne("PowerBuddy.Data.Entities.WorkoutLog", "WorkoutLog")
                         .WithMany("WorkoutDays")
                         .HasForeignKey("WorkoutLogId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("User");
 
                     b.Navigation("WorkoutLog");
                 });

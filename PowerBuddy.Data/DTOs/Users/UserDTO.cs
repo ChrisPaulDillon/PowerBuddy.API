@@ -13,10 +13,10 @@
         public string SportType { get; set; }
         public bool QuotesEnabled { get; set; } = true;
         public bool FirstVisit { get; set; }
-        public UserSettingDTO UserSetting { get; set; }
         public string Gender { get; set; }
         public int MemberStatusId { get; set; }
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
+        public bool UsingMetric { get; set; }
     }
 }

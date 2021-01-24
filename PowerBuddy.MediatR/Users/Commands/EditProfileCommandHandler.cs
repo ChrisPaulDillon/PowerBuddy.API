@@ -28,7 +28,6 @@ namespace PowerBuddy.MediatR.Users.Commands
         public EditProfileCommandValidator()
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.EditProfileDTO.BodyWeight).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
             RuleFor(x => x.EditProfileDTO.QuotesEnabled).NotNull().WithMessage("'{PropertyName}' cannot be null.");
         }
     }
@@ -46,11 +45,19 @@ namespace PowerBuddy.MediatR.Users.Commands
 
         public async Task<bool> Handle(EditProfileCommand request, CancellationToken cancellationToken)
         {
-            if (request.UserId != request.EditProfileDTO.UserId) throw new UserNotFoundException();
+            if (request.UserId != request.EditProfileDTO.UserId)
+            {
+                throw new UserNotFoundException();
+            }
 
-            var user = await _context.User.Include(x => x.UserSetting).FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken: cancellationToken);
+            var user = await _context.User
+                .Include(x => x.UserSetting)
+                .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken: cancellationToken);
 
-            if (user == null) throw new UserNotFoundException();
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
 
             var updatedProfile = _mapper.Map(request.EditProfileDTO, user);
             updatedProfile.UserSetting = _mapper.Map(request.EditProfileDTO, updatedProfile.UserSetting);

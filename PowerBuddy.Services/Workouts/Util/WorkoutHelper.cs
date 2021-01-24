@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Services.Workouts.Util
@@ -11,20 +10,6 @@ namespace PowerBuddy.Services.Workouts.Util
         public static decimal CalculateTonnage(decimal weight, int reps)
         {
             return weight * reps;
-        }
-
-        public static decimal CalculateRepSchemeWeight(WeightProgressionTypeEnum weightProgressionType, decimal user1RM, TemplateRepSchemeDTO templateRepScheme)
-        {
-            switch (weightProgressionType)
-            {
-                case WeightProgressionTypeEnum.PERCENTAGE:
-                    var percent = templateRepScheme.Percentage / 100;
-                    return Math.Round((decimal)(user1RM * percent * 2), MidpointRounding.AwayFromZero) / 2;
-                case WeightProgressionTypeEnum.INCREMENTAL:
-                    return 0;
-                default:
-                    return 0;
-            }
         }
 
         public static Dictionary<int, string> CalculateDayOrder(WorkoutLog Workout)

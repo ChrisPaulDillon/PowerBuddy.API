@@ -14,5 +14,6 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public bool Completed { get; set; }
         public virtual IEnumerable<WorkoutExerciseDTO> WorkoutExercises { get; set; }
         public string TemplateName { get; set; }
+        public bool UsingMetric { get; set; }
     }
 }
