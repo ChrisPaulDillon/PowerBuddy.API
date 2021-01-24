@@ -14,8 +14,6 @@ namespace PowerBuddy.Services.ProgramLogs
 
         bool IsDateOnWorkoutDay(DateTime date, Dictionary<int, string> dayOrder, int counter);
 
-        Task<decimal> CalculateLifetimeTonnageForExercise(int exerciseId, string userId);
-
         Task<ProgramLogExerciseTonnage> UpdateExerciseTonnage(ProgramLogExercise programLogExercise, string userId);
 
         IEnumerable<ProgramLogWeek> CreateProgramLogWeeksFromTemplate(TemplateProgram template, DateTime startDate, int iteration, string userId);
@@ -23,8 +21,6 @@ namespace PowerBuddy.Services.ProgramLogs
         IEnumerable<ProgramLogExercise> CreateProgramLogExercisesForTemplateDay(TemplateDay templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId);
 
         ProgramLogExerciseDTO CreateRepSchemesForExercise(ProgramLogExerciseDTO programLogExercise, string userId);
-
-        Task<IEnumerable<DateTime>> GetAllProgramLogDatesForUser(string userId);
 
         IEnumerable<ProgramLogRepSchemeDTO> GetHighestWeightRepSchemeForEachRepFromCollection(ICollection<ProgramLogRepSchemeDTO> repSchemes);
     }

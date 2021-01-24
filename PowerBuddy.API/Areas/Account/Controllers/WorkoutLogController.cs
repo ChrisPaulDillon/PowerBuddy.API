@@ -15,6 +15,7 @@ using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.MediatR.Workouts.Commands;
 using PowerBuddy.MediatR.Workouts.Models;
 using PowerBuddy.MediatR.Workouts.Querys;
+using PowerBuddy.Services.Weights;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -26,12 +27,16 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class WorkoutLogController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IWeightInsertConvertorService _weightInsertService;
+        private readonly IWeightOutgoingConvertorService _weightOutputService;
         private readonly string _userId;
 
-        public WorkoutLogController(IMediator mediator, IHttpContextAccessor accessor)
+        public WorkoutLogController(IMediator mediator, IWeightInsertConvertorService weightInsertService, IWeightOutgoingConvertorService weightOutputService, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
-            if (accessor.HttpContext != null) _userId = accessor.HttpContext.User.FindUserId();
+            _weightInsertService = weightInsertService;
+            _weightOutputService = weightOutputService;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpGet("Stat")]
@@ -141,7 +146,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var isCreated = await _mediator.Send(new CreateWorkoutLogFromTemplateCommand(workoutLogDTO, templateWorkoutId, _userId)).ConfigureAwait(false);
+                if (workoutLogDTO.IncrementalWeightInputs != null)
+                {
+                    workoutLogDTO.IncrementalWeightInputs = await _weightInsertService.ConvertWeightInputsToDbSuitable(_userId, workoutLogDTO.IncrementalWeightInputs);
+                }
+                if (workoutLogDTO.WeightInputs != null)
+                {
+                    workoutLogDTO.WeightInputs = await _weightInsertService.ConvertWeightInputsToDbSuitable(_userId, workoutLogDTO.WeightInputs);
+                }
+                var isCreated = await _mediator.Send(new CreateWorkoutLogFromTemplateCommand(workoutLogDTO, templateWorkoutId, _userId));
                 return Ok(isCreated);
             }
             catch (ValidationException ex)

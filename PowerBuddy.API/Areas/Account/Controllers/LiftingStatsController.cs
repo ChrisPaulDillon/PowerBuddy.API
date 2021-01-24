@@ -13,6 +13,7 @@ using PowerBuddy.Data.Exceptions.LiftingStats;
 using PowerBuddy.MediatR.LiftingStats.Commands.Account;
 using PowerBuddy.MediatR.LiftingStats.Querys.Account;
 using PowerBuddy.MediatR.TemplatePrograms.Querys;
+using PowerBuddy.Services.Weights;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -24,11 +25,13 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class LiftingStatsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IWeightOutgoingConvertorService _weightOutputService;
         private readonly string _userId;
 
-        public LiftingStatsController(IMediator mediator, IHttpContextAccessor accessor)
+        public LiftingStatsController(IMediator mediator, IWeightOutgoingConvertorService weightOutputService, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _weightOutputService = weightOutputService;
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
@@ -37,19 +40,21 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats()
         {
-            var liftingStats = await _mediator.Send(new GetLiftingStatsByUserIdQuery(_userId)).ConfigureAwait(false);
+            var liftingStats = await _mediator.Send(new GetLiftingStatsByUserIdQuery(_userId));
             return Ok(liftingStats);
         }
 
 
-        [HttpGet("{liftingStatId:int}")]
+        [HttpGet("{exerciseId:int}")]
         [ProducesResponseType(typeof(IEnumerable<LiftingStatDetailedDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetLiftingStatById(int liftingStatId)
+        public async Task<IActionResult> GetLiftingStatSummaryByExerciseId(int exerciseId)
         {
             try
             {
-                var liftingStatDetailed = await _mediator.Send(new GetLiftingStatByIdQuery(liftingStatId, _userId)).ConfigureAwait(false);
+                var liftingStatDetailed = await _mediator.Send(new GetLiftingStatSummaryByExerciseIdQuery(exerciseId, _userId));
+                liftingStatDetailed.LiftingStats = await _weightOutputService.ConvertPersonalBests(liftingStatDetailed.LiftingStats, _userId, null);
+                liftingStatDetailed.LifeTimeTonnage = await _weightOutputService.ConvertGenericWeight(liftingStatDetailed.LifeTimeTonnage, _userId, null);
                 return Ok(liftingStatDetailed);
             }
             catch (ValidationException ex)

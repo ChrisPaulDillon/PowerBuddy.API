@@ -1,10 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Workouts;
 
 namespace PowerBuddy.MediatR.Workouts.Commands
@@ -44,9 +47,13 @@ namespace PowerBuddy.MediatR.Workouts.Commands
 
         public async Task<bool> Handle(DeleteWorkoutLogCommand request, CancellationToken cancellationToken)
         {
-            var workoutLog = await _context.WorkoutLog.FirstOrDefaultAsync(x => x.WorkoutLogId == request.WorkoutLogId && x.UserId == request.UserId, cancellationToken: cancellationToken);
+            var workoutLog = await _context.WorkoutLog
+                .FirstOrDefaultAsync(x => x.WorkoutLogId == request.WorkoutLogId && x.UserId == request.UserId);
 
-            if (workoutLog == null) throw new WorkoutLogNotFoundException();
+            if (workoutLog == null)
+            {
+                throw new WorkoutLogNotFoundException();
+            }
 
             _context.WorkoutLog.Remove(workoutLog);
 

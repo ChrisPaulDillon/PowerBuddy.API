@@ -21,7 +21,8 @@ namespace PowerBuddy.Services
             services.AddScoped<ISystemService, SystemService>();
             services.AddScoped<ITemplateService, TemplateService>();
             services.AddScoped<IWorkoutService, WorkoutService>();
-            services.AddScoped<IWeightService, WeightService>();
+            services.AddScoped<IWeightInsertConvertorService, WeightInsertConvertorService>();
+            services.AddScoped<IWeightOutgoingConvertorService, WeightOutgoingConvertorService>();
 
             return services;
         }

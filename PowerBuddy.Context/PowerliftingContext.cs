@@ -243,7 +243,7 @@ namespace PowerBuddy.Data.Context
                 .HasOne(x => x.LiftingStatAudit)
                 .WithOne(x => x.WorkoutSet)
                 .HasForeignKey<LiftingStatAudit>(x => x.WorkoutSetId)
-                .OnDelete(DeleteBehavior.NoAction)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
         }
     }

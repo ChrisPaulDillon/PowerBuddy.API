@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -9,12 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
-using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Exercises;
-using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.MediatR.WorkoutExercises.Commands;
+using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts.Models;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
@@ -27,11 +23,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class WorkoutExerciseController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IWeightInsertConvertorService _weightInsertService;
+        private readonly IWeightOutgoingConvertorService _weightOutputService;
         private readonly string _userId;
 
-        public WorkoutExerciseController(IMediator mediator, IHttpContextAccessor accessor)
+        public WorkoutExerciseController(IMediator mediator, IWeightInsertConvertorService weightInsertService, IWeightOutgoingConvertorService weightOutgoingService, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
+            _weightInsertService = weightInsertService;
+            _weightOutputService = weightOutgoingService;
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
@@ -43,7 +43,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var workoutExercise = await _mediator.Send(new CreateWorkoutExerciseCommand(createWorkoutExerciseDTO, _userId)).ConfigureAwait(false);
+                var convertedWorkoutWeight = await _weightInsertService.ConvertGenericWeightToDbSuitable(_userId, createWorkoutExerciseDTO.Weight);
+                createWorkoutExerciseDTO.Weight = convertedWorkoutWeight.Data;
+
+                var workoutExercise = await _mediator.Send(new CreateWorkoutExerciseCommand(createWorkoutExerciseDTO, _userId));
+                workoutExercise.WorkoutSets = await _weightOutputService.ConvertWorkoutSets(workoutExercise.WorkoutSets, _userId, convertedWorkoutWeight.IsMetric);
+
                 return Ok(workoutExercise);
             }
             catch (ValidationException ex)

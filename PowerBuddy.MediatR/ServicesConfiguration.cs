@@ -119,7 +119,7 @@ namespace PowerBuddy.MediatR
             // Query Handlers
             services.AddMediatR(typeof(GetLiftingStatFeedForUserQueryHandler));
             services.AddMediatR(typeof(GetLiftingStatsByUserIdQueryHandler));
-            services.AddMediatR(typeof(GetLiftingStatByIdQueryHandler));
+            services.AddMediatR(typeof(GetLiftingStatSummaryByExerciseIdQueryHandler));
             return services;
         }
 

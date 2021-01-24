@@ -31,16 +31,12 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IWorkoutService _workoutService;
-        private readonly IAccountService _accountService;
-        private readonly IWeightService _weightService;
 
-        public UpdateWorkoutSetCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService, IAccountService accountService, IWeightService weightService)
+        public UpdateWorkoutSetCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService, IAccountService accountService)
         {
             _context = context;
             _mapper = mapper;
             _workoutService = workoutService;
-            _accountService = accountService;
-            _weightService = weightService;
         }
 
         public async Task<bool> Handle(UpdateWorkoutSetCommand request, CancellationToken cancellationToken)
@@ -51,7 +47,9 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
 
             if (!doesSetExist) return false;
 
-            var workoutDay = await _context.ProgramLogDay.FirstOrDefaultAsync(x => x.ProgramLogDayId == request.WorkoutDayId && x.UserId == request.UserId);
+            var workoutDay = await _context.WorkoutDay
+                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.WorkoutDayId && x.UserId == request.UserId);
+
             if (workoutDay == null)
             {
                 return false;
@@ -60,9 +58,6 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             workoutDay.Completed = false;
 
             var workoutSet = _mapper.Map<WorkoutSet>(request.WorkoutSetDTO);
-
-            var isMetric = await _accountService.IsUserUsingMetric(request.UserId);
-            workoutSet = _weightService.ConvertInsertWeightSetToDbSuitable(isMetric, workoutSet);
 
             _context.WorkoutSet.Update(workoutSet);
 

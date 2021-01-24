@@ -13,7 +13,9 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Data.Factories;
+using PowerBuddy.Services.Account;
 using PowerBuddy.Services.LiftingStats;
+using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
 
 namespace PowerBuddy.MediatR.WorkoutDays.Commands
@@ -46,14 +48,18 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
         private readonly IMapper _mapper;
         private readonly IWorkoutService _workoutService;
         private readonly ILiftingStatService _liftingStatService;
+        private readonly IWeightInsertConvertorService _weightService;
+        private readonly IAccountService _accountService;
         private readonly IEntityFactory _entityFactory;
 
-        public CompleteWorkoutCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService, ILiftingStatService liftingStatService, IEntityFactory entityFactory)
+        public CompleteWorkoutCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService, ILiftingStatService liftingStatService, IWeightInsertConvertorService weightService, IAccountService accountService, IEntityFactory entityFactory)
         {
             _context = context;
             _mapper = mapper;
             _workoutService = workoutService;
             _liftingStatService = liftingStatService;
+            _weightService = weightService;
+            _accountService = accountService;
             _entityFactory = entityFactory;
         }
 
@@ -70,7 +76,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
             var workoutExercises = request.WorkoutDayDTO.WorkoutExercises.ToList();
 
             var totalPersonalBests = new List<LiftingStatAuditDTO>();
-  
+
             foreach (var workoutExercise in workoutExercises)
             {
                 //Get the highest weight lifted for the given exercise and each rep

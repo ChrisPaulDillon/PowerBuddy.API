@@ -10,8 +10,8 @@ using PowerBuddy.Data.Context;
 namespace PowerBuddy.Data.Context.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    [Migration("20210120194218_usingmetric")]
-    partial class usingmetric
+    [Migration("20210124192521_liftingstatauditv4")]
+    partial class liftingstatauditv4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1227,7 +1227,7 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.HasOne("PowerBuddy.Data.Entities.WorkoutSet", "WorkoutSet")
                         .WithOne("LiftingStatAudit")
                         .HasForeignKey("PowerBuddy.Data.Entities.LiftingStatAudit", "WorkoutSetId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Exercise");
 

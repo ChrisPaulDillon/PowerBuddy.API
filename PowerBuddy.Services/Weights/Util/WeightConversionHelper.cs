@@ -1,28 +1,41 @@
 ﻿using System;
-using PowerBuddy.Services.Weights.Util;
 
-namespace PowerBuddy.WeightHelper
+namespace PowerBuddy.Services.Weights.Util
 {
     public static class WeightConversionHelper
     {
-        public static decimal RoundWeightToNearestQuarter(decimal weight)
+        private static decimal RoundWeightToNearestQuarter(decimal weight)
         {
             return Math.Round(weight * 4, MidpointRounding.ToEven) / 4;
         }
 
-        public static decimal ConvertWeightToPounds(decimal weight)
+        /// <summary>
+        /// Converts weight to kilograms for db insert
+        /// </summary>
+        public static decimal ConvertWeightToKiloInsert(decimal weight)
+        {
+            return weight * WeightConstants.POUNDS_TO_KILOGRAM;
+        }
+
+        /// <summary>
+        /// Converts weight to pounds to be displayed to the user
+        /// </summary>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        public static decimal ConvertWeightToPoundsOutgoing(decimal weight)
         {
             return RoundWeightToNearestQuarter(weight * WeightConstants.KILOGRAM_TO_POUNDS);
         }
 
         /// <summary>
-        /// Only used for returned weights, not db inserts
+        /// Converts weight to pounds to be displayed to the user
         /// </summary>
         /// <param name="weight"></param>
         /// <returns></returns>
-        public static decimal ConvertWeightToKg(decimal weight)
+        public static decimal ConvertWeightToKiloOutgoing(decimal weight)
         {
-            return RoundWeightToNearestQuarter(weight * WeightConstants.POUNDS_TO_KILOGRAM);
+            return RoundWeightToNearestQuarter(weight);
         }
+
     }
 }

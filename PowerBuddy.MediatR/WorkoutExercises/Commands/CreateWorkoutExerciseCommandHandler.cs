@@ -47,19 +47,15 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IAccountService _accountService;
         private readonly IWorkoutService _workoutService;
         private readonly IEntityFactory _entityFactory;
-        private readonly IWeightService _weightService;
 
-        public CreateWorkoutExerciseCommandHandler(PowerLiftingContext context, IMapper mapper, IAccountService accountService, IWorkoutService workoutService, IEntityFactory entityFactory, IWeightService weightService)
+        public CreateWorkoutExerciseCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService, IEntityFactory entityFactory)
         {
             _context = context;
             _mapper = mapper;
-            _accountService = accountService;
             _workoutService = workoutService;
             _entityFactory = entityFactory;
-            _weightService = weightService;
         }
 
         public async Task<WorkoutExerciseDTO> Handle(CreateWorkoutExerciseCommand request, CancellationToken cancellationToken)
@@ -88,11 +84,9 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
 
             var noOfSetsToAdd = request.CreateWorkoutExerciseDTO.Sets;
 
-            var isMetric = await _accountService.IsUserUsingMetric(request.UserId);
-
             if (workoutExerciseEntity == null) //no exercise found for this day, create a fresh one
             {
-                workoutExerciseEntity = _workoutService.CreateSetsForExercise(request.CreateWorkoutExerciseDTO, request.UserId, isMetric);
+                workoutExerciseEntity = _workoutService.CreateSetsForExercise(request.CreateWorkoutExerciseDTO, request.UserId);
                 _context.WorkoutExercise.Add(workoutExerciseEntity);
             }
             else //update existing Workout log exercise
@@ -109,8 +103,6 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
                                                                             request.CreateWorkoutExerciseDTO.Reps, 
                                                                             request.CreateWorkoutExerciseDTO.Weight, 
                                                                             false);
-
-                    workoutSet = _weightService.ConvertInsertWeightSetToDbSuitable(isMetric, workoutSet);
                     workoutExerciseEntity.WorkoutSets.Add(workoutSet);
                 }
             }
@@ -120,8 +112,6 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
 
             var mappedWorkoutLogExercise = _mapper.Map<WorkoutExerciseDTO>(workoutExerciseEntity);
             mappedWorkoutLogExercise.ExerciseName = exerciseName;
-
-            mappedWorkoutLogExercise.WorkoutSets = _weightService.ConvertReturnedWorkoutSets(isMetric, mappedWorkoutLogExercise.WorkoutSets);
             return mappedWorkoutLogExercise;
         }
     }

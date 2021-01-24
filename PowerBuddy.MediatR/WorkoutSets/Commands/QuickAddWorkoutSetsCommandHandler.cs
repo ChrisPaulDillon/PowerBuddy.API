@@ -42,22 +42,16 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
     internal class QuickAddWorkoutSetsCommandHandler : IRequestHandler<QuickAddWorkoutSetsCommand, IEnumerable<WorkoutSetDTO>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IWeightService _weightService;
-        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
 
-        public QuickAddWorkoutSetsCommandHandler(PowerLiftingContext context, IWeightService weightService, IAccountService accountService, IMapper mapper)
+        public QuickAddWorkoutSetsCommandHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _weightService = weightService;
-            _accountService = accountService;
         }
 
         public async Task<IEnumerable<WorkoutSetDTO>> Handle(QuickAddWorkoutSetsCommand request, CancellationToken cancellationToken)
         {
-            var isMetric = await _accountService.IsUserUsingMetric(request.UserId);
-
             var workoutExercise = await _context.WorkoutExercise
                 .Include(x => x.WorkoutSets)
                 .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetList[0].WorkoutExerciseId);
@@ -75,7 +69,6 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             workoutDay.Completed = false;
             
             var workoutSetCollection = _mapper.Map<IEnumerable<WorkoutSet>>(request.WorkoutSetList);
-            workoutSetCollection = _weightService.ConvertInsertWeightSetsToDbSuitable(isMetric, workoutSetCollection);
             //var workoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExercise, request.UserId);
             //workoutExercise.WorkoutExerciseTonnage = workoutExerciseTonnage;
 
@@ -83,8 +76,6 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             await _context.SaveChangesAsync(cancellationToken);
 
             var workoutSets =  _mapper.Map<IEnumerable<WorkoutSetDTO>>(workoutSetCollection);
-            workoutSets = _weightService.ConvertReturnedWorkoutSets(isMetric, workoutSets);
-
             return workoutSets;
         }
     }

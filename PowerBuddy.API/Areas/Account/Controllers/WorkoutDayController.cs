@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
@@ -7,12 +9,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
+using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.MediatR.WorkoutDays.Commands;
 using PowerBuddy.MediatR.WorkoutDays.Models;
 using PowerBuddy.MediatR.WorkoutDays.Querys;
+using PowerBuddy.Services.Weights;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -24,12 +28,16 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     public class WorkoutDayController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IWeightInsertConvertorService _weightInsertService;
+        private readonly IWeightOutgoingConvertorService _weightOutputService;
         private readonly string _userId;
 
-        public WorkoutDayController(IMediator mediator, IHttpContextAccessor accessor)
+        public WorkoutDayController(IMediator mediator, IWeightInsertConvertorService weightInsertService, IWeightOutgoingConvertorService weightOutputService, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
-            if (accessor.HttpContext != null) _userId = accessor.HttpContext.User.FindUserId();
+            _weightInsertService = weightInsertService;
+            _weightOutputService = weightOutputService;
+            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpGet("{workoutDayId:int}")]
@@ -41,9 +49,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var workoutDay = await _mediator.Send(new GetWorkoutDayByIdQuery(workoutDayId, _userId))
-                    .ConfigureAwait(false);
-
+                var workoutDay = await _mediator.Send(new GetWorkoutDayByIdQuery(workoutDayId, _userId));
+                workoutDay = await _weightOutputService.ConvertWorkoutDay(workoutDay, _userId, null);
                 return Ok(workoutDay);
             }
             catch (WorkoutDayNotFoundException ex)
@@ -98,14 +105,17 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPut("{workoutDayId:int}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateWorkoutDay(int workoutDayId, [FromBody] WorkoutDayDTO workoutDayDTO)
         {
             try
             {
-                var liftingStatsThatPb = await _mediator.Send(new CompleteWorkoutCommand(workoutDayDTO, _userId)).ConfigureAwait(false);
-                return Ok(liftingStatsThatPb);
+                var weightConvertResponse = await _weightInsertService.ConvertWorkoutDayWeightsToDbSuitable(_userId, workoutDayDTO);
+                var liftingStatsThatPb = await _mediator.Send(new CompleteWorkoutCommand(weightConvertResponse.Data, _userId));
+                var convertedPersonalBests = await _weightOutputService.ConvertPersonalBests(liftingStatsThatPb, _userId, weightConvertResponse.IsMetric);
+                return Ok(convertedPersonalBests);
             }
             catch (ValidationException ex)
             {

@@ -7,10 +7,8 @@ using MediatR;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Services.Account;
-using PowerBuddy.Services.LiftingStats;
 using PowerBuddy.Services.ProgramLogs.Factories;
 using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.Templates;
@@ -51,11 +49,11 @@ namespace PowerBuddy.MediatR.Workouts.Commands
         private readonly IWorkoutService _workoutService;
         private readonly IAccountService _accountService;
         private readonly ITemplateService _templateService;
-        private readonly IWeightService _weightService;
+        private readonly IWeightInsertConvertorService _weightService;
         private readonly ICalculateWeightFactory _calculateWeightFactory;
         private ICalculateRepWeight _calculateRepWeight;
 
-        public CreateWorkoutLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService WorkoutService, IAccountService accountService, ITemplateService templateService, ICalculateWeightFactory calculateWeightFactory, IWeightService weightService, ICalculateRepWeight calculateRepWeight)
+        public CreateWorkoutLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService WorkoutService, IAccountService accountService, ITemplateService templateService, ICalculateWeightFactory calculateWeightFactory, IWeightInsertConvertorService weightService, ICalculateRepWeight calculateRepWeight)
         {
             _context = context;
             _mapper = mapper;
@@ -89,7 +87,7 @@ namespace PowerBuddy.MediatR.Workouts.Commands
             workoutLog.StartDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
             var workoutOrder = WorkoutHelper.CalculateDayOrder(workoutLog);
 
-            workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, workoutLog.StartDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId, isMetric); //create weeks based on template weeks
+            workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, workoutLog.StartDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
             workoutLog.EndDate = workoutLog.StartDate.AddDays(templateProgram.NoOfWeeks * 7);
             workoutLog.CustomName ??= templateProgram.Name;
 

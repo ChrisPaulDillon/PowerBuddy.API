@@ -1225,7 +1225,7 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.HasOne("PowerBuddy.Data.Entities.WorkoutSet", "WorkoutSet")
                         .WithOne("LiftingStatAudit")
                         .HasForeignKey("PowerBuddy.Data.Entities.LiftingStatAudit", "WorkoutSetId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Exercise");
 
