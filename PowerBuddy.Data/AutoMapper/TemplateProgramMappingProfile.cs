@@ -81,7 +81,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ReverseMap();
 
             CreateMap<TemplateProgramAudit, TemplateProgramAuditDTO>()
-                .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramAuditId))
+                .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.UserName))
                 .ForMember(dest => dest.TemplateName, opt => opt.MapFrom(src => src.TemplateProgram.Name))
                 .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src.DateCreated));

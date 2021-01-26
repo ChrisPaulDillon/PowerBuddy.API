@@ -28,7 +28,7 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExercises()
         {
-            var exercises = await _mediator.Send(new GetAllExercisesQuery()).ConfigureAwait(false);
+            var exercises = await _mediator.Send(new GetAllExercisesQuery());
             return Ok(exercises);
         }
 
@@ -39,7 +39,7 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var exercise = await _mediator.Send(new GetExerciseByIdQuery(exerciseId)).ConfigureAwait(false);
+                var exercise = await _mediator.Send(new GetExerciseByIdQuery(exerciseId));
                 return Ok(exercise);
             }
             catch (ExerciseNotFoundException ex)
@@ -53,7 +53,7 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExerciseMuscleGroups()
         {
-            var exerciseMuscleGroups = await _mediator.Send(new GetAllExerciseMuscleGroupsQuery()).ConfigureAwait(false);
+            var exerciseMuscleGroups = await _mediator.Send(new GetAllExerciseMuscleGroupsQuery());
             return Ok(exerciseMuscleGroups);
         }
 
@@ -62,7 +62,7 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExerciseTypes()
         {
-            var exerciseTypes = await _mediator.Send(new GetAllExerciseTypesQuery()).ConfigureAwait(false);
+            var exerciseTypes = await _mediator.Send(new GetAllExerciseTypesQuery());
             return Ok(exerciseTypes);
         }
     }

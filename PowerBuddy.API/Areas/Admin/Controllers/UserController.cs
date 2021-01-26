@@ -32,7 +32,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         [ProducesResponseType(typeof(AdminUserDTO), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAdminUsers()
         {
-            var users = await _mediator.Send(new GetAllUsersByAdminQuery(_userId)).ConfigureAwait(false);
+            var users = await _mediator.Send(new GetAllUsersByAdminQuery(_userId));
             return Ok(users);
         }
 
@@ -44,7 +44,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new BanUserCommand(bannedUserId, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new BanUserCommand(bannedUserId, _userId));
                 return Ok(result);
             }
             catch (UserNotFoundException e)

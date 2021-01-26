@@ -39,7 +39,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var ProgramLogStats = await _mediator.Send(new GetAllProgramLogStatsQuery(_userId)).ConfigureAwait(false);
+                var ProgramLogStats = await _mediator.Send(new GetAllProgramLogStatsQuery(_userId));
                 return Ok(ProgramLogStats);
             }
             catch (ValidationException ex)
@@ -64,7 +64,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(ProgramLog, _userId)).ConfigureAwait(false);
+                var createdLog = await _mediator.Send(new CreateProgramLogFromScratchCommand(ProgramLog, _userId));
                 return Ok(createdLog);
             }
             catch (ValidationException ex)

@@ -93,7 +93,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var authenticatedUser = await _mediator.Send(new RegisterUserCommand(userDTO)).ConfigureAwait(false);
+                var authenticatedUser = await _mediator.Send(new RegisterUserCommand(userDTO));
 
                 if (authenticatedUser != null)
                 {
@@ -159,7 +159,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDTO)).ConfigureAwait(false);
+                var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDTO));
                 return Ok(result);
             }
             catch (UserNotFoundException ex)

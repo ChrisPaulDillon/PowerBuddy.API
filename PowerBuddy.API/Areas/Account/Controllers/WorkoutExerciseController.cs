@@ -77,7 +77,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new DeleteWorkoutExerciseCommand(workoutExerciseId, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteWorkoutExerciseCommand(workoutExerciseId, _userId));
                 return Ok(result);
             }
             catch (ValidationException ex)
@@ -102,7 +102,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new UpdateWorkoutExerciseNoteCommand(workoutExerciseId, notes, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateWorkoutExerciseNoteCommand(workoutExerciseId, notes, _userId));
                 return Ok(result);
             }
             catch (ValidationException ex)

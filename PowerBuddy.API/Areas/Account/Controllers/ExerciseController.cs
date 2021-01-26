@@ -38,7 +38,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var exercise = await _mediator.Send(new CreateExerciseCommand(exerciseDTO)).ConfigureAwait(false);
+                var exercise = await _mediator.Send(new CreateExerciseCommand(exerciseDTO));
                 return CreatedAtRoute(nameof(GetExerciseById), new { exerciseId = exercise.ExerciseId }, exercise);
             }
             catch (ValidationException ex)
@@ -58,7 +58,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var exercises = await _mediator.Send(new GetExerciseByIdQuery(exerciseId)).ConfigureAwait(false);
+                var exercises = await _mediator.Send(new GetExerciseByIdQuery(exerciseId));
                 return Ok(exercises);
             }
             catch (ValidationException ex)

@@ -71,7 +71,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetPersonalBestsForTemplate(int templateProgramId)
         {
-            var personalBests = await _mediator.Send(new GetPersonalBestsForTemplateExercisesQuery(templateProgramId, _userId)).ConfigureAwait(false);
+            var personalBests = await _mediator.Send(new GetPersonalBestsForTemplateExercisesQuery(templateProgramId, _userId));
             return Ok(personalBests);
         }
 
@@ -83,7 +83,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new DeleteLiftingStatAuditCommand(liftingStatAuditId, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteLiftingStatAuditCommand(liftingStatAuditId, _userId));
                 return Ok(result);
             }
             catch (ValidationException ex)

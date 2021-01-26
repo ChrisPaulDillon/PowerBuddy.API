@@ -37,7 +37,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var exercises = await _mediator.Send(new GetAllUnapprovedExercisesQuery(userId)).ConfigureAwait(false);
+                var exercises = await _mediator.Send(new GetAllUnapprovedExercisesQuery(userId));
                 return Ok(exercises);
             }
             catch (UserNotFoundException)
@@ -56,7 +56,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateExerciseCommand(exerciseDTO, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new UpdateExerciseCommand(exerciseDTO, userId));
                 return Ok(result);
             }
             catch (ValidationException e)
@@ -83,7 +83,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var exercises = await _mediator.Send(new ApproveExerciseCommand(exerciseId, userId)).ConfigureAwait(false);
+                var exercises = await _mediator.Send(new ApproveExerciseCommand(exerciseId, userId));
                 return Ok(exercises);
             }
             catch(ValidationException e)

@@ -88,7 +88,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new DeleteWorkoutSetCommand(workoutSetId, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteWorkoutSetCommand(workoutSetId, _userId));
                 return Ok(result);
             }
             catch (ValidationException ex)

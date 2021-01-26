@@ -41,7 +41,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var user = await _mediator.Send(new GetUserProfileQuery(_userId)).ConfigureAwait(false);
+                var user = await _mediator.Send(new GetUserProfileQuery(_userId));
                 return Ok(user);
             }
             catch (ValidationException ex)
@@ -67,7 +67,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDTO, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDTO, _userId));
                 return Ok(result);
             }
             catch (UserNotFoundException ex)

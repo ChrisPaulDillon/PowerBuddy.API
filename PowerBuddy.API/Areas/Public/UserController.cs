@@ -36,7 +36,7 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var user = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName)).ConfigureAwait(false);
+                var user = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName));
                 return Ok(user);
             }
             catch (UserNotFoundException ex)
@@ -52,7 +52,7 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery(_userId)).ConfigureAwait(false);
+                var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery(_userId));
                 return Ok(userProfiles);
             }
             catch (UserNotFoundException ex)

@@ -32,7 +32,7 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys
             return await _context.TemplateProgramAudit
                 .AsNoTracking()
                 .OrderByDescending(x => x.DateCreated)
-                .Take(3)
+                .Take(7)
                 .ProjectTo<TemplateProgramAuditDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
         }

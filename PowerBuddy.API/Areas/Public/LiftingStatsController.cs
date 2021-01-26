@@ -34,7 +34,7 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var liftFeedCollection = await _mediator.Send(new GetLiftingStatFeedForUserQuery(userName, _userId)).ConfigureAwait(false);
+                var liftFeedCollection = await _mediator.Send(new GetLiftingStatFeedForUserQuery(userName, _userId));
                 return Ok(liftFeedCollection);
             }
             catch (ValidationException ex)

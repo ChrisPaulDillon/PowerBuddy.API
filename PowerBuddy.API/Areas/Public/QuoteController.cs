@@ -25,7 +25,7 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(IEnumerable<QuoteDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllQuotes()
         {
-            var quotes = await _mediator.Send(new GetAllQuotesQuery()).ConfigureAwait(false);
+            var quotes = await _mediator.Send(new GetAllQuotesQuery());
             return Ok(quotes);
         }
     }

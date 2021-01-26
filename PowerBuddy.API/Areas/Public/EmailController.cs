@@ -32,7 +32,7 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var userCount = await _mediator.Send(new SendPasswordResetCommand(emailAddress)).ConfigureAwait(false);
+                var userCount = await _mediator.Send(new SendPasswordResetCommand(emailAddress));
                 return Ok(userCount);
             }
             catch (ValidationException ex)

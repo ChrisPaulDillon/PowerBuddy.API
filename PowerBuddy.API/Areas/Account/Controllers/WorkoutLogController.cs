@@ -47,7 +47,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var workoutLogStats = await _mediator.Send(new GetAllWorkoutStatsQuery(_userId)).ConfigureAwait(false);
+                var workoutLogStats = await _mediator.Send(new GetAllWorkoutStatsQuery(_userId));
                 return Ok(workoutLogStats);
             }
             catch (ValidationException ex)
@@ -68,7 +68,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var workoutWeek = await _mediator.Send(new GetWorkoutWeekByDateQuery(date?? DateTime.UtcNow, _userId)).ConfigureAwait(false);
+                var workoutWeek = await _mediator.Send(new GetWorkoutWeekByDateQuery(date?? DateTime.UtcNow, _userId));
                 return Ok(workoutWeek);
             }
             catch (ValidationException ex)
@@ -90,7 +90,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         //{
         //    try
         //    {
-        //        var WorkoutLog = await _mediator.Send(new GetWorkoutLogByIdQuery(WorkoutLogId, _userId)).ConfigureAwait(false);
+        //        var WorkoutLog = await _mediator.Send(new GetWorkoutLogByIdQuery(WorkoutLogId, _userId));
         //        return Ok(WorkoutLog);
         //    }
         //    catch (ValidationException ex)
@@ -119,7 +119,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         //{
         //    try
         //    {
-        //        var createdLog = await _mediator.Send(new CreateWorkoutLogFromScratchCommand(WorkoutLog, _userId)).ConfigureAwait(false);
+        //        var createdLog = await _mediator.Send(new CreateWorkoutLogFromScratchCommand(WorkoutLog, _userId));
         //        return Ok(createdLog);
         //    }
         //    catch (ValidationException ex)
@@ -183,7 +183,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new DeleteWorkoutLogCommand(workoutLogId, _userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new DeleteWorkoutLogCommand(workoutLogId, _userId));
                 return Ok(result);
             }
             catch (ValidationException ex)
@@ -206,7 +206,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         //{
         //    try
         //    {
-        //        var dates = await _mediator.Send(new GetAllWorkoutLogCalendarStatsQuery(_userId)).ConfigureAwait(false);
+        //        var dates = await _mediator.Send(new GetAllWorkoutLogCalendarStatsQuery(_userId));
         //        return Ok(dates);
         //    }
         //    catch (ValidationException ex)

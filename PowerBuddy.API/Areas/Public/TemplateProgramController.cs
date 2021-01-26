@@ -30,7 +30,7 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllTemplatePrograms()
         {
-            var templatePrograms = await _mediator.Send(new GetAllTemplateProgramsQuery()).ConfigureAwait(false);
+            var templatePrograms = await _mediator.Send(new GetAllTemplateProgramsQuery());
             return Ok(templatePrograms);
         }
 
@@ -38,7 +38,7 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(IEnumerable<TemplateKeyValuePairDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTemplateProgramSearchResults(string searchTerm)
         {
-            var templatePrograms = await _mediator.Send(new GetTemplateProgramsBySearchQuery(searchTerm)).ConfigureAwait(false);
+            var templatePrograms = await _mediator.Send(new GetTemplateProgramsBySearchQuery(searchTerm));
             return Ok(templatePrograms);
         }
 
@@ -46,7 +46,7 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(IEnumerable<TemplateProgramAuditDTO>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTemplateProgramFeed()
         {
-            var templateProgramFeed = await _mediator.Send(new GetTemplateActivityFeedQuery()).ConfigureAwait(false);
+            var templateProgramFeed = await _mediator.Send(new GetTemplateActivityFeedQuery());
             return Ok(templateProgramFeed);
         }
 
@@ -57,7 +57,7 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var templateProgram = await _mediator.Send(new GetTemplateProgramByIdQuery(templateProgramId)).ConfigureAwait(false);
+                var templateProgram = await _mediator.Send(new GetTemplateProgramByIdQuery(templateProgramId));
                 return Ok(templateProgram);
             }
             catch (TemplateProgramNotFoundException ex)
@@ -74,7 +74,7 @@ namespace PowerBuddy.API.Areas.Public
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var templateProgram = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId)).ConfigureAwait(false);
+                var templateProgram = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId));
                 return Ok(templateProgram);
             }
             catch (TemplateProgramNameAlreadyExistsException ex)

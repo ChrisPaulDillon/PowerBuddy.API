@@ -32,7 +32,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             try
             {
                 var userId = "3e892bab-0149-4593-9128-e3c1e193557e";
-                var result = await _mediator.Send(new CreateAllTemplateExerciseCollectionForTemplateCommand(userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new CreateAllTemplateExerciseCollectionForTemplateCommand(userId));
                 return Ok(result);
             }
             catch (UserNotFoundException ex)
@@ -49,7 +49,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new CreateTemplateExerciseCollectionForTemplateCommand(templateProgramId, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new CreateTemplateExerciseCollectionForTemplateCommand(templateProgramId, userId));
                 return Ok(result);
             }
             catch (UserNotFoundException ex)
@@ -66,7 +66,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId)).ConfigureAwait(false);
+                var result = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId));
                 return Ok(result);
             }
             catch (TemplateProgramNameAlreadyExistsException ex)

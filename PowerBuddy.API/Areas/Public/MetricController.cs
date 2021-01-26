@@ -26,7 +26,7 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLandingPageMetrics()
         {
-            var metrics = await _mediator.Send(new GetLandingPageMetricsQuery()).ConfigureAwait(false);
+            var metrics = await _mediator.Send(new GetLandingPageMetricsQuery());
             return Ok(metrics);
         }
     }
