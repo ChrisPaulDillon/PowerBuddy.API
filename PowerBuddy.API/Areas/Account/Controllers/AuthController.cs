@@ -134,8 +134,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new RefreshTokenCommand(refreshTokenRequest.AccessToken,
-                    refreshTokenRequest.RefreshToken));
+                var result = await _mediator.Send(new RefreshTokenCommand(refreshTokenRequest.RefreshToken));
                 return Ok(result);
             }
             catch (ValidationException ex)

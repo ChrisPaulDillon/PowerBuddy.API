@@ -14,12 +14,10 @@ namespace PowerBuddy.MediatR.Authentication.Commands
 {
     public class RefreshTokenCommand : IRequest<AuthenticatedUserDTO>
     {
-        public string AccessToken { get; }
         public string RefreshToken { get; }
 
-        public RefreshTokenCommand(string accessToken, string refreshToken)
+        public RefreshTokenCommand(string refreshToken)
         {
-            AccessToken = accessToken;
             RefreshToken = refreshToken;
             new RefreshTokenCommandValidator().ValidateAndThrow(this);
         }
@@ -30,7 +28,6 @@ namespace PowerBuddy.MediatR.Authentication.Commands
         public RefreshTokenCommandValidator()
         {
             RuleFor(x => x.RefreshToken).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.AccessToken).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 
