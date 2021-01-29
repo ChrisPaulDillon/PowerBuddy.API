@@ -26,11 +26,10 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
         {
             WorkoutSetList = workoutSetList;
             UserId = userId;
-            new QuickAddWorkoutSetsCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class QuickAddWorkoutSetsCommandValidator : AbstractValidator<QuickAddWorkoutSetsCommand>
+    public class QuickAddWorkoutSetsCommandValidator : AbstractValidator<QuickAddWorkoutSetsCommand>
     {
         public QuickAddWorkoutSetsCommandValidator()
         {

@@ -19,11 +19,10 @@ namespace PowerBuddy.MediatR.Users.Querys
         public GetAllUsersByAdminQuery(string userId)
         {
             UserId = userId;
-            new GetAllUsersByAdminQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetAllUsersByAdminQueryValidator : AbstractValidator<GetAllUsersByAdminQuery>
+    public class GetAllUsersByAdminQueryValidator : AbstractValidator<GetAllUsersByAdminQuery>
     {
         public GetAllUsersByAdminQueryValidator()
         {
@@ -35,6 +34,7 @@ namespace PowerBuddy.MediatR.Users.Querys
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+
         public GetAllUsersByAdminQueryHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;

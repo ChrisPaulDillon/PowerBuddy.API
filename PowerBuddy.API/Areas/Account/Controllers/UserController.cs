@@ -11,8 +11,6 @@ using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.MediatR.Authentication.Models;
 using PowerBuddy.MediatR.Users.Commands;
-using PowerBuddy.MediatR.Users.Commands.Account;
-using PowerBuddy.MediatR.Users.Commands.PowerBuddy.MediatR.Users.Querys;
 using PowerBuddy.MediatR.Users.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers

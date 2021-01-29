@@ -25,7 +25,7 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
         }
     }
 
-    internal class GetLiftingStatSummaryByExerciseIdQueryValidator : AbstractValidator<GetLiftingStatSummaryByExerciseIdQuery>
+    public class GetLiftingStatSummaryByExerciseIdQueryValidator : AbstractValidator<GetLiftingStatSummaryByExerciseIdQuery>
     {
         public GetLiftingStatSummaryByExerciseIdQueryValidator()
         {

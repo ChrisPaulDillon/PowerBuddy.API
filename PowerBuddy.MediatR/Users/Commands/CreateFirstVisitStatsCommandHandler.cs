@@ -8,7 +8,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
 
-namespace PowerBuddy.MediatR.Users.Commands.Account
+namespace PowerBuddy.MediatR.Users.Commands
 {
     public class CreateFirstVisitStatsCommand : IRequest<bool>
     {
@@ -32,7 +32,7 @@ namespace PowerBuddy.MediatR.Users.Commands.Account
         }
     }
 
-    public class CreateFirstVisitStatsCommandHandler : IRequestHandler<CreateFirstVisitStatsCommand, bool>
+    internal class CreateFirstVisitStatsCommandHandler : IRequestHandler<CreateFirstVisitStatsCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

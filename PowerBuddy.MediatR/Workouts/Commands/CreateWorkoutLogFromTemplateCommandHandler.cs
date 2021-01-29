@@ -34,14 +34,15 @@ namespace PowerBuddy.MediatR.Workouts.Commands
         }
     }
 
-    internal class CreateWorkoutLogFromTemplateCommandValidator : AbstractValidator<CreateWorkoutLogFromTemplateCommand>
+    public class CreateWorkoutLogFromTemplateCommandValidator : AbstractValidator<CreateWorkoutLogFromTemplateCommand>
     {
         public CreateWorkoutLogFromTemplateCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramId).NotNull().GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
         }
     }
+
     internal class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, bool>
     {
         private readonly PowerLiftingContext _context;

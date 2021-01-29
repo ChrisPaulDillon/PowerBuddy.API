@@ -18,16 +18,14 @@ namespace PowerBuddy.MediatR.Workouts.Commands
         {
             WorkoutTemplateDTO = workoutTemplateDTO;
             UserId = userId;
-            new CreateWorkoutTemplateCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class CreateWorkoutTemplateCommandValidator : AbstractValidator<CreateWorkoutTemplateCommand>
+    public class CreateWorkoutTemplateCommandValidator : AbstractValidator<CreateWorkoutTemplateCommand>
     {
         public CreateWorkoutTemplateCommandValidator()
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-           // RuleFor(x => x.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

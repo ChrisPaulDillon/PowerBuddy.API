@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,16 @@ namespace PowerBuddy.MediatR.Emails.Commands
             EmailAddress = emailAddress;
         }
     }
-    internal class SendPasswordResetCommandHandler : IRequestHandler<SendPasswordResetCommand, Unit>
+
+    public class SendPasswordResetCommandValidator : AbstractValidator<SendPasswordResetCommand>
+    {
+        public SendPasswordResetCommandValidator()
+        {
+            RuleFor(x => x.EmailAddress).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
+    public class SendPasswordResetCommandHandler : IRequestHandler<SendPasswordResetCommand, Unit>
     {
         private readonly PowerLiftingContext _context;
         private readonly IEmailAssistant _emailHelper;

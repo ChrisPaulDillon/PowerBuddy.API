@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -11,10 +12,20 @@ namespace PowerBuddy.MediatR.Exercises.Commands.Admin
     public class DeleteExerciseCommand : IRequest<bool>
     {
         public int ExerciseId { get; }
+        public string UserId { get; }
 
-        public DeleteExerciseCommand(int exerciseId)
+        public DeleteExerciseCommand(int exerciseId, string userId)
         {
             ExerciseId = exerciseId;
+            UserId = userId;
+        }
+    }
+
+    public class DeleteExerciseCommandValidator : AbstractValidator<DeleteExerciseCommand>
+    {
+        public DeleteExerciseCommandValidator()
+        {
+            RuleFor(x => x.ExerciseId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -17,6 +18,14 @@ namespace PowerBuddy.MediatR.Workouts.Querys
         public GetAllWorkoutStatsQuery(string userId)
         {
             UserId = userId;
+        }
+    }
+
+    public class GetAllWorkoutStatsQueryValidator : AbstractValidator<GetAllWorkoutStatsQuery>
+    {
+        public GetAllWorkoutStatsQueryValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 
@@ -38,7 +47,10 @@ namespace PowerBuddy.MediatR.Workouts.Querys
                 .Where(x => x.UserId == request.UserId)
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            if (!workoutLogStats.Any()) throw new WorkoutLogNotFoundException();
+            if (!workoutLogStats.Any())
+            {
+                throw new WorkoutLogNotFoundException();
+            }
 
             //foreach (var workoutLog in workoutLogStats)
             //{

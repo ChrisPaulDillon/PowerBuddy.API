@@ -1,11 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.MediatR.Authentication.Commands;
 using PowerBuddy.SmsService;
 
 namespace PowerBuddy.MediatR.Users.Commands
@@ -24,7 +26,17 @@ namespace PowerBuddy.MediatR.Users.Commands
         }
     }
 
-    internal class SendSmsVerificationCommandHandler : IRequestHandler<SendSmsVerificationCommand, bool>
+    public class SendSmsVerificationCommandValidator : AbstractValidator<SendSmsVerificationCommand>
+    {
+        public SendSmsVerificationCommandValidator()
+        {
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.Code).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
+    public class SendSmsVerificationCommandHandler : IRequestHandler<SendSmsVerificationCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly UserManager<User> _userManager;

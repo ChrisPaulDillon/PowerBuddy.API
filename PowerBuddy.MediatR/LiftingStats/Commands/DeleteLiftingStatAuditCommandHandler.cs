@@ -1,13 +1,14 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.LiftingStats;
 
-namespace PowerBuddy.MediatR.LiftingStats.Commands.Account
+namespace PowerBuddy.MediatR.LiftingStats.Commands
 {
     public class DeleteLiftingStatAuditCommand : IRequest<bool>
     {
@@ -20,6 +21,16 @@ namespace PowerBuddy.MediatR.LiftingStats.Commands.Account
             UserId = userId;
         }
     }
+
+    public class DeleteLiftingStatAuditCommandValidator : AbstractValidator<DeleteLiftingStatAuditCommand>
+    {
+        public DeleteLiftingStatAuditCommandValidator()
+        {
+            RuleFor(x => x.LiftingStatAuditId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
     internal class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, bool>
     {
         private readonly PowerLiftingContext _context;

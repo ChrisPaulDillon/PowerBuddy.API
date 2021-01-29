@@ -33,7 +33,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
         }
     }
 
-    internal class CompleteWorkoutMemberCommandValidator : AbstractValidator<CompleteWorkoutCommand>
+    public class CompleteWorkoutMemberCommandValidator : AbstractValidator<CompleteWorkoutCommand>
     {
         public CompleteWorkoutMemberCommandValidator()
         {

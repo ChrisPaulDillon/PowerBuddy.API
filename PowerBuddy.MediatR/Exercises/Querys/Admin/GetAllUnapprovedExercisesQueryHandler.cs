@@ -23,11 +23,11 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Admin
         }
     }
 
-    internal class GetAllUnapprovedExercisesQueryValidator : AbstractValidator<GetAllUnapprovedExercisesQuery>
+    public class GetAllUnapprovedExercisesQueryValidator : AbstractValidator<GetAllUnapprovedExercisesQuery>
     {
         public GetAllUnapprovedExercisesQueryValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
         }
     }
 

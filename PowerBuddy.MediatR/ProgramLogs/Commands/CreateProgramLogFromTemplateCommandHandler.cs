@@ -35,7 +35,7 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands
         }
     }
 
-    internal class CreateProgramLogFromTemplateCommandValidator : AbstractValidator<CreateProgramLogFromTemplateCommand>
+    public class CreateProgramLogFromTemplateCommandValidator : AbstractValidator<CreateProgramLogFromTemplateCommand>
     {
         public CreateProgramLogFromTemplateCommandValidator()
         {
@@ -43,7 +43,7 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands
             RuleFor(x => x.TemplateProgramId).NotNull().GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
         }
     }
-    internal class CreateProgramLogFromTemplateCommandHandler : IRequestHandler<CreateProgramLogFromTemplateCommand, ProgramLogDTO>
+    public class CreateProgramLogFromTemplateCommandHandler : IRequestHandler<CreateProgramLogFromTemplateCommand, ProgramLogDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

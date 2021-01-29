@@ -16,7 +16,6 @@ using PowerBuddy.MediatR.Authentication.Models;
 using PowerBuddy.MediatR.Authentication.Querys;
 using PowerBuddy.MediatR.Emails.Commands;
 using PowerBuddy.MediatR.Users.Commands;
-using PowerBuddy.MediatR.Users.Commands.PowerBuddy.MediatR.Users.Querys;
 using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
@@ -47,6 +46,10 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var userLoggedInProfile = await _mediator.Send(new LoginUserQuery(loginModel));
                 return Ok(userLoggedInProfile);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { Code = nameof(ValidationException), ex.Message });
             }
             catch (InvalidCredentialsException ex)
             {

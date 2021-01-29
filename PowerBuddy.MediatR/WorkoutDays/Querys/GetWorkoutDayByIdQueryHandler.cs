@@ -21,11 +21,10 @@ namespace PowerBuddy.MediatR.WorkoutDays.Querys
         {
             WorkoutDayId = programLogDayId;
             UserId = userId;
-            new GetWorkoutDayByIdQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetWorkoutDayByIdQueryValidator : AbstractValidator<GetWorkoutDayByIdQuery>
+    public class GetWorkoutDayByIdQueryValidator : AbstractValidator<GetWorkoutDayByIdQuery>
     {
         public GetWorkoutDayByIdQueryValidator()
         {

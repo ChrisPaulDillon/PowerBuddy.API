@@ -2,11 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Exercises;
+using PowerBuddy.MediatR.Emails.Commands;
 
 namespace PowerBuddy.MediatR.Exercises.Commands.Account
 {
@@ -19,6 +21,15 @@ namespace PowerBuddy.MediatR.Exercises.Commands.Account
             Exercise = exercise;
         }
     }
+
+    public class CreateExerciseCommandValidator : AbstractValidator<CreateExerciseCommand>
+    {
+        public CreateExerciseCommandValidator()
+        {
+            RuleFor(x => x.Exercise).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
     internal class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, ExerciseDTO>
     {
         private readonly PowerLiftingContext _context;

@@ -1,12 +1,14 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.System;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.MediatR.LiftingStats.Querys.Public;
 
 namespace PowerBuddy.MediatR.Quotes.Commands
 {
@@ -18,6 +20,15 @@ namespace PowerBuddy.MediatR.Quotes.Commands
         {
             QuoteDTO = quoteDTO;
             UserId = userId;
+        }
+    }
+
+    public class CreateQuoteCommandValidator : AbstractValidator<CreateQuoteCommand>
+    {
+        public CreateQuoteCommandValidator()
+        {
+            RuleFor(x => x.QuoteDTO).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

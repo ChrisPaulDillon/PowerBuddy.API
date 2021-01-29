@@ -19,11 +19,10 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
         {
             WorkoutSetId = workoutSetId;
             UserId = userId;
-            new DeleteWorkoutSetCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class DeleteWorkoutSetCommandValidator : AbstractValidator<DeleteWorkoutSetCommand>
+    public class DeleteWorkoutSetCommandValidator : AbstractValidator<DeleteWorkoutSetCommand>
     {
         public DeleteWorkoutSetCommandValidator()
         {

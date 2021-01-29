@@ -21,21 +21,20 @@ namespace PowerBuddy.MediatR.Authentication.Commands
         public RegisterUserCommand(RegisterUserDTO registerUserDTO)
         {
             RegisterUserDTO = registerUserDTO;
-            new RegisterUserCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+    public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
     {
         public RegisterUserCommandValidator()
         {
-            RuleFor(x => x.RegisterUserDTO.UserName).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.RegisterUserDTO.Email).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.RegisterUserDTO.Password).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RegisterUserDTO.UserName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RegisterUserDTO.Email).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RegisterUserDTO.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 
-    internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, AuthenticatedUserDTO>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, AuthenticatedUserDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

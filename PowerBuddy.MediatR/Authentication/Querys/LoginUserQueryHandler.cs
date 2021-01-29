@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using PowerBuddy.AuthenticationService;
-using PowerBuddy.AuthenticationService.Configuration;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Factories;
 using PowerBuddy.MediatR.Authentication.Models;
 using PowerBuddy.Services.Authentication;
 using PowerBuddy.Services.Authentication.Models;
@@ -32,11 +21,10 @@ namespace PowerBuddy.MediatR.Authentication.Querys
         public LoginUserQuery(LoginModelDTO loginModel)
         {
             LoginModel = loginModel;
-            new LoginUserQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class LoginUserQueryValidator : AbstractValidator<LoginUserQuery>
+    public class LoginUserQueryValidator : AbstractValidator<LoginUserQuery>
     {
         public LoginUserQueryValidator()
         {

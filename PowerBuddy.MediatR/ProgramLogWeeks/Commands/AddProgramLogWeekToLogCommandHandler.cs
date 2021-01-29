@@ -26,7 +26,7 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands
         }
     }
 
-    internal class AddProgramLogWeekToLogCommandValidator : AbstractValidator<AddProgramLogWeekToLogCommand>
+    public class AddProgramLogWeekToLogCommandValidator : AbstractValidator<AddProgramLogWeekToLogCommand>
     {
         public AddProgramLogWeekToLogCommandValidator()
         {
@@ -35,7 +35,7 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands
         }
     }
 
-    internal class AddProgramLogWeekToLogCommandHandler : IRequestHandler<AddProgramLogWeekToLogCommand, ProgramLogWeekExtendedDTO>
+    public class AddProgramLogWeekToLogCommandHandler : IRequestHandler<AddProgramLogWeekToLogCommand, ProgramLogWeekExtendedDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

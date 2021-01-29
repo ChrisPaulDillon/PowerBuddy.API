@@ -28,7 +28,7 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands
         }
     }
 
-    internal class CreateProgramLogFromScratchCommandValidator : AbstractValidator<CreateProgramLogFromScratchCommand>
+    public class CreateProgramLogFromScratchCommandValidator : AbstractValidator<CreateProgramLogFromScratchCommand>
     {
         public CreateProgramLogFromScratchCommandValidator()
         {
@@ -40,7 +40,7 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands
         }
     }
 
-    internal class CreateProgramLogFromScratchCommandHandler : IRequestHandler<CreateProgramLogFromScratchCommand, ProgramLog>
+    public class CreateProgramLogFromScratchCommandHandler : IRequestHandler<CreateProgramLogFromScratchCommand, ProgramLog>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

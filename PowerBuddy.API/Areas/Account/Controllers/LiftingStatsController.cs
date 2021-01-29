@@ -10,7 +10,7 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.LiftingStats;
-using PowerBuddy.MediatR.LiftingStats.Commands.Account;
+using PowerBuddy.MediatR.LiftingStats.Commands;
 using PowerBuddy.MediatR.LiftingStats.Querys.Account;
 using PowerBuddy.MediatR.TemplatePrograms.Querys;
 using PowerBuddy.Services.Weights;

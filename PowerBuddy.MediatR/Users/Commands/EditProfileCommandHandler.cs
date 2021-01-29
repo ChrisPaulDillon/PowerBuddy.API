@@ -19,15 +19,14 @@ namespace PowerBuddy.MediatR.Users.Commands
         {
             EditProfileDTO = editProfileDTO;
             UserId = userId;
-            new EditProfileCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class EditProfileCommandValidator : AbstractValidator<EditProfileCommand>
+    public class EditProfileCommandValidator : AbstractValidator<EditProfileCommand>
     {
         public EditProfileCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.EditProfileDTO.QuotesEnabled).NotNull().WithMessage("'{PropertyName}' cannot be null.");
         }
     }

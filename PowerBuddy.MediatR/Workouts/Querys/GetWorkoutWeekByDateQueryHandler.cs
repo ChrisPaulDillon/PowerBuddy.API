@@ -24,17 +24,17 @@ namespace PowerBuddy.MediatR.Workouts.Querys
         {
             Date = date;
             UserId = userId;
-            new GetWorkoutWeekByDateQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetWorkoutWeekByDateQueryValidator : AbstractValidator<GetWorkoutWeekByDateQuery>
+    public class GetWorkoutWeekByDateQueryValidator : AbstractValidator<GetWorkoutWeekByDateQuery>
     {
         public GetWorkoutWeekByDateQueryValidator()
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
+
     internal class GetWorkoutWeekByDateQueryHandler : IRequestHandler<GetWorkoutWeekByDateQuery, WorkoutWeekSummaryDTO>
     {
         private readonly PowerLiftingContext _context;

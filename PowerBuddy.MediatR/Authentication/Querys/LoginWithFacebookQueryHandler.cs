@@ -8,9 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.MediatR.Authentication.Models;
 using PowerBuddy.Services.Authentication;
 using PowerBuddy.Services.Authentication.Models;
 
@@ -23,11 +21,10 @@ namespace PowerBuddy.MediatR.Authentication.Querys
         public LoginWithFacebookQuery(string accessToken)
         {
             AccessToken = accessToken;
-            new LoginWithFacebookQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class LoginWithFacebookQueryValidator : AbstractValidator<LoginWithFacebookQuery>
+    public class LoginWithFacebookQueryValidator : AbstractValidator<LoginWithFacebookQuery>
     {
         public LoginWithFacebookQueryValidator()
         {

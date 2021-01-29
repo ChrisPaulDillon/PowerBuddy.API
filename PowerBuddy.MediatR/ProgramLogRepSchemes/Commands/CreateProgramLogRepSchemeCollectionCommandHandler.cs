@@ -27,7 +27,7 @@ namespace PowerBuddy.MediatR.ProgramLogRepSchemes.Commands
         }
     }
 
-    internal class CreateProgramLogRepSchemeCollectionCommandValidator : AbstractValidator<CreateProgramLogRepSchemeCollectionCommand>
+    public class CreateProgramLogRepSchemeCollectionCommandValidator : AbstractValidator<CreateProgramLogRepSchemeCollectionCommand>
     {
         public CreateProgramLogRepSchemeCollectionCommandValidator()
         {
@@ -36,7 +36,7 @@ namespace PowerBuddy.MediatR.ProgramLogRepSchemes.Commands
         }
     }
 
-    internal class CreateProgramLogRepSchemeCollectionCommandHandler : IRequestHandler<CreateProgramLogRepSchemeCollectionCommand, IEnumerable<ProgramLogRepSchemeDTO>>
+    public class CreateProgramLogRepSchemeCollectionCommandHandler : IRequestHandler<CreateProgramLogRepSchemeCollectionCommand, IEnumerable<ProgramLogRepSchemeDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IProgramLogService _service;

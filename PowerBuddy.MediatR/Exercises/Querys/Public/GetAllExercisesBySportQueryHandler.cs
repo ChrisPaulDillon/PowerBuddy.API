@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -14,9 +15,18 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Public
     public class GetAllExercisesBySportQuery : IRequest<IEnumerable<TopLevelExerciseDTO>>
     {
         public string ExerciseSport { get; }
+
         public GetAllExercisesBySportQuery(string exerciseSport)
         {
             ExerciseSport = exerciseSport;
+        }
+    }
+
+    public class GetAllExercisesBySportQueryValidator : AbstractValidator<GetAllExercisesBySportQuery>
+    {
+        public GetAllExercisesBySportQueryValidator()
+        {
+            RuleFor(x => x.ExerciseSport).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

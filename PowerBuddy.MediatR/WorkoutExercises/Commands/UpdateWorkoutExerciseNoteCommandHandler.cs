@@ -23,7 +23,7 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
         }
     }
 
-    internal class UpdateWorkoutExerciseNotesCommandValidator : AbstractValidator<UpdateWorkoutExerciseNoteCommand>
+    public class UpdateWorkoutExerciseNotesCommandValidator : AbstractValidator<UpdateWorkoutExerciseNoteCommand>
     {
         public UpdateWorkoutExerciseNotesCommandValidator()
         {

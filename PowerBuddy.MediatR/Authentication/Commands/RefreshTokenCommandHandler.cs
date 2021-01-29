@@ -19,11 +19,10 @@ namespace PowerBuddy.MediatR.Authentication.Commands
         public RefreshTokenCommand(string refreshToken)
         {
             RefreshToken = refreshToken;
-            new RefreshTokenCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class RefreshTokenCommandValidator : AbstractValidator<RefreshTokenCommand>
+    public class RefreshTokenCommandValidator : AbstractValidator<RefreshTokenCommand>
     {
         public RefreshTokenCommandValidator()
         {

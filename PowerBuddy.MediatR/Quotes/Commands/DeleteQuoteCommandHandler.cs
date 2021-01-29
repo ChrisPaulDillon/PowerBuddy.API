@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -19,6 +20,14 @@ namespace PowerBuddy.MediatR.Quotes.Commands
         {
             QuoteId = quoteId;
             UserId = userId;
+        }
+    }
+    public class DeleteQuoteCommandValidator : AbstractValidator<DeleteQuoteCommand>
+    {
+        public DeleteQuoteCommandValidator()
+        {
+            RuleFor(x => x.QuoteId).GreaterThan(0).WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

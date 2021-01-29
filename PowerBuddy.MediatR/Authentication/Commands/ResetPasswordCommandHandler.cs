@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.MediatR.Authentication.Models;
 
-namespace PowerBuddy.MediatR.Users.Commands
+namespace PowerBuddy.MediatR.Authentication.Commands
 {
     public class ResetPasswordCommand : IRequest<bool>
     {
@@ -21,6 +21,16 @@ namespace PowerBuddy.MediatR.Users.Commands
         {
             UserId = userId;
             ChangePasswordInputDTO = changePasswordInputDTO;
+        }
+    }
+
+    public class ResetPasswordCommandValidator : AbstractValidator<ResetPasswordCommand>
+    {
+        public ResetPasswordCommandValidator()
+        {
+            RuleFor(x => x.ChangePasswordInputDTO.Token).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.ChangePasswordInputDTO.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

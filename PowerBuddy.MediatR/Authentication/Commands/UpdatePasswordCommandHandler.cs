@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -13,71 +10,69 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.MediatR.Authentication.Models;
 
-namespace PowerBuddy.MediatR.Users.Commands
+namespace PowerBuddy.MediatR.Authentication.Commands
 {
-
-    namespace PowerBuddy.MediatR.Users.Querys
+    public class UpdatePasswordCommand : IRequest<bool>
     {
-        public class UpdatePasswordCommand : IRequest<bool>
-        {
-            public ChangePasswordInputGuiDTO ChangePasswordInput { get; }
-            public string UserId { get; }
+        public ChangePasswordInputGuiDTO ChangePasswordInput { get; }
+        public string UserId { get; }
 
-            public UpdatePasswordCommand(ChangePasswordInputGuiDTO changePasswordInput, string userId)
-            {
-                ChangePasswordInput = changePasswordInput;
-                UserId = userId;
-                new UpdatePasswordQueryValidator().ValidateAndThrow(this);
-            }
+        public UpdatePasswordCommand(ChangePasswordInputGuiDTO changePasswordInput, string userId)
+        {
+            ChangePasswordInput = changePasswordInput;
+            UserId = userId;
+            new UpdatePasswordQueryValidator().ValidateAndThrow(this);
+        }
+    }
+
+    public class UpdatePasswordQueryValidator : AbstractValidator<UpdatePasswordCommand>
+    {
+        public UpdatePasswordQueryValidator()
+        {
+            RuleFor(x => x.ChangePasswordInput.OldPassword).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.ChangePasswordInput.NewPassword).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
+    internal class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordCommand, bool>
+    {
+        private readonly PowerLiftingContext _context;
+        private readonly UserManager<User> _userManager;
+
+        public UpdatePasswordCommandHandler(PowerLiftingContext context, UserManager<User> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
         }
 
-        internal class UpdatePasswordQueryValidator : AbstractValidator<UpdatePasswordCommand>
+        public async Task<bool> Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
         {
-            public UpdatePasswordQueryValidator()
-            {
-                RuleFor(x => x.ChangePasswordInput.OldPassword).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-                RuleFor(x => x.ChangePasswordInput.NewPassword).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-                RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            }
-        }
+            var user = await _context.User.Where(x => x.Id == request.UserId)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-        internal class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordCommand, bool>
-        {
-            private readonly PowerLiftingContext _context;
-            private readonly UserManager<User> _userManager;
-
-            public UpdatePasswordCommandHandler(PowerLiftingContext context, UserManager<User> userManager)
+            if (user == null)
             {
-                _context = context;
-                _userManager = userManager;
+                throw new UserNotFoundException();
             }
 
-            public async Task<bool> Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
+            var hasCorrectPassword =
+                await _userManager.CheckPasswordAsync(user, request.ChangePasswordInput.OldPassword);
+
+            if (!hasCorrectPassword)
             {
-                var user = await _context.User.Where(x => x.Id == request.UserId)
-                    .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-
-                if (user == null)
-                {
-                    throw new UserNotFoundException();
-                }
-
-                var hasCorrectPassword = await _userManager.CheckPasswordAsync(user, request.ChangePasswordInput.OldPassword);
-
-                if (!hasCorrectPassword)
-                {
-                    throw new InvalidCredentialsException();
-                }
-
-                var result = await _userManager.ChangePasswordAsync(user, request.ChangePasswordInput.OldPassword, request.ChangePasswordInput.NewPassword);
-
-                if (result.Succeeded)
-                {
-                    return true;
-                }
-
-                return false;
+                throw new InvalidCredentialsException();
             }
+
+            var result = await _userManager.ChangePasswordAsync(user, request.ChangePasswordInput.OldPassword,
+                request.ChangePasswordInput.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

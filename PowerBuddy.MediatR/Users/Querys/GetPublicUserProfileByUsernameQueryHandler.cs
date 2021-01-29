@@ -19,11 +19,10 @@ namespace PowerBuddy.MediatR.Users.Querys
         public GetPublicUserProfileByUsernameQuery(string username)
         {
             Username = username;
-            new GetPublicUserProfileByUsernameQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetPublicUserProfileByUsernameQueryValidator : AbstractValidator<GetPublicUserProfileByUsernameQuery>
+    public class GetPublicUserProfileByUsernameQueryValidator : AbstractValidator<GetPublicUserProfileByUsernameQuery>
     {
         public GetPublicUserProfileByUsernameQueryValidator()
         {

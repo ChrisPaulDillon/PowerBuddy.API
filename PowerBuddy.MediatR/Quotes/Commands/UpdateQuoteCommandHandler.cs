@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -20,6 +21,15 @@ namespace PowerBuddy.MediatR.Quotes.Commands
         {
             QuoteDTO = quoteDTO;
             UserId = userId;
+        }
+    }
+
+    public class UpdateQuoteCommandValidator : AbstractValidator<UpdateQuoteCommand>
+    {
+        public UpdateQuoteCommandValidator()
+        {
+            RuleFor(x => x.QuoteDTO).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

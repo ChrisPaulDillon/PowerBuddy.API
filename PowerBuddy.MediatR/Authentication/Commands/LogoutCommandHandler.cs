@@ -15,11 +15,10 @@ namespace PowerBuddy.MediatR.Authentication.Commands
         public LogoutCommand(string refreshToken)
         {
             RefreshToken = refreshToken;
-            new LogoutCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class LogoutCommandValidator : AbstractValidator<LogoutCommand>
+    public class LogoutCommandValidator : AbstractValidator<LogoutCommand>
     {
         public LogoutCommandValidator()
         {

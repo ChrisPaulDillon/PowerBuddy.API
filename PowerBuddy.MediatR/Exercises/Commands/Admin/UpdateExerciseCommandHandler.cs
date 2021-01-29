@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -21,6 +22,16 @@ namespace PowerBuddy.MediatR.Exercises.Commands.Admin
             UserId = userId;
         }
     }
+
+    public class UpdateExerciseCommandValidator : AbstractValidator<UpdateExerciseCommand>
+    {
+        public UpdateExerciseCommandValidator()
+        {
+            RuleFor(x => x.Exercise).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
     internal class UpdateExerciseCommandHandler : IRequestHandler<UpdateExerciseCommand, bool>
     {
         private readonly PowerLiftingContext _context;

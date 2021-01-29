@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -21,6 +22,15 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Public
         {
             UserName = userName;
             UserId = userId;
+        }
+    }
+
+    public class GetLiftingStatFeedForUserQueryValidator : AbstractValidator<GetLiftingStatFeedForUserQuery>
+    {
+        public GetLiftingStatFeedForUserQueryValidator()
+        {
+            RuleFor(x => x.UserName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

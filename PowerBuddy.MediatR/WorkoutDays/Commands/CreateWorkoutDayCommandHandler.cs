@@ -24,7 +24,7 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
         }
     }
 
-    internal class CreateWorkoutDayCommandValidator : AbstractValidator<CreateWorkoutDayCommand>
+    public class CreateWorkoutDayCommandValidator : AbstractValidator<CreateWorkoutDayCommand>
     {
         public CreateWorkoutDayCommandValidator()
         {

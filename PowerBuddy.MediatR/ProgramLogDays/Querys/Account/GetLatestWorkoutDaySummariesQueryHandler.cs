@@ -24,7 +24,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Querys.Account
         }
     }
 
-    internal class GetLatestWorkoutDaySummariesQueryValidator : AbstractValidator<GetLatestWorkoutDaySummariesQuery>
+    public class GetLatestWorkoutDaySummariesQueryValidator : AbstractValidator<GetLatestWorkoutDaySummariesQuery>
     {
         public GetLatestWorkoutDaySummariesQueryValidator()
         {
@@ -32,7 +32,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Querys.Account
         }
     }
 
-    internal class GetLatestWorkoutDaySummariesQueryHandler : IRequestHandler<GetLatestWorkoutDaySummariesQuery, IEnumerable<WorkoutDaySummaryDTO>>
+    public class GetLatestWorkoutDaySummariesQueryHandler : IRequestHandler<GetLatestWorkoutDaySummariesQuery, IEnumerable<WorkoutDaySummaryDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
