@@ -16,7 +16,6 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys
         public GetTecByTemplateProgramIdQuery(int templateProgramId)
         {
             TemplateProgramId = templateProgramId;
-            new GetTecByTemplateProgramIdQueryValidator().ValidateAndThrow(this);
         }
     }
 

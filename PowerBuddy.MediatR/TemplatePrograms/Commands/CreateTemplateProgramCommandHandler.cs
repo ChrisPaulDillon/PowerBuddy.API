@@ -20,7 +20,6 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Commands
         {
             TemplateProgramDTO = templateProgramDTO;
             UserId = userId;
-            new CreateTemplateProgramCommandValidator().ValidateAndThrow(this);
         }
     }
 

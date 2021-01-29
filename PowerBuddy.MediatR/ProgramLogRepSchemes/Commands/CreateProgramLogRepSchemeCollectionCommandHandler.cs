@@ -23,7 +23,6 @@ namespace PowerBuddy.MediatR.ProgramLogRepSchemes.Commands
         {
             RepSchemeCollectionDTO = repSchemeDTOCollection;
             UserId = userId;
-            new CreateProgramLogRepSchemeCollectionCommandValidator().ValidateAndThrow(this);
         }
     }
 

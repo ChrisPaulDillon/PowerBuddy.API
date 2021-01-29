@@ -24,7 +24,6 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands
         {
             ProgramLogDTO = programLogDTO;
             UserId = userId;
-            new CreateProgramLogFromScratchCommandValidator().ValidateAndThrow(this);
         }
     }
 

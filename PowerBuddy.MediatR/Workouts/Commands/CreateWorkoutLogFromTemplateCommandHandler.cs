@@ -30,7 +30,6 @@ namespace PowerBuddy.MediatR.Workouts.Commands
             WorkoutInputDTO = workoutInputDTO;
             TemplateProgramId = templateProgramId;
             UserId = userId;
-            new CreateWorkoutLogFromTemplateCommandValidator().ValidateAndThrow(this);
         }
     }
 

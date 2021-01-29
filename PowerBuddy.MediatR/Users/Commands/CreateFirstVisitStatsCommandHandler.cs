@@ -19,7 +19,6 @@ namespace PowerBuddy.MediatR.Users.Commands
         {
             FirstVisitDTO = firstVisitDTO;
             UserId = userId;
-            new CreateFirstVisitStatsCommandValidator().ValidateAndThrow(this);
         }
     }
 

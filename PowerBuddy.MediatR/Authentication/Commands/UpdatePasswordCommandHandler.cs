@@ -21,7 +21,6 @@ namespace PowerBuddy.MediatR.Authentication.Commands
         {
             ChangePasswordInput = changePasswordInput;
             UserId = userId;
-            new UpdatePasswordQueryValidator().ValidateAndThrow(this);
         }
     }
 

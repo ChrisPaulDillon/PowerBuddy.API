@@ -22,7 +22,6 @@ namespace PowerBuddy.MediatR.ProgramLogWeeks.Commands
         {
             ProgramLogId = programLogId;
             UserId = userId;
-            new AddProgramLogWeekToLogCommandValidator().ValidateAndThrow(this);
         }
     }
 

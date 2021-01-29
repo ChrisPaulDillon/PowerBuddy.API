@@ -19,7 +19,6 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
             WorkoutExerciseId = workoutExerciseId;
             Notes = notes;
             UserId = userId;
-            new UpdateWorkoutExerciseNotesCommandValidator().ValidateAndThrow(this);
         }
     }
 

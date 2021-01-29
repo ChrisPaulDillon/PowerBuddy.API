@@ -19,7 +19,6 @@ namespace PowerBuddy.MediatR.Users.Querys
         public GetUserProfileQuery(string userId)
         {
             UserId = userId;
-            new GetUserProfileQueryValidator().ValidateAndThrow(this);
         }
     }
 

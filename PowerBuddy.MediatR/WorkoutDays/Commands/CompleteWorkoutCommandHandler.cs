@@ -29,7 +29,6 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
         {
             WorkoutDayDTO = workoutDayDTO;
             UserId = userId;
-            new CompleteWorkoutMemberCommandValidator().ValidateAndThrow(this);
         }
     }
 

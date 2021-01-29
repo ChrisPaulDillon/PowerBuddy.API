@@ -20,7 +20,6 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Querys.Account
         public GetLatestWorkoutDaySummariesQuery(string userId)
         {
             UserId = userId;
-            new GetLatestWorkoutDaySummariesQueryValidator().ValidateAndThrow(this);
         }
     }
 

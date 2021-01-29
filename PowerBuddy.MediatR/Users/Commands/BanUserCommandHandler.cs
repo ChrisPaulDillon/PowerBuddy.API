@@ -21,7 +21,6 @@ namespace PowerBuddy.MediatR.Users.Commands
         {
             UserId = userId;
             AdminUserId = adminUserId;
-            new BanUserCommandValidator().ValidateAndThrow(this);
         }
     }
 

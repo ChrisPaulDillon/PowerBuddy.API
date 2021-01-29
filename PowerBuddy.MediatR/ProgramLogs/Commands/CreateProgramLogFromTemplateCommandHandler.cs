@@ -31,7 +31,6 @@ namespace PowerBuddy.MediatR.ProgramLogs.Commands
             ProgramLogDTO = programLogDTO;
             TemplateProgramId = templateProgramId;
             UserId = userId;
-            new CreateProgramLogFromTemplateCommandValidator().ValidateAndThrow(this);
         }
     }
 

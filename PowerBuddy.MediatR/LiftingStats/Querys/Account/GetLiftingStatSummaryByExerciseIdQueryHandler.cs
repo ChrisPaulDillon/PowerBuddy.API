@@ -21,7 +21,6 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
         {
             ExerciseId = exerciseId;
             UserId = userId;
-            new GetLiftingStatSummaryByExerciseIdQueryValidator().ValidateAndThrow(this);
         }
     }
 

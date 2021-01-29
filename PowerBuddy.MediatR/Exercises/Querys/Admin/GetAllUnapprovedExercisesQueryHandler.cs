@@ -19,7 +19,6 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Admin
         public GetAllUnapprovedExercisesQuery(string userId)
         {
             UserId = userId;
-            new GetAllUnapprovedExercisesQueryValidator().ValidateAndThrow(this);
         }
     }
 
