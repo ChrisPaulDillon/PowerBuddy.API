@@ -112,7 +112,9 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<string>(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember<DateTime>(x => x.Date, d => d.MapFrom(src => src.Date))
                 .ForMember<bool>(x => x.Completed, d => d.MapFrom(src => src.Completed))
-                .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises));
+                .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises))
+                .ForMember(x => x.WorkoutLog, d => d.Ignore())
+                .ForMember(x => x.User, d => d.Ignore());
 
             //into dto
             CreateMap<WorkoutDay, WorkoutDayDTO>()
@@ -147,7 +149,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<int>(x => x.WorkoutExerciseTonnageId, d => d.MapFrom(src => src.WorkoutExerciseTonnageId))
                 .ForMember(x => x.WorkoutExerciseTonnage, d => d.MapFrom(src => src.WorkoutExerciseTonnage))
                 .ForMember(x => x.WorkoutSets, d => d.MapFrom(src => src.WorkoutSets))
-                .ForMember(x => x.Exercise, d => d.Ignore());
+                .ForMember(x => x.Exercise, d => d.Ignore())
+                .ForMember(x => x.WorkoutTemplateId, d => d.Ignore());
 
             //into DTO
             CreateMap<WorkoutSet, WorkoutSetDTO>()
@@ -170,7 +173,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.RepsCompleted, d => d.MapFrom(src => src.RepsCompleted))
                 .ForMember(x => x.WeightLifted, d => d.MapFrom<decimal>(src => src.WeightLifted))
                 .ForMember(x => x.AMRAP, d => d.MapFrom<bool>(src => src.AMRAP))
-                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int?>(src => src.LiftingStatAuditId));
+                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int?>(src => src.LiftingStatAuditId))
+                .ForMember(x => x.LiftingStatAudit, d => d.Ignore());
 
             CreateMap<WorkoutDay, WorkoutDaySummaryDTO>()
                 .ForMember(x => x.WorkoutDayId, d => d.MapFrom(src => src.WorkoutDayId))
@@ -179,7 +183,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.WorkoutExerciseCount, d => d.MapFrom(src => src.WorkoutExercises.Count()))
                 .ForMember(x => x.WorkoutExerciseSummaries, d => d.MapFrom(src => src.WorkoutExercises))
                 .ForMember(x => x.PersonalBestCount, d => d.MapFrom(src => src.WorkoutExercises.Where(x => x.WorkoutSets.Any(x => x.LiftingStatAuditId != null)).Count()))
-                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName));
+                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName))
+                .ForMember(x => x.HasWorkoutData, d => d.Ignore());
 
 
             CreateMap<WorkoutExercise, WorkoutExerciseSummaryDTO>()

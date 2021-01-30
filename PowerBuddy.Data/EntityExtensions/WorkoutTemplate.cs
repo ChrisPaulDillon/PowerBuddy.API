@@ -4,6 +4,6 @@ namespace PowerBuddy.Data.Entities
 {
     public partial class WorkoutTemplate
     {
-        public IEnumerable<ProgramLogExercise> WorkoutExercises { get; set; }
+        public IEnumerable<WorkoutExercise> WorkoutExercises { get; set; }
     }
 }
