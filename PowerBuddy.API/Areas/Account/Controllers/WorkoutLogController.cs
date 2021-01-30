@@ -111,30 +111,26 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         //    }
         //}
 
-        //[HttpPost("Scratch")]
-        //[ProducesResponseType(typeof(WorkoutLogDTO), StatusCodes.Status201Created)]
-        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        //public async Task<IActionResult> CreateWorkoutLogFromScratch([FromBody] WorkoutLogInputScratchDTO WorkoutLog)
-        //{
-        //    try
-        //    {
-        //        var createdLog = await _mediator.Send(new CreateWorkoutLogFromScratchCommand(WorkoutLog, _userId));
-        //        return Ok(createdLog);
-        //    }
-        //    catch (ValidationException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (UserNotFoundException ex)
-        //    {
-        //        return Unauthorized(ex.Message);
-        //    }
-        //    catch (WorkoutLogAlreadyActiveException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        [HttpPost("Scratch")]
+        [ProducesResponseType(typeof(WorkoutLogDTO), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> CreateWorkoutLogFromScratch([FromBody] WorkoutLogInputScratchDTO workoutLog)
+        {
+            try
+            {
+                var createdLog = await _mediator.Send(new CreateWorkoutLogFromScratchCommand(workoutLog, _userId));
+                return Ok(createdLog);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+        }
 
         [HttpPost("Template/{templateWorkoutId:int}")]
         [ProducesResponseType(typeof(WorkoutLogDTO), StatusCodes.Status200OK)]

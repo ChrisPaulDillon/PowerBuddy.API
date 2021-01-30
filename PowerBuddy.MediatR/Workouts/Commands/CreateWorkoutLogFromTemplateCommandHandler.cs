@@ -9,11 +9,11 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Services.Account;
-using PowerBuddy.Services.ProgramLogs.Factories;
-using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.Templates;
 using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
+using PowerBuddy.Services.Workouts.Factories;
+using PowerBuddy.Services.Workouts.Strategies;
 using PowerBuddy.Services.Workouts.Util;
 using PowerBuddy.Util.Extensions;
 

@@ -18,6 +18,5 @@ namespace PowerBuddy.MediatR.Emails
             // QueryHandler Registration
             return services;
         }
-
     }
 }

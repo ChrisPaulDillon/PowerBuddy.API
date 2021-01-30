@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PowerBuddy.Services.ProgramLogs.Strategies
+﻿namespace PowerBuddy.Services.Workouts.Strategies
 {
     public class CalculateRepWeightPercentage : ICalculateRepWeight
     {

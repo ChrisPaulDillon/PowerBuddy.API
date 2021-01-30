@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.Workouts.Models;
+using PowerBuddy.Services.Workouts.Strategies;
 
 namespace PowerBuddy.Services.Workouts
 {

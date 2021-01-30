@@ -10,8 +10,8 @@ using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.Data.Factories;
-using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.ProgramLogs.Util;
+using PowerBuddy.Services.Workouts.Strategies;
 
 namespace PowerBuddy.Services.ProgramLogs
 {

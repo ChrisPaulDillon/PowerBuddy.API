@@ -1,6 +1,6 @@
-﻿using PowerBuddy.Services.ProgramLogs.Strategies;
+﻿using PowerBuddy.Services.Workouts.Strategies;
 
-namespace PowerBuddy.Services.ProgramLogs.Factories
+namespace PowerBuddy.Services.Workouts.Factories
 {
     public interface ICalculateWeightFactory
     {

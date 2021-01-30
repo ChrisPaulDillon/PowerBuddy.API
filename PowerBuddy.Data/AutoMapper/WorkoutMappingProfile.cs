@@ -81,13 +81,10 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.WorkoutDays, d => d.MapFrom(src => src.WorkoutDays.OrderBy(x => x.Date)))
                 .ForMember(x => x.TemplateProgram, opt => opt.Ignore());
 
-            //CreateMap<WorkoutLogInputScratchDTO, WorkoutLog>().ForMember<int>(x => x.NoOfWeeks, d => d.MapFrom(src => src.NoOfWeeks))
-            //    .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
-            //    .ForMember<string>(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
-            //    .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
-            //    .ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
-            //    .ForMember(x => x.WorkoutLogWeeks, d => d.MapFrom(src => src.WorkoutLogWeeks))
-            //    .ForMember(x => x.TemplateWorkout, d => d.Ignore());
+            CreateMap<WorkoutLogInputScratchDTO, WorkoutLog>()
+                .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
+                .ForMember<string>(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
+                .ForMember(x => x.WorkoutDays, d => d.MapFrom(src => src.WorkoutDays));
 
             CreateMap<WorkoutLogTemplateInputDTO, WorkoutLog>()
                 .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))

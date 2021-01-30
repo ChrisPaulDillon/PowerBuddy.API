@@ -10,9 +10,9 @@ using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
-using PowerBuddy.Services.ProgramLogs.Strategies;
 using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts.Models;
+using PowerBuddy.Services.Workouts.Strategies;
 using PowerBuddy.Services.Workouts.Util;
 using PowerBuddy.Util.Extensions;
 

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Services.ProgramLogs.Strategies;
+using PowerBuddy.Services.Workouts.Strategies;
 
 namespace PowerBuddy.Services.ProgramLogs
 {
