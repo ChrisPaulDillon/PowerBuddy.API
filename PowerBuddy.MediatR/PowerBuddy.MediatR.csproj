@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ProgramLogRepSchemes\Querys\**" />
-    <EmbeddedResource Remove="ProgramLogRepSchemes\Querys\**" />
-    <None Remove="ProgramLogRepSchemes\Querys\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Exercises\Commands\Account\" />
   </ItemGroup>
 

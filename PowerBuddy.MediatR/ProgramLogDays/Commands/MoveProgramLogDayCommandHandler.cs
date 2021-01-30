@@ -11,7 +11,6 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.ProgramLogs;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.Data.Factories;
 
 namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account
@@ -67,7 +66,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account
 
             if (programLogOnMoveDate != null && programLogOnMoveDate.ProgramLogExercises.Any())
             {
-                throw new ProgramLogDayOnDateAlreadyActiveException();
+                //throw new ProgramLogDayOnDateAlreadyActiveException();
             }
 
             if (programLogOnMoveDate != null) //swap the original day with the new one

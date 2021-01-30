@@ -19,6 +19,3 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "PowerBuddy.API.dll"]
-
-# run tests on docker build
-RUN dotnet test

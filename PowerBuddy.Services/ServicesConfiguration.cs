@@ -2,7 +2,6 @@
 using PowerBuddy.Services.Account;
 using PowerBuddy.Services.Authentication;
 using PowerBuddy.Services.LiftingStats;
-using PowerBuddy.Services.ProgramLogs;
 using PowerBuddy.Services.System;
 using PowerBuddy.Services.Templates;
 using PowerBuddy.Services.Weights;
@@ -17,7 +16,6 @@ namespace PowerBuddy.Services
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ILiftingStatService, LiftingStatService>();
-            services.AddScoped<IProgramLogService, ProgramLogService>();
             services.AddScoped<ISystemService, SystemService>();
             services.AddScoped<ITemplateService, TemplateService>();
             services.AddScoped<IWorkoutService, WorkoutService>();
