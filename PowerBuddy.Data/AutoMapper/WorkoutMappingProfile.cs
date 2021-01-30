@@ -84,7 +84,14 @@ namespace PowerBuddy.Data.AutoMapper
             CreateMap<WorkoutLogInputScratchDTO, WorkoutLog>()
                 .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
                 .ForMember<string>(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
-                .ForMember(x => x.WorkoutDays, d => d.MapFrom(src => src.WorkoutDays));
+                .ForMember(x => x.WorkoutDays, d => d.MapFrom(src => src.WorkoutDays))
+                .ForMember(x => x.Monday, d => d.Ignore())
+                .ForMember(x => x.Tuesday, d => d.Ignore())
+                .ForMember(x => x.Wednesday, d => d.Ignore())
+                .ForMember(x => x.Thursday, d => d.Ignore())
+                .ForMember(x => x.Friday, d => d.Ignore())
+                .ForMember(x => x.Saturday, d => d.Ignore())
+                .ForMember(x => x.Sunday, d => d.Ignore());
 
             CreateMap<WorkoutLogTemplateInputDTO, WorkoutLog>()
                 .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
