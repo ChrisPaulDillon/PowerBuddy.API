@@ -68,8 +68,8 @@ namespace PowerBuddy.MediatR.Workouts.Commands
                 {
                     var workoutDay = _dtoFactory.CreateWorkoutDay(startDate, i, request.UserId);
                     listOfWorkoutDays.Add(workoutDay);
+                    startDate = startDate.AddDays(1);
                 }
-                startDate = startDate.AddDays(7);
             }
 
             request.WorkoutLogDTO.WorkoutDays = listOfWorkoutDays;
