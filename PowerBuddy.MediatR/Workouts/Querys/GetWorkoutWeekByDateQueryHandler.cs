@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
+using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.MediatR.Workouts.Models;
 using PowerBuddy.Services.Workouts;
 using PowerBuddy.Util.Extensions;

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
 
-namespace PowerBuddy.Data.DTOs.ProgramLogs.Workouts
+namespace PowerBuddy.Data.DTOs.Workouts
 {
     public class WorkoutDaySummaryDTO
     {

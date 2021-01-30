@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
+using PowerBuddy.Data.DTOs.Workouts;
 
 namespace PowerBuddy.MediatR.ProgramLogDays.Querys.Account
 {

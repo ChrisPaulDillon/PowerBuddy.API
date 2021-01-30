@@ -15,13 +15,13 @@ using PowerBuddy.Data.Factories;
 
 namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account
 {
-    public class MoveProgramLogDayCommand : IRequest<ProgramLogDayDTO>
+    public class MoveProgramLogDayCommand : IRequest<ProgramLogDay>
     {
-        public ProgramLogDayDTO ProgramLogDayDTO { get; }
+        public ProgramLogDay ProgramLogDayDTO { get; }
         public DateTime MoveDate { get; }
         public string UserId { get; }
 
-        public MoveProgramLogDayCommand(ProgramLogDayDTO programLogDayDTO, DateTime moveDate, string userId)
+        public MoveProgramLogDayCommand(ProgramLogDay programLogDayDTO, DateTime moveDate, string userId)
         {
             ProgramLogDayDTO = programLogDayDTO;
             MoveDate = moveDate;
@@ -38,7 +38,7 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account
         }
     }
 
-    public class MoveProgramLogDayCommandHandler : IRequestHandler<MoveProgramLogDayCommand, ProgramLogDayDTO>
+    public class MoveProgramLogDayCommandHandler : IRequestHandler<MoveProgramLogDayCommand, ProgramLogDay>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -51,13 +51,13 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account
             _dtoFactory = dtoFactory;
         }
 
-        public async Task<ProgramLogDayDTO> Handle(MoveProgramLogDayCommand request, CancellationToken cancellationToken)
+        public async Task<ProgramLogDay> Handle(MoveProgramLogDayCommand request, CancellationToken cancellationToken)
         {
             if (request.UserId != request.ProgramLogDayDTO.UserId) throw new UserNotFoundException();
 
-            var programLogWeek = await _context.ProgramLogWeek.Where(x => x.ProgramLogWeekId == request.ProgramLogDayDTO.ProgramLogWeekId)
+            var programLogWeek = await _context.ProgramLogWeek
                 .AsNoTracking()
-                .ProjectTo<ProgramLogWeekDTO>(_mapper.ConfigurationProvider)
+                .Where(x => x.ProgramLogWeekId == request.ProgramLogDayDTO.ProgramLogWeekId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
           //  if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
@@ -78,7 +78,8 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account
             else
             {
                 // create a new day to replace the day being changed to a new date
-                var programLogDay = _dtoFactory.CreateProgramLogDayDTO(request.ProgramLogDayDTO.Date, request.UserId);
+                var programLogDay = new ProgramLogDay();
+                //_dtoFactory.CreateProgramLogDayDTO(request.ProgramLogDayDTO.Date, request.UserId);
                 _context.ProgramLogDay.Add(_mapper.Map<ProgramLogDay>(programLogDay));
             }
 
