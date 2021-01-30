@@ -4,7 +4,6 @@ namespace PowerBuddy.Data.Entities
 {
     public partial class User : IdentityUser
     {
-        public int LiftingStatId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int? GenderId { get; set; }

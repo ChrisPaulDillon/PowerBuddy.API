@@ -101,14 +101,12 @@ namespace PowerBuddy.API
             {
                 mc.AddProfile(new SystemAutoMapperProfile());
                 mc.AddProfile(new LiftingStatMappingProfile());
-                mc.AddProfile(new ProgramLogMappingProfile());
                 mc.AddProfile(new TemplateProgramMappingProfile());
                 mc.AddProfile(new AccountMappingProfile());
                 mc.AddProfile(new WorkoutMappingProfile());
             });
 
-            var mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddAutoMapper(typeof(Startup).Assembly, Assembly.Load("PowerBuddy.Data"));
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>

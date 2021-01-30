@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBuddy.Data.Context;
 
 namespace PowerBuddy.Data.Context.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20210130104539_liftingstatId")]
+    partial class liftingstatId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1076,6 +1078,9 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.Property<string>("CustomName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("Friday")
                         .HasColumnType("bit");
 
@@ -1084,6 +1089,9 @@ namespace PowerBuddy.Data.Context.Migrations
 
                     b.Property<bool>("Saturday")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Sunday")
                         .HasColumnType("bit");

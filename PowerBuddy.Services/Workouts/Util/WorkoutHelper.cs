@@ -12,12 +12,12 @@ namespace PowerBuddy.Services.Workouts.Util
             return weight * reps;
         }
 
-        public static Dictionary<int, string> CalculateDayOrder(WorkoutLog Workout)
+        public static Dictionary<int, string> CalculateDayOrder(WorkoutLog Workout, DateTime startDate)
         {
             var programDayOrder = new Dictionary<int, string>();
 
-            var startingDay = Workout.StartDate.DayOfWeek;
-            var startingNo = (int)Workout.StartDate.DayOfWeek;
+            var startingDay = startDate.DayOfWeek;
+            var startingNo = (int)startDate.DayOfWeek;
 
             var counter = 1;
             programDayOrder.Add(counter, startingDay.ToString());

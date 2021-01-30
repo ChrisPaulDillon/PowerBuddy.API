@@ -66,8 +66,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.RepSchemeType, opt => opt.MapFrom<string>(src => src.RepSchemeType))
                 .ForMember(dest => dest.HasBackOffSets, opt => opt.MapFrom<bool>(src => src.HasBackOffSets))
                 .ForMember(dest => dest.BackOffSetFormat, opt => opt.MapFrom<string>(src => src.BackOffSetFormat))
-                .ForMember(dest => dest.TemplateRepSchemes, opt => opt.MapFrom(src => src.TemplateRepSchemes.OrderBy(x => x.SetNo)))
-                .ReverseMap();
+                .ForMember(dest => dest.TemplateRepSchemes, opt => opt.MapFrom(src => src.TemplateRepSchemes.OrderBy(x => x.SetNo)));
 
             CreateMap<TemplateRepScheme, TemplateRepSchemeDTO>()
                 .ForMember(dest => dest.TemplateRepSchemeId, opt => opt.MapFrom(src => src.TemplateExerciseId))

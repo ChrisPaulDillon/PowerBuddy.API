@@ -2,10 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.MediatR.Workouts.Models;
 
@@ -25,7 +27,7 @@ namespace PowerBuddy.MediatR.Workouts.Querys
     {
         public GetAllWorkoutStatsQueryValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 
@@ -45,6 +47,7 @@ namespace PowerBuddy.MediatR.Workouts.Querys
             var workoutLogStats = await _context.WorkoutLog
                 .AsNoTracking()
                 .Where(x => x.UserId == request.UserId)
+                .ProjectTo<WorkoutLogStatDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
 
             if (!workoutLogStats.Any())
@@ -52,20 +55,12 @@ namespace PowerBuddy.MediatR.Workouts.Querys
                 throw new WorkoutLogNotFoundException();
             }
 
-            //foreach (var workoutLog in workoutLogStats)
-            //{
-            //    programLog.DayCount = programLog.WorkoutWeeks.Sum(j => j.WorkoutDays.Count());
-            //    programLog.ExerciseCount = programLog.WorkoutWeeks.SelectMany(c => c.WorkoutDays)
-            //        .SelectMany(p => p.WorkoutExercises).Count();
-            //    programLog.WorkoutWeeks = null;
-            //}
-
             var workoutLogStatsExtended = new WorkoutStatExtendedDTO()
             {
-                //UserId = programLogStats[0].UserId,
-                //LifetimeLogCount = programLogStats.Count(),
-                //LifetimeDayCount = programLogStats.Sum(j => j.DayCount),
-                //LifetimeExerciseCount = programLogStats.Sum(x => x.ExerciseCount),
+                UserId = workoutLogStats[0].UserId,
+                LifetimeLogCount = workoutLogStats.Count(),
+                LifetimeDayCount = workoutLogStats.Sum(j => j.DayCount),
+                LifetimeExerciseCount = workoutLogStats.Sum(x => x.ExerciseCount),
                 WorkoutLogStats = workoutLogStats
             };
 
