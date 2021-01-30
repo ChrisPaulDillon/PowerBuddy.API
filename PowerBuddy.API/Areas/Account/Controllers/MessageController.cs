@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using PowerBuddy.SignalR;
+using PowerBuddy.SignalR.Models;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -21,10 +22,10 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             _hub = hub;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpPost]
+        public async Task<IActionResult> Get([FromBody] ToastMessage toastiBoi)
         {
-            _hub.Clients.All.SendAsync("testlmfao", "hi there"); //Send message to everyone who is 'plugged into' the 'testlmfao' method
+            await _hub.Clients.All.SendAsync("ReceiveMessage", toastiBoi.Body); //Send message to everyone who is 'plugged into' the 'testlmfao' method
             return Ok();
         }
     }
