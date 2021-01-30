@@ -10,8 +10,8 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Exercises;
-using PowerBuddy.MediatR.Exercises.Commands.Admin;
-using PowerBuddy.MediatR.Exercises.Querys.Admin;
+using PowerBuddy.MediatR.Commands.Exercises;
+using PowerBuddy.MediatR.Queries.Exercises.Querys;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {

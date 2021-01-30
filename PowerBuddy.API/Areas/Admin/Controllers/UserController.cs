@@ -7,8 +7,8 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Users.Commands;
-using PowerBuddy.MediatR.Users.Querys;
+using PowerBuddy.MediatR.Commands.Users;
+using PowerBuddy.MediatR.Queries.Users;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {

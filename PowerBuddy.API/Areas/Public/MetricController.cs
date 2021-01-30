@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.MediatR.Metrics.Querys;
+using PowerBuddy.MediatR.Queries.Metrics;
 
 namespace PowerBuddy.API.Areas.Public
 {

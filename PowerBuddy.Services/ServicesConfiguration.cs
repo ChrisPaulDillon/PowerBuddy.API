@@ -6,6 +6,8 @@ using PowerBuddy.Services.System;
 using PowerBuddy.Services.Templates;
 using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
+using PowerBuddy.Services.Workouts.Factories;
+using PowerBuddy.Services.Workouts.Strategies;
 
 namespace PowerBuddy.Services
 {
@@ -13,6 +15,10 @@ namespace PowerBuddy.Services
     {
         public static IServiceCollection AddServiceClasses(this IServiceCollection services)
         {
+            services.AddScoped<ICalculateWeightFactory, CalculateWeightFactory>();
+            services.AddScoped<ICalculateRepWeight, CalculateRepWeightIncremental>();
+            services.AddScoped<ICalculateRepWeight, CalculateRepWeightPercentage>();
+
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ILiftingStatService, LiftingStatService>();

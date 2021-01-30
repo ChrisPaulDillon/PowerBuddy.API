@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +27,8 @@ using PowerBuddy.EmailService.Extensions;
 using PowerBuddy.Services;
 using PowerBuddy.SmsService.Extensions;
 using PowerBuddy.MediatR;
+using PowerBuddy.MediatR.Commands;
+using PowerBuddy.MediatR.Queries;
 
 namespace PowerBuddy.API
 {
@@ -48,7 +51,21 @@ namespace PowerBuddy.API
                 Configuration.GetValue<string>("TwilioVerificationServiceSID")
             );
 
-            services.AddMediatrHandlers(Configuration.GetValue<string>("EmailBaseUrl"),
+            services.AddMvc(opt =>
+            {
+                opt.EnableEndpointRouting = false;
+            }).AddFluentValidation(config =>
+            {
+                config.RegisterValidatorsFromAssemblies(new List<Assembly>()
+                {
+                    Assembly.Load("PowerBuddy.MediatR.Commands"), Assembly.Load("PowerBuddy.MediatR.Queries")
+                });
+            });
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehaviour<,>));
+
+            services.AddMediatrQueryHandlers();
+            services.AddMediatrCommandHandlers(Configuration.GetValue<string>("EmailBaseUrl"),
                 Configuration.GetValue<string>("EmailSiteName"));
 
             services.AddEmailServices

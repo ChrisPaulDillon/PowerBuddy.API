@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +6,7 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Emails.Commands;
-using PowerBuddy.MediatR.Users.Querys;
-using PowerBuddy.Services.Account;
+using PowerBuddy.MediatR.Queries.Users;
 
 namespace PowerBuddy.API.Areas.Public
 {

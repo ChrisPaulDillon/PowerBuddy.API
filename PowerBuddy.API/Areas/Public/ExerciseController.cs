@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Exceptions.Exercises;
-using PowerBuddy.MediatR.Exercises.Querys.Public;
+using PowerBuddy.MediatR.Queries.Exercises.Querys;
 
 namespace PowerBuddy.API.Areas.Public
 {

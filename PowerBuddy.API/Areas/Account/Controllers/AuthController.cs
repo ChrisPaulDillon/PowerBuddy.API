@@ -10,12 +10,12 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Authentication.Commands;
-using PowerBuddy.MediatR.Authentication.Exceptions;
-using PowerBuddy.MediatR.Authentication.Models;
-using PowerBuddy.MediatR.Authentication.Querys;
-using PowerBuddy.MediatR.Emails.Commands;
-using PowerBuddy.MediatR.Users.Commands;
+using PowerBuddy.MediatR.Commands.Authentication;
+using PowerBuddy.MediatR.Commands.Authentication.Exceptions;
+using PowerBuddy.MediatR.Commands.Authentication.Models;
+using PowerBuddy.MediatR.Commands.Emails;
+using PowerBuddy.MediatR.Queries.Authentication;
+using PowerBuddy.MediatR.Queries.Authentication.Models;
 using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.API.Areas.Account.Controllers

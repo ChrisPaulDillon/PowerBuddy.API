@@ -9,7 +9,7 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Exercises;
 using PowerBuddy.Data.Exceptions.Workouts;
-using PowerBuddy.MediatR.WorkoutExercises.Commands;
+using PowerBuddy.MediatR.Commands.WorkoutExercises;
 using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts.Models;
 

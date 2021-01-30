@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Emails.Commands;
+using PowerBuddy.MediatR.Commands.Emails;
 
 namespace PowerBuddy.API.Areas.Public
 {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -13,9 +12,9 @@ using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Workouts;
-using PowerBuddy.MediatR.WorkoutDays.Commands;
-using PowerBuddy.MediatR.WorkoutDays.Models;
-using PowerBuddy.MediatR.WorkoutDays.Querys;
+using PowerBuddy.MediatR.Commands.WorkoutDays;
+using PowerBuddy.MediatR.Commands.WorkoutDays.Models;
+using PowerBuddy.MediatR.Queries.WorkoutDays;
 using PowerBuddy.Services.Weights;
 
 namespace PowerBuddy.API.Areas.Account.Controllers

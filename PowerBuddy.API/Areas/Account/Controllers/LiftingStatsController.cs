@@ -10,9 +10,9 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.LiftingStats;
-using PowerBuddy.MediatR.LiftingStats.Commands;
-using PowerBuddy.MediatR.LiftingStats.Querys.Account;
-using PowerBuddy.MediatR.TemplatePrograms.Querys;
+using PowerBuddy.MediatR.Commands.LiftingStats;
+using PowerBuddy.MediatR.Queries.LiftingStats;
+using PowerBuddy.MediatR.Queries.TemplatePrograms;
 using PowerBuddy.Services.Weights;
 
 namespace PowerBuddy.API.Areas.Account.Controllers

@@ -8,7 +8,7 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.LiftingStats.Querys.Public;
+using PowerBuddy.MediatR.Queries.LiftingStats;
 
 namespace PowerBuddy.API.Areas.Public
 {

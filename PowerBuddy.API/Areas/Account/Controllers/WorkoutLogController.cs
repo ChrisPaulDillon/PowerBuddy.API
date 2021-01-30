@@ -12,9 +12,9 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
 using PowerBuddy.Data.Exceptions.Workouts;
-using PowerBuddy.MediatR.Workouts.Commands;
-using PowerBuddy.MediatR.Workouts.Models;
-using PowerBuddy.MediatR.Workouts.Querys;
+using PowerBuddy.MediatR.Commands.Workouts;
+using PowerBuddy.MediatR.Queries.Workouts;
+using PowerBuddy.MediatR.Queries.Workouts.Models;
 using PowerBuddy.Services.Weights;
 
 namespace PowerBuddy.API.Areas.Account.Controllers

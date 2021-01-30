@@ -7,7 +7,7 @@ using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
-using PowerBuddy.MediatR.TemplatePrograms.Commands;
+using PowerBuddy.MediatR.Commands.TemplatePrograms;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {

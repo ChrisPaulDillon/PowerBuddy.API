@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
-using PowerBuddy.MediatR.TemplatePrograms.Commands;
-using PowerBuddy.MediatR.TemplatePrograms.Querys;
+using PowerBuddy.MediatR.Commands.TemplatePrograms;
+using PowerBuddy.MediatR.Queries.TemplatePrograms;
 
 namespace PowerBuddy.API.Areas.Public
 {
