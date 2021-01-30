@@ -1015,6 +1015,8 @@ namespace PowerBuddy.Data.Context.Migrations
 
                     b.HasIndex("WorkoutDayId");
 
+                    b.HasIndex("WorkoutTemplateId");
+
                     b.ToTable("WorkoutExercise");
                 });
 
@@ -1256,7 +1258,7 @@ namespace PowerBuddy.Data.Context.Migrations
                         .IsRequired();
 
                     b.HasOne("PowerBuddy.Data.Entities.WorkoutTemplate", "WorkoutTemplate")
-                        .WithMany("WorkoutExercises")
+                        .WithMany()
                         .HasForeignKey("WorkoutTemplateId");
 
                     b.Navigation("Exercise");
@@ -1435,6 +1437,10 @@ namespace PowerBuddy.Data.Context.Migrations
                         .HasForeignKey("WorkoutDayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("PowerBuddy.Data.Entities.WorkoutTemplate", null)
+                        .WithMany("WorkoutExercises")
+                        .HasForeignKey("WorkoutTemplateId");
 
                     b.Navigation("Exercise");
                 });
