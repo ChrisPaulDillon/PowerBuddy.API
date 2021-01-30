@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -41,16 +44,17 @@ namespace PowerBuddy.API
         {
             services.AddSmsServices(
                 Configuration.GetValue<string>("TwilioAccountSID"),
-                Configuration.GetValue<string>("TwilioAuthToken"), 
+                Configuration.GetValue<string>("TwilioAuthToken"),
                 Configuration.GetValue<string>("TwilioVerificationServiceSID")
-                );
+            );
 
-            services.AddMediatrHandlers(Configuration.GetValue<string>("EmailBaseUrl"), Configuration.GetValue<string>("EmailSiteName"));
+            services.AddMediatrHandlers(Configuration.GetValue<string>("EmailBaseUrl"),
+                Configuration.GetValue<string>("EmailSiteName"));
 
             services.AddEmailServices
-                (Configuration.GetValue<string>("SMTPHost"), 
-                Configuration.GetValue<int>("SMTPPort"), 
-                Configuration.GetValue<string>("SMTPUsername"), 
+            (Configuration.GetValue<string>("SMTPHost"),
+                Configuration.GetValue<int>("SMTPPort"),
+                Configuration.GetValue<string>("SMTPUsername"),
                 Configuration.GetValue<string>("SMTPPassword"));
 
             services.AddFactories();
@@ -61,19 +65,19 @@ namespace PowerBuddy.API
                 options.UseSqlServer(Configuration.GetSection("PbDbConnection").Value));
 
             services.AddDefaultIdentity<User>(options =>
-	            {
-		            options.SignIn.RequireConfirmedAccount = true;
-		            options.Lockout.MaxFailedAccessAttempts = 10;
-		            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                {
+                    options.SignIn.RequireConfirmedAccount = true;
+                    options.Lockout.MaxFailedAccessAttempts = 10;
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
 
-		            options.Password.RequireDigit = true;
-		            options.Password.RequireLowercase = true;
-		            options.Password.RequireNonAlphanumeric = false;
-		            options.Password.RequireUppercase = true;
-		            options.Password.RequiredLength = 6;
+                    options.Password.RequireDigit = true;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequiredLength = 6;
 
-		            options.User.AllowedUserNameCharacters =
-			            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    options.User.AllowedUserNameCharacters =
+                        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
                     options.Lockout.MaxFailedAccessAttempts = 10;
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
@@ -97,14 +101,12 @@ namespace PowerBuddy.API
             {
                 mc.AddProfile(new SystemAutoMapperProfile());
                 mc.AddProfile(new LiftingStatMappingProfile());
-                mc.AddProfile(new ProgramLogMappingProfile());
                 mc.AddProfile(new TemplateProgramMappingProfile());
                 mc.AddProfile(new AccountMappingProfile());
                 mc.AddProfile(new WorkoutMappingProfile());
             });
 
-            var mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddAutoMapper(typeof(Startup).Assembly, Assembly.Load("PowerBuddy.Data"));
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>

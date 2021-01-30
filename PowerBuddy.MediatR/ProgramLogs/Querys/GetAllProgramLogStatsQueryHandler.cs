@@ -22,7 +22,7 @@ namespace PowerBuddy.MediatR.ProgramLogs.Querys
         }
     }
 
-    internal class GetAllProgramLogStatsQueryHandler : IRequestHandler<GetAllProgramLogStatsQuery, ProgramLogStatExtendedDTO>
+    public class GetAllProgramLogStatsQueryHandler : IRequestHandler<GetAllProgramLogStatsQuery, ProgramLogStatExtendedDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

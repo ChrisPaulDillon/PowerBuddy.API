@@ -19,11 +19,10 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
             WorkoutExerciseId = workoutExerciseId;
             Notes = notes;
             UserId = userId;
-            new UpdateWorkoutExerciseNotesCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class UpdateWorkoutExerciseNotesCommandValidator : AbstractValidator<UpdateWorkoutExerciseNoteCommand>
+    public class UpdateWorkoutExerciseNotesCommandValidator : AbstractValidator<UpdateWorkoutExerciseNoteCommand>
     {
         public UpdateWorkoutExerciseNotesCommandValidator()
         {

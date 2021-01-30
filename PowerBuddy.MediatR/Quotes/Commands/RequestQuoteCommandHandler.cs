@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.System;
@@ -12,12 +13,23 @@ namespace PowerBuddy.MediatR.Quotes.Commands
     {
         public QuoteDTO QuoteDTO { get; }
         public string UserId { get; }
+
         public RequestQuoteCommand(QuoteDTO quoteDTO, string userId)
         {
             QuoteDTO = quoteDTO;
             UserId = userId;
         }
     }
+
+    public class RequestQuoteCommandValidator : AbstractValidator<RequestQuoteCommand>
+    {
+        public RequestQuoteCommandValidator()
+        {
+            RuleFor(x => x.QuoteDTO).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
     public class RequestQuoteCommandHandler : IRequestHandler<RequestQuoteCommand, QuoteDTO>
     {
         private readonly PowerLiftingContext _context;

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -15,6 +16,14 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Commands
         public CreateAllTemplateExerciseCollectionForTemplateCommand(string userId)
         {
             UserId = userId;
+        }
+    }
+
+    public class CreateAllTemplateExerciseCollectionForTemplateCommandValidator : AbstractValidator<CreateAllTemplateExerciseCollectionForTemplateCommand>
+    {
+        public CreateAllTemplateExerciseCollectionForTemplateCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

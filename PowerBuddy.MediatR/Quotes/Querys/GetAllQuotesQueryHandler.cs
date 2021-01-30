@@ -16,10 +16,11 @@ namespace PowerBuddy.MediatR.Quotes.Querys
     {
     }
 
-    internal class GetAllQuotesQueryHandler : IRequestHandler<GetAllQuotesQuery, IEnumerable<QuoteDTO>>
+    public class GetAllQuotesQueryHandler : IRequestHandler<GetAllQuotesQuery, IEnumerable<QuoteDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+
         public GetAllQuotesQueryHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;

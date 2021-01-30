@@ -21,10 +21,17 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.ExerciseSports, d => d.MapFrom(src => src.ExerciseSports))
                 .ForMember(x => x.ExerciseMuscleGroups, d => d.MapFrom(src => src.ExerciseMuscleGroups));
 
-            CreateMap<ExerciseDTO, Exercise>().ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId)).ForMember<int?>(x => x.ExerciseTypeId, d => d.MapFrom(src => src.ExerciseTypeId)).ForMember<string>(x => x.ExerciseName, d => d.MapFrom(src => src.ExerciseName)).ForMember<bool>(x => x.IsMainExercise, d => d.MapFrom(src => src.IsMainExercise)).ForMember<bool>(x => x.IsApproved, d => d.MapFrom(src => src.IsApproved)).ForMember<string>(x => x.AdminApprover, d => d.MapFrom(src => src.AdminApprover))
+            CreateMap<ExerciseDTO, Exercise>()
+                .ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
+                .ForMember<int?>(x => x.ExerciseTypeId, d => d.MapFrom(src => src.ExerciseTypeId))
+                .ForMember<string>(x => x.ExerciseName, d => d.MapFrom(src => src.ExerciseName))
+                .ForMember<bool>(x => x.IsMainExercise, d => d.MapFrom(src => src.IsMainExercise))
+                .ForMember<bool>(x => x.IsApproved, d => d.MapFrom(src => src.IsApproved))
+                .ForMember<string>(x => x.AdminApprover, d => d.MapFrom(src => src.AdminApprover))
                 .ForMember(x => x.ExerciseSports, d => d.MapFrom(src => src.ExerciseSports))
                 .ForMember(x => x.ExerciseMuscleGroups, d => d.MapFrom(src => src.ExerciseMuscleGroups))
-                .ForMember(x => x.ExerciseType, d => d.Ignore());
+                .ForMember(x => x.ExerciseType, d => d.Ignore())
+                .ForMember(x => x.LiftingStatAudit, d => d.Ignore());
 
             CreateMap<Exercise, TopLevelExerciseDTO>().ReverseMap();
             CreateMap<Exercise, CExerciseDTO>().ReverseMap();

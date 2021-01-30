@@ -30,18 +30,18 @@ namespace PowerBuddy.MediatR.Workouts.Commands
             WorkoutInputDTO = workoutInputDTO;
             TemplateProgramId = templateProgramId;
             UserId = userId;
-            new CreateWorkoutLogFromTemplateCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class CreateWorkoutLogFromTemplateCommandValidator : AbstractValidator<CreateWorkoutLogFromTemplateCommand>
+    public class CreateWorkoutLogFromTemplateCommandValidator : AbstractValidator<CreateWorkoutLogFromTemplateCommand>
     {
         public CreateWorkoutLogFromTemplateCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramId).NotNull().GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
         }
     }
+
     internal class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, bool>
     {
         private readonly PowerLiftingContext _context;
@@ -69,8 +69,6 @@ namespace PowerBuddy.MediatR.Workouts.Commands
         {
            // await _WorkoutService.IsWorkoutLogAlreadyActive(request.WorkoutInputDTO.StartDate, request.WorkoutInputDTO.EndDate, request.UserId);
 
-           var isMetric = await _accountService.IsUserUsingMetric(request.UserId);
-
            var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
            if (templateProgram.NoOfDaysPerWeek != request.WorkoutInputDTO.DayCount)
            {
@@ -84,11 +82,10 @@ namespace PowerBuddy.MediatR.Workouts.Commands
 
             var workoutLog = _mapper.Map<WorkoutLog>(request.WorkoutInputDTO);
 
-            workoutLog.StartDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
-            var workoutOrder = WorkoutHelper.CalculateDayOrder(workoutLog);
+            var startDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
+            var workoutOrder = WorkoutHelper.CalculateDayOrder(workoutLog, startDate);
 
-            workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, workoutLog.StartDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
-            workoutLog.EndDate = workoutLog.StartDate.AddDays(templateProgram.NoOfWeeks * 7);
+            workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
             workoutLog.CustomName ??= templateProgram.Name;
 
             _context.WorkoutLog.Add(workoutLog);

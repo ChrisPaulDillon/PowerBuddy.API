@@ -9,7 +9,6 @@
         public string LiftingLevel { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int LiftingStatId { get; set; }
         public string SportType { get; set; }
         public bool QuotesEnabled { get; set; } = true;
         public bool FirstVisit { get; set; }

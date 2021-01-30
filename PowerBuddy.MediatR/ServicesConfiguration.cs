@@ -1,9 +1,12 @@
-﻿using MediatR;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PowerBuddy.MediatR.Emails;
 using PowerBuddy.MediatR.Exercises.Querys.Admin;
 using PowerBuddy.MediatR.Exercises.Querys.Public;
-using PowerBuddy.MediatR.LiftingStats.Commands.Account;
+using PowerBuddy.MediatR.LiftingStats.Commands;
 using PowerBuddy.MediatR.LiftingStats.Querys.Account;
 using PowerBuddy.MediatR.LiftingStats.Querys.Public;
 using PowerBuddy.MediatR.Metrics.Querys;
@@ -33,6 +36,15 @@ namespace PowerBuddy.MediatR
     {
         public static IServiceCollection AddMediatrHandlers(this IServiceCollection services, string baseUrl, string siteName)
         {
+            services.AddMvc(opt =>
+            {
+                opt.EnableEndpointRouting = false;
+            }).AddFluentValidation(config =>
+            {
+                config.RegisterValidatorsFromAssemblies(new List<Assembly>() { Assembly.Load("PowerBuddy.MediatR") });
+            });
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehaviour<,>));
             services.AddProgramLogDayMediatrHandlers();
             services.AddProgramLogMediatrHandlers();
             services.AddProgramLogWeekMediatrHandlers();

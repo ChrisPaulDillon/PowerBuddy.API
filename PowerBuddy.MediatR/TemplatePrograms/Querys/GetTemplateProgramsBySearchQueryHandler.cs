@@ -19,11 +19,10 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys
         public GetTemplateProgramsBySearchQuery(string searchTerm)
         {
             SearchTerm = searchTerm;
-            new GetTemplateProgramsBySearchQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetTemplateProgramsBySearchQueryValidator : AbstractValidator<GetTemplateProgramsBySearchQuery>
+    public class GetTemplateProgramsBySearchQueryValidator : AbstractValidator<GetTemplateProgramsBySearchQuery>
     {
         public GetTemplateProgramsBySearchQueryValidator()
         {

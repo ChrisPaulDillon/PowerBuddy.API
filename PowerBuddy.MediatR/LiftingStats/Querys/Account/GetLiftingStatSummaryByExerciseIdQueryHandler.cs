@@ -21,11 +21,10 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
         {
             ExerciseId = exerciseId;
             UserId = userId;
-            new GetLiftingStatSummaryByExerciseIdQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetLiftingStatSummaryByExerciseIdQueryValidator : AbstractValidator<GetLiftingStatSummaryByExerciseIdQuery>
+    public class GetLiftingStatSummaryByExerciseIdQueryValidator : AbstractValidator<GetLiftingStatSummaryByExerciseIdQuery>
     {
         public GetLiftingStatSummaryByExerciseIdQueryValidator()
         {

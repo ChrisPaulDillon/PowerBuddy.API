@@ -21,6 +21,5 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public bool Sunday { get; set; }
         public IEnumerable<WorkoutDayDTO> WorkoutDays { get; set; }
         public string TemplateName { get; set; }
-        public IEnumerable<DateTime> LogDates { get; set; }
     }
 }

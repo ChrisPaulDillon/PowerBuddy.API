@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,15 @@ namespace PowerBuddy.MediatR.Emails.Commands
             UserId = userId;
         }
     }
+
+    public class SendConfirmEmailCommandValidator : AbstractValidator<SendConfirmEmailCommand>
+    {
+        public SendConfirmEmailCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+        }
+    }
+
     internal class SendConfirmEmailCommandHandler : IRequestHandler<SendConfirmEmailCommand, Unit>
     {
         private readonly PowerLiftingContext _context;

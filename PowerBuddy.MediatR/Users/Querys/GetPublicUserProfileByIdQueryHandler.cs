@@ -19,11 +19,10 @@ namespace PowerBuddy.MediatR.Users.Querys
         public GetPublicUserProfileByIdQuery(string userId)
         {
             UserId = userId;
-            new GetPublicUserProfileByIdQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetPublicUserProfileByIdQueryValidator : AbstractValidator<GetPublicUserProfileByIdQuery>
+    public class GetPublicUserProfileByIdQueryValidator : AbstractValidator<GetPublicUserProfileByIdQuery>
     {
         public GetPublicUserProfileByIdQueryValidator()
         {
@@ -35,6 +34,7 @@ namespace PowerBuddy.MediatR.Users.Querys
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+
         public GetPublicUserProfileByIdQueryHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;

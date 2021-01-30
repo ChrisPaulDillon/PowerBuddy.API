@@ -20,6 +20,7 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Public
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+
         public GetAllExerciseMuscleGroupsQueryHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
@@ -28,7 +29,7 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Public
 
         public async Task<IEnumerable<ExerciseMuscleGroupDTO>> Handle(GetAllExerciseMuscleGroupsQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Set<ExerciseMuscleGroup>()
+            return await _context.ExerciseMuscleGroup
                 .AsNoTracking()
                 .ProjectTo<ExerciseMuscleGroupDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);

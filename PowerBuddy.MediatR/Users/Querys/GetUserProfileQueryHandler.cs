@@ -19,15 +19,14 @@ namespace PowerBuddy.MediatR.Users.Querys
         public GetUserProfileQuery(string userId)
         {
             UserId = userId;
-            new GetUserProfileQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetUserProfileQueryValidator : AbstractValidator<GetUserProfileQuery>
+    public class GetUserProfileQueryValidator : AbstractValidator<GetUserProfileQuery>
     {
         public GetUserProfileQueryValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

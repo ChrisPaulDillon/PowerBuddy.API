@@ -8,7 +8,6 @@ namespace PowerBuddy.Data.DTOs.Templates
         public int TemplateExerciseId { get; set; }
         public int TemplateDayId { get; set; }
         public int ExerciseId { get; set; }
-        public decimal? Percentage { get; set; }
         public int NoOfSets { get; set; }
         public string RepSchemeFormat { get; set; } // 3x5, 4x5
         public string RepSchemeType { get; set; } //ramped, fixed

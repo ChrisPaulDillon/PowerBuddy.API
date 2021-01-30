@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.MediatR.Workouts.Models
@@ -10,6 +11,6 @@ namespace PowerBuddy.MediatR.Workouts.Models
         public int LifetimeDayCount { get; set; }
         public int LifetimeExerciseCount { get; set; }
         public int LifetimeExerciseCompletedCount { get; set; }
-        public IEnumerable<WorkoutLog> WorkoutLogStats { get; set; }
+        public IEnumerable<WorkoutLogStatDTO> WorkoutLogStats { get; set; }
     }
 }

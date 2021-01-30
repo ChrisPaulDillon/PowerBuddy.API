@@ -35,7 +35,9 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.Weight, d => d.MapFrom<decimal>(src => src.Weight))
                 .ForMember(x => x.DateChanged, d => d.MapFrom<DateTime>(src => src.DateChanged))
                 .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
-                .ForMember(x => x.Exercise, d => d.Ignore());
+                .ForMember(x => x.Exercise, d => d.Ignore())
+                .ForMember(x => x.User, d => d.Ignore())
+                .ForMember(x => x.WorkoutSet, d => d.Ignore());
         }
     }
 }

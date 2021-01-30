@@ -5,9 +5,9 @@ using PowerBuddy.MediatR.Emails.Models;
 
 namespace PowerBuddy.MediatR.Emails
 {
-    internal static class EmailServicesConfiguration
+    public static class EmailServicesConfiguration
     {
-        internal static IServiceCollection AddEmailMediatrHandlers(this IServiceCollection services, string baseUrl, string siteName)
+        public static IServiceCollection AddEmailMediatrHandlers(this IServiceCollection services, string baseUrl, string siteName)
         {
             services.AddSingleton<IEmailAssistant>(serviceProvider => new EmailAssistant(baseUrl, siteName));
 

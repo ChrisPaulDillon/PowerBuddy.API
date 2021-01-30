@@ -1,13 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Services.Account;
-using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
 
 namespace PowerBuddy.MediatR.WorkoutSets.Commands
@@ -23,6 +23,15 @@ namespace PowerBuddy.MediatR.WorkoutSets.Commands
             WorkoutDayId = workoutDayId;
             WorkoutSetDTO = workoutSetDTO;
             UserId = userId;
+        }
+    }
+
+    public class UpdateWorkoutSetCommandValidator : AbstractValidator<UpdateWorkoutSetCommand>
+    {
+        public UpdateWorkoutSetCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

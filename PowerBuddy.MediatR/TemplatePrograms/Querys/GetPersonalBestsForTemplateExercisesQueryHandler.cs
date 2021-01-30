@@ -20,11 +20,10 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys
         {
             TemplateProgramId = templateProgramId;
             UserId = userId;
-            new GetPersonalBestsForTemplateExercisesQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetPersonalBestsForTemplateExercisesQueryValidator : AbstractValidator<GetPersonalBestsForTemplateExercisesQuery>
+    public class GetPersonalBestsForTemplateExercisesQueryValidator : AbstractValidator<GetPersonalBestsForTemplateExercisesQuery>
     {
         public GetPersonalBestsForTemplateExercisesQueryValidator()
         {

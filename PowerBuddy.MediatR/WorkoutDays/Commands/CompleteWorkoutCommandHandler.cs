@@ -29,11 +29,10 @@ namespace PowerBuddy.MediatR.WorkoutDays.Commands
         {
             WorkoutDayDTO = workoutDayDTO;
             UserId = userId;
-            new CompleteWorkoutMemberCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class CompleteWorkoutMemberCommandValidator : AbstractValidator<CompleteWorkoutCommand>
+    public class CompleteWorkoutMemberCommandValidator : AbstractValidator<CompleteWorkoutCommand>
     {
         public CompleteWorkoutMemberCommandValidator()
         {

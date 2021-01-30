@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -18,6 +19,14 @@ namespace PowerBuddy.MediatR.Quotes.Querys
         public GetQuoteByIdQuery(int quoteId)
         {
             QuoteId = quoteId;
+        }
+    }
+
+    public class GetQuoteByIdQueryValidator : AbstractValidator<GetQuoteByIdQuery>
+    {
+        public GetQuoteByIdQueryValidator()
+        {
+            RuleFor(x => x.QuoteId).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.SmsService;
 
-namespace PowerBuddy.MediatR.Users.Commands
+namespace PowerBuddy.MediatR.Authentication.Commands
 {
     public class RequestSmsVerificationCommand : IRequest<string>
     {
@@ -19,6 +20,15 @@ namespace PowerBuddy.MediatR.Users.Commands
         {
             UserId = userId;
             PhoneNumber = phoneNumber;
+        }
+    }
+
+    public class RequestSmsVerificationCommandValidator : AbstractValidator<RequestSmsVerificationCommand>
+    {
+        public RequestSmsVerificationCommandValidator()
+        {
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

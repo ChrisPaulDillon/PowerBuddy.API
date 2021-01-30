@@ -19,15 +19,14 @@ namespace PowerBuddy.MediatR.Exercises.Querys.Admin
         public GetAllUnapprovedExercisesQuery(string userId)
         {
             UserId = userId;
-            new GetAllUnapprovedExercisesQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetAllUnapprovedExercisesQueryValidator : AbstractValidator<GetAllUnapprovedExercisesQuery>
+    public class GetAllUnapprovedExercisesQueryValidator : AbstractValidator<GetAllUnapprovedExercisesQuery>
     {
         public GetAllUnapprovedExercisesQueryValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
         }
     }
 

@@ -17,7 +17,7 @@ namespace PowerBuddy.Data.Context.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -512,9 +512,7 @@ namespace PowerBuddy.Data.Context.Migrations
 
                     b.HasKey("ProgramLogRepSchemeId");
 
-                    b.HasIndex("LiftingStatAuditId")
-                        .IsUnique()
-                        .HasFilter("[LiftingStatAuditId] IS NOT NULL");
+                    b.HasIndex("LiftingStatAuditId");
 
                     b.HasIndex("ProgramLogExerciseId");
 
@@ -877,9 +875,6 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LiftingStatId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -1020,6 +1015,8 @@ namespace PowerBuddy.Data.Context.Migrations
 
                     b.HasIndex("WorkoutDayId");
 
+                    b.HasIndex("WorkoutTemplateId");
+
                     b.ToTable("WorkoutExercise");
                 });
 
@@ -1081,9 +1078,6 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.Property<string>("CustomName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("Friday")
                         .HasColumnType("bit");
 
@@ -1092,9 +1086,6 @@ namespace PowerBuddy.Data.Context.Migrations
 
                     b.Property<bool>("Saturday")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Sunday")
                         .HasColumnType("bit");
@@ -1267,7 +1258,7 @@ namespace PowerBuddy.Data.Context.Migrations
                         .IsRequired();
 
                     b.HasOne("PowerBuddy.Data.Entities.WorkoutTemplate", "WorkoutTemplate")
-                        .WithMany("WorkoutExercises")
+                        .WithMany()
                         .HasForeignKey("WorkoutTemplateId");
 
                     b.Navigation("Exercise");
@@ -1288,8 +1279,8 @@ namespace PowerBuddy.Data.Context.Migrations
             modelBuilder.Entity("PowerBuddy.Data.Entities.ProgramLogRepScheme", b =>
                 {
                     b.HasOne("PowerBuddy.Data.Entities.LiftingStatAudit", "LiftingStatAudit")
-                        .WithOne("ProgramLogRepScheme")
-                        .HasForeignKey("PowerBuddy.Data.Entities.ProgramLogRepScheme", "LiftingStatAuditId");
+                        .WithMany()
+                        .HasForeignKey("LiftingStatAuditId");
 
                     b.HasOne("PowerBuddy.Data.Entities.ProgramLogExercise", null)
                         .WithMany("ProgramLogRepSchemes")
@@ -1447,6 +1438,10 @@ namespace PowerBuddy.Data.Context.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PowerBuddy.Data.Entities.WorkoutTemplate", null)
+                        .WithMany("WorkoutExercises")
+                        .HasForeignKey("WorkoutTemplateId");
+
                     b.Navigation("Exercise");
                 });
 
@@ -1489,11 +1484,6 @@ namespace PowerBuddy.Data.Context.Migrations
             modelBuilder.Entity("PowerBuddy.Data.Entities.Gender", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("PowerBuddy.Data.Entities.LiftingStatAudit", b =>
-                {
-                    b.Navigation("ProgramLogRepScheme");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.MemberStatus", b =>

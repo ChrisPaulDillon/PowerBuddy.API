@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
@@ -17,6 +18,14 @@ namespace PowerBuddy.MediatR.Users.Querys
         public GetAllActivePublicProfilesQuery(string userId)
         {
             UserId = userId;
+        }
+    }
+
+    public class EditProfileCommandValidator : AbstractValidator<GetAllActivePublicProfilesQuery>
+    {
+        public EditProfileCommandValidator()
+        {
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

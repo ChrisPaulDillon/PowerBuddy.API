@@ -16,15 +16,15 @@ namespace PowerBuddy.MediatR.Users.Commands
     {
         public string UserId { get; }
         public string AdminUserId { get; }
+
         public BanUserCommand(string userId, string adminUserId)
         {
             UserId = userId;
             AdminUserId = adminUserId;
-            new BanUserCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class BanUserCommandValidator : AbstractValidator<BanUserCommand>
+    public class BanUserCommandValidator : AbstractValidator<BanUserCommand>
     {
         public BanUserCommandValidator()
         {

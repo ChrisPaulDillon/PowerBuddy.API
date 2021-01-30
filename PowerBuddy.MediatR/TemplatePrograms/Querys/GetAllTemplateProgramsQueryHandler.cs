@@ -16,7 +16,7 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys
 
     }
 
-    internal class GetAllTemplateProgramsQueryHandler : IRequestHandler<GetAllTemplateProgramsQuery, IEnumerable<TemplateProgramDTO>>
+    public class GetAllTemplateProgramsQueryHandler : IRequestHandler<GetAllTemplateProgramsQuery, IEnumerable<TemplateProgramDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -29,7 +29,8 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys
 
         public async Task<IEnumerable<TemplateProgramDTO>> Handle(GetAllTemplateProgramsQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Set<TemplateProgram>().AsNoTracking()
+            return await _context.TemplateProgram
+                .AsNoTracking()
                 .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
         }

@@ -19,11 +19,10 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Querys
         public GetTemplateProgramByIdQuery(int templateProgramId)
         {
             TemplateProgramId = templateProgramId;
-            new GetTemplateProgramByIdQueryValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class GetTemplateProgramByIdQueryValidator : AbstractValidator<GetTemplateProgramByIdQuery>
+    public class GetTemplateProgramByIdQueryValidator : AbstractValidator<GetTemplateProgramByIdQuery>
     {
         public GetTemplateProgramByIdQueryValidator()
         {

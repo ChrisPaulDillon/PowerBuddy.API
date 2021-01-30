@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 
-namespace PowerBuddy.MediatR.Users.Commands
+namespace PowerBuddy.MediatR.Authentication.Commands
 {
     public class VerifyEmailCommand : IRequest<bool>
     {
@@ -19,6 +20,15 @@ namespace PowerBuddy.MediatR.Users.Commands
         {
             UserId = userId;
             Token = token;
+        }
+    }
+
+    public class VerifyEmailCommandValidator : AbstractValidator<VerifyEmailCommand>
+    {
+        public VerifyEmailCommandValidator()
+        {
+            RuleFor(x => x.Token).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

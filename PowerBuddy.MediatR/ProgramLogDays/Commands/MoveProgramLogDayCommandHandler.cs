@@ -27,7 +27,6 @@ namespace PowerBuddy.MediatR.ProgramLogDays.Commands.Account
             ProgramLogDayDTO = programLogDayDTO;
             MoveDate = moveDate;
             UserId = userId;
-            new MoveProgramLogDayCommandValidator().ValidateAndThrow(this);
         }
     }
 

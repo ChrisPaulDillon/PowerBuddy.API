@@ -8,11 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Exercises;
-using PowerBuddy.Data.Exceptions.ProgramLogs;
 using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Data.Factories;
-using PowerBuddy.Services.Account;
-using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
 using PowerBuddy.Services.Workouts.Models;
 using PowerBuddy.Services.Workouts.Util;
@@ -28,11 +25,10 @@ namespace PowerBuddy.MediatR.WorkoutExercises.Commands
         {
             CreateWorkoutExerciseDTO = createWorkoutExerciseDTO;
             UserId = userId;
-            new CreateWorkoutLogExerciseCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class CreateWorkoutLogExerciseCommandValidator : AbstractValidator<CreateWorkoutExerciseCommand>
+    public class CreateWorkoutLogExerciseCommandValidator : AbstractValidator<CreateWorkoutExerciseCommand>
     {
         public CreateWorkoutLogExerciseCommandValidator()
         {

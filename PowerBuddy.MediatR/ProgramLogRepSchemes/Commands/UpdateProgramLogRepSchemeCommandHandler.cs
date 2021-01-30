@@ -25,7 +25,7 @@ namespace PowerBuddy.MediatR.ProgramLogRepSchemes.Commands
         }
     }
 
-    internal class UpdateProgramLogRepSchemeCommandHandler : IRequestHandler<UpdateProgramLogRepSchemeCommand, bool>
+    public class UpdateProgramLogRepSchemeCommandHandler : IRequestHandler<UpdateProgramLogRepSchemeCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

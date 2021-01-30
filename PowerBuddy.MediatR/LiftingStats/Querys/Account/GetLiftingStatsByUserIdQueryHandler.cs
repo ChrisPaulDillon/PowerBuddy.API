@@ -3,8 +3,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using PowerBuddy.Data.Context;
+using PowerBuddy.MediatR.LiftingStats.Commands;
 using PowerBuddy.MediatR.LiftingStats.Models;
 using PowerBuddy.Services.LiftingStats;
 
@@ -17,6 +19,14 @@ namespace PowerBuddy.MediatR.LiftingStats.Querys.Account
         public GetLiftingStatsByUserIdQuery(string userId)
         {
             UserId = userId;
+        }
+    }
+
+    public class GetLiftingStatsByUserIdQueryValidator : AbstractValidator<GetLiftingStatsByUserIdQuery>
+    {
+        public GetLiftingStatsByUserIdQueryValidator()
+        {
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

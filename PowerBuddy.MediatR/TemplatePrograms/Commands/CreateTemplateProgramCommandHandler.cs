@@ -20,11 +20,10 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Commands
         {
             TemplateProgramDTO = templateProgramDTO;
             UserId = userId;
-            new CreateTemplateProgramCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class CreateTemplateProgramCommandValidator : AbstractValidator<CreateTemplateProgramCommand>
+    public class CreateTemplateProgramCommandValidator : AbstractValidator<CreateTemplateProgramCommand>
     {
         public CreateTemplateProgramCommandValidator()
         {
@@ -39,7 +38,7 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Commands
         }
     }
 
-    internal class CreateTemplateProgramCommandHandler : IRequestHandler<CreateTemplateProgramCommand, TemplateProgramDTO>
+    public class CreateTemplateProgramCommandHandler : IRequestHandler<CreateTemplateProgramCommand, TemplateProgramDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

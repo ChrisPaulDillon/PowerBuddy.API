@@ -27,14 +27,35 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.DateCreated, d => d.MapFrom(src => src.DateCreated))
                 .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises));
 
+            CreateMap<WorkoutLog, WorkoutLogStatDTO>()
+                .ForMember(x => x.WorkoutLogId, d => d.MapFrom<int>(src => src.WorkoutLogId))
+                .ForMember(x => x.CustomName, d => d.MapFrom<string>(src => src.CustomName))
+                .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.UserId))
+                .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
+                .ForMember(x => x.NoOfWeeks, d => d.MapFrom<int>(src => (int)src.WorkoutDays.Max(x => x.WeekNo)))
+                .ForMember(x => x.StartDate, d => d.MapFrom<DateTime>(src => src.WorkoutDays.OrderBy(x => x.Date).FirstOrDefault().Date))
+                .ForMember(x => x.EndDate, d => d.MapFrom<DateTime>(src => src.WorkoutDays.OrderByDescending(x => x.Date).FirstOrDefault().Date))
+                .ForMember(x => x.Monday, d => d.MapFrom<bool>(src => src.Monday))
+                .ForMember(x => x.Tuesday, d => d.MapFrom<bool>(src => src.Tuesday))
+                .ForMember(x => x.Wednesday, d => d.MapFrom<bool>(src => src.Wednesday))
+                .ForMember(x => x.Thursday, d => d.MapFrom<bool>(src => src.Thursday))
+                .ForMember(x => x.Friday, d => d.MapFrom<bool>(src => src.Friday))
+                .ForMember(x => x.Saturday, d => d.MapFrom<bool>(src => src.Saturday))
+                .ForMember(x => x.Sunday, d => d.MapFrom<bool>(src => src.Sunday))
+                .ForMember(x => x.WorkoutDays, d => d.MapFrom(src => src.WorkoutDays.OrderBy(x => x.WeekNo)))
+                .ForMember(x => x.TemplateName, d => d.MapFrom<string>(src => src.TemplateProgram.Name))
+                .ForMember(x => x.DayCount, d => d.MapFrom(src => src.WorkoutDays.Count()))
+                .ForMember(x => x.ExerciseCount, d => d.MapFrom(src => src.WorkoutDays.SelectMany(p => p.WorkoutExercises).Count()));
+
+
             CreateMap<WorkoutLog, WorkoutLogDTO>()
              .ForMember(x => x.WorkoutLogId, d => d.MapFrom<int>(src => src.WorkoutLogId))
              .ForMember(x => x.CustomName, d => d.MapFrom<string>(src => src.CustomName))
              .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.UserId))
              .ForMember(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
              .ForMember(x => x.NoOfWeeks, d => d.MapFrom<int>(src => (int)src.WorkoutDays.Max(x => x.WeekNo)))
-             .ForMember(x => x.StartDate, d => d.MapFrom<DateTime>(src => src.StartDate))
-             .ForMember(x => x.EndDate, d => d.MapFrom<DateTime>(src => src.EndDate))
+             .ForMember(x => x.StartDate, d => d.MapFrom<DateTime>(src => src.WorkoutDays.OrderBy(x => x.Date).FirstOrDefault().Date))
+             .ForMember(x => x.EndDate, d => d.MapFrom<DateTime>(src => src.WorkoutDays.OrderByDescending(x => x.Date).FirstOrDefault().Date))
              .ForMember(x => x.Monday, d => d.MapFrom<bool>(src => src.Monday))
              .ForMember(x => x.Tuesday, d => d.MapFrom<bool>(src => src.Tuesday))
              .ForMember(x => x.Wednesday, d => d.MapFrom<bool>(src => src.Wednesday))
@@ -43,16 +64,13 @@ namespace PowerBuddy.Data.AutoMapper
              .ForMember(x => x.Saturday, d => d.MapFrom<bool>(src => src.Saturday))
              .ForMember(x => x.Sunday, d => d.MapFrom<bool>(src => src.Sunday))
              .ForMember(x => x.WorkoutDays, d => d.MapFrom(src => src.WorkoutDays.OrderBy(x => x.WeekNo)))
-             .ForMember(x => x.TemplateName, d => d.MapFrom<string>(src => src.TemplateProgram.Name))
-             .ForMember(x => x.LogDates, opt => opt.Ignore());
+             .ForMember(x => x.TemplateName, d => d.MapFrom<string>(src => src.TemplateProgram.Name));
 
             CreateMap<WorkoutLogDTO, WorkoutLog>()
                 .ForMember<int>(x => x.WorkoutLogId, d => d.MapFrom(src => src.WorkoutLogId))
                 .ForMember<string>(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
                 .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
                 .ForMember<int?>(x => x.TemplateProgramId, d => d.MapFrom(src => src.TemplateProgramId ?? 0))
-                .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
-                .ForMember<DateTime>(x => x.EndDate, d => d.MapFrom(src => src.EndDate))
                 .ForMember<bool>(x => x.Monday, d => d.MapFrom(src => src.Monday))
                 .ForMember<bool>(x => x.Tuesday, d => d.MapFrom(src => src.Tuesday))
                 .ForMember<bool>(x => x.Wednesday, d => d.MapFrom(src => src.Wednesday))
@@ -81,8 +99,10 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<bool>(x => x.Friday, d => d.MapFrom(src => src.Friday))
                 .ForMember<bool>(x => x.Saturday, d => d.MapFrom(src => src.Saturday))
                 .ForMember<bool>(x => x.Sunday, d => d.MapFrom(src => src.Sunday))
-                .ForMember<DateTime>(x => x.StartDate, d => d.MapFrom(src => src.StartDate))
-                .ForMember(x => x.CustomName, d => d.MapFrom(src => src.CustomName));
+                .ForMember(x => x.CustomName, d => d.MapFrom(src => src.CustomName))
+                .ForMember(x => x.WorkoutLogId, d => d.Ignore())
+                .ForMember(x => x.TemplateProgram, d => d.Ignore())
+                .ForMember(x => x.WorkoutDays, d => d.Ignore());
 
             //into entity
             CreateMap<WorkoutDayDTO, WorkoutDay>()
@@ -92,7 +112,9 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<string>(x => x.Comment, d => d.MapFrom(src => src.Comment))
                 .ForMember<DateTime>(x => x.Date, d => d.MapFrom(src => src.Date))
                 .ForMember<bool>(x => x.Completed, d => d.MapFrom(src => src.Completed))
-                .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises));
+                .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises))
+                .ForMember(x => x.WorkoutLog, d => d.Ignore())
+                .ForMember(x => x.User, d => d.Ignore());
 
             //into dto
             CreateMap<WorkoutDay, WorkoutDayDTO>()
@@ -127,7 +149,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<int>(x => x.WorkoutExerciseTonnageId, d => d.MapFrom(src => src.WorkoutExerciseTonnageId))
                 .ForMember(x => x.WorkoutExerciseTonnage, d => d.MapFrom(src => src.WorkoutExerciseTonnage))
                 .ForMember(x => x.WorkoutSets, d => d.MapFrom(src => src.WorkoutSets))
-                .ForMember(x => x.Exercise, d => d.Ignore());
+                .ForMember(x => x.Exercise, d => d.Ignore())
+                .ForMember(x => x.WorkoutTemplateId, d => d.Ignore());
 
             //into DTO
             CreateMap<WorkoutSet, WorkoutSetDTO>()
@@ -150,7 +173,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.RepsCompleted, d => d.MapFrom(src => src.RepsCompleted))
                 .ForMember(x => x.WeightLifted, d => d.MapFrom<decimal>(src => src.WeightLifted))
                 .ForMember(x => x.AMRAP, d => d.MapFrom<bool>(src => src.AMRAP))
-                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int?>(src => src.LiftingStatAuditId));
+                .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int?>(src => src.LiftingStatAuditId))
+                .ForMember(x => x.LiftingStatAudit, d => d.Ignore());
 
             CreateMap<WorkoutDay, WorkoutDaySummaryDTO>()
                 .ForMember(x => x.WorkoutDayId, d => d.MapFrom(src => src.WorkoutDayId))
@@ -159,7 +183,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.WorkoutExerciseCount, d => d.MapFrom(src => src.WorkoutExercises.Count()))
                 .ForMember(x => x.WorkoutExerciseSummaries, d => d.MapFrom(src => src.WorkoutExercises))
                 .ForMember(x => x.PersonalBestCount, d => d.MapFrom(src => src.WorkoutExercises.Where(x => x.WorkoutSets.Any(x => x.LiftingStatAuditId != null)).Count()))
-                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName));
+                .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName))
+                .ForMember(x => x.HasWorkoutData, d => d.Ignore());
 
 
             CreateMap<WorkoutExercise, WorkoutExerciseSummaryDTO>()

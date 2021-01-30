@@ -22,11 +22,10 @@ namespace PowerBuddy.MediatR.TemplatePrograms.Commands
         {
             TemplateProgramId = templateProgramId;
             UserId = userId;
-            new CreateTemplateExerciseCollectionForTemplateCommandValidator().ValidateAndThrow(this);
         }
     }
 
-    internal class CreateTemplateExerciseCollectionForTemplateCommandValidator : AbstractValidator<CreateTemplateExerciseCollectionForTemplateCommand>
+    public class CreateTemplateExerciseCollectionForTemplateCommandValidator : AbstractValidator<CreateTemplateExerciseCollectionForTemplateCommand>
     {
         public CreateTemplateExerciseCollectionForTemplateCommandValidator()
         {
