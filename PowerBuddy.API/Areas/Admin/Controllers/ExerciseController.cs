@@ -11,7 +11,6 @@ using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Exercises;
 using PowerBuddy.MediatR.Commands.Exercises;
-using PowerBuddy.MediatR.Queries.Exercises.Querys;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {
@@ -27,23 +26,6 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         public ExerciseController(IMediator mediator)
         {
             _mediator = mediator;
-        }
-
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAllUnapprovedExercises()
-        {
-            try
-            {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var exercises = await _mediator.Send(new GetAllUnapprovedExercisesQuery(userId));
-                return Ok(exercises);
-            }
-            catch (UserNotFoundException)
-            {
-                return Unauthorized();
-            }
         }
 
         [HttpPut]

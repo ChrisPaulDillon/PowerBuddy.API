@@ -29,6 +29,9 @@ using PowerBuddy.SmsService.Extensions;
 using PowerBuddy.MediatR;
 using PowerBuddy.MediatR.Commands;
 using PowerBuddy.MediatR.Queries;
+using PowerBuddy.Repositories.Exercises;
+using PowerBuddy.Repositories.System;
+using PowerBuddy.Services.System;
 
 namespace PowerBuddy.API
 {
@@ -63,6 +66,13 @@ namespace PowerBuddy.API
             });
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehaviour<,>));
+
+            services.AddScoped<IExerciseRepository, ExerciseRepository>();
+            services.Decorate<IExerciseRepository, CachedExerciseRepository>();
+
+            services.AddScoped<ISystemRepository, SystemRepository>();
+            services.Decorate<ISystemRepository, CachedSystemRepository>();
+
 
             services.AddMediatrQueryHandlers();
             services.AddMediatrCommandHandlers(Configuration.GetValue<string>("EmailBaseUrl"),

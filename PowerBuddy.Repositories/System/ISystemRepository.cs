@@ -4,7 +4,7 @@ using PowerBuddy.Data.DTOs.System;
 
 namespace PowerBuddy.Services.System
 {
-    public interface ISystemService
+    public interface ISystemRepository
     {
         Task<IEnumerable<GenderDTO>> GetAllGenders();
 

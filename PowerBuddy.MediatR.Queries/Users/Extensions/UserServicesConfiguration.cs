@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using PowerBuddy.MediatR.Queries.Authentication;
 
-namespace PowerBuddy.MediatR.Queries.Users
+namespace PowerBuddy.MediatR.Queries.Users.Extensions
 {
     public static class UserServicesConfiguration
     {

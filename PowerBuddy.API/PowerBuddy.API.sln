@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.MediatR.Queries"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.MediatR.Commands", "..\PowerBuddy.MediatR.Commands\PowerBuddy.MediatR.Commands.csproj", "{D52767B6-0493-49F5-BB3A-33597C007A9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBuddy.Repositories", "..\PowerBuddy.Repositories\PowerBuddy.Repositories.csproj", "{8A873614-C838-4A2F-AF1C-54CE7651BD74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{D52767B6-0493-49F5-BB3A-33597C007A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D52767B6-0493-49F5-BB3A-33597C007A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D52767B6-0493-49F5-BB3A-33597C007A9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A873614-C838-4A2F-AF1C-54CE7651BD74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A873614-C838-4A2F-AF1C-54CE7651BD74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A873614-C838-4A2F-AF1C-54CE7651BD74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A873614-C838-4A2F-AF1C-54CE7651BD74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

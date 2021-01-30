@@ -11,7 +11,6 @@ using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.DTOs.System;
 using PowerBuddy.Data.Exceptions.Exercises;
 using PowerBuddy.MediatR.Commands.Exercises;
-using PowerBuddy.MediatR.Queries.Exercises.Querys;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -39,7 +38,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var exercise = await _mediator.Send(new CreateExerciseCommand(exerciseDTO));
-                return CreatedAtRoute(nameof(GetExerciseById), new { exerciseId = exercise.ExerciseId }, exercise);
+                return Ok(exercise);
             }
             catch (ValidationException ex)
             {
@@ -48,26 +47,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (ExerciseAlreadyExistsException e)
             {
                 return BadRequest();
-            }
-        }
-
-        [HttpGet("{exerciseId:int}", Name = nameof(GetExerciseById))]
-        [ProducesResponseType(typeof(TopLevelExerciseDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetExerciseById(int exerciseId)
-        {
-            try
-            {
-                var exercises = await _mediator.Send(new GetExerciseByIdQuery(exerciseId));
-                return Ok(exercises);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ExerciseNotFoundException e)
-            {
-                return NotFound(e.Message);
             }
         }
     }

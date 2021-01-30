@@ -13,9 +13,9 @@ namespace PowerBuddy.API.Areas.Public
     [Area("Public")]
     public class SystemController : ControllerBase
     {
-        private readonly ISystemService _service;
+        private readonly ISystemRepository _service;
 
-        public SystemController(ISystemService service)
+        public SystemController(ISystemRepository service)
         {
             _service = service;
         }

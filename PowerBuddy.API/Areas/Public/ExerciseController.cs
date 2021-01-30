@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Exceptions.Exercises;
-using PowerBuddy.MediatR.Queries.Exercises.Querys;
+using PowerBuddy.MediatR.Queries.Exercises;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -30,22 +30,6 @@ namespace PowerBuddy.API.Areas.Public
         {
             var exercises = await _mediator.Send(new GetAllExercisesQuery());
             return Ok(exercises);
-        }
-
-        [HttpGet("{exerciseId:int}")]
-        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetExerciseById(int exerciseId)
-        {
-            try
-            {
-                var exercise = await _mediator.Send(new GetExerciseByIdQuery(exerciseId));
-                return Ok(exercise);
-            }
-            catch (ExerciseNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
         }
 
         [HttpGet("ExerciseMuscleGroup")]

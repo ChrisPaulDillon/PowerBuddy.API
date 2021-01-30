@@ -21,6 +21,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Scrutor" Version="3.3.0" />
     <PackageReference Include="Sentry" Version="3.0.0" />
     <PackageReference Include="Sentry.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Sentry.Serilog" Version="3.0.0" />
@@ -36,6 +37,7 @@
     <ProjectReference Include="..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj" />
     <ProjectReference Include="..\PowerBuddy.MediatR.Commands\PowerBuddy.MediatR.Commands.csproj" />
     <ProjectReference Include="..\PowerBuddy.MediatR.Queries\PowerBuddy.MediatR.Queries.csproj" />
+    <ProjectReference Include="..\PowerBuddy.Repositories\PowerBuddy.Repositories.csproj" />
     <ProjectReference Include="..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj" />
   </ItemGroup>
 
