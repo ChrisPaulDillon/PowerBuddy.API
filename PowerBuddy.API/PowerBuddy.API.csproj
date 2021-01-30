@@ -38,6 +38,7 @@
     <ProjectReference Include="..\PowerBuddy.MediatR.Commands\PowerBuddy.MediatR.Commands.csproj" />
     <ProjectReference Include="..\PowerBuddy.MediatR.Queries\PowerBuddy.MediatR.Queries.csproj" />
     <ProjectReference Include="..\PowerBuddy.Repositories\PowerBuddy.Repositories.csproj" />
+    <ProjectReference Include="..\PowerBuddy.SignalR\PowerBuddy.SignalR.csproj" />
     <ProjectReference Include="..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj" />
   </ItemGroup>
 
