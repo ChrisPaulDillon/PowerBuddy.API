@@ -15,10 +15,10 @@ RUN dotnet build "PowerBuddy.API.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "PowerBuddy.API.csproj" -c Release -o /app/publish
 
-# run tests on docker build
-RUN dotnet test
-
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "PowerBuddy.API.dll"]
+
+# run tests on docker build
+RUN dotnet test
