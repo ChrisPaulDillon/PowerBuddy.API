@@ -32,6 +32,7 @@ using PowerBuddy.MediatR.Queries;
 using PowerBuddy.Repositories.Exercises;
 using PowerBuddy.Repositories.System;
 using PowerBuddy.Services.System;
+using PowerBuddy.SignalR;
 
 namespace PowerBuddy.API
 {
@@ -48,6 +49,17 @@ namespace PowerBuddy.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var test = Configuration.GetValue<string>("CorsPolicyClientUrl");
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder => builder
+                    .WithOrigins("https://localhost:3000", "http://localhost:3000", "https://webapp.powerbuddy.gg", "https://www.powerbuddy.gg")
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .AllowAnyMethod());
+            });
+
             services.AddSmsServices(
                 Configuration.GetValue<string>("TwilioAccountSID"),
                 Configuration.GetValue<string>("TwilioAuthToken"),
@@ -112,28 +124,9 @@ namespace PowerBuddy.API
                 .AddEntityFrameworkStores<PowerLiftingContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(MyAllowSpecificOrigins,
-                    builder =>
-                    {
-                        builder.WithOrigins(Configuration["CorsPolicyClientUrl"])
-                            .AllowAnyOrigin()
-                            .AllowAnyHeader()
-                            .WithMethods("GET", "PUT", "POST", "DELETE");
-                    });
-            });
-
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new SystemAutoMapperProfile());
-                mc.AddProfile(new LiftingStatMappingProfile());
-                mc.AddProfile(new TemplateProgramMappingProfile());
-                mc.AddProfile(new AccountMappingProfile());
-                mc.AddProfile(new WorkoutMappingProfile());
-            });
-
             services.AddAutoMapper(typeof(Startup).Assembly, Assembly.Load("PowerBuddy.Data"));
+
+            services.AddSignalR();
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
@@ -209,7 +202,7 @@ namespace PowerBuddy.API
 
             app.UseRouting();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors();
 
             app.UseAuthentication();
 
@@ -218,6 +211,7 @@ namespace PowerBuddy.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessageHub>("/message");
             });
         }
     }
