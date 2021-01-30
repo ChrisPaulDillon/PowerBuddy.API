@@ -25,7 +25,7 @@ namespace PowerBuddy.MediatR.Queries.Users
     {
         public EditProfileCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+   
         }
     }
 
