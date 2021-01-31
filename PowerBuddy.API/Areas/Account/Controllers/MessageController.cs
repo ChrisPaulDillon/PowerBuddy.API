@@ -23,9 +23,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Get([FromBody] ToastMessage toastiBoi)
+        public async Task<IActionResult> Get([FromBody] SignalrMessage toastiBoi)
         {
-            await _hub.Clients.All.SendAsync("ReceiveMessage", toastiBoi.Body); //Send message to everyone who is 'plugged into' the 'testlmfao' method
             return Ok();
         }
     }
