@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.MediatR.Queries.Authentication.Models;
@@ -14,7 +15,7 @@ using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.MediatR.Queries.Authentication
 {
-    public class LoginUserQuery : IRequest<AuthenticatedUserDTO>
+    public class LoginUserQuery : IRequest<AuthenticationResultDTO>
     {
         public LoginModelDTO LoginModel { get; }
 
@@ -34,7 +35,7 @@ namespace PowerBuddy.MediatR.Queries.Authentication
         }
     }
 
-    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, AuthenticatedUserDTO>
+    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, AuthenticationResultDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -49,7 +50,7 @@ namespace PowerBuddy.MediatR.Queries.Authentication
             _tokenService = tokenService;
         }
 
-        public async Task<AuthenticatedUserDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
+        public async Task<AuthenticationResultDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User
 	            .FirstOrDefaultAsync(x => x.NormalizedEmail == request.LoginModel.Email.ToUpper() || x.NormalizedUserName == request.LoginModel.UserName.ToUpper());
@@ -73,7 +74,7 @@ namespace PowerBuddy.MediatR.Queries.Authentication
 
             if (result.Succeeded)
             {
-                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(user.Id);
+                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(user.Id, _mapper.Map<UserDTO>(user));
                 return authenticatedUser;
             }
 

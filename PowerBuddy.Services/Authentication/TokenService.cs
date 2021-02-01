@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
@@ -26,24 +25,34 @@ namespace PowerBuddy.Services.Authentication
             _entityFactory = entityFactory;
         }
 
-        public async Task<AuthenticatedUserDTO> CreateRefreshTokenAuthenticationResult(string userId)
+        public async Task<AuthenticationResultDTO> CreateRefreshTokenAuthenticationResult(string userId, UserDTO user)
         {
-            var accessToken = _authService.GenerateJwtToken(userId);
+            if (user == null)
+            {
+                user = await _context.User
+                    .AsNoTracking()
+                    .Where(x => x.Id == userId)
+                    .Select(x => new UserDTO()
+                    {
+                        UserId = x.Id,
+                        UserName = x.UserName,
+                        UsingMetric = x.UserSetting.UsingMetric,
+                        FirstVisit = x.FirstVisit,
+                        MemberStatusId = x.MemberStatusId?? 0
+                    })
+                    .FirstOrDefaultAsync();
+            }
+            
+            var accessToken = _authService.GenerateJwtToken(userId, user.UserName, user.UsingMetric, user.FirstVisit, user.MemberStatusId);
             var refreshToken = _entityFactory.CreateRefreshToken(accessToken, userId);
 
             _context.RefreshToken.Add(refreshToken);
             await _context.SaveChangesAsync();
 
-            var user = await _context.User.AsNoTracking()
-                .Where(x => x.Id == userId)
-                .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync();
-
-            var authenticatedUser = new AuthenticatedUserDTO()
+            var authenticatedUser = new AuthenticationResultDTO()
             {
-                User = user,
                 AccessToken = accessToken,
-                RefreshToken = refreshToken.Token
+                RefreshToken = refreshToken.Token,
             };
 
             return authenticatedUser;

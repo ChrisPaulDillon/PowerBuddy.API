@@ -5,6 +5,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
 using PowerBuddy.MediatR.Commands.Authentication.Exceptions;
 using PowerBuddy.Services.Authentication;
@@ -12,7 +13,7 @@ using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.MediatR.Commands.Authentication
 {
-    public class RefreshTokenCommand : IRequest<AuthenticatedUserDTO>
+    public class RefreshTokenCommand : IRequest<AuthenticationResultDTO>
     {
         public string RefreshToken { get; }
 
@@ -30,20 +31,22 @@ namespace PowerBuddy.MediatR.Commands.Authentication
         }
     }
 
-    internal class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, AuthenticatedUserDTO>
+    internal class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, AuthenticationResultDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
+        private readonly IAuthService _authService;
 
-        public RefreshTokenCommandHandler(PowerLiftingContext context, IMapper mapper, ITokenService tokenService)
+        public RefreshTokenCommandHandler(PowerLiftingContext context, IMapper mapper, ITokenService tokenService, IAuthService authService)
         {
             _context = context;
             _mapper = mapper;
             _tokenService = tokenService;
+            _authService = authService;
         }
 
-        public async Task<AuthenticatedUserDTO> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        public async Task<AuthenticationResultDTO> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
             var refreshToken = await _context.RefreshToken.FirstOrDefaultAsync(x => x.Token == request.RefreshToken);
 
@@ -70,7 +73,7 @@ namespace PowerBuddy.MediatR.Commands.Authentication
             refreshToken.IsUsed = true;
             await _context.SaveChangesAsync();
 
-            var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(refreshToken.UserId);
+            var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(refreshToken.UserId, null);
 
             return authenticatedUser;
         }

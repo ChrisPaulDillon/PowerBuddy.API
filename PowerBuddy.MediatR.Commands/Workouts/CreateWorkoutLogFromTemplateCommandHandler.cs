@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.SignalR;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
@@ -15,6 +16,8 @@ using PowerBuddy.Services.Workouts;
 using PowerBuddy.Services.Workouts.Factories;
 using PowerBuddy.Services.Workouts.Strategies;
 using PowerBuddy.Services.Workouts.Util;
+using PowerBuddy.SignalR;
+using PowerBuddy.SignalR.Models;
 using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.MediatR.Commands.Workouts
@@ -47,22 +50,20 @@ namespace PowerBuddy.MediatR.Commands.Workouts
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IWorkoutService _workoutService;
-        private readonly IAccountService _accountService;
         private readonly ITemplateService _templateService;
-        private readonly IWeightInsertConvertorService _weightService;
         private readonly ICalculateWeightFactory _calculateWeightFactory;
+        private readonly IHubContext<MessageHub> _hub;
         private ICalculateRepWeight _calculateRepWeight;
 
-        public CreateWorkoutLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService WorkoutService, IAccountService accountService, ITemplateService templateService, ICalculateWeightFactory calculateWeightFactory, IWeightInsertConvertorService weightService, ICalculateRepWeight calculateRepWeight)
+        public CreateWorkoutLogFromTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService, ITemplateService templateService, ICalculateWeightFactory calculateWeightFactory, IHubContext<MessageHub> hub, ICalculateRepWeight calculateRepWeight)
         {
             _context = context;
             _mapper = mapper;
-            _workoutService = WorkoutService;
-            _accountService = accountService;
+            _workoutService = workoutService;
             _templateService = templateService;
-            _weightService = weightService;
             _calculateWeightFactory = calculateWeightFactory;
             _calculateRepWeight = calculateRepWeight;
+            _hub = hub;
         }
 
         public async Task<bool> Handle(CreateWorkoutLogFromTemplateCommand request, CancellationToken cancellationToken)
@@ -75,23 +76,30 @@ namespace PowerBuddy.MediatR.Commands.Workouts
                throw new WorkoutDaysDoesNotMatchTemplateDaysException();
            }
 
-            templateProgram.ActiveUsersCount++;
-            _templateService.AddTemplateProgramAudit(request.TemplateProgramId, request.UserId, DateTime.UtcNow);
+           templateProgram.ActiveUsersCount++;
+           _templateService.AddTemplateProgramAudit(request.TemplateProgramId, request.UserId, DateTime.UtcNow);
 
-            _calculateRepWeight = _calculateWeightFactory.Create(templateProgram.WeightProgressionType);
+           _calculateRepWeight = _calculateWeightFactory.Create(templateProgram.WeightProgressionType);
 
-            var workoutLog = _mapper.Map<WorkoutLog>(request.WorkoutInputDTO);
+           var workoutLog = _mapper.Map<WorkoutLog>(request.WorkoutInputDTO);
 
-            var startDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
-            var workoutOrder = WorkoutHelper.CalculateDayOrder(workoutLog, startDate);
+           var startDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
+           var workoutOrder = WorkoutHelper.CalculateDayOrder(workoutLog, startDate);
 
-            workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
-            workoutLog.CustomName ??= templateProgram.Name;
+           workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
+           workoutLog.CustomName ??= templateProgram.Name;
 
-            _context.WorkoutLog.Add(workoutLog);
-            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
+           _context.WorkoutLog.Add(workoutLog);
+           var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
 
-            return modifiedRows > 0;
+           if (modifiedRows > 0)
+           {
+               //await _hub.SendMessageAllClients(new UserMessage()
+               //{
+               //    Title = 
+               //});
+           }
+           return modifiedRows > 0;
         }
     }
 }

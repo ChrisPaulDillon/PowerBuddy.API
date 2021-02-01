@@ -9,12 +9,13 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.MediatR.Commands.Authentication.Models;
 using PowerBuddy.Services.Authentication;
 using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.MediatR.Commands.Authentication
 {
-    public class RegisterUserCommand : IRequest<AuthenticatedUserDTO>
+    public class RegisterUserCommand : IRequest<RegisterAuthenticationResultDTO>
     {
         public RegisterUserDTO RegisterUserDTO { get; }
 
@@ -34,7 +35,7 @@ namespace PowerBuddy.MediatR.Commands.Authentication
         }
     }
 
-    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, AuthenticatedUserDTO>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterAuthenticationResultDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -49,7 +50,7 @@ namespace PowerBuddy.MediatR.Commands.Authentication
             _tokenService = tokenService;
         }
 
-        public async Task<AuthenticatedUserDTO> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<RegisterAuthenticationResultDTO> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             var doesUserExist = await _context.User
                 .AsNoTracking()
@@ -75,8 +76,14 @@ namespace PowerBuddy.MediatR.Commands.Authentication
 
             if (result.Succeeded)
             {
-                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(userEntity.Id);
-                return authenticatedUser;
+                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(userEntity.Id, _mapper.Map<UserDTO>(_mapper.ConfigurationProvider));
+                var registeredAuthenticationResult = new RegisterAuthenticationResultDTO()
+                {
+                    AccessToken = authenticatedUser.AccessToken,
+                    RefreshToken = authenticatedUser.RefreshToken,
+                    UserId = userEntity.Id
+                };
+                return registeredAuthenticationResult;
             }
 
             return null;

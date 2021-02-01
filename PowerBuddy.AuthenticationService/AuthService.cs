@@ -44,7 +44,7 @@ namespace PowerBuddy.AuthenticationService
             return "";
         }
 
-        public string GenerateJwtToken(string userId)
+        public string GenerateJwtToken(string userId, string userName, bool usingMetric, bool firstVisit, int memberStatusId)
         {
             var key = Encoding.UTF8.GetBytes(_jwtConfig.Key);
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
@@ -54,7 +54,11 @@ namespace PowerBuddy.AuthenticationService
                 audience: _jwtConfig.Issuer,
                 new List<Claim>()
                 {
-                    new Claim("UserId", userId)
+                    new Claim("UserId", userId),
+                    new Claim("UserName", userName),
+                    new Claim("UsingMetric", usingMetric.ToString()),
+                    new Claim("FirstVisit", firstVisit.ToString()),
+                    new Claim("MemberStatusId", memberStatusId.ToString())
                 },
                 expires: DateTime.Now.Add(_jwtConfig.LifeTime),
                 signingCredentials: signingCredentials
@@ -66,23 +70,15 @@ namespace PowerBuddy.AuthenticationService
             return token;
         }
 
-        private ClaimsPrincipal GetPrincipalFromToken(string token)
+        public ClaimsPrincipal GetPrincipalFromToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-
             try
             {
                 var principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out var validatedToken);
-                if (!IsJwtWithValidSecurityAlgorithm(validatedToken))
-                {
-                    return null;
-                }
-                else
-                {
-                    return principal;
-                }
+                return !IsJwtWithValidSecurityAlgorithm(validatedToken) ? null : principal;
             }
-            catch
+            catch(Exception ex)
             {
                 return null;
             }

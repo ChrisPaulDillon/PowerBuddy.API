@@ -14,7 +14,7 @@ using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.MediatR.Queries.Authentication
 {
-    public class LoginWithFacebookQuery : IRequest<AuthenticatedUserDTO>
+    public class LoginWithFacebookQuery : IRequest<AuthenticationResultDTO>
     {
         public string AccessToken { get; }
 
@@ -32,7 +32,7 @@ namespace PowerBuddy.MediatR.Queries.Authentication
         }
     }
 
-    internal class LoginWithFacebookQueryHandler : IRequestHandler<LoginWithFacebookQuery, AuthenticatedUserDTO>
+    internal class LoginWithFacebookQueryHandler : IRequestHandler<LoginWithFacebookQuery, AuthenticationResultDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -49,7 +49,7 @@ namespace PowerBuddy.MediatR.Queries.Authentication
             _userManager = userManager;
         }
 
-        public async Task<AuthenticatedUserDTO> Handle(LoginWithFacebookQuery request, CancellationToken cancellationToken)
+        public async Task<AuthenticationResultDTO> Handle(LoginWithFacebookQuery request, CancellationToken cancellationToken)
         {
             var validationTokenResult = await _facebookAuthService.ValidateAccessTokenAsync(request.AccessToken);
 
@@ -75,7 +75,7 @@ namespace PowerBuddy.MediatR.Queries.Authentication
                 var createdResult = await _userManager.CreateAsync(user);
             }
 
-            var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(user.Id);
+            var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(user.Id, null);
 
             return authenticatedUser;
         }

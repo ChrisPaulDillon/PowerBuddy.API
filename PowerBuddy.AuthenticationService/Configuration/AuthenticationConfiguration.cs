@@ -11,12 +11,15 @@ namespace PowerBuddy.AuthenticationService.Configuration
         {
             var tokenValidationParameters = new TokenValidationParameters()
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
                 ValidateIssuer = true,
+                ValidateLifetime = true,
                 ValidateAudience = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtIssuer,
+                ValidAudience = jwtIssuer,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
                 RequireExpirationTime = true,
-                ValidateLifetime = true
+                ClockSkew = TimeSpan.Zero
             };
 
             services.AddSingleton(tokenValidationParameters);

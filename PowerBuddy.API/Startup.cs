@@ -169,6 +169,7 @@ namespace PowerBuddy.API
                         ValidAudience = Configuration.GetValue<string>("JWT_Issuer"),
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JWT_Key"))),
                         RequireExpirationTime = true,
+                        ClockSkew = TimeSpan.Zero
                     };
                 })
                 .AddGoogle(opt =>

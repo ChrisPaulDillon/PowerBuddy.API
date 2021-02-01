@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
@@ -36,7 +38,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Login")]
-        [ProducesResponseType(typeof(AuthenticatedUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthenticationResultDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
@@ -70,7 +72,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Login/Facebook")]
-        [ProducesResponseType(typeof(AuthenticatedUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthenticationResultDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
@@ -100,7 +102,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
                 if (authenticatedUser != null)
                 {
-                    await _mediator.Send(new SendConfirmEmailCommand(authenticatedUser.User.UserId));
+                   await _mediator.Send(new SendConfirmEmailCommand(authenticatedUser.UserId));
                 }
 
                 return Ok(authenticatedUser);
