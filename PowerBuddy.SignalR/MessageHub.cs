@@ -7,7 +7,7 @@ namespace PowerBuddy.SignalR
 {
     public class MessageHub : Hub
     {
-        public async Task SendMessageAllClients(SignalrMessage message)
+        public async Task SendMessage(UserMessage message)
         {
             await Clients.All.SendAsync(SignalRConstants.MESSAGE_METHOD_ALL, message); //Send message to everyone who is 'plugged into' the 'testlmfao' method
         }

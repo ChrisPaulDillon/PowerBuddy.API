@@ -115,9 +115,6 @@ namespace PowerBuddy.API
                     options.Password.RequireUppercase = true;
                     options.Password.RequiredLength = 6;
 
-                    options.User.AllowedUserNameCharacters =
-                        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
                     options.Lockout.MaxFailedAccessAttempts = 10;
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
                 })

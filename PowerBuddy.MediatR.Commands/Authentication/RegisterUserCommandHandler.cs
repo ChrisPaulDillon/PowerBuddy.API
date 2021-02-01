@@ -11,7 +11,6 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.MediatR.Commands.Authentication.Models;
 using PowerBuddy.Services.Authentication;
-using PowerBuddy.Services.Authentication.Models;
 
 namespace PowerBuddy.MediatR.Commands.Authentication
 {

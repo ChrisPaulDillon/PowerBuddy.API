@@ -1,23 +1,24 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Exceptions.Workouts;
-using PowerBuddy.Services.Account;
 using PowerBuddy.Services.Templates;
-using PowerBuddy.Services.Weights;
 using PowerBuddy.Services.Workouts;
 using PowerBuddy.Services.Workouts.Factories;
 using PowerBuddy.Services.Workouts.Strategies;
 using PowerBuddy.Services.Workouts.Util;
 using PowerBuddy.SignalR;
 using PowerBuddy.SignalR.Models;
+using PowerBuddy.SignalR.Util;
 using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.MediatR.Commands.Workouts
@@ -94,10 +95,17 @@ namespace PowerBuddy.MediatR.Commands.Workouts
 
            if (modifiedRows > 0)
            {
-               //await _hub.SendMessageAllClients(new UserMessage()
-               //{
-               //    Title = 
-               //});
+               var userName = await _context.User
+                   .AsNoTracking()
+                   .Where(x => x.Id == request.UserId)
+                   .Select(x => x.UserName)
+                   .FirstOrDefaultAsync();
+
+                await _hub.Clients.All.SendAsync(SignalRConstants.MESSAGE_METHOD_ALL, new UserMessage()
+                {
+                    UserName = userName,
+                    Body = $"{userName} just started the program {templateProgram.Name}!"
+                });
            }
            return modifiedRows > 0;
         }
