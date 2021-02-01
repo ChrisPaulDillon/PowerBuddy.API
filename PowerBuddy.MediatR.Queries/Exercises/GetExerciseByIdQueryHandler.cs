@@ -38,6 +38,8 @@ namespace PowerBuddy.MediatR.Queries.Exercises
         public GetExerciseByIdQueryHandler(IExerciseRepository exerciseRepo, PowerLiftingContext context, IMapper mapper)
         {
             _exerciseRepo = exerciseRepo;
+            _context = context;
+            _mapper = mapper;
         }
 
         public async Task<ExerciseDTO> Handle(GetExerciseByIdQuery request, CancellationToken cancellationToken)
