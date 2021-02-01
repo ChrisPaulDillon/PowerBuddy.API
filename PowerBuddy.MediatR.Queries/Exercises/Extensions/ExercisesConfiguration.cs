@@ -12,6 +12,7 @@ namespace PowerBuddy.MediatR.Queries.Exercises.Extensions
             services.AddMediatR(typeof(GetAllExerciseMuscleGroupsQueryHandler));
             services.AddMediatR(typeof(GetAllExerciseTypesQueryHandler));
             services.AddMediatR(typeof(GetAllExercisesQueryHandler));
+            services.AddMediatR(typeof(GetExerciseByIdQueryHandler));
 
             return services;
         }

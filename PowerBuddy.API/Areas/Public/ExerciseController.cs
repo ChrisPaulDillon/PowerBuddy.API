@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,22 @@ namespace PowerBuddy.API.Areas.Public
         {
             var exercises = await _mediator.Send(new GetAllExercisesQuery());
             return Ok(exercises);
+        }
+
+        [HttpGet("{exerciseId:int}")]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetExerciseById(int exerciseId)
+        {
+            try
+            {
+                var exercise = await _mediator.Send(new GetExerciseByIdQuery(exerciseId));
+                return Ok(exercise);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Errors);
+            }
         }
 
         [HttpGet("ExerciseMuscleGroup")]
