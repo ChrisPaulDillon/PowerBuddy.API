@@ -26,7 +26,7 @@ namespace PowerBuddy.MediatR.Commands.Authentication
         }
     }
 
-    internal class LogoutCommandHandler : IRequestHandler<LogoutCommand, bool>
+    public class LogoutCommandHandler : IRequestHandler<LogoutCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

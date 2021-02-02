@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Commands.Users
         }
     }
 
-    internal class EditProfileCommandHandler : IRequestHandler<EditProfileCommand, bool>
+    public class EditProfileCommandHandler : IRequestHandler<EditProfileCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

@@ -19,5 +19,4 @@
     <ProjectReference Include="..\PowerBuddy.SignalR\PowerBuddy.SignalR.csproj" />
     <ProjectReference Include="..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj" />
   </ItemGroup>
-
 </Project>

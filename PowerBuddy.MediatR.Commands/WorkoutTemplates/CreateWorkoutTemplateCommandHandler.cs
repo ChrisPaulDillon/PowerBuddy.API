@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
@@ -7,9 +8,9 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 
-namespace PowerBuddy.MediatR.Commands.Workouts
+namespace PowerBuddy.MediatR.Commands.WorkoutTemplates
 {
-    public class CreateWorkoutTemplateCommand : IRequest<Unit>
+    public class CreateWorkoutTemplateCommand : IRequest<WorkoutTemplate>
     {
         public WorkoutTemplateDTO WorkoutTemplateDTO { get; }
         public string UserId { get; }
@@ -25,11 +26,15 @@ namespace PowerBuddy.MediatR.Commands.Workouts
     {
         public CreateWorkoutTemplateCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutTemplateDTO.WorkoutName).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutTemplateDTO.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutTemplateDTO.WorkoutExercises).NotNull().WithMessage("'{PropertyName}' cannot be null");
+            RuleFor(x => x.WorkoutTemplateDTO.WorkoutExercises).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must have at least one exercise");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
         }
     }
 
-    internal class CreateWorkoutTemplateCommandHandler : IRequestHandler<CreateWorkoutTemplateCommand, Unit>
+    public class CreateWorkoutTemplateCommandHandler : IRequestHandler<CreateWorkoutTemplateCommand, WorkoutTemplate>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -40,14 +45,14 @@ namespace PowerBuddy.MediatR.Commands.Workouts
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(CreateWorkoutTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<WorkoutTemplate> Handle(CreateWorkoutTemplateCommand request, CancellationToken cancellationToken)
         {
             var workoutTemplate = _mapper.Map<WorkoutTemplate>(request.WorkoutTemplateDTO);
 
             _context.WorkoutTemplate.Add(workoutTemplate);
             await _context.SaveChangesAsync();
 
-            return Unit.Value;
+            return workoutTemplate;
         }
     }
 }

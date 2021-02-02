@@ -32,7 +32,7 @@ namespace PowerBuddy.MediatR.Commands.Authentication
         }
     }
 
-    internal class VerifyEmailCommandHandler : IRequestHandler<VerifyEmailCommand, bool>
+    public class VerifyEmailCommandHandler : IRequestHandler<VerifyEmailCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly UserManager<User> _userManager;

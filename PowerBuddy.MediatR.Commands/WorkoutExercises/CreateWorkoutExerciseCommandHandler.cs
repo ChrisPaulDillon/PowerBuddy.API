@@ -39,7 +39,7 @@ namespace PowerBuddy.MediatR.Commands.WorkoutExercises
         }
     }
 
-    internal class CreateWorkoutExerciseCommandHandler : IRequestHandler<CreateWorkoutExerciseCommand, WorkoutExerciseDTO>
+    public class CreateWorkoutExerciseCommandHandler : IRequestHandler<CreateWorkoutExerciseCommand, WorkoutExerciseDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

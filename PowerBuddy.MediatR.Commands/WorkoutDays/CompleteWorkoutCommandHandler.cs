@@ -41,7 +41,7 @@ namespace PowerBuddy.MediatR.Commands.WorkoutDays
         }
     }
 
-    internal class CompleteWorkoutCommandHandler : IRequestHandler<CompleteWorkoutCommand, IEnumerable<LiftingStatAuditDTO>>
+    public class CompleteWorkoutCommandHandler : IRequestHandler<CompleteWorkoutCommand, IEnumerable<LiftingStatAuditDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

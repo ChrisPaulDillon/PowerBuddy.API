@@ -30,7 +30,7 @@ namespace PowerBuddy.MediatR.Commands.Workouts
         }
     }
 
-    internal class DeleteWorkoutLogCommandHandler : IRequestHandler<DeleteWorkoutLogCommand, bool>
+    public class DeleteWorkoutLogCommandHandler : IRequestHandler<DeleteWorkoutLogCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

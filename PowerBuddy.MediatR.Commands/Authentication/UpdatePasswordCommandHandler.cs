@@ -34,7 +34,7 @@ namespace PowerBuddy.MediatR.Commands.Authentication
         }
     }
 
-    internal class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordCommand, bool>
+    public class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly UserManager<User> _userManager;

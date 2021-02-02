@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Commands.LiftingStats
         }
     }
 
-    internal class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, bool>
+    public class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

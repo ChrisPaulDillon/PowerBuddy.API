@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Commands.Quotes
         }
     }
 
-    internal class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, QuoteDTO>
+    public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, QuoteDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

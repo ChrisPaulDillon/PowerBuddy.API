@@ -34,7 +34,7 @@ namespace PowerBuddy.MediatR.Commands.Authentication
         }
     }
 
-    internal class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, bool>
+    public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly UserManager<User> _userManager;

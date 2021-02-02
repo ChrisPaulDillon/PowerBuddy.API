@@ -27,7 +27,7 @@ namespace PowerBuddy.MediatR.Commands.TemplatePrograms
         }
     }
 
-    internal class CreateAllTemplateExerciseCollectionForTemplateCommandHandler : IRequestHandler<CreateAllTemplateExerciseCollectionForTemplateCommand, bool>
+    public class CreateAllTemplateExerciseCollectionForTemplateCommandHandler : IRequestHandler<CreateAllTemplateExerciseCollectionForTemplateCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

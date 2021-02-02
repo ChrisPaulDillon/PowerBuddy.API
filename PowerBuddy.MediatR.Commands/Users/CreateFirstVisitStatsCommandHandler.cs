@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Commands.Users
         }
     }
 
-    internal class CreateFirstVisitStatsCommandHandler : IRequestHandler<CreateFirstVisitStatsCommand, bool>
+    public class CreateFirstVisitStatsCommandHandler : IRequestHandler<CreateFirstVisitStatsCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

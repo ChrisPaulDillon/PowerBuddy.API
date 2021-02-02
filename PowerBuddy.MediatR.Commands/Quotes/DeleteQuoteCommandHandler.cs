@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Commands.Quotes
         }
     }
 
-    internal class DeleteQuoteCommandHandler : IRequestHandler<DeleteQuoteCommand, bool>
+    public class DeleteQuoteCommandHandler : IRequestHandler<DeleteQuoteCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

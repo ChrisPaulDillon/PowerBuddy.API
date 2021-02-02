@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Commands.Exercises
         }
     }
 
-    internal class ApproveExerciseCommandHandler : IRequestHandler<ApproveExerciseCommand, bool>
+    public class ApproveExerciseCommandHandler : IRequestHandler<ApproveExerciseCommand, bool>
     {
         private readonly PowerLiftingContext _context;
 

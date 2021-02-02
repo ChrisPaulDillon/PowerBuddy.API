@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PowerBuddy.MediatR.Commands.WorkoutDays;
 using PowerBuddy.MediatR.Commands.WorkoutExercises;
 using PowerBuddy.MediatR.Commands.WorkoutSets;
+using PowerBuddy.MediatR.Commands.WorkoutTemplates;
 using PowerBuddy.Services.Workouts.Factories;
 using PowerBuddy.Services.Workouts.Strategies;
 

@@ -33,7 +33,7 @@ namespace PowerBuddy.MediatR.Commands.Users
         }
     }
 
-    internal class BanUserCommandHandler : IRequestHandler<BanUserCommand, bool>
+    public class BanUserCommandHandler : IRequestHandler<BanUserCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

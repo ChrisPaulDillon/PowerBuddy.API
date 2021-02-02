@@ -91,7 +91,10 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.Thursday, d => d.Ignore())
                 .ForMember(x => x.Friday, d => d.Ignore())
                 .ForMember(x => x.Saturday, d => d.Ignore())
-                .ForMember(x => x.Sunday, d => d.Ignore());
+                .ForMember(x => x.Sunday, d => d.Ignore())
+                .ForMember(x => x.TemplateProgramId, d => d.Ignore())
+                .ForMember(x => x.WorkoutLogId, d => d.Ignore())
+                .ForMember(x => x.TemplateProgram, d => d.Ignore());
 
             CreateMap<WorkoutLogTemplateInputDTO, WorkoutLog>()
                 .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))

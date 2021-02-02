@@ -33,7 +33,7 @@ namespace PowerBuddy.MediatR.Commands.Emails
         }
     }
 
-    internal class SendConfirmEmailCommandHandler : IRequestHandler<SendConfirmEmailCommand, Unit>
+    public class SendConfirmEmailCommandHandler : IRequestHandler<SendConfirmEmailCommand, Unit>
     {
         private readonly PowerLiftingContext _context;
         private readonly IEmailClient _emailClient;

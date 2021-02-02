@@ -31,7 +31,7 @@ namespace PowerBuddy.MediatR.Commands.Authentication
         }
     }
 
-    internal class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, AuthenticationResultDTO>
+    public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, AuthenticationResultDTO>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

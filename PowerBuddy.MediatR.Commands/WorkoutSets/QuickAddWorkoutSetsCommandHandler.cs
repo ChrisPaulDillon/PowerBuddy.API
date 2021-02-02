@@ -33,7 +33,7 @@ namespace PowerBuddy.MediatR.Commands.WorkoutSets
         }
     }
 
-    internal class QuickAddWorkoutSetsCommandHandler : IRequestHandler<QuickAddWorkoutSetsCommand, IEnumerable<WorkoutSetDTO>>
+    public class QuickAddWorkoutSetsCommandHandler : IRequestHandler<QuickAddWorkoutSetsCommand, IEnumerable<WorkoutSetDTO>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

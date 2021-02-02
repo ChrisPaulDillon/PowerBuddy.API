@@ -6,6 +6,7 @@ using PowerBuddy.MediatR.Commands.Quotes;
 using PowerBuddy.MediatR.Commands.TemplatePrograms;
 using PowerBuddy.MediatR.Commands.Users;
 using PowerBuddy.MediatR.Commands.Workouts;
+using PowerBuddy.MediatR.Commands.WorkoutTemplates.Configuration;
 
 namespace PowerBuddy.MediatR.Commands
 {
@@ -14,6 +15,7 @@ namespace PowerBuddy.MediatR.Commands
         public static IServiceCollection AddMediatrCommandHandlers(this IServiceCollection services, string baseUrl, string siteName)
         {
             services.AddQuoteMediatrHandlers();
+            services.AddWorkoutTemplateCommandHandlers();
             services.AddLiftingStatsMediatrHandlers();
             services.AddTemplateProgramMediatrHandlers();
             services.AddUserMediatrHandlers();

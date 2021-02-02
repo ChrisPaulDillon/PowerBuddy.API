@@ -46,7 +46,7 @@ namespace PowerBuddy.MediatR.Commands.Workouts
         }
     }
 
-    internal class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, bool>
+    public class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

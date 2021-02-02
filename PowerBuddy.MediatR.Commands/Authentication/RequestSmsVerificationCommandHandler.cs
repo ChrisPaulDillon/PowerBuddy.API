@@ -32,7 +32,7 @@ namespace PowerBuddy.MediatR.Commands.Authentication
         }
     }
 
-    internal class RequestSmsVerificationCommandHandler : IRequestHandler<RequestSmsVerificationCommand, string>
+    public class RequestSmsVerificationCommandHandler : IRequestHandler<RequestSmsVerificationCommand, string>
     {
         private readonly PowerLiftingContext _context;
         private readonly UserManager<User> _userManager;

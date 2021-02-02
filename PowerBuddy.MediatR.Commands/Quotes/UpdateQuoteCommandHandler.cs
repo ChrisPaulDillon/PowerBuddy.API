@@ -33,7 +33,7 @@ namespace PowerBuddy.MediatR.Commands.Quotes
         }
     }
 
-    internal class UpdateQuoteCommandHandler : IRequestHandler<UpdateQuoteCommand, bool>
+    public class UpdateQuoteCommandHandler : IRequestHandler<UpdateQuoteCommand, bool>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

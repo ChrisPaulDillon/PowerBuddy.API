@@ -32,7 +32,7 @@ namespace PowerBuddy.MediatR.Commands.WorkoutDays
         }
     }
 
-    internal class CreateWorkoutDayCommandHandler : IRequestHandler<CreateWorkoutDayCommand, int>
+    public class CreateWorkoutDayCommandHandler : IRequestHandler<CreateWorkoutDayCommand, int>
     {
         private readonly PowerLiftingContext _context;
         private readonly IEntityFactory _entityFactory;
