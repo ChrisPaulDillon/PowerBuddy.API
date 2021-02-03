@@ -32,7 +32,7 @@ namespace PowerBuddy.App.Commands.LiftingStats
         }
     }
 
-    public class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, OneOf<bool, LiftingStatNotFound, UserNotFound>>>
+    public class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, OneOf<bool, LiftingStatNotFound, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

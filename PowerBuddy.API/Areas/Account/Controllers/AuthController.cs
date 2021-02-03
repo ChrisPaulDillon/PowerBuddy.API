@@ -88,16 +88,17 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var authResultOneOf = await _mediator.Send(new RegisterUserCommand(userDTO));
 
-                if (authResultOneOf != null)
+                if (authResultOneOf.AsT0 != null)
                 {
-                   await _mediator.Send(new SendConfirmEmailCommand(authResultOneOf.UserId));
+                   await _mediator.Send(new SendConfirmEmailCommand(authResultOneOf.AsT0.UserId));
                 }
 
-                return Ok(authResultOneOf);
+                return authResultOneOf.Match<IActionResult>(Ok,
+                    EmailOrUserNameInUse => Conflict(Errors.Create(nameof(EmailOrUserNameInUse))));
             }
-            catch (EmailOrUserNameInUseException ex)
+            catch (ValidationException ex)
             {
-                return Conflict(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -128,17 +129,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new RefreshTokenCommand(refreshTokenRequest.RefreshToken));
-                return Ok(result);
+
+                return result.Match<IActionResult>(Ok,
+                    RefreshTokenNotFound =>
+                        BadRequest(Errors.Create(nameof(RefreshTokenNotFound), RefreshTokenNotFound.Message)),
+                    InvalidRefreshToken =>
+                        BadRequest(Errors.Create(nameof(InvalidRefreshToken), InvalidRefreshToken.Message)));
+
             }
             catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (RefreshTokenNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (InvalidRefreshTokenException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -152,11 +151,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDTO));
-                return Ok(result);
+
+                return result.Match<IActionResult>(Ok,
+                    UserNotFound =>
+                        BadRequest(Errors.Create(nameof(UserNotFound))));
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -170,15 +172,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDTO, _userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(Ok,
+                    UserNotFound =>
+                        NotFound(Errors.Create(nameof(UserNotFound))),
+                    InvalidCredentials => BadRequest(Errors.Create(nameof(InvalidCredentials))));
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return NotFound(new { Code = nameof(UserNotFoundException), ex.Message });
-            }
-            catch (InvalidCredentialsException ex)
-            {
-                return BadRequest(new { Code = nameof(InvalidCredentialsException), ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -190,11 +192,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new VerifyEmailCommand(userId, token.Token));
-                return Ok(result);
+
+                return result.Match<IActionResult>(Ok,
+                    UserNotFound =>
+                        NotFound(Errors.Create(nameof(UserNotFound))));
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -208,11 +213,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new RequestSmsVerificationCommand(phoneNumber.PhoneNumber, _userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(Ok,
+                    UserNotFound =>
+                        NotFound(Errors.Create(nameof(UserNotFound))));
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -225,11 +233,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new SendSmsVerificationCommand(input.PhoneNumber, input.Code, _userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(Ok,
+                    UserNotFound =>
+                        NotFound(Errors.Create(nameof(UserNotFound))));
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
+                return BadRequest(ex.Message);
             }
         }
     }

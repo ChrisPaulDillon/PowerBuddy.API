@@ -14,7 +14,7 @@ using PowerBuddy.Data.Models.System;
 
 namespace PowerBuddy.App.Commands.Quotes
 {
-    public class UpdateQuoteCommand : IRequest<OneOf<bool, UserNotFound, QuoteNotFound>>>
+    public class UpdateQuoteCommand : IRequest<OneOf<bool, UserNotFound, QuoteNotFound>>
     {
         public QuoteDTO QuoteDTO { get; }
         public string UserId { get; }
@@ -34,7 +34,7 @@ namespace PowerBuddy.App.Commands.Quotes
         }
     }
 
-    public class UpdateQuoteCommandHandler : IRequestHandler<UpdateQuoteCommand, OneOf<bool, UserNotFound, QuoteNotFound>>>
+    public class UpdateQuoteCommandHandler : IRequestHandler<UpdateQuoteCommand, OneOf<bool, UserNotFound, QuoteNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

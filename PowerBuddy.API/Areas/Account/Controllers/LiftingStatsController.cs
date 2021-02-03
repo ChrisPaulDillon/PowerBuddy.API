@@ -84,19 +84,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new DeleteLiftingStatAuditCommand(liftingStatAuditId, _userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(Ok,
+                    LiftingStatNotFound => NotFound(Errors.Create(nameof(LiftingStatNotFound))),
+                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (LiftingStatNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return Unauthorized(ex.Message);
             }
         }
     }
