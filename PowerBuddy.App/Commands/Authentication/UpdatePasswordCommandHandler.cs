@@ -5,14 +5,15 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Commands.Authentication.Models;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
-    public class UpdatePasswordCommand : IRequest<bool>
+    public class UpdatePasswordCommand : IRequest<OneOf<bool, UserNotFound, InvalidCredentials>>
     {
         public ChangePasswordInputGuiDTO ChangePasswordInput { get; }
         public string UserId { get; }
@@ -34,7 +35,7 @@ namespace PowerBuddy.App.Commands.Authentication
         }
     }
 
-    public class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordCommand, bool>
+    public class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordCommand, OneOf<bool, UserNotFound, InvalidCredentials>>
     {
         private readonly PowerLiftingContext _context;
         private readonly UserManager<User> _userManager;
@@ -45,14 +46,14 @@ namespace PowerBuddy.App.Commands.Authentication
             _userManager = userManager;
         }
 
-        public async Task<bool> Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, UserNotFound, InvalidCredentials>> Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.User.Where(x => x.Id == request.UserId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (user == null)
             {
-                throw new UserNotFoundException();
+                return new UserNotFound();
             }
 
             var hasCorrectPassword =
@@ -60,7 +61,7 @@ namespace PowerBuddy.App.Commands.Authentication
 
             if (!hasCorrectPassword)
             {
-                throw new InvalidCredentialsException();
+                return new InvalidCredentials();
             }
 
             var result = await _userManager.ChangePasswordAsync(user, request.ChangePasswordInput.OldPassword,

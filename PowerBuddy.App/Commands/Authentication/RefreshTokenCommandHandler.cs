@@ -5,15 +5,16 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PowerBuddy.App.Commands.Authentication.Exceptions;
+using OneOf;
 using PowerBuddy.App.Services.Authentication;
 using PowerBuddy.App.Services.Authentication.Models;
 using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Data.Models.Auth;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
-    public class RefreshTokenCommand : IRequest<AuthenticationResultDTO>
+    public class RefreshTokenCommand : IRequest<OneOf<AuthenticationResultDTO, RefreshTokenNotFound, InvalidRefreshToken>>
     {
         public string RefreshToken { get; }
 
@@ -31,7 +32,7 @@ namespace PowerBuddy.App.Commands.Authentication
         }
     }
 
-    public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, AuthenticationResultDTO>
+    public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, OneOf<AuthenticationResultDTO, RefreshTokenNotFound, InvalidRefreshToken>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -46,28 +47,28 @@ namespace PowerBuddy.App.Commands.Authentication
             _authService = authService;
         }
 
-        public async Task<AuthenticationResultDTO> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<AuthenticationResultDTO, RefreshTokenNotFound, InvalidRefreshToken>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
             var refreshToken = await _context.RefreshToken.FirstOrDefaultAsync(x => x.Token == request.RefreshToken);
 
             if (refreshToken == null)
             {
-                throw new RefreshTokenNotFoundException("Refresh Token does not exist");
+                return new RefreshTokenNotFound("Refresh Token does not exist");
             }
 
             if (DateTime.UtcNow > refreshToken.ExpiryDate)
             {
-                throw new InvalidRefreshTokenException("Refresh Token has expired");
+                return new InvalidRefreshToken("Refresh Token has expired");
             }
 
             if (refreshToken.Invalidated)
             {
-                throw new InvalidRefreshTokenException("Refresh Token has been invalidated");
+                return new InvalidRefreshToken("Refresh Token has been invalidated");
             }
 
             if (refreshToken.IsUsed)
             {
-                throw new InvalidRefreshTokenException("Refresh token has been used");
+                return new InvalidRefreshToken("Refresh token has been used");
             }
 
             refreshToken.IsUsed = true;

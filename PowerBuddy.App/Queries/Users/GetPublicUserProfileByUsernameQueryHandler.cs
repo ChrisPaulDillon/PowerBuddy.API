@@ -6,13 +6,14 @@ using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Queries.Users
 {
-    public class GetPublicUserProfileByUsernameQuery : IRequest<PublicUserDTO>
+    public class GetPublicUserProfileByUsernameQuery : IRequest<OneOf<PublicUserDTO, UserNotFound>>
     {
         public string Username { get; }
 
@@ -30,7 +31,7 @@ namespace PowerBuddy.App.Queries.Users
         }
     }
 
-    internal class GetPublicUserProfileByUsernameQueryHandler : IRequestHandler<GetPublicUserProfileByUsernameQuery, PublicUserDTO>
+    internal class GetPublicUserProfileByUsernameQueryHandler : IRequestHandler<GetPublicUserProfileByUsernameQuery, OneOf<PublicUserDTO, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -40,14 +41,17 @@ namespace PowerBuddy.App.Queries.Users
             _mapper = mapper;
         }
 
-        public async Task<PublicUserDTO> Handle(GetPublicUserProfileByUsernameQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<PublicUserDTO, UserNotFound>> Handle(GetPublicUserProfileByUsernameQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User.Where(x => x.NormalizedUserName == request.Username.ToUpper())
                 .AsNoTracking()
                 .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (user == null) throw new UserNotFoundException();
+            if (user == null)
+            {
+                return new UserNotFound();
+            }
 
             return user;
         }

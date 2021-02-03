@@ -161,10 +161,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (TemplateExercise1RMNotSetForUserException ex)
-            {
-                return Conflict(ex.Message);
-            }
             catch (WorkoutDaysDoesNotMatchTemplateDaysException ex)
             {
                 return BadRequest(ex.Message);

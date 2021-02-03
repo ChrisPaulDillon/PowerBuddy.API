@@ -4,14 +4,15 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 using PowerBuddy.SmsService;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
-    public class RequestSmsVerificationCommand : IRequest<string>
+    public class RequestSmsVerificationCommand : IRequest<OneOf<string, UserNotFound>>
     {
         public string UserId { get; }
         public string PhoneNumber { get; }
@@ -32,7 +33,7 @@ namespace PowerBuddy.App.Commands.Authentication
         }
     }
 
-    public class RequestSmsVerificationCommandHandler : IRequestHandler<RequestSmsVerificationCommand, string>
+    public class RequestSmsVerificationCommandHandler : IRequestHandler<RequestSmsVerificationCommand, OneOf<string, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly UserManager<User> _userManager;
@@ -45,13 +46,16 @@ namespace PowerBuddy.App.Commands.Authentication
             _smsClient = smsClient;
         }
 
-        public async Task<string> Handle(RequestSmsVerificationCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<string, UserNotFound>> Handle(RequestSmsVerificationCommand request, CancellationToken cancellationToken)
         {
             var doesUserExist = await _context.User
                 .AsNoTracking()
                 .AnyAsync(x => x.Id == request.UserId);
 
-            if (!doesUserExist) throw new UserNotFoundException();
+            if (!doesUserExist)
+            {
+                return new UserNotFound();
+            }
 
             var result = await  _smsClient.SendPhoneNumberVerification(request.PhoneNumber);
 

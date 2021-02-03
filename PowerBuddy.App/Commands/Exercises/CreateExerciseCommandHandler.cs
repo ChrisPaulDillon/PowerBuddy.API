@@ -7,11 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Exercises;
+using PowerBuddy.Data.Models.Exercises;
+using OneOf;
 
 namespace PowerBuddy.App.Commands.Exercises
 {
-    public class CreateExerciseCommand : IRequest<ExerciseDTO>
+    public class CreateExerciseCommand : IRequest<OneOf<ExerciseDTO, ExerciseAlreadyExists>>
     {
         public CExerciseDTO Exercise { get; }
 
@@ -29,7 +30,7 @@ namespace PowerBuddy.App.Commands.Exercises
         }
     }
 
-    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, ExerciseDTO>
+    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, OneOf<ExerciseDTO, ExerciseAlreadyExists>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -40,13 +41,16 @@ namespace PowerBuddy.App.Commands.Exercises
             _mapper = mapper;
         }
 
-        public async Task<ExerciseDTO> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<ExerciseDTO, ExerciseAlreadyExists>> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
         {
             var doesExist = await _context.Exercise
                 .AsNoTracking()
                 .AnyAsync(x => x.ExerciseName == request.Exercise.ExerciseName);
 
-            if (doesExist) throw new ExerciseAlreadyExistsException();
+            if (doesExist)
+            {
+                return new ExerciseAlreadyExists();
+            }
 
             var exercise = _mapper.Map<Exercise>(request.Exercise);
             _context.Add(exercise);

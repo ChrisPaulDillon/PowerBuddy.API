@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace PowerBuddy.App.Commands.Authentication
+namespace PowerBuddy.App.Commands.Authentication.Configuration
 {
     public static class AuthenticationServicesConfiguration
     {

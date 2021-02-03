@@ -4,13 +4,14 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Users
 {
-    public class CreateFirstVisitStatsCommand : IRequest<bool>
+    public class CreateFirstVisitStatsCommand : IRequest<OneOf<bool, UserNotFound>>
     {
         public FirstVisitDTO FirstVisitDTO { get; }
         public string UserId { get; }
@@ -31,20 +32,22 @@ namespace PowerBuddy.App.Commands.Users
         }
     }
 
-    public class CreateFirstVisitStatsCommandHandler : IRequestHandler<CreateFirstVisitStatsCommand, bool>
+    public class CreateFirstVisitStatsCommandHandler : IRequestHandler<CreateFirstVisitStatsCommand, OneOf<bool, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
-        public CreateFirstVisitStatsCommandHandler(PowerLiftingContext context, IMapper mapper)
+
+        public CreateFirstVisitStatsCommandHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
-        public async Task<bool> Handle(CreateFirstVisitStatsCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, UserNotFound>> Handle(CreateFirstVisitStatsCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.User.FirstOrDefaultAsync(x => x.Id == request.UserId , cancellationToken: cancellationToken);
-            if (user == null) throw new UserNotFoundException();
+            if (user == null)
+            {
+                return new UserNotFound();
+            }
 
             //TODO fix
             user.GenderId = request.FirstVisitDTO.GenderId;

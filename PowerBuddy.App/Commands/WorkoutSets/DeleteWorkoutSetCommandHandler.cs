@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -34,14 +33,12 @@ namespace PowerBuddy.App.Commands.WorkoutSets
     public class DeleteWorkoutSetCommandHandler : IRequestHandler<DeleteWorkoutSetCommand, bool>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
-        private readonly IWorkoutService _programLogService;
+        private readonly IWorkoutService _workoutService;
 
-        public DeleteWorkoutSetCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService programLogService)
+        public DeleteWorkoutSetCommandHandler(PowerLiftingContext context,  IWorkoutService workoutService)
         {
             _context = context;
-            _mapper = mapper;
-            _programLogService = programLogService;
+            _workoutService = workoutService;
         }
 
         public async Task<bool> Handle(DeleteWorkoutSetCommand request, CancellationToken cancellationToken)
@@ -76,7 +73,7 @@ namespace PowerBuddy.App.Commands.WorkoutSets
             }
 
             // Update tonnage
-            workoutExercise.WorkoutExerciseTonnage = await _programLogService.UpdateExerciseTonnage(workoutExercise, request.UserId);
+            workoutExercise.WorkoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExercise, request.UserId);
             _context.WorkoutSet.Remove(workoutSet);
 
             var changedRows = await _context.SaveChangesAsync(cancellationToken);

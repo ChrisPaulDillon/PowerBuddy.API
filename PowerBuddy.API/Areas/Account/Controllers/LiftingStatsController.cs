@@ -52,10 +52,10 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var liftingStatDetailed = await _mediator.Send(new GetLiftingStatSummaryByExerciseIdQuery(exerciseId, _userId));
-                liftingStatDetailed.LiftingStats = await _weightOutputService.ConvertPersonalBests(liftingStatDetailed.LiftingStats, _userId, null);
-                liftingStatDetailed.LifeTimeTonnage = await _weightOutputService.ConvertGenericWeight(liftingStatDetailed.LifeTimeTonnage, _userId, null);
-                return Ok(liftingStatDetailed);
+                var liftingStatOneOf = await _mediator.Send(new GetLiftingStatSummaryByExerciseIdQuery(exerciseId, _userId));
+                liftingStatOneOf.AsT0.LiftingStats = await _weightOutputService.ConvertPersonalBests(liftingStatOneOf.AsT0.LiftingStats, _userId, null);
+                liftingStatOneOf.AsT0.LifeTimeTonnage = await _weightOutputService.ConvertGenericWeight(liftingStatOneOf.AsT0.LifeTimeTonnage, _userId, null);
+                return Ok(liftingStatOneOf);
             }
             catch (ValidationException ex)
             {

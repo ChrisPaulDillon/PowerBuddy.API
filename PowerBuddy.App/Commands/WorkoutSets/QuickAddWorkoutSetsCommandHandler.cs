@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Workouts;
+using PowerBuddy.Data.s.Workouts;
 
 namespace PowerBuddy.App.Commands.WorkoutSets
 {
@@ -50,14 +50,14 @@ namespace PowerBuddy.App.Commands.WorkoutSets
                 .Include(x => x.WorkoutSets)
                 .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetList[0].WorkoutExerciseId);
 
-            if (workoutExercise == null) throw new WorkoutExerciseNotFoundException();
+            if (workoutExercise == null) return new WorkoutExerciseNotFound();
 
             var workoutDay = await _context.WorkoutDay
                 .FirstOrDefaultAsync(x => x.WorkoutDayId == workoutExercise.WorkoutDayId && x.UserId == request.UserId);
 
             if (workoutDay == null)
             {
-                throw new WorkoutDayNotFoundException();
+                return new WorkoutDayNotFound();
             }
 
             workoutDay.Completed = false;

@@ -5,18 +5,19 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.App.Services.Workouts.Models;
 using PowerBuddy.App.Services.Workouts.Util;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
-using PowerBuddy.Data.Exceptions.Exercises;
-using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Data.Factories;
+using PowerBuddy.Data.Models.Exercises;
+using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Commands.WorkoutExercises
 {
-    public class CreateWorkoutExerciseCommand : IRequest<WorkoutExerciseDTO>
+    public class CreateWorkoutExerciseCommand : IRequest<OneOf<WorkoutExerciseDTO, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>>
     {
         public CreateWorkoutExerciseDTO CreateWorkoutExerciseDTO { get; }
         public string UserId { get; }
@@ -39,7 +40,7 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
         }
     }
 
-    public class CreateWorkoutExerciseCommandHandler : IRequestHandler<CreateWorkoutExerciseCommand, WorkoutExerciseDTO>
+    public class CreateWorkoutExerciseCommandHandler : IRequestHandler<CreateWorkoutExerciseCommand, OneOf<WorkoutExerciseDTO, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -54,10 +55,13 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
             _entityFactory = entityFactory;
         }
 
-        public async Task<WorkoutExerciseDTO> Handle(CreateWorkoutExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<WorkoutExerciseDTO, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>> Handle(CreateWorkoutExerciseCommand request, CancellationToken cancellationToken)
         {
             var workoutDay = await _context.WorkoutDay.FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDTO.WorkoutDayId);
-            if (workoutDay == null) throw new WorkoutDayNotFoundException();
+            if (workoutDay == null)
+            {
+                return new WorkoutDayNotFound();
+            }
 
             workoutDay.Completed = false; //day is no longer completed if an exercise is added to it
 
@@ -69,7 +73,7 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
 
             if (exerciseName == null || string.IsNullOrWhiteSpace(exerciseName))
             {
-                throw new ExerciseNotFoundException();
+                return new ExerciseNotFound();
             }
 
             var workoutExerciseEntity = await _context.WorkoutExercise
@@ -90,7 +94,7 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
                 var totalNoOfSets = workoutExerciseEntity.WorkoutSets.Count() + noOfSetsToAdd;
                 if (totalNoOfSets >= WorkoutConstants.MAX_NO_OF_SETS)
                 {
-                    throw new ReachedMaxSetsOnExerciseException();
+                    return new ReachedMaxSetsOnExercise();
                 }
 
                 for (var i = 1; i < noOfSetsToAdd + 1; i++)

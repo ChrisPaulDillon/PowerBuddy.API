@@ -4,12 +4,13 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Exceptions.Workouts;
+using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Commands.Workouts
 {
-    public class DeleteWorkoutLogCommand : IRequest<bool>
+    public class DeleteWorkoutLogCommand : IRequest<OneOf<bool, WorkoutLogNotFound>>
     {
         public int WorkoutLogId { get; }
         public string UserId { get; }
@@ -30,7 +31,7 @@ namespace PowerBuddy.App.Commands.Workouts
         }
     }
 
-    public class DeleteWorkoutLogCommandHandler : IRequestHandler<DeleteWorkoutLogCommand, bool>
+    public class DeleteWorkoutLogCommandHandler : IRequestHandler<DeleteWorkoutLogCommand, OneOf<bool, WorkoutLogNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -41,14 +42,14 @@ namespace PowerBuddy.App.Commands.Workouts
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(DeleteWorkoutLogCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, WorkoutLogNotFound>> Handle(DeleteWorkoutLogCommand request, CancellationToken cancellationToken)
         {
             var workoutLog = await _context.WorkoutLog
                 .FirstOrDefaultAsync(x => x.WorkoutLogId == request.WorkoutLogId && x.UserId == request.UserId);
 
             if (workoutLog == null)
             {
-                throw new WorkoutLogNotFoundException();
+                return new WorkoutLogNotFound();
             }
 
             _context.WorkoutLog.Remove(workoutLog);

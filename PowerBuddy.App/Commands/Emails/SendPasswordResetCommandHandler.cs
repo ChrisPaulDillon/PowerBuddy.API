@@ -6,16 +6,17 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Commands.Emails.Models;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 using PowerBuddy.EmailService;
 using PowerBuddy.EmailService.Models;
 
 namespace PowerBuddy.App.Commands.Emails
 {
-    public class SendPasswordResetCommand : IRequest<Unit>
+    public class SendPasswordResetCommand : IRequest<OneOf<Unit, UserNotFound>>
     {
         public string EmailAddress { get; }
 
@@ -33,7 +34,7 @@ namespace PowerBuddy.App.Commands.Emails
         }
     }
 
-    public class SendPasswordResetCommandHandler : IRequestHandler<SendPasswordResetCommand, Unit>
+    public class SendPasswordResetCommandHandler : IRequestHandler<SendPasswordResetCommand, OneOf<Unit, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IEmailAssistant _emailHelper;
@@ -48,14 +49,17 @@ namespace PowerBuddy.App.Commands.Emails
             _userManager = userManager;
         }
 
-        public async Task<Unit> Handle(SendPasswordResetCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<Unit, UserNotFound>> Handle(SendPasswordResetCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.User
                 .AsNoTracking()
                 .Where(x => x.NormalizedEmail.Equals(request.EmailAddress.ToUpper()))
                 .FirstOrDefaultAsync();
 
-            if (user == null) throw new UserNotFoundException();
+            if (user == null)
+            {
+                return new UserNotFound();
+            }
 
             //var emailTemplate = await _context.EmailTemplate
             //    .AsNoTracking()

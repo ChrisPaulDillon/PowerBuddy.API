@@ -5,9 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
-using PowerBuddy.Data.Models;
-using OneOf;
-using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Pipelines
 {
@@ -32,7 +29,7 @@ namespace PowerBuddy.App.Pipelines
 
             if (failures.Any())
             {
-                throw new FluentValidation.ValidationException(failures);
+                return new FluentValidation.Validation(failures);
             }
 
             return await next();

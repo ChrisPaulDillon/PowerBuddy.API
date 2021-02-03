@@ -49,7 +49,7 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
         {
             //var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
-            //if (!isUserAdmin) throw new UserNotFoundException();
+            //if (!isUserAdmin) return new UserNotFound();
 
             var exercisesAlreadyExist = await _context.TemplateExerciseCollection.AsNoTracking().AnyAsync(x => x.TemplateProgramId == request.TemplateProgramId);
 

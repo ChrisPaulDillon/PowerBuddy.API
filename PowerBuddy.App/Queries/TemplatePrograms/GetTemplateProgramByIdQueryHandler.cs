@@ -6,13 +6,14 @@ using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Templates;
-using PowerBuddy.Data.Exceptions.TemplatePrograms;
+using PowerBuddy.Data.Models.TemplatePrograms;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
-    public class GetTemplateProgramByIdQuery : IRequest<TemplateProgramExtendedDTO>
+    public class GetTemplateProgramByIdQuery : IRequest<OneOf<TemplateProgramExtendedDTO, TemplateProgramNotFound>>
     {
         public int TemplateProgramId { get; }
 
@@ -30,7 +31,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
         }
     }
 
-    internal class GetTemplateProgramByIdQueryHandler : IRequestHandler<GetTemplateProgramByIdQuery, TemplateProgramExtendedDTO>
+    internal class GetTemplateProgramByIdQueryHandler : IRequestHandler<GetTemplateProgramByIdQuery, OneOf<TemplateProgramExtendedDTO, TemplateProgramNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -41,14 +42,18 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
             _mapper = mapper;
         }
 
-        public async Task<TemplateProgramExtendedDTO> Handle(GetTemplateProgramByIdQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<TemplateProgramExtendedDTO, TemplateProgramNotFound>> Handle(GetTemplateProgramByIdQuery request, CancellationToken cancellationToken)
         {
             var templateProgram = await _context.TemplateProgram.AsNoTracking()
                 .Where(x => x.TemplateProgramId == request.TemplateProgramId)
                 .ProjectTo<TemplateProgramExtendedDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (templateProgram == null) throw new TemplateProgramNotFoundException();
+            if (templateProgram == null)
+            {
+                return new TemplateProgramNotFound();
+            }
+
             return templateProgram;
         }
     }

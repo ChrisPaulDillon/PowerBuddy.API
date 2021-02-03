@@ -8,7 +8,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Factories;
 
 namespace PowerBuddy.App.Commands.ProgramLogDays
@@ -51,20 +50,20 @@ namespace PowerBuddy.App.Commands.ProgramLogDays
 
         public async Task<ProgramLogDay> Handle(MoveProgramLogDayCommand request, CancellationToken cancellationToken)
         {
-            if (request.UserId != request.ProgramLogDayDTO.UserId) throw new UserNotFoundException();
+           // if (request.UserId != request.ProgramLogDayDTO.UserId) return new UserNotFound();
 
             var programLogWeek = await _context.ProgramLogWeek
                 .AsNoTracking()
                 .Where(x => x.ProgramLogWeekId == request.ProgramLogDayDTO.ProgramLogWeekId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-          //  if (programLogWeek == null) throw new ProgramLogWeekNotFoundException();
+          //  if (programLogWeek == null) return new ProgramLogWeekNotFound();
 
             var programLogOnMoveDate = programLogWeek.ProgramLogDays.FirstOrDefault(x => x.Date.Date.CompareTo(request.ProgramLogDayDTO.Date) == 0);
 
             if (programLogOnMoveDate != null && programLogOnMoveDate.ProgramLogExercises.Any())
             {
-                //throw new ProgramLogDayOnDateAlreadyActiveException();
+                //return new ProgramLogDayOnDateAlreadyActive();
             }
 
             if (programLogOnMoveDate != null) //swap the original day with the new one

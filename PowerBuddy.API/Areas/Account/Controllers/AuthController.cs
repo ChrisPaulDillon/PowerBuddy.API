@@ -46,28 +46,17 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var userLoggedInProfile = await _mediator.Send(new LoginUserQuery(loginModel));
-                return Ok(userLoggedInProfile);
+                var loginOneOf = await _mediator.Send(new LoginUserQuery(loginModel));
+
+                return loginOneOf.Match<IActionResult>(Ok,
+                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))),
+                    EmailNotConfirmed => BadRequest(Errors.Create(nameof(EmailNotConfirmed), EmailNotConfirmed.UserId)),
+                    AccountLockout => Conflict(Errors.Create(nameof(AccountLockout))),
+                    InvalidCredentials => BadRequest(Errors.Create(nameof(InvalidCredentials))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(new { Code = nameof(ValidationException), ex.Message });
-            }
-            catch (InvalidCredentialsException ex)
-            {
-                return BadRequest(new { Code = nameof(InvalidCredentialsException), ex.Message });
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(new { Code = nameof(UserNotFoundException), ex.Message });
-            }
-            catch (AccountLockoutException ex)
-            {
-                return Conflict(new { Code = nameof(AccountLockoutException), ex.Message });
-            }
-            catch (EmailNotConfirmedException ex)
-            {
-                return BadRequest(new { Code = nameof(EmailNotConfirmedException), ex.Message });
             }
         }
 
@@ -80,8 +69,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var userLoggedInProfile =
-                    await _mediator.Send(new LoginWithFacebookQuery(facebookAuthRequest.AccessToken));
+                var userLoggedInProfile = await _mediator.Send(new LoginWithFacebookQuery(facebookAuthRequest.AccessToken));
                 return Ok(userLoggedInProfile);
             }
             catch (HttpRequestException ex)
@@ -98,14 +86,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var authenticatedUser = await _mediator.Send(new RegisterUserCommand(userDTO));
+                var authResultOneOf = await _mediator.Send(new RegisterUserCommand(userDTO));
 
-                if (authenticatedUser != null)
+                if (authResultOneOf != null)
                 {
-                   await _mediator.Send(new SendConfirmEmailCommand(authenticatedUser.UserId));
+                   await _mediator.Send(new SendConfirmEmailCommand(authResultOneOf.UserId));
                 }
 
-                return Ok(authenticatedUser);
+                return Ok(authResultOneOf);
             }
             catch (EmailOrUserNameInUseException ex)
             {
@@ -156,7 +144,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-        [HttpPost("ChangePassword/Token/{userId}")]
+        [HttpPost("ResetPassword/Token/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ResetPasswordViaEmail(string userId, [FromBody] ChangePasswordInputDTO changePasswordInputDTO)
@@ -169,6 +157,28 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (UserNotFoundException ex)
             {
                 return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
+            }
+        }
+
+        [HttpPut("UpdatePassword")]
+        [Authorize]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordInputGuiDTO changePasswordInputDTO)
+        {
+            try
+            {
+                var result = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDTO, _userId));
+                return Ok(result);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(new { Code = nameof(UserNotFoundException), ex.Message });
+            }
+            catch (InvalidCredentialsException ex)
+            {
+                return BadRequest(new { Code = nameof(InvalidCredentialsException), ex.Message });
             }
         }
 
@@ -220,29 +230,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (UserNotFoundException ex)
             {
                 return Unauthorized(new { Code = nameof(UserNotFoundException), ex.Message });
-            }
-        }
-
-
-        [HttpPut("UpdatePassword")]
-        [Authorize]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordInputGuiDTO changePasswordInputDTO)
-        {
-            try
-            {
-                var result = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDTO, _userId));
-                return Ok(result);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(new { Code = nameof(UserNotFoundException), ex.Message });
-            }
-            catch (InvalidCredentialsException ex)
-            {
-                return BadRequest(new { Code = nameof(InvalidCredentialsException), ex.Message });
             }
         }
     }

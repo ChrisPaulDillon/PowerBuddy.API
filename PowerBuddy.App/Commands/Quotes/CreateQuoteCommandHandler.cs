@@ -4,14 +4,15 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.System;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Quotes
 {
-    public class CreateQuoteCommand : IRequest<QuoteDTO>
+    public class CreateQuoteCommand : IRequest<OneOf<QuoteDTO, UserNotFound>>
     {
         public QuoteDTO QuoteDTO { get; }
         public string UserId { get; }
@@ -31,7 +32,7 @@ namespace PowerBuddy.App.Commands.Quotes
         }
     }
 
-    public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, QuoteDTO>
+    public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, OneOf<QuoteDTO, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -41,11 +42,14 @@ namespace PowerBuddy.App.Commands.Quotes
             _mapper = mapper;
         }
 
-        public async Task<QuoteDTO> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<QuoteDTO, UserNotFound>> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
-            if (!isUserAdmin) throw new UserNotFoundException();
+            if (!isUserAdmin)
+            {
+                return new UserNotFound();
+            }
 
             var quoteEntity = _mapper.Map<Quote>(request.QuoteDTO); //TODO validate request
             _context.Quote.Add(quoteEntity);
