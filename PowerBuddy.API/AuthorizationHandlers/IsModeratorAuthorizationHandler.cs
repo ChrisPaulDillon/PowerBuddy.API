@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using PowerBuddy.API.Extensions;
-using PowerBuddy.Services.Account;
+using PowerBuddy.App.Services.Account;
 
 namespace PowerBuddy.API.AuthorizationHandlers
 {

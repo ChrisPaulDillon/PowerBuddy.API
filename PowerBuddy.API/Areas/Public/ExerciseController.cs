@@ -5,9 +5,9 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
+using PowerBuddy.App.Queries.Exercises;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Exceptions.Exercises;
-using PowerBuddy.MediatR.Queries.Exercises;
 
 namespace PowerBuddy.API.Areas.Public
 {

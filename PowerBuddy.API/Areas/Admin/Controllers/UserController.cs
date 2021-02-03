@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
+using PowerBuddy.App.Commands.Users;
+using PowerBuddy.App.Queries.Users;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.MediatR.Commands.Users;
-using PowerBuddy.MediatR.Queries.Users;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {

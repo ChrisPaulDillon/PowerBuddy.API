@@ -4,10 +4,10 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
+using PowerBuddy.App.Commands.TemplatePrograms;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
-using PowerBuddy.MediatR.Commands.TemplatePrograms;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {
