@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
+using PowerBuddy.App.Commands.Workouts;
+using PowerBuddy.App.Queries.Workouts;
+using PowerBuddy.App.Queries.Workouts.Models;
+using PowerBuddy.App.Services.Weights;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
 using PowerBuddy.Data.Exceptions.Workouts;
-using PowerBuddy.MediatR.Commands.Workouts;
-using PowerBuddy.MediatR.Queries.Workouts;
-using PowerBuddy.MediatR.Queries.Workouts.Models;
-using PowerBuddy.Services.Weights;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

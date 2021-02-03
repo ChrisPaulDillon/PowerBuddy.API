@@ -24,15 +24,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PowerBuddy.API\PowerBuddy.API.csproj" />
+    <ProjectReference Include="..\PowerBuddy.App\PowerBuddy.App.csproj" />
     <ProjectReference Include="..\PowerBuddy.AuthenticationService\PowerBuddy.AuthenticationService.csproj" />
     <ProjectReference Include="..\PowerBuddy.Context\PowerBuddy.Data.Context.csproj" />
     <ProjectReference Include="..\PowerBuddy.Data.Builders\PowerBuddy.Data.Builders.csproj" />
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
     <ProjectReference Include="..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj" />
-    <ProjectReference Include="..\PowerBuddy.MediatR.Commands\PowerBuddy.MediatR.Commands.csproj" />
-    <ProjectReference Include="..\PowerBuddy.MediatR.Queries\PowerBuddy.MediatR.Queries.csproj" />
-    <ProjectReference Include="..\PowerBuddy.Repositories\PowerBuddy.Repositories.csproj" />
-    <ProjectReference Include="..\PowerBuddy.Services\PowerBuddy.Services.csproj" />
     <ProjectReference Include="..\PowerBuddy.SignalR\PowerBuddy.SignalR.csproj" />
     <ProjectReference Include="..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj" />
     <ProjectReference Include="..\PowerBuddy.Util\PowerBuddy.Util.csproj" />

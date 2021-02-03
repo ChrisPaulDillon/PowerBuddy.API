@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
+using PowerBuddy.App.Commands.LiftingStats;
+using PowerBuddy.App.Queries.LiftingStats;
+using PowerBuddy.App.Queries.TemplatePrograms;
+using PowerBuddy.App.Services.Weights;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.LiftingStats;
-using PowerBuddy.MediatR.Commands.LiftingStats;
-using PowerBuddy.MediatR.Queries.LiftingStats;
-using PowerBuddy.MediatR.Queries.TemplatePrograms;
-using PowerBuddy.Services.Weights;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

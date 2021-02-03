@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PowerBuddy.App.Repositories.System;
 using PowerBuddy.Data.DTOs.System;
-using PowerBuddy.Services.System;
 
 namespace PowerBuddy.API.Areas.Public
 {

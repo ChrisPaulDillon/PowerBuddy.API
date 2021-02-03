@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using PowerBuddy.App.Commands.WorkoutTemplates;
 using PowerBuddy.Data.Builders.DTOs.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.MediatR.Commands.Workouts;
-using PowerBuddy.MediatR.Commands.WorkoutTemplates;
 using Xunit;
 
 namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates

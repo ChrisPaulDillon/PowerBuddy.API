@@ -3,11 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PowerBuddy.App.Commands.WorkoutTemplates;
 using PowerBuddy.Data.Builders.DTOs.Workouts;
 using PowerBuddy.Data.Builders.Entities.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.MediatR.Commands.WorkoutTemplates;
 using Xunit;
 
 namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
@@ -45,7 +45,7 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
         }
 
         [Fact]
-        public async Task Handle_WorkoutExistsWrongUser_ReturnsWorkoutTemplate()
+        public async Task Handle_WorkoutExistsWrongUser_ReturnsFalse()
         {
             // Arrange
             var workoutTemplateId = _random.Next();
@@ -65,23 +65,24 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
         }
 
         [Fact]
-        public async Task Handle_WorkoutExistsWrongUser_ReturnsWorkoutTemplate()
+        public async Task Handle_WorkoutExistsIsDeleted_ReturnsTrue()
         {
             // Arrange
             var workoutTemplateId = _random.Next();
+            var userId = _random.Next().ToString();
 
-            var workoutTemplate = new WorkoutTemplateBuilder().WithWorkoutTemplateId(workoutTemplateId).Build();
+            var workoutTemplate = new WorkoutTemplateBuilder().WithWorkoutTemplateId(workoutTemplateId).WithUserId(userId).Build();
 
             _context.WorkoutTemplate.Add(workoutTemplate);
             await _context.SaveChangesAsync();
 
-            var command = new DeleteWorkoutTemplateCommand(workoutTemplateId, _random.Next().ToString());
+            var command = new DeleteWorkoutTemplateCommand(workoutTemplateId, userId);
 
             // Act
             // Assert
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            Assert.False(result);
+            Assert.True(result);
         }
     }
 }

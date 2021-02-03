@@ -5,10 +5,10 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
+using PowerBuddy.App.Commands.TemplatePrograms;
+using PowerBuddy.App.Queries.TemplatePrograms;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
-using PowerBuddy.MediatR.Commands.TemplatePrograms;
-using PowerBuddy.MediatR.Queries.TemplatePrograms;
 
 namespace PowerBuddy.API.Areas.Public
 {

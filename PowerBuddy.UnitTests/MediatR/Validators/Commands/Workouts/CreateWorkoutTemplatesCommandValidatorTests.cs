@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PowerBuddy.App.Commands.WorkoutTemplates;
 using PowerBuddy.Data.Builders.DTOs.Workouts;
 using PowerBuddy.Data.DTOs.Workouts;
-using PowerBuddy.MediatR.Commands.Workouts;
-using PowerBuddy.MediatR.Commands.WorkoutTemplates;
 using Xunit;
 
 namespace PowerBuddy.UnitTests.MediatR.Validators.Commands.Workouts
