@@ -5,13 +5,15 @@ using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Repositories.Exercises;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Exercises;
+using PowerBuddy.Data.Models.Exercises;
 
 namespace PowerBuddy.App.Queries.Exercises
 {
-    public class GetExerciseByIdQuery : IRequest<ExerciseDTO>
+    public class GetExerciseByIdQuery : IRequest<OneOf<ExerciseDTO, ExerciseNotFound>>
     {
         public int ExerciseId { get; }
 
@@ -29,7 +31,7 @@ namespace PowerBuddy.App.Queries.Exercises
         }
     }
 
-    internal class GetExerciseByIdQueryHandler : IRequestHandler<GetExerciseByIdQuery, ExerciseDTO>
+    internal class GetExerciseByIdQueryHandler : IRequestHandler<GetExerciseByIdQuery, OneOf<ExerciseDTO, ExerciseNotFound>>
     {
         private readonly IExerciseRepository _exerciseRepo;
         private readonly PowerLiftingContext _context;
@@ -42,12 +44,19 @@ namespace PowerBuddy.App.Queries.Exercises
             _mapper = mapper;
         }
 
-        public async Task<ExerciseDTO> Handle(GetExerciseByIdQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<ExerciseDTO, ExerciseNotFound>> Handle(GetExerciseByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Exercise
+            var exercise =  await _context.Exercise
                 .AsNoTracking()
                 .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(x => x.ExerciseId == request.ExerciseId);
+
+            if (exercise == null)
+            {
+                return new ExerciseNotFound();
+            }
+
+            return exercise;
         }
     }
 }
