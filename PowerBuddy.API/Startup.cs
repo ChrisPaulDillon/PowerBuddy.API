@@ -42,13 +42,13 @@ namespace PowerBuddy.API
             Configuration = configuration;
         }
 
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var test = Configuration.GetValue<string>("CorsPolicyClientUrl");
+
+	        services.AddMetrics();
 
             services.AddCors(options =>
             {
