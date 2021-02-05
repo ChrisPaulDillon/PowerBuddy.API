@@ -53,9 +53,17 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var liftingStatOneOf = await _mediator.Send(new GetLiftingStatSummaryByExerciseIdQuery(exerciseId, _userId));
-                liftingStatOneOf.AsT0.LiftingStats = await _weightOutputService.ConvertPersonalBests(liftingStatOneOf.AsT0.LiftingStats, _userId, null);
-                liftingStatOneOf.AsT0.LifeTimeTonnage = await _weightOutputService.ConvertGenericWeight(liftingStatOneOf.AsT0.LifeTimeTonnage, _userId, null);
-                return Ok(liftingStatOneOf);
+
+                if (liftingStatOneOf.IsT0)
+                {
+                    liftingStatOneOf.AsT0.LiftingStats =
+                        await _weightOutputService.ConvertPersonalBests(liftingStatOneOf.AsT0.LiftingStats, _userId, null);
+                    liftingStatOneOf.AsT0.LifeTimeTonnage =
+                        await _weightOutputService.ConvertGenericWeight(liftingStatOneOf.AsT0.LifeTimeTonnage, _userId, null);
+                }
+
+                return liftingStatOneOf.Match<IActionResult>(Ok,
+                    LiftingStatNotFound => BadRequest(Errors.Create(nameof(LiftingStatNotFound))));
             }
             catch (ValidationException ex)
             {
@@ -85,7 +93,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new DeleteLiftingStatAuditCommand(liftingStatAuditId, _userId));
 
-                return result.Match<IActionResult>(Ok,
+                return result.Match<IActionResult>(
+                    IsDeleted => Ok(IsDeleted),
                     LiftingStatNotFound => NotFound(Errors.Create(nameof(LiftingStatNotFound))),
                     UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
             }

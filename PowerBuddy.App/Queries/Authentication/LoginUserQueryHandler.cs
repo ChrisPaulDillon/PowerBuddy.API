@@ -12,7 +12,6 @@ using PowerBuddy.App.Services.Authentication.Models;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.s.Account;
 using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Queries.Authentication

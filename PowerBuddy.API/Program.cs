@@ -49,15 +49,15 @@ namespace PowerBuddy.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-	                webBuilder.UseMetricsWebTracking();
+                    webBuilder.UseMetricsWebTracking();
 	                webBuilder.UseMetrics(opt =>
 	                {
 		                opt.EndpointOptions = endpointOptions =>
                         {
                             endpointOptions.MetricsTextEndpointOutputFormatter = new MetricsPrometheusTextOutputFormatter();
                             endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
-			                endpointOptions.EnvironmentInfoEndpointEnabled = false;
-		                };
+                            endpointOptions.EnvironmentInfoEndpointEnabled = false;
+                        };
 	                });
                     webBuilder.UseSerilog((ctx, config) =>
                     {

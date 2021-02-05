@@ -48,21 +48,20 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var workoutDay = await _mediator.Send(new GetWorkoutDayByIdQuery(workoutDayId, _userId));
-                workoutDay = await _weightOutputService.ConvertWorkoutDay(workoutDay, _userId, null);
-                return Ok(workoutDay);
-            }
-            catch (WorkoutDayNotFoundException ex)
-            {
-                return NotFound(ex.Message);
+                var workoutDayOneOf = await _mediator.Send(new GetWorkoutDayByIdQuery(workoutDayId, _userId));
+
+                if (workoutDayOneOf.IsT0)
+                {
+                    workoutDayOneOf.AsT0.WorkoutExercises = await _weightOutputService.ConvertWorkoutExercises(workoutDayOneOf.AsT0.WorkoutExercises, _userId, null);
+                }
+
+                return workoutDayOneOf.Match<IActionResult>(
+                    Result => Ok(Result),
+                    WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return Unauthorized(ex.Message);
             }
         }
 
@@ -113,16 +112,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var weightConvertResponse = await _weightInsertService.ConvertWorkoutDayWeightsToDbSuitable(_userId, workoutDayDTO);
                 var liftingStatsThatPb = await _mediator.Send(new CompleteWorkoutCommand(weightConvertResponse.Data, _userId));
-                var convertedPersonalBests = await _weightOutputService.ConvertPersonalBests(liftingStatsThatPb, _userId, weightConvertResponse.IsMetric);
-                return Ok(convertedPersonalBests);
+                
+                return liftingStatsThatPb.Match<IActionResult>(
+                    Result => Ok( _weightOutputService.ConvertPersonalBests(Result, _userId, weightConvertResponse.IsMetric).Result),
+                    WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (WorkoutDayNotFoundException ex)
-            {
-                return NotFound(ex.Message);
             }
         }
     }

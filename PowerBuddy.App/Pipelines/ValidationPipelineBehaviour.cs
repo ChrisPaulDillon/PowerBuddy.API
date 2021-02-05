@@ -29,7 +29,7 @@ namespace PowerBuddy.App.Pipelines
 
             if (failures.Any())
             {
-                return new FluentValidation.Validation(failures);
+                throw new FluentValidation.ValidationException(failures);
             }
 
             return await next();

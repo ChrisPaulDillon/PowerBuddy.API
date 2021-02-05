@@ -27,7 +27,7 @@ namespace PowerBuddy.App.Commands.Users
     {
         public CreateFirstVisitStatsCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.FirstVisitDTO.GenderId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
         }
     }

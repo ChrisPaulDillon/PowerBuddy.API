@@ -30,28 +30,23 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpGet("Profile")]
+        [Authorize]
         [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetLoggedInUsersProfile()
         {
             try
             {
-                var user = await _mediator.Send(new GetUserProfileQuery(_userId));
-                return Ok(user);
+                var userOneOf = await _mediator.Send(new GetUserProfileQuery(_userId));
+
+                return userOneOf.Match<IActionResult>(
+                    User => Ok(User),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
+    
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (InvalidCredentialsException ex)
-            {
-                return Unauthorized(ex.Message);
             }
         }
 
@@ -65,11 +60,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDTO, _userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -84,15 +82,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new EditProfileCommand(editProfileDTO, _userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(ex.Message);
             }
         }
     }

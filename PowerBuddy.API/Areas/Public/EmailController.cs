@@ -3,10 +3,8 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.Emails;
-using PowerBuddy.Data.Exceptions.Account;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -17,12 +15,10 @@ namespace PowerBuddy.API.Areas.Public
     public class EmailController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly string _userId;
 
-        public EmailController(IMediator mediator, IHttpContextAccessor accessor)
+        public EmailController(IMediator mediator)
         {
             _mediator = mediator;
-            _userId = accessor.HttpContext.User.FindUserId();
         }
 
         [HttpPost("ResetPassword/{emailAddress}")]
@@ -32,8 +28,11 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var userCount = await _mediator.Send(new SendPasswordResetCommand(emailAddress));
-                return Ok(userCount);
+                var result = await _mediator.Send(new SendPasswordResetCommand(emailAddress));
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
@@ -49,11 +48,14 @@ namespace PowerBuddy.API.Areas.Public
             try
             {
                 var result = await _mediator.Send(new SendConfirmEmailCommand(userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return Unauthorized(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

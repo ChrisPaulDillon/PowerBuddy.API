@@ -25,11 +25,11 @@ namespace PowerBuddy.App.Services.Weights
                         : WeightConversionHelper.ConvertWeightToPoundsOutgoing(weight);
         }
 
-        public async Task<WorkoutDayDTO> ConvertWorkoutDay(WorkoutDayDTO workoutDay, string userId, bool? isMetric = null)
+        public async Task<IEnumerable<WorkoutExerciseDTO>> ConvertWorkoutExercises(IEnumerable<WorkoutExerciseDTO> workoutExercises, string userId, bool? isMetric = null)
         {
             isMetric ??= await _accountService.IsUserUsingMetric(userId);
 
-            foreach (var workoutExercise in workoutDay.WorkoutExercises)
+            foreach (var workoutExercise in workoutExercises)
             {
                 foreach (var workoutSet in workoutExercise.WorkoutSets)
                 {
@@ -39,7 +39,7 @@ namespace PowerBuddy.App.Services.Weights
                 }
             }
 
-            return workoutDay;
+            return workoutExercises;
         }
 
         public async Task<WorkoutSetDTO> ConvertWorkoutSet(WorkoutSetDTO workoutSet, string userId, bool? isMetric = null)

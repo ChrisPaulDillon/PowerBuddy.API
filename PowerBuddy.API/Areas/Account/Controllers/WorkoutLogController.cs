@@ -16,6 +16,7 @@ using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.TemplatePrograms;
 using PowerBuddy.Data.Exceptions.Workouts;
+using PowerBuddy.Data.Models.TemplatePrograms;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -150,18 +151,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 {
                     workoutLogDTO.WeightInputs = await _weightInsertService.ConvertWeightInputsToDbSuitable(_userId, workoutLogDTO.WeightInputs);
                 }
-                var isCreated = await _mediator.Send(new CreateWorkoutLogFromTemplateCommand(workoutLogDTO, templateWorkoutId, _userId));
-                return Ok(isCreated);
+
+                var result = await _mediator.Send(new CreateWorkoutLogFromTemplateCommand(workoutLogDTO, templateWorkoutId, _userId));
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))),
+                    TemplateProgramNotFound => NotFound(Errors.Create(nameof(TemplateProgramNotFound))));
             }
             catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (TemplateProgramNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (WorkoutDaysDoesNotMatchTemplateDaysException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -176,17 +174,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new DeleteWorkoutLogCommand(workoutLogId, _userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    WorkoutLogNotFound => NotFound(Errors.Create(nameof(WorkoutLogNotFound))));
             }
             catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (WorkoutLogNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (UserNotFoundException ex)
             {
                 return BadRequest(ex.Message);
             }

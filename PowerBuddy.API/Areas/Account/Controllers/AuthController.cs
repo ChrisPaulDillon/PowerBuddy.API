@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
@@ -11,14 +9,12 @@ using PowerBuddy.API.Areas.Account.Models;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.Authentication;
-using PowerBuddy.App.Commands.Authentication.Exceptions;
 using PowerBuddy.App.Commands.Authentication.Models;
 using PowerBuddy.App.Commands.Emails;
 using PowerBuddy.App.Queries.Authentication;
 using PowerBuddy.App.Queries.Authentication.Models;
 using PowerBuddy.App.Services.Authentication.Models;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.Data.Exceptions.Account;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -152,9 +148,9 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDTO));
 
-                return result.Match<IActionResult>(Ok,
-                    UserNotFound =>
-                        BadRequest(Errors.Create(nameof(UserNotFound))));
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
@@ -173,9 +169,9 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDTO, _userId));
 
-                return result.Match<IActionResult>(Ok,
-                    UserNotFound =>
-                        NotFound(Errors.Create(nameof(UserNotFound))),
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))),
                     InvalidCredentials => BadRequest(Errors.Create(nameof(InvalidCredentials))));
             }
             catch (ValidationException ex)
@@ -193,9 +189,9 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new VerifyEmailCommand(userId, token.Token));
 
-                return result.Match<IActionResult>(Ok,
-                    UserNotFound =>
-                        NotFound(Errors.Create(nameof(UserNotFound))));
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
@@ -215,8 +211,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new RequestSmsVerificationCommand(phoneNumber.PhoneNumber, _userId));
 
                 return result.Match<IActionResult>(Ok,
-                    UserNotFound =>
-                        NotFound(Errors.Create(nameof(UserNotFound))));
+                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
@@ -234,7 +229,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 var result = await _mediator.Send(new SendSmsVerificationCommand(input.PhoneNumber, input.Code, _userId));
 
-                return result.Match<IActionResult>(Ok,
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
                     UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -57,30 +58,33 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var templateProgram = await _mediator.Send(new GetTemplateProgramByIdQuery(templateProgramId));
-                return Ok(templateProgram);
+                var result = await _mediator.Send(new GetTemplateProgramByIdQuery(templateProgramId));
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    TemplateProgramNotFound => NotFound(Errors.Create(nameof(TemplateProgramNotFound))));
             }
-            catch (TemplateProgramNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return NotFound(ex);
+                return BadRequest(ex);
             }
         }
 
-        [HttpPost]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO templateProgramDTO)
-        {
-            try
-            {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var templateProgram = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId));
-                return Ok(templateProgram);
-            }
-            catch (TemplateProgramNameAlreadyExistsException ex)
-            {
-                return Conflict(ex);
-            }
-        }
+        //[HttpPost]
+        //[ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
+        //public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO templateProgramDTO)
+        //{
+        //    try
+        //    {
+        //        var userId = User.Claims.First(x => x.Type == "UserID").Value;
+        //        var templateProgram = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId));
+        //        return Ok(templateProgram);
+        //    }
+        //    catch (TemplateProgramNameAlreadyExistsException ex)
+        //    {
+        //        return Conflict(ex);
+        //    }
+        //}
     }
 }
