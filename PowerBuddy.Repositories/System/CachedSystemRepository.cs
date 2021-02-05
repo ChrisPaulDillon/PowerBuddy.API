@@ -10,9 +10,9 @@ namespace PowerBuddy.Repositories.System
     {
         private readonly ISystemRepository _systemRepo;
 
-        private readonly ConcurrentDictionary<int, GenderDTO> _cachedGenders = new ConcurrentDictionary<int, GenderDTO>();
-        private readonly ConcurrentDictionary<int, MemberStatusDTO> _cachedMemberStatus = new ConcurrentDictionary<int, MemberStatusDTO>();
-        private readonly ConcurrentDictionary<int, LiftingLevelDTO> _cachedLiftingLevels = new ConcurrentDictionary<int, LiftingLevelDTO>();
+        private static readonly ConcurrentDictionary<int, GenderDTO> _cachedGenders = new ConcurrentDictionary<int, GenderDTO>();
+        private static readonly ConcurrentDictionary<int, MemberStatusDTO> _cachedMemberStatus = new ConcurrentDictionary<int, MemberStatusDTO>();
+        private static readonly ConcurrentDictionary<int, LiftingLevelDTO> _cachedLiftingLevels = new ConcurrentDictionary<int, LiftingLevelDTO>();
 
         public CachedSystemRepository(ISystemRepository systemRepo)
         {
