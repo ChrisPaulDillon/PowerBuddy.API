@@ -53,8 +53,9 @@ namespace PowerBuddy.API
 	                webBuilder.UseMetrics(opt =>
 	                {
 		                opt.EndpointOptions = endpointOptions =>
-		                {
-			                endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
+                        {
+                            endpointOptions.MetricsTextEndpointOutputFormatter = new MetricsPrometheusTextOutputFormatter();
+                            endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
 			                endpointOptions.EnvironmentInfoEndpointEnabled = false;
 		                };
 	                });

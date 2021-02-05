@@ -235,8 +235,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var result = await _mediator.Send(new SendSmsVerificationCommand(input.PhoneNumber, input.Code, _userId));
 
                 return result.Match<IActionResult>(Ok,
-                    UserNotFound =>
-                        NotFound(Errors.Create(nameof(UserNotFound))));
+                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
