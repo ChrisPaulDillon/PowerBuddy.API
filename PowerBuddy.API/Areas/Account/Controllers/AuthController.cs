@@ -223,7 +223,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             }
         }
 
-
         [HttpPut("UpdatePassword")]
         [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]

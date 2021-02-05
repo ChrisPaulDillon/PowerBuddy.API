@@ -47,6 +47,16 @@ namespace PowerBuddy.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseMetricsWebTracking();
+	                webBuilder.UseMetrics(opt =>
+	                {
+		                opt.EndpointOptions = endpointOptions =>
+                        {
+                            endpointOptions.MetricsTextEndpointOutputFormatter = new MetricsPrometheusTextOutputFormatter();
+                            endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
+			                endpointOptions.EnvironmentInfoEndpointEnabled = false;
+		                };
+	                });
                     webBuilder.UseSerilog((ctx, config) =>
                     {
                         config.ReadFrom.Configuration(ctx.Configuration, "Serilog");
