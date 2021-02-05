@@ -8,7 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="Moq" Version="4.16.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,7 +23,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PowerBuddy.API\PowerBuddy.API.csproj" />
+    <ProjectReference Include="..\PowerBuddy.App\PowerBuddy.App.csproj" />
+    <ProjectReference Include="..\PowerBuddy.AuthenticationService\PowerBuddy.AuthenticationService.csproj" />
+    <ProjectReference Include="..\PowerBuddy.Context\PowerBuddy.Data.Context.csproj" />
+    <ProjectReference Include="..\PowerBuddy.Data.Builders\PowerBuddy.Data.Builders.csproj" />
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
+    <ProjectReference Include="..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj" />
+    <ProjectReference Include="..\PowerBuddy.SignalR\PowerBuddy.SignalR.csproj" />
+    <ProjectReference Include="..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj" />
+    <ProjectReference Include="..\PowerBuddy.Util\PowerBuddy.Util.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MediatR\Queries\" />
   </ItemGroup>
 
 </Project>

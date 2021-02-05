@@ -18,20 +18,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PowerBuddy.API.AuthorizationHandlers;
 using PowerBuddy.API.Middleware;
+using PowerBuddy.App.Commands;
+using PowerBuddy.App.Queries;
+using PowerBuddy.App.Repositories.Exercises;
+using PowerBuddy.App.Repositories.System;
+using PowerBuddy.App.Services;
 using PowerBuddy.AuthenticationService.Configuration;
 using PowerBuddy.Data.AutoMapper;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Extensions;
 using PowerBuddy.EmailService.Extensions;
-using PowerBuddy.Services;
 using PowerBuddy.SmsService.Extensions;
 using PowerBuddy.MediatR;
-using PowerBuddy.MediatR.Commands;
-using PowerBuddy.MediatR.Queries;
-using PowerBuddy.Repositories.Exercises;
-using PowerBuddy.Repositories.System;
-using PowerBuddy.Services.System;
 using PowerBuddy.SignalR;
 
 namespace PowerBuddy.API
@@ -73,7 +72,7 @@ namespace PowerBuddy.API
             {
                 config.RegisterValidatorsFromAssemblies(new List<Assembly>()
                 {
-                    Assembly.Load("PowerBuddy.MediatR.Commands"), Assembly.Load("PowerBuddy.MediatR.Queries")
+                    Assembly.Load("PowerBuddy.App")
                 });
             });
 

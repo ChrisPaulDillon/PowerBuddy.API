@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
+using PowerBuddy.App.Commands.WorkoutExercises;
+using PowerBuddy.App.Services.Weights;
+using PowerBuddy.App.Services.Workouts.Models;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Exercises;
 using PowerBuddy.Data.Exceptions.Workouts;
-using PowerBuddy.MediatR.Commands.WorkoutExercises;
-using PowerBuddy.Services.Weights;
-using PowerBuddy.Services.Workouts.Models;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

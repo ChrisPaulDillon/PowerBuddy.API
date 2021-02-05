@@ -3,8 +3,8 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
+using PowerBuddy.App.Queries.Metrics;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.MediatR.Queries.Metrics;
 
 namespace PowerBuddy.API.Areas.Public
 {

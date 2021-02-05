@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
+using PowerBuddy.App.Commands.Exercises;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Exceptions.Exercises;
-using PowerBuddy.MediatR.Commands.Exercises;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {
