@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using App.Metrics.AspNetCore;
+using App.Metrics.Formatters.Prometheus;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,6 +49,15 @@ namespace PowerBuddy.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+	                webBuilder.UseMetricsWebTracking();
+	                webBuilder.UseMetrics(opt =>
+	                {
+		                opt.EndpointOptions = endpointOptions =>
+		                {
+			                endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
+			                endpointOptions.EnvironmentInfoEndpointEnabled = false;
+		                };
+	                });
                     webBuilder.UseSerilog((ctx, config) =>
                     {
                         config.ReadFrom.Configuration(ctx.Configuration, "Serilog");
