@@ -9,16 +9,13 @@ namespace PowerBuddy.App.Repositories.Exercises
     {
         private readonly IExerciseRepository _exerciseRepo;
 
-        private readonly ConcurrentDictionary<int, ExerciseDTO> _cachedExercises;
-        private readonly ConcurrentDictionary<int, ExerciseMuscleGroupDTO> _cachedExerciseMuscleGroups;
-        private readonly ConcurrentDictionary<int, ExerciseTypeDTO> _cachedExerciseTypes;
+        private static readonly ConcurrentDictionary<int, ExerciseDTO> _cachedExercises = new ConcurrentDictionary<int, ExerciseDTO>();
+        private static readonly ConcurrentDictionary<int, ExerciseMuscleGroupDTO> _cachedExerciseMuscleGroups = new ConcurrentDictionary<int, ExerciseMuscleGroupDTO>();
+        private static readonly ConcurrentDictionary<int, ExerciseTypeDTO> _cachedExerciseTypes = new ConcurrentDictionary<int, ExerciseTypeDTO>();
 
         public CachedExerciseRepository(IExerciseRepository exerciseRepo)
         {
             _exerciseRepo = exerciseRepo;
-            _cachedExercises = new ConcurrentDictionary<int, ExerciseDTO>();
-            _cachedExerciseMuscleGroups = new ConcurrentDictionary<int, ExerciseMuscleGroupDTO>();
-            _cachedExerciseTypes = new ConcurrentDictionary<int, ExerciseTypeDTO>();
         }
 
         public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
