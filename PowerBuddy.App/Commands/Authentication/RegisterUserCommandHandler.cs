@@ -76,7 +76,7 @@ namespace PowerBuddy.App.Commands.Authentication
 
             if (result.Succeeded)
             {
-                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(userEntity.Id, _mapper.Map<UserDto>(_mapper.ConfigurationProvider));
+                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(userEntity.Id, _mapper.Map<UserDto>(userEntity));
                 var registeredAuthenticationResult = new RegisterAuthenticationResultDto()
                 {
                     AccessToken = authenticatedUser.AccessToken,
