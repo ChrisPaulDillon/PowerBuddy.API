@@ -35,16 +35,12 @@ namespace PowerBuddy.App.Commands.Authentication
     public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, OneOf<AuthenticationResultDTO, RefreshTokenNotFound, InvalidRefreshToken>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
-        private readonly IAuthService _authService;
 
-        public RefreshTokenCommandHandler(PowerLiftingContext context, IMapper mapper, ITokenService tokenService, IAuthService authService)
+        public RefreshTokenCommandHandler(PowerLiftingContext context, ITokenService tokenService)
         {
             _context = context;
-            _mapper = mapper;
             _tokenService = tokenService;
-            _authService = authService;
         }
 
         public async Task<OneOf<AuthenticationResultDTO, RefreshTokenNotFound, InvalidRefreshToken>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)

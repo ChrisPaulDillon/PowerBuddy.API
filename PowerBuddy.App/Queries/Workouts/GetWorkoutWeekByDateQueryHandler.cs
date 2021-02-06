@@ -31,7 +31,7 @@ namespace PowerBuddy.App.Queries.Workouts
     {
         public GetWorkoutWeekByDateQueryValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 

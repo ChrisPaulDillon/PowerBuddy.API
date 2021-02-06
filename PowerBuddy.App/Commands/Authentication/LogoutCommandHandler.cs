@@ -28,14 +28,10 @@ namespace PowerBuddy.App.Commands.Authentication
 
     public class LogoutCommandHandler : IRequestHandler<LogoutCommand, bool>
     {
-        private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
 
-        public LogoutCommandHandler(PowerLiftingContext context, IMapper mapper, ITokenService tokenService)
+        public LogoutCommandHandler(ITokenService tokenService)
         {
-            _context = context;
-            _mapper = mapper;
             _tokenService = tokenService;
         }
 

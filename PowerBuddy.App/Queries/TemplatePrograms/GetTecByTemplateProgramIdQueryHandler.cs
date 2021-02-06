@@ -40,10 +40,10 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
 
         public async Task<IEnumerable<int>> Handle(GetTecByTemplateProgramIdQuery request, CancellationToken cancellationToken)
         {
-            return _context.TemplateExerciseCollection.Where(x => x.TemplateProgramId == request.TemplateProgramId)
+            return await _context.TemplateExerciseCollection.Where(x => x.TemplateProgramId == request.TemplateProgramId)
                 .AsNoTracking()
                 .Select(x => x.ExerciseId)
-                .ToList();
+                .ToListAsync();
         }
     }
 }

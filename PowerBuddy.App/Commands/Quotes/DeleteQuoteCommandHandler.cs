@@ -35,11 +35,10 @@ namespace PowerBuddy.App.Commands.Quotes
     public class DeleteQuoteCommandHandler : IRequestHandler<DeleteQuoteCommand, OneOf<bool, UserNotFound, QuoteNotFound>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
-        public DeleteQuoteCommandHandler(PowerLiftingContext context, IMapper mapper)
+
+        public DeleteQuoteCommandHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<OneOf<bool, UserNotFound, QuoteNotFound>> Handle(DeleteQuoteCommand request, CancellationToken cancellationToken)

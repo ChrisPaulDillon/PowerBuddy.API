@@ -30,13 +30,11 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
     public class CreateAllTemplateExerciseCollectionForTemplateCommandHandler : IRequestHandler<CreateAllTemplateExerciseCollectionForTemplateCommand, bool>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public CreateAllTemplateExerciseCollectionForTemplateCommandHandler(PowerLiftingContext context, IMapper mapper, IMediator mediator)
+        public CreateAllTemplateExerciseCollectionForTemplateCommandHandler(PowerLiftingContext context, IMediator mediator)
         {
             _context = context;
-            _mapper = mapper;
             _mediator = mediator;
         }
 

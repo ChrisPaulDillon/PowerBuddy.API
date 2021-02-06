@@ -14,9 +14,7 @@ using PowerBuddy.App.Queries.Workouts.Models;
 using PowerBuddy.App.Services.Weights;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.TemplatePrograms;
 using PowerBuddy.Data.Exceptions.Workouts;
-using PowerBuddy.Data.Models.TemplatePrograms;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -29,14 +27,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IWeightInsertConvertorService _weightInsertService;
-        private readonly IWeightOutgoingConvertorService _weightOutputService;
         private readonly string _userId;
 
-        public WorkoutLogController(IMediator mediator, IWeightInsertConvertorService weightInsertService, IWeightOutgoingConvertorService weightOutputService, IHttpContextAccessor accessor)
+        public WorkoutLogController(IMediator mediator, IWeightInsertConvertorService weightInsertService, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
             _weightInsertService = weightInsertService;
-            _weightOutputService = weightOutputService;
             _userId = accessor.HttpContext.User.FindUserId();
         }
 

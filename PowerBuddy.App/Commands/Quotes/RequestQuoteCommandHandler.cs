@@ -34,6 +34,7 @@ namespace PowerBuddy.App.Commands.Quotes
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+
         public RequestQuoteCommandHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;

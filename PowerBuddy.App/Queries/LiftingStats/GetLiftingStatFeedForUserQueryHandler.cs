@@ -39,6 +39,7 @@ namespace PowerBuddy.App.Queries.LiftingStats
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+
         public GetLiftingStatFeedForUserQueryHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;

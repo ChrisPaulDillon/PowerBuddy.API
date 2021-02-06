@@ -2,12 +2,10 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using FluentValidation;
 using MediatR;
 using PowerBuddy.App.Queries.LiftingStats.Models;
 using PowerBuddy.App.Services.LiftingStats;
-using PowerBuddy.Data.Context;
 
 namespace PowerBuddy.App.Queries.LiftingStats
 {
@@ -31,14 +29,10 @@ namespace PowerBuddy.App.Queries.LiftingStats
 
     internal class GetLiftingStatsByUserIdQueryHandler : IRequestHandler<GetLiftingStatsByUserIdQuery, IEnumerable<LiftingStatGroupedDTO>>
     {
-        private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
         private readonly ILiftingStatService _liftingStatService;
 
-        public GetLiftingStatsByUserIdQueryHandler(PowerLiftingContext context, IMapper mapper, ILiftingStatService liftingStatService)
+        public GetLiftingStatsByUserIdQueryHandler(ILiftingStatService liftingStatService)
         {
-            _context = context;
-            _mapper = mapper;
             _liftingStatService = liftingStatService;
         }
 

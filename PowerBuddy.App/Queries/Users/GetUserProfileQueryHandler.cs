@@ -35,6 +35,7 @@ namespace PowerBuddy.App.Queries.Users
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
+
         public GetUserProfileQueryHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;

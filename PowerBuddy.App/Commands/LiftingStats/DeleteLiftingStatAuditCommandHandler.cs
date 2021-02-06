@@ -35,11 +35,10 @@ namespace PowerBuddy.App.Commands.LiftingStats
     public class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, OneOf<bool, LiftingStatNotFound, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
-        public DeleteLiftingStatAuditCommandHandler(PowerLiftingContext context, IMapper mapper)
+
+        public DeleteLiftingStatAuditCommandHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<OneOf<bool, LiftingStatNotFound, UserNotFound>> Handle(DeleteLiftingStatAuditCommand request, CancellationToken cancellationToken)

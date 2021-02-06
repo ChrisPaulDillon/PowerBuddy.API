@@ -36,13 +36,11 @@ namespace PowerBuddy.App.Commands.Authentication
     public class RequestSmsVerificationCommandHandler : IRequestHandler<RequestSmsVerificationCommand, OneOf<string, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly UserManager<User> _userManager;
         private readonly ISmsClient _smsClient;
 
-        public RequestSmsVerificationCommandHandler(PowerLiftingContext context, UserManager<User> userManager, ISmsClient smsClient)
+        public RequestSmsVerificationCommandHandler(PowerLiftingContext context, ISmsClient smsClient)
         {
             _context = context;
-            _userManager = userManager;
             _smsClient = smsClient;
         }
 
@@ -58,13 +56,6 @@ namespace PowerBuddy.App.Commands.Authentication
             }
 
             var result = await  _smsClient.SendPhoneNumberVerification(request.PhoneNumber);
-
-            //var result = await _userManager.SendSmsVerificationAsync(user, request.ChangePasswordInputDTO.Token, request.ChangePasswordInputDTO.Password);
-
-            //if (result.Succeeded)
-            //{
-            //    return true;
-            //}
 
             return result;
         }

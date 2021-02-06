@@ -28,6 +28,24 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             _mediator = mediator;
         }
 
+        [HttpPost]
+        [ProducesResponseType(typeof(IEnumerable<TopLevelExerciseDTO>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateExercise([FromBody] CExerciseDTO exerciseDTO)
+        {
+            try
+            {
+                var result = await _mediator.Send(new CreateExerciseCommand(exerciseDTO));
+
+                return result.Match<IActionResult>(Ok,
+                    ExerciseAlreadyExists => BadRequest(Errors.Create(nameof(ExerciseAlreadyExists))));
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPut]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
