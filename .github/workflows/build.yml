@@ -6,6 +6,8 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
+  cancel_prev:
+    uses: n1hility/cancel-previous-runs@v2.0
   run_xunit:
     name: 
     runs-on: ubuntu-latest
