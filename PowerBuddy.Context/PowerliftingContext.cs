@@ -12,9 +12,6 @@ namespace PowerBuddy.Data.Context
 
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder options)
-        //   => options.UseSqlite("Data Source=app.db");
-
         //System
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseType> ExerciseType { get; set; }
@@ -125,11 +122,6 @@ namespace PowerBuddy.Data.Context
                 .HasForeignKey(x => x.ProgramLogId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<ProgramLog>()
-            //    .HasOne(x => x.TemplateProgram)
-            //    .WithOne()
-            //    .IsRequired(false);
-
             modelBuilder.Entity<ProgramLogWeek>()
                 .HasMany(x => x.ProgramLogDays)
                 .WithOne()
@@ -147,12 +139,6 @@ namespace PowerBuddy.Data.Context
                 .HasForeignKey(x => x.ProgramLogExerciseId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            //modelBuilder.Entity<ProgramLogExercise>() // This one should always be the table with the foreign key inside of it, NOT the primary key
-            //  .HasOne(x => x.ProgramTemplate)
-            //  .WithMany(x => x.ProgramExercises)
-            //  .HasForeignKey(x => x.ProgramTemplateId)
-            //  .IsRequired(false);
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
 
@@ -174,16 +160,6 @@ namespace PowerBuddy.Data.Context
                 .HasForeignKey(x => x.WorkoutExerciseId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            //modelBuilder.Entity<Gender>()
-            //    .HasMany(x => x.Users)
-            //    .WithOne(x => x.Gender)
-            //    .IsRequired(false);
-
-            //modelBuilder.Entity<MemberStatus>()
-            //    .HasMany(x => x.Users)
-            //    .WithOne(x => x.MemberStatus)
-            //    .IsRequired(false);
 
             modelBuilder.Entity<ProgramLogExercise>()
                 .HasOne(x => x.ProgramLogExerciseTonnage)
@@ -209,13 +185,6 @@ namespace PowerBuddy.Data.Context
                 .HasForeignKey<LiftingLevel>(x => x.LiftingLevelId)
                 .IsRequired(false);
 
-            //modelBuilder.Entity<ProgramLogRepScheme>()
-            //    .HasOne(x => x.LiftingStatAudit)
-            //    .WithOne(x => x.ProgramLogRepScheme)
-            //    .HasForeignKey<LiftingStatAudit>(x => x.ProgramLogRepSchemeId)
-            //    .OnDelete(DeleteBehavior.Cascade)
-            //    .IsRequired(false);
-
             modelBuilder.Entity<Exercise>()
                 .HasMany(x => x.LiftingStatAudit)
                 .WithOne(x => x.Exercise)
@@ -223,21 +192,12 @@ namespace PowerBuddy.Data.Context
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
 
-            //Programs
-
             modelBuilder.Entity<WorkoutExercise>()
                 .HasOne(x => x.WorkoutExerciseTonnage)
                 .WithOne(x => x.WorkoutExercise)
                 .HasForeignKey<WorkoutExerciseTonnage>(x => x.WorkoutExerciseId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
-
-            //modelBuilder.Entity<WorkoutSet>()
-            //    .HasOne(x => x.LiftingStatAudit)
-            //    .WithOne(x => x.WorkoutSet)
-            //    .HasForeignKey<LiftingStatAudit>(x => x.WorkoutSetId)
-            //    .OnDelete(DeleteBehavior.NoAction)
-            //    .IsRequired(false);
 
             modelBuilder.Entity<WorkoutSet>()
                 .HasOne(x => x.LiftingStatAudit)

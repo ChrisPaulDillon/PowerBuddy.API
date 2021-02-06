@@ -14,8 +14,6 @@ using PowerBuddy.App.Queries.WorkoutDays;
 using PowerBuddy.App.Services.Weights;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.DTOs.Workouts;
-using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.Workouts;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -67,18 +65,16 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(WorkoutDayDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateWorkoutDay([FromBody] CreateWorkoutDayOptions createWorkoutOptions)
         {
             try
             {
-                var workoutDay = await _mediator.Send(new CreateWorkoutDayCommand(createWorkoutOptions, _userId));
+                var result = await _mediator.Send(new CreateWorkoutDayCommand(createWorkoutOptions, _userId));
 
-                return Ok(workoutDay);
-            }
-            catch (WorkoutDayAlreadyExistsException ex)
-            {
-                return BadRequest(ex.Message);
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    WorkoutDayAlreadyExists => BadRequest(Errors.Create(nameof(WorkoutDayAlreadyExists))));
             }
             catch (ValidationException ex)
             {

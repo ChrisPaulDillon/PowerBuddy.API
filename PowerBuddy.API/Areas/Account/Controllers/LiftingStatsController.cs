@@ -12,8 +12,6 @@ using PowerBuddy.App.Queries.LiftingStats;
 using PowerBuddy.App.Queries.TemplatePrograms;
 using PowerBuddy.App.Services.Weights;
 using PowerBuddy.Data.DTOs.LiftingStats;
-using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.LiftingStats;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -68,10 +66,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (LiftingStatNotFoundException ex)
-            {
-                return NotFound(ex.Message);
             }
         }
 

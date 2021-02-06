@@ -45,7 +45,7 @@ namespace PowerBuddy.App.Commands.Workouts
         public async Task<OneOf<bool, WorkoutLogNotFound>> Handle(DeleteWorkoutLogCommand request, CancellationToken cancellationToken)
         {
             var workoutLog = await _context.WorkoutLog
-                .FirstOrDefaultAsync(x => x.WorkoutLogId == request.WorkoutLogId && x.UserId == request.UserId);
+                .FirstOrDefaultAsync(x => x.WorkoutLogId == request.WorkoutLogId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (workoutLog == null)
             {

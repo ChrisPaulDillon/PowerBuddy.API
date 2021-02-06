@@ -52,12 +52,12 @@ namespace PowerBuddy.App.Commands.WorkoutSets
         {
             var doesSetExist = await _context.WorkoutSet
                 .AsNoTracking()
-                .AnyAsync(x => x.WorkoutSetId == request.WorkoutSetDTO.WorkoutSetId);
+                .AnyAsync(x => x.WorkoutSetId == request.WorkoutSetDTO.WorkoutSetId, cancellationToken: cancellationToken);
 
             if (!doesSetExist) return false;
 
             var workoutDay = await _context.WorkoutDay
-                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.WorkoutDayId && x.UserId == request.UserId);
+                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.WorkoutDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (workoutDay == null)
             {
@@ -76,7 +76,7 @@ namespace PowerBuddy.App.Commands.WorkoutSets
                 .AsNoTracking()
                 .Include(x => x.WorkoutSets)
                 .Include(x => x.WorkoutExerciseTonnage)
-                .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetDTO.WorkoutExerciseId);
+                .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetDTO.WorkoutExerciseId, cancellationToken: cancellationToken);
 
             workoutExerciseTonnageUpdate.WorkoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExerciseTonnageUpdate, request.UserId);
 

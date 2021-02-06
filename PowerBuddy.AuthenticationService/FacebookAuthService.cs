@@ -29,7 +29,7 @@ namespace PowerBuddy.AuthenticationService
             {
                 result.EnsureSuccessStatusCode();
             }
-            catch (HttpRequestException ex)
+            catch (HttpRequestException)
             {
                 throw;
             }

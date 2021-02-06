@@ -45,7 +45,7 @@ namespace PowerBuddy.App.Commands.Authentication
 
         public async Task<OneOf<AuthenticationResultDTO, RefreshTokenNotFound, InvalidRefreshToken>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var refreshToken = await _context.RefreshToken.FirstOrDefaultAsync(x => x.Token == request.RefreshToken);
+            var refreshToken = await _context.RefreshToken.FirstOrDefaultAsync(x => x.Token == request.RefreshToken, cancellationToken: cancellationToken);
 
             if (refreshToken == null)
             {
@@ -68,7 +68,7 @@ namespace PowerBuddy.App.Commands.Authentication
             }
 
             refreshToken.IsUsed = true;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
 
             var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(refreshToken.UserId, null);
 

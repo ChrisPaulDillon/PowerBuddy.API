@@ -50,7 +50,7 @@ namespace PowerBuddy.App.Commands.Authentication
         {
             var user = await _context.User
                 .Where(x => x.Id == request.UserId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (user == null)
             {

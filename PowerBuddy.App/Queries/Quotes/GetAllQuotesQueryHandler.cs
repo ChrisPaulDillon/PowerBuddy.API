@@ -33,7 +33,7 @@ namespace PowerBuddy.App.Queries.Quotes
                 .Where(x => x.Active)
                 .ProjectTo<QuoteDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

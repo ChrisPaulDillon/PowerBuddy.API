@@ -51,11 +51,6 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
                 .Select(x => x.ExerciseId)
                 .ToList();
 
-            //var personalBests = await _context.LiftingStat.Where(x => x.RepRange == 1 && x.Weight != null && x.UserId == request.UserId &&
-            //    tec.Any(j => j == x.ExerciseId))
-            //    .ProjectTo<LiftingStatDTO>(_mapper.ConfigurationProvider)
-            //    .ToListAsync(cancellationToken: cancellationToken);
-
             var templateWeightInput = new List<TemplateWeightInputDTO>();
 
             foreach (var templateExercise in tec)

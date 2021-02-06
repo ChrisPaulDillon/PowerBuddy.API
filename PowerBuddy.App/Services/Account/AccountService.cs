@@ -1,22 +1,17 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Services.Account
 {
     public class AccountService : IAccountService
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
 
-        public AccountService(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager)
+        public AccountService(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<bool> DoesUserExist(string userId)
@@ -31,7 +26,7 @@ namespace PowerBuddy.App.Services.Account
 
         public async Task<bool> IsUserProfilePublic(string userId)
         {
-            return await _context.User.AsNoTracking().AnyAsync(x => x.IsPublic == true);
+            return await _context.User.AsNoTracking().AnyAsync(x => x.IsPublic);
         }
 
         public async Task<int> GetTotalUserCount()

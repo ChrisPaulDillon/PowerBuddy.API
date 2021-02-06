@@ -75,12 +75,12 @@ namespace PowerBuddy.App.Commands.Workouts
 
             request.WorkoutLogDTO.WorkoutDays = listOfWorkoutDays;
 
-            var programLogEntity = _mapper.Map<WorkoutLog>(request.WorkoutLogDTO);
+            var workoutLogEntity = _mapper.Map<WorkoutLog>(request.WorkoutLogDTO);
 
-            _context.WorkoutLog.Add(programLogEntity);
+            await _context.WorkoutLog.AddAsync(workoutLogEntity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return programLogEntity;
+            return workoutLogEntity;
         }
     }
 }

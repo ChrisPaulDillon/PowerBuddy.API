@@ -44,7 +44,7 @@ namespace PowerBuddy.App.Commands.Quotes
         public async Task<QuoteDTO> Handle(RequestQuoteCommand request, CancellationToken cancellationToken)
         {
             var quoteEntity = _mapper.Map<Quote>(request.QuoteDTO); //TODO validate request
-            _context.Quote.Add(quoteEntity);
+            await _context.Quote.AddAsync(quoteEntity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
             return request.QuoteDTO;

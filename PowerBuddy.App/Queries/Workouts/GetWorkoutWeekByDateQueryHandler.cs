@@ -55,9 +55,9 @@ namespace PowerBuddy.App.Queries.Workouts
                 .AsNoTracking()
                 .Where(x => x.Date >= minDate && x.Date <= maxDate && x.UserId == request.UserId)
                 .ProjectTo<WorkoutDaySummaryDTO>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
 
-            if (workouts.Count() < 7) //Full workout week, don't bother attempting to add empty days
+            if (workouts.Count < 7) //Full workout week, don't bother attempting to add empty days
             {
                 var weekDates = Enumerable
                     .Range(0, int.MaxValue)

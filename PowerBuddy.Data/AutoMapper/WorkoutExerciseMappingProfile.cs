@@ -19,7 +19,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.WorkoutExerciseTonnageId, d => d.MapFrom<int>(src => src.WorkoutExerciseTonnageId))
                 .ForMember(x => x.ExerciseName, d => d.MapFrom<string>(src => src.Exercise.ExerciseName))
                 .ForMember(x => x.ExerciseTonnage, d => d.MapFrom<decimal>(src => src.WorkoutExerciseTonnage.ExerciseTonnage))
-                .ForMember(x => x.NoOfSets, d => d.MapFrom(src => src.WorkoutSets.Count()))
+                .ForMember(x => x.NoOfSets, d => d.MapFrom(src => src.WorkoutSets.Count))
                 .ForMember(x => x.WorkoutSets, d => d.MapFrom(src => src.WorkoutSets.OrderBy(x => x.WeightLifted)));
 
             //into entity
@@ -64,7 +64,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.Completed, d => d.MapFrom(src => src.Completed))
                 .ForMember(x => x.WorkoutExerciseCount, d => d.MapFrom(src => src.WorkoutExercises.Count()))
                 .ForMember(x => x.WorkoutExerciseSummaries, d => d.MapFrom(src => src.WorkoutExercises))
-                .ForMember(x => x.PersonalBestCount, d => d.MapFrom(src => src.WorkoutExercises.Where(x => x.WorkoutSets.Any(x => x.LiftingStatAuditId != null)).Count()))
+                .ForMember(x => x.PersonalBestCount, d => d.MapFrom(src => src.WorkoutExercises.Count(x => x.WorkoutSets.Any(x => x.LiftingStatAuditId != null))))
                 .ForMember(x => x.TemplateName, d => d.MapFrom(src => src.WorkoutLog.CustomName))
                 .ForMember(x => x.HasWorkoutData, d => d.Ignore());
 

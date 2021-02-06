@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.TemplatePrograms;
 using PowerBuddy.Data.DTOs.Templates;
-using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.TemplatePrograms;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {
@@ -35,9 +34,9 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
                 var result = await _mediator.Send(new CreateAllTemplateExerciseCollectionForTemplateCommand(userId));
                 return Ok(result);
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return Conflict(ex);
+                return BadRequest(ex.Errors);
             }
         }
 
@@ -52,9 +51,9 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
                 var result = await _mediator.Send(new CreateTemplateExerciseCollectionForTemplateCommand(templateProgramId, userId));
                 return Ok(result);
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return Unauthorized(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -67,11 +66,15 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var result = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))),
+                    TemplateProgramNameAlreadyExists => BadRequest(Errors.Create(nameof(TemplateProgramNameAlreadyExists))));
             }
-            catch (TemplateProgramNameAlreadyExistsException ex)
+            catch (ValidationException ex)
             {
-                return Conflict(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

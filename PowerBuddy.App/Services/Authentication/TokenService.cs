@@ -13,14 +13,12 @@ namespace PowerBuddy.App.Services.Authentication
     public class TokenService : ITokenService
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
         private readonly IAuthService _authService;
         private readonly IEntityFactory _entityFactory;
 
-        public TokenService(PowerLiftingContext context, IMapper mapper, IAuthService authService, IEntityFactory entityFactory)
+        public TokenService(PowerLiftingContext context, IAuthService authService, IEntityFactory entityFactory)
         {
             _context = context;
-            _mapper = mapper;
             _authService = authService;
             _entityFactory = entityFactory;
         }

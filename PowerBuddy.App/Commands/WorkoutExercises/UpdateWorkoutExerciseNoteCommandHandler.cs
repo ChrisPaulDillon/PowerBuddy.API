@@ -45,13 +45,13 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
         {
             var programLogExercise = await _context
                 .WorkoutExercise
-                .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutExerciseId);
+                .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutExerciseId, cancellationToken: cancellationToken);
 
             if (programLogExercise == null) return false;
 
             var isUserAuthorized = await _context.WorkoutDay
                 .AsNoTracking()
-                .AnyAsync(x => x.WorkoutDayId == programLogExercise.WorkoutDayId && x.UserId == request.UserId);
+                .AnyAsync(x => x.WorkoutDayId == programLogExercise.WorkoutDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (!isUserAuthorized) return false;
 

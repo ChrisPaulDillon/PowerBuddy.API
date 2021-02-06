@@ -62,7 +62,7 @@ namespace PowerBuddy.App.Queries.LiftingStats
                 .AsNoTracking()
                 .Where(x => x.ExerciseId == request.ExerciseId)
                 .Select(x => x.ExerciseName)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             var liftingStatDetailed = new LiftingStatDetailedDTO()
             {

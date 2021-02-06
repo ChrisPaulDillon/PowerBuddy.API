@@ -52,7 +52,7 @@ namespace PowerBuddy.App.Commands.Quotes
             }
 
             var quoteEntity = _mapper.Map<Quote>(request.QuoteDTO); //TODO validate request
-            _context.Quote.Add(quoteEntity);
+            await _context.Quote.AddAsync(quoteEntity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
             return request.QuoteDTO;

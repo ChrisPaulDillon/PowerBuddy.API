@@ -9,7 +9,6 @@ using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.TemplatePrograms;
 using PowerBuddy.App.Queries.TemplatePrograms;
 using PowerBuddy.Data.DTOs.Templates;
-using PowerBuddy.Data.Exceptions.TemplatePrograms;
 
 namespace PowerBuddy.API.Areas.Public
 {

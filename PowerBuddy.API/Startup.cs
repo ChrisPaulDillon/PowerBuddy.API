@@ -25,10 +25,10 @@ using PowerBuddy.App.Repositories.Exercises;
 using PowerBuddy.App.Repositories.System;
 using PowerBuddy.App.Services;
 using PowerBuddy.AuthenticationService.Configuration;
-using PowerBuddy.Data.AutoMapper;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Extensions;
+using PowerBuddy.Data.Util;
 using PowerBuddy.EmailService.Extensions;
 using PowerBuddy.SmsService.Extensions;
 using PowerBuddy.SignalR;
@@ -97,6 +97,11 @@ namespace PowerBuddy.API
 
             services.AddFactories();
             services.AddServiceClasses();
+
+            services.AddSingleton(new ContextConfig()
+            {
+                DbContextStr = Configuration.GetSection("PbDbConnection").Value
+            });
 
             //Inject app settings
             services.AddDbContext<PowerLiftingContext>(options =>

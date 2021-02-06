@@ -54,17 +54,12 @@ namespace PowerBuddy.App.Commands.Emails
             var user = await _context.User
                 .AsNoTracking()
                 .Where(x => x.NormalizedEmail.Equals(request.EmailAddress.ToUpper()))
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (user == null)
             {
                 return new UserNotFound();
             }
-
-            //var emailTemplate = await _context.EmailTemplate
-            //    .AsNoTracking()
-            //    .Where(x => x.EmailTemplateId == 1) // replace with enum
-            //    .FirstOrDefaultAsync();
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 

@@ -50,7 +50,7 @@ namespace PowerBuddy.App.Queries.WorkoutDays
             var workoutDay = await _context.WorkoutDay.Where(x => x.WorkoutDayId == request.WorkoutDayId && x.UserId == request.UserId)
                 .ProjectTo<WorkoutDayDTO>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (workoutDay == null)
             {

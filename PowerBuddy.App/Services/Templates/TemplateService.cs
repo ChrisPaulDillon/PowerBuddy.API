@@ -14,15 +14,11 @@ namespace PowerBuddy.App.Services.Templates
     public class TemplateService : ITemplateService
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
-        private readonly IDTOFactory _dtoFactory;
         private readonly IEntityFactory _entityFactory;
 
-        public TemplateService(PowerLiftingContext context, IMapper mapper, IDTOFactory dtoFactory, IEntityFactory entityFactory)
+        public TemplateService(PowerLiftingContext context, IEntityFactory entityFactory)
         {
             _context = context;
-            _mapper = mapper;
-            _dtoFactory = dtoFactory;
             _entityFactory = entityFactory;
         }
 

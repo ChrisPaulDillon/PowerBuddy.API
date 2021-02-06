@@ -59,7 +59,7 @@ namespace PowerBuddy.App.Queries.Workouts
             var workoutLogStatsExtended = new WorkoutStatExtendedDTO()
             {
                 UserId = workoutLogStats[0].UserId,
-                LifetimeLogCount = workoutLogStats.Count(),
+                LifetimeLogCount = workoutLogStats.Count,
                 LifetimeDayCount = workoutLogStats.Sum(j => j.DayCount),
                 LifetimeExerciseCount = workoutLogStats.Sum(x => x.ExerciseCount),
                 WorkoutLogStats = workoutLogStats

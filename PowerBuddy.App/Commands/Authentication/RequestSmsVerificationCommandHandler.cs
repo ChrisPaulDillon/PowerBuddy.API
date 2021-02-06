@@ -48,7 +48,7 @@ namespace PowerBuddy.App.Commands.Authentication
         {
             var doesUserExist = await _context.User
                 .AsNoTracking()
-                .AnyAsync(x => x.Id == request.UserId);
+                .AnyAsync(x => x.Id == request.UserId, cancellationToken: cancellationToken);
 
             if (!doesUserExist)
             {

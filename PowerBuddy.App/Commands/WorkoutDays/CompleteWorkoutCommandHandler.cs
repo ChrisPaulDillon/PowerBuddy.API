@@ -99,9 +99,9 @@ namespace PowerBuddy.App.Commands.WorkoutDays
 
                     hitPersonalBest.WorkoutSetId = workoutSet.WorkoutSetId;
 
-                    _context.LiftingStatAudit.Add(hitPersonalBest);
+                    await _context.LiftingStatAudit.AddAsync(hitPersonalBest, cancellationToken);
 
-                    hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == workoutExercise.ExerciseId);
+                    hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == workoutExercise.ExerciseId, cancellationToken: cancellationToken);
                     totalPersonalBests.Add(_mapper.Map<LiftingStatAuditDTO>(hitPersonalBest));
                     _context.Entry(hitPersonalBest.Exercise).State = EntityState.Detached;
 

@@ -48,14 +48,14 @@ namespace PowerBuddy.App.Commands.WorkoutDays
         {
             var workoutAlreadyExists = await _context.WorkoutDay
                 .AsNoTracking()
-                .AnyAsync(x => x.Date.Date == request.CreateWorkoutDayOptions.WorkoutDate.Date && x.UserId == request.UserId);
+                .AnyAsync(x => x.Date.Date == request.CreateWorkoutDayOptions.WorkoutDate.Date && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (workoutAlreadyExists)
             {
                 return new WorkoutDayAlreadyExists();
             }
 
-            var workoutDay = new WorkoutDay();
+            WorkoutDay workoutDay;
 
             if (request.CreateWorkoutDayOptions.WorkoutLogId != null && request.CreateWorkoutDayOptions.WeekNo != null) //Create workout as part of a program
             {
@@ -70,7 +70,7 @@ namespace PowerBuddy.App.Commands.WorkoutDays
                 workoutDay = _entityFactory.CreateWorkoutDay(0, request.CreateWorkoutDayOptions.WorkoutDate, request.UserId);
             }
 
-            _context.WorkoutDay.Add(workoutDay);
+            await _context.WorkoutDay.AddAsync(workoutDay, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
             return workoutDay.WorkoutDayId;

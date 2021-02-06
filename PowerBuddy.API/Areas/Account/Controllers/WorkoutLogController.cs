@@ -13,8 +13,6 @@ using PowerBuddy.App.Queries.Workouts;
 using PowerBuddy.App.Queries.Workouts.Models;
 using PowerBuddy.App.Services.Weights;
 using PowerBuddy.Data.DTOs.Workouts;
-using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.Workouts;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -38,29 +36,26 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
         [HttpGet("Stat")]
         [ProducesResponseType(typeof(IEnumerable<WorkoutStatExtendedDTO>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetWorkoutLogStats()
         {
             try
             {
-                var workoutLogStats = await _mediator.Send(new GetAllWorkoutStatsQuery(_userId));
-                return Ok(workoutLogStats);
+                var result = await _mediator.Send(new GetAllWorkoutStatsQuery(_userId));
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    WorkoutLogNotFound => NotFound(Errors.Create(nameof(WorkoutLogNotFound))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
             }
-            catch (WorkoutLogNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
         }
 
         [HttpGet("Week")]
         [ProducesResponseType(typeof(WorkoutWeekSummaryDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetWorkoutWeekByDate(DateTime? date)
         {
             try
@@ -71,10 +66,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return Unauthorized(ex.Message);
             }
         }
 
@@ -116,16 +107,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var createdLog = await _mediator.Send(new CreateWorkoutLogFromScratchCommand(workoutLog, _userId));
-                return Ok(createdLog);
+                var result = await _mediator.Send(new CreateWorkoutLogFromScratchCommand(workoutLog, _userId));
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return Unauthorized(ex.Message);
             }
         }
 

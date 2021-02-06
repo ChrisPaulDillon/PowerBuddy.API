@@ -7,7 +7,6 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Queries.Users;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.Data.Exceptions.Account;
 
 namespace PowerBuddy.API.Areas.Public
 {

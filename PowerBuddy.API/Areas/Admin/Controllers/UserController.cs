@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +9,6 @@ using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.Users;
 using PowerBuddy.App.Queries.Users;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.Data.Exceptions.Account;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {
@@ -45,11 +45,14 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             try
             {
                 var result = await _mediator.Send(new BanUserCommand(bannedUserId, _userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
             }
-            catch (UserNotFoundException e)
+            catch (ValidationException e)
             {
-                return NotFound(e.Message);
+                return BadRequest(e.Message);
             }
         }
     }

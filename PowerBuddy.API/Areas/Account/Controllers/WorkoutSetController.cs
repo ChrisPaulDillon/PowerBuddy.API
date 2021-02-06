@@ -11,7 +11,6 @@ using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.WorkoutSets;
 using PowerBuddy.App.Services.Weights;
 using PowerBuddy.Data.DTOs.Workouts;
-using PowerBuddy.Data.Exceptions.Workouts;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

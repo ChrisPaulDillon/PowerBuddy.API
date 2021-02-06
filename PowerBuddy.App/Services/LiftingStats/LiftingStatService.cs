@@ -52,9 +52,9 @@ namespace PowerBuddy.App.Services.LiftingStats
         public async Task<IDictionary<Tuple<int,int>, LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId)
         {
 
-            var parameters = new string[repRanges.Count() + 1];
+            var parameters = new string[repRanges.Count + 1];
             var sqlParameters = new List<SqlParameter>();
-            for (var i = 0; i < repRanges.Count(); i++)
+            for (var i = 0; i < repRanges.Count; i++)
             {
                 parameters[i] = string.Format("@p{0}", i);
                 sqlParameters.Add(new SqlParameter(parameters[i], repRanges[i]));

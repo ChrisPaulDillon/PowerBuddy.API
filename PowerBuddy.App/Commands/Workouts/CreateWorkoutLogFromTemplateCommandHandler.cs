@@ -97,7 +97,7 @@ namespace PowerBuddy.App.Commands.Workouts
            workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
            workoutLog.CustomName ??= templateProgram.Name;
 
-           _context.WorkoutLog.Add(workoutLog);
+           await _context.WorkoutLog.AddAsync(workoutLog, cancellationToken);
            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
 
            if (modifiedRows > 0)
@@ -106,13 +106,13 @@ namespace PowerBuddy.App.Commands.Workouts
                    .AsNoTracking()
                    .Where(x => x.Id == request.UserId)
                    .Select(x => x.UserName)
-                   .FirstOrDefaultAsync();
+                   .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
                 await _hub.Clients.All.SendAsync(SignalRConstants.MESSAGE_METHOD_ALL, new UserMessage()
                 {
                     UserName = userName,
                     Body = $"{userName} just started the program {templateProgram.Name}!"
-                });
+                }, cancellationToken: cancellationToken);
            }
            return modifiedRows > 0;
         }

@@ -43,13 +43,6 @@ namespace PowerBuddy.App.Queries.Users
 
         public async Task<IEnumerable<AdminUserDTO>> Handle(GetAllUsersByAdminQuery request, CancellationToken cancellationToken)
         {
-            var isUserAuthorized = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2);
-
-            //if (!isUserAuthorized)
-            //{
-            //    return new UserNotFound();
-            //}
-
             var users = await _context.User.ProjectTo<AdminUserDTO>(_mapper.ConfigurationProvider).AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
             return users;
         }

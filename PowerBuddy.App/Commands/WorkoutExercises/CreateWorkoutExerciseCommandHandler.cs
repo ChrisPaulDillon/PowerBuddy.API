@@ -87,11 +87,11 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
             if (workoutExerciseEntity == null) //no exercise found for this day, create a fresh one
             {
                 workoutExerciseEntity = _workoutService.CreateSetsForExercise(request.CreateWorkoutExerciseDTO, request.UserId);
-                _context.WorkoutExercise.Add(workoutExerciseEntity);
+                await _context.WorkoutExercise.AddAsync(workoutExerciseEntity, cancellationToken);
             }
             else //update existing Workout log exercise
             {
-                var totalNoOfSets = workoutExerciseEntity.WorkoutSets.Count() + noOfSetsToAdd;
+                var totalNoOfSets = workoutExerciseEntity.WorkoutSets.Count + noOfSetsToAdd;
                 if (totalNoOfSets >= WorkoutConstants.MAX_NO_OF_SETS)
                 {
                     return new ReachedMaxSetsOnExercise();

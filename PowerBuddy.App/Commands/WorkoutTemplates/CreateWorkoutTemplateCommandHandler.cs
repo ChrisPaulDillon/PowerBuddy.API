@@ -49,8 +49,8 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
         {
             var workoutTemplate = _mapper.Map<WorkoutTemplate>(request.WorkoutTemplateDTO);
 
-            _context.WorkoutTemplate.Add(workoutTemplate);
-            await _context.SaveChangesAsync();
+            await _context.WorkoutTemplate.AddAsync(workoutTemplate, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
             return workoutTemplate;
         }

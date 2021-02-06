@@ -40,7 +40,7 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
         public async Task<bool> Handle(DeleteWorkoutTemplateCommand request, CancellationToken cancellationToken)
         {
             var workoutTemplate = await _context.WorkoutTemplate
-                .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.WorkoutTemplateId == request.WorkoutTemplateId);
+                .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.WorkoutTemplateId == request.WorkoutTemplateId, cancellationToken: cancellationToken);
 
             if (workoutTemplate == null)
             {
@@ -48,7 +48,7 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
             }
 
             _context.WorkoutTemplate.Remove(workoutTemplate);
-            var modifiedRows = await _context.SaveChangesAsync();
+            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
 
             return modifiedRows > 0;
         }

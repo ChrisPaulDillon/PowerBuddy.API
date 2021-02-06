@@ -47,7 +47,7 @@ namespace PowerBuddy.App.Commands.Authentication
 
         public async Task<OneOf<bool, UserNotFound>> Handle(SendSmsVerificationCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.User.FirstOrDefaultAsync(x => x.Id == request.UserId);
+            var user = await _context.User.FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken: cancellationToken);
 
             if (user == null)
             {
@@ -60,7 +60,7 @@ namespace PowerBuddy.App.Commands.Authentication
             {
                 user.PhoneNumber = request.PhoneNumber;
                 user.PhoneNumberConfirmed = true;
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
             }
 
             return numberIsVerified;

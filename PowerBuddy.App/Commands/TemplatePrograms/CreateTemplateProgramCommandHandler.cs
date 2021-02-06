@@ -69,7 +69,7 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
             }
 
             var template = _mapper.Map<TemplateProgram>(request.TemplateProgramDTO);
-            _context.TemplateProgram.Add(template);
+            await _context.TemplateProgram.AddAsync(template, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
             return request.TemplateProgramDTO;

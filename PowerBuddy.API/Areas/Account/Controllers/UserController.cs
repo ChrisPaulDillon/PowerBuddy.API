@@ -10,7 +10,6 @@ using PowerBuddy.App.Commands.Users;
 using PowerBuddy.App.Queries.Users;
 using PowerBuddy.Data.DTOs.Account;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.Data.Exceptions.Account;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

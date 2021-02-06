@@ -50,12 +50,12 @@ namespace PowerBuddy.App.Commands.WorkoutSets
         {
             var workoutExercise = await _context.WorkoutExercise
                 .Include(x => x.WorkoutSets)
-                .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetList[0].WorkoutExerciseId);
+                .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetList[0].WorkoutExerciseId, cancellationToken: cancellationToken);
 
             if (workoutExercise == null) return new WorkoutExerciseNotFound();
 
             var workoutDay = await _context.WorkoutDay
-                .FirstOrDefaultAsync(x => x.WorkoutDayId == workoutExercise.WorkoutDayId && x.UserId == request.UserId);
+                .FirstOrDefaultAsync(x => x.WorkoutDayId == workoutExercise.WorkoutDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (workoutDay == null)
             {

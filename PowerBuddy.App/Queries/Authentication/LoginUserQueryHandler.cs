@@ -54,7 +54,7 @@ namespace PowerBuddy.App.Queries.Authentication
         public async Task<OneOf<AuthenticationResultDTO, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User
-	            .FirstOrDefaultAsync(x => x.NormalizedEmail == request.LoginModel.Email.ToUpper() || x.NormalizedUserName == request.LoginModel.UserName.ToUpper());
+	            .FirstOrDefaultAsync(x => x.NormalizedEmail == request.LoginModel.Email.ToUpper() || x.NormalizedUserName == request.LoginModel.UserName.ToUpper(), cancellationToken: cancellationToken);
 
             if (user == null)
             {

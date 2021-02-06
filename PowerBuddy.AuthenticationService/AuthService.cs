@@ -15,6 +15,7 @@ namespace PowerBuddy.AuthenticationService
     {
         private readonly IJwtConfig _jwtConfig;
         private readonly TokenValidationParameters _tokenValidationParameters;
+
         public AuthService(IJwtConfig jwtConfig, TokenValidationParameters tokenValidationParameters)
         {
             _jwtConfig = jwtConfig;

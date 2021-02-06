@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -30,12 +29,10 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
     internal class GetTecByTemplateProgramIdQueryHandler : IRequestHandler<GetTecByTemplateProgramIdQuery, IEnumerable<int>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
 
-        public GetTecByTemplateProgramIdQueryHandler(PowerLiftingContext context, IMapper mapper)
+        public GetTecByTemplateProgramIdQueryHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<IEnumerable<int>> Handle(GetTecByTemplateProgramIdQuery request, CancellationToken cancellationToken)
@@ -43,7 +40,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
             return await _context.TemplateExerciseCollection.Where(x => x.TemplateProgramId == request.TemplateProgramId)
                 .AsNoTracking()
                 .Select(x => x.ExerciseId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

@@ -9,9 +9,6 @@ using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.WorkoutExercises;
 using PowerBuddy.App.Services.Weights;
 using PowerBuddy.App.Services.Workouts.Models;
-using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.Exercises;
-using PowerBuddy.Data.Exceptions.Workouts;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

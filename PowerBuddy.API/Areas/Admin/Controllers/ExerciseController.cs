@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.Exercises;
 using PowerBuddy.Data.DTOs.Exercises;
-using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.Exercises;
+using PowerBuddy.Data.DTOs.System;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {
@@ -57,19 +56,14 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
                 var result = await _mediator.Send(new UpdateExerciseCommand(exerciseDTO, userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    ExerciseNotFound => BadRequest(Errors.Create(nameof(ExerciseNotFound))));
             }
             catch (ValidationException e)
             {
                 return BadRequest(e.Message);
-            }
-            catch (ExerciseNotFoundException e)
-            {
-                return NotFound(e.Message);
-            }
-            catch (UserNotFoundException e)
-            {
-                return Unauthorized(e.Message);
             }
         }
 
@@ -83,20 +77,16 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var exercises = await _mediator.Send(new ApproveExerciseCommand(exerciseId, userId));
-                return Ok(exercises);
+                var result = await _mediator.Send(new ApproveExerciseCommand(exerciseId, userId));
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    ExerciseNotFound => NotFound(Errors.Create(nameof(ExerciseNotFound))),
+                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
             }
             catch(ValidationException e)
             {
                 return BadRequest(e.Message);
-            }
-            catch(ExerciseNotFoundException e)
-            {
-                return NotFound(e.Message);
-            }
-            catch(UserNotFoundException e)
-            {
-                return Unauthorized(e.Message);
             }
         }
     }

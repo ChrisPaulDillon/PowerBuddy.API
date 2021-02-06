@@ -40,8 +40,6 @@ namespace PowerBuddy.App.Queries.LiftingStats
         {
             var liftingStats = await _liftingStatService.GetTopLiftingStatCollection(request.UserId);
 
-            //var stats = _mapper.Map<IEnumerable<LiftingStatAuditDTO>>(liftingStats);
-      
             var groupedStats = liftingStats
                 .GroupBy(x => x.ExerciseName)
                 .Select(x => new LiftingStatGroupedDTO

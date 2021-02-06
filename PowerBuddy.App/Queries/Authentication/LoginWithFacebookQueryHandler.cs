@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -35,15 +34,13 @@ namespace PowerBuddy.App.Queries.Authentication
     internal class LoginWithFacebookQueryHandler : IRequestHandler<LoginWithFacebookQuery, AuthenticationResultDTO>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
         private readonly IFacebookAuthService _facebookAuthService;
         private readonly ITokenService _tokenService;
         private readonly UserManager<User> _userManager;
 
-        public LoginWithFacebookQueryHandler(PowerLiftingContext context, IMapper mapper, IFacebookAuthService facebookAuthService, ITokenService tokenService, UserManager<User> userManager)
+        public LoginWithFacebookQueryHandler(PowerLiftingContext context, IFacebookAuthService facebookAuthService, ITokenService tokenService, UserManager<User> userManager)
         {
             _context = context;
-            _mapper = mapper;
             _facebookAuthService = facebookAuthService;
             _tokenService = tokenService;
             _userManager = userManager;
@@ -52,11 +49,6 @@ namespace PowerBuddy.App.Queries.Authentication
         public async Task<AuthenticationResultDTO> Handle(LoginWithFacebookQuery request, CancellationToken cancellationToken)
         {
             var validationTokenResult = await _facebookAuthService.ValidateAccessTokenAsync(request.AccessToken);
-
-            if (!validationTokenResult.Data.IsValid)
-            {
-
-            }
 
             var userInfo = await _facebookAuthService.GetUserInfoAsync(request.AccessToken);
 
