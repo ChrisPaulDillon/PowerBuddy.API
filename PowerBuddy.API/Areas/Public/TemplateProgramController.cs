@@ -68,22 +68,5 @@ namespace PowerBuddy.API.Areas.Public
                 return BadRequest(ex);
             }
         }
-
-        //[HttpPost]
-        //[ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
-        //[ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
-        //public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDto templateProgramDto)
-        //{
-        //    try
-        //    {
-        //        var userId = User.Claims.First(x => x.Type == "UserID").Value;
-        //        var templateProgram = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDto, userId));
-        //        return Ok(templateProgram);
-        //    }
-        //    catch (TemplateProgramNameAlreadyExistsException ex)
-        //    {
-        //        return Conflict(ex);
-        //    }
-        //}
     }
 }
