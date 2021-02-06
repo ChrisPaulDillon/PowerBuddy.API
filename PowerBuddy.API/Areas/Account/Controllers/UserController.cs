@@ -8,8 +8,8 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.Users;
 using PowerBuddy.App.Queries.Users;
-using PowerBuddy.Data.DTOs.Account;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Account;
+using PowerBuddy.Data.Dtos.Users;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -30,7 +30,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
         [HttpGet("Profile")]
         [Authorize]
-        [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLoggedInUsersProfile()
         {
@@ -54,11 +54,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> FirstVisit([FromBody] FirstVisitDTO firstVisitDTO)
+        public async Task<IActionResult> FirstVisit([FromBody] FirstVisitDto firstVisitDto)
         {
             try
             {
-                var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDTO, _userId));
+                var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDto, _userId));
 
                 return result.Match<IActionResult>(
                     Result => Ok(Result),
@@ -76,11 +76,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> EditProfile([FromBody] EditProfileDTO editProfileDTO)
+        public async Task<IActionResult> EditProfile([FromBody] EditProfileDto editProfileDto)
         {
             try
             {
-                var result = await _mediator.Send(new EditProfileCommand(editProfileDTO, _userId));
+                var result = await _mediator.Send(new EditProfileCommand(editProfileDto, _userId));
 
                 return result.Match<IActionResult>(
                     Result => Ok(Result),

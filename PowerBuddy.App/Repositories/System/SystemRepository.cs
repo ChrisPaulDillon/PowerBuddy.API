@@ -4,7 +4,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.System;
 
 namespace PowerBuddy.App.Repositories.System
 {
@@ -19,27 +19,27 @@ namespace PowerBuddy.App.Repositories.System
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<GenderDTO>> GetAllGenders()
+        public async Task<IEnumerable<GenderDto>> GetAllGenders()
         {
             return await _context.Gender
                 .AsNoTracking()
-                .ProjectTo<GenderDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<GenderDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<MemberStatusDTO>> GetAllMemberStatus()
+        public async Task<IEnumerable<MemberStatusDto>> GetAllMemberStatus()
         {
             return await _context.MemberStatus
                 .AsNoTracking()
-                .ProjectTo<MemberStatusDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<MemberStatusDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<LiftingLevelDTO>> GetAllLiftingLevels()
+        public async Task<IEnumerable<LiftingLevelDto>> GetAllLiftingLevels()
         {
             return await _context.MemberStatus
                 .AsNoTracking()
-                .ProjectTo<LiftingLevelDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<LiftingLevelDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
     }

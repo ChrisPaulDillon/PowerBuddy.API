@@ -14,7 +14,7 @@ using PowerBuddy.Data.Models.Auth;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
-    public class RefreshTokenCommand : IRequest<OneOf<AuthenticationResultDTO, RefreshTokenNotFound, InvalidRefreshToken>>
+    public class RefreshTokenCommand : IRequest<OneOf<AuthenticationResultDto, RefreshTokenNotFound, InvalidRefreshToken>>
     {
         public string RefreshToken { get; }
 
@@ -32,7 +32,7 @@ namespace PowerBuddy.App.Commands.Authentication
         }
     }
 
-    public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, OneOf<AuthenticationResultDTO, RefreshTokenNotFound, InvalidRefreshToken>>
+    public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, OneOf<AuthenticationResultDto, RefreshTokenNotFound, InvalidRefreshToken>>
     {
         private readonly PowerLiftingContext _context;
         private readonly ITokenService _tokenService;
@@ -43,7 +43,7 @@ namespace PowerBuddy.App.Commands.Authentication
             _tokenService = tokenService;
         }
 
-        public async Task<OneOf<AuthenticationResultDTO, RefreshTokenNotFound, InvalidRefreshToken>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<AuthenticationResultDto, RefreshTokenNotFound, InvalidRefreshToken>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
             var refreshToken = await _context.RefreshToken.FirstOrDefaultAsync(x => x.Token == request.RefreshToken, cancellationToken: cancellationToken);
 

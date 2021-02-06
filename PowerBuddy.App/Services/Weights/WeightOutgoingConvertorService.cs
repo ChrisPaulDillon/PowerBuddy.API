@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using PowerBuddy.App.Services.Account;
 using PowerBuddy.App.Services.Weights.Util;
-using PowerBuddy.Data.DTOs.LiftingStats;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.LiftingStats;
+using PowerBuddy.Data.Dtos.Workouts;
 
 namespace PowerBuddy.App.Services.Weights
 {
@@ -25,7 +25,7 @@ namespace PowerBuddy.App.Services.Weights
                         : WeightConversionHelper.ConvertWeightToPoundsOutgoing(weight);
         }
 
-        public async Task<IEnumerable<WorkoutExerciseDTO>> ConvertWorkoutExercises(IEnumerable<WorkoutExerciseDTO> workoutExercises, string userId, bool? isMetric = null)
+        public async Task<IEnumerable<WorkoutExerciseDto>> ConvertWorkoutExercises(IEnumerable<WorkoutExerciseDto> workoutExercises, string userId, bool? isMetric = null)
         {
             isMetric ??= await _accountService.IsUserUsingMetric(userId);
 
@@ -42,7 +42,7 @@ namespace PowerBuddy.App.Services.Weights
             return workoutExercises;
         }
 
-        public async Task<WorkoutSetDTO> ConvertWorkoutSet(WorkoutSetDTO workoutSet, string userId, bool? isMetric = null)
+        public async Task<WorkoutSetDto> ConvertWorkoutSet(WorkoutSetDto workoutSet, string userId, bool? isMetric = null)
         {
             isMetric ??= await _accountService.IsUserUsingMetric(userId);
 
@@ -50,7 +50,7 @@ namespace PowerBuddy.App.Services.Weights
             return workoutSet;
         }
 
-        public async Task<IEnumerable<WorkoutSetDTO>> ConvertWorkoutSets(IEnumerable<WorkoutSetDTO> workoutSets, string userId, bool? isMetric = null)
+        public async Task<IEnumerable<WorkoutSetDto>> ConvertWorkoutSets(IEnumerable<WorkoutSetDto> workoutSets, string userId, bool? isMetric = null)
         {
             isMetric ??= await _accountService.IsUserUsingMetric(userId);
 
@@ -65,7 +65,7 @@ namespace PowerBuddy.App.Services.Weights
             
         }
 
-        public async Task<IEnumerable<LiftingStatAuditDTO>> ConvertPersonalBests(IEnumerable<LiftingStatAuditDTO> personalBests, string userId, bool? isMetric = null)
+        public async Task<IEnumerable<LiftingStatAuditDto>> ConvertPersonalBests(IEnumerable<LiftingStatAuditDto> personalBests, string userId, bool? isMetric = null)
         {
             isMetric ??= await _accountService.IsUserUsingMetric(userId);
 

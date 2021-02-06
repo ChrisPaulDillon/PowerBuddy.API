@@ -9,8 +9,8 @@ using PowerBuddy.App.Services.Workouts.Models;
 using PowerBuddy.App.Services.Workouts.Strategies;
 using PowerBuddy.App.Services.Workouts.Util;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Templates;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Templates;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Util.Extensions;
@@ -30,7 +30,7 @@ namespace PowerBuddy.App.Services.Workouts
             _entityFactory = entityFactory;
         }
 
-        public IEnumerable<WorkoutDay> CreateWorkoutDaysFromTemplate(TemplateProgram tp, DateTime startDate, Dictionary<int, string> workoutOrder, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<WorkoutDay> CreateWorkoutDaysFromTemplate(TemplateProgram tp, DateTime startDate, Dictionary<int, string> workoutOrder, IEnumerable<TemplateWeightInputDto> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
         {
             var listOfDays = new List<WorkoutDay>();
 
@@ -63,7 +63,7 @@ namespace PowerBuddy.App.Services.Workouts
             return listOfDays;
         }
 
-        public IEnumerable<WorkoutExercise> CreateWorkoutExercisesForTemplateDay(TemplateDay templateDay, IEnumerable<TemplateWeightInputDTO> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<WorkoutExercise> CreateWorkoutExercisesForTemplateDay(TemplateDay templateDay, IEnumerable<TemplateWeightInputDto> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
         {
             var workoutExercises = new List<WorkoutExercise>();
 
@@ -89,7 +89,7 @@ namespace PowerBuddy.App.Services.Workouts
             return workoutExercises;
         }
 
-        public WorkoutExercise CreateSetsForExercise(CreateWorkoutExerciseDTO createWorkoutExercise, string userId)
+        public WorkoutExercise CreateSetsForExercise(CreateWorkoutExerciseDto createWorkoutExercise, string userId)
         {
             var setCollection = new List<WorkoutSet>();
 
@@ -161,7 +161,7 @@ namespace PowerBuddy.App.Services.Workouts
             return workoutExerciseTonnage;
         }
 
-        public IEnumerable<WorkoutSetDTO> GetHighestWeightRepSchemeForEachRepFromCollection(IEnumerable<WorkoutSetDTO> workoutSets)
+        public IEnumerable<WorkoutSetDto> GetHighestWeightRepSchemeForEachRepFromCollection(IEnumerable<WorkoutSetDto> workoutSets)
         {
             return workoutSets
                 .GroupBy(x => x.RepsCompleted)
@@ -169,7 +169,7 @@ namespace PowerBuddy.App.Services.Workouts
                 .ToList();
         }
 
-        public async Task<WorkoutDayDTO> GetWorkoutLogDetailsForWeek(DateTime workoutDate, string userId)
+        public async Task<WorkoutDayDto> GetWorkoutLogDetailsForWeek(DateTime workoutDate, string userId)
         {
             var minDate = workoutDate.ClosestDateByDay(DayOfWeek.Monday);
             var maxDate = workoutDate.ClosestDateByDay(DayOfWeek.Sunday);
@@ -178,7 +178,7 @@ namespace PowerBuddy.App.Services.Workouts
             return await _context.WorkoutDay
                 .AsNoTracking()
                 .Where(x => x.Date >= minDate && x.Date <= maxDate && x.UserId == userId && x.WorkoutLogId != null)
-                .ProjectTo<WorkoutDayDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkoutDayDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
         }
 

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace PowerBuddy.Data.DTOs.LiftingStats
+namespace PowerBuddy.Data.Dtos.LiftingStats
 {
-    public class LiftFeedDTO
+    public class LiftFeedDto
     {
         public int LiftingStatAuditId { get; set; }
         public int RepRange { get; set; }

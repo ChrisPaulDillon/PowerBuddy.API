@@ -8,7 +8,7 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.Users;
 using PowerBuddy.App.Queries.Users;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {
@@ -29,7 +29,7 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(AdminUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AdminUserDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAdminUsers()
         {
             var users = await _mediator.Send(new GetAllUsersByAdminQuery(_userId));

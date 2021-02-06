@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.System
+﻿namespace PowerBuddy.Data.Dtos.System
 {
-    public class QuoteDTO
+    public class QuoteDto
     {
         public int QuoteId { get; set; }
         public string QuoteStr { get; set; }

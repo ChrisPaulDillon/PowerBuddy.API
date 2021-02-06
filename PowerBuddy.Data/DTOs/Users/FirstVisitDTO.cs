@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.Users
+﻿namespace PowerBuddy.Data.Dtos.Users
 {
-    public class FirstVisitDTO
+    public class FirstVisitDto
     {
         public string UserId { get; set; }
         public string LiftingLevel { get; set; }

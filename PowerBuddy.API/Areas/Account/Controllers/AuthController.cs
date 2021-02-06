@@ -14,7 +14,7 @@ using PowerBuddy.App.Commands.Emails;
 using PowerBuddy.App.Queries.Authentication;
 using PowerBuddy.App.Queries.Authentication.Models;
 using PowerBuddy.App.Services.Authentication.Models;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -34,11 +34,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Login")]
-        [ProducesResponseType(typeof(AuthenticationResultDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthenticationResultDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> LoginUser(LoginModelDTO loginModel)
+        public async Task<IActionResult> LoginUser(LoginModelDto loginModel)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Login/Facebook")]
-        [ProducesResponseType(typeof(AuthenticationResultDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthenticationResultDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
@@ -78,11 +78,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDTO userDTO)
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto userDto)
         {
             try
             {
-                var authResultOneOf = await _mediator.Send(new RegisterUserCommand(userDTO));
+                var authResultOneOf = await _mediator.Send(new RegisterUserCommand(userDto));
 
                 if (authResultOneOf.AsT0 != null)
                 {
@@ -142,11 +142,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [HttpPost("ResetPassword/Token/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ResetPasswordViaEmail(string userId, [FromBody] ChangePasswordInputDTO changePasswordInputDTO)
+        public async Task<IActionResult> ResetPasswordViaEmail(string userId, [FromBody] ChangePasswordInputDto changePasswordInputDto)
         {
             try
             {
-                var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDTO));
+                var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDto));
 
                 return result.Match<IActionResult>(
                     Result => Ok(Result),
@@ -163,11 +163,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordInputGuiDTO changePasswordInputDTO)
+        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordInputGuiDto changePasswordInputDto)
         {
             try
             {
-                var result = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDTO, _userId));
+                var result = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDto, _userId));
 
                 return result.Match<IActionResult>(
                     Result => Ok(Result),
@@ -183,7 +183,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [HttpPost("VerifyEmail/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> VerifyEmail(string userId, [FromBody] ChangePasswordInputDTO token)
+        public async Task<IActionResult> VerifyEmail(string userId, [FromBody] ChangePasswordInputDto token)
         {
             try
             {
@@ -204,7 +204,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RequestSmsVerification([FromBody] PhoneNumberInputDTO phoneNumber)
+        public async Task<IActionResult> RequestSmsVerification([FromBody] PhoneNumberInputDto phoneNumber)
         {
             try
             {
@@ -223,7 +223,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SendSmsVerification([FromBody] PhoneNumberCodeInputDTO input)
+        public async Task<IActionResult> SendSmsVerification([FromBody] PhoneNumberCodeInputDto input)
         {
             try
             {

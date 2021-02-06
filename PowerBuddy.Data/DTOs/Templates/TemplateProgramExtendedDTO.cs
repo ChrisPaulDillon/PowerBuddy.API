@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace PowerBuddy.Data.DTOs.Templates
+namespace PowerBuddy.Data.Dtos.Templates
 {
-    public class TemplateProgramExtendedDTO
+    public class TemplateProgramExtendedDto
     {
         public int TemplateProgramId { get; set; }
         public string Name { get; set; }
@@ -13,7 +13,7 @@ namespace PowerBuddy.Data.DTOs.Templates
         public string TemplateType { get; set; } //incremental, percentage based
         public string WeightProgressionType { get; set; } //incremental, percentage based
         public int ActiveUsersCount { get; set; }
-        public virtual IEnumerable<TemplateWeekDTO> TemplateWeeks { get; set; }
-        public IEnumerable<TemplateExerciseCollectionDTO> TemplateExerciseCollection { get; set; }
+        public virtual IEnumerable<TemplateWeekDto> TemplateWeeks { get; set; }
+        public IEnumerable<TemplateExerciseCollectionDto> TemplateExerciseCollection { get; set; }
     }
 }

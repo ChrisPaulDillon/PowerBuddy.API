@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.Exercises
+﻿namespace PowerBuddy.Data.Dtos.Exercises
 {
-    public class CExerciseDTO
+    public class CExerciseDto
     {
         public int ExerciseTypeId { get; set; }
         public string ExerciseName { get; set; }

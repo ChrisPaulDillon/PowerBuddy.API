@@ -7,16 +7,16 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
-    public class GetTemplateActivityFeedQuery : IRequest<IEnumerable<TemplateProgramAuditDTO>>
+    public class GetTemplateActivityFeedQuery : IRequest<IEnumerable<TemplateProgramAuditDto>>
     {
 
     }
 
-    internal class GetTemplateActivityFeedQueryHandler : IRequestHandler<GetTemplateActivityFeedQuery, IEnumerable<TemplateProgramAuditDTO>>
+    internal class GetTemplateActivityFeedQueryHandler : IRequestHandler<GetTemplateActivityFeedQuery, IEnumerable<TemplateProgramAuditDto>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -27,13 +27,13 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TemplateProgramAuditDTO>> Handle(GetTemplateActivityFeedQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TemplateProgramAuditDto>> Handle(GetTemplateActivityFeedQuery request, CancellationToken cancellationToken)
         {
             return await _context.TemplateProgramAudit
                 .AsNoTracking()
                 .OrderByDescending(x => x.DateCreated)
                 .Take(7)
-                .ProjectTo<TemplateProgramAuditDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<TemplateProgramAuditDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
         }
     }

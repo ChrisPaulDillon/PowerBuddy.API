@@ -23,6 +23,7 @@ jobs:
     - name: Test
       run: dotnet test PowerBuddy.API/PowerBuddy.API.sln --no-build --verbosity normal
   sonar_cloud:
+    needs: run_xunit
     name: SonarCloud
     runs-on: windows-latest
     steps:

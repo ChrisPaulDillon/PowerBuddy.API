@@ -9,7 +9,7 @@ using PowerBuddy.App.Services.LiftingStats;
 
 namespace PowerBuddy.App.Queries.LiftingStats
 {
-    public class GetLiftingStatsByUserIdQuery : IRequest<IEnumerable<LiftingStatGroupedDTO>>
+    public class GetLiftingStatsByUserIdQuery : IRequest<IEnumerable<LiftingStatGroupedDto>>
     {
         public string UserId { get; }
 
@@ -27,7 +27,7 @@ namespace PowerBuddy.App.Queries.LiftingStats
         }
     }
 
-    internal class GetLiftingStatsByUserIdQueryHandler : IRequestHandler<GetLiftingStatsByUserIdQuery, IEnumerable<LiftingStatGroupedDTO>>
+    internal class GetLiftingStatsByUserIdQueryHandler : IRequestHandler<GetLiftingStatsByUserIdQuery, IEnumerable<LiftingStatGroupedDto>>
     {
         private readonly ILiftingStatService _liftingStatService;
 
@@ -36,13 +36,13 @@ namespace PowerBuddy.App.Queries.LiftingStats
             _liftingStatService = liftingStatService;
         }
 
-        public async Task<IEnumerable<LiftingStatGroupedDTO>> Handle(GetLiftingStatsByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<LiftingStatGroupedDto>> Handle(GetLiftingStatsByUserIdQuery request, CancellationToken cancellationToken)
         {
             var liftingStats = await _liftingStatService.GetTopLiftingStatCollection(request.UserId);
 
             var groupedStats = liftingStats
                 .GroupBy(x => x.ExerciseName)
-                .Select(x => new LiftingStatGroupedDTO
+                .Select(x => new LiftingStatGroupedDto
                 {
                     ExerciseName = x.Key,
                     LiftingStats = x

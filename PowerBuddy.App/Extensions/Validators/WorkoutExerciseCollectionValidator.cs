@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.Validators;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 
 namespace PowerBuddy.App.Extensions.Validators
 {
@@ -13,7 +13,7 @@ namespace PowerBuddy.App.Extensions.Validators
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            var workoutExercises = (IEnumerable<WorkoutExerciseDTO>) context.PropertyValue;
+            var workoutExercises = (IEnumerable<WorkoutExerciseDto>) context.PropertyValue;
             foreach (var workoutExercise in workoutExercises)
             {
                 if (workoutExercise.WorkoutSets == null || !workoutExercise.WorkoutSets.Any())

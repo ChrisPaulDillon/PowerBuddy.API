@@ -7,7 +7,7 @@ using FluentValidation;
 using MediatR;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Data.Models.Account;
@@ -17,12 +17,12 @@ namespace PowerBuddy.App.Commands.Workouts
 {
     public class CreateWorkoutLogFromScratchCommand : IRequest<OneOf<WorkoutLog, UserNotFound>>
     {
-        public WorkoutLogInputScratchDTO WorkoutLogDTO { get; }
+        public WorkoutLogInputScratchDto WorkoutLogDto { get; }
         public string UserId { get; }
 
-        public CreateWorkoutLogFromScratchCommand(WorkoutLogInputScratchDTO workoutLogDTO, string userId)
+        public CreateWorkoutLogFromScratchCommand(WorkoutLogInputScratchDto workoutLogDto, string userId)
         {
-            WorkoutLogDTO = workoutLogDTO;
+            WorkoutLogDto = workoutLogDto;
             UserId = userId;
         }
     }
@@ -32,10 +32,10 @@ namespace PowerBuddy.App.Commands.Workouts
         public CreateWorkoutLogFromScratchCommandValidator()
         {
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutLogDTO.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutLogDTO.NoOfWeeks).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
-            RuleFor(x => x.WorkoutLogDTO.UserId).Matches(x => x.UserId).WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutLogDTO.CustomName).MaximumLength(180).WithMessage("'{PropertyName}' should be no longer than {MaxLength} characters.");
+            RuleFor(x => x.WorkoutLogDto.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.WorkoutLogDto.NoOfWeeks).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
+            RuleFor(x => x.WorkoutLogDto.UserId).Matches(x => x.UserId).WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.WorkoutLogDto.CustomName).MaximumLength(180).WithMessage("'{PropertyName}' should be no longer than {MaxLength} characters.");
         }
     }
 
@@ -43,9 +43,9 @@ namespace PowerBuddy.App.Commands.Workouts
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IDTOFactory _dtoFactory;
+        private readonly IDtoFactory _dtoFactory;
 
-        public CreateWorkoutLogFromScratchCommandHandler(PowerLiftingContext context, IMapper mapper, IDTOFactory dtoFactory)
+        public CreateWorkoutLogFromScratchCommandHandler(PowerLiftingContext context, IMapper mapper, IDtoFactory dtoFactory)
         {
             _context = context;
             _mapper = mapper;
@@ -54,16 +54,16 @@ namespace PowerBuddy.App.Commands.Workouts
 
         public async Task<OneOf<WorkoutLog, UserNotFound>> Handle(CreateWorkoutLogFromScratchCommand request, CancellationToken cancellationToken)
         {
-            if (request.WorkoutLogDTO.UserId != request.UserId)
+            if (request.WorkoutLogDto.UserId != request.UserId)
             {
                 return new UserNotFound();
             }
           
-            var listOfWorkoutDays = new List<WorkoutDayDTO>();
+            var listOfWorkoutDays = new List<WorkoutDayDto>();
 
-            var startDate = request.WorkoutLogDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
+            var startDate = request.WorkoutLogDto.StartDate.StartOfWeek(DayOfWeek.Monday);
 
-            for (var i = 0; i < request.WorkoutLogDTO.NoOfWeeks; i++)
+            for (var i = 0; i < request.WorkoutLogDto.NoOfWeeks; i++)
             {
                 for (var j = 0; j < 7; j++)
                 {
@@ -73,9 +73,9 @@ namespace PowerBuddy.App.Commands.Workouts
                 }
             }
 
-            request.WorkoutLogDTO.WorkoutDays = listOfWorkoutDays;
+            request.WorkoutLogDto.WorkoutDays = listOfWorkoutDays;
 
-            var workoutLogEntity = _mapper.Map<WorkoutLog>(request.WorkoutLogDTO);
+            var workoutLogEntity = _mapper.Map<WorkoutLog>(request.WorkoutLogDto);
 
             await _context.WorkoutLog.AddAsync(workoutLogEntity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);

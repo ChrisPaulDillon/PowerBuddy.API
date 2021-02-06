@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.Templates
+﻿namespace PowerBuddy.Data.Dtos.Templates
 {
-    public class TemplateRepSchemeDTO
+    public class TemplateRepSchemeDto
     {
         public int TemplateRepSchemeId { get; set; }
         public int TemplateExerciseId { get; set; } //Is this set for a fixed program or a user?

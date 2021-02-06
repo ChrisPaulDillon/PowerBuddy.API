@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.System
+﻿namespace PowerBuddy.Data.Dtos.System
 {
-    public class GenderDTO
+    public class GenderDto
     {
         public int GenderId { get; set; }
         public string GenderName { get; set; }

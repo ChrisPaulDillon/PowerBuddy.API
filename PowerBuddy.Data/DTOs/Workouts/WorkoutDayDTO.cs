@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PowerBuddy.Data.DTOs.Workouts
+namespace PowerBuddy.Data.Dtos.Workouts
 {
-    public class WorkoutDayDTO
+    public class WorkoutDayDto
     {
         public int WorkoutDayId { get; set; }
         public int? WorkoutLogId { get; set; }
@@ -12,7 +12,7 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public DateTime Date { get; set; }
         public string Comment { get; set; }
         public bool Completed { get; set; }
-        public virtual IEnumerable<WorkoutExerciseDTO> WorkoutExercises { get; set; }
+        public virtual IEnumerable<WorkoutExerciseDto> WorkoutExercises { get; set; }
         public string TemplateName { get; set; }
         public bool UsingMetric { get; set; }
     }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerBuddy.Data.DTOs.Exercises;
+using PowerBuddy.Data.Dtos.Exercises;
 
 namespace PowerBuddy.App.Repositories.Exercises
 {
@@ -9,16 +9,16 @@ namespace PowerBuddy.App.Repositories.Exercises
     {
         private readonly IExerciseRepository _exerciseRepo;
 
-        private static readonly ConcurrentDictionary<int, ExerciseDTO> _cachedExercises = new ConcurrentDictionary<int, ExerciseDTO>();
-        private static readonly ConcurrentDictionary<int, ExerciseMuscleGroupDTO> _cachedExerciseMuscleGroups = new ConcurrentDictionary<int, ExerciseMuscleGroupDTO>();
-        private static readonly ConcurrentDictionary<int, ExerciseTypeDTO> _cachedExerciseTypes = new ConcurrentDictionary<int, ExerciseTypeDTO>();
+        private static readonly ConcurrentDictionary<int, ExerciseDto> _cachedExercises = new ConcurrentDictionary<int, ExerciseDto>();
+        private static readonly ConcurrentDictionary<int, ExerciseMuscleGroupDto> _cachedExerciseMuscleGroups = new ConcurrentDictionary<int, ExerciseMuscleGroupDto>();
+        private static readonly ConcurrentDictionary<int, ExerciseTypeDto> _cachedExerciseTypes = new ConcurrentDictionary<int, ExerciseTypeDto>();
 
         public CachedExerciseRepository(IExerciseRepository exerciseRepo)
         {
             _exerciseRepo = exerciseRepo;
         }
 
-        public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
+        public async Task<IEnumerable<ExerciseDto>> GetAllExercises()
         {
             if (!_cachedExercises.IsEmpty)
             {
@@ -34,7 +34,7 @@ namespace PowerBuddy.App.Repositories.Exercises
             return _cachedExercises.Values;
         }
 
-        public async Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups()
+        public async Task<IEnumerable<ExerciseMuscleGroupDto>> GetAllExerciseMuscleGroups()
         {
             if (!_cachedExerciseMuscleGroups.IsEmpty)
             {
@@ -50,7 +50,7 @@ namespace PowerBuddy.App.Repositories.Exercises
             return _cachedExerciseMuscleGroups.Values;
         }
 
-        public async Task<IEnumerable<ExerciseTypeDTO>> GetAllExerciseTypes()
+        public async Task<IEnumerable<ExerciseTypeDto>> GetAllExerciseTypes()
         {
             if (!_cachedExerciseTypes.IsEmpty)
             {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using PowerBuddy.Data.DTOs.Account;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Account;
+using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.AutoMapper
@@ -9,7 +9,7 @@ namespace PowerBuddy.Data.AutoMapper
     {
         public AccountMappingProfile()
         {
-            CreateMap<EditProfileDTO, User>()
+            CreateMap<EditProfileDto, User>()
                 .ForMember<string>(x => x.Id, d => d.MapFrom(src => src.UserId))
                 .ForMember<string>(x => x.FirstName, d => d.MapFrom(src => src.FirstName))
                 .ForMember<string>(x => x.LastName, d => d.MapFrom(src => src.LastName))
@@ -39,7 +39,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.MemberStatus, d => d.Ignore())
                 .ForMember(x => x.UserSetting, d => d.Ignore());
 
-            CreateMap<EditProfileDTO, UserSetting>()
+            CreateMap<EditProfileDto, UserSetting>()
                 .ForMember<decimal>(x => x.BodyWeight, d => d.MapFrom(src => src.BodyWeight))
                 .ForMember<bool>(x => x.QuotesEnabled, d => d.MapFrom(src => src.QuotesEnabled))
                 .ForMember<bool>(x => x.UsingMetric, d => d.MapFrom(src => src.UsingMetric))
@@ -47,7 +47,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.LiftingLevelId, d => d.Ignore())
                 .ForMember(x => x.LiftingLevel, d => d.Ignore());
 
-            CreateMap<User, UserDTO>()
+            CreateMap<User, UserDto>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))
                 .ForMember(x => x.UserName, d => d.MapFrom<string>(src => src.UserName))
                 .ForMember(x => x.PhoneNumber, d => d.MapFrom<string>(src => src.PhoneNumber))
@@ -64,7 +64,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.BodyWeight, d => d.MapFrom<decimal>(src => src.UserSetting.BodyWeight))
                 .ForMember(x => x.QuotesEnabled, d => d.MapFrom<bool>(src => src.UserSetting.QuotesEnabled));
 
-            CreateMap<RegisterUserDTO, User>()
+            CreateMap<RegisterUserDto, User>()
                 .ForMember<string>(x => x.UserName, d => d.MapFrom(src => src.UserName))
                 .ForMember<string>(x => x.PasswordHash, d => d.MapFrom(src => src.Password))
                 .ForMember<string>(x => x.Email, d => d.MapFrom(src => src.Email))
@@ -94,7 +94,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.MemberStatus, d => d.Ignore())
                 .ForMember(x => x.UserSetting, d => d.Ignore());
 
-            CreateMap<User, PublicUserDTO>()
+            CreateMap<User, PublicUserDto>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))
                 .ForMember(x => x.UserName, d => d.MapFrom<string>(src => src.UserName))
                 .ForMember(x => x.SportType, d => d.MapFrom<string>(src => src.SportType))
@@ -105,7 +105,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.UserSetting.LiftingLevel.LiftingLevelStr))
                 .ForMember(x => x.LiftFeed, d => d.MapFrom(src => src.LiftingStatAudit));
 
-            CreateMap<User, AdminUserDTO>()
+            CreateMap<User, AdminUserDto>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))
                 .ForMember(x => x.UserName, d => d.MapFrom<string>(src => src.UserName))
                 .ForMember(x => x.Email, d => d.MapFrom<string>(src => src.Email))

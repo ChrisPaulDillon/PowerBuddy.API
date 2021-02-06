@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 
-namespace PowerBuddy.Data.DTOs.Workouts
+namespace PowerBuddy.Data.Dtos.Workouts
 {
-    public class WorkoutLogTemplateInputDTO
+    public class WorkoutLogTemplateInputDto
     {
         public string UserId { get; set; }
         public int TemplateProgramId { get; set; }
@@ -18,8 +18,8 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public bool Sunday { get; set; }
         public int DayCount { get; set; }
         public string CustomName { get; set; }
-        public IEnumerable<TemplateWeightInputDTO> WeightInputs { get; set; }
-        public IEnumerable<TemplateWeightInputDTO> IncrementalWeightInputs { get; set; }
+        public IEnumerable<TemplateWeightInputDto> WeightInputs { get; set; }
+        public IEnumerable<TemplateWeightInputDto> IncrementalWeightInputs { get; set; }
         public int RepeatProgramCount { get; set; }
     }
 }

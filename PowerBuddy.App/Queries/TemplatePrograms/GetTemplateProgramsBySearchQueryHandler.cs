@@ -8,11 +8,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
-    public class GetTemplateProgramsBySearchQuery : IRequest<IEnumerable<TemplateKeyValuePairDTO>>
+    public class GetTemplateProgramsBySearchQuery : IRequest<IEnumerable<TemplateKeyValuePairDto>>
     {
         public string SearchTerm { get; }
 
@@ -30,7 +30,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
         }
     }
 
-    internal class GetTemplateProgramsBySearchQueryHandler : IRequestHandler<GetTemplateProgramsBySearchQuery, IEnumerable<TemplateKeyValuePairDTO>>
+    internal class GetTemplateProgramsBySearchQueryHandler : IRequestHandler<GetTemplateProgramsBySearchQuery, IEnumerable<TemplateKeyValuePairDto>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -41,11 +41,11 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TemplateKeyValuePairDTO>> Handle(GetTemplateProgramsBySearchQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TemplateKeyValuePairDto>> Handle(GetTemplateProgramsBySearchQuery request, CancellationToken cancellationToken)
         {
             var searchResults = await _context.TemplateProgram.AsNoTracking()
                 .Where(x => x.Name.ToLower().Contains(request.SearchTerm.ToLower()))
-                .ProjectTo<TemplateKeyValuePairDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<TemplateKeyValuePairDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
 
             return searchResults;

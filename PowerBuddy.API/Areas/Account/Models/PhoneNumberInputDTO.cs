@@ -1,6 +1,6 @@
 ﻿namespace PowerBuddy.API.Areas.Account.Models
 {
-    public class PhoneNumberInputDTO
+    public class PhoneNumberInputDto
     {
         public string PhoneNumber { get; set; }
     }

@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.System
+﻿namespace PowerBuddy.Data.Dtos.System
 {
-    public class LiftingLevelDTO
+    public class LiftingLevelDto
     {
         public int LiftingLevelId { get; set; }
         public string LiftingLevelStr { get; set; }

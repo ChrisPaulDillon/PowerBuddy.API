@@ -14,7 +14,7 @@ using PowerBuddy.App.Services.Workouts.Factories;
 using PowerBuddy.App.Services.Workouts.Strategies;
 using PowerBuddy.App.Services.Workouts.Util;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.TemplatePrograms;
 using PowerBuddy.Data.Models.Workouts;
@@ -27,13 +27,13 @@ namespace PowerBuddy.App.Commands.Workouts
 {
     public class CreateWorkoutLogFromTemplateCommand : IRequest<OneOf<bool, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>>
     {
-        public WorkoutLogTemplateInputDTO WorkoutInputDTO { get; }
+        public WorkoutLogTemplateInputDto WorkoutInputDto { get; }
         public int TemplateProgramId { get; }
         public string UserId { get; }
 
-        public CreateWorkoutLogFromTemplateCommand(WorkoutLogTemplateInputDTO workoutInputDTO, int templateProgramId, string userId)
+        public CreateWorkoutLogFromTemplateCommand(WorkoutLogTemplateInputDto workoutInputDto, int templateProgramId, string userId)
         {
-            WorkoutInputDTO = workoutInputDTO;
+            WorkoutInputDto = workoutInputDto;
             TemplateProgramId = templateProgramId;
             UserId = userId;
         }
@@ -71,7 +71,7 @@ namespace PowerBuddy.App.Commands.Workouts
 
         public async Task<OneOf<bool, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>> Handle(CreateWorkoutLogFromTemplateCommand request, CancellationToken cancellationToken)
         {
-           // await _WorkoutService.IsWorkoutLogAlreadyActive(request.WorkoutInputDTO.StartDate, request.WorkoutInputDTO.EndDate, request.UserId);
+           // await _WorkoutService.IsWorkoutLogAlreadyActive(request.WorkoutInputDto.StartDate, request.WorkoutInputDto.EndDate, request.UserId);
 
            var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
            if (templateProgram == null)
@@ -79,7 +79,7 @@ namespace PowerBuddy.App.Commands.Workouts
                return new TemplateProgramNotFound();
            }
 
-           if (templateProgram.NoOfDaysPerWeek != request.WorkoutInputDTO.DayCount)
+           if (templateProgram.NoOfDaysPerWeek != request.WorkoutInputDto.DayCount)
            {
                return new WorkoutDaysDoesNotMatchTemplateDays();
            }
@@ -89,12 +89,12 @@ namespace PowerBuddy.App.Commands.Workouts
 
            _calculateRepWeight = _calculateWeightFactory.Create(templateProgram.WeightProgressionType);
 
-           var workoutLog = _mapper.Map<WorkoutLog>(request.WorkoutInputDTO);
+           var workoutLog = _mapper.Map<WorkoutLog>(request.WorkoutInputDto);
 
-           var startDate = request.WorkoutInputDTO.StartDate.StartOfWeek(DayOfWeek.Monday);
+           var startDate = request.WorkoutInputDto.StartDate.StartOfWeek(DayOfWeek.Monday);
            var workoutOrder = WorkoutHelper.CalculateDayOrder(workoutLog, startDate);
 
-           workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDTO.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
+           workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDto.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
            workoutLog.CustomName ??= templateProgram.Name;
 
            await _context.WorkoutLog.AddAsync(workoutLog, cancellationToken);

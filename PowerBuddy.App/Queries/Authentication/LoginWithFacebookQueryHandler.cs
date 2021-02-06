@@ -13,7 +13,7 @@ using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Queries.Authentication
 {
-    public class LoginWithFacebookQuery : IRequest<AuthenticationResultDTO>
+    public class LoginWithFacebookQuery : IRequest<AuthenticationResultDto>
     {
         public string AccessToken { get; }
 
@@ -31,7 +31,7 @@ namespace PowerBuddy.App.Queries.Authentication
         }
     }
 
-    internal class LoginWithFacebookQueryHandler : IRequestHandler<LoginWithFacebookQuery, AuthenticationResultDTO>
+    internal class LoginWithFacebookQueryHandler : IRequestHandler<LoginWithFacebookQuery, AuthenticationResultDto>
     {
         private readonly PowerLiftingContext _context;
         private readonly IFacebookAuthService _facebookAuthService;
@@ -46,7 +46,7 @@ namespace PowerBuddy.App.Queries.Authentication
             _userManager = userManager;
         }
 
-        public async Task<AuthenticationResultDTO> Handle(LoginWithFacebookQuery request, CancellationToken cancellationToken)
+        public async Task<AuthenticationResultDto> Handle(LoginWithFacebookQuery request, CancellationToken cancellationToken)
         {
             var validationTokenResult = await _facebookAuthService.ValidateAccessTokenAsync(request.AccessToken);
 

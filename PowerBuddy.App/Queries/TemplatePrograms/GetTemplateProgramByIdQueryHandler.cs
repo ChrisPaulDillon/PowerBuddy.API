@@ -8,12 +8,12 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Models.TemplatePrograms;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
-    public class GetTemplateProgramByIdQuery : IRequest<OneOf<TemplateProgramExtendedDTO, TemplateProgramNotFound>>
+    public class GetTemplateProgramByIdQuery : IRequest<OneOf<TemplateProgramExtendedDto, TemplateProgramNotFound>>
     {
         public int TemplateProgramId { get; }
 
@@ -31,7 +31,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
         }
     }
 
-    internal class GetTemplateProgramByIdQueryHandler : IRequestHandler<GetTemplateProgramByIdQuery, OneOf<TemplateProgramExtendedDTO, TemplateProgramNotFound>>
+    internal class GetTemplateProgramByIdQueryHandler : IRequestHandler<GetTemplateProgramByIdQuery, OneOf<TemplateProgramExtendedDto, TemplateProgramNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -42,11 +42,11 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
             _mapper = mapper;
         }
 
-        public async Task<OneOf<TemplateProgramExtendedDTO, TemplateProgramNotFound>> Handle(GetTemplateProgramByIdQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<TemplateProgramExtendedDto, TemplateProgramNotFound>> Handle(GetTemplateProgramByIdQuery request, CancellationToken cancellationToken)
         {
             var templateProgram = await _context.TemplateProgram.AsNoTracking()
                 .Where(x => x.TemplateProgramId == request.TemplateProgramId)
-                .ProjectTo<TemplateProgramExtendedDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<TemplateProgramExtendedDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (templateProgram == null)

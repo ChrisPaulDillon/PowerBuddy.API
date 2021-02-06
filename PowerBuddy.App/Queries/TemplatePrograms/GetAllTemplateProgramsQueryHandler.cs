@@ -6,16 +6,16 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
-    public class GetAllTemplateProgramsQuery : IRequest<IEnumerable<TemplateProgramDTO>>
+    public class GetAllTemplateProgramsQuery : IRequest<IEnumerable<TemplateProgramDto>>
     {
 
     }
 
-    public class GetAllTemplateProgramsQueryHandler : IRequestHandler<GetAllTemplateProgramsQuery, IEnumerable<TemplateProgramDTO>>
+    public class GetAllTemplateProgramsQueryHandler : IRequestHandler<GetAllTemplateProgramsQuery, IEnumerable<TemplateProgramDto>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -26,11 +26,11 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TemplateProgramDTO>> Handle(GetAllTemplateProgramsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TemplateProgramDto>> Handle(GetAllTemplateProgramsQuery request, CancellationToken cancellationToken)
         {
             return await _context.TemplateProgram
                 .AsNoTracking()
-                .ProjectTo<TemplateProgramDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<TemplateProgramDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
         }
     }

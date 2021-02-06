@@ -9,6 +9,8 @@ namespace PowerBuddy.App.Queries.Workouts
         public static IServiceCollection AddWorkoutMediatrHandlers(this IServiceCollection services)
         {
 
+            services.AddMediatR(typeof(GetWorkoutDayByIdQueryHandler));
+            services.AddMediatR(typeof(GetWorkoutCalendarQueryHandler));
             services.AddMediatR(typeof(GetWorkoutWeekByDateQueryHandler));
             services.AddMediatR(typeof(GetAllWorkoutStatsQueryHandler));
 

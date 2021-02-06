@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Services.Authentication.Models;
 using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Factories;
 
 namespace PowerBuddy.App.Services.Authentication
@@ -23,14 +23,14 @@ namespace PowerBuddy.App.Services.Authentication
             _entityFactory = entityFactory;
         }
 
-        public async Task<AuthenticationResultDTO> CreateRefreshTokenAuthenticationResult(string userId, UserDTO user)
+        public async Task<AuthenticationResultDto> CreateRefreshTokenAuthenticationResult(string userId, UserDto user)
         {
             if (user == null)
             {
                 user = await _context.User
                     .AsNoTracking()
                     .Where(x => x.Id == userId)
-                    .Select(x => new UserDTO()
+                    .Select(x => new UserDto()
                     {
                         UserId = x.Id,
                         UserName = x.UserName,
@@ -47,7 +47,7 @@ namespace PowerBuddy.App.Services.Authentication
             _context.RefreshToken.Add(refreshToken);
             await _context.SaveChangesAsync();
 
-            var authenticatedUser = new AuthenticationResultDTO()
+            var authenticatedUser = new AuthenticationResultDto()
             {
                 AccessToken = accessToken,
                 RefreshToken = refreshToken.Token,

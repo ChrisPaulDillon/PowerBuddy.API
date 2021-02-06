@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.Workouts
+﻿namespace PowerBuddy.Data.Dtos.Workouts
 {
-    public class WorkoutSetDTO
+    public class WorkoutSetDto
     {
         public int WorkoutSetId { get; set; }
         public int WorkoutExerciseId { get; set; }

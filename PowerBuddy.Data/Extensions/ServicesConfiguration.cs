@@ -8,7 +8,7 @@ namespace PowerBuddy.Data.Extensions
         public static IServiceCollection AddFactories(this IServiceCollection services)
         {
             services.AddScoped<IEntityFactory, EntityFactory>();
-            services.AddScoped<IDTOFactory, DTOFactory>();
+            services.AddScoped<IDtoFactory, DtoFactory>();
 
             return services;
         }

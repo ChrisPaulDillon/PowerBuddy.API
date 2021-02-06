@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace PowerBuddy.Data.DTOs.Templates
+namespace PowerBuddy.Data.Dtos.Templates
 {
-    public class TemplateProgramAuditDTO
+    public class TemplateProgramAuditDto
     {
         public int TemplateProgramId { get; set; }
         public string Username { get; set; }

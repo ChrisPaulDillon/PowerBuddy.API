@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.System
+﻿namespace PowerBuddy.Data.Dtos.System
 {
-    public class RepSchemeTypeDTO
+    public class RepSchemeTypeDto
     {
         public int RepSchemeTypeId { get; set; }
         public string RepSchemeName { get; set; }

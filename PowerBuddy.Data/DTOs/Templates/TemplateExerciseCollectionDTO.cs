@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.Templates
+﻿namespace PowerBuddy.Data.Dtos.Templates
 {
-    public class TemplateExerciseCollectionDTO
+    public class TemplateExerciseCollectionDto
     {
         public int TemplateExerciseCollectionId { get; set; }
         public int TemplateProgramId { get; set; }

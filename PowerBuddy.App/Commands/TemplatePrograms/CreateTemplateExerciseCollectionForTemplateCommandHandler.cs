@@ -8,7 +8,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Commands.TemplatePrograms
@@ -51,7 +51,7 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
 
             if (exercisesAlreadyExist) return false;
 
-            var templateProgram = await _context.TemplateProgram.ProjectTo<TemplateProgramExtendedDTO>(_mapper.ConfigurationProvider).FirstOrDefaultAsync(x => x.TemplateProgramId == request.TemplateProgramId, cancellationToken: cancellationToken);
+            var templateProgram = await _context.TemplateProgram.ProjectTo<TemplateProgramExtendedDto>(_mapper.ConfigurationProvider).FirstOrDefaultAsync(x => x.TemplateProgramId == request.TemplateProgramId, cancellationToken: cancellationToken);
 
             var exercisesToAdd = new List<int>();
             foreach (var week in templateProgram.TemplateWeeks)

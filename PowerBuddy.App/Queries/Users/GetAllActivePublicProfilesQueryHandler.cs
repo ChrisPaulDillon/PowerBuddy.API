@@ -8,11 +8,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 
 namespace PowerBuddy.App.Queries.Users
 {
-    public class GetAllActivePublicProfilesQuery : IRequest<IEnumerable<PublicUserDTO>>
+    public class GetAllActivePublicProfilesQuery : IRequest<IEnumerable<PublicUserDto>>
     {
         public string UserId { get; }
         public GetAllActivePublicProfilesQuery(string userId)
@@ -29,7 +29,7 @@ namespace PowerBuddy.App.Queries.Users
         }
     }
 
-    internal class GetAllActivePublicProfilesQueryHandler : IRequestHandler<GetAllActivePublicProfilesQuery, IEnumerable<PublicUserDTO>>
+    internal class GetAllActivePublicProfilesQueryHandler : IRequestHandler<GetAllActivePublicProfilesQuery, IEnumerable<PublicUserDto>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -40,11 +40,11 @@ namespace PowerBuddy.App.Queries.Users
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<PublicUserDTO>> Handle(GetAllActivePublicProfilesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<PublicUserDto>> Handle(GetAllActivePublicProfilesQuery request, CancellationToken cancellationToken)
         {
             return await _context.User.Where(x => x.IsPublic && x.Id != request.UserId)
                 .AsNoTracking()
-                .ProjectTo<PublicUserDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<PublicUserDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
         }
     }

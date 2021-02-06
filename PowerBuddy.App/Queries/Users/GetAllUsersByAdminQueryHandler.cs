@@ -7,12 +7,12 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Queries.Users
 {
-    public class GetAllUsersByAdminQuery : IRequest<IEnumerable<AdminUserDTO>>
+    public class GetAllUsersByAdminQuery : IRequest<IEnumerable<AdminUserDto>>
     {
         public string UserId { get; }
 
@@ -30,7 +30,7 @@ namespace PowerBuddy.App.Queries.Users
         }
     }
 
-    internal class GetAllUsersByAdminQueryHandler : IRequestHandler<GetAllUsersByAdminQuery, IEnumerable<AdminUserDTO>>
+    internal class GetAllUsersByAdminQueryHandler : IRequestHandler<GetAllUsersByAdminQuery, IEnumerable<AdminUserDto>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -41,9 +41,9 @@ namespace PowerBuddy.App.Queries.Users
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AdminUserDTO>> Handle(GetAllUsersByAdminQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<AdminUserDto>> Handle(GetAllUsersByAdminQuery request, CancellationToken cancellationToken)
         {
-            var users = await _context.User.ProjectTo<AdminUserDTO>(_mapper.ConfigurationProvider).AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
+            var users = await _context.User.ProjectTo<AdminUserDto>(_mapper.ConfigurationProvider).AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
             return users;
         }
     }

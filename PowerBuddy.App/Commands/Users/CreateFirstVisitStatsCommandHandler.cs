@@ -6,19 +6,19 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Users
 {
     public class CreateFirstVisitStatsCommand : IRequest<OneOf<bool, UserNotFound>>
     {
-        public FirstVisitDTO FirstVisitDTO { get; }
+        public FirstVisitDto FirstVisitDto { get; }
         public string UserId { get; }
 
-        public CreateFirstVisitStatsCommand(FirstVisitDTO firstVisitDTO, string userId)
+        public CreateFirstVisitStatsCommand(FirstVisitDto firstVisitDto, string userId)
         {
-            FirstVisitDTO = firstVisitDTO;
+            FirstVisitDto = firstVisitDto;
             UserId = userId;
         }
     }
@@ -28,7 +28,7 @@ namespace PowerBuddy.App.Commands.Users
         public CreateFirstVisitStatsCommandValidator()
         {
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.FirstVisitDTO.GenderId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
+            RuleFor(x => x.FirstVisitDto.GenderId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
         }
     }
 
@@ -50,8 +50,8 @@ namespace PowerBuddy.App.Commands.Users
             }
 
             //TODO fix
-            user.GenderId = request.FirstVisitDTO.GenderId;
-            //user.LiftingLevel = request.FirstVisitDTO.LiftingLevel;
+            user.GenderId = request.FirstVisitDto.GenderId;
+            //user.LiftingLevel = request.FirstVisitDto.LiftingLevel;
             user.FirstVisit = true;
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);

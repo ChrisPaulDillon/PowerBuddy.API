@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.TemplatePrograms;
 using PowerBuddy.App.Queries.TemplatePrograms;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -26,7 +26,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<TemplateProgramDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<TemplateProgramDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllTemplatePrograms()
         {
@@ -35,7 +35,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("Search")]
-        [ProducesResponseType(typeof(IEnumerable<TemplateKeyValuePairDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<TemplateKeyValuePairDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTemplateProgramSearchResults(string searchTerm)
         {
             var templatePrograms = await _mediator.Send(new GetTemplateProgramsBySearchQuery(searchTerm));
@@ -43,7 +43,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("Feed")]
-        [ProducesResponseType(typeof(IEnumerable<TemplateProgramAuditDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<TemplateProgramAuditDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTemplateProgramFeed()
         {
             var templateProgramFeed = await _mediator.Send(new GetTemplateActivityFeedQuery());
@@ -51,7 +51,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("{templateProgramId:int}")]
-        [ProducesResponseType(typeof(TemplateProgramExtendedDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TemplateProgramExtendedDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTemplateProgramById(int templateProgramId)
         {
@@ -72,12 +72,12 @@ namespace PowerBuddy.API.Areas.Public
         //[HttpPost]
         //[ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
         //[ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
-        //public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDTO templateProgramDTO)
+        //public async Task<IActionResult> CreateTemplateProgram([FromBody] TemplateProgramDto templateProgramDto)
         //{
         //    try
         //    {
         //        var userId = User.Claims.First(x => x.Type == "UserID").Value;
-        //        var templateProgram = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDTO, userId));
+        //        var templateProgram = await _mediator.Send(new CreateTemplateProgramCommand(templateProgramDto, userId));
         //        return Ok(templateProgram);
         //    }
         //    catch (TemplateProgramNameAlreadyExistsException ex)

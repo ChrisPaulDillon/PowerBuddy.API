@@ -11,22 +11,22 @@ using OneOf;
 using PowerBuddy.App.Services.LiftingStats;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.LiftingStats;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.LiftingStats;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Commands.WorkoutDays
 {
-    public class CompleteWorkoutCommand : IRequest<OneOf<IEnumerable<LiftingStatAuditDTO>, WorkoutDayNotFound>>
+    public class CompleteWorkoutCommand : IRequest<OneOf<IEnumerable<LiftingStatAuditDto>, WorkoutDayNotFound>>
     {
-        public WorkoutDayDTO WorkoutDayDTO { get; }
+        public WorkoutDayDto WorkoutDayDto { get; }
         public string UserId { get; }
 
-        public CompleteWorkoutCommand(WorkoutDayDTO workoutDayDTO, string userId)
+        public CompleteWorkoutCommand(WorkoutDayDto workoutDayDto, string userId)
         {
-            WorkoutDayDTO = workoutDayDTO;
+            WorkoutDayDto = workoutDayDto;
             UserId = userId;
         }
     }
@@ -36,11 +36,11 @@ namespace PowerBuddy.App.Commands.WorkoutDays
         public CompleteWorkoutMemberCommandValidator()
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutDayDTO.Date).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutDayDto.Date).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
         }
     }
 
-    public class CompleteWorkoutCommandHandler : IRequestHandler<CompleteWorkoutCommand, OneOf<IEnumerable<LiftingStatAuditDTO>, WorkoutDayNotFound>>
+    public class CompleteWorkoutCommandHandler : IRequestHandler<CompleteWorkoutCommand, OneOf<IEnumerable<LiftingStatAuditDto>, WorkoutDayNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -57,19 +57,19 @@ namespace PowerBuddy.App.Commands.WorkoutDays
             _entityFactory = entityFactory;
         }
 
-        public async Task<OneOf<IEnumerable<LiftingStatAuditDTO>, WorkoutDayNotFound>> Handle(CompleteWorkoutCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<IEnumerable<LiftingStatAuditDto>, WorkoutDayNotFound>> Handle(CompleteWorkoutCommand request, CancellationToken cancellationToken)
         {
             var workoutDay = await _context.WorkoutDay.AsNoTracking()
-                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.WorkoutDayDTO.WorkoutDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
+                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.WorkoutDayDto.WorkoutDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (workoutDay == null)
             {
                 return new WorkoutDayNotFound();
             }
 
-            var workoutExercises = request.WorkoutDayDTO.WorkoutExercises.ToList();
+            var workoutExercises = request.WorkoutDayDto.WorkoutExercises.ToList();
 
-            var totalPersonalBests = new List<LiftingStatAuditDTO>();
+            var totalPersonalBests = new List<LiftingStatAuditDto>();
 
             foreach (var workoutExercise in workoutExercises)
             {
@@ -94,7 +94,7 @@ namespace PowerBuddy.App.Commands.WorkoutDays
                         workoutExercise.ExerciseId,
                         (int)workoutSet.RepsCompleted,
                         workoutSet.WeightLifted,
-                        request.WorkoutDayDTO.Date,
+                        request.WorkoutDayDto.Date,
                         request.UserId);
 
                     hitPersonalBest.WorkoutSetId = workoutSet.WorkoutSetId;
@@ -102,7 +102,7 @@ namespace PowerBuddy.App.Commands.WorkoutDays
                     await _context.LiftingStatAudit.AddAsync(hitPersonalBest, cancellationToken);
 
                     hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == workoutExercise.ExerciseId, cancellationToken: cancellationToken);
-                    totalPersonalBests.Add(_mapper.Map<LiftingStatAuditDTO>(hitPersonalBest));
+                    totalPersonalBests.Add(_mapper.Map<LiftingStatAuditDto>(hitPersonalBest));
                     _context.Entry(hitPersonalBest.Exercise).State = EntityState.Detached;
 
                     workoutSet.NoOfReps = (int)workoutSet.RepsCompleted;

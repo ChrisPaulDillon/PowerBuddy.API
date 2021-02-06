@@ -5,18 +5,18 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Exercises;
+using PowerBuddy.Data.Dtos.Exercises;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Exercises;
 using OneOf;
 
 namespace PowerBuddy.App.Commands.Exercises
 {
-    public class CreateExerciseCommand : IRequest<OneOf<ExerciseDTO, ExerciseAlreadyExists>>
+    public class CreateExerciseCommand : IRequest<OneOf<ExerciseDto, ExerciseAlreadyExists>>
     {
-        public CExerciseDTO Exercise { get; }
+        public CExerciseDto Exercise { get; }
 
-        public CreateExerciseCommand(CExerciseDTO exercise)
+        public CreateExerciseCommand(CExerciseDto exercise)
         {
             Exercise = exercise;
         }
@@ -30,7 +30,7 @@ namespace PowerBuddy.App.Commands.Exercises
         }
     }
 
-    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, OneOf<ExerciseDTO, ExerciseAlreadyExists>>
+    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, OneOf<ExerciseDto, ExerciseAlreadyExists>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -41,7 +41,7 @@ namespace PowerBuddy.App.Commands.Exercises
             _mapper = mapper;
         }
 
-        public async Task<OneOf<ExerciseDTO, ExerciseAlreadyExists>> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<ExerciseDto, ExerciseAlreadyExists>> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
         {
             var doesExist = await _context.Exercise
                 .AsNoTracking()
@@ -56,8 +56,8 @@ namespace PowerBuddy.App.Commands.Exercises
             _context.Add(exercise);
             await _context.SaveChangesAsync();
 
-            var exerciseDTO = _mapper.Map<ExerciseDTO>(exercise);
-            return exerciseDTO;
+            var exerciseDto = _mapper.Map<ExerciseDto>(exercise);
+            return exerciseDto;
         }
     }
 }

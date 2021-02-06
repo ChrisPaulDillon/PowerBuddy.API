@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.App.Repositories.System;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.System;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -21,7 +21,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("Gender")]
-        [ProducesResponseType(typeof(IEnumerable<GenderDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<GenderDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllGenders()
         {
             var genders = await _service.GetAllGenders();
@@ -29,7 +29,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("MemberStatus")]
-        [ProducesResponseType(typeof(IEnumerable<GenderDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<GenderDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllMemberStatus()
         {
             var memberStatus = await _service.GetAllMemberStatus();
@@ -37,7 +37,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("LiftingLevel")]
-        [ProducesResponseType(typeof(IEnumerable<LiftingLevelDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingLevelDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllLiftingLevels()
         {
             var liftingLevels = await _service.GetAllLiftingLevels();

@@ -10,17 +10,17 @@ using PowerBuddy.App.Queries.Authentication.Models;
 using PowerBuddy.App.Services.Authentication;
 using PowerBuddy.App.Services.Authentication.Models;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Queries.Authentication
 {
-    public class LoginUserQuery : IRequest<OneOf<AuthenticationResultDTO, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>>
+    public class LoginUserQuery : IRequest<OneOf<AuthenticationResultDto, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>>
     {
-        public LoginModelDTO LoginModel { get; }
+        public LoginModelDto LoginModel { get; }
 
-        public LoginUserQuery(LoginModelDTO loginModel)
+        public LoginUserQuery(LoginModelDto loginModel)
         {
             LoginModel = loginModel;
         }
@@ -36,7 +36,7 @@ namespace PowerBuddy.App.Queries.Authentication
         }
     }
 
-    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, OneOf<AuthenticationResultDTO, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>>
+    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, OneOf<AuthenticationResultDto, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -51,7 +51,7 @@ namespace PowerBuddy.App.Queries.Authentication
             _tokenService = tokenService;
         }
 
-        public async Task<OneOf<AuthenticationResultDTO, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>> Handle(LoginUserQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<AuthenticationResultDto, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User
 	            .FirstOrDefaultAsync(x => x.NormalizedEmail == request.LoginModel.Email.ToUpper() || x.NormalizedUserName == request.LoginModel.UserName.ToUpper(), cancellationToken: cancellationToken);
@@ -75,7 +75,7 @@ namespace PowerBuddy.App.Queries.Authentication
 
             if (result.Succeeded)
             {
-                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(user.Id, _mapper.Map<UserDTO>(user));
+                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(user.Id, _mapper.Map<UserDto>(user));
                 return authenticatedUser;
             }
 

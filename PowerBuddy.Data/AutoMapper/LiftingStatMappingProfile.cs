@@ -1,6 +1,6 @@
 ﻿using System;
 using AutoMapper;
-using PowerBuddy.Data.DTOs.LiftingStats;
+using PowerBuddy.Data.Dtos.LiftingStats;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.AutoMapper
@@ -9,7 +9,7 @@ namespace PowerBuddy.Data.AutoMapper
     {
         public LiftingStatMappingProfile()
         {
-            CreateMap<LiftingStatAudit, LiftFeedDTO>()
+            CreateMap<LiftingStatAudit, LiftFeedDto>()
                 .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int>(src => src.LiftingStatAuditId))
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.UserId))
                 .ForMember(x => x.UserName, d => d.MapFrom<string>(src => src.User.UserName))
@@ -19,7 +19,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.ExerciseName, d => d.MapFrom<string>(src => src.Exercise.ExerciseName))
                 .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId));
 
-            CreateMap<LiftingStatAudit, LiftingStatAuditDTO>()
+            CreateMap<LiftingStatAudit, LiftingStatAuditDto>()
                 .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int>(src => src.LiftingStatAuditId))
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.UserId))
                 .ForMember(x => x.RepRange, d => d.MapFrom<int>(src => src.RepRange))
@@ -28,7 +28,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.ExerciseName, d => d.MapFrom<string>(src => src.Exercise.ExerciseName))
                 .ForMember(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId));
 
-            CreateMap<LiftingStatAuditDTO, LiftingStatAudit>()
+            CreateMap<LiftingStatAuditDto, LiftingStatAudit>()
                 .ForMember(x => x.LiftingStatAuditId, d => d.MapFrom<int>(src => src.LiftingStatAuditId))
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.UserId))
                 .ForMember(x => x.RepRange, d => d.MapFrom<int>(src => src.RepRange))

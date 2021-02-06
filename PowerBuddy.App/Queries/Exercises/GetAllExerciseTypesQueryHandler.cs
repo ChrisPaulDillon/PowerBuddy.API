@@ -3,15 +3,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using PowerBuddy.App.Repositories.Exercises;
-using PowerBuddy.Data.DTOs.Exercises;
+using PowerBuddy.Data.Dtos.Exercises;
 
 namespace PowerBuddy.App.Queries.Exercises
 {
-    public class GetAllExerciseTypesQuery : IRequest<IEnumerable<ExerciseTypeDTO>>
+    public class GetAllExerciseTypesQuery : IRequest<IEnumerable<ExerciseTypeDto>>
     {
     }
 
-    internal class GetAllExerciseTypesQueryHandler : IRequestHandler<GetAllExerciseTypesQuery, IEnumerable<ExerciseTypeDTO>>
+    internal class GetAllExerciseTypesQueryHandler : IRequestHandler<GetAllExerciseTypesQuery, IEnumerable<ExerciseTypeDto>>
     {
         private readonly IExerciseRepository _exerciseRepo;
 
@@ -20,7 +20,7 @@ namespace PowerBuddy.App.Queries.Exercises
             _exerciseRepo = exerciseRepo;
         }
 
-        public async Task<IEnumerable<ExerciseTypeDTO>> Handle(GetAllExerciseTypesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ExerciseTypeDto>> Handle(GetAllExerciseTypesQuery request, CancellationToken cancellationToken)
         {
             return await _exerciseRepo.GetAllExerciseTypes();
         }

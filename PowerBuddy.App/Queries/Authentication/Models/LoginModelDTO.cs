@@ -1,6 +1,6 @@
 ﻿namespace PowerBuddy.App.Queries.Authentication.Models
 {
-    public class LoginModelDTO
+    public class LoginModelDto
     {
         public string UserName { get; set; }
         public string Email { get; set; }

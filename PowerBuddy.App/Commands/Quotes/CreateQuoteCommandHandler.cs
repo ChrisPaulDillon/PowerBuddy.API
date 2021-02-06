@@ -6,19 +6,19 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.System;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Quotes
 {
-    public class CreateQuoteCommand : IRequest<OneOf<QuoteDTO, UserNotFound>>
+    public class CreateQuoteCommand : IRequest<OneOf<QuoteDto, UserNotFound>>
     {
-        public QuoteDTO QuoteDTO { get; }
+        public QuoteDto QuoteDto { get; }
         public string UserId { get; }
-        public CreateQuoteCommand(QuoteDTO quoteDTO, string userId)
+        public CreateQuoteCommand(QuoteDto quoteDto, string userId)
         {
-            QuoteDTO = quoteDTO;
+            QuoteDto = quoteDto;
             UserId = userId;
         }
     }
@@ -27,12 +27,12 @@ namespace PowerBuddy.App.Commands.Quotes
     {
         public CreateQuoteCommandValidator()
         {
-            RuleFor(x => x.QuoteDTO).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.QuoteDto).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 
-    public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, OneOf<QuoteDTO, UserNotFound>>
+    public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, OneOf<QuoteDto, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -42,7 +42,7 @@ namespace PowerBuddy.App.Commands.Quotes
             _mapper = mapper;
         }
 
-        public async Task<OneOf<QuoteDTO, UserNotFound>> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<QuoteDto, UserNotFound>> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
@@ -51,11 +51,11 @@ namespace PowerBuddy.App.Commands.Quotes
                 return new UserNotFound();
             }
 
-            var quoteEntity = _mapper.Map<Quote>(request.QuoteDTO); //TODO validate request
+            var quoteEntity = _mapper.Map<Quote>(request.QuoteDto); //TODO validate request
             await _context.Quote.AddAsync(quoteEntity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
-            return request.QuoteDTO;
+            return request.QuoteDto;
         }
     }
 }

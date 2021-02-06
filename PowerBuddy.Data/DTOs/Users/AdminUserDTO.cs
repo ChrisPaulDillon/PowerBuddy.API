@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.Users
+﻿namespace PowerBuddy.Data.Dtos.Users
 {
-    public class AdminUserDTO
+    public class AdminUserDto
     {
         public string UserId { get; set; }
         public string UserName { get; set; }

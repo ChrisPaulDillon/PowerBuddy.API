@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using PowerBuddy.Data.DTOs.LiftingStats;
+using PowerBuddy.Data.Dtos.LiftingStats;
 
 namespace PowerBuddy.App.Queries.LiftingStats.Models
 {
-    public class LiftingStatGroupedDTO
+    public class LiftingStatGroupedDto
     {
         public string ExerciseName { get; set; }
-        public IEnumerable<LiftingStatAuditDTO> LiftingStats { get; set; }
+        public IEnumerable<LiftingStatAuditDto> LiftingStats { get; set; }
     }
 }

@@ -4,19 +4,19 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.System;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Commands.Quotes
 {
-    public class RequestQuoteCommand : IRequest<QuoteDTO>
+    public class RequestQuoteCommand : IRequest<QuoteDto>
     {
-        public QuoteDTO QuoteDTO { get; }
+        public QuoteDto QuoteDto { get; }
         public string UserId { get; }
 
-        public RequestQuoteCommand(QuoteDTO quoteDTO, string userId)
+        public RequestQuoteCommand(QuoteDto quoteDto, string userId)
         {
-            QuoteDTO = quoteDTO;
+            QuoteDto = quoteDto;
             UserId = userId;
         }
     }
@@ -25,12 +25,12 @@ namespace PowerBuddy.App.Commands.Quotes
     {
         public RequestQuoteCommandValidator()
         {
-            RuleFor(x => x.QuoteDTO).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.QuoteDto).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 
-    public class RequestQuoteCommandHandler : IRequestHandler<RequestQuoteCommand, QuoteDTO>
+    public class RequestQuoteCommandHandler : IRequestHandler<RequestQuoteCommand, QuoteDto>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -41,13 +41,13 @@ namespace PowerBuddy.App.Commands.Quotes
             _mapper = mapper;
         }
 
-        public async Task<QuoteDTO> Handle(RequestQuoteCommand request, CancellationToken cancellationToken)
+        public async Task<QuoteDto> Handle(RequestQuoteCommand request, CancellationToken cancellationToken)
         {
-            var quoteEntity = _mapper.Map<Quote>(request.QuoteDTO); //TODO validate request
+            var quoteEntity = _mapper.Map<Quote>(request.QuoteDto); //TODO validate request
             await _context.Quote.AddAsync(quoteEntity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
-            return request.QuoteDTO;
+            return request.QuoteDto;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.AutoMapper
@@ -9,7 +9,7 @@ namespace PowerBuddy.Data.AutoMapper
     {
         public TemplateProgramMappingProfile()
         {
-            CreateMap<TemplateProgram, TemplateProgramDTO>()
+            CreateMap<TemplateProgram, TemplateProgramDto>()
                 .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom<int>(src => src.TemplateProgramId))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom<string>(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom<string>(src => src.Description))
@@ -19,7 +19,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom<string>(src => src.WeightProgressionType))
                 .ForMember(dest => dest.ActiveUsersCount, opt => opt.MapFrom(src => src.ActiveUsersCount));
 
-            CreateMap<TemplateProgram, TemplateProgramExtendedDTO>()
+            CreateMap<TemplateProgram, TemplateProgramExtendedDto>()
                 .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom<int>(src => src.TemplateProgramId))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom<string>(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom<string>(src => src.Description))
@@ -31,33 +31,33 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.TemplateWeeks, opt => opt.MapFrom(src => src.TemplateWeeks.OrderBy<TemplateWeek, int>(x => x.WeekNo)))
                 .ForMember(dest => dest.TemplateExerciseCollection, opt => opt.MapFrom(src => src.TemplateExerciseCollection));
 
-            CreateMap<TemplateExerciseCollection, TemplateExerciseCollectionDTO>()
+            CreateMap<TemplateExerciseCollection, TemplateExerciseCollectionDto>()
                 .ForMember(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom<int>(src => src.TemplateExerciseCollectionId))
                 .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom<int>(src => src.TemplateProgramId))
                 .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom<int>(src => src.ExerciseId))
                 .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom<string>(src => src.Exercise.ExerciseName));
 
-            CreateMap<TemplateExerciseCollectionDTO, TemplateExerciseCollection>()
+            CreateMap<TemplateExerciseCollectionDto, TemplateExerciseCollection>()
                 .ForMember<int>(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom(src => src.TemplateExerciseCollectionId))
                 .ForMember<int>(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
                 .ForMember<int>(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
                 .ForMember(dest => dest.Exercise, opt => opt.Ignore());
 
-            CreateMap<TemplateWeek, TemplateWeekDTO>()
+            CreateMap<TemplateWeek, TemplateWeekDto>()
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom<int>(src => src.TemplateWeekId))
                 .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom<int>(src => src.TemplateProgramId))
                 .ForMember(dest => dest.WeekNo, opt => opt.MapFrom<int>(src => src.WeekNo))
                 .ForMember(dest => dest.TemplateDays, opt => opt.MapFrom(src => src.TemplateDays.OrderBy(x => x.DayNo)))
                 .ReverseMap();
 
-            CreateMap<TemplateDay, TemplateDayDTO>()
+            CreateMap<TemplateDay, TemplateDayDto>()
                 .ForMember(dest => dest.TemplateDayId, opt => opt.MapFrom<int>(src => src.TemplateDayId))
                 .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom<int>(src => src.TemplateWeekId))
                 .ForMember(dest => dest.DayNo, opt => opt.MapFrom<int>(src => src.DayNo))
                 .ForMember(dest => dest.TemplateExercises, opt => opt.MapFrom(src => src.TemplateExercises))
                 .ReverseMap();
 
-            CreateMap<TemplateExercise, TemplateExerciseDTO>()
+            CreateMap<TemplateExercise, TemplateExerciseDto>()
                 .ForMember(dest => dest.TemplateExerciseId, opt => opt.MapFrom<int>(src => src.TemplateExerciseId))
                 .ForMember(dest => dest.TemplateDayId, opt => opt.MapFrom<int>(src => src.TemplateDayId))
                 .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom<int>(src => src.ExerciseId))
@@ -68,7 +68,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.BackOffSetFormat, opt => opt.MapFrom<string>(src => src.BackOffSetFormat))
                 .ForMember(dest => dest.TemplateRepSchemes, opt => opt.MapFrom(src => src.TemplateRepSchemes.OrderBy(x => x.SetNo)));
 
-            CreateMap<TemplateRepScheme, TemplateRepSchemeDTO>()
+            CreateMap<TemplateRepScheme, TemplateRepSchemeDto>()
                 .ForMember(dest => dest.TemplateRepSchemeId, opt => opt.MapFrom(src => src.TemplateExerciseId))
                 .ForMember(dest => dest.TemplateExerciseId, opt => opt.MapFrom(src => src.TemplateExerciseId))
                 .ForMember(dest => dest.Percentage, opt => opt.MapFrom(src => src.Percentage))
@@ -79,13 +79,13 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.AMRAP, opt => opt.MapFrom(src => src.AMRAP))
                 .ReverseMap();
 
-            CreateMap<TemplateProgramAudit, TemplateProgramAuditDTO>()
+            CreateMap<TemplateProgramAudit, TemplateProgramAuditDto>()
                 .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.UserName))
                 .ForMember(dest => dest.TemplateName, opt => opt.MapFrom(src => src.TemplateProgram.Name))
                 .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src.DateCreated));
 
-            CreateMap<TemplateProgram, TemplateKeyValuePairDTO>()
+            CreateMap<TemplateProgram, TemplateKeyValuePairDto>()
                 .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
                 .ForMember(dest => dest.TemplateName, opt => opt.MapFrom(src => src.Name));
         }

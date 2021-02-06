@@ -8,12 +8,12 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Queries.Users
 {
-    public class GetUserProfileQuery : IRequest<OneOf<UserDTO, UserNotFound>>
+    public class GetUserProfileQuery : IRequest<OneOf<UserDto, UserNotFound>>
     {
         public string UserId { get; }
 
@@ -31,7 +31,7 @@ namespace PowerBuddy.App.Queries.Users
         }
     }
 
-    internal class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, OneOf<UserDTO, UserNotFound>>
+    internal class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, OneOf<UserDto, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -42,12 +42,12 @@ namespace PowerBuddy.App.Queries.Users
             _mapper = mapper;
         }
 
-        public async Task<OneOf<UserDTO, UserNotFound>> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<UserDto, UserNotFound>> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User
                 .Where(x => x.Id == request.UserId)
                 .AsNoTracking()
-                .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (user == null)

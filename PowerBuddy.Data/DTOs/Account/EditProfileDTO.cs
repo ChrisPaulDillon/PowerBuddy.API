@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.Account
+﻿namespace PowerBuddy.Data.Dtos.Account
 {
-    public class EditProfileDTO
+    public class EditProfileDto
     {
         public string UserId { get; set; }
         public string FirstName { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.System;
 
 namespace PowerBuddy.App.Repositories.System
 {
@@ -9,16 +9,16 @@ namespace PowerBuddy.App.Repositories.System
     {
         private readonly ISystemRepository _systemRepo;
 
-        private static readonly ConcurrentDictionary<int, GenderDTO> _cachedGenders = new ConcurrentDictionary<int, GenderDTO>();
-        private static readonly ConcurrentDictionary<int, MemberStatusDTO> _cachedMemberStatus = new ConcurrentDictionary<int, MemberStatusDTO>();
-        private static readonly ConcurrentDictionary<int, LiftingLevelDTO> _cachedLiftingLevels = new ConcurrentDictionary<int, LiftingLevelDTO>();
+        private static readonly ConcurrentDictionary<int, GenderDto> _cachedGenders = new ConcurrentDictionary<int, GenderDto>();
+        private static readonly ConcurrentDictionary<int, MemberStatusDto> _cachedMemberStatus = new ConcurrentDictionary<int, MemberStatusDto>();
+        private static readonly ConcurrentDictionary<int, LiftingLevelDto> _cachedLiftingLevels = new ConcurrentDictionary<int, LiftingLevelDto>();
 
         public CachedSystemRepository(ISystemRepository systemRepo)
         {
             _systemRepo = systemRepo;
         }
 
-        public async Task<IEnumerable<GenderDTO>> GetAllGenders()
+        public async Task<IEnumerable<GenderDto>> GetAllGenders()
         {
             if (!_cachedGenders.IsEmpty)
             {
@@ -34,7 +34,7 @@ namespace PowerBuddy.App.Repositories.System
             return _cachedGenders.Values;
         }
 
-        public async Task<IEnumerable<MemberStatusDTO>> GetAllMemberStatus()
+        public async Task<IEnumerable<MemberStatusDto>> GetAllMemberStatus()
         {
             if (!_cachedMemberStatus.IsEmpty)
             {
@@ -50,7 +50,7 @@ namespace PowerBuddy.App.Repositories.System
             return _cachedMemberStatus.Values;
         }
 
-        public async Task<IEnumerable<LiftingLevelDTO>> GetAllLiftingLevels()
+        public async Task<IEnumerable<LiftingLevelDto>> GetAllLiftingLevels()
         {
             if (!_cachedLiftingLevels.IsEmpty)
             {

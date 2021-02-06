@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.Templates
+﻿namespace PowerBuddy.Data.Dtos.Templates
 {
-    public class TemplateProgramDTO
+    public class TemplateProgramDto
     {
         public int TemplateProgramId { get; set; }
         public string Name { get; set; }

@@ -16,12 +16,12 @@ namespace PowerBuddy.App.Commands.Authentication
     public class ResetPasswordCommand : IRequest<OneOf<bool, UserNotFound>>
     {
         public string UserId { get; }
-        public ChangePasswordInputDTO ChangePasswordInputDTO { get; }
+        public ChangePasswordInputDto ChangePasswordInputDto { get; }
 
-        public ResetPasswordCommand(string userId, ChangePasswordInputDTO changePasswordInputDTO)
+        public ResetPasswordCommand(string userId, ChangePasswordInputDto changePasswordInputDto)
         {
             UserId = userId;
-            ChangePasswordInputDTO = changePasswordInputDTO;
+            ChangePasswordInputDto = changePasswordInputDto;
         }
     }
 
@@ -29,8 +29,8 @@ namespace PowerBuddy.App.Commands.Authentication
     {
         public ResetPasswordCommandValidator()
         {
-            RuleFor(x => x.ChangePasswordInputDTO.Token).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.ChangePasswordInputDTO.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.ChangePasswordInputDto.Token).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.ChangePasswordInputDto.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
@@ -57,7 +57,7 @@ namespace PowerBuddy.App.Commands.Authentication
                 return new UserNotFound();
             }
 
-            var result = await _userManager.ResetPasswordAsync(user, request.ChangePasswordInputDTO.Token, request.ChangePasswordInputDTO.Password);
+            var result = await _userManager.ResetPasswordAsync(user, request.ChangePasswordInputDto.Token, request.ChangePasswordInputDto.Password);
 
             if (result.Succeeded)
             {

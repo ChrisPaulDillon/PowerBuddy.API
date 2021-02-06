@@ -10,21 +10,21 @@ using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.App.Services.Workouts.Models;
 using PowerBuddy.App.Services.Workouts.Util;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Data.Models.Exercises;
 using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Commands.WorkoutExercises
 {
-    public class CreateWorkoutExerciseCommand : IRequest<OneOf<WorkoutExerciseDTO, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>>
+    public class CreateWorkoutExerciseCommand : IRequest<OneOf<WorkoutExerciseDto, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>>
     {
-        public CreateWorkoutExerciseDTO CreateWorkoutExerciseDTO { get; }
+        public CreateWorkoutExerciseDto CreateWorkoutExerciseDto { get; }
         public string UserId { get; }
 
-        public CreateWorkoutExerciseCommand(CreateWorkoutExerciseDTO createWorkoutExerciseDTO, string userId)
+        public CreateWorkoutExerciseCommand(CreateWorkoutExerciseDto createWorkoutExerciseDto, string userId)
         {
-            CreateWorkoutExerciseDTO = createWorkoutExerciseDTO;
+            CreateWorkoutExerciseDto = createWorkoutExerciseDto;
             UserId = userId;
         }
     }
@@ -34,13 +34,13 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
         public CreateWorkoutLogExerciseCommandValidator()
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.CreateWorkoutExerciseDTO.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
-            RuleFor(x => x.CreateWorkoutExerciseDTO.Sets).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
-            RuleFor(x => x.CreateWorkoutExerciseDTO.Reps).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.CreateWorkoutExerciseDto.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.CreateWorkoutExerciseDto.Sets).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.CreateWorkoutExerciseDto.Reps).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 
-    public class CreateWorkoutExerciseCommandHandler : IRequestHandler<CreateWorkoutExerciseCommand, OneOf<WorkoutExerciseDTO, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>>
+    public class CreateWorkoutExerciseCommandHandler : IRequestHandler<CreateWorkoutExerciseCommand, OneOf<WorkoutExerciseDto, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -55,9 +55,9 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
             _entityFactory = entityFactory;
         }
 
-        public async Task<OneOf<WorkoutExerciseDTO, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>> Handle(CreateWorkoutExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<WorkoutExerciseDto, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>> Handle(CreateWorkoutExerciseCommand request, CancellationToken cancellationToken)
         {
-            var workoutDay = await _context.WorkoutDay.FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDTO.WorkoutDayId);
+            var workoutDay = await _context.WorkoutDay.FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDto.WorkoutDayId);
             if (workoutDay == null)
             {
                 return new WorkoutDayNotFound();
@@ -67,7 +67,7 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
 
             var exerciseName = await _context.Exercise
                 .AsNoTracking()
-                .Where(x => x.ExerciseId == request.CreateWorkoutExerciseDTO.ExerciseId)
+                .Where(x => x.ExerciseId == request.CreateWorkoutExerciseDto.ExerciseId)
                 .Select(x => x.ExerciseName)
                 .FirstOrDefaultAsync();
 
@@ -79,14 +79,14 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
             var workoutExerciseEntity = await _context.WorkoutExercise
                 .AsNoTracking()
                 .Include(x => x.WorkoutSets)
-                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDTO.WorkoutDayId && 
-                                          x.ExerciseId == request.CreateWorkoutExerciseDTO.ExerciseId);
+                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDto.WorkoutDayId && 
+                                          x.ExerciseId == request.CreateWorkoutExerciseDto.ExerciseId);
 
-            var noOfSetsToAdd = request.CreateWorkoutExerciseDTO.Sets;
+            var noOfSetsToAdd = request.CreateWorkoutExerciseDto.Sets;
 
             if (workoutExerciseEntity == null) //no exercise found for this day, create a fresh one
             {
-                workoutExerciseEntity = _workoutService.CreateSetsForExercise(request.CreateWorkoutExerciseDTO, request.UserId);
+                workoutExerciseEntity = _workoutService.CreateSetsForExercise(request.CreateWorkoutExerciseDto, request.UserId);
                 await _context.WorkoutExercise.AddAsync(workoutExerciseEntity, cancellationToken);
             }
             else //update existing Workout log exercise
@@ -100,17 +100,17 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
                 for (var i = 1; i < noOfSetsToAdd + 1; i++)
                 {
                     var workoutSet = _entityFactory.CreateWorkoutSet(workoutExerciseEntity.WorkoutExerciseId, 
-                                                                            request.CreateWorkoutExerciseDTO.Reps, 
-                                                                            request.CreateWorkoutExerciseDTO.Weight, 
+                                                                            request.CreateWorkoutExerciseDto.Reps, 
+                                                                            request.CreateWorkoutExerciseDto.Weight, 
                                                                             false);
                     workoutExerciseEntity.WorkoutSets.Add(workoutSet);
                 }
             }
 
-            await _workoutService.CreateWorkoutExerciseAudit(request.CreateWorkoutExerciseDTO.ExerciseId, request.UserId);
+            await _workoutService.CreateWorkoutExerciseAudit(request.CreateWorkoutExerciseDto.ExerciseId, request.UserId);
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedWorkoutLogExercise = _mapper.Map<WorkoutExerciseDTO>(workoutExerciseEntity);
+            var mappedWorkoutLogExercise = _mapper.Map<WorkoutExerciseDto>(workoutExerciseEntity);
             mappedWorkoutLogExercise.ExerciseName = exerciseName;
             return mappedWorkoutLogExercise;
         }

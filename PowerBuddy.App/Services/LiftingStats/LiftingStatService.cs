@@ -7,8 +7,8 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.LiftingStats;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.LiftingStats;
+using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Services.LiftingStats
@@ -38,7 +38,7 @@ namespace PowerBuddy.App.Services.LiftingStats
             _context.LiftingStatAudit.Add(liftingStatAudit);
         }
 
-        public IEnumerable<TemplateWeightInputDTO> CalculateNewWeightInput(IEnumerable<TemplateWeightInputDTO> weightInputs, Dictionary<int, decimal> weightIncrements)
+        public IEnumerable<TemplateWeightInputDto> CalculateNewWeightInput(IEnumerable<TemplateWeightInputDto> weightInputs, Dictionary<int, decimal> weightIncrements)
         {
             foreach (var weightInput in weightInputs)
             {
@@ -85,11 +85,11 @@ namespace PowerBuddy.App.Services.LiftingStats
             //    .ToListAsync();
         }
 
-        public async Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatForExercise(int exerciseId, string userId)
+        public async Task<IEnumerable<LiftingStatAuditDto>> GetTopLiftingStatForExercise(int exerciseId, string userId)
         {
             var stats = await _context.LiftingStatAudit.AsNoTracking()
                 .Where(x => x.UserId == userId && x.ExerciseId == exerciseId)
-                .ProjectTo<LiftingStatAuditDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<LiftingStatAuditDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             var groupedStats = stats.GroupBy(x => new { x.RepRange, x.ExerciseId })
@@ -99,11 +99,11 @@ namespace PowerBuddy.App.Services.LiftingStats
             return groupedStats;
         }
 
-        public async Task<IEnumerable<LiftingStatAuditDTO>> GetTopLiftingStatCollection(string userId)
+        public async Task<IEnumerable<LiftingStatAuditDto>> GetTopLiftingStatCollection(string userId)
         {
             var stats = await _context.LiftingStatAudit.AsNoTracking()
                 .Where(x => x.UserId == userId)
-                .ProjectTo<LiftingStatAuditDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<LiftingStatAuditDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             var groupedStats = stats.GroupBy(x => new { x.RepRange, x.ExerciseId })

@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.App.Queries.Workouts.Models;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Queries.Workouts
 {
-    public class GetAllWorkoutStatsQuery : IRequest<OneOf<WorkoutStatExtendedDTO, WorkoutLogNotFound>>
+    public class GetAllWorkoutStatsQuery : IRequest<OneOf<WorkoutStatExtendedDto, WorkoutLogNotFound>>
     {
         public string UserId { get; }
 
@@ -32,7 +32,7 @@ namespace PowerBuddy.App.Queries.Workouts
         }
     }
 
-    internal class GetAllWorkoutStatsQueryHandler : IRequestHandler<GetAllWorkoutStatsQuery, OneOf<WorkoutStatExtendedDTO, WorkoutLogNotFound>>
+    internal class GetAllWorkoutStatsQueryHandler : IRequestHandler<GetAllWorkoutStatsQuery, OneOf<WorkoutStatExtendedDto, WorkoutLogNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -43,12 +43,12 @@ namespace PowerBuddy.App.Queries.Workouts
             _mapper = mapper;
         }
 
-        public async Task<OneOf<WorkoutStatExtendedDTO, WorkoutLogNotFound>> Handle(GetAllWorkoutStatsQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<WorkoutStatExtendedDto, WorkoutLogNotFound>> Handle(GetAllWorkoutStatsQuery request, CancellationToken cancellationToken)
         {
             var workoutLogStats = await _context.WorkoutLog
                 .AsNoTracking()
                 .Where(x => x.UserId == request.UserId)
-                .ProjectTo<WorkoutLogStatDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkoutLogStatDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
 
             if (!workoutLogStats.Any())
@@ -56,7 +56,7 @@ namespace PowerBuddy.App.Queries.Workouts
                 return new WorkoutLogNotFound();
             }
 
-            var workoutLogStatsExtended = new WorkoutStatExtendedDTO()
+            var workoutLogStatsExtended = new WorkoutStatExtendedDto()
             {
                 UserId = workoutLogStats[0].UserId,
                 LifetimeLogCount = workoutLogStats.Count,

@@ -6,19 +6,19 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Account;
+using PowerBuddy.Data.Dtos.Account;
 using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Users
 {
     public class EditProfileCommand : IRequest<OneOf<bool, UserNotFound>>
     {
-        public EditProfileDTO EditProfileDTO { get; }
+        public EditProfileDto EditProfileDto { get; }
         public string UserId { get; }
 
-        public EditProfileCommand(EditProfileDTO editProfileDTO, string userId)
+        public EditProfileCommand(EditProfileDto editProfileDto, string userId)
         {
-            EditProfileDTO = editProfileDTO;
+            EditProfileDto = editProfileDto;
             UserId = userId;
         }
     }
@@ -28,7 +28,7 @@ namespace PowerBuddy.App.Commands.Users
         public EditProfileCommandValidator()
         {
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.EditProfileDTO.QuotesEnabled).NotNull().WithMessage("'{PropertyName}' cannot be null.");
+            RuleFor(x => x.EditProfileDto.QuotesEnabled).NotNull().WithMessage("'{PropertyName}' cannot be null.");
         }
     }
 
@@ -45,7 +45,7 @@ namespace PowerBuddy.App.Commands.Users
 
         public async Task<OneOf<bool, UserNotFound>> Handle(EditProfileCommand request, CancellationToken cancellationToken)
         {
-            if (request.UserId != request.EditProfileDTO.UserId)
+            if (request.UserId != request.EditProfileDto.UserId)
             {
                 return new UserNotFound();
             }
@@ -59,8 +59,8 @@ namespace PowerBuddy.App.Commands.Users
                 return new UserNotFound();
             }
 
-            var updatedProfile = _mapper.Map(request.EditProfileDTO, user);
-            updatedProfile.UserSetting = _mapper.Map(request.EditProfileDTO, updatedProfile.UserSetting);
+            var updatedProfile = _mapper.Map(request.EditProfileDto, user);
+            updatedProfile.UserSetting = _mapper.Map(request.EditProfileDto, updatedProfile.UserSetting);
             _context.User.Update(updatedProfile);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);

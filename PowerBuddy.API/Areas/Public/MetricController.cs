@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Queries.Metrics;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -22,7 +22,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("Landing")]
-        [ProducesResponseType(typeof(PublicUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PublicUserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLandingPageMetrics()
         {

@@ -11,7 +11,7 @@ using PowerBuddy.App.Commands.LiftingStats;
 using PowerBuddy.App.Queries.LiftingStats;
 using PowerBuddy.App.Queries.TemplatePrograms;
 using PowerBuddy.App.Services.Weights;
-using PowerBuddy.Data.DTOs.LiftingStats;
+using PowerBuddy.Data.Dtos.LiftingStats;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -34,7 +34,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUserLiftingStats()
         {
@@ -44,7 +44,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
 
         [HttpGet("{exerciseId:int}")]
-        [ProducesResponseType(typeof(IEnumerable<LiftingStatDetailedDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatDetailedDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLiftingStatSummaryByExerciseId(int exerciseId)
         {
@@ -70,7 +70,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpGet("Template/{templateProgramId:int}")]
-        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetPersonalBestsForTemplate(int templateProgramId)
         {
             var personalBests = await _mediator.Send(new GetPersonalBestsForTemplateExercisesQuery(templateProgramId, _userId));

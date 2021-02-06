@@ -8,18 +8,18 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Commands.WorkoutSets
 {
-    public class QuickAddWorkoutSetsCommand : IRequest<OneOf<IEnumerable<WorkoutSetDTO>, WorkoutExerciseNotFound, WorkoutDayNotFound>>
+    public class QuickAddWorkoutSetsCommand : IRequest<OneOf<IEnumerable<WorkoutSetDto>, WorkoutExerciseNotFound, WorkoutDayNotFound>>
     {
-        public IList<WorkoutSetDTO> WorkoutSetList { get; }
+        public IList<WorkoutSetDto> WorkoutSetList { get; }
         public string UserId { get; }
 
-        public QuickAddWorkoutSetsCommand(IList<WorkoutSetDTO> workoutSetList, string userId)
+        public QuickAddWorkoutSetsCommand(IList<WorkoutSetDto> workoutSetList, string userId)
         {
             WorkoutSetList = workoutSetList;
             UserId = userId;
@@ -35,7 +35,7 @@ namespace PowerBuddy.App.Commands.WorkoutSets
         }
     }
 
-    public class QuickAddWorkoutSetsCommandHandler : IRequestHandler<QuickAddWorkoutSetsCommand, OneOf<IEnumerable<WorkoutSetDTO>, WorkoutExerciseNotFound, WorkoutDayNotFound>>
+    public class QuickAddWorkoutSetsCommandHandler : IRequestHandler<QuickAddWorkoutSetsCommand, OneOf<IEnumerable<WorkoutSetDto>, WorkoutExerciseNotFound, WorkoutDayNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -46,7 +46,7 @@ namespace PowerBuddy.App.Commands.WorkoutSets
             _mapper = mapper;
         }
 
-        public async Task<OneOf<IEnumerable<WorkoutSetDTO>, WorkoutExerciseNotFound, WorkoutDayNotFound>> Handle(QuickAddWorkoutSetsCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<IEnumerable<WorkoutSetDto>, WorkoutExerciseNotFound, WorkoutDayNotFound>> Handle(QuickAddWorkoutSetsCommand request, CancellationToken cancellationToken)
         {
             var workoutExercise = await _context.WorkoutExercise
                 .Include(x => x.WorkoutSets)
@@ -71,7 +71,7 @@ namespace PowerBuddy.App.Commands.WorkoutSets
             _context.WorkoutSet.AddRange(workoutSetCollection);
             await _context.SaveChangesAsync(cancellationToken);
 
-            var workoutSets =  _mapper.Map<IEnumerable<WorkoutSetDTO>>(workoutSetCollection);
+            var workoutSets =  _mapper.Map<IEnumerable<WorkoutSetDto>>(workoutSetCollection);
 
             return workoutSets.ToList();
         }

@@ -7,16 +7,16 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.System;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Queries.Quotes
 {
-    public class GetAllQuotesQuery : IRequest<IEnumerable<QuoteDTO>>
+    public class GetAllQuotesQuery : IRequest<IEnumerable<QuoteDto>>
     {
     }
 
-    public class GetAllQuotesQueryHandler : IRequestHandler<GetAllQuotesQuery, IEnumerable<QuoteDTO>>
+    public class GetAllQuotesQueryHandler : IRequestHandler<GetAllQuotesQuery, IEnumerable<QuoteDto>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -27,11 +27,11 @@ namespace PowerBuddy.App.Queries.Quotes
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<QuoteDTO>> Handle(GetAllQuotesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<QuoteDto>> Handle(GetAllQuotesQuery request, CancellationToken cancellationToken)
         {
             return await _context.Set<Quote>()
                 .Where(x => x.Active)
-                .ProjectTo<QuoteDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<QuoteDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken: cancellationToken);
         }

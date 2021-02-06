@@ -12,8 +12,8 @@ using PowerBuddy.App.Commands.WorkoutDays;
 using PowerBuddy.App.Commands.WorkoutDays.Models;
 using PowerBuddy.App.Queries.WorkoutDays;
 using PowerBuddy.App.Services.Weights;
-using PowerBuddy.Data.DTOs.LiftingStats;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.LiftingStats;
+using PowerBuddy.Data.Dtos.Workouts;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -38,7 +38,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpGet("{workoutDayId:int}")]
-        [ProducesResponseType(typeof(WorkoutDayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(WorkoutDayDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
@@ -64,7 +64,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(WorkoutDayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(WorkoutDayDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateWorkoutDay([FromBody] CreateWorkoutDayOptions createWorkoutOptions)
         {
@@ -83,7 +83,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpGet("Today")]
-        [ProducesResponseType(typeof(WorkoutDayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(WorkoutDayDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetWorkoutDayIdByDate()
         {
@@ -99,14 +99,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPut("{workoutDayId:int}")]
-        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateWorkoutDay(int workoutDayId, [FromBody] WorkoutDayDTO workoutDayDTO)
+        public async Task<IActionResult> UpdateWorkoutDay(int workoutDayId, [FromBody] WorkoutDayDto workoutDayDto)
         {
             try
             {
-                var weightConvertResponse = await _weightInsertService.ConvertWorkoutDayWeightsToDbSuitable(_userId, workoutDayDTO);
+                var weightConvertResponse = await _weightInsertService.ConvertWorkoutDayWeightsToDbSuitable(_userId, workoutDayDto);
                 var liftingStatsThatPb = await _mediator.Send(new CompleteWorkoutCommand(weightConvertResponse.Data, _userId));
                 
                 return liftingStatsThatPb.Match<IActionResult>(

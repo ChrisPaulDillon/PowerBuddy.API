@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace PowerBuddy.Data.DTOs.LiftingStats
+namespace PowerBuddy.Data.Dtos.LiftingStats
 {
-    public class LiftingStatDetailedDTO
+    public class LiftingStatDetailedDto
     {
         public string ExerciseName { get; set; }
         public decimal LifeTimeTonnage { get; set; }
-        public IEnumerable<LiftingStatAuditDTO> LiftingStats { get; set; }
+        public IEnumerable<LiftingStatAuditDto> LiftingStats { get; set; }
     }
 }

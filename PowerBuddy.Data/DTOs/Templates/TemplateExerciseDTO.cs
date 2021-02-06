@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using PowerBuddy.Data.DTOs.Exercises;
+using PowerBuddy.Data.Dtos.Exercises;
 
-namespace PowerBuddy.Data.DTOs.Templates
+namespace PowerBuddy.Data.Dtos.Templates
 {
-    public class TemplateExerciseDTO
+    public class TemplateExerciseDto
     {
         public int TemplateExerciseId { get; set; }
         public int TemplateDayId { get; set; }
@@ -14,7 +14,7 @@ namespace PowerBuddy.Data.DTOs.Templates
         public bool HasBackOffSets { get; set; }
         public string BackOffSetFormat { get; set; }
 
-        public virtual ExerciseDTO Exercise { get; set; }
-        public virtual IEnumerable<TemplateRepSchemeDTO> TemplateRepSchemes { get; set; }
+        public virtual ExerciseDto Exercise { get; set; }
+        public virtual IEnumerable<TemplateRepSchemeDto> TemplateRepSchemes { get; set; }
     }
 }

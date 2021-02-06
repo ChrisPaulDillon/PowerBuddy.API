@@ -5,7 +5,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using PowerBuddy.App.Commands.WorkoutTemplates;
-using PowerBuddy.Data.Builders.DTOs.Workouts;
+using PowerBuddy.Data.Builders.Dtos.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using Xunit;
@@ -34,7 +34,7 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
         public async Task Handle_WorkoutTemplateIsCreated_ReturnsWorkoutTemplate()
         {
             // Arrange
-            var templateWorkout = new WorkoutTemplateDTOBuilder().Build();
+            var templateWorkout = new WorkoutTemplateDtoBuilder().Build();
 
             var command = new CreateWorkoutTemplateCommand(templateWorkout, _random.Next().ToString());
 

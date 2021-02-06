@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Queries.Workouts.Models;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.App.Queries.Workouts
 {
-    public class GetWorkoutWeekByDateQuery : IRequest<WorkoutWeekSummaryDTO>
+    public class GetWorkoutWeekByDateQuery : IRequest<WorkoutWeekSummaryDto>
     {
         public DateTime Date { get; }
         public string UserId { get; }
@@ -35,7 +35,7 @@ namespace PowerBuddy.App.Queries.Workouts
         }
     }
 
-    internal class GetWorkoutWeekByDateQueryHandler : IRequestHandler<GetWorkoutWeekByDateQuery, WorkoutWeekSummaryDTO>
+    internal class GetWorkoutWeekByDateQueryHandler : IRequestHandler<GetWorkoutWeekByDateQuery, WorkoutWeekSummaryDto>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -46,7 +46,7 @@ namespace PowerBuddy.App.Queries.Workouts
             _mapper = mapper;
         }
 
-        public async Task<WorkoutWeekSummaryDTO> Handle(GetWorkoutWeekByDateQuery request, CancellationToken cancellationToken)
+        public async Task<WorkoutWeekSummaryDto> Handle(GetWorkoutWeekByDateQuery request, CancellationToken cancellationToken)
         {
             var minDate = request.Date.StartOfWeek(DayOfWeek.Monday);
             var maxDate = request.Date.ClosestDateByDay(DayOfWeek.Sunday);
@@ -54,7 +54,7 @@ namespace PowerBuddy.App.Queries.Workouts
             var workouts = await _context.WorkoutDay
                 .AsNoTracking()
                 .Where(x => x.Date >= minDate && x.Date <= maxDate && x.UserId == request.UserId)
-                .ProjectTo<WorkoutDaySummaryDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkoutDaySummaryDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken: cancellationToken);
 
             if (workouts.Count < 7) //Full workout week, don't bother attempting to add empty days
@@ -72,11 +72,11 @@ namespace PowerBuddy.App.Queries.Workouts
                     {
                         continue;
                     }
-                    workouts.Add(new WorkoutDaySummaryDTO() { Date = dayDate, HasWorkoutData = false });
+                    workouts.Add(new WorkoutDaySummaryDto() { Date = dayDate, HasWorkoutData = false });
                 }
             }
             
-            var workoutWeekSummary = new WorkoutWeekSummaryDTO()
+            var workoutWeekSummary = new WorkoutWeekSummaryDto()
             {
                 WeekNo = workouts.Count > 0 ? workouts[0].WeekNo : 0,
                 WorkoutDays = workouts.OrderBy(x => x.Date)

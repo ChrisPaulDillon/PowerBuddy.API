@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using PowerBuddy.App.Services.Authentication.Models;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 
 namespace PowerBuddy.App.Services.Authentication
 {
@@ -11,7 +11,7 @@ namespace PowerBuddy.App.Services.Authentication
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Task<AuthenticationResultDTO> CreateRefreshTokenAuthenticationResult(string userId, UserDTO user);
+        public Task<AuthenticationResultDto> CreateRefreshTokenAuthenticationResult(string userId, UserDto user);
 
         public Task<bool> RevokeRefreshTokenAsync(string refreshToken);
     }

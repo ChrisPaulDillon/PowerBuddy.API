@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Queries.Users;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -26,7 +26,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("Profile/{userName}")]
-        [ProducesResponseType(typeof(PublicUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PublicUserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPublicUserProfile(string userName)
         {
@@ -45,7 +45,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("All")]
-        [ProducesResponseType(typeof(PublicUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PublicUserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllActiveUserProfiles()
         {

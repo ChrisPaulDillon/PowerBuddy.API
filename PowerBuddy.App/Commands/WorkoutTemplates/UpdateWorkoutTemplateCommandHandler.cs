@@ -5,18 +5,18 @@ using FluentValidation;
 using MediatR;
 using PowerBuddy.App.Extensions.Validators;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 
 namespace PowerBuddy.App.Commands.WorkoutTemplates
 {
     public class UpdateWorkoutTemplateCommand : IRequest<bool>
     {
-        public WorkoutTemplateDTO WorkoutTemplateDTO { get; }
+        public WorkoutTemplateDto WorkoutTemplateDto { get; }
         public string UserId { get; }
 
-        public UpdateWorkoutTemplateCommand(WorkoutTemplateDTO workoutTemplateDTO, string userId)
+        public UpdateWorkoutTemplateCommand(WorkoutTemplateDto workoutTemplateDto, string userId)
         {
-            WorkoutTemplateDTO = workoutTemplateDTO;
+            WorkoutTemplateDto = workoutTemplateDto;
             UserId = userId;
         }
     }
@@ -25,12 +25,12 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
     {
         public UpdateWorkoutTemplateCommandValidator()
         {
-            RuleFor(x => x.WorkoutTemplateDTO.WorkoutName).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutTemplateDTO.WorkoutTemplateId).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than {ComparisonValue}");
-            RuleFor(x => x.WorkoutTemplateDTO.WorkoutExercises).NotNull().WithMessage("'{PropertyName}' cannot be null");
-            RuleFor(x => x.WorkoutTemplateDTO.WorkoutExercises).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must have at least one exercise");
+            RuleFor(x => x.WorkoutTemplateDto.WorkoutName).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutTemplateDto.WorkoutTemplateId).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than {ComparisonValue}");
+            RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).NotNull().WithMessage("'{PropertyName}' cannot be null");
+            RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must have at least one exercise");
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutTemplateDTO.WorkoutExercises).NotNull().ValidWorkoutExerciseCollection();
+            RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).NotNull().ValidWorkoutExerciseCollection();
         }
     }
 
@@ -47,7 +47,7 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
         {
             //var workout = await _context.WorkoutTemplate
             //    .AsNoTracking()
-            //    .AnyAsync(x => x.UserId == request.UserId && x.WorkoutTemplateId == request.WorkoutTemplateDTO.WorkoutTemplateId);
+            //    .AnyAsync(x => x.UserId == request.UserId && x.WorkoutTemplateId == request.WorkoutTemplateDto.WorkoutTemplateId);
 
             //if (!doesTemplateExist)
             //{

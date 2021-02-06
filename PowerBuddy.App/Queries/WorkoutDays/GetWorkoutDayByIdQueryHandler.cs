@@ -8,12 +8,12 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Queries.WorkoutDays
 {
-    public class GetWorkoutDayByIdQuery : IRequest<OneOf<WorkoutDayDTO, WorkoutDayNotFound>>
+    public class GetWorkoutDayByIdQuery : IRequest<OneOf<WorkoutDayDto, WorkoutDayNotFound>>
     {
         public int WorkoutDayId { get; }
         public string UserId { get; }
@@ -34,7 +34,7 @@ namespace PowerBuddy.App.Queries.WorkoutDays
         }
     }
 
-    internal class GetWorkoutDayByIdQueryHandler : IRequestHandler<GetWorkoutDayByIdQuery, OneOf<WorkoutDayDTO, WorkoutDayNotFound>>
+    internal class GetWorkoutDayByIdQueryHandler : IRequestHandler<GetWorkoutDayByIdQuery, OneOf<WorkoutDayDto, WorkoutDayNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -45,10 +45,10 @@ namespace PowerBuddy.App.Queries.WorkoutDays
             _mapper = mapper;
         }
 
-        public async Task<OneOf<WorkoutDayDTO, WorkoutDayNotFound>> Handle(GetWorkoutDayByIdQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<WorkoutDayDto, WorkoutDayNotFound>> Handle(GetWorkoutDayByIdQuery request, CancellationToken cancellationToken)
         {
             var workoutDay = await _context.WorkoutDay.Where(x => x.WorkoutDayId == request.WorkoutDayId && x.UserId == request.UserId)
-                .ProjectTo<WorkoutDayDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkoutDayDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using PowerBuddy.Data.DTOs.Exercises;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.Exercises;
+using PowerBuddy.Data.Dtos.System;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.AutoMapper
@@ -10,7 +10,7 @@ namespace PowerBuddy.Data.AutoMapper
         public SystemAutoMapperProfile()
         {
             //Exercises
-            CreateMap<Exercise, ExerciseDTO>()
+            CreateMap<Exercise, ExerciseDto>()
                 .ForMember(x => x.ExerciseId, d => d.MapFrom<int>(src => src.ExerciseId))
                 .ForMember(x => x.ExerciseTypeId, d => d.MapFrom<int?>(src => src.ExerciseTypeId))
                 .ForMember(x => x.ExerciseName, d => d.MapFrom<string>(src => src.ExerciseName))
@@ -21,7 +21,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.ExerciseSports, d => d.MapFrom(src => src.ExerciseSports))
                 .ForMember(x => x.ExerciseMuscleGroups, d => d.MapFrom(src => src.ExerciseMuscleGroups));
 
-            CreateMap<ExerciseDTO, Exercise>()
+            CreateMap<ExerciseDto, Exercise>()
                 .ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
                 .ForMember<int?>(x => x.ExerciseTypeId, d => d.MapFrom(src => src.ExerciseTypeId))
                 .ForMember<string>(x => x.ExerciseName, d => d.MapFrom(src => src.ExerciseName))
@@ -33,25 +33,25 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.ExerciseType, d => d.Ignore())
                 .ForMember(x => x.LiftingStatAudit, d => d.Ignore());
 
-            CreateMap<Exercise, TopLevelExerciseDTO>().ReverseMap();
-            CreateMap<Exercise, CExerciseDTO>().ReverseMap();
+            CreateMap<Exercise, TopLevelExerciseDto>().ReverseMap();
+            CreateMap<Exercise, CExerciseDto>().ReverseMap();
 
             //Exercises types
-            CreateMap<ExerciseType, ExerciseTypeDTO>().ReverseMap();
+            CreateMap<ExerciseType, ExerciseTypeDto>().ReverseMap();
 
             //Exercise muscle groups
-            CreateMap<ExerciseMuscleGroupAssoc, ExerciseMuscleGroupAssocDTO>().ReverseMap();
-            CreateMap<ExerciseMuscleGroup, ExerciseMuscleGroupDTO>().ReverseMap();
+            CreateMap<ExerciseMuscleGroupAssoc, ExerciseMuscleGroupAssocDto>().ReverseMap();
+            CreateMap<ExerciseMuscleGroup, ExerciseMuscleGroupDto>().ReverseMap();
 
-            CreateMap<RepSchemeType, RepSchemeTypeDTO>().ReverseMap();
+            CreateMap<RepSchemeType, RepSchemeTypeDto>().ReverseMap();
 
-            CreateMap<Quote, QuoteDTO>().ReverseMap();
+            CreateMap<Quote, QuoteDto>().ReverseMap();
 
-            CreateMap<ExerciseSport, ExerciseSportDTO>().ReverseMap();
+            CreateMap<ExerciseSport, ExerciseSportDto>().ReverseMap();
 
-            CreateMap<Gender, GenderDTO>();
-            CreateMap<MemberStatus, MemberStatusDTO>();
-            CreateMap<LiftingLevel, LiftingLevelDTO>();
+            CreateMap<Gender, GenderDto>();
+            CreateMap<MemberStatus, MemberStatusDto>();
+            CreateMap<LiftingLevel, LiftingLevelDto>();
         }
     }
 }

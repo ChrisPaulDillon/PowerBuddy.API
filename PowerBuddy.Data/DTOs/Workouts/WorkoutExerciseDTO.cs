@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using PowerBuddy.Data.Entities;
 
-namespace PowerBuddy.Data.DTOs.Workouts
+namespace PowerBuddy.Data.Dtos.Workouts
 {
-    public class WorkoutExerciseDTO
+    public class WorkoutExerciseDto
     {
         public int WorkoutExerciseId { get; set; }
         public int WorkoutDayId { get; set; }
@@ -13,7 +13,7 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public int WorkoutExerciseTonnageId { get; set; }
         public decimal ExerciseTonnage { get; set; }
         public int NoOfSets { get; set; }
-        public virtual IEnumerable<WorkoutSetDTO> WorkoutSets { get; set; }
+        public virtual IEnumerable<WorkoutSetDto> WorkoutSets { get; set; }
         public WorkoutExerciseTonnage WorkoutExerciseTonnage { get; set; }
     }
 }

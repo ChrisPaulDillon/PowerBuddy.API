@@ -6,20 +6,20 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
 using PowerBuddy.Data.Models.TemplatePrograms;
 
 namespace PowerBuddy.App.Commands.TemplatePrograms
 {
-    public class CreateTemplateProgramCommand : IRequest<OneOf<TemplateProgramDTO, UserNotFound, TemplateProgramNameAlreadyExists>>
+    public class CreateTemplateProgramCommand : IRequest<OneOf<TemplateProgramDto, UserNotFound, TemplateProgramNameAlreadyExists>>
     {
-        public TemplateProgramDTO TemplateProgramDTO { get; }
+        public TemplateProgramDto TemplateProgramDto { get; }
         public string UserId { get; }
-        public CreateTemplateProgramCommand(TemplateProgramDTO templateProgramDTO, string userId)
+        public CreateTemplateProgramCommand(TemplateProgramDto templateProgramDto, string userId)
         {
-            TemplateProgramDTO = templateProgramDTO;
+            TemplateProgramDto = templateProgramDto;
             UserId = userId;
         }
     }
@@ -29,17 +29,17 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
         public CreateTemplateProgramCommandValidator()
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramDTO.Name).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramDTO.Description).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramDTO.WeightProgressionType).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramDTO.TemplateType).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramDTO.Difficulty).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramDTO.NoOfDaysPerWeek).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
-            RuleFor(x => x.TemplateProgramDTO.NoOfWeeks).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.TemplateProgramDto.Name).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDto.Description).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDto.WeightProgressionType).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDto.TemplateType).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDto.Difficulty).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.TemplateProgramDto.NoOfDaysPerWeek).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.TemplateProgramDto.NoOfWeeks).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 
-    public class CreateTemplateProgramCommandHandler : IRequestHandler<CreateTemplateProgramCommand, OneOf<TemplateProgramDTO, UserNotFound, TemplateProgramNameAlreadyExists>>
+    public class CreateTemplateProgramCommandHandler : IRequestHandler<CreateTemplateProgramCommand, OneOf<TemplateProgramDto, UserNotFound, TemplateProgramNameAlreadyExists>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -50,7 +50,7 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
             _mapper = mapper;
         }
 
-        public async Task<OneOf<TemplateProgramDTO, UserNotFound, TemplateProgramNameAlreadyExists>> Handle(CreateTemplateProgramCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<TemplateProgramDto, UserNotFound, TemplateProgramNameAlreadyExists>> Handle(CreateTemplateProgramCommand request, CancellationToken cancellationToken)
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
@@ -61,18 +61,18 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
 
             var isTaken = await _context.Set<TemplateProgram>()
                 .AsNoTracking()
-                .AnyAsync(x => x.Name == request.TemplateProgramDTO.Name, cancellationToken: cancellationToken);
+                .AnyAsync(x => x.Name == request.TemplateProgramDto.Name, cancellationToken: cancellationToken);
             
             if (isTaken)
             {
                 return new TemplateProgramNameAlreadyExists();
             }
 
-            var template = _mapper.Map<TemplateProgram>(request.TemplateProgramDTO);
+            var template = _mapper.Map<TemplateProgram>(request.TemplateProgramDto);
             await _context.TemplateProgram.AddAsync(template, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
-            return request.TemplateProgramDTO;
+            return request.TemplateProgramDto;
         }
     }
 }

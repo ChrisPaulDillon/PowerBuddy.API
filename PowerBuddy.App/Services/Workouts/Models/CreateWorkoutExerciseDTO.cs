@@ -1,6 +1,6 @@
 ﻿namespace PowerBuddy.App.Services.Workouts.Models
 {
-    public class CreateWorkoutExerciseDTO
+    public class CreateWorkoutExerciseDto
     {
         public int WorkoutDayId { get; set; }
         public int ExerciseId { get; set; }

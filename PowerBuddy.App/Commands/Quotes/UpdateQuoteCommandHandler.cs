@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.System;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
 using PowerBuddy.Data.Models.System;
@@ -16,11 +16,11 @@ namespace PowerBuddy.App.Commands.Quotes
 {
     public class UpdateQuoteCommand : IRequest<OneOf<bool, UserNotFound, QuoteNotFound>>
     {
-        public QuoteDTO QuoteDTO { get; }
+        public QuoteDto QuoteDto { get; }
         public string UserId { get; }
-        public UpdateQuoteCommand(QuoteDTO quoteDTO, string userId)
+        public UpdateQuoteCommand(QuoteDto quoteDto, string userId)
         {
-            QuoteDTO = quoteDTO;
+            QuoteDto = quoteDto;
             UserId = userId;
         }
     }
@@ -29,7 +29,7 @@ namespace PowerBuddy.App.Commands.Quotes
     {
         public UpdateQuoteCommandValidator()
         {
-            RuleFor(x => x.QuoteDTO).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.QuoteDto).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
@@ -54,14 +54,14 @@ namespace PowerBuddy.App.Commands.Quotes
                 return new UserNotFound();
             }
 
-            var doesQuoteExist = await _context.Quote.Where(x => x.QuoteId == request.QuoteDTO.QuoteId).AsNoTracking().AnyAsync(cancellationToken: cancellationToken);
+            var doesQuoteExist = await _context.Quote.Where(x => x.QuoteId == request.QuoteDto.QuoteId).AsNoTracking().AnyAsync(cancellationToken: cancellationToken);
 
             if (!doesQuoteExist)
             {
                 return new QuoteNotFound();
             }
 
-            var quote = _mapper.Map<Quote>(request.QuoteDTO);
+            var quote = _mapper.Map<Quote>(request.QuoteDto);
             _context.Quote.Update(quote);
 
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Services.Account;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Commands.WorkoutSets
@@ -15,13 +15,13 @@ namespace PowerBuddy.App.Commands.WorkoutSets
     public class UpdateWorkoutSetCommand : IRequest<bool>
     {
         public int WorkoutDayId { get; }
-        public WorkoutSetDTO WorkoutSetDTO { get; }
+        public WorkoutSetDto WorkoutSetDto { get; }
         public string UserId { get; }
 
-        public UpdateWorkoutSetCommand(int workoutDayId, WorkoutSetDTO workoutSetDTO, string userId)
+        public UpdateWorkoutSetCommand(int workoutDayId, WorkoutSetDto workoutSetDto, string userId)
         {
             WorkoutDayId = workoutDayId;
-            WorkoutSetDTO = workoutSetDTO;
+            WorkoutSetDto = workoutSetDto;
             UserId = userId;
         }
     }
@@ -52,7 +52,7 @@ namespace PowerBuddy.App.Commands.WorkoutSets
         {
             var doesSetExist = await _context.WorkoutSet
                 .AsNoTracking()
-                .AnyAsync(x => x.WorkoutSetId == request.WorkoutSetDTO.WorkoutSetId, cancellationToken: cancellationToken);
+                .AnyAsync(x => x.WorkoutSetId == request.WorkoutSetDto.WorkoutSetId, cancellationToken: cancellationToken);
 
             if (!doesSetExist) return false;
 
@@ -66,7 +66,7 @@ namespace PowerBuddy.App.Commands.WorkoutSets
 
             workoutDay.Completed = false;
 
-            var workoutSet = _mapper.Map<WorkoutSet>(request.WorkoutSetDTO);
+            var workoutSet = _mapper.Map<WorkoutSet>(request.WorkoutSetDto);
 
             _context.WorkoutSet.Update(workoutSet);
 
@@ -76,7 +76,7 @@ namespace PowerBuddy.App.Commands.WorkoutSets
                 .AsNoTracking()
                 .Include(x => x.WorkoutSets)
                 .Include(x => x.WorkoutExerciseTonnage)
-                .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetDTO.WorkoutExerciseId, cancellationToken: cancellationToken);
+                .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutSetDto.WorkoutExerciseId, cancellationToken: cancellationToken);
 
             workoutExerciseTonnageUpdate.WorkoutExerciseTonnage = await _workoutService.UpdateExerciseTonnage(workoutExerciseTonnageUpdate, request.UserId);
 

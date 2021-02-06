@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using System;
 using System.Linq;
-using PowerBuddy.Data.DTOs.ProgramLogs.Workouts;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.ProgramLogs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.AutoMapper
@@ -11,8 +11,8 @@ namespace PowerBuddy.Data.AutoMapper
     {
         public WorkoutMappingProfile()
         {
-            //into dto
-            CreateMap<WorkoutTemplate, WorkoutTemplateDTO>()
+            //into Dto
+            CreateMap<WorkoutTemplate, WorkoutTemplateDto>()
                 .ForMember(x => x.WorkoutTemplateId, d => d.MapFrom(src => src.WorkoutTemplateId))
                 .ForMember(x => x.WorkoutName, d => d.MapFrom(src => src.WorkoutName))
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
@@ -20,7 +20,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises));
 
             //into entity
-            CreateMap<WorkoutTemplateDTO, WorkoutTemplate>()
+            CreateMap<WorkoutTemplateDto, WorkoutTemplate>()
                 .ForMember(x => x.WorkoutTemplateId, d => d.MapFrom(src => src.WorkoutTemplateId))
                 .ForMember(x => x.WorkoutName, d => d.MapFrom(src => src.WorkoutName))
                 .ForMember(x => x.UserId, d => d.MapFrom(src => src.UserId))
@@ -28,7 +28,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises));
 
             //into entity
-            CreateMap<WorkoutDayDTO, WorkoutDay>()
+            CreateMap<WorkoutDayDto, WorkoutDay>()
                 .ForMember<int>(x => x.WorkoutDayId, d => d.MapFrom(src => src.WorkoutDayId))
                 .ForMember<int?>(x => x.WorkoutLogId, d => d.MapFrom(src => src.WorkoutLogId))
                 .ForMember<string>(x => x.UserId, d => d.MapFrom(src => src.UserId))
@@ -39,8 +39,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.WorkoutLog, d => d.Ignore())
                 .ForMember(x => x.User, d => d.Ignore());
 
-            //into dto
-            CreateMap<WorkoutDay, WorkoutDayDTO>()
+            //into Dto
+            CreateMap<WorkoutDay, WorkoutDayDto>()
                 .ForMember(x => x.WorkoutDayId, d => d.MapFrom<int>(src => src.WorkoutDayId))
                 .ForMember(x => x.WorkoutLogId, d => d.MapFrom<int?>(src => src.WorkoutLogId))
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.UserId))

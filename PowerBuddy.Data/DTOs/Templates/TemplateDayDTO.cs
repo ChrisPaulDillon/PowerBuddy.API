@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace PowerBuddy.Data.DTOs.Templates
+namespace PowerBuddy.Data.Dtos.Templates
 {
-    public class TemplateDayDTO
+    public class TemplateDayDto
     {
         public int TemplateDayId { get; set; }
         public int TemplateWeekId { get; set; }
         public int DayNo { get; set; }
-        public IEnumerable<TemplateExerciseDTO> TemplateExercises { get; set; }
+        public IEnumerable<TemplateExerciseDto> TemplateExercises { get; set; }
     }
 }

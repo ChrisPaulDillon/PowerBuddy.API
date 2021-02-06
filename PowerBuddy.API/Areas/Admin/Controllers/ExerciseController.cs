@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.Exercises;
-using PowerBuddy.Data.DTOs.Exercises;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.Exercises;
+using PowerBuddy.Data.Dtos.System;
 
 namespace PowerBuddy.API.Areas.Admin.Controllers
 {
@@ -28,13 +28,13 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(IEnumerable<TopLevelExerciseDTO>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(IEnumerable<TopLevelExerciseDto>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateExercise([FromBody] CExerciseDTO exerciseDTO)
+        public async Task<IActionResult> CreateExercise([FromBody] CExerciseDto exerciseDto)
         {
             try
             {
-                var result = await _mediator.Send(new CreateExerciseCommand(exerciseDTO));
+                var result = await _mediator.Send(new CreateExerciseCommand(exerciseDto));
 
                 return result.Match<IActionResult>(Ok,
                     ExerciseAlreadyExists => BadRequest(Errors.Create(nameof(ExerciseAlreadyExists))));
@@ -50,12 +50,12 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateExercise([FromBody] ExerciseDTO exerciseDTO)
+        public async Task<IActionResult> UpdateExercise([FromBody] ExerciseDto exerciseDto)
         {
             try
             {
                 var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateExerciseCommand(exerciseDTO, userId));
+                var result = await _mediator.Send(new UpdateExerciseCommand(exerciseDto, userId));
 
                 return result.Match<IActionResult>(
                     Result => Ok(Result),

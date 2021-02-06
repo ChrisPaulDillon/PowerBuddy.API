@@ -10,7 +10,7 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.WorkoutSets;
 using PowerBuddy.App.Services.Weights;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -35,10 +35,10 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Collection")]
-        [ProducesResponseType(typeof(IEnumerable<WorkoutSetDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<WorkoutSetDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateWorkoutSetCollection([FromBody] IList<WorkoutSetDTO> workoutSetCollection)
+        public async Task<IActionResult> CreateWorkoutSetCollection([FromBody] IList<WorkoutSetDto> workoutSetCollection)
         {
             try
             {
@@ -60,11 +60,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateWorkoutSet(int workoutDayId, [FromBody] WorkoutSetDTO workoutSetDTO)
+        public async Task<IActionResult> UpdateWorkoutSet(int workoutDayId, [FromBody] WorkoutSetDto workoutSetDto)
         {
             try
             {
-                var convertedWorkoutSet = await _weightInsertService.ConvertWeightSetToDbSuitable(_userId, workoutSetDTO);
+                var convertedWorkoutSet = await _weightInsertService.ConvertWeightSetToDbSuitable(_userId, workoutSetDto);
                 var result = await _mediator.Send(new UpdateWorkoutSetCommand(workoutDayId, convertedWorkoutSet.Data, _userId));
                 return Ok(result);
             }

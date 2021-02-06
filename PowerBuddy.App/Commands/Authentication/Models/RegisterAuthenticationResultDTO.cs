@@ -2,7 +2,7 @@
 
 namespace PowerBuddy.App.Commands.Authentication.Models
 {
-    public class RegisterAuthenticationResultDTO : AuthenticationResultDTO
+    public class RegisterAuthenticationResultDto : AuthenticationResultDto
     {
         public string UserId { get; set; } //Used for send email confirmation logic
     }

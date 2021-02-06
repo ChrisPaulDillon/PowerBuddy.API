@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.DTOs.Templates
+﻿namespace PowerBuddy.Data.Dtos.Templates
 {
-    public class TemplateWeightInputDTO
+    public class TemplateWeightInputDto
     {
         public string ExerciseName { get; set; }
         public int ExerciseId { get; set; }

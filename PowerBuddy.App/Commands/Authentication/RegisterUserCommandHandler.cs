@@ -9,19 +9,19 @@ using OneOf;
 using PowerBuddy.App.Commands.Authentication.Models;
 using PowerBuddy.App.Services.Authentication;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Users;
+using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
-    public class RegisterUserCommand : IRequest<OneOf<RegisterAuthenticationResultDTO, EmailOrUserNameInUse>>
+    public class RegisterUserCommand : IRequest<OneOf<RegisterAuthenticationResultDto, EmailOrUserNameInUse>>
     {
-        public RegisterUserDTO RegisterUserDTO { get; }
+        public RegisterUserDto RegisterUserDto { get; }
 
-        public RegisterUserCommand(RegisterUserDTO registerUserDTO)
+        public RegisterUserCommand(RegisterUserDto registerUserDto)
         {
-            RegisterUserDTO = registerUserDTO;
+            RegisterUserDto = registerUserDto;
         }
     }
 
@@ -29,13 +29,13 @@ namespace PowerBuddy.App.Commands.Authentication
     {
         public RegisterUserCommandValidator()
         {
-            RuleFor(x => x.RegisterUserDTO.UserName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.RegisterUserDTO.Email).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.RegisterUserDTO.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RegisterUserDto.UserName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RegisterUserDto.Email).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RegisterUserDto.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }
 
-    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, OneOf<RegisterAuthenticationResultDTO, EmailOrUserNameInUse>>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, OneOf<RegisterAuthenticationResultDto, EmailOrUserNameInUse>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -50,20 +50,20 @@ namespace PowerBuddy.App.Commands.Authentication
             _tokenService = tokenService;
         }
 
-        public async Task<OneOf<RegisterAuthenticationResultDTO, EmailOrUserNameInUse>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<RegisterAuthenticationResultDto, EmailOrUserNameInUse>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             var doesUserExist = await _context.User
                 .AsNoTracking()
-                .AnyAsync(x => x.NormalizedEmail == request.RegisterUserDTO.Email.ToUpper() || x.NormalizedUserName == request.RegisterUserDTO.UserName.ToUpper(), cancellationToken: cancellationToken);
+                .AnyAsync(x => x.NormalizedEmail == request.RegisterUserDto.Email.ToUpper() || x.NormalizedUserName == request.RegisterUserDto.UserName.ToUpper(), cancellationToken: cancellationToken);
 
             if (doesUserExist)
             {
 	            return new EmailOrUserNameInUse();
             }
 
-            request.RegisterUserDTO.SportType = "PowerLifting";
+            request.RegisterUserDto.SportType = "PowerLifting";
 
-            var userEntity = _mapper.Map<User>(request.RegisterUserDTO);
+            var userEntity = _mapper.Map<User>(request.RegisterUserDto);
             userEntity.MemberStatusId = 1;
 
             userEntity.UserSetting = new UserSetting()
@@ -72,12 +72,12 @@ namespace PowerBuddy.App.Commands.Authentication
                 UsingMetric = true
             };
 
-            var result = await _userManager.CreateAsync(userEntity, request.RegisterUserDTO.Password);
+            var result = await _userManager.CreateAsync(userEntity, request.RegisterUserDto.Password);
 
             if (result.Succeeded)
             {
-                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(userEntity.Id, _mapper.Map<UserDTO>(_mapper.ConfigurationProvider));
-                var registeredAuthenticationResult = new RegisterAuthenticationResultDTO()
+                var authenticatedUser = await _tokenService.CreateRefreshTokenAuthenticationResult(userEntity.Id, _mapper.Map<UserDto>(_mapper.ConfigurationProvider));
+                var registeredAuthenticationResult = new RegisterAuthenticationResultDto()
                 {
                     AccessToken = authenticatedUser.AccessToken,
                     RefreshToken = authenticatedUser.RefreshToken,

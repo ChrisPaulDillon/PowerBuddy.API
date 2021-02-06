@@ -1,59 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 
-namespace PowerBuddy.Data.Builders.DTOs.Workouts
+namespace PowerBuddy.Data.Builders.Dtos.Workouts
 {
-    public class WorkoutTemplateDTOBuilder
+    public class WorkoutTemplateDtoBuilder
     {
         private readonly Random _random;
-        private readonly WorkoutTemplateDTO _workoutTemplateDTO;
+        private readonly WorkoutTemplateDto _workoutTemplateDto;
 
-        public WorkoutTemplateDTOBuilder(Random random = null)
+        public WorkoutTemplateDtoBuilder(Random random = null)
         {
             _random = random ?? new Random();
-            _workoutTemplateDTO = new WorkoutTemplateDTO
+            _workoutTemplateDto = new WorkoutTemplateDto
             {
                 WorkoutTemplateId = _random.Next(),
                 WorkoutName = _random.Next().ToString(),
                 DateCreated = DateTime.UtcNow,
                 UserId = _random.Next().ToString(),
-                WorkoutExercises = new List<WorkoutExerciseDTO>()
+                WorkoutExercises = new List<WorkoutExerciseDto>()
             };
         }
 
-        public WorkoutTemplateDTO Build()
+        public WorkoutTemplateDto Build()
         {
-            return _workoutTemplateDTO;
+            return _workoutTemplateDto;
         }
 
-        public WorkoutTemplateDTOBuilder WithWorkoutTemplateId(int workoutTemplateId)
+        public WorkoutTemplateDtoBuilder WithWorkoutTemplateId(int workoutTemplateId)
         {
-            _workoutTemplateDTO.WorkoutTemplateId = workoutTemplateId;
+            _workoutTemplateDto.WorkoutTemplateId = workoutTemplateId;
             return this;
         }
 
-        public WorkoutTemplateDTOBuilder WithTemplateName(string workoutName)
+        public WorkoutTemplateDtoBuilder WithTemplateName(string workoutName)
         {
-            _workoutTemplateDTO.WorkoutName = workoutName;
+            _workoutTemplateDto.WorkoutName = workoutName;
             return this;
         }
 
-        public WorkoutTemplateDTOBuilder WithCreatedDate(DateTime createdDate)
+        public WorkoutTemplateDtoBuilder WithCreatedDate(DateTime createdDate)
         {
-            _workoutTemplateDTO.DateCreated = createdDate;
+            _workoutTemplateDto.DateCreated = createdDate;
             return this;
         }
 
-        public WorkoutTemplateDTOBuilder WithUserId(string userId)
+        public WorkoutTemplateDtoBuilder WithUserId(string userId)
         {
-            _workoutTemplateDTO.UserId = userId;
+            _workoutTemplateDto.UserId = userId;
             return this;
         }
 
-        public WorkoutTemplateDTOBuilder WithWorkoutExercises(IEnumerable<WorkoutExerciseDTO> workoutExercises)
+        public WorkoutTemplateDtoBuilder WithWorkoutExercises(IEnumerable<WorkoutExerciseDto> workoutExercises)
         {
-            _workoutTemplateDTO.WorkoutExercises = workoutExercises;
+            _workoutTemplateDto.WorkoutExercises = workoutExercises;
             return this;
         }
     }

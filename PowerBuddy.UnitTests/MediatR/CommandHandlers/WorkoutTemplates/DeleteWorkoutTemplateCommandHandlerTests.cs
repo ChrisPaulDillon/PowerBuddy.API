@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Commands.WorkoutTemplates;
-using PowerBuddy.Data.Builders.DTOs.Workouts;
+using PowerBuddy.Data.Builders.Dtos.Workouts;
 using PowerBuddy.Data.Builders.Entities.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
@@ -33,7 +33,7 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
         public async Task Handle_NoWorkoutTemplateFound_ReturnsFalse()
         {
             // Arrange
-            var templateWorkout = new WorkoutTemplateDTOBuilder().Build();
+            var templateWorkout = new WorkoutTemplateDtoBuilder().Build();
 
             var command = new DeleteWorkoutTemplateCommand(_random.Next(), _random.Next().ToString());
 

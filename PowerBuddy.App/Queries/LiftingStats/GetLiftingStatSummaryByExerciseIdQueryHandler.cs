@@ -8,12 +8,12 @@ using OneOf;
 using PowerBuddy.App.Services.LiftingStats;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.LiftingStats;
+using PowerBuddy.Data.Dtos.LiftingStats;
 using PowerBuddy.Data.Models.LiftingStats;
 
 namespace PowerBuddy.App.Queries.LiftingStats
 {
-    public class GetLiftingStatSummaryByExerciseIdQuery : IRequest<OneOf<LiftingStatDetailedDTO, LiftingStatNotFound>>
+    public class GetLiftingStatSummaryByExerciseIdQuery : IRequest<OneOf<LiftingStatDetailedDto, LiftingStatNotFound>>
     {
         public int ExerciseId { get; }
         public string UserId { get; }
@@ -34,7 +34,7 @@ namespace PowerBuddy.App.Queries.LiftingStats
         }
     }
 
-    internal class GetLiftingStatSummaryByExerciseIdQueryHandler : IRequestHandler<GetLiftingStatSummaryByExerciseIdQuery, OneOf<LiftingStatDetailedDTO, LiftingStatNotFound>>
+    internal class GetLiftingStatSummaryByExerciseIdQueryHandler : IRequestHandler<GetLiftingStatSummaryByExerciseIdQuery, OneOf<LiftingStatDetailedDto, LiftingStatNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IWorkoutService _workoutService;
@@ -47,7 +47,7 @@ namespace PowerBuddy.App.Queries.LiftingStats
             _liftingStatService = liftingStatService;
         }
 
-        public async Task<OneOf<LiftingStatDetailedDTO, LiftingStatNotFound>> Handle(GetLiftingStatSummaryByExerciseIdQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<LiftingStatDetailedDto, LiftingStatNotFound>> Handle(GetLiftingStatSummaryByExerciseIdQuery request, CancellationToken cancellationToken)
         {
             var liftingStats = await _liftingStatService.GetTopLiftingStatForExercise(request.ExerciseId, request.UserId);
 
@@ -64,7 +64,7 @@ namespace PowerBuddy.App.Queries.LiftingStats
                 .Select(x => x.ExerciseName)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            var liftingStatDetailed = new LiftingStatDetailedDTO()
+            var liftingStatDetailed = new LiftingStatDetailedDto()
             {
                 ExerciseName = exerciseName,
                 LifeTimeTonnage = lifetimeTonnage,

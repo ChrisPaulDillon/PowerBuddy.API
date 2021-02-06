@@ -4,7 +4,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Exercises;
+using PowerBuddy.Data.Dtos.Exercises;
 
 namespace PowerBuddy.App.Repositories.Exercises
 {
@@ -19,26 +19,26 @@ namespace PowerBuddy.App.Repositories.Exercises
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ExerciseDTO>> GetAllExercises()
+        public async Task<IEnumerable<ExerciseDto>> GetAllExercises()
         {
             return await _context.Exercise
                 .AsNoTracking()
-                .ProjectTo<ExerciseDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<ExerciseDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ExerciseMuscleGroupDTO>> GetAllExerciseMuscleGroups()
+        public async Task<IEnumerable<ExerciseMuscleGroupDto>> GetAllExerciseMuscleGroups()
         {
             return await _context.ExerciseMuscleGroup
                 .AsNoTracking()
-                .ProjectTo<ExerciseMuscleGroupDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<ExerciseMuscleGroupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ExerciseTypeDTO>> GetAllExerciseTypes()
+        public async Task<IEnumerable<ExerciseTypeDto>> GetAllExerciseTypes()
         {
             return await _context.ExerciseType
-                .ProjectTo<ExerciseTypeDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<ExerciseTypeDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
                 .ToListAsync();
         }

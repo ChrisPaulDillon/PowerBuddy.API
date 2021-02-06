@@ -7,12 +7,12 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Templates;
+using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
-    public class GetPersonalBestsForTemplateExercisesQuery : IRequest<IEnumerable<TemplateWeightInputDTO>>
+    public class GetPersonalBestsForTemplateExercisesQuery : IRequest<IEnumerable<TemplateWeightInputDto>>
     {
         public int TemplateProgramId { get; }
         public string UserId { get; }
@@ -32,7 +32,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
         }
     }
 
-    internal class GetPersonalBestsForTemplateExercisesQueryHandler : IRequestHandler<GetPersonalBestsForTemplateExercisesQuery, IEnumerable<TemplateWeightInputDTO>>
+    internal class GetPersonalBestsForTemplateExercisesQueryHandler : IRequestHandler<GetPersonalBestsForTemplateExercisesQuery, IEnumerable<TemplateWeightInputDto>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -43,7 +43,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TemplateWeightInputDTO>> Handle(GetPersonalBestsForTemplateExercisesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TemplateWeightInputDto>> Handle(GetPersonalBestsForTemplateExercisesQuery request, CancellationToken cancellationToken)
         {
             //TODO
             var tec = _context.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == request.TemplateProgramId)
@@ -51,11 +51,11 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
                 .Select(x => x.ExerciseId)
                 .ToList();
 
-            var templateWeightInput = new List<TemplateWeightInputDTO>();
+            var templateWeightInput = new List<TemplateWeightInputDto>();
 
             foreach (var templateExercise in tec)
             {
-                var weightInput = new TemplateWeightInputDTO()
+                var weightInput = new TemplateWeightInputDto()
                 {
                     ExerciseId = templateExercise,
                     ExerciseName = await _context.Exercise.AsNoTracking().Where(x => x.ExerciseId == templateExercise).Select(x => x.ExerciseName).FirstOrDefaultAsync(),

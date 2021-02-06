@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Queries.Exercises;
-using PowerBuddy.Data.DTOs.Exercises;
+using PowerBuddy.Data.Dtos.Exercises;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -24,7 +24,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExercises()
         {
@@ -33,7 +33,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("{exerciseId:int}")]
-        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int exerciseId)
         {
@@ -50,7 +50,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("ExerciseMuscleGroup")]
-        [ProducesResponseType(typeof(IEnumerable<ExerciseDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExerciseMuscleGroups()
         {
@@ -59,7 +59,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("ExerciseType")]
-        [ProducesResponseType(typeof(IEnumerable<ExerciseTypeDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ExerciseTypeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllExerciseTypes()
         {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PowerBuddy.Data.DTOs.Workouts
+namespace PowerBuddy.Data.Dtos.Workouts
 {
-    public class WorkoutLogStatDTO
+    public class WorkoutLogStatDto
     {
         public int WorkoutLogId { get; set; }
         public string CustomName { get; set; }
@@ -19,7 +19,7 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public bool Friday { get; set; }
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
-        public IEnumerable<WorkoutDayDTO> WorkoutDays { get; set; }
+        public IEnumerable<WorkoutDayDto> WorkoutDays { get; set; }
         public string TemplateName { get; set; }
         public int DayCount { get; set; }
         public int ExerciseCount { get; set; }

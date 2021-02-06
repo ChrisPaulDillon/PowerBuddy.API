@@ -36,14 +36,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateWorkoutExercise([FromBody] CreateWorkoutExerciseDTO createWorkoutExerciseDTO)
+        public async Task<IActionResult> CreateWorkoutExercise([FromBody] CreateWorkoutExerciseDto createWorkoutExerciseDto)
         {
             try
             {
-                var convertedWorkoutWeight = await _weightInsertService.ConvertGenericWeightToDbSuitable(_userId, createWorkoutExerciseDTO.Weight);
-                createWorkoutExerciseDTO.Weight = convertedWorkoutWeight.Data;
+                var convertedWorkoutWeight = await _weightInsertService.ConvertGenericWeightToDbSuitable(_userId, createWorkoutExerciseDto.Weight);
+                createWorkoutExerciseDto.Weight = convertedWorkoutWeight.Data;
 
-                var result = await _mediator.Send(new CreateWorkoutExerciseCommand(createWorkoutExerciseDTO, _userId));
+                var result = await _mediator.Send(new CreateWorkoutExerciseCommand(createWorkoutExerciseDto, _userId));
 
                 if (result.IsT0)
                 {

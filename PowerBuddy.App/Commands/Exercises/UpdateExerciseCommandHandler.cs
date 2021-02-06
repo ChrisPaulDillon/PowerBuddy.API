@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Exercises;
+using PowerBuddy.Data.Dtos.Exercises;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Exercises;
 
@@ -14,10 +14,10 @@ namespace PowerBuddy.App.Commands.Exercises
 {
     public class UpdateExerciseCommand : IRequest<OneOf<bool, ExerciseNotFound>>
     {
-        public ExerciseDTO Exercise { get; }
+        public ExerciseDto Exercise { get; }
         public string UserId { get; }
 
-        public UpdateExerciseCommand(ExerciseDTO exercise, string userId)
+        public UpdateExerciseCommand(ExerciseDto exercise, string userId)
         {
             Exercise = exercise;
             UserId = userId;

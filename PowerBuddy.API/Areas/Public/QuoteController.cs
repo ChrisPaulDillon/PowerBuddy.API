@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.App.Queries.Quotes;
-using PowerBuddy.Data.DTOs.System;
+using PowerBuddy.Data.Dtos.System;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -22,7 +22,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<QuoteDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<QuoteDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllQuotes()
         {
             var quotes = await _mediator.Send(new GetAllQuotesQuery());

@@ -8,11 +8,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.DTOs.Workouts;
+using PowerBuddy.Data.Dtos.Workouts;
 
 namespace PowerBuddy.App.Queries.ProgramLogDays
 {
-    public class GetLatestWorkoutDaySummariesQuery : IRequest<IEnumerable<WorkoutDaySummaryDTO>>
+    public class GetLatestWorkoutDaySummariesQuery : IRequest<IEnumerable<WorkoutDaySummaryDto>>
     {
         public string UserId { get; }
 
@@ -30,7 +30,7 @@ namespace PowerBuddy.App.Queries.ProgramLogDays
         }
     }
 
-    public class GetLatestWorkoutDaySummariesQueryHandler : IRequestHandler<GetLatestWorkoutDaySummariesQuery, IEnumerable<WorkoutDaySummaryDTO>>
+    public class GetLatestWorkoutDaySummariesQueryHandler : IRequestHandler<GetLatestWorkoutDaySummariesQuery, IEnumerable<WorkoutDaySummaryDto>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -40,17 +40,17 @@ namespace PowerBuddy.App.Queries.ProgramLogDays
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<WorkoutDaySummaryDTO>> Handle(GetLatestWorkoutDaySummariesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<WorkoutDaySummaryDto>> Handle(GetLatestWorkoutDaySummariesQuery request, CancellationToken cancellationToken)
         {
-            var programLogDayDTO = await _context.ProgramLogDay
+            var programLogDayDto = await _context.ProgramLogDay
                 .AsNoTracking()
                 .Where(x => x.UserId == request.UserId && x.ProgramLogExercises.Any())
-                .ProjectTo<WorkoutDaySummaryDTO>(_mapper.ConfigurationProvider)
+                .ProjectTo<WorkoutDaySummaryDto>(_mapper.ConfigurationProvider)
                 .Take(50)
                 .OrderByDescending(x => x.Date)
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            return programLogDayDTO;
+            return programLogDayDto;
         }
     }
 }

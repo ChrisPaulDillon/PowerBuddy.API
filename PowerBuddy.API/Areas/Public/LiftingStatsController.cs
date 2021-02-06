@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Queries.LiftingStats;
-using PowerBuddy.Data.DTOs.LiftingStats;
+using PowerBuddy.Data.Dtos.LiftingStats;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -27,7 +27,7 @@ namespace PowerBuddy.API.Areas.Public
         }
 
         [HttpGet("{userName}")]
-        [ProducesResponseType(typeof(IEnumerable<LiftFeedDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<LiftFeedDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLiftFeedByUsername(string userName)
         {
