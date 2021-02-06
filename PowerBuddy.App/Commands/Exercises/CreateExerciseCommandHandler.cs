@@ -45,7 +45,7 @@ namespace PowerBuddy.App.Commands.Exercises
         {
             var doesExist = await _context.Exercise
                 .AsNoTracking()
-                .AnyAsync(x => x.ExerciseName == request.Exercise.ExerciseName);
+                .AnyAsync(x => x.ExerciseName == request.Exercise.ExerciseName, cancellationToken: cancellationToken);
 
             if (doesExist)
             {
@@ -54,7 +54,7 @@ namespace PowerBuddy.App.Commands.Exercises
 
             var exercise = _mapper.Map<Exercise>(request.Exercise);
             _context.Add(exercise);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
 
             var exerciseDto = _mapper.Map<ExerciseDto>(exercise);
             return exerciseDto;

@@ -25,7 +25,7 @@ using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.App.Commands.Workouts
 {
-    public class CreateWorkoutLogFromTemplateCommand : IRequest<OneOf<bool, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>>
+    public class CreateWorkoutLogFromTemplateCommand : IRequest<OneOf<bool, WorkoutLogExistsOnDate, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>>
     {
         public WorkoutLogTemplateInputDto WorkoutInputDto { get; }
         public int TemplateProgramId { get; }
@@ -48,7 +48,7 @@ namespace PowerBuddy.App.Commands.Workouts
         }
     }
 
-    public class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, OneOf<bool, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>>
+    public class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, OneOf<bool, WorkoutLogExistsOnDate, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -69,9 +69,14 @@ namespace PowerBuddy.App.Commands.Workouts
             _hub = hub;
         }
 
-        public async Task<OneOf<bool, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>> Handle(CreateWorkoutLogFromTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, WorkoutLogExistsOnDate, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>> Handle(CreateWorkoutLogFromTemplateCommand request, CancellationToken cancellationToken)
         {
-           // await _WorkoutService.IsWorkoutLogAlreadyActive(request.WorkoutInputDto.StartDate, request.WorkoutInputDto.EndDate, request.UserId);
+            var doesLogExistOnDate = await _workoutService.DoesWorkoutLogExistOnDates(request.WorkoutInputDto.StartDate, request.UserId);
+
+            if (doesLogExistOnDate)
+            {
+                return new WorkoutLogExistsOnDate();
+            }
 
            var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
            if (templateProgram == null)

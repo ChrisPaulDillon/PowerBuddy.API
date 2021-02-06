@@ -34,12 +34,10 @@ namespace PowerBuddy.App.Commands.Workouts
     public class DeleteWorkoutLogCommandHandler : IRequestHandler<DeleteWorkoutLogCommand, OneOf<bool, WorkoutLogNotFound>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
 
-        public DeleteWorkoutLogCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public DeleteWorkoutLogCommandHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<OneOf<bool, WorkoutLogNotFound>> Handle(DeleteWorkoutLogCommand request, CancellationToken cancellationToken)

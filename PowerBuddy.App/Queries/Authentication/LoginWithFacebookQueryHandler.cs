@@ -48,11 +48,9 @@ namespace PowerBuddy.App.Queries.Authentication
 
         public async Task<AuthenticationResultDto> Handle(LoginWithFacebookQuery request, CancellationToken cancellationToken)
         {
-            var validationTokenResult = await _facebookAuthService.ValidateAccessTokenAsync(request.AccessToken);
-
             var userInfo = await _facebookAuthService.GetUserInfoAsync(request.AccessToken);
 
-            var user = await _context.User.AsNoTracking().FirstOrDefaultAsync(x => x.NormalizedEmail.Equals(userInfo.Email));
+            var user = await _context.User.AsNoTracking().FirstOrDefaultAsync(x => x.NormalizedEmail.Equals(userInfo.Email), cancellationToken: cancellationToken);
 
             if (user == null)
             {

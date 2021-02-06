@@ -73,16 +73,6 @@ namespace PowerBuddy.App.Services.LiftingStats
                 .FromSqlRaw(completeSqlCmd, sqlParameters.ToArray())
                 .AsNoTracking()
                 .ToDictionaryAsync(x => new Tuple<int, int>(x.ExerciseId, x.RepRange), x => x);
-
-            //return await _context.LiftingStatAudit
-            //    .Where(x => repRanges.Any(j => j == x.RepRange) && x.ExerciseId == exerciseId && x.UserId == userId)
-            //    .GroupBy(x => x.RepRange)
-            //    .Select(x => new TestModel()
-            //    {
-            //        RepRange = x.Key, 
-            //        MaxWeightPersonalBest = x
-            //    })
-            //    .ToListAsync();
         }
 
         public async Task<IEnumerable<LiftingStatAuditDto>> GetTopLiftingStatForExercise(int exerciseId, string userId)

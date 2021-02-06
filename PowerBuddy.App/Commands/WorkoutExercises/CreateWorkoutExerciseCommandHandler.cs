@@ -57,7 +57,7 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
 
         public async Task<OneOf<WorkoutExerciseDto, WorkoutDayNotFound, ExerciseNotFound, ReachedMaxSetsOnExercise>> Handle(CreateWorkoutExerciseCommand request, CancellationToken cancellationToken)
         {
-            var workoutDay = await _context.WorkoutDay.FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDto.WorkoutDayId);
+            var workoutDay = await _context.WorkoutDay.FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDto.WorkoutDayId, cancellationToken: cancellationToken);
             if (workoutDay == null)
             {
                 return new WorkoutDayNotFound();
@@ -69,7 +69,7 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
                 .AsNoTracking()
                 .Where(x => x.ExerciseId == request.CreateWorkoutExerciseDto.ExerciseId)
                 .Select(x => x.ExerciseName)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (exerciseName == null || string.IsNullOrWhiteSpace(exerciseName))
             {
@@ -80,7 +80,7 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
                 .AsNoTracking()
                 .Include(x => x.WorkoutSets)
                 .FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDto.WorkoutDayId && 
-                                          x.ExerciseId == request.CreateWorkoutExerciseDto.ExerciseId);
+                                          x.ExerciseId == request.CreateWorkoutExerciseDto.ExerciseId, cancellationToken: cancellationToken);
 
             var noOfSetsToAdd = request.CreateWorkoutExerciseDto.Sets;
 

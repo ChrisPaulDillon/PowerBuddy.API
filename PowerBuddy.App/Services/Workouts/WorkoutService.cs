@@ -30,6 +30,16 @@ namespace PowerBuddy.App.Services.Workouts
             _entityFactory = entityFactory;
         }
 
+        public async Task<bool> DoesWorkoutLogExistOnDates(DateTime startDate, string userId)
+        {
+            return await _context.WorkoutLog
+                .AsNoTracking()
+                .AnyAsync(x => 
+                    startDate >= x.WorkoutDays.OrderBy(x => x.Date).FirstOrDefault().Date &&
+                    startDate <= x.WorkoutDays.OrderBy(x => x.Date).FirstOrDefault().Date &&
+                    userId == x.UserId);
+        }
+
         public IEnumerable<WorkoutDay> CreateWorkoutDaysFromTemplate(TemplateProgram tp, DateTime startDate, Dictionary<int, string> workoutOrder, IEnumerable<TemplateWeightInputDto> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
         {
             var listOfDays = new List<WorkoutDay>();

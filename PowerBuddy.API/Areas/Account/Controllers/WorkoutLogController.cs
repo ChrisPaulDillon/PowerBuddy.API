@@ -133,6 +133,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
                 return result.Match<IActionResult>(
                     Result => Ok(Result),
+                    WorkoutLogExistsOnDate => BadRequest(Errors.Create(nameof(WorkoutLogExistsOnDate))),
                     UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))),
                     TemplateProgramNotFound => NotFound(Errors.Create(nameof(TemplateProgramNotFound))));
             }

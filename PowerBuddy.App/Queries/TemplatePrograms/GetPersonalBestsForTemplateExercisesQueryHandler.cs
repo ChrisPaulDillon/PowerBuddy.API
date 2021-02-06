@@ -35,18 +35,15 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
     internal class GetPersonalBestsForTemplateExercisesQueryHandler : IRequestHandler<GetPersonalBestsForTemplateExercisesQuery, IEnumerable<TemplateWeightInputDto>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
 
-        public GetPersonalBestsForTemplateExercisesQueryHandler(PowerLiftingContext context, IMapper mapper)
+        public GetPersonalBestsForTemplateExercisesQueryHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<IEnumerable<TemplateWeightInputDto>> Handle(GetPersonalBestsForTemplateExercisesQuery request, CancellationToken cancellationToken)
         {
-            //TODO
-            var tec = _context.Set<TemplateExerciseCollection>().Where(x => x.TemplateProgramId == request.TemplateProgramId)
+            var tec = _context.TemplateExerciseCollection.Where(x => x.TemplateProgramId == request.TemplateProgramId)
                 .AsNoTracking()
                 .Select(x => x.ExerciseId)
                 .ToList();

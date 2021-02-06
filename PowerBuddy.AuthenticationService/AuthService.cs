@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using PowerBuddy.AuthenticationService.Configuration;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace PowerBuddy.AuthenticationService
 {
@@ -20,29 +17,6 @@ namespace PowerBuddy.AuthenticationService
         {
             _jwtConfig = jwtConfig;
             _tokenValidationParameters = tokenValidationParameters;
-        }
-
-        public async Task<string> RefreshTokenAsync(string token, string refreshToken)
-        {
-            var validatedToken = GetPrincipalFromToken(token);
-
-            if (validatedToken == null)
-            {
-                return null;
-            }
-
-            var expiryDate = long.Parse(validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
-            var expiryDateUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-                .AddSeconds(expiryDate);
-
-            if (expiryDateUtc > DateTime.UtcNow) //token has not expired yet
-            {
-                return null;
-            }
-
-            var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
-
-            return "";
         }
 
         public string GenerateJwtToken(string userId, string userName, bool usingMetric, bool firstVisit, int memberStatusId)
@@ -74,15 +48,8 @@ namespace PowerBuddy.AuthenticationService
         public ClaimsPrincipal GetPrincipalFromToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            try
-            {
-                var principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out var validatedToken);
-                return !IsJwtWithValidSecurityAlgorithm(validatedToken) ? null : principal;
-            }
-            catch(Exception ex)
-            {
-                return null;
-            }
+            var principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out var validatedToken);
+            return !IsJwtWithValidSecurityAlgorithm(validatedToken) ? null : principal;
         }
 
         private bool IsJwtWithValidSecurityAlgorithm(SecurityToken validatedToken)

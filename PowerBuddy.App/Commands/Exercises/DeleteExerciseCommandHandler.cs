@@ -43,7 +43,7 @@ namespace PowerBuddy.App.Commands.Exercises
         {
             var exercise = await _context.Exercise
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ExerciseId == request.ExerciseId);
+                .FirstOrDefaultAsync(x => x.ExerciseId == request.ExerciseId, cancellationToken: cancellationToken);
 
             if (exercise == null)
             {
@@ -52,7 +52,7 @@ namespace PowerBuddy.App.Commands.Exercises
 
             _context.Remove(exercise);
 
-            var changedRows = await _context.SaveChangesAsync();
+            var changedRows = await _context.SaveChangesAsync(cancellationToken);
             return changedRows > 0;
         }
     }

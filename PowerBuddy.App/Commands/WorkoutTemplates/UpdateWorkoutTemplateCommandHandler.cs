@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Extensions.Validators;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
@@ -45,19 +46,18 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
 
         public async Task<bool> Handle(UpdateWorkoutTemplateCommand request, CancellationToken cancellationToken)
         {
-            //var workout = await _context.WorkoutTemplate
-            //    .AsNoTracking()
-            //    .AnyAsync(x => x.UserId == request.UserId && x.WorkoutTemplateId == request.WorkoutTemplateDto.WorkoutTemplateId);
+            var workoutTemplate = await _context.WorkoutTemplate
+                .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.WorkoutTemplateId == request.WorkoutTemplateDto.WorkoutTemplateId, cancellationToken: cancellationToken);
 
-            //if (!doesTemplateExist)
-            //{
-            //    return false;
-            //}
+            if (workoutTemplate == null)
+            {
+                return false;
+            }
 
-            //_context.WorkoutTemplate.Remove(workoutTemplate);
-            //var modifiedRows = await _context.SaveChangesAsync();
+            _context.WorkoutTemplate.Remove(workoutTemplate);
+            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
 
-            return true;
+            return modifiedRows > 0;
         }
     }
 }
