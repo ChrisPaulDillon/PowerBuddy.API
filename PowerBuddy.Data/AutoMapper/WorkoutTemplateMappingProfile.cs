@@ -30,17 +30,17 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.DateCreated, d => d.MapFrom(src => src.DateCreated))
                 .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises));
 
-            //into entity
-            CreateMap<WorkoutTemplateExerciseDTO, WorkoutExercise>()
-                .ForMember<int>(x => x.WorkoutExerciseId, d => d.Ignore())
-                .ForMember<int?>(x => x.WorkoutDayId, d => d.Ignore())
-                .ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
-                .ForMember<string>(x => x.Comment, d => d.MapFrom(src => src.Comment))
-                .ForMember<int>(x => x.WorkoutExerciseTonnageId, d => d.MapFrom(src => src.WorkoutExerciseTonnageId))
-                .ForMember(x => x.WorkoutExerciseTonnage, d => d.MapFrom(src => src.WorkoutExerciseTonnage))
-                .ForMember(x => x.WorkoutSets, d => d.MapFrom(src => src.WorkoutSets))
-                .ForMember(x => x.Exercise, d => d.Ignore())
-                .ForMember(x => x.WorkoutTemplateId, d => d.Ignore());
+            ////into entity
+            //CreateMap<WorkoutTemplateExerciseDTO, WorkoutExercise>()
+            //    .ForMember<int>(x => x.WorkoutExerciseId, d => d.Ignore())
+            //    .ForMember<int?>(x => x.WorkoutDayId, d => d.Ignore())
+            //    .ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
+            //    .ForMember<string>(x => x.Comment, d => d.MapFrom(src => src.Comment))
+            //    .ForMember<int>(x => x.WorkoutExerciseTonnageId, d => d.MapFrom(src => src.WorkoutExerciseTonnageId))
+            //    .ForMember(x => x.WorkoutExerciseTonnage, d => d.MapFrom(src => src.WorkoutExerciseTonnage))
+            //    .ForMember(x => x.WorkoutSets, d => d.MapFrom(src => src.WorkoutSets))
+            //    .ForMember(x => x.Exercise, d => d.Ignore())
+            //    .ForMember(x => x.WorkoutTemplateId, d => d.Ignore());
 
         }
     }
