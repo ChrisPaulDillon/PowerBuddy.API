@@ -22,8 +22,8 @@ jobs:
       run: dotnet build PowerBuddy.API --no-restore
     - name: Test
       run: dotnet test PowerBuddy.API/PowerBuddy.API.sln --no-build --verbosity normal
-  build:
-    name: Build
+  sonar_cloud:
+    name: SonarCloud
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
@@ -43,6 +43,8 @@ jobs:
         id: cache-sonar-scanner
         uses: actions/cache@v1
         with:
+          args: >
+            -Dsonar.coverage.exclusions=**/**Builder.cs,**/**Extensions.cs,**/**Exception.cs,**/*Configuration.cs,**/MoviesQuery.cs,**/GraphQL*/Types,**/DTO/**.cs,**/Models/**.cs
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
