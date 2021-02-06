@@ -4,12 +4,13 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Exceptions.Exercises;
+using PowerBuddy.Data.Models.Exercises;
 
 namespace PowerBuddy.App.Commands.Exercises
 {
-    public class DeleteExerciseCommand : IRequest<bool>
+    public class DeleteExerciseCommand : IRequest<OneOf<bool, ExerciseNotFound>>
     {
         public int ExerciseId { get; }
         public string UserId { get; }
@@ -29,23 +30,25 @@ namespace PowerBuddy.App.Commands.Exercises
         }
     }
 
-    public class DeleteExerciseCommandHandler : IRequestHandler<DeleteExerciseCommand, bool>
+    public class DeleteExerciseCommandHandler : IRequestHandler<DeleteExerciseCommand, OneOf<bool, ExerciseNotFound>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
-        public DeleteExerciseCommandHandler(PowerLiftingContext context, IMapper mapper)
+
+        public DeleteExerciseCommandHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
-        public async Task<bool> Handle(DeleteExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, ExerciseNotFound>> Handle(DeleteExerciseCommand request, CancellationToken cancellationToken)
         {
             var exercise = await _context.Exercise
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.ExerciseId == request.ExerciseId);
 
-            if (exercise == null) throw new ExerciseNotFoundException();
+            if (exercise == null)
+            {
+                return new ExerciseNotFound();
+            }
 
             _context.Remove(exercise);
 

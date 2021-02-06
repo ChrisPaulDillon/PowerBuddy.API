@@ -3,15 +3,16 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Commands.WorkoutDays.Models;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Data.Factories;
+using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Commands.WorkoutDays
 {
-    public class CreateWorkoutDayCommand : IRequest<int>
+    public class CreateWorkoutDayCommand : IRequest<OneOf<int, WorkoutDayAlreadyExists>>
     {
         public CreateWorkoutDayOptions CreateWorkoutDayOptions { get; }
         public string UserId { get; }
@@ -32,7 +33,7 @@ namespace PowerBuddy.App.Commands.WorkoutDays
         }
     }
 
-    public class CreateWorkoutDayCommandHandler : IRequestHandler<CreateWorkoutDayCommand, int>
+    public class CreateWorkoutDayCommandHandler : IRequestHandler<CreateWorkoutDayCommand, OneOf<int, WorkoutDayAlreadyExists>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IEntityFactory _entityFactory;
@@ -43,7 +44,7 @@ namespace PowerBuddy.App.Commands.WorkoutDays
             _entityFactory = entityFactory;
         }
 
-        public async Task<int> Handle(CreateWorkoutDayCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<int, WorkoutDayAlreadyExists>> Handle(CreateWorkoutDayCommand request, CancellationToken cancellationToken)
         {
             var workoutAlreadyExists = await _context.WorkoutDay
                 .AsNoTracking()
@@ -51,7 +52,7 @@ namespace PowerBuddy.App.Commands.WorkoutDays
 
             if (workoutAlreadyExists)
             {
-                throw new WorkoutDayAlreadyExistsException();
+                return new WorkoutDayAlreadyExists();
             }
 
             var workoutDay = new WorkoutDay();

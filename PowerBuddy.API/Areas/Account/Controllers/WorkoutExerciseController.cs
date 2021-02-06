@@ -46,24 +46,20 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 var convertedWorkoutWeight = await _weightInsertService.ConvertGenericWeightToDbSuitable(_userId, createWorkoutExerciseDTO.Weight);
                 createWorkoutExerciseDTO.Weight = convertedWorkoutWeight.Data;
 
-                var workoutExercise = await _mediator.Send(new CreateWorkoutExerciseCommand(createWorkoutExerciseDTO, _userId));
-                workoutExercise.WorkoutSets = await _weightOutputService.ConvertWorkoutSets(workoutExercise.WorkoutSets, _userId, convertedWorkoutWeight.IsMetric);
+                var result = await _mediator.Send(new CreateWorkoutExerciseCommand(createWorkoutExerciseDTO, _userId));
 
-                return Ok(workoutExercise);
+                if (result.IsT0)
+                {
+                    result.AsT0.WorkoutSets = await _weightOutputService.ConvertWorkoutSets(result.AsT0.WorkoutSets, _userId, convertedWorkoutWeight.IsMetric);
+                }
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))),
+                    ExerciseNotFound => NotFound(Errors.Create(nameof(ExerciseNotFound))),
+                    ReachedMaxSetsOnExercise => BadRequest((Errors.Create(nameof(ReachedMaxSetsOnExercise)))));
             }
             catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (WorkoutDayNotFoundException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ExerciseNotFoundException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ReachedMaxSetsOnExerciseException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -84,14 +80,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            catch (WorkoutExerciseNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
         }
 
         [HttpPut("Note/{workoutExerciseId:int}")]
@@ -108,14 +96,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (WorkoutExerciseNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(ex.Message);
             }
         }
     }

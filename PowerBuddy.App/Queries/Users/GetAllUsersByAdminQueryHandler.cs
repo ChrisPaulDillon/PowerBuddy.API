@@ -8,7 +8,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Queries.Users
 {
@@ -45,7 +45,10 @@ namespace PowerBuddy.App.Queries.Users
         {
             var isUserAuthorized = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2);
 
-            if (!isUserAuthorized) throw new UserNotFoundException();
+            //if (!isUserAuthorized)
+            //{
+            //    return new UserNotFound();
+            //}
 
             var users = await _context.User.ProjectTo<AdminUserDTO>(_mapper.ConfigurationProvider).AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
             return users;

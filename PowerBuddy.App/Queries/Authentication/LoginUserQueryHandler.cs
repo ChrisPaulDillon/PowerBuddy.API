@@ -5,17 +5,18 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Queries.Authentication.Models;
 using PowerBuddy.App.Services.Authentication;
 using PowerBuddy.App.Services.Authentication.Models;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Queries.Authentication
 {
-    public class LoginUserQuery : IRequest<AuthenticationResultDTO>
+    public class LoginUserQuery : IRequest<OneOf<AuthenticationResultDTO, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>>
     {
         public LoginModelDTO LoginModel { get; }
 
@@ -35,7 +36,7 @@ namespace PowerBuddy.App.Queries.Authentication
         }
     }
 
-    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, AuthenticationResultDTO>
+    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, OneOf<AuthenticationResultDTO, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -50,26 +51,26 @@ namespace PowerBuddy.App.Queries.Authentication
             _tokenService = tokenService;
         }
 
-        public async Task<AuthenticationResultDTO> Handle(LoginUserQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<AuthenticationResultDTO, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User
 	            .FirstOrDefaultAsync(x => x.NormalizedEmail == request.LoginModel.Email.ToUpper() || x.NormalizedUserName == request.LoginModel.UserName.ToUpper());
 
             if (user == null)
             {
-                throw new UserNotFoundException();
+                return new UserNotFound();
             }
 
             if (!user.EmailConfirmed)
             {
-                throw new EmailNotConfirmedException(user.Id);
+                return new EmailNotConfirmed(user.Id);
             }
 
             var result = await _signInManager.PasswordSignInAsync(user, request.LoginModel.Password, true, true);
 
             if (result.IsLockedOut)
             {
-	            throw new AccountLockoutException();
+	            return new AccountLockout();
             }
 
             if (result.Succeeded)
@@ -78,7 +79,7 @@ namespace PowerBuddy.App.Queries.Authentication
                 return authenticatedUser;
             }
 
-            throw new InvalidCredentialsException();
+            return new InvalidCredentials();
         }
     }
 }

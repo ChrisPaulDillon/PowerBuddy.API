@@ -35,12 +35,10 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
     public class UpdateWorkoutExerciseNotesCommandHandler : IRequestHandler<UpdateWorkoutExerciseNoteCommand, bool>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
 
-        public UpdateWorkoutExerciseNotesCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public UpdateWorkoutExerciseNotesCommandHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<bool> Handle(UpdateWorkoutExerciseNoteCommand request, CancellationToken cancellationToken)

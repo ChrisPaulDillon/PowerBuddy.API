@@ -4,13 +4,14 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.LiftingStats;
+using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Data.Models.LiftingStats;
 
 namespace PowerBuddy.App.Commands.LiftingStats
 {
-    public class DeleteLiftingStatAuditCommand : IRequest<bool>
+    public class DeleteLiftingStatAuditCommand : IRequest<OneOf<bool, LiftingStatNotFound, UserNotFound>>
     {
         public int LiftingStatAuditId { get; }
         public string UserId { get; }
@@ -31,7 +32,7 @@ namespace PowerBuddy.App.Commands.LiftingStats
         }
     }
 
-    public class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, bool>
+    public class DeleteLiftingStatAuditCommandHandler : IRequestHandler<DeleteLiftingStatAuditCommand, OneOf<bool, LiftingStatNotFound, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -41,13 +42,20 @@ namespace PowerBuddy.App.Commands.LiftingStats
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(DeleteLiftingStatAuditCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, LiftingStatNotFound, UserNotFound>> Handle(DeleteLiftingStatAuditCommand request, CancellationToken cancellationToken)
         {
             var liftingStatAudit = await _context.LiftingStatAudit
                 .FirstOrDefaultAsync(x => x.LiftingStatAuditId == request.LiftingStatAuditId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
-            if (liftingStatAudit == null) throw new LiftingStatNotFoundException();
-            if (liftingStatAudit.UserId != request.UserId) throw new UserNotFoundException();
+            if (liftingStatAudit == null)
+            {
+                return new LiftingStatNotFound();
+            }
+
+            if (liftingStatAudit.UserId != request.UserId)
+            {
+                return new UserNotFound();
+            }
 
             _context.LiftingStatAudit.Remove(liftingStatAudit); 
             

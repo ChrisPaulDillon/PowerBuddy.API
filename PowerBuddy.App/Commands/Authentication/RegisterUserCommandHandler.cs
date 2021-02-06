@@ -5,16 +5,17 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Commands.Authentication.Models;
 using PowerBuddy.App.Services.Authentication;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
-    public class RegisterUserCommand : IRequest<RegisterAuthenticationResultDTO>
+    public class RegisterUserCommand : IRequest<OneOf<RegisterAuthenticationResultDTO, EmailOrUserNameInUse>>
     {
         public RegisterUserDTO RegisterUserDTO { get; }
 
@@ -34,7 +35,7 @@ namespace PowerBuddy.App.Commands.Authentication
         }
     }
 
-    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterAuthenticationResultDTO>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, OneOf<RegisterAuthenticationResultDTO, EmailOrUserNameInUse>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -49,7 +50,7 @@ namespace PowerBuddy.App.Commands.Authentication
             _tokenService = tokenService;
         }
 
-        public async Task<RegisterAuthenticationResultDTO> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<RegisterAuthenticationResultDTO, EmailOrUserNameInUse>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             var doesUserExist = await _context.User
                 .AsNoTracking()
@@ -57,7 +58,7 @@ namespace PowerBuddy.App.Commands.Authentication
 
             if (doesUserExist)
             {
-	            throw new EmailOrUserNameInUseException();
+	            return new EmailOrUserNameInUse();
             }
 
             request.RegisterUserDTO.SportType = "PowerLifting";

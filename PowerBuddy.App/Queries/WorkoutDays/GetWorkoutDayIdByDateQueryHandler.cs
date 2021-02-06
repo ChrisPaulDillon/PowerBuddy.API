@@ -36,12 +36,11 @@ namespace PowerBuddy.App.Queries.WorkoutDays
     internal class GetWorkoutDayIdByDateQueryHandler : IRequestHandler<GetWorkoutDayIdByDateQuery, GetWorkoutIdResponse>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
         private readonly IWorkoutService _workoutService;
-        public GetWorkoutDayIdByDateQueryHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService)
+
+        public GetWorkoutDayIdByDateQueryHandler(PowerLiftingContext context, IWorkoutService workoutService)
         {
             _context = context;
-            _mapper = mapper;
             _workoutService = workoutService;
         }
 

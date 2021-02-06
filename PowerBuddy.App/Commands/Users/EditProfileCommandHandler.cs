@@ -4,13 +4,14 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Account;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Users
 {
-    public class EditProfileCommand : IRequest<bool>
+    public class EditProfileCommand : IRequest<OneOf<bool, UserNotFound>>
     {
         public EditProfileDTO EditProfileDTO { get; }
         public string UserId { get; }
@@ -31,7 +32,7 @@ namespace PowerBuddy.App.Commands.Users
         }
     }
 
-    public class EditProfileCommandHandler : IRequestHandler<EditProfileCommand, bool>
+    public class EditProfileCommandHandler : IRequestHandler<EditProfileCommand, OneOf<bool, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -42,11 +43,11 @@ namespace PowerBuddy.App.Commands.Users
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(EditProfileCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, UserNotFound>> Handle(EditProfileCommand request, CancellationToken cancellationToken)
         {
             if (request.UserId != request.EditProfileDTO.UserId)
             {
-                throw new UserNotFoundException();
+                return new UserNotFound();
             }
 
             var user = await _context.User
@@ -55,7 +56,7 @@ namespace PowerBuddy.App.Commands.Users
 
             if (user == null)
             {
-                throw new UserNotFoundException();
+                return new UserNotFound();
             }
 
             var updatedProfile = _mapper.Map(request.EditProfileDTO, user);

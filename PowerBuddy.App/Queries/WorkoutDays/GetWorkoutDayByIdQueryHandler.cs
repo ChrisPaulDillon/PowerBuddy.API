@@ -6,20 +6,21 @@ using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
-using PowerBuddy.Data.Exceptions.Workouts;
+using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Queries.WorkoutDays
 {
-    public class GetWorkoutDayByIdQuery : IRequest<WorkoutDayDTO>
+    public class GetWorkoutDayByIdQuery : IRequest<OneOf<WorkoutDayDTO, WorkoutDayNotFound>>
     {
         public int WorkoutDayId { get; }
         public string UserId { get; }
 
-        public GetWorkoutDayByIdQuery(int programLogDayId, string userId)
+        public GetWorkoutDayByIdQuery(int workoutDayId, string userId)
         {
-            WorkoutDayId = programLogDayId;
+            WorkoutDayId = workoutDayId;
             UserId = userId;
         }
     }
@@ -33,7 +34,7 @@ namespace PowerBuddy.App.Queries.WorkoutDays
         }
     }
 
-    internal class GetWorkoutDayByIdQueryHandler : IRequestHandler<GetWorkoutDayByIdQuery, WorkoutDayDTO>
+    internal class GetWorkoutDayByIdQueryHandler : IRequestHandler<GetWorkoutDayByIdQuery, OneOf<WorkoutDayDTO, WorkoutDayNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -44,7 +45,7 @@ namespace PowerBuddy.App.Queries.WorkoutDays
             _mapper = mapper;
         }
 
-        public async Task<WorkoutDayDTO> Handle(GetWorkoutDayByIdQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<WorkoutDayDTO, WorkoutDayNotFound>> Handle(GetWorkoutDayByIdQuery request, CancellationToken cancellationToken)
         {
             var workoutDay = await _context.WorkoutDay.Where(x => x.WorkoutDayId == request.WorkoutDayId && x.UserId == request.UserId)
                 .ProjectTo<WorkoutDayDTO>(_mapper.ConfigurationProvider)
@@ -53,7 +54,7 @@ namespace PowerBuddy.App.Queries.WorkoutDays
 
             if (workoutDay == null)
             {
-                throw new WorkoutDayNotFoundException();
+                return new WorkoutDayNotFound();
             }
 
             return workoutDay;

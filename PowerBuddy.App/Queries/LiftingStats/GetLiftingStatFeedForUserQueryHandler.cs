@@ -7,13 +7,14 @@ using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.LiftingStats;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Queries.LiftingStats
 {
-    public class GetLiftingStatFeedForUserQuery : IRequest<IEnumerable<LiftFeedDTO>>
+    public class GetLiftingStatFeedForUserQuery : IRequest<OneOf<IEnumerable<LiftFeedDTO>, UserNotFound>>
     {
         public string UserName { get; }
         public string UserId { get; }
@@ -34,7 +35,7 @@ namespace PowerBuddy.App.Queries.LiftingStats
         }
     }
 
-    internal class GetLiftingStatFeedForUserQueryHandler : IRequestHandler<GetLiftingStatFeedForUserQuery, IEnumerable<LiftFeedDTO>>
+    internal class GetLiftingStatFeedForUserQueryHandler : IRequestHandler<GetLiftingStatFeedForUserQuery, OneOf<IEnumerable<LiftFeedDTO>, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -44,15 +45,18 @@ namespace PowerBuddy.App.Queries.LiftingStats
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<LiftFeedDTO>> Handle(GetLiftingStatFeedForUserQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<IEnumerable<LiftFeedDTO>, UserNotFound>> Handle(GetLiftingStatFeedForUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User.AsNoTracking().FirstOrDefaultAsync(x => x.UserName == request.UserName, cancellationToken: cancellationToken);
 
-            if (user == null) throw new UserNotFoundException();
+            if (user == null)
+            {
+                return new UserNotFound();
+            }
 
             if (user.Id != request.UserId && !user.IsPublic)
             {
-                throw new UserNotFoundException();
+                return new UserNotFound();
             }
 
             var liftFeed = await _context.LiftingStatAudit

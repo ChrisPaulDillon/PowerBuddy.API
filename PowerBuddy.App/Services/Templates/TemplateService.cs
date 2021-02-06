@@ -5,8 +5,9 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.TemplatePrograms;
+
 using PowerBuddy.Data.Factories;
+using PowerBuddy.Data.Models.TemplatePrograms;
 
 namespace PowerBuddy.App.Services.Templates
 {
@@ -34,8 +35,6 @@ namespace PowerBuddy.App.Services.Templates
                 .ThenInclude(x => x.TemplateExercises)
                 .ThenInclude(x => x.TemplateRepSchemes)
                 .FirstOrDefaultAsync();
-
-            if (templateProgram == null) throw new TemplateProgramNotFoundException();
 
             return templateProgram;
         }

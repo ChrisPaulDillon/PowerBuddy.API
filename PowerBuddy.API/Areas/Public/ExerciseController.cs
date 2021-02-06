@@ -8,6 +8,7 @@ using PowerBuddy.API.Models;
 using PowerBuddy.App.Queries.Exercises;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.Exceptions.Exercises;
+using PowerBuddy.Data.Models.Exercises;
 
 namespace PowerBuddy.API.Areas.Public
 {
@@ -40,8 +41,9 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var exercise = await _mediator.Send(new GetExerciseByIdQuery(exerciseId));
-                return Ok(exercise);
+                var exerciseOneOf = await _mediator.Send(new GetExerciseByIdQuery(exerciseId));
+
+                return exerciseOneOf.Match<IActionResult>(Ok, ExerciseNotFound => NotFound(nameof(ExerciseNotFound)));
             }
             catch (ValidationException ex)
             {

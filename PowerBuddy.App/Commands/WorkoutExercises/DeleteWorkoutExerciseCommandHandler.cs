@@ -32,12 +32,10 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
     public class DeleteWorkoutExerciseCommandHandler : IRequestHandler<DeleteWorkoutExerciseCommand, bool>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
 
-        public DeleteWorkoutExerciseCommandHandler(PowerLiftingContext context, IMapper mapper)
+        public DeleteWorkoutExerciseCommandHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<bool> Handle(DeleteWorkoutExerciseCommand request, CancellationToken cancellationToken)

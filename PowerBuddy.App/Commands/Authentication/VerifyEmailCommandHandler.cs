@@ -5,13 +5,14 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
-    public class VerifyEmailCommand : IRequest<bool>
+    public class VerifyEmailCommand : IRequest<OneOf<bool, UserNotFound>>
     {
         public string UserId { get; }
         public string Token { get; }
@@ -32,7 +33,7 @@ namespace PowerBuddy.App.Commands.Authentication
         }
     }
 
-    public class VerifyEmailCommandHandler : IRequestHandler<VerifyEmailCommand, bool>
+    public class VerifyEmailCommandHandler : IRequestHandler<VerifyEmailCommand, OneOf<bool, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly UserManager<User> _userManager;
@@ -43,13 +44,16 @@ namespace PowerBuddy.App.Commands.Authentication
             _userManager = userManager;
         }
 
-        public async Task<bool> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, UserNotFound>> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.User
                 .Where(x => x.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
-            if (user == null) throw new UserNotFoundException();
+            if (user == null)
+            {
+                return new UserNotFound();
+            }
 
             var result = await _userManager.ConfirmEmailAsync(user, request.Token);
 

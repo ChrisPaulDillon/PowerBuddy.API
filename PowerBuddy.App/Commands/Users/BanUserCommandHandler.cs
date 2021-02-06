@@ -1,18 +1,16 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Commands.Users
 {
-    public class BanUserCommand : IRequest<bool>
+    public class BanUserCommand : IRequest<OneOf<bool, UserNotFound>>
     {
         public string UserId { get; }
         public string AdminUserId { get; }
@@ -33,27 +31,30 @@ namespace PowerBuddy.App.Commands.Users
         }
     }
 
-    public class BanUserCommandHandler : IRequestHandler<BanUserCommand, bool>
+    public class BanUserCommandHandler : IRequestHandler<BanUserCommand, OneOf<bool, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
-        public BanUserCommandHandler(PowerLiftingContext context, IMapper mapper, UserManager<User> userManager)
+
+        public BanUserCommandHandler(PowerLiftingContext context)
         {
             _context = context;
-            _mapper = mapper;
-            _userManager = userManager;
         }
 
-        public async Task<bool> Handle(BanUserCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, UserNotFound>> Handle(BanUserCommand request, CancellationToken cancellationToken)
         {
             var userToBan = await _context.User.FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken: cancellationToken);
 
-            if (userToBan == null) throw new UserNotFoundException();
+            if (userToBan == null)
+            {
+                return new UserNotFound();
+            }
 
             var adminUser = await _context.User.Where(x => x.Id == request.AdminUserId && x.MemberStatusId >= 2).Select(x => x.UserName).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (string.IsNullOrEmpty(adminUser)) throw new UserNotFoundException();
+            if (string.IsNullOrEmpty(adminUser))
+            {
+                return new UserNotFound();
+            }
 
             userToBan.IsBanned = true;
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);

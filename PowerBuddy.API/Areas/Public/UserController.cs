@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,12 +33,15 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var user = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName));
-                return Ok(user);
+                var result = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName));
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
             }
-            catch (UserNotFoundException ex)
+            catch (ValidationException ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -46,15 +50,9 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllActiveUserProfiles()
         {
-            try
-            {
-                var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery(_userId));
-                return Ok(userProfiles);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+
+            var userProfiles = await _mediator.Send(new GetAllActivePublicProfilesQuery(_userId));
+            return Ok(userProfiles);
         }
     }
 }

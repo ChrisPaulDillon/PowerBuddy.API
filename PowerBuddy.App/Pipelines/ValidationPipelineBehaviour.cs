@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 
-namespace PowerBuddy.MediatR
+namespace PowerBuddy.App.Pipelines
 {
     public class ValidationPipelineBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
         where TRequest : IRequest<TResponse>
@@ -21,6 +21,7 @@ namespace PowerBuddy.MediatR
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             var context = new ValidationContext(request);
+
             var failures = _validators.Select(x => x.Validate(request))
                 .SelectMany(x => x.Errors)
                 .Where(x => x != null)

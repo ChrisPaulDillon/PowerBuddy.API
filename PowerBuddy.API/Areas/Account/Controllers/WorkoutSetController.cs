@@ -44,21 +44,16 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var convertWorkoutCollection = await _weightInsertService.ConvertWeightSetsToDbSuitable(_userId, workoutSetCollection);
-                var workoutSets = await _mediator.Send(new QuickAddWorkoutSetsCommand(convertWorkoutCollection.Data.ToList(), _userId));
-                workoutSets = await _weightOutputService.ConvertWorkoutSets(workoutSets, _userId, convertWorkoutCollection.IsMetric);
-                return Ok(workoutSets);
+                var result = await _mediator.Send(new QuickAddWorkoutSetsCommand(convertWorkoutCollection.Data.ToList(), _userId));
+
+                return result.Match<IActionResult>(
+                    Result => Ok(_weightOutputService.ConvertWorkoutSets(result.AsT0, _userId, convertWorkoutCollection.IsMetric).Result),
+                    WorkoutExerciseNotFound => NotFound(Errors.Create(nameof(WorkoutExerciseNotFound))),
+                    WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (WorkoutExerciseNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (WorkoutDayNotFoundException ex)
-            {
-                return NotFound(ex.Message);
             }
         }
 

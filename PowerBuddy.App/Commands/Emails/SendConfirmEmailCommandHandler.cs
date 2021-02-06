@@ -6,16 +6,17 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Commands.Emails.Models;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 using PowerBuddy.EmailService;
 using PowerBuddy.EmailService.Models;
 
 namespace PowerBuddy.App.Commands.Emails
 {
-    public class SendConfirmEmailCommand : IRequest<Unit>
+    public class SendConfirmEmailCommand : IRequest<OneOf<Unit, UserNotFound>>
     {
         public string UserId { get; }
 
@@ -33,7 +34,7 @@ namespace PowerBuddy.App.Commands.Emails
         }
     }
 
-    public class SendConfirmEmailCommandHandler : IRequestHandler<SendConfirmEmailCommand, Unit>
+    public class SendConfirmEmailCommandHandler : IRequestHandler<SendConfirmEmailCommand, OneOf<Unit, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IEmailClient _emailClient;
@@ -48,14 +49,17 @@ namespace PowerBuddy.App.Commands.Emails
             _emailAssistant = emailAssistant;
         }
 
-        public async Task<Unit> Handle(SendConfirmEmailCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<Unit, UserNotFound>> Handle(SendConfirmEmailCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.User
                 .AsNoTracking()
                 .Where(x => x.Id == request.UserId)
                 .FirstOrDefaultAsync();
 
-            if (user == null) throw new UserNotFoundException();
+            if (user == null)
+            {
+                return new UserNotFound();
+            }
 
             //var emailTemplate = await _context.EmailTemplate
             //    .AsNoTracking()

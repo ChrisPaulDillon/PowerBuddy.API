@@ -34,16 +34,15 @@ namespace PowerBuddy.API.Areas.Public
         {
             try
             {
-                var liftFeedCollection = await _mediator.Send(new GetLiftingStatFeedForUserQuery(userName, _userId));
-                return Ok(liftFeedCollection);
+                var result = await _mediator.Send(new GetLiftingStatFeedForUserQuery(userName, _userId));
+                
+                return result.Match<IActionResult>(
+                    Ok,
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return NotFound(ex.Message);
             }
         }
     }

@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
 using PowerBuddy.Data.Factories;
+using PowerBuddy.Data.Models.Account;
 using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.App.Commands.Workouts
 {
-    public class CreateWorkoutLogFromScratchCommand : IRequest<WorkoutLog>
+    public class CreateWorkoutLogFromScratchCommand : IRequest<OneOf<WorkoutLog, UserNotFound>>
     {
         public WorkoutLogInputScratchDTO WorkoutLogDTO { get; }
         public string UserId { get; }
@@ -38,7 +39,7 @@ namespace PowerBuddy.App.Commands.Workouts
         }
     }
 
-    public class CreateWorkoutLogFromScratchCommandHandler : IRequestHandler<CreateWorkoutLogFromScratchCommand, WorkoutLog>
+    public class CreateWorkoutLogFromScratchCommandHandler : IRequestHandler<CreateWorkoutLogFromScratchCommand, OneOf<WorkoutLog, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -51,11 +52,11 @@ namespace PowerBuddy.App.Commands.Workouts
             _dtoFactory = dtoFactory;
         }
 
-        public async Task<WorkoutLog> Handle(CreateWorkoutLogFromScratchCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<WorkoutLog, UserNotFound>> Handle(CreateWorkoutLogFromScratchCommand request, CancellationToken cancellationToken)
         {
             if (request.WorkoutLogDTO.UserId != request.UserId)
             {
-                throw new UserNotFoundException();
+                return new UserNotFound();
             }
           
             var listOfWorkoutDays = new List<WorkoutDayDTO>();

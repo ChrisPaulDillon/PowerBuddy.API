@@ -50,7 +50,7 @@ namespace PowerBuddy.App.Queries.ProgramLogDays
                 .OrderByDescending(x => x.Date)
                 .ToListAsync(cancellationToken: cancellationToken);
 
-           // if (programLogDayDTO == null) throw new ProgramLogDayNotFoundException();
+           // if (programLogDayDTO == null) return new ProgramLogDayNotFound();
             return programLogDayDTO;
         }
     }

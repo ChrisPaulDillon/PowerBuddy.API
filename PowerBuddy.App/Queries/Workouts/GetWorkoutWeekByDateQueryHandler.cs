@@ -39,13 +39,11 @@ namespace PowerBuddy.App.Queries.Workouts
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IWorkoutService _workoutService;
 
-        public GetWorkoutWeekByDateQueryHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService WorkoutService)
+        public GetWorkoutWeekByDateQueryHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _workoutService = WorkoutService;
         }
 
         public async Task<WorkoutWeekSummaryDTO> Handle(GetWorkoutWeekByDateQuery request, CancellationToken cancellationToken)

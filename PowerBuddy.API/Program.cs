@@ -57,7 +57,7 @@ namespace PowerBuddy.API
                             endpointOptions.MetricsTextEndpointOutputFormatter = new MetricsPrometheusTextOutputFormatter();
                             endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
                             endpointOptions.EnvironmentInfoEndpointEnabled = false;
-		                };
+                        };
 	                });
                     webBuilder.UseSerilog((ctx, config) =>
                     {

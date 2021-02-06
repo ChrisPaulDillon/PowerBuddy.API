@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using PowerBuddy.API.AuthorizationHandlers;
 using PowerBuddy.API.Middleware;
 using PowerBuddy.App.Commands;
+using PowerBuddy.App.Pipelines;
 using PowerBuddy.App.Queries;
 using PowerBuddy.App.Repositories.Exercises;
 using PowerBuddy.App.Repositories.System;
@@ -30,7 +31,6 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Extensions;
 using PowerBuddy.EmailService.Extensions;
 using PowerBuddy.SmsService.Extensions;
-using PowerBuddy.MediatR;
 using PowerBuddy.SignalR;
 
 namespace PowerBuddy.API

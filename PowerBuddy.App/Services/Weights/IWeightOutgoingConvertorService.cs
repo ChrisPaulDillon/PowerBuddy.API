@@ -9,7 +9,7 @@ namespace PowerBuddy.App.Services.Weights
     {
         Task<decimal> ConvertGenericWeight(decimal weight, string userId, bool? isMetric = null);
 
-        Task<WorkoutDayDTO> ConvertWorkoutDay(WorkoutDayDTO workoutSet, string userId, bool? isMetric = null);
+        Task<IEnumerable<WorkoutExerciseDTO>> ConvertWorkoutExercises(IEnumerable<WorkoutExerciseDTO> workoutExercises, string userId, bool? isMetric = null);
 
         /// <summary>
         /// Converts a workout set to it's correct format to be displayed to the user

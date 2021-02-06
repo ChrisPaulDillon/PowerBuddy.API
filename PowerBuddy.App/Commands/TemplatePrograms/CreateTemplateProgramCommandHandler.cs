@@ -4,15 +4,16 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.TemplatePrograms;
+using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Data.Models.TemplatePrograms;
 
 namespace PowerBuddy.App.Commands.TemplatePrograms
 {
-    public class CreateTemplateProgramCommand : IRequest<TemplateProgramDTO>
+    public class CreateTemplateProgramCommand : IRequest<OneOf<TemplateProgramDTO, UserNotFound, TemplateProgramNameAlreadyExists>>
     {
         public TemplateProgramDTO TemplateProgramDTO { get; }
         public string UserId { get; }
@@ -38,7 +39,7 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
         }
     }
 
-    public class CreateTemplateProgramCommandHandler : IRequestHandler<CreateTemplateProgramCommand, TemplateProgramDTO>
+    public class CreateTemplateProgramCommandHandler : IRequestHandler<CreateTemplateProgramCommand, OneOf<TemplateProgramDTO, UserNotFound, TemplateProgramNameAlreadyExists>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -49,14 +50,23 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
             _mapper = mapper;
         }
 
-        public async Task<TemplateProgramDTO> Handle(CreateTemplateProgramCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<TemplateProgramDTO, UserNotFound, TemplateProgramNameAlreadyExists>> Handle(CreateTemplateProgramCommand request, CancellationToken cancellationToken)
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
-            if (!isUserAdmin) throw new UserNotFoundException();
+            if (!isUserAdmin)
+            {
+                return new UserNotFound();
+            }
 
-            var isTaken = await _context.Set<TemplateProgram>().AsNoTracking().AnyAsync(x => x.Name == request.TemplateProgramDTO.Name, cancellationToken: cancellationToken);
-            if (isTaken) throw new TemplateProgramNameAlreadyExistsException();
+            var isTaken = await _context.Set<TemplateProgram>()
+                .AsNoTracking()
+                .AnyAsync(x => x.Name == request.TemplateProgramDTO.Name, cancellationToken: cancellationToken);
+            
+            if (isTaken)
+            {
+                return new TemplateProgramNameAlreadyExists();
+            }
 
             var template = _mapper.Map<TemplateProgram>(request.TemplateProgramDTO);
             _context.TemplateProgram.Add(template);

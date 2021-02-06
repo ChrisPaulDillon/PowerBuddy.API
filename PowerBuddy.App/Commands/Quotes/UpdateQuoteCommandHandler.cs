@@ -5,15 +5,16 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.System;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Account;
-using PowerBuddy.Data.Exceptions.System;
+using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Data.Models.System;
 
 namespace PowerBuddy.App.Commands.Quotes
 {
-    public class UpdateQuoteCommand : IRequest<bool>
+    public class UpdateQuoteCommand : IRequest<OneOf<bool, UserNotFound, QuoteNotFound>>
     {
         public QuoteDTO QuoteDTO { get; }
         public string UserId { get; }
@@ -33,7 +34,7 @@ namespace PowerBuddy.App.Commands.Quotes
         }
     }
 
-    public class UpdateQuoteCommandHandler : IRequestHandler<UpdateQuoteCommand, bool>
+    public class UpdateQuoteCommandHandler : IRequestHandler<UpdateQuoteCommand, OneOf<bool, UserNotFound, QuoteNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -44,15 +45,21 @@ namespace PowerBuddy.App.Commands.Quotes
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(UpdateQuoteCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, UserNotFound, QuoteNotFound>> Handle(UpdateQuoteCommand request, CancellationToken cancellationToken)
         {
             var isUserAdmin = await _context.User.AsNoTracking().AnyAsync(x => x.Id == request.UserId && x.MemberStatusId >= 2, cancellationToken: cancellationToken);
 
-            if (!isUserAdmin) throw new UserNotFoundException();
+            if (!isUserAdmin)
+            {
+                return new UserNotFound();
+            }
 
             var doesQuoteExist = await _context.Quote.Where(x => x.QuoteId == request.QuoteDTO.QuoteId).AsNoTracking().AnyAsync(cancellationToken: cancellationToken);
 
-            if (!doesQuoteExist) throw new QuoteNotFoundException();
+            if (!doesQuoteExist)
+            {
+                return new QuoteNotFound();
+            }
 
             var quote = _mapper.Map<Quote>(request.QuoteDTO);
             _context.Quote.Update(quote);

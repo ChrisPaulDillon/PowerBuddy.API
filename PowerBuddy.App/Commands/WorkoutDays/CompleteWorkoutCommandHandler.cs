@@ -7,20 +7,19 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PowerBuddy.App.Services.Account;
+using OneOf;
 using PowerBuddy.App.Services.LiftingStats;
-using PowerBuddy.App.Services.Weights;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.LiftingStats;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Workouts;
 using PowerBuddy.Data.Factories;
+using PowerBuddy.Data.Models.Workouts;
 
 namespace PowerBuddy.App.Commands.WorkoutDays
 {
-    public class CompleteWorkoutCommand : IRequest<IEnumerable<LiftingStatAuditDTO>>
+    public class CompleteWorkoutCommand : IRequest<OneOf<IEnumerable<LiftingStatAuditDTO>, WorkoutDayNotFound>>
     {
         public WorkoutDayDTO WorkoutDayDTO { get; }
         public string UserId { get; }
@@ -41,35 +40,31 @@ namespace PowerBuddy.App.Commands.WorkoutDays
         }
     }
 
-    public class CompleteWorkoutCommandHandler : IRequestHandler<CompleteWorkoutCommand, IEnumerable<LiftingStatAuditDTO>>
+    public class CompleteWorkoutCommandHandler : IRequestHandler<CompleteWorkoutCommand, OneOf<IEnumerable<LiftingStatAuditDTO>, WorkoutDayNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
         private readonly IWorkoutService _workoutService;
         private readonly ILiftingStatService _liftingStatService;
-        private readonly IWeightInsertConvertorService _weightService;
-        private readonly IAccountService _accountService;
         private readonly IEntityFactory _entityFactory;
 
-        public CompleteWorkoutCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService, ILiftingStatService liftingStatService, IWeightInsertConvertorService weightService, IAccountService accountService, IEntityFactory entityFactory)
+        public CompleteWorkoutCommandHandler(PowerLiftingContext context, IMapper mapper, IWorkoutService workoutService, ILiftingStatService liftingStatService, IEntityFactory entityFactory)
         {
             _context = context;
             _mapper = mapper;
             _workoutService = workoutService;
             _liftingStatService = liftingStatService;
-            _weightService = weightService;
-            _accountService = accountService;
             _entityFactory = entityFactory;
         }
 
-        public async Task<IEnumerable<LiftingStatAuditDTO>> Handle(CompleteWorkoutCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<IEnumerable<LiftingStatAuditDTO>, WorkoutDayNotFound>> Handle(CompleteWorkoutCommand request, CancellationToken cancellationToken)
         {
             var workoutDay = await _context.WorkoutDay.AsNoTracking()
                 .FirstOrDefaultAsync(x => x.WorkoutDayId == request.WorkoutDayDTO.WorkoutDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
             if (workoutDay == null)
             {
-                throw new WorkoutDayNotFoundException();
+                return new WorkoutDayNotFound();
             }
 
             var workoutExercises = request.WorkoutDayDTO.WorkoutExercises.ToList();

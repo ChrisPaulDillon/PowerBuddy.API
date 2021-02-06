@@ -52,10 +52,18 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var liftingStatDetailed = await _mediator.Send(new GetLiftingStatSummaryByExerciseIdQuery(exerciseId, _userId));
-                liftingStatDetailed.LiftingStats = await _weightOutputService.ConvertPersonalBests(liftingStatDetailed.LiftingStats, _userId, null);
-                liftingStatDetailed.LifeTimeTonnage = await _weightOutputService.ConvertGenericWeight(liftingStatDetailed.LifeTimeTonnage, _userId, null);
-                return Ok(liftingStatDetailed);
+                var liftingStatOneOf = await _mediator.Send(new GetLiftingStatSummaryByExerciseIdQuery(exerciseId, _userId));
+
+                if (liftingStatOneOf.IsT0)
+                {
+                    liftingStatOneOf.AsT0.LiftingStats =
+                        await _weightOutputService.ConvertPersonalBests(liftingStatOneOf.AsT0.LiftingStats, _userId, null);
+                    liftingStatOneOf.AsT0.LifeTimeTonnage =
+                        await _weightOutputService.ConvertGenericWeight(liftingStatOneOf.AsT0.LifeTimeTonnage, _userId, null);
+                }
+
+                return liftingStatOneOf.Match<IActionResult>(Ok,
+                    LiftingStatNotFound => BadRequest(Errors.Create(nameof(LiftingStatNotFound))));
             }
             catch (ValidationException ex)
             {
@@ -84,19 +92,15 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             try
             {
                 var result = await _mediator.Send(new DeleteLiftingStatAuditCommand(liftingStatAuditId, _userId));
-                return Ok(result);
+
+                return result.Match<IActionResult>(
+                    IsDeleted => Ok(IsDeleted),
+                    LiftingStatNotFound => NotFound(Errors.Create(nameof(LiftingStatNotFound))),
+                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (LiftingStatNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return Unauthorized(ex.Message);
             }
         }
     }

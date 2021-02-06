@@ -4,15 +4,16 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Services.LiftingStats;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.LiftingStats;
-using PowerBuddy.Data.Exceptions.LiftingStats;
+using PowerBuddy.Data.Models.LiftingStats;
 
 namespace PowerBuddy.App.Queries.LiftingStats
 {
-    public class GetLiftingStatSummaryByExerciseIdQuery : IRequest<LiftingStatDetailedDTO>
+    public class GetLiftingStatSummaryByExerciseIdQuery : IRequest<OneOf<LiftingStatDetailedDTO, LiftingStatNotFound>>
     {
         public int ExerciseId { get; }
         public string UserId { get; }
@@ -33,7 +34,7 @@ namespace PowerBuddy.App.Queries.LiftingStats
         }
     }
 
-    internal class GetLiftingStatSummaryByExerciseIdQueryHandler : IRequestHandler<GetLiftingStatSummaryByExerciseIdQuery, LiftingStatDetailedDTO>
+    internal class GetLiftingStatSummaryByExerciseIdQueryHandler : IRequestHandler<GetLiftingStatSummaryByExerciseIdQuery, OneOf<LiftingStatDetailedDTO, LiftingStatNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IWorkoutService _workoutService;
@@ -46,13 +47,13 @@ namespace PowerBuddy.App.Queries.LiftingStats
             _liftingStatService = liftingStatService;
         }
 
-        public async Task<LiftingStatDetailedDTO> Handle(GetLiftingStatSummaryByExerciseIdQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<LiftingStatDetailedDTO, LiftingStatNotFound>> Handle(GetLiftingStatSummaryByExerciseIdQuery request, CancellationToken cancellationToken)
         {
             var liftingStats = await _liftingStatService.GetTopLiftingStatForExercise(request.ExerciseId, request.UserId);
 
             if (liftingStats == null)
             {
-                throw new LiftingStatNotFoundException();
+                return new LiftingStatNotFound();
             }
 
             var lifetimeTonnage = await _workoutService.CalculateLifetimeTonnageForExercise(request.ExerciseId, request.UserId);

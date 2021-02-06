@@ -10,7 +10,6 @@ namespace PowerBuddy.App.Queries.Users.Extensions
         {
             // QueryHandler Registration
             services.AddMediatR(typeof(GetAllUsersByAdminQueryHandler));
-            services.AddMediatR(typeof(GetPublicUserProfileByIdQueryHandler));
             services.AddMediatR(typeof(GetPublicUserProfileByUsernameQueryHandler));
             services.AddMediatR(typeof(LoginUserQueryHandler));
             services.AddMediatR(typeof(GetUserProfileQueryHandler));

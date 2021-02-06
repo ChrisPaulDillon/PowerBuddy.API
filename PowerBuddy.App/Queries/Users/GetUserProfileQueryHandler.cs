@@ -6,13 +6,14 @@ using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Users;
-using PowerBuddy.Data.Exceptions.Account;
+using PowerBuddy.Data.Models.Account;
 
 namespace PowerBuddy.App.Queries.Users
 {
-    public class GetUserProfileQuery : IRequest<UserDTO>
+    public class GetUserProfileQuery : IRequest<OneOf<UserDTO, UserNotFound>>
     {
         public string UserId { get; }
 
@@ -30,7 +31,7 @@ namespace PowerBuddy.App.Queries.Users
         }
     }
 
-    internal class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, UserDTO>
+    internal class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, OneOf<UserDTO, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -40,7 +41,7 @@ namespace PowerBuddy.App.Queries.Users
             _mapper = mapper;
         }
 
-        public async Task<UserDTO> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
+        public async Task<OneOf<UserDTO, UserNotFound>> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.User
                 .Where(x => x.Id == request.UserId)
@@ -50,7 +51,7 @@ namespace PowerBuddy.App.Queries.Users
 
             if (user == null)
             {
-                throw new UserNotFoundException();
+                return new UserNotFound();
             }
 
             return user;

@@ -10,7 +10,6 @@ using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.Exercises;
 using PowerBuddy.Data.DTOs.Exercises;
 using PowerBuddy.Data.DTOs.System;
-using PowerBuddy.Data.Exceptions.Exercises;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -37,16 +36,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         {
             try
             {
-                var exercise = await _mediator.Send(new CreateExerciseCommand(exerciseDTO));
-                return Ok(exercise);
+                var result = await _mediator.Send(new CreateExerciseCommand(exerciseDTO));
+
+                return result.Match<IActionResult>(Ok,
+                    ExerciseAlreadyExists => BadRequest(Errors.Create(nameof(ExerciseAlreadyExists))));
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
-            }
-            catch (ExerciseAlreadyExistsException e)
-            {
-                return BadRequest();
             }
         }
     }

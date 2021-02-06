@@ -7,6 +7,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Services.Templates;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.App.Services.Workouts.Factories;
@@ -15,7 +16,8 @@ using PowerBuddy.App.Services.Workouts.Util;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Exceptions.Workouts;
+using PowerBuddy.Data.Models.TemplatePrograms;
+using PowerBuddy.Data.Models.Workouts;
 using PowerBuddy.SignalR;
 using PowerBuddy.SignalR.Models;
 using PowerBuddy.SignalR.Util;
@@ -23,7 +25,7 @@ using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.App.Commands.Workouts
 {
-    public class CreateWorkoutLogFromTemplateCommand : IRequest<bool>
+    public class CreateWorkoutLogFromTemplateCommand : IRequest<OneOf<bool, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>>
     {
         public WorkoutLogTemplateInputDTO WorkoutInputDTO { get; }
         public int TemplateProgramId { get; }
@@ -46,7 +48,7 @@ namespace PowerBuddy.App.Commands.Workouts
         }
     }
 
-    public class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, bool>
+    public class CreateWorkoutLogFromTemplateCommandHandler : IRequestHandler<CreateWorkoutLogFromTemplateCommand, OneOf<bool, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -67,14 +69,19 @@ namespace PowerBuddy.App.Commands.Workouts
             _hub = hub;
         }
 
-        public async Task<bool> Handle(CreateWorkoutLogFromTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, WorkoutDaysDoesNotMatchTemplateDays, TemplateProgramNotFound>> Handle(CreateWorkoutLogFromTemplateCommand request, CancellationToken cancellationToken)
         {
            // await _WorkoutService.IsWorkoutLogAlreadyActive(request.WorkoutInputDTO.StartDate, request.WorkoutInputDTO.EndDate, request.UserId);
 
            var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
+           if (templateProgram == null)
+           {
+               return new TemplateProgramNotFound();
+           }
+
            if (templateProgram.NoOfDaysPerWeek != request.WorkoutInputDTO.DayCount)
            {
-               throw new WorkoutDaysDoesNotMatchTemplateDaysException();
+               return new WorkoutDaysDoesNotMatchTemplateDays();
            }
 
            templateProgram.ActiveUsersCount++;
