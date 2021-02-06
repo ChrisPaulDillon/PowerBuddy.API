@@ -84,12 +84,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateWorkoutDay(int workoutDayId, [FromBody] WorkoutDayDto workoutDayDto)
         {
-            var weightConvertResponse = await _weightInsertService.ConvertWorkoutDayWeightsToDbSuitable(_userId, workoutDayDto);
-            var liftingStatsThatPb = await _mediator.Send(new CompleteWorkoutCommand(weightConvertResponse.Data, _userId));
+            var weightConvertResponse = await _weightInsertService.ConvertWorkoutExerciseWeightsToDbSuitable(_userId, workoutDayDto.WorkoutExercises);
+            workoutDayDto.WorkoutExercises = weightConvertResponse.Data;
+            var liftingStatsThatPb = await _mediator.Send(new CompleteWorkoutCommand(workoutDayDto, _userId));
 
             return liftingStatsThatPb.Match<IActionResult>(
-                Result => Ok(_weightOutputService.ConvertPersonalBests(Result, _userId, weightConvertResponse.IsMetric)
-                    .Result),
+                Result => Ok(_weightOutputService.ConvertPersonalBests(Result, _userId, weightConvertResponse.IsMetric).Result),
                 WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
         }
 

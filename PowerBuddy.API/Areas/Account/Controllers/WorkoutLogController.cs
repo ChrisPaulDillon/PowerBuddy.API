@@ -39,18 +39,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetWorkoutLogStats()
         {
-            try
-            {
-                var result = await _mediator.Send(new GetAllWorkoutStatsQuery(_userId));
+            var result = await _mediator.Send(new GetAllWorkoutStatsQuery(_userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    WorkoutLogNotFound => NotFound(Errors.Create(nameof(WorkoutLogNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                WorkoutLogNotFound => NotFound(Errors.Create(nameof(WorkoutLogNotFound))));
         }
 
         [HttpGet("Week")]
@@ -58,15 +51,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetWorkoutWeekByDate(DateTime? date)
         {
-            try
-            {
-                var workoutWeek = await _mediator.Send(new GetWorkoutWeekByDateQuery(date?? DateTime.UtcNow, _userId));
-                return Ok(workoutWeek);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var workoutWeek = await _mediator.Send(new GetWorkoutWeekByDateQuery(date ?? DateTime.UtcNow, _userId));
+            return Ok(workoutWeek);
         }
 
         [HttpGet("{WorkoutLogId:int}")]
@@ -76,18 +62,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetWorkoutLogById(int workoutLogId)
         {
-            try
-            {
-                var result = await _mediator.Send(new GetWorkoutLogByIdQuery(workoutLogId, _userId));
+            var result = await _mediator.Send(new GetWorkoutLogByIdQuery(workoutLogId, _userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    WorkoutLogNotFound => NotFound(Errors.Create(nameof(WorkoutLogNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                WorkoutLogNotFound => NotFound(Errors.Create(nameof(WorkoutLogNotFound))));
         }
 
         [HttpPost("Scratch")]

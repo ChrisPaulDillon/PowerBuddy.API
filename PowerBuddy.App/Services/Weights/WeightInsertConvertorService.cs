@@ -65,15 +65,15 @@ namespace PowerBuddy.App.Services.Weights
             return weightInputs;
         }
 
-        public async Task<WeightInsertResponse<WorkoutDayDto>> ConvertWorkoutDayWeightsToDbSuitable(string userId, WorkoutDayDto workoutDay)
+        public async Task<WeightInsertResponse<IEnumerable<WorkoutExerciseDto>>> ConvertWorkoutExerciseWeightsToDbSuitable(string userId, IEnumerable<WorkoutExerciseDto> workoutExercises)
         {
             var isMetric = await IsUserUsingMetric(userId);
             if (isMetric)
             {
-                return WeightInsertResponse<WorkoutDayDto>.UsingMetric(workoutDay);
+                return WeightInsertResponse<IEnumerable<WorkoutExerciseDto>>.UsingMetric(workoutExercises);
             }
 
-            foreach (var workoutExercise in workoutDay.WorkoutExercises)
+            foreach (var workoutExercise in workoutExercises)
             {
                 foreach (var workoutSet in workoutExercise.WorkoutSets)
                 {
@@ -81,7 +81,7 @@ namespace PowerBuddy.App.Services.Weights
                 }
             }
 
-            return WeightInsertResponse<WorkoutDayDto>.NotMetric(workoutDay);
+            return WeightInsertResponse<IEnumerable<WorkoutExerciseDto>>.NotMetric(workoutExercises);
         }
 
         public async Task<WeightInsertResponse<IEnumerable<WorkoutSetDto>>> ConvertWeightSetsToDbSuitable(string userId, IEnumerable<WorkoutSetDto> workoutSets)

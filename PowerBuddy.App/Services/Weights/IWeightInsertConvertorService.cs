@@ -11,7 +11,7 @@ namespace PowerBuddy.App.Services.Weights
         Task<WeightInsertResponse<decimal>> ConvertGenericWeightToDbSuitable(string userId, decimal weight);
 
         Task<IEnumerable<TemplateWeightInputDto>> ConvertWeightInputsToDbSuitable(string userId, IEnumerable<TemplateWeightInputDto> weightInputs);
-        Task<WeightInsertResponse<WorkoutDayDto>> ConvertWorkoutDayWeightsToDbSuitable(string userId, WorkoutDayDto workoutDay);
+        Task<WeightInsertResponse<IEnumerable<WorkoutExerciseDto>>> ConvertWorkoutExerciseWeightsToDbSuitable(string userId, IEnumerable<WorkoutExerciseDto> workoutExercises);
 
         /// <summary>
         /// Converts a workout set collection into a db suitable format. If the users preference is metric, no modifications

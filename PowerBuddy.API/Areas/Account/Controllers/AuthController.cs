@@ -76,12 +76,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
             var authResultOneOf = await _mediator.Send(new RegisterUserCommand(userDto));
 
-            if (authResultOneOf.AsT0 != null)
-            {
-                await _mediator.Send(new SendConfirmEmailCommand(authResultOneOf.AsT0.UserId));
-            }
-
-            return authResultOneOf.Match<IActionResult>(Ok,
+            return authResultOneOf.Match<IActionResult>(
+                Result =>
+                {
+                    _mediator.Send(new SendConfirmEmailCommand(authResultOneOf.AsT0.UserId));
+                    return Ok(Result);
+                },
                 EmailOrUserNameInUse => Conflict(Errors.Create(nameof(EmailOrUserNameInUse))));
         }
 
