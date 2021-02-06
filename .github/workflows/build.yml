@@ -23,8 +23,6 @@ jobs:
     - name: Test
       run: dotnet test PowerBuddy.API/PowerBuddy.API.sln --no-build --verbosity normal
   build:
-    dependencies:
-      - "run_xunit"
     name: Build
     runs-on: windows-latest
     steps:
