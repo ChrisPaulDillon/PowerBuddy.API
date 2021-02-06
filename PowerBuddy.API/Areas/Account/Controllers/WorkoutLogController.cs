@@ -96,18 +96,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateWorkoutLogFromScratch([FromBody] WorkoutLogInputScratchDto workoutLog)
         {
-            try
-            {
-                var result = await _mediator.Send(new CreateWorkoutLogFromScratchCommand(workoutLog, _userId));
+            var result = await _mediator.Send(new CreateWorkoutLogFromScratchCommand(workoutLog, _userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
 
         [HttpPost("Template/{templateWorkoutId:int}")]
@@ -116,31 +109,26 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateWorkoutLogFromTemplate(int templateWorkoutId, [FromBody] WorkoutLogTemplateInputDto workoutLogDto)
+        public async Task<IActionResult> CreateWorkoutLogFromTemplate(int templateWorkoutId,
+            [FromBody] WorkoutLogTemplateInputDto workoutLogDto)
         {
-            try
+            if (workoutLogDto.IncrementalWeightInputs != null)
             {
-                if (workoutLogDto.IncrementalWeightInputs != null)
-                {
-                    workoutLogDto.IncrementalWeightInputs = await _weightInsertService.ConvertWeightInputsToDbSuitable(_userId, workoutLogDto.IncrementalWeightInputs);
-                }
-                if (workoutLogDto.WeightInputs != null)
-                {
-                    workoutLogDto.WeightInputs = await _weightInsertService.ConvertWeightInputsToDbSuitable(_userId, workoutLogDto.WeightInputs);
-                }
-
-                var result = await _mediator.Send(new CreateWorkoutLogFromTemplateCommand(workoutLogDto, templateWorkoutId, _userId));
-
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    WorkoutLogExistsOnDate => BadRequest(Errors.Create(nameof(WorkoutLogExistsOnDate))),
-                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))),
-                    TemplateProgramNotFound => NotFound(Errors.Create(nameof(TemplateProgramNotFound))));
+                workoutLogDto.IncrementalWeightInputs = await _weightInsertService.ConvertWeightInputsToDbSuitable(_userId, workoutLogDto.IncrementalWeightInputs);
             }
-            catch (ValidationException ex)
+
+            if (workoutLogDto.WeightInputs != null)
             {
-                return BadRequest(ex.Message);
+                workoutLogDto.WeightInputs = await _weightInsertService.ConvertWeightInputsToDbSuitable(_userId, workoutLogDto.WeightInputs);
             }
+
+            var result = await _mediator.Send(new CreateWorkoutLogFromTemplateCommand(workoutLogDto, templateWorkoutId, _userId));
+
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                WorkoutLogExistsOnDate => BadRequest(Errors.Create(nameof(WorkoutLogExistsOnDate))),
+                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))),
+                TemplateProgramNotFound => NotFound(Errors.Create(nameof(TemplateProgramNotFound))));
         }
 
         [HttpDelete("{WorkoutLogId:int}")]
@@ -149,18 +137,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteWorkoutLog(int workoutLogId)
         {
-            try
-            {
-                var result = await _mediator.Send(new DeleteWorkoutLogCommand(workoutLogId, _userId));
+            var result = await _mediator.Send(new DeleteWorkoutLogCommand(workoutLogId, _userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    WorkoutLogNotFound => NotFound(Errors.Create(nameof(WorkoutLogNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                WorkoutLogNotFound => NotFound(Errors.Create(nameof(WorkoutLogNotFound))));
         }
 
         [HttpGet("Calendar")]
@@ -168,15 +149,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(IEnumerable<DateTime>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetWorkoutCalendar()
         {
-            try
-            {
-                var dates = await _mediator.Send(new GetWorkoutCalendarQuery(_userId));
-                return Ok(dates);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var dates = await _mediator.Send(new GetWorkoutCalendarQuery(_userId));
+            return Ok(dates);
         }
     }
 }

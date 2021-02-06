@@ -18,7 +18,7 @@ namespace PowerBuddy.App.Extensions.Validators
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            var workoutExercises = (IEnumerable<WorkoutExerciseDto>)context.PropertyValue;
+            var workoutExercises = (IEnumerable<WorkoutExerciseDto>) context.PropertyValue;
 
             if (workoutExercises == null)
             {

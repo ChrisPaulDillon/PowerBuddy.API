@@ -44,23 +44,16 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetWorkoutDayById(int workoutDayId)
         {
-            try
-            {
-                var workoutDayOneOf = await _mediator.Send(new GetWorkoutDayByIdQuery(workoutDayId, _userId));
+            var workoutDayOneOf = await _mediator.Send(new GetWorkoutDayByIdQuery(workoutDayId, _userId));
 
-                if (workoutDayOneOf.IsT0)
-                {
-                    workoutDayOneOf.AsT0.WorkoutExercises = await _weightOutputService.ConvertWorkoutExercises(workoutDayOneOf.AsT0.WorkoutExercises, _userId, null);
-                }
-
-                return workoutDayOneOf.Match<IActionResult>(
-                    Result => Ok(Result),
-                    WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
-            }
-            catch (ValidationException ex)
+            if (workoutDayOneOf.IsT0)
             {
-                return BadRequest(ex.Message);
+                workoutDayOneOf.AsT0.WorkoutExercises = await _weightOutputService.ConvertWorkoutExercises(workoutDayOneOf.AsT0.WorkoutExercises, _userId, null);
             }
+
+            return workoutDayOneOf.Match<IActionResult>(
+                Result => Ok(Result),
+                WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
         }
 
         [HttpPost]
@@ -68,18 +61,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateWorkoutDay([FromBody] CreateWorkoutDayOptions createWorkoutOptions)
         {
-            try
-            {
-                var result = await _mediator.Send(new CreateWorkoutDayCommand(createWorkoutOptions, _userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    WorkoutDayAlreadyExists => BadRequest(Errors.Create(nameof(WorkoutDayAlreadyExists))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _mediator.Send(new CreateWorkoutDayCommand(createWorkoutOptions, _userId));
+
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                WorkoutDayAlreadyExists => BadRequest(Errors.Create(nameof(WorkoutDayAlreadyExists))));
         }
 
         [HttpGet("Today")]
@@ -87,15 +74,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetWorkoutDayIdByDate()
         {
-            try
-            {
-                var workoutDay = await _mediator.Send(new GetWorkoutDayIdByDateQuery(DateTime.UtcNow, _userId));
-                return Ok(workoutDay);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var workoutDay = await _mediator.Send(new GetWorkoutDayIdByDateQuery(DateTime.UtcNow, _userId));
+            return Ok(workoutDay);
         }
 
         [HttpPut("{workoutDayId:int}")]
@@ -104,19 +84,13 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateWorkoutDay(int workoutDayId, [FromBody] WorkoutDayDto workoutDayDto)
         {
-            try
-            {
-                var weightConvertResponse = await _weightInsertService.ConvertWorkoutDayWeightsToDbSuitable(_userId, workoutDayDto);
-                var liftingStatsThatPb = await _mediator.Send(new CompleteWorkoutCommand(weightConvertResponse.Data, _userId));
-                
-                return liftingStatsThatPb.Match<IActionResult>(
-                    Result => Ok( _weightOutputService.ConvertPersonalBests(Result, _userId, weightConvertResponse.IsMetric).Result),
-                    WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var weightConvertResponse = await _weightInsertService.ConvertWorkoutDayWeightsToDbSuitable(_userId, workoutDayDto);
+            var liftingStatsThatPb = await _mediator.Send(new CompleteWorkoutCommand(weightConvertResponse.Data, _userId));
+
+            return liftingStatsThatPb.Match<IActionResult>(
+                Result => Ok(_weightOutputService.ConvertPersonalBests(Result, _userId, weightConvertResponse.IsMetric)
+                    .Result),
+                WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
         }
     }
 }

@@ -37,16 +37,9 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int exerciseId)
         {
-            try
-            {
-                var exerciseOneOf = await _mediator.Send(new GetExerciseByIdQuery(exerciseId));
+            var exerciseOneOf = await _mediator.Send(new GetExerciseByIdQuery(exerciseId));
 
-                return exerciseOneOf.Match<IActionResult>(Ok, ExerciseNotFound => NotFound(nameof(ExerciseNotFound)));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Errors);
-            }
+            return exerciseOneOf.Match<IActionResult>(Ok, ExerciseNotFound => NotFound(nameof(ExerciseNotFound)));
         }
 
         [HttpGet("ExerciseMuscleGroup")]

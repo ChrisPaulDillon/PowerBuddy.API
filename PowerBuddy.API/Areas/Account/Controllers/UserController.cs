@@ -34,19 +34,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLoggedInUsersProfile()
         {
-            try
-            {
-                var userOneOf = await _mediator.Send(new GetUserProfileQuery(_userId));
+            var userOneOf = await _mediator.Send(new GetUserProfileQuery(_userId));
 
-                return userOneOf.Match<IActionResult>(
-                    User => Ok(User),
-                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
-    
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return userOneOf.Match<IActionResult>(
+                User => Ok(User),
+                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
 
         [HttpPost("FirstVisit")]
@@ -56,18 +48,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> FirstVisit([FromBody] FirstVisitDto firstVisitDto)
         {
-            try
-            {
-                var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDto, _userId));
+            var result = await _mediator.Send(new CreateFirstVisitStatsCommand(firstVisitDto, _userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
 
         [HttpPut("Profile")]
@@ -78,18 +63,11 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> EditProfile([FromBody] EditProfileDto editProfileDto)
         {
-            try
-            {
-                var result = await _mediator.Send(new EditProfileCommand(editProfileDto, _userId));
+            var result = await _mediator.Send(new EditProfileCommand(editProfileDto, _userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
     }
 }

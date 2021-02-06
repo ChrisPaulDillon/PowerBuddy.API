@@ -30,18 +30,12 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPublicUserProfile(string userName)
         {
-            try
-            {
-                var result = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName));
+            var result = await _mediator.Send(new GetPublicUserProfileByUsernameQuery(userName));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
+
         }
 
         [HttpGet("All")]

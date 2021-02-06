@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
@@ -35,10 +34,6 @@ namespace PowerBuddy.EmailService
                     client.AuthenticationMechanisms.Remove("XOAUTH2");
                     await client.AuthenticateAsync(_emailConfig.UserName, _emailConfig.Password);
                     await client.SendAsync(emailMessage);
-                }
-                catch(Exception ex)
-                {
-                    throw;
                 }
                 finally
                 {

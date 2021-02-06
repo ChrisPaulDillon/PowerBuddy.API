@@ -32,17 +32,10 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateExercise([FromBody] CExerciseDto exerciseDto)
         {
-            try
-            {
-                var result = await _mediator.Send(new CreateExerciseCommand(exerciseDto));
+            var result = await _mediator.Send(new CreateExerciseCommand(exerciseDto));
 
-                return result.Match<IActionResult>(Ok,
-                    ExerciseAlreadyExists => BadRequest(Errors.Create(nameof(ExerciseAlreadyExists))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(Ok,
+                ExerciseAlreadyExists => BadRequest(Errors.Create(nameof(ExerciseAlreadyExists))));
         }
 
         [HttpPut]
@@ -52,19 +45,12 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateExercise([FromBody] ExerciseDto exerciseDto)
         {
-            try
-            {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new UpdateExerciseCommand(exerciseDto, userId));
+            var userId = User.Claims.First(x => x.Type == "UserID").Value;
+            var result = await _mediator.Send(new UpdateExerciseCommand(exerciseDto, userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    ExerciseNotFound => BadRequest(Errors.Create(nameof(ExerciseNotFound))));
-            }
-            catch (ValidationException e)
-            {
-                return BadRequest(e.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                ExerciseNotFound => BadRequest(Errors.Create(nameof(ExerciseNotFound))));
         }
 
         [HttpPut("Approve/{exerciseId:int}")]
@@ -74,20 +60,13 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> ApproveExercise(int exerciseId)
         {
-            try
-            {
-                var userId = User.Claims.First(x => x.Type == "UserID").Value;
-                var result = await _mediator.Send(new ApproveExerciseCommand(exerciseId, userId));
+            var userId = User.Claims.First(x => x.Type == "UserID").Value;
+            var result = await _mediator.Send(new ApproveExerciseCommand(exerciseId, userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    ExerciseNotFound => NotFound(Errors.Create(nameof(ExerciseNotFound))),
-                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
-            }
-            catch(ValidationException e)
-            {
-                return BadRequest(e.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                ExerciseNotFound => NotFound(Errors.Create(nameof(ExerciseNotFound))),
+                UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
         }
     }
 }

@@ -40,20 +40,13 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateWorkoutSetCollection([FromBody] IList<WorkoutSetDto> workoutSetCollection)
         {
-            try
-            {
-                var convertWorkoutCollection = await _weightInsertService.ConvertWeightSetsToDbSuitable(_userId, workoutSetCollection);
-                var result = await _mediator.Send(new QuickAddWorkoutSetsCommand(convertWorkoutCollection.Data.ToList(), _userId));
+            var convertWorkoutCollection = await _weightInsertService.ConvertWeightSetsToDbSuitable(_userId, workoutSetCollection);
+            var result = await _mediator.Send(new QuickAddWorkoutSetsCommand(convertWorkoutCollection.Data.ToList(), _userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(_weightOutputService.ConvertWorkoutSets(result.AsT0, _userId, convertWorkoutCollection.IsMetric).Result),
-                    WorkoutExerciseNotFound => NotFound(Errors.Create(nameof(WorkoutExerciseNotFound))),
-                    WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(_weightOutputService.ConvertWorkoutSets(result.AsT0, _userId, convertWorkoutCollection.IsMetric).Result),
+                WorkoutExerciseNotFound => NotFound(Errors.Create(nameof(WorkoutExerciseNotFound))),
+                WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
         }
 
         [HttpPut("{workoutDayId:int}")]
@@ -62,16 +55,9 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateWorkoutSet(int workoutDayId, [FromBody] WorkoutSetDto workoutSetDto)
         {
-            try
-            {
-                var convertedWorkoutSet = await _weightInsertService.ConvertWeightSetToDbSuitable(_userId, workoutSetDto);
-                var result = await _mediator.Send(new UpdateWorkoutSetCommand(workoutDayId, convertedWorkoutSet.Data, _userId));
-                return Ok(result);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var convertedWorkoutSet = await _weightInsertService.ConvertWeightSetToDbSuitable(_userId, workoutSetDto);
+            var result = await _mediator.Send(new UpdateWorkoutSetCommand(workoutDayId, convertedWorkoutSet.Data, _userId));
+            return Ok(result);
         }
 
         [HttpDelete("{workoutSetId:int}")]
@@ -79,15 +65,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteWorkoutSet(int workoutSetId)
         {
-            try
-            {
-                var result = await _mediator.Send(new DeleteWorkoutSetCommand(workoutSetId, _userId));
-                return Ok(result);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _mediator.Send(new DeleteWorkoutSetCommand(workoutSetId, _userId));
+            return Ok(result);
         }
     }
 }

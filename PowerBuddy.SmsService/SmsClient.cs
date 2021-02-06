@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using PowerBuddy.SmsService.Models;
 using Twilio.Rest.Verify.V2.Service;
-using Twilio.Types;
 
 namespace PowerBuddy.SmsService
 {
@@ -27,7 +25,7 @@ namespace PowerBuddy.SmsService
 
                 return verification.Status;
             }
-            catch (Exception ex)
+            catch
             {
                 return "Error";
             }
@@ -49,7 +47,7 @@ namespace PowerBuddy.SmsService
                 }
                 return false;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }

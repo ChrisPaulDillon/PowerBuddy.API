@@ -55,18 +55,11 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTemplateProgramById(int templateProgramId)
         {
-            try
-            {
-                var result = await _mediator.Send(new GetTemplateProgramByIdQuery(templateProgramId));
+            var result = await _mediator.Send(new GetTemplateProgramByIdQuery(templateProgramId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    TemplateProgramNotFound => NotFound(Errors.Create(nameof(TemplateProgramNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                TemplateProgramNotFound => NotFound(Errors.Create(nameof(TemplateProgramNotFound))));
         }
     }
 }

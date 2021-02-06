@@ -42,31 +42,21 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             return Ok(liftingStats);
         }
 
-
         [HttpGet("{exerciseId:int}")]
         [ProducesResponseType(typeof(IEnumerable<LiftingStatDetailedDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLiftingStatSummaryByExerciseId(int exerciseId)
         {
-            try
-            {
-                var liftingStatOneOf = await _mediator.Send(new GetLiftingStatSummaryByExerciseIdQuery(exerciseId, _userId));
+            var liftingStatOneOf = await _mediator.Send(new GetLiftingStatSummaryByExerciseIdQuery(exerciseId, _userId));
 
-                if (liftingStatOneOf.IsT0)
-                {
-                    liftingStatOneOf.AsT0.LiftingStats =
-                        await _weightOutputService.ConvertPersonalBests(liftingStatOneOf.AsT0.LiftingStats, _userId, null);
-                    liftingStatOneOf.AsT0.LifeTimeTonnage =
-                        await _weightOutputService.ConvertGenericWeight(liftingStatOneOf.AsT0.LifeTimeTonnage, _userId, null);
-                }
-
-                return liftingStatOneOf.Match<IActionResult>(Ok,
-                    LiftingStatNotFound => BadRequest(Errors.Create(nameof(LiftingStatNotFound))));
-            }
-            catch (ValidationException ex)
+            if (liftingStatOneOf.IsT0)
             {
-                return BadRequest(ex.Message);
+                liftingStatOneOf.AsT0.LiftingStats = await _weightOutputService.ConvertPersonalBests(liftingStatOneOf.AsT0.LiftingStats, _userId, null);
+                liftingStatOneOf.AsT0.LifeTimeTonnage = await _weightOutputService.ConvertGenericWeight(liftingStatOneOf.AsT0.LifeTimeTonnage, _userId, null);
             }
+
+            return liftingStatOneOf.Match<IActionResult>(Ok,
+                LiftingStatNotFound => BadRequest(Errors.Create(nameof(LiftingStatNotFound))));
         }
 
         [HttpGet("Template/{templateProgramId:int}")]
@@ -83,19 +73,12 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteLiftingStatAudit(int liftingStatAuditId)
         {
-            try
-            {
-                var result = await _mediator.Send(new DeleteLiftingStatAuditCommand(liftingStatAuditId, _userId));
+            var result = await _mediator.Send(new DeleteLiftingStatAuditCommand(liftingStatAuditId, _userId));
 
-                return result.Match<IActionResult>(
-                    IsDeleted => Ok(IsDeleted),
-                    LiftingStatNotFound => NotFound(Errors.Create(nameof(LiftingStatNotFound))),
-                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                IsDeleted => Ok(IsDeleted),
+                LiftingStatNotFound => NotFound(Errors.Create(nameof(LiftingStatNotFound))),
+                UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
         }
     }
 }

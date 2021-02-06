@@ -42,18 +42,11 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> BanUser(string bannedUserId)
         {
-            try
-            {
-                var result = await _mediator.Send(new BanUserCommand(bannedUserId, _userId));
+            var result = await _mediator.Send(new BanUserCommand(bannedUserId, _userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
-            }
-            catch (ValidationException e)
-            {
-                return BadRequest(e.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
         }
     }
 }

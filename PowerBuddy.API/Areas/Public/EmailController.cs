@@ -26,18 +26,11 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendPasswordReset(string emailAddress)
         {
-            try
-            {
-                var result = await _mediator.Send(new SendPasswordResetCommand(emailAddress));
+            var result = await _mediator.Send(new SendPasswordResetCommand(emailAddress));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
 
         [HttpPost("ConfirmEmail/{userId}")]
@@ -45,18 +38,11 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendConfirmationEmail(string userId)
         {
-            try
-            {
-                var result = await _mediator.Send(new SendConfirmEmailCommand(userId));
+            var result = await _mediator.Send(new SendConfirmEmailCommand(userId));
 
-                return result.Match<IActionResult>(
-                    Result => Ok(Result),
-                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result.Match<IActionResult>(
+                Result => Ok(Result),
+                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
     }
 }

@@ -17,6 +17,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PowerBuddy.API.AuthorizationHandlers;
+using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Middleware;
 using PowerBuddy.App.Commands;
 using PowerBuddy.App.Pipelines;
@@ -198,7 +199,7 @@ namespace PowerBuddy.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PowerBuddy.API v1"));
             }
 
-            app.ConfigureExceptionHandler();
+            app.UseExceptionHandlerMiddleware();
 
             app.UseHttpsRedirection();
 

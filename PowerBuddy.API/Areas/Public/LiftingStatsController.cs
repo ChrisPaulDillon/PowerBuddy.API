@@ -31,18 +31,11 @@ namespace PowerBuddy.API.Areas.Public
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLiftFeedByUsername(string userName)
         {
-            try
-            {
-                var result = await _mediator.Send(new GetLiftingStatFeedForUserQuery(userName, _userId));
-                
-                return result.Match<IActionResult>(
-                    Ok,
-                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _mediator.Send(new GetLiftingStatFeedForUserQuery(userName, _userId));
+
+            return result.Match<IActionResult>(
+                Ok,
+                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
     }
 }
