@@ -18,7 +18,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PowerBuddy.API.AuthorizationHandlers;
 using PowerBuddy.API.Extensions;
-using PowerBuddy.API.Middleware;
 using PowerBuddy.App.Commands;
 using PowerBuddy.App.Pipelines;
 using PowerBuddy.App.Queries;

@@ -18,6 +18,7 @@ namespace PowerBuddy.App.Commands.Workouts
 
             // Workout Days
             services.AddMediatR(typeof(CompleteWorkoutCommandHandler));
+            services.AddMediatR(typeof(UpdateWorkoutDayNotesCommandHandler));
             services.AddMediatR(typeof(CreateWorkoutDayCommandHandler));
 
             // Workout Exercises

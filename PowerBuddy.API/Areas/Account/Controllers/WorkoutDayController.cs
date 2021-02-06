@@ -92,5 +92,16 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                     .Result),
                 WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
         }
+
+        [HttpPut("Note/{workoutExerciseId:int}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateWorkoutExerciseNotes(int workoutExerciseId, string notes)
+        {
+
+            var result = await _mediator.Send(new UpdateWorkoutDayNotesCommand(workoutExerciseId, notes, _userId));
+            return Ok(result);
+        }
     }
 }
