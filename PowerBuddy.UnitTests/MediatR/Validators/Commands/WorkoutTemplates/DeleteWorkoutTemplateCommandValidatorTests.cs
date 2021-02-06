@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PowerBuddy.App.Commands.WorkoutTemplates;
-using PowerBuddy.Data.Builders.Dtos.Workouts;
-using PowerBuddy.Data.Dtos.Workouts;
 using Xunit;
 
-namespace PowerBuddy.UnitTests.MediatR.Validators.Commands.Workouts
+namespace PowerBuddy.UnitTests.MediatR.Validators.Commands.WorkoutTemplates
 {
     public class DeleteWorkoutTemplateCommandValidatorTests
     {

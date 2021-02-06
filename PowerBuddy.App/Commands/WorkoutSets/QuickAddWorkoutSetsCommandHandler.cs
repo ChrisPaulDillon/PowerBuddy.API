@@ -31,7 +31,8 @@ namespace PowerBuddy.App.Commands.WorkoutSets
         public QuickAddWorkoutSetsCommandValidator()
         {
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutSetList.Count).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.WorkoutSetList).NotNull().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutSetList).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 

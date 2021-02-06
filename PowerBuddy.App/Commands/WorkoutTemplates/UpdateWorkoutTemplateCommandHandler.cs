@@ -31,7 +31,7 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
             RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).NotNull().WithMessage("'{PropertyName}' cannot be null");
             RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must have at least one exercise");
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).NotNull().ValidWorkoutExerciseCollection();
+            RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).ValidWorkoutExerciseCollection();
         }
     }
 

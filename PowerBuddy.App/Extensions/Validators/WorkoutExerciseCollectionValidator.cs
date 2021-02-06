@@ -7,13 +7,24 @@ namespace PowerBuddy.App.Extensions.Validators
 {
     public class WorkoutExerciseCollectionValidator : PropertyValidator
     {
-        public WorkoutExerciseCollectionValidator() : base("{PropertyValue} must have at least one set for each exercise")
+        public WorkoutExerciseCollectionValidator()
         {
+        }
+
+        protected override string GetDefaultMessageTemplate()
+        {
+            return "{PropertyValue} must have at least one set for each exercise";
         }
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            var workoutExercises = (IEnumerable<WorkoutExerciseDto>) context.PropertyValue;
+            var workoutExercises = (IEnumerable<WorkoutExerciseDto>)context.PropertyValue;
+
+            if (workoutExercises == null)
+            {
+                return false;
+            }
+
             foreach (var workoutExercise in workoutExercises)
             {
                 if (workoutExercise.WorkoutSets == null || !workoutExercise.WorkoutSets.Any())
