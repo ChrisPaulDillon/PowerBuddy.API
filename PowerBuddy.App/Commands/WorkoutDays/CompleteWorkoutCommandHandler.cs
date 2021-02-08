@@ -8,6 +8,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
+using PowerBuddy.App.Extensions.Validators;
 using PowerBuddy.App.Services.LiftingStats;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
@@ -31,12 +32,16 @@ namespace PowerBuddy.App.Commands.WorkoutDays
         }
     }
 
-    public class CompleteWorkoutMemberCommandValidator : AbstractValidator<CompleteWorkoutCommand>
+    public class CompleteWorkoutCommandValidator : AbstractValidator<CompleteWorkoutCommand>
     {
-        public CompleteWorkoutMemberCommandValidator()
+        public CompleteWorkoutCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutDayDto.Date).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutDayDto).NotNull().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutDayDto.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutDayDto.WorkoutDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.WorkoutDayDto.WorkoutExercises).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.WorkoutDayDto.WorkoutExercises).ValidWorkoutExerciseCollection().WithMessage("'{PropertyName}' must be valid");
         }
     }
 
@@ -78,11 +83,9 @@ namespace PowerBuddy.App.Commands.WorkoutDays
                 var repRangesForExercise = maxWeightForEachSet.Select(x => (int)x.RepsCompleted).ToList();
                 var personalBestsOnExercise = await _liftingStatService.GetPersonalBestsForRepRangeAndExercise(repRangesForExercise, workoutExercise.ExerciseId, request.UserId);
 
-                var personalBest = new LiftingStatAudit();
                 foreach (var workoutSet in maxWeightForEachSet.Where(repScheme => repScheme.RepsCompleted != 0))
                 {
-
-                    if (personalBestsOnExercise.TryGetValue(Tuple.Create(workoutExercise.ExerciseId, (int)workoutSet.RepsCompleted), out personalBest)) //Personal best exists
+	                if (personalBestsOnExercise.TryGetValue(Tuple.Create(workoutExercise.ExerciseId, (int)workoutSet.RepsCompleted), out var personalBest)) //Personal best exists
                     {
                         if (workoutSet.WeightLifted <= personalBest.Weight)
                         {
