@@ -49,7 +49,7 @@ namespace PowerBuddy.App.Services.LiftingStats
             return weightInputs;
         }
 
-        public async Task<IDictionary<Tuple<int,int>, LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId)
+        public async Task<IDictionary<int, LiftingStatAudit>> GetPersonalBestsForRepRangeAndExercise(IList<int> repRanges, int exerciseId, string userId)
         {
 
             var parameters = new string[repRanges.Count + 1];
@@ -72,7 +72,7 @@ namespace PowerBuddy.App.Services.LiftingStats
             return await _context.LiftingStatAudit
                 .FromSqlRaw(completeSqlCmd, sqlParameters.ToArray())
                 .AsNoTracking()
-                .ToDictionaryAsync(x => new Tuple<int, int>(x.ExerciseId, x.RepRange), x => x);
+                .ToDictionaryAsync(x => x.RepRange, x => x);
         }
 
         public async Task<IEnumerable<LiftingStatAuditDto>> GetTopLiftingStatForExercise(int exerciseId, string userId)
