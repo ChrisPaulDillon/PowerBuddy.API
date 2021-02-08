@@ -48,7 +48,9 @@ jobs:
         uses: actions/cache@v1
         with:
           args: >
-            -Dsonar.exclusions=**/**Builder.cs,**/**Extensions.cs,**/**Exception.cs,**/*Configuration.cs,**/MoviesQuery.cs,**/**Dto.cs,**/Models/**.cs,**/DTOs/**.cs
+            -Dsonar.coverage.exclusions=**/**Builder.cs,**/**Extensions.cs,**/**Exception.cs,**/*Configuration.cs,**/MoviesQuery.cs,**/**Dto.cs,**/Models/**.cs,**/DTOs/**.cs
+            -Dsonar.cs.xunit.reportsPaths=/**/XUnit.TestResults.xml
+            -Dsonar.cs.opencover.reportsPaths=coverage/coverage.opencover.xml
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
