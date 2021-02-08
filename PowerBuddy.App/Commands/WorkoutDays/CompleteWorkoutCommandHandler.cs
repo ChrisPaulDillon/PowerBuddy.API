@@ -8,6 +8,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
+using PowerBuddy.App.Extensions.Validators;
 using PowerBuddy.App.Services.LiftingStats;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
@@ -31,12 +32,16 @@ namespace PowerBuddy.App.Commands.WorkoutDays
         }
     }
 
-    public class CompleteWorkoutMemberCommandValidator : AbstractValidator<CompleteWorkoutCommand>
+    public class CompleteWorkoutCommandValidator : AbstractValidator<CompleteWorkoutCommand>
     {
-        public CompleteWorkoutMemberCommandValidator()
+        public CompleteWorkoutCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutDayDto.Date).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutDayDto).NotNull().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutDayDto.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutDayDto.WorkoutDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.WorkoutDayDto.WorkoutExercises).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.WorkoutDayDto.WorkoutExercises).ValidWorkoutExerciseCollection().WithMessage("'{PropertyName}' must be valid");
         }
     }
 
@@ -59,30 +64,28 @@ namespace PowerBuddy.App.Commands.WorkoutDays
 
         public async Task<OneOf<IEnumerable<LiftingStatAuditDto>, WorkoutDayNotFound>> Handle(CompleteWorkoutCommand request, CancellationToken cancellationToken)
         {
-            var workoutDay = await _context.WorkoutDay.AsNoTracking()
-                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.WorkoutDayDto.WorkoutDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
+	        var workoutDay = await _context.WorkoutDay
+		        .AsNoTracking()
+		        .Where(x => x.WorkoutDayId == request.WorkoutDayDto.WorkoutDayId && x.UserId == request.UserId)
+		        .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (workoutDay == null)
             {
                 return new WorkoutDayNotFound();
             }
 
-            var workoutExercises = request.WorkoutDayDto.WorkoutExercises.ToList();
-
             var totalPersonalBests = new List<LiftingStatAuditDto>();
 
-            foreach (var workoutExercise in workoutExercises)
+            foreach (var workoutExercise in request.WorkoutDayDto.WorkoutExercises.ToList())
             {
                 //Get the highest weight lifted for the given exercise and each rep
-                var maxWeightForEachSet = _workoutService.GetHighestWeightRepSchemeForEachRepFromCollection(workoutExercise.WorkoutSets);
-                var repRangesForExercise = maxWeightForEachSet.Select(x => (int)x.RepsCompleted).ToList();
+                var maxWeightForEachRepRange = _workoutService.GetHighestWeightRepSchemeForEachRepFromCollection(workoutExercise.WorkoutSets);
+                var repRangesForExercise = maxWeightForEachRepRange.Select(x => (int)x.RepsCompleted).ToList();
                 var personalBestsOnExercise = await _liftingStatService.GetPersonalBestsForRepRangeAndExercise(repRangesForExercise, workoutExercise.ExerciseId, request.UserId);
 
-                var personalBest = new LiftingStatAudit();
-                foreach (var workoutSet in maxWeightForEachSet.Where(repScheme => repScheme.RepsCompleted != 0))
+                foreach (var workoutSet in maxWeightForEachRepRange.Where(repScheme => repScheme.RepsCompleted != 0))
                 {
-
-                    if (personalBestsOnExercise.TryGetValue(Tuple.Create(workoutExercise.ExerciseId, (int)workoutSet.RepsCompleted), out personalBest)) //Personal best exists
+	                if (personalBestsOnExercise.TryGetValue((int)workoutSet.RepsCompleted, out var personalBest)) //Personal best exists
                     {
                         if (workoutSet.WeightLifted <= personalBest.Weight)
                         {
@@ -98,16 +101,21 @@ namespace PowerBuddy.App.Commands.WorkoutDays
                         request.UserId);
 
                     hitPersonalBest.WorkoutSetId = workoutSet.WorkoutSetId;
+                    workoutSet.NoOfReps = (int)workoutSet.RepsCompleted;
+
+                    var workoutSetEntity = _mapper.Map<WorkoutSet>(workoutSet);
+                    workoutSetEntity.LiftingStatAuditId = hitPersonalBest.LiftingStatAuditId;
+                    _context.WorkoutSet.Update(workoutSetEntity);
 
                     await _context.LiftingStatAudit.AddAsync(hitPersonalBest, cancellationToken);
 
                     hitPersonalBest.Exercise = await _context.Exercise.AsNoTracking().FirstOrDefaultAsync(x => x.ExerciseId == workoutExercise.ExerciseId, cancellationToken: cancellationToken);
                     totalPersonalBests.Add(_mapper.Map<LiftingStatAuditDto>(hitPersonalBest));
-                    _context.Entry(hitPersonalBest.Exercise).State = EntityState.Detached;
 
-                    workoutSet.NoOfReps = (int)workoutSet.RepsCompleted;
-                    var setEntity = _mapper.Map<WorkoutSet>(workoutSet);
-                    hitPersonalBest.WorkoutSet = setEntity;
+                    if (hitPersonalBest.Exercise != null)
+                    {
+	                    _context.Entry(hitPersonalBest.Exercise).State = EntityState.Detached;
+                    }
                 }
             }
 
