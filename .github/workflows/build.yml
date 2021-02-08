@@ -8,23 +8,23 @@ on:
 jobs:
   cancel_prev:
     runs-on: ubuntu-latest
-    steps: 
-    - uses: n1hility/cancel-previous-runs@v2.0
+    steps:
+      - uses: n1hility/cancel-previous-runs@v2.0
   run_xunit:
-    name: 
+    name:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore PowerBuddy.API
-    - name: Build
-      run: dotnet build PowerBuddy.API --no-restore
-    - name: Test
-      run: dotnet test PowerBuddy.API/PowerBuddy.API.sln --no-build --verbosity normal
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Restore dependencies
+        run: dotnet restore PowerBuddy.API
+      - name: Build
+        run: dotnet build PowerBuddy.API --no-restore
+      - name: Test
+        run: dotnet test PowerBuddy.API/PowerBuddy.API.sln --no-build --verbosity normal
   sonar_cloud:
     needs: run_xunit
     name:
@@ -36,7 +36,7 @@ jobs:
           java-version: 1.11
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -48,7 +48,7 @@ jobs:
         uses: actions/cache@v1
         with:
           args: >
-            -Dsonar.exclusions=**/**Builder.cs,**/**Extensions.cs,**/**Exception.cs,**/*Configuration.cs,**/MoviesQuery.cs,**/GraphQL*/Types,**/DTO/**.cs,**/Models/**.cs
+            -Dsonar.exclusions=**/**Builder.cs,**/**Extensions.cs,**/**Exception.cs,**/*Configuration.cs,**/MoviesQuery.cs,**/**Dto.cs,**/Models/**.cs
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
@@ -60,7 +60,7 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
