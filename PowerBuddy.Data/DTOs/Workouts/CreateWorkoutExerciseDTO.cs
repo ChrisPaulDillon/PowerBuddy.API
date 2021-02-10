@@ -1,4 +1,4 @@
-﻿namespace PowerBuddy.App.Services.Workouts.Models
+﻿namespace PowerBuddy.Data.Dtos.Workouts
 {
     public class CreateWorkoutExerciseDto
     {

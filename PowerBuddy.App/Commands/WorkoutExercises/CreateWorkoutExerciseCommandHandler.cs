@@ -7,7 +7,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.App.Services.Workouts;
-using PowerBuddy.App.Services.Workouts.Models;
 using PowerBuddy.App.Services.Workouts.Util;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
@@ -29,11 +28,11 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
         }
     }
 
-    public class CreateWorkoutLogExerciseCommandValidator : AbstractValidator<CreateWorkoutExerciseCommand>
+    public class CreateWorkoutExerciseCommandValidator : AbstractValidator<CreateWorkoutExerciseCommand>
     {
-        public CreateWorkoutLogExerciseCommandValidator()
+        public CreateWorkoutExerciseCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
             RuleFor(x => x.CreateWorkoutExerciseDto.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
             RuleFor(x => x.CreateWorkoutExerciseDto.Sets).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
             RuleFor(x => x.CreateWorkoutExerciseDto.Reps).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
@@ -79,7 +78,7 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
             var workoutExerciseEntity = await _context.WorkoutExercise
                 .AsNoTracking()
                 .Include(x => x.WorkoutSets)
-                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDto.WorkoutDayId && 
+                .FirstOrDefaultAsync(x => x.WorkoutDayId == request.CreateWorkoutExerciseDto.WorkoutDayId &&
                                           x.ExerciseId == request.CreateWorkoutExerciseDto.ExerciseId, cancellationToken: cancellationToken);
 
             var noOfSetsToAdd = request.CreateWorkoutExerciseDto.Sets;
@@ -99,9 +98,9 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
 
                 for (var i = 1; i < noOfSetsToAdd + 1; i++)
                 {
-                    var workoutSet = _entityFactory.CreateWorkoutSet(workoutExerciseEntity.WorkoutExerciseId, 
-                                                                            request.CreateWorkoutExerciseDto.Reps, 
-                                                                            request.CreateWorkoutExerciseDto.Weight, 
+                    var workoutSet = _entityFactory.CreateWorkoutSet(workoutExerciseEntity.WorkoutExerciseId,
+                                                                            request.CreateWorkoutExerciseDto.Reps,
+                                                                            request.CreateWorkoutExerciseDto.Weight,
                                                                             false);
                     workoutExerciseEntity.WorkoutSets.Add(workoutSet);
                 }

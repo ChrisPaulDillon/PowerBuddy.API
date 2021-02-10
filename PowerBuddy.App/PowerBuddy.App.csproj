@@ -27,4 +27,7 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Workouts\Models\" />
+  </ItemGroup>
 </Project>
