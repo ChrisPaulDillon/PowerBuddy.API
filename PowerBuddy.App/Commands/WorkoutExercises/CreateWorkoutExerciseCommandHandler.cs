@@ -37,7 +37,7 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
             RuleFor(x => x.CreateWorkoutExerciseDto.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
             RuleFor(x => x.CreateWorkoutExerciseDto.Sets).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
             RuleFor(x => x.CreateWorkoutExerciseDto.Reps).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
-            RuleFor(x => x.CreateWorkoutExerciseDto.Weight).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.CreateWorkoutExerciseDto.Weight).GreaterThan(-1).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 
