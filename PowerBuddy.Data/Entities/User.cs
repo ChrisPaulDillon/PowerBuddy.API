@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace PowerBuddy.Data.Entities
 {
@@ -12,5 +13,7 @@ namespace PowerBuddy.Data.Entities
         public string SportType { get; set; }
         public bool FirstVisit { get; set; }
         public int? MemberStatusId { get; set; }
+        public string ProfileImageName { get; set; }
+        public byte[] ProfileImageData { get; set; }
     }
 }

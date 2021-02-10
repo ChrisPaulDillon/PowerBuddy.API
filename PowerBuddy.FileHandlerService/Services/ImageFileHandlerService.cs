@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Http;
 using PowerBuddy.FileHandlerService.Exceptions;
 using PowerBuddy.FileHandlerService.Utils;
 
@@ -8,7 +8,7 @@ namespace PowerBuddy.FileHandlerService.Services
 {
     public class ImageFileHandlerService : FileHandlerService
     {
-        protected override void ValidateFileExtension(FormFile file)
+        protected override void ValidateFileExtension(IFormFile file)
         {
             if (!FileHelper.CheckFileIsImage(file))
             {
@@ -16,7 +16,7 @@ namespace PowerBuddy.FileHandlerService.Services
             }
         }
 
-        protected override void ValidateFileSize(FormFile file)
+        protected override void ValidateFileSize(IFormFile file)
         {
             if (FileHelper.CalculateFileSizeInMB(file.Length) > 10)
             {
@@ -24,7 +24,7 @@ namespace PowerBuddy.FileHandlerService.Services
             }
         }
 
-        protected override string FormatFileName(FormFile file)
+        protected override string FormatFileName(IFormFile file)
         {
             if (file.FileName.Length < 1)
             {

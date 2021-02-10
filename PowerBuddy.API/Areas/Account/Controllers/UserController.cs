@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,7 @@ using PowerBuddy.App.Commands.Users;
 using PowerBuddy.App.Queries.Users;
 using PowerBuddy.Data.Dtos.Account;
 using PowerBuddy.Data.Dtos.Users;
+using PowerBuddy.FileHandlerService.Exceptions;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -21,11 +23,13 @@ namespace PowerBuddy.API.Areas.Account.Controllers
     {
         private readonly IMediator _mediator;
         private readonly string _userId;
+        private readonly HttpRequest _request;
 
         public UserController(IMediator mediator, IHttpContextAccessor accessor)
         {
             _mediator = mediator;
             _userId = accessor.HttpContext.User.FindUserId();
+            _request = accessor.HttpContext.Request;
         }
 
         [HttpGet("Profile")]
@@ -68,6 +72,30 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             return result.Match<IActionResult>(
                 Result => Ok(Result),
                 UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
+        }
+
+        [HttpPost("Image")]
+        [Authorize]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UploadProfileImage()
+        {
+            try
+            {
+                var imageFile = _request.Form.Files.FirstOrDefault();
+
+                var result = await _mediator.Send(new UploadProfileImageCommand(imageFile, _userId));
+
+                return result.Match<IActionResult>(
+                    Result => Ok(Result),
+                    UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
+            }
+            catch (BadFileException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
