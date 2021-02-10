@@ -30,7 +30,12 @@ namespace PowerBuddy.App.Commands.WorkoutSets
     {
         public UpdateWorkoutSetCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.WorkoutSetDto.WorkoutSetId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.WorkoutSetDto.WorkoutExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.WorkoutSetDto.NoOfReps).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.WorkoutSetDto.RepsCompleted).GreaterThan(-1).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.WorkoutSetDto.WeightLifted).GreaterThan(-1).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
             RuleFor(x => x.WorkoutDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }

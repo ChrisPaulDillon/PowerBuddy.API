@@ -8,7 +8,7 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.WorkoutExercises;
 using PowerBuddy.App.Services.Weights;
-using PowerBuddy.App.Services.Workouts.Models;
+using PowerBuddy.Data.Dtos.Workouts;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PowerBuddy.App.Services.Workouts.Models;
 using PowerBuddy.App.Services.Workouts.Strategies;
 using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Dtos.Workouts;
