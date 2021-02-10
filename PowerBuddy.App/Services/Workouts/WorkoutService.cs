@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using PowerBuddy.App.Services.Workouts.Models;
 using PowerBuddy.App.Services.Workouts.Strategies;
 using PowerBuddy.App.Services.Workouts.Util;
 using PowerBuddy.Data.Context;

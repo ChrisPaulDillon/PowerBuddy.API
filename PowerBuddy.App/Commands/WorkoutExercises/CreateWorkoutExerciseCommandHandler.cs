@@ -33,9 +33,11 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
         public CreateWorkoutExerciseCommandValidator()
         {
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.CreateWorkoutExerciseDto.WorkoutDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
             RuleFor(x => x.CreateWorkoutExerciseDto.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
             RuleFor(x => x.CreateWorkoutExerciseDto.Sets).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
             RuleFor(x => x.CreateWorkoutExerciseDto.Reps).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.CreateWorkoutExerciseDto.Weight).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 
