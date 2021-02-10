@@ -32,8 +32,8 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             _request = accessor.HttpContext.Request;
         }
 
-        [HttpGet("Profile")]
         [Authorize]
+        [HttpGet("Profile")]
         [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLoggedInUsersProfile()
@@ -75,18 +75,17 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost("Image")]
-        [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UploadProfileImage()
+        public async Task<IActionResult> UploadProfileImage([FromForm] IFormFile file)
         {
             try
             {
-                var imageFile = _request.Form.Files.FirstOrDefault();
+                //var imageFile = _request.Form.Files.FirstOrDefault();
 
-                var result = await _mediator.Send(new UploadProfileImageCommand(imageFile, _userId));
+                var userId = "c0f79347-d5eb-48b6-a4d7-de8e3f12a3cc";
+                var result = await _mediator.Send(new UploadProfileImageCommand(file, userId));
 
                 return result.Match<IActionResult>(
                     Result => Ok(Result),

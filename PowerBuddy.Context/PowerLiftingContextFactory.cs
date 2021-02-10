@@ -8,6 +8,11 @@ namespace PowerBuddy.Data.Context
     {
         private readonly ContextConfig _config;
 
+        public PowerLiftingContextFactory()
+        {
+            
+        }
+
         public PowerLiftingContextFactory(ContextConfig config)
         {
             _config = config;
