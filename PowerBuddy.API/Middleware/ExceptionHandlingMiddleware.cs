@@ -37,21 +37,15 @@ namespace PowerBuddy.API.Middleware
             if (exception.GetType() == typeof(ValidationException))
             {
                 var code = HttpStatusCode.BadRequest;
-                var errorResponse = Errors.Create(nameof(ValidationException), ((ValidationException)exception).Errors);
+                var errorResponse = Errors.Create(nameof(ValidationException), ((ValidationException)exception).Message);
                 var result = JsonConvert.SerializeObject(errorResponse);
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)code;
                 return context.Response.WriteAsync(result);
 
             }
-            else
-            {
-                var code = HttpStatusCode.InternalServerError;
-                var result = JsonConvert.SerializeObject(new { isSuccess = false, error = exception.Message });
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = (int)code;
-                return context.Response.WriteAsync(result);
-            }
+
+            throw exception;
         }
     }
 }
