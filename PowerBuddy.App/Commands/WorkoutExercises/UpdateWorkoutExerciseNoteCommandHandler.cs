@@ -8,13 +8,13 @@ using PowerBuddy.Data.Context;
 
 namespace PowerBuddy.App.Commands.WorkoutExercises
 {
-    public class UpdateWorkoutExerciseNoteCommand : IRequest<bool>
+    public class UpdateWorkoutExerciseNotesCommand : IRequest<bool>
     {
         public int WorkoutExerciseId { get; }
         public string Notes { get; }
         public string UserId { get; }
 
-        public UpdateWorkoutExerciseNoteCommand(int workoutExerciseId, string notes, string userId)
+        public UpdateWorkoutExerciseNotesCommand(int workoutExerciseId, string notes, string userId)
         {
             WorkoutExerciseId = workoutExerciseId;
             Notes = notes;
@@ -22,17 +22,17 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
         }
     }
 
-    public class UpdateWorkoutExerciseNotesCommandValidator : AbstractValidator<UpdateWorkoutExerciseNoteCommand>
+    public class UpdateWorkoutExerciseNotesCommandValidator : AbstractValidator<UpdateWorkoutExerciseNotesCommand>
     {
         public UpdateWorkoutExerciseNotesCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.Notes).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.Notes).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
             RuleFor(x => x.WorkoutExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }
 
-    public class UpdateWorkoutExerciseNotesCommandHandler : IRequestHandler<UpdateWorkoutExerciseNoteCommand, bool>
+    public class UpdateWorkoutExerciseNotesCommandHandler : IRequestHandler<UpdateWorkoutExerciseNotesCommand, bool>
     {
         private readonly PowerLiftingContext _context;
 
@@ -41,23 +41,29 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
             _context = context;
         }
 
-        public async Task<bool> Handle(UpdateWorkoutExerciseNoteCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(UpdateWorkoutExerciseNotesCommand request, CancellationToken cancellationToken)
         {
-            var programLogExercise = await _context
+            var workoutExercise = await _context
                 .WorkoutExercise
                 .FirstOrDefaultAsync(x => x.WorkoutExerciseId == request.WorkoutExerciseId, cancellationToken: cancellationToken);
 
-            if (programLogExercise == null) return false;
+            if (workoutExercise == null)
+            {
+                return false;
+            }
 
             var isUserAuthorized = await _context.WorkoutDay
                 .AsNoTracking()
-                .AnyAsync(x => x.WorkoutDayId == programLogExercise.WorkoutDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
+                .AnyAsync(x => x.WorkoutDayId == workoutExercise.WorkoutDayId && x.UserId == request.UserId, cancellationToken: cancellationToken);
 
-            if (!isUserAuthorized) return false;
+            if (!isUserAuthorized)
+            {
+                return false;
+            }
 
-            programLogExercise.Comment = request.Notes;
+            workoutExercise.Comment = request.Notes;
 
-            _context.WorkoutExercise.Update(programLogExercise);
+            _context.WorkoutExercise.Update(workoutExercise);
 
             var changedRows = await _context.SaveChangesAsync(cancellationToken);
             return changedRows > 0;
