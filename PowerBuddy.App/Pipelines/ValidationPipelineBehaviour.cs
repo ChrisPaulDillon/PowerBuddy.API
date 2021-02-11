@@ -26,9 +26,9 @@ namespace PowerBuddy.App.Pipelines
                 .Select(x => x.Validate(request))
                 .FirstOrDefault(x => x != null);
 
-            if (failure != null)
+            if (failure != null && failure.Errors.Any())
             {
-                throw new FluentValidation.ValidationException(failure.Errors.ToList()[0].ErrorMessage);
+                throw new FluentValidation.ValidationException(failure.Errors.First().ErrorMessage);
             }
 
             return await next();
