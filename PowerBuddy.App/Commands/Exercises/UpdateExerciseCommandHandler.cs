@@ -9,6 +9,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Exercises;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Exercises;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Exercises
 {
@@ -28,8 +29,8 @@ namespace PowerBuddy.App.Commands.Exercises
     {
         public UpdateExerciseCommandValidator()
         {
-            RuleFor(x => x.Exercise).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.Exercise).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

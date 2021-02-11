@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Queries.WorkoutDays.Models;
 using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.WorkoutDays
 {
@@ -28,7 +29,7 @@ namespace PowerBuddy.App.Queries.WorkoutDays
     {
         public GetWorkoutDayIdByDateQueryValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

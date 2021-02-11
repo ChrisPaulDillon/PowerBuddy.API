@@ -18,6 +18,7 @@ namespace PowerBuddy.App.Queries.Quotes
     public class GetQuoteByIdQuery : IRequest<OneOf<QuoteDto, QuoteNotFound>>
     {
         public int QuoteId { get; }
+
         public GetQuoteByIdQuery(int quoteId)
         {
             QuoteId = quoteId;

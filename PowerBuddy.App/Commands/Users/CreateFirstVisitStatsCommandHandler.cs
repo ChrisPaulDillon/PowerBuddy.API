@@ -8,6 +8,7 @@ using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Users
 {
@@ -27,8 +28,8 @@ namespace PowerBuddy.App.Commands.Users
     {
         public CreateFirstVisitStatsCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.FirstVisitDto.GenderId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.FirstVisitDto.GenderId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

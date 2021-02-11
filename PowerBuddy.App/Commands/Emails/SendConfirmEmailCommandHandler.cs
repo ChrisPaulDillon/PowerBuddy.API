@@ -13,6 +13,7 @@ using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
 using PowerBuddy.EmailService;
 using PowerBuddy.EmailService.Models;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Emails
 {
@@ -30,7 +31,7 @@ namespace PowerBuddy.App.Commands.Emails
     {
         public SendConfirmEmailCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

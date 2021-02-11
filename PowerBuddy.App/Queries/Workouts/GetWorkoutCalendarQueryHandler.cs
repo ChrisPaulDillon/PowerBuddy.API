@@ -7,6 +7,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.Workouts
 {
@@ -24,7 +25,7 @@ namespace PowerBuddy.App.Queries.Workouts
     {
         public GetWorkoutCalendarQueryValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

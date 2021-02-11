@@ -7,6 +7,7 @@ using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Models.Account;
 using PowerBuddy.SmsService;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
@@ -28,9 +29,9 @@ namespace PowerBuddy.App.Commands.Authentication
     {
         public SendSmsVerificationCommandValidator()
         {
-            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.Code).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.Code).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

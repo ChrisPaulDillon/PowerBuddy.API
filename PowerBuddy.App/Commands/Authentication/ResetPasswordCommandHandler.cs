@@ -10,6 +10,7 @@ using PowerBuddy.App.Commands.Authentication.Models;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
@@ -29,9 +30,9 @@ namespace PowerBuddy.App.Commands.Authentication
     {
         public ResetPasswordCommandValidator()
         {
-            RuleFor(x => x.ChangePasswordInputDto.Token).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.ChangePasswordInputDto.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.ChangePasswordInputDto.Token).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.ChangePasswordInputDto.Password).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

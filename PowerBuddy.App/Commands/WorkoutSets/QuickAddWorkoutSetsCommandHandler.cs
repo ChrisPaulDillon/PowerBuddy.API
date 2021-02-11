@@ -11,6 +11,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Workouts;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.WorkoutSets
 {
@@ -30,8 +31,8 @@ namespace PowerBuddy.App.Commands.WorkoutSets
     {
         public QuickAddWorkoutSetsCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutSetList).NotNull().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutSetList).NotNull().WithMessage(ValidationConstants.NOT_EMPTY);
             RuleFor(x => x.WorkoutSetList).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }

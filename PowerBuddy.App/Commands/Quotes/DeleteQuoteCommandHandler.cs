@@ -10,6 +10,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
 using PowerBuddy.Data.Models.System;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Quotes
 {
@@ -27,8 +28,8 @@ namespace PowerBuddy.App.Commands.Quotes
     {
         public DeleteQuoteCommandValidator()
         {
-            RuleFor(x => x.QuoteId).GreaterThan(0).WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.QuoteId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

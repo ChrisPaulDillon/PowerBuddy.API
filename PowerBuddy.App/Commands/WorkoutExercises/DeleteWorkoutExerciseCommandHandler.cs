@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.WorkoutExercises
 {
@@ -24,8 +25,8 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
     {
         public DeleteWorkoutExerciseCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutExerciseId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

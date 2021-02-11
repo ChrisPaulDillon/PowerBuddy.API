@@ -13,6 +13,7 @@ using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Data.Models.Exercises;
 using PowerBuddy.Data.Models.Workouts;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.WorkoutExercises
 {
@@ -32,12 +33,12 @@ namespace PowerBuddy.App.Commands.WorkoutExercises
     {
         public CreateWorkoutExerciseCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.CreateWorkoutExerciseDto.WorkoutDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
-            RuleFor(x => x.CreateWorkoutExerciseDto.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
-            RuleFor(x => x.CreateWorkoutExerciseDto.Sets).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
-            RuleFor(x => x.CreateWorkoutExerciseDto.Reps).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
-            RuleFor(x => x.CreateWorkoutExerciseDto.Weight).GreaterThan(-1).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.CreateWorkoutExerciseDto.WorkoutDayId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.CreateWorkoutExerciseDto.ExerciseId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.CreateWorkoutExerciseDto.Sets).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.CreateWorkoutExerciseDto.Reps).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.CreateWorkoutExerciseDto.Weight).GreaterThan(-1).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

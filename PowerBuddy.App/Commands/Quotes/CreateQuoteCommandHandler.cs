@@ -9,6 +9,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.System;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Quotes
 {
@@ -27,8 +28,8 @@ namespace PowerBuddy.App.Commands.Quotes
     {
         public CreateQuoteCommandValidator()
         {
-            RuleFor(x => x.QuoteDto).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.QuoteDto).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

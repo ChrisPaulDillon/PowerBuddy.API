@@ -21,6 +21,7 @@ using PowerBuddy.Data.Models.Workouts;
 using PowerBuddy.SignalR;
 using PowerBuddy.SignalR.Models;
 using PowerBuddy.SignalR.Util;
+using PowerBuddy.Util;
 using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.App.Commands.Workouts
@@ -43,19 +44,19 @@ namespace PowerBuddy.App.Commands.Workouts
     {
         public CreateWorkoutLogFromTemplateCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
-            RuleFor(x => x.WorkoutInputDto.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutInputDto.CustomName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutInputDto.CustomName).MaximumLength(30).WithMessage("'{PropertyName}' should be no longer than {MaxLength} characters.");
-            RuleFor(x => x.WorkoutInputDto.Monday).NotNull().WithMessage("'{PropertyName}' cannot be null");
-            RuleFor(x => x.WorkoutInputDto.Tuesday).NotNull().WithMessage("'{PropertyName}' cannot be null");
-            RuleFor(x => x.WorkoutInputDto.Wednesday).NotNull().WithMessage("'{PropertyName}' cannot be null");
-            RuleFor(x => x.WorkoutInputDto.Thursday).NotNull().WithMessage("'{PropertyName}' cannot be null");
-            RuleFor(x => x.WorkoutInputDto.Friday).NotNull().WithMessage("'{PropertyName}' cannot be null");
-            RuleFor(x => x.WorkoutInputDto.Saturday).NotNull().WithMessage("'{PropertyName}' cannot be null");
-            RuleFor(x => x.WorkoutInputDto.Sunday).NotNull().WithMessage("'{PropertyName}' cannot be null");
-            RuleFor(x => x.WorkoutInputDto.WeightInputs.Count()).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.WorkoutInputDto.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutInputDto.CustomName).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutInputDto.CustomName).MaximumLength(30).WithMessage(ValidationConstants.MAX_LENGTH);
+            RuleFor(x => x.WorkoutInputDto.Monday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.WorkoutInputDto.Tuesday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.WorkoutInputDto.Wednesday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.WorkoutInputDto.Thursday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.WorkoutInputDto.Friday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.WorkoutInputDto.Saturday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.WorkoutInputDto.Sunday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.WorkoutInputDto.WeightInputs.Count()).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

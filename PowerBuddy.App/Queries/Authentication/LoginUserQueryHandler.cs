@@ -13,6 +13,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.Authentication
 {
@@ -30,9 +31,9 @@ namespace PowerBuddy.App.Queries.Authentication
     {
         public LoginUserQueryValidator()
         {
-            RuleFor(x => x.LoginModel.UserName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.LoginModel.Email).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.LoginModel.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.LoginModel.UserName).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.LoginModel.Email).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.LoginModel.Password).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

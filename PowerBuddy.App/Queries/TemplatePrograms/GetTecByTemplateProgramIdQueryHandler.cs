@@ -6,6 +6,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
@@ -22,7 +23,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
     {
         public GetTecByTemplateProgramIdQueryValidator()
         {
-            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

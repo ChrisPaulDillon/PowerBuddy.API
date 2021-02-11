@@ -10,6 +10,7 @@ using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Models.Workouts;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.WorkoutDays
 {
@@ -29,8 +30,8 @@ namespace PowerBuddy.App.Queries.WorkoutDays
     {
         public GetWorkoutDayByIdQueryValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutDayId).GreaterThan(0).WithMessage("'{PropertyName}' must not be greater than 0");
+            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutDayId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

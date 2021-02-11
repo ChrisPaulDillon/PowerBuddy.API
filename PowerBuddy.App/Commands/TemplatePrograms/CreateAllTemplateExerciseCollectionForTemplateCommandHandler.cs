@@ -6,6 +6,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.TemplatePrograms
 {
@@ -23,7 +24,7 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
     {
         public CreateAllTemplateExerciseCollectionForTemplateCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotNull().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 
