@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.TemplatePrograms
 {
@@ -29,8 +30,8 @@ namespace PowerBuddy.App.Commands.TemplatePrograms
     {
         public CreateTemplateExerciseCollectionForTemplateCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.TemplateProgramId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

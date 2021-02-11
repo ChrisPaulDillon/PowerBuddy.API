@@ -11,6 +11,7 @@ using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Util;
 using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.App.Commands.Workouts
@@ -31,11 +32,11 @@ namespace PowerBuddy.App.Commands.Workouts
     {
         public CreateWorkoutLogFromScratchCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutLogDto.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutLogDto.NoOfWeeks).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
-            RuleFor(x => x.WorkoutLogDto.CustomName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutLogDto.CustomName).MaximumLength(30).WithMessage("'{PropertyName}' should be no longer than {MaxLength} characters.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutLogDto.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutLogDto.NoOfWeeks).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.WorkoutLogDto.CustomName).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutLogDto.CustomName).MaximumLength(30).WithMessage(ValidationConstants.MAX_LENGTH);
         }
     }
 

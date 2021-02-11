@@ -11,6 +11,7 @@ using PowerBuddy.App.Queries.Workouts.Models;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Models.Workouts;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.Workouts
 {
@@ -28,7 +29,7 @@ namespace PowerBuddy.App.Queries.Workouts
     {
         public GetAllWorkoutStatsQueryValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

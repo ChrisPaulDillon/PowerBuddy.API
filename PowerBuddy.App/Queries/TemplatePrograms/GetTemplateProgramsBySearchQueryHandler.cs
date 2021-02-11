@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Templates;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
@@ -26,7 +27,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
     {
         public GetTemplateProgramsBySearchQueryValidator()
         {
-            RuleFor(x => x.SearchTerm).NotNull().NotEmpty().WithMessage("'{PropertyName}' must be greater not be empty");
+            RuleFor(x => x.SearchTerm).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

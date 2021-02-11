@@ -9,6 +9,7 @@ using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.WorkoutSets
 {
@@ -30,13 +31,13 @@ namespace PowerBuddy.App.Commands.WorkoutSets
     {
         public UpdateWorkoutSetCommandValidator()
         {
-            RuleFor(x => x.WorkoutSetDto.WorkoutSetId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
-            RuleFor(x => x.WorkoutSetDto.WorkoutExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
-            RuleFor(x => x.WorkoutSetDto.NoOfReps).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
-            RuleFor(x => x.WorkoutSetDto.RepsCompleted).GreaterThan(-1).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
-            RuleFor(x => x.WorkoutSetDto.WeightLifted).GreaterThan(-1).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutDayId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.WorkoutSetDto.WorkoutSetId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.WorkoutSetDto.WorkoutExerciseId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.WorkoutSetDto.NoOfReps).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.WorkoutSetDto.RepsCompleted).GreaterThan(-1).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.WorkoutSetDto.WeightLifted).GreaterThan(-1).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutDayId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

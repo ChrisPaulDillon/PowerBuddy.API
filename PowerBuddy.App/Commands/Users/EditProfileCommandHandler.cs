@@ -8,6 +8,7 @@ using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Account;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Users
 {
@@ -27,8 +28,8 @@ namespace PowerBuddy.App.Commands.Users
     {
         public EditProfileCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.EditProfileDto.QuotesEnabled).NotNull().WithMessage("'{PropertyName}' cannot be null.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.EditProfileDto.QuotesEnabled).NotNull().WithMessage(ValidationConstants.NOT_NULL);
         }
     }
 

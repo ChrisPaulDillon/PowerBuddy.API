@@ -11,6 +11,7 @@ using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.LiftingStats;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.LiftingStats
 {
@@ -30,8 +31,8 @@ namespace PowerBuddy.App.Queries.LiftingStats
     {
         public GetLiftingStatFeedForUserQueryValidator()
         {
-            RuleFor(x => x.UserName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserName).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

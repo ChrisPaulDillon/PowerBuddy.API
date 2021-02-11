@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Models.Exercises;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Exercises
 {
@@ -26,7 +27,7 @@ namespace PowerBuddy.App.Commands.Exercises
     {
         public DeleteExerciseCommandValidator()
         {
-            RuleFor(x => x.ExerciseId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.ExerciseId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

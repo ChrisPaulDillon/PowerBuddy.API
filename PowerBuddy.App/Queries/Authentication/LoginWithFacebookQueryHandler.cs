@@ -10,6 +10,7 @@ using PowerBuddy.App.Services.Authentication.Models;
 using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.Authentication
 {
@@ -27,7 +28,7 @@ namespace PowerBuddy.App.Queries.Authentication
     {
         public LoginWithFacebookQueryValidator()
         {
-            RuleFor(x => x.AccessToken).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.AccessToken).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

@@ -12,6 +12,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
@@ -29,9 +30,9 @@ namespace PowerBuddy.App.Commands.Authentication
     {
         public RegisterUserCommandValidator()
         {
-            RuleFor(x => x.RegisterUserDto.UserName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.RegisterUserDto.Email).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.RegisterUserDto.Password).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RegisterUserDto.UserName).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.RegisterUserDto.Email).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.RegisterUserDto.Password).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

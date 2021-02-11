@@ -11,6 +11,7 @@ using PowerBuddy.App.Services.Authentication.Models;
 using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Models.Auth;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
@@ -28,7 +29,7 @@ namespace PowerBuddy.App.Commands.Authentication
     {
         public RefreshTokenCommandValidator()
         {
-            RuleFor(x => x.RefreshToken).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RefreshToken).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

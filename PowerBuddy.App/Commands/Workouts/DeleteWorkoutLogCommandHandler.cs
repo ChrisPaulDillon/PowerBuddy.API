@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Models.Workouts;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Workouts
 {
@@ -25,8 +26,8 @@ namespace PowerBuddy.App.Commands.Workouts
     {
         public DeleteWorkoutLogCommandValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutLogId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutLogId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

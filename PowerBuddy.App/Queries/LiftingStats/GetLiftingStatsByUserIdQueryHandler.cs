@@ -6,6 +6,7 @@ using FluentValidation;
 using MediatR;
 using PowerBuddy.App.Queries.LiftingStats.Models;
 using PowerBuddy.App.Services.LiftingStats;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.LiftingStats
 {
@@ -23,7 +24,7 @@ namespace PowerBuddy.App.Queries.LiftingStats
     {
         public GetLiftingStatsByUserIdQueryValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

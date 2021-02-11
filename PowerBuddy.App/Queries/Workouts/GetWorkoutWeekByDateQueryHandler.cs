@@ -8,9 +8,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Queries.Workouts.Models;
-using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
+using PowerBuddy.Util;
 using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.App.Queries.Workouts
@@ -31,7 +31,7 @@ namespace PowerBuddy.App.Queries.Workouts
     {
         public GetWorkoutWeekByDateQueryValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

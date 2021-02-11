@@ -10,6 +10,7 @@ using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Models.TemplatePrograms;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
@@ -27,7 +28,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
     {
         public GetTemplateProgramByIdQueryValidator()
         {
-            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
+            RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 

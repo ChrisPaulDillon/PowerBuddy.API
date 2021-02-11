@@ -8,6 +8,7 @@ using PowerBuddy.App.Extensions.Validators;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.WorkoutTemplates
 {
@@ -27,11 +28,11 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
     {
         public CreateWorkoutTemplateCommandValidator()
         {
-            RuleFor(x => x.WorkoutTemplateDto.WorkoutName).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutTemplateDto.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).NotNull().WithMessage("'{PropertyName}' cannot be null");
+            RuleFor(x => x.WorkoutTemplateDto.WorkoutName).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutTemplateDto.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
+            RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).NotNull().WithMessage(ValidationConstants.NOT_NULL);
             RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must have at least one exercise");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
             RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).ValidWorkoutExerciseCollection();
         }
     }

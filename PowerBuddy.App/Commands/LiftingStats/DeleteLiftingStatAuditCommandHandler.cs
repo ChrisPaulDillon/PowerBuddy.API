@@ -8,6 +8,7 @@ using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Models.Account;
 using PowerBuddy.Data.Models.LiftingStats;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.LiftingStats
 {
@@ -27,8 +28,8 @@ namespace PowerBuddy.App.Commands.LiftingStats
     {
         public DeleteLiftingStatAuditCommandValidator()
         {
-            RuleFor(x => x.LiftingStatAuditId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.LiftingStatAuditId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

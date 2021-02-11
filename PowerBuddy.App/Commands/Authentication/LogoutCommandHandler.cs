@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using PowerBuddy.App.Services.Authentication;
 using PowerBuddy.Data.Context;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
@@ -22,7 +23,7 @@ namespace PowerBuddy.App.Commands.Authentication
     {
         public LogoutCommandValidator()
         {
-            RuleFor(x => x.RefreshToken).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.RefreshToken).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

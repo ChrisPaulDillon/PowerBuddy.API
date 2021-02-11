@@ -11,6 +11,7 @@ using PowerBuddy.Data.Dtos.System;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
 using PowerBuddy.Data.Models.System;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Quotes
 {
@@ -29,8 +30,8 @@ namespace PowerBuddy.App.Commands.Quotes
     {
         public UpdateQuoteCommandValidator()
         {
-            RuleFor(x => x.QuoteDto).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.QuoteDto).NotNull().WithMessage(ValidationConstants.NOT_NULL);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

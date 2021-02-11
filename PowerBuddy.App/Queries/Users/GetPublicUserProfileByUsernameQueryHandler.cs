@@ -10,6 +10,7 @@ using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.Users
 {
@@ -27,7 +28,7 @@ namespace PowerBuddy.App.Queries.Users
     {
         public GetPublicUserProfileByUsernameQueryValidator()
         {
-            RuleFor(x => x.Username).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.Username).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 

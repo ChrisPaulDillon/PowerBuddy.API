@@ -10,6 +10,7 @@ using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.LiftingStats;
 using PowerBuddy.Data.Models.LiftingStats;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.LiftingStats
 {
@@ -29,8 +30,8 @@ namespace PowerBuddy.App.Queries.LiftingStats
     {
         public GetLiftingStatSummaryByExerciseIdQueryValidator()
         {
-            RuleFor(x => x.ExerciseId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
-            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.ExerciseId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+            RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 
