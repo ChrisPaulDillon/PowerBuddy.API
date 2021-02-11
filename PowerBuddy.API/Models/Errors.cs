@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using FluentValidation.Results;
 
 namespace PowerBuddy.API.Models
 {
@@ -29,6 +31,11 @@ namespace PowerBuddy.API.Models
         public static Errors Create(string code, string message)
         {
             return new Errors(code, message);
+        }
+
+        public static Errors Create(string code, IEnumerable<ValidationFailure> errors)
+        {
+            return new Errors(code, errors.ToString());
         }
     }
 }
