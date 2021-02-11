@@ -37,7 +37,6 @@ namespace PowerBuddy.API.Middleware
             if (exception.GetType() == typeof(ValidationException))
             {
                 var code = HttpStatusCode.BadRequest;
-                var errors = ((ValidationException)exception).Errors;
                 var errorResponse = Errors.Create(nameof(ValidationException), ((ValidationException)exception).Errors);
                 var result = JsonConvert.SerializeObject(errorResponse);
                 context.Response.ContentType = "application/json";
