@@ -28,8 +28,7 @@ namespace PowerBuddy.App.Queries.WorkoutDays
     {
         public GetWorkoutDayIdByDateQueryValidator()
         {
-            RuleFor(x => x.WorkoutDate).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' must not be empty");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' must not be empty");
         }
     }
 

@@ -24,7 +24,7 @@ jobs:
       - name: Build
         run: dotnet build PowerBuddy.API --no-restore
       - name: Test
-        run: dotnet test PowerBuddy.API/PowerBuddy.API.sln --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=/coverage/ /p:MergeWith=/coverage/ --collect "Code coverage" --logger trx
+        run: dotnet test PowerBuddy.API/PowerBuddy.API.sln --no-build
   sonar_cloud:
     needs: run_xunit
     name:

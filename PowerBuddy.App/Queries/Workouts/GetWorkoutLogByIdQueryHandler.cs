@@ -29,6 +29,7 @@ namespace PowerBuddy.App.Queries.Workouts
     {
         public GetWorkoutLogByIdQueryValidator()
         {
+            RuleFor(x => x.WorkoutLogId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
         }
     }

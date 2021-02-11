@@ -2,13 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Templates;
-using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.App.Queries.TemplatePrograms
 {
@@ -27,7 +25,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
     {
         public GetPersonalBestsForTemplateExercisesQueryValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than 0.");
         }
     }

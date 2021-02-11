@@ -8,7 +8,6 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Queries.Workouts.Models;
-using PowerBuddy.App.Services.Workouts;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Util.Extensions;

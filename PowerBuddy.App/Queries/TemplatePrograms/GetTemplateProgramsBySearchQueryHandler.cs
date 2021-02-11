@@ -26,7 +26,7 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
     {
         public GetTemplateProgramsBySearchQueryValidator()
         {
-            RuleFor(x => x.SearchTerm).NotNull().NotEmpty().WithMessage("'{PropertyName}' must be greater not be empty");
+            RuleFor(x => x.SearchTerm).NotEmpty().WithMessage("'{PropertyName}' must be greater not be empty");
         }
     }
 
