@@ -1,4 +1,4 @@
-﻿namespace PowerBuddy.Data.Dtos.ProgramLogs.Workouts
+﻿namespace PowerBuddy.Data.DTOs.Workouts
 {
     public class WorkoutExerciseSummaryDto
     {

@@ -1,6 +1,5 @@
 ﻿using System;
 using PowerBuddy.Data.Dtos.LiftingStats;
-using PowerBuddy.Data.Dtos.ProgramLogs;
 using PowerBuddy.Data.Dtos.Workouts;
 
 namespace PowerBuddy.Data.Factories

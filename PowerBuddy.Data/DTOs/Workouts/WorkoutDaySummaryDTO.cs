@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerBuddy.Data.Dtos.ProgramLogs.Workouts;
+using PowerBuddy.Data.DTOs.Workouts;
 
 namespace PowerBuddy.Data.Dtos.Workouts
 {

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
-using PowerBuddy.Data.Dtos.ProgramLogs.Workouts;
 using PowerBuddy.Data.Dtos.Workouts;
+using PowerBuddy.Data.DTOs.Workouts;
 using PowerBuddy.Data.Entities;
 
 namespace PowerBuddy.Data.AutoMapper

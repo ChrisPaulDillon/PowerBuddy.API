@@ -22,14 +22,13 @@ namespace PowerBuddy.App.Pipelines
         {
             var context = new ValidationContext(request);
 
-            var failure = _validators.Select(x => x.Validate(request))
-                .Where(x => x != null)
-                .Select(x => x.Errors[0])
-                .FirstOrDefault();
+            var failure = _validators
+                .Select(x => x.Validate(request))
+                .FirstOrDefault(x => x != null);
 
             if (failure != null)
             {
-                throw new FluentValidation.ValidationException(failure.ErrorMessage);
+                throw new FluentValidation.ValidationException(failure.Errors.ToList()[0].ErrorMessage);
             }
 
             return await next();

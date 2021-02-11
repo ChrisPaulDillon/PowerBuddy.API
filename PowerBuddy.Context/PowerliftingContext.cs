@@ -22,14 +22,6 @@ namespace PowerBuddy.Data.Context
         public DbSet<RepSchemeType> RepSchemeType { get; set; }
         public DbSet<Quote> Quote { get; set; }
 
-        public DbSet<ProgramLog> ProgramLog { get; set; }
-        public DbSet<ProgramLogWeek> ProgramLogWeek { get; set; }
-        public DbSet<ProgramLogDay> ProgramLogDay { get; set; }
-        public DbSet<ProgramLogExercise> ProgramLogExercise { get; set; }
-        public DbSet<ProgramLogExerciseAudit> ProgramLogExerciseAudit { get; set; }
-        public DbSet<ProgramLogExerciseTonnage> ProgramLogExerciseTonnage { get; set; }
-        public DbSet<ProgramLogRepScheme> ProgramLogRepScheme { get; set; }
-
         public DbSet<WorkoutLog> WorkoutLog { get; set; }
         public DbSet<WorkoutDay> WorkoutDay { get; set; }
         public DbSet<WorkoutExerciseAudit> WorkoutExerciseAudit { get; set; }
@@ -88,14 +80,6 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<LiftingLevel>().ToTable("LiftingLevel");
             modelBuilder.Entity<EmailTemplate>().ToTable("EmailTemplate");
 
-            modelBuilder.Entity<ProgramLog>().ToTable("ProgramLog");
-            modelBuilder.Entity<ProgramLogWeek>().ToTable("ProgramLogWeek");
-            modelBuilder.Entity<ProgramLogDay>().ToTable("ProgramLogDay");
-            modelBuilder.Entity<ProgramLogExercise>().ToTable("ProgramLogExercise");
-            modelBuilder.Entity<ProgramLogExerciseTonnage>().ToTable("ProgramLogExerciseTonnage");
-            modelBuilder.Entity<ProgramLogExerciseAudit>().ToTable("ProgramLogExerciseAudit");
-            modelBuilder.Entity<ProgramLogRepScheme>().ToTable("ProgramLogRepScheme");
-
             modelBuilder.Entity<WorkoutLog>().ToTable("WorkoutLog");
             modelBuilder.Entity<WorkoutDay>().ToTable("WorkoutDay");
             modelBuilder.Entity<WorkoutExercise>().ToTable("WorkoutExercise");
@@ -115,30 +99,6 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
             modelBuilder.Entity<TemplateExerciseCollection>().ToTable("TemplateExerciseCollection");
-
-            modelBuilder.Entity<ProgramLog>()
-                .HasMany(x => x.ProgramLogWeeks)
-                .WithOne(x => x.ProgramLog)
-                .HasForeignKey(x => x.ProgramLogId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<ProgramLogWeek>()
-                .HasMany(x => x.ProgramLogDays)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<ProgramLogDay>()
-                .HasMany(x => x.ProgramLogExercises)
-                .WithOne()
-                .HasForeignKey(x => x.ProgramLogDayId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<ProgramLogExercise>()
-                .HasMany(x => x.ProgramLogRepSchemes)
-                .WithOne()
-                .HasForeignKey(x => x.ProgramLogExerciseId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
 
@@ -161,22 +121,10 @@ namespace PowerBuddy.Data.Context
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ProgramLogExercise>()
-                .HasOne(x => x.ProgramLogExerciseTonnage)
-                .WithOne()
-                .IsRequired(false);
-
             modelBuilder.Entity<TemplateProgram>()
                 .HasMany(x => x.TemplateExerciseCollection)
                 .WithOne()
                 .HasForeignKey(x => x.TemplateProgramId)
-                .IsRequired(false);
-
-            modelBuilder.Entity<ProgramLogExercise>()
-                .HasOne(x => x.ProgramLogExerciseTonnage)
-                .WithOne(x => x.ProgramLogExercise)
-                .HasForeignKey<ProgramLogExerciseTonnage>(x => x.ProgramLogExerciseId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
             modelBuilder.Entity<UserSetting>()

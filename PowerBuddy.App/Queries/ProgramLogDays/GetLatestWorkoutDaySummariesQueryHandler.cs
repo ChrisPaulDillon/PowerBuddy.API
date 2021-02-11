@@ -42,15 +42,15 @@ namespace PowerBuddy.App.Queries.ProgramLogDays
 
         public async Task<IEnumerable<WorkoutDaySummaryDto>> Handle(GetLatestWorkoutDaySummariesQuery request, CancellationToken cancellationToken)
         {
-            var programLogDayDto = await _context.ProgramLogDay
+            var workoutDayDto = await _context.WorkoutDay
                 .AsNoTracking()
-                .Where(x => x.UserId == request.UserId && x.ProgramLogExercises.Any())
+                .Where(x => x.UserId == request.UserId && x.WorkoutExercises.Any())
                 .ProjectTo<WorkoutDaySummaryDto>(_mapper.ConfigurationProvider)
                 .Take(50)
                 .OrderByDescending(x => x.Date)
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            return programLogDayDto;
+            return workoutDayDto;
         }
     }
 }
