@@ -18,9 +18,9 @@ namespace PowerBuddy.App.Queries.Authentication
 {
     public class LoginUserQuery : IRequest<OneOf<AuthenticationResultDto, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>>
     {
-        public LoginModelDto LoginModel { get; }
+        public LoginRequestModel LoginModel { get; }
 
-        public LoginUserQuery(LoginModelDto loginModel)
+        public LoginUserQuery(LoginRequestModel loginModel)
         {
             LoginModel = loginModel;
         }

@@ -38,7 +38,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> LoginUser(LoginModelDto loginModel)
+        public async Task<IActionResult> LoginUser(LoginRequestModel loginModel)
         {
             var loginOneOf = await _mediator.Send(new LoginUserQuery(loginModel));
 

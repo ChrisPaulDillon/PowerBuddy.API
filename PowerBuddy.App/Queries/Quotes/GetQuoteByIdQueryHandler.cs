@@ -11,6 +11,7 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.System;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.System;
+using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Queries.Quotes
 {
@@ -27,7 +28,7 @@ namespace PowerBuddy.App.Queries.Quotes
     {
         public GetQuoteByIdQueryValidator()
         {
-            RuleFor(x => x.QuoteId).NotNull().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.QuoteId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 
