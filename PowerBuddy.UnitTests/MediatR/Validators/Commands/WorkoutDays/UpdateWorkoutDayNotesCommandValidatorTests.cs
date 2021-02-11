@@ -38,6 +38,20 @@ namespace PowerBuddy.UnitTests.MediatR.Validators.Commands.WorkoutDays
         }
 
         [Fact]
+        public void CreateNew_NotesIsNull_ReturnsValidationErrors()
+        {
+            var result = _validator.Validate(new UpdateWorkoutDayNotesCommand(_random.Next(), null,_random.Next().ToString()));
+            Assert.True(result.Errors.Any());
+        }
+
+        [Fact]
+        public void CreateNew_NotesIsEmpty_ReturnsValidationErrors()
+        {
+            var result = _validator.Validate(new UpdateWorkoutDayNotesCommand(_random.Next(), "", _random.Next().ToString()));
+            Assert.True(result.Errors.Any());
+        }
+
+        [Fact]
         public void CreateNew_WorkoutDayIdInvalid_ReturnsValidationErrors()
         {
             var result = _validator.Validate(new UpdateWorkoutDayNotesCommand(-55, _random.Next().ToString(), _random.Next().ToString()));

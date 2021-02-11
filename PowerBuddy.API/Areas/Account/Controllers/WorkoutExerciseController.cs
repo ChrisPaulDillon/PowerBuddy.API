@@ -72,7 +72,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         public async Task<IActionResult> UpdateWorkoutExerciseNotes(int workoutExerciseId, string notes)
         {
 
-            var result = await _mediator.Send(new UpdateWorkoutExerciseNoteCommand(workoutExerciseId, notes, _userId));
+            var result = await _mediator.Send(new UpdateWorkoutExerciseNotesCommand(workoutExerciseId, notes, _userId));
             return Ok(result);
         }
     }

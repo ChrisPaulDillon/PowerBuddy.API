@@ -34,8 +34,8 @@ namespace PowerBuddy.App.Commands.Workouts
             RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.WorkoutLogDto.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.WorkoutLogDto.NoOfWeeks).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
-            RuleFor(x => x.WorkoutLogDto.UserId).Matches(x => x.UserId).WithMessage("'{PropertyName}' cannot be empty.");
-            RuleFor(x => x.WorkoutLogDto.CustomName).MaximumLength(180).WithMessage("'{PropertyName}' should be no longer than {MaxLength} characters.");
+            RuleFor(x => x.WorkoutLogDto.CustomName).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.WorkoutLogDto.CustomName).MaximumLength(30).WithMessage("'{PropertyName}' should be no longer than {MaxLength} characters.");
         }
     }
 

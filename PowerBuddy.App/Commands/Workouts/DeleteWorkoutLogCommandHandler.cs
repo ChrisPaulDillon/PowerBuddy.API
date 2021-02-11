@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +14,9 @@ namespace PowerBuddy.App.Commands.Workouts
         public int WorkoutLogId { get; }
         public string UserId { get; }
 
-        public DeleteWorkoutLogCommand(int programLogId, string userId)
+        public DeleteWorkoutLogCommand(int workoutLogId, string userId)
         {
-            WorkoutLogId = programLogId;
+            WorkoutLogId = workoutLogId;
             UserId = userId;
         }
     }
@@ -26,7 +25,7 @@ namespace PowerBuddy.App.Commands.Workouts
     {
         public DeleteWorkoutLogCommandValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("'{PropertyName}' cannot be empty.");
             RuleFor(x => x.WorkoutLogId).GreaterThan(0).WithMessage("'{PropertyName}' must be greater than {ComparisonValue}.");
         }
     }
