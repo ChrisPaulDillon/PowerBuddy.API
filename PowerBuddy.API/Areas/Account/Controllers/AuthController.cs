@@ -145,7 +145,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 		        UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
 
-        [HttpPost("Email/Accept/ConfirmEmail/{userId}")]
+        [HttpPost("Email/Accept/Confirm/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> VerifyEmail(string userId, [FromBody] ResetPasswordTokenRequest token)
@@ -157,7 +157,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
         }
 
-        [HttpPost("Sms/Accept/ConfirmSms")]
+        [HttpPost("Sms/Accept/Confirm")]
         [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]

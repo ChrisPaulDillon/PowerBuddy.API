@@ -32,7 +32,7 @@ namespace PowerBuddy.API.Areas.Public
                 UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
 
-        [HttpPost("Send/ConfirmEmail/{userId}")]
+        [HttpPost("Send/Confirm/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendConfirmationEmail(string userId)

@@ -25,7 +25,7 @@ namespace PowerBuddy.API.Areas.Public
 			_userId = accessor.HttpContext.User.FindUserId();
 		}
 
-		[HttpPost("Send/ConfirmSms")]
+		[HttpPost("Send/Confirm")]
 		[Authorize]
 		[ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
