@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PowerBuddy.App.Commands.Authentication;
-using PowerBuddy.App.Commands.Sms;
 
 namespace PowerBuddy.App.Commands.Users
 {
@@ -14,8 +13,6 @@ namespace PowerBuddy.App.Commands.Users
             services.AddMediatR(typeof(RegisterUserCommandHandler));
             services.AddMediatR(typeof(CreateFirstVisitStatsCommandHandler));
             services.AddMediatR(typeof(EditProfileCommandHandler));
-            services.AddMediatR(typeof(ResetPasswordViaEmailCommandHandler));
-            services.AddMediatR(typeof(UpdatePasswordCommandHandler));
             return services;
         }
     }
