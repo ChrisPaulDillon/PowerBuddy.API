@@ -1,6 +1,6 @@
-﻿namespace PowerBuddy.Data.Dtos.Users
+﻿namespace PowerBuddy.Data.Requests.Users
 {
-    public class RegisterUserDto
+    public class RegisterUserRequest
     {
         public string UserName { get; set; }
         public string Email { get; set; }

@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using PowerBuddy.App.Commands.Authentication.Configuration;
 using PowerBuddy.App.Commands.Emails;
 using PowerBuddy.App.Commands.LiftingStats;
 using PowerBuddy.App.Commands.Quotes;
+using PowerBuddy.App.Commands.Sms.Configuration;
 using PowerBuddy.App.Commands.TemplatePrograms;
 using PowerBuddy.App.Commands.Users;
 using PowerBuddy.App.Commands.Workouts;
@@ -20,7 +22,8 @@ namespace PowerBuddy.App.Commands
             services.AddTemplateProgramMediatrHandlers();
             services.AddUserMediatrHandlers();
             services.AddWorkoutMediatrHandlers();
-            services.AddAuthentication();
+            services.AddAuthenticationMediatrHandlers();
+            services.AddSmsMediatrHandlers();
 
             services.AddEmailMediatrHandlers(baseUrl, siteName);
 

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +20,7 @@ namespace PowerBuddy.API.Areas.Public
             _mediator = mediator;
         }
 
-        [HttpPost("ResetPassword/{emailAddress}")]
+        [HttpPost("Send/ResetPassword/{emailAddress}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendPasswordReset(string emailAddress)
@@ -33,7 +32,7 @@ namespace PowerBuddy.API.Areas.Public
                 UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
         }
 
-        [HttpPost("ConfirmEmail/{userId}")]
+        [HttpPost("Send/Confirm/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendConfirmationEmail(string userId)
