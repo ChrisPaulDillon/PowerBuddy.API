@@ -2,6 +2,7 @@
 using PowerBuddy.Data.Dtos.Account;
 using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Data.Requests.Users;
 
 namespace PowerBuddy.Data.AutoMapper
 {
@@ -64,7 +65,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.BodyWeight, d => d.MapFrom<decimal>(src => src.UserSetting.BodyWeight))
                 .ForMember(x => x.QuotesEnabled, d => d.MapFrom<bool>(src => src.UserSetting.QuotesEnabled));
 
-            CreateMap<RegisterUserDto, User>()
+            CreateMap<RegisterUserRequest, User>()
                 .ForMember<string>(x => x.UserName, d => d.MapFrom(src => src.UserName))
                 .ForMember<string>(x => x.PasswordHash, d => d.MapFrom(src => src.Password))
                 .ForMember<string>(x => x.Email, d => d.MapFrom(src => src.Email))

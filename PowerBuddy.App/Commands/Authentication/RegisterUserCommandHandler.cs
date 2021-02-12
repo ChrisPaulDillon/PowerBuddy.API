@@ -12,15 +12,16 @@ using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
+using PowerBuddy.Data.Requests.Users;
 using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
     public class RegisterUserCommand : IRequest<OneOf<RegisterAuthenticationResultDto, EmailOrUserNameInUse>>
     {
-        public RegisterUserDto RegisterUserDto { get; }
+        public RegisterUserRequest RegisterUserDto { get; }
 
-        public RegisterUserCommand(RegisterUserDto registerUserDto)
+        public RegisterUserCommand(RegisterUserRequest registerUserDto)
         {
             RegisterUserDto = registerUserDto;
         }

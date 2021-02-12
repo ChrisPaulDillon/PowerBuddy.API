@@ -2,50 +2,49 @@
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
 using PowerBuddy.SmsService;
 using PowerBuddy.Util;
 
-namespace PowerBuddy.App.Commands.Authentication
+namespace PowerBuddy.App.Commands.Sms
 {
-    public class RequestSmsVerificationCommand : IRequest<OneOf<string, UserNotFound>>
+    public class SendSmsVerificationCommand : IRequest<OneOf<string, UserNotFound>>
     {
+	    public string PhoneNumber { get; }
         public string UserId { get; }
-        public string PhoneNumber { get; }
 
-        public RequestSmsVerificationCommand(string phoneNumber, string userId)
+
+        public SendSmsVerificationCommand(string phoneNumber, string userId)
         {
+	        PhoneNumber = phoneNumber;
             UserId = userId;
-            PhoneNumber = phoneNumber;
         }
     }
 
-    public class RequestSmsVerificationCommandValidator : AbstractValidator<RequestSmsVerificationCommand>
+    public class SendSmsVerificationCommandValidator : AbstractValidator<SendSmsVerificationCommand>
     {
-        public RequestSmsVerificationCommandValidator()
+        public SendSmsVerificationCommandValidator()
         {
             RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
             RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 
-    public class RequestSmsVerificationCommandHandler : IRequestHandler<RequestSmsVerificationCommand, OneOf<string, UserNotFound>>
+    public class SendSmsVerificationCommandHandler : IRequestHandler<SendSmsVerificationCommand, OneOf<string, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly ISmsClient _smsClient;
 
-        public RequestSmsVerificationCommandHandler(PowerLiftingContext context, ISmsClient smsClient)
+        public SendSmsVerificationCommandHandler(PowerLiftingContext context, ISmsClient smsClient)
         {
             _context = context;
             _smsClient = smsClient;
         }
 
-        public async Task<OneOf<string, UserNotFound>> Handle(RequestSmsVerificationCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<string, UserNotFound>> Handle(SendSmsVerificationCommand request, CancellationToken cancellationToken)
         {
             var doesUserExist = await _context.User
                 .AsNoTracking()

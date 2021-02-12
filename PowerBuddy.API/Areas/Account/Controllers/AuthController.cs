@@ -14,7 +14,7 @@ using PowerBuddy.App.Commands.Emails;
 using PowerBuddy.App.Queries.Authentication;
 using PowerBuddy.App.Queries.Authentication.Models;
 using PowerBuddy.App.Services.Authentication.Models;
-using PowerBuddy.Data.Dtos.Users;
+using PowerBuddy.Data.Requests.Users;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
 {
@@ -71,7 +71,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto userDto)
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserRequest userDto)
         {
 
             var authResultOneOf = await _mediator.Send(new RegisterUserCommand(userDto));
@@ -117,26 +117,14 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                     BadRequest(Errors.Create(nameof(InvalidRefreshToken), InvalidRefreshToken.Message)));
         }
 
-        [HttpPost("ResetPassword/Token/{userId}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> ResetPasswordViaEmail(string userId, [FromBody] ChangePasswordInputDto changePasswordInputDto)
-        {
-            var result = await _mediator.Send(new ResetPasswordCommand(userId, changePasswordInputDto));
-
-            return result.Match<IActionResult>(
-                Result => Ok(Result),
-                UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
-        }
-
         [HttpPut("UpdatePassword")]
         [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordInputGuiDto changePasswordInputDto)
+        public async Task<IActionResult> UpdatePassword([FromBody] ChangePasswordRequest changePasswordRequest)
         {
-            var result = await _mediator.Send(new UpdatePasswordCommand(changePasswordInputDto, _userId));
+            var result = await _mediator.Send(new UpdatePasswordCommand(changePasswordRequest, _userId));
 
             return result.Match<IActionResult>(
                 Result => Ok(Result),
@@ -144,37 +132,38 @@ namespace PowerBuddy.API.Areas.Account.Controllers
                 InvalidCredentials => BadRequest(Errors.Create(nameof(InvalidCredentials))));
         }
 
-        [HttpPost("VerifyEmail/{userId}")]
+        [HttpPost("Email/Accept/ResetPassword/Token/{userId}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> VerifyEmail(string userId, [FromBody] ChangePasswordInputDto token)
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ResetPasswordViaEmail(string userId, [FromBody] ResetPasswordTokenRequest resetPasswordTokenRequest)
         {
-            var result = await _mediator.Send(new VerifyEmailCommand(userId, token.Token));
+	        var result = await _mediator.Send(new ResetPasswordViaEmailCommand(resetPasswordTokenRequest, userId));
+
+	        return result.Match<IActionResult>(
+		        Result => Ok(Result),
+		        UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))));
+        }
+
+        [HttpPost("Email/Accept/ConfirmEmail/{userId}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> VerifyEmail(string userId, [FromBody] ResetPasswordTokenRequest token)
+        {
+            var result = await _mediator.Send(new AcceptEmailConfirmationCommand(userId, token.Token));
 
             return result.Match<IActionResult>(
                 Result => Ok(Result),
                 UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
         }
 
-        [HttpPost("Sms/RequestVerification")]
+        [HttpPost("Sms/Accept/ConfirmSms")]
         [Authorize]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RequestSmsVerification([FromBody] PhoneNumberInputDto phoneNumber)
+        public async Task<IActionResult> AcceptSmsVerification([FromBody] PhoneNumberCodeInputDto input)
         {
-            var result = await _mediator.Send(new RequestSmsVerificationCommand(phoneNumber.PhoneNumber, _userId));
-
-            return result.Match<IActionResult>(Ok,
-                UserNotFound => NotFound(Errors.Create(nameof(UserNotFound))));
-        }
-
-        [HttpPost("Sms/SendVerification")]
-        [Authorize]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SendSmsVerification([FromBody] PhoneNumberCodeInputDto input)
-        {
-            var result = await _mediator.Send(new SendSmsVerificationCommand(input.PhoneNumber, input.Code, _userId));
+            var result = await _mediator.Send(new AcceptSmsVerificationCommand(input.PhoneNumber, input.Code, _userId));
 
             return result.Match<IActionResult>(
                 Result => Ok(Result),

@@ -11,13 +11,13 @@ using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
-    public class SendSmsVerificationCommand : IRequest<OneOf<bool, UserNotFound>>
+    public class AcceptSmsVerificationCommand : IRequest<OneOf<bool, UserNotFound>>
     {
         public string PhoneNumber { get; }
         public string Code { get; }
         public string UserId { get; }
 
-        public SendSmsVerificationCommand(string phoneNumber, string code, string userId)
+        public AcceptSmsVerificationCommand(string phoneNumber, string code, string userId)
         {
             PhoneNumber = phoneNumber;
             Code = code;
@@ -25,9 +25,9 @@ namespace PowerBuddy.App.Commands.Authentication
         }
     }
 
-    public class SendSmsVerificationCommandValidator : AbstractValidator<SendSmsVerificationCommand>
+    public class AcceptSmsVerificationCommandValidator : AbstractValidator<AcceptSmsVerificationCommand>
     {
-        public SendSmsVerificationCommandValidator()
+        public AcceptSmsVerificationCommandValidator()
         {
             RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
             RuleFor(x => x.Code).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
@@ -35,18 +35,18 @@ namespace PowerBuddy.App.Commands.Authentication
         }
     }
 
-    public class SendSmsVerificationCommandHandler : IRequestHandler<SendSmsVerificationCommand, OneOf<bool, UserNotFound>>
+    public class AcceptSmsVerificationCommandHandler : IRequestHandler<AcceptSmsVerificationCommand, OneOf<bool, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly ISmsClient _smsClient;
 
-        public SendSmsVerificationCommandHandler(PowerLiftingContext context, ISmsClient smsClient)
+        public AcceptSmsVerificationCommandHandler(PowerLiftingContext context, ISmsClient smsClient)
         {
             _context = context;
             _smsClient = smsClient;
         }
 
-        public async Task<OneOf<bool, UserNotFound>> Handle(SendSmsVerificationCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, UserNotFound>> Handle(AcceptSmsVerificationCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.User.FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken: cancellationToken);
 

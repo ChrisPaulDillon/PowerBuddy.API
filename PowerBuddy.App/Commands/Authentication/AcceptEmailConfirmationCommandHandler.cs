@@ -13,39 +13,39 @@ using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.Authentication
 {
-    public class VerifyEmailCommand : IRequest<OneOf<bool, UserNotFound>>
+    public class AcceptEmailConfirmationCommand : IRequest<OneOf<bool, UserNotFound>>
     {
         public string UserId { get; }
         public string Token { get; }
 
-        public VerifyEmailCommand(string userId, string token)
+        public AcceptEmailConfirmationCommand(string userId, string token)
         {
             UserId = userId;
             Token = token;
         }
     }
 
-    public class VerifyEmailCommandValidator : AbstractValidator<VerifyEmailCommand>
+    public class AcceptEmailCommandValidator : AbstractValidator<AcceptEmailConfirmationCommand>
     {
-        public VerifyEmailCommandValidator()
+        public AcceptEmailCommandValidator()
         {
             RuleFor(x => x.Token).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
             RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
         }
     }
 
-    public class VerifyEmailCommandHandler : IRequestHandler<VerifyEmailCommand, OneOf<bool, UserNotFound>>
+    public class AcceptEmailConfirmationCommandHandler : IRequestHandler<AcceptEmailConfirmationCommand, OneOf<bool, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly UserManager<User> _userManager;
 
-        public VerifyEmailCommandHandler(PowerLiftingContext context, UserManager<User> userManager)
+        public AcceptEmailConfirmationCommandHandler(PowerLiftingContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        public async Task<OneOf<bool, UserNotFound>> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, UserNotFound>> Handle(AcceptEmailConfirmationCommand request, CancellationToken cancellationToken)
         {
             var user = await _context.User
                 .Where(x => x.Id == request.UserId)
@@ -58,12 +58,7 @@ namespace PowerBuddy.App.Commands.Authentication
 
             var result = await _userManager.ConfirmEmailAsync(user, request.Token);
 
-            if (result.Succeeded)
-            {
-                return true;
-            }
-
-            return false;
+            return result.Succeeded;
         }
     }
 }

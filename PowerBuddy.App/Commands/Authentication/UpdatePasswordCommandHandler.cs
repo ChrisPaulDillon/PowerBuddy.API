@@ -16,10 +16,10 @@ namespace PowerBuddy.App.Commands.Authentication
 {
     public class UpdatePasswordCommand : IRequest<OneOf<bool, UserNotFound, InvalidCredentials>>
     {
-        public ChangePasswordInputGuiDto ChangePasswordInput { get; }
+        public ChangePasswordRequest ChangePasswordInput { get; }
         public string UserId { get; }
 
-        public UpdatePasswordCommand(ChangePasswordInputGuiDto changePasswordInput, string userId)
+        public UpdatePasswordCommand(ChangePasswordRequest changePasswordInput, string userId)
         {
             ChangePasswordInput = changePasswordInput;
             UserId = userId;
