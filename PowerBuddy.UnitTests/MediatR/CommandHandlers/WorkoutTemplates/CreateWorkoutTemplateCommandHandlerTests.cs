@@ -7,7 +7,7 @@ using PowerBuddy.App.Commands.WorkoutTemplates;
 using PowerBuddy.Data.Builders.Dtos.Workouts;
 using PowerBuddy.Data.Builders.Entities.Workouts;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Entities;
+using PowerBuddy.Data.DTOs.WorkoutTemplates;
 using PowerBuddy.Data.Models.Workouts;
 using PowerBuddy.UnitTests.TestUtils;
 using Xunit;
@@ -95,7 +95,7 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
 
             var workoutTemplateResult = result.AsT0;
 
-            Assert.IsType<WorkoutTemplate>(workoutTemplateResult);
+            Assert.IsType<WorkoutTemplateDto>(workoutTemplateResult);
             Assert.Equal(workoutTemplateDto.UserId, workoutTemplateResult.UserId);
             Assert.Equal(workoutTemplateDto.DateCreated, workoutTemplateResult.DateCreated);
             Assert.Equal(workoutTemplateDto.WorkoutName, workoutTemplateResult.WorkoutName);
@@ -117,7 +117,7 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
 
             var workoutTemplateResult = result.AsT0;
 
-            Assert.IsType<WorkoutTemplate>(workoutTemplateResult);
+            Assert.IsType<WorkoutTemplateDto>(workoutTemplateResult);
             Assert.Equal(templateWorkout.UserId, workoutTemplateResult.UserId);
             Assert.Equal(templateWorkout.DateCreated, workoutTemplateResult.DateCreated);
             Assert.Equal(templateWorkout.WorkoutName, workoutTemplateResult.WorkoutName);

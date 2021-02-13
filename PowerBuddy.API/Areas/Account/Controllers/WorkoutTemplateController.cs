@@ -7,7 +7,6 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.WorkoutTemplates;
 using PowerBuddy.App.Services.Weights;
-using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.DTOs.WorkoutTemplates;
 
 namespace PowerBuddy.API.Areas.Account.Controllers
@@ -31,7 +30,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(WorkoutTemplateDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateWorkoutTemplate(WorkoutTemplateDto workoutTemplate)
         {

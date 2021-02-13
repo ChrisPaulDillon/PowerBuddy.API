@@ -15,7 +15,7 @@ using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.WorkoutTemplates
 {
-    public class CreateWorkoutTemplateCommand : IRequest<OneOf<WorkoutTemplate, WorkoutNameAlreadyExists>>
+    public class CreateWorkoutTemplateCommand : IRequest<OneOf<WorkoutTemplateDto, WorkoutNameAlreadyExists>>
     {
         public WorkoutTemplateDto WorkoutTemplateDto { get; }
         public string UserId { get; }
@@ -40,7 +40,7 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
         }
     }
 
-    public class CreateWorkoutTemplateCommandHandler : IRequestHandler<CreateWorkoutTemplateCommand, OneOf<WorkoutTemplate, WorkoutNameAlreadyExists>>
+    public class CreateWorkoutTemplateCommandHandler : IRequestHandler<CreateWorkoutTemplateCommand, OneOf<WorkoutTemplateDto, WorkoutNameAlreadyExists>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -51,7 +51,7 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
             _mapper = mapper;
         }
 
-        public async Task<OneOf<WorkoutTemplate, WorkoutNameAlreadyExists>> Handle(CreateWorkoutTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<WorkoutTemplateDto, WorkoutNameAlreadyExists>> Handle(CreateWorkoutTemplateCommand request, CancellationToken cancellationToken)
         {
             var doesNameExist = await _context.WorkoutTemplate
                 .AsNoTracking()
@@ -68,7 +68,7 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
             await _context.WorkoutTemplate.AddAsync(workoutTemplate, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return workoutTemplate;
+            return _mapper.Map<WorkoutTemplateDto>(workoutTemplate);
         }
     }
 }

@@ -7,10 +7,6 @@ namespace PowerBuddy.App.Extensions.Validators
 {
     public class WorkoutTemplateExerciseCollectionValidator : PropertyValidator
     {
-        public WorkoutTemplateExerciseCollectionValidator()
-        {
-        }
-
         protected override string GetDefaultMessageTemplate()
         {
             return "{PropertyValue} must have at least one set for each exercise";
