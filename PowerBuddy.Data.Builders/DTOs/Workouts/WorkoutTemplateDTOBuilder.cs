@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PowerBuddy.Data.Dtos.Workouts;
+using PowerBuddy.Data.DTOs.WorkoutTemplates;
 
 namespace PowerBuddy.Data.Builders.Dtos.Workouts
 {

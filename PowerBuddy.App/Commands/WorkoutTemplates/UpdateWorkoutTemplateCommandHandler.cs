@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Extensions.Validators;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
+using PowerBuddy.Data.DTOs.WorkoutTemplates;
 using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.WorkoutTemplates

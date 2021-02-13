@@ -9,6 +9,7 @@ using OneOf;
 using PowerBuddy.App.Extensions.Validators;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
+using PowerBuddy.Data.DTOs.WorkoutTemplates;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Workouts;
 using PowerBuddy.Util;

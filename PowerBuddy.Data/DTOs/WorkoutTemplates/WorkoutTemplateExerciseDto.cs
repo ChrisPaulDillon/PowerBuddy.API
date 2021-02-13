@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using PowerBuddy.Data.Dtos.Workouts;
 
-namespace PowerBuddy.Data.DTOs.Workouts
+namespace PowerBuddy.Data.DTOs.WorkoutTemplates
 {
     public class WorkoutTemplateExerciseDTO
     {
@@ -10,6 +9,7 @@ namespace PowerBuddy.Data.DTOs.Workouts
         public int ExerciseId { get; set; }
         public string ExerciseName { get; set; }
         public int NoOfSets { get; set; }
-        public virtual IEnumerable<WorkoutSetDto> WorkoutSets { get; set; }
+        public string Comment { get; set; }
+        public virtual IEnumerable<WorkoutTemplateSetDto> WorkoutSets { get; set; }
     }
 }

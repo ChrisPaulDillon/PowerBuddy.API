@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MediatR\Queries\**" />
+    <EmbeddedResource Remove="MediatR\Queries\**" />
+    <None Remove="MediatR\Queries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
@@ -33,10 +39,6 @@
     <ProjectReference Include="..\PowerBuddy.SignalR\PowerBuddy.SignalR.csproj" />
     <ProjectReference Include="..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj" />
     <ProjectReference Include="..\PowerBuddy.Util\PowerBuddy.Util.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MediatR\Queries\" />
   </ItemGroup>
 
 </Project>
