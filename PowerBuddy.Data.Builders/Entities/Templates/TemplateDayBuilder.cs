@@ -14,7 +14,8 @@ namespace PowerBuddy.Data.Builders.Templates
             _templateDay = new TemplateDay()
             {
                 TemplateDayId = _random.Next(),
-                TemplateWeekId = _random.Next(),
+                TemplateProgramId = _random.Next(),
+                WeekNo = _random.Next(),
                 DayNo = _random.Next(),
             };
         }
@@ -30,9 +31,15 @@ namespace PowerBuddy.Data.Builders.Templates
             return this;
         }
 
-        public TemplateDayBuilder WithTemplateWeekId(int templateWeekId)
+        public TemplateDayBuilder WithTemplateProgramId(int templateProgramId)
         {
-            _templateDay.TemplateWeekId = templateWeekId;
+            _templateDay.TemplateProgramId = templateProgramId;
+            return this;
+        }
+
+        public TemplateDayBuilder WithWeekNo(int weekNo)
+        {
+            _templateDay.WeekNo = weekNo;
             return this;
         }
 

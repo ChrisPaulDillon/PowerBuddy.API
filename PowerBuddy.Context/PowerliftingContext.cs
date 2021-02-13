@@ -34,7 +34,6 @@ namespace PowerBuddy.Data.Context
         public DbSet<LiftingStatAudit> LiftingStatAudit { get; set; }
         public DbSet<TemplateProgram> TemplateProgram { get; set; }
         public DbSet<TemplateProgramAudit> TemplateProgramAudit { get; set; }
-        public DbSet<TemplateWeek> TemplateWeek { get; set; }
         public DbSet<TemplateDay> TemplateDay { get; set; }
         public DbSet<TemplateExercise> TemplateExercise { get; set; }
         public DbSet<TemplateRepScheme> TemplateRepScheme { get; set; }
@@ -94,7 +93,6 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<LiftingStatAudit>().ToTable("LiftingStatAudit");
 
             modelBuilder.Entity<TemplateProgram>().ToTable("TemplateProgram");
-            modelBuilder.Entity<TemplateWeek>().ToTable("TemplateWeek");
             modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");

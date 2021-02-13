@@ -28,7 +28,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.TemplateType, opt => opt.MapFrom<string>(src => src.TemplateType))
                 .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom<string>(src => src.WeightProgressionType))
                 .ForMember(dest => dest.ActiveUsersCount, opt => opt.MapFrom(src => src.ActiveUsersCount))
-                .ForMember(dest => dest.TemplateWeeks, opt => opt.MapFrom(src => src.TemplateWeeks.OrderBy<TemplateWeek, int>(x => x.WeekNo)))
+                .ForMember(dest => dest.TemplateDays, opt => opt.MapFrom(src => src.TemplateDays.OrderBy(x => x.WeekNo)))
                 .ForMember(dest => dest.TemplateExerciseCollection, opt => opt.MapFrom(src => src.TemplateExerciseCollection));
 
             CreateMap<TemplateExerciseCollection, TemplateExerciseCollectionDto>()
@@ -43,16 +43,10 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember<int>(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
                 .ForMember(dest => dest.Exercise, opt => opt.Ignore());
 
-            CreateMap<TemplateWeek, TemplateWeekDto>()
-                .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom<int>(src => src.TemplateWeekId))
-                .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom<int>(src => src.TemplateProgramId))
-                .ForMember(dest => dest.WeekNo, opt => opt.MapFrom<int>(src => src.WeekNo))
-                .ForMember(dest => dest.TemplateDays, opt => opt.MapFrom(src => src.TemplateDays.OrderBy(x => x.DayNo)))
-                .ReverseMap();
-
             CreateMap<TemplateDay, TemplateDayDto>()
                 .ForMember(dest => dest.TemplateDayId, opt => opt.MapFrom<int>(src => src.TemplateDayId))
-                .ForMember(dest => dest.TemplateWeekId, opt => opt.MapFrom<int>(src => src.TemplateWeekId))
+                .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom<int>(src => src.TemplateProgramId))
+                .ForMember(dest => dest.WeekNo, opt => opt.MapFrom<int>(src => src.WeekNo))
                 .ForMember(dest => dest.DayNo, opt => opt.MapFrom<int>(src => src.DayNo))
                 .ForMember(dest => dest.TemplateExercises, opt => opt.MapFrom(src => src.TemplateExercises))
                 .ReverseMap();
