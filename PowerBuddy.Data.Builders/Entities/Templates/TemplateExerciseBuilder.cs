@@ -17,7 +17,6 @@ namespace PowerBuddy.Data.Builders.Templates
                 TemplateDayId = _random.Next(),
                 ExerciseId = _random.Next(),
                 RepSchemeFormat = _random.Next().ToString(),
-                RepSchemeType = _random.Next().ToString(),
                 HasBackOffSets = false,
                 BackOffSetFormat = _random.Next().ToString()
             };
@@ -48,12 +47,6 @@ namespace PowerBuddy.Data.Builders.Templates
         public TemplateExerciseBuilder WithRepSchemeFormat(string format)
         {
             _templateExercise.RepSchemeFormat = format;
-            return this;
-        }
-
-        public TemplateExerciseBuilder WithRepSchemeType(string type)
-        {
-            _templateExercise.RepSchemeType = type;
             return this;
         }
 

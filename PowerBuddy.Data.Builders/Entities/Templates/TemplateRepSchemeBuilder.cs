@@ -17,7 +17,6 @@ namespace PowerBuddy.Data.Builders.Templates
                 TemplateExerciseId = _random.Next(),
                 Percentage = _random.Next(),
                 SetNo = _random.Next(),
-                WeightLifted = _random.Next(),
                 IsBackOffSet = false,
                 AMRAP = false,
                 NoOfReps = _random.Next()
@@ -50,12 +49,6 @@ namespace PowerBuddy.Data.Builders.Templates
         public TemplateRepSchemeBuilder WithSetNo(int setNo)
         {
             _templateRepScheme.SetNo = setNo;
-            return this;
-        }
-
-        public TemplateRepSchemeBuilder WithWeightLifted(decimal weight)
-        {
-            _templateRepScheme.WeightLifted = weight;
             return this;
         }
 

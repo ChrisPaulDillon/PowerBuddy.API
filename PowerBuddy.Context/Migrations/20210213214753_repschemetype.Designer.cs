@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBuddy.Data.Context;
 
 namespace PowerBuddy.Data.Context.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20210213214753_repschemetype")]
+    partial class repschemetype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -435,6 +437,9 @@ namespace PowerBuddy.Data.Context.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("RepSchemeFormat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RepSchemeType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TemplateDayId")

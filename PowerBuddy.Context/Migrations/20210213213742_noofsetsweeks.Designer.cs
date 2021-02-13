@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBuddy.Data.Context;
 
 namespace PowerBuddy.Data.Context.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20210213213742_noofsetsweeks")]
+    partial class noofsetsweeks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -437,6 +439,9 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.Property<string>("RepSchemeFormat")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RepSchemeType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TemplateDayId")
                         .HasColumnType("int");
 
@@ -554,6 +559,9 @@ namespace PowerBuddy.Data.Context.Migrations
 
                     b.Property<int>("TemplateExerciseId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("WeightLifted")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("TemplateRepSchemeId");
 

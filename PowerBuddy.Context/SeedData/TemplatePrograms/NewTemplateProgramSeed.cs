@@ -44,7 +44,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x5, 4x4", TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
@@ -59,7 +59,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 4x3", TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
@@ -82,7 +82,6 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadliftToKnee,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                 RepSchemeFormat = "1x3, 1x3, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -98,7 +97,6 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadliftFromBoxes,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
                                 RepSchemeFormat = "1x3, 1x3, 1x3, 3x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -120,7 +118,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 4x3", TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
@@ -136,7 +134,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -160,7 +158,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -176,7 +174,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 5x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -200,7 +198,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadliftToKnee,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x3, 1x3, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -216,7 +214,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x6, 1x6, 4x6",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -231,7 +229,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadliftFromBoxes,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x4, 1x4, 4x4",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -254,7 +252,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x5, 4x4",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -269,7 +267,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = benchCloseGrip,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x3, 1x3, 4x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -291,7 +289,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 4x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -307,7 +305,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 5x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -331,7 +329,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deficitDeadlift,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x3, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -346,7 +344,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 2x3, 3x2", TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
@@ -363,7 +361,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadliftFromBoxes,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x3, 1x3, 2x3 3x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -387,7 +385,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -403,7 +401,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = declineBench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x4, 1x4, 4x4",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -425,7 +423,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 2x2, 3x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -442,7 +440,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 5x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -466,7 +464,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x5, 1x4, 1x3, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -483,7 +481,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadliftPaused,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x2, 1x2, 2x2, 3x1",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -507,7 +505,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped), 
+                                 
                                 RepSchemeFormat = "1x5, 1x4, 4x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
@@ -522,7 +520,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
+                                
                                 RepSchemeFormat = "1x4, 1x4, 4x4",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
