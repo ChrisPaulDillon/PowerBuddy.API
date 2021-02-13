@@ -7,6 +7,7 @@ using PowerBuddy.App.Commands.WorkoutTemplates;
 using PowerBuddy.Data.Builders.Dtos.Workouts;
 using PowerBuddy.Data.Builders.Entities.Workouts;
 using PowerBuddy.Data.Context;
+using PowerBuddy.UnitTests.TestUtils;
 using Xunit;
 
 namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
@@ -22,7 +23,7 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
         public UpdateWorkoutTemplateCommandHandlerTests()
         {
             var options = new DbContextOptionsBuilder<PowerLiftingContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            _mapper = new MapperConfiguration(cfg => cfg.AddMaps("PowerBuddy.Data")).CreateMapper();
+            _mapper = new MapperConfiguration(cfg => cfg.AddMaps(TestConstants.MAPPER_ASSEMBLY)).CreateMapper();
             _context = new PowerLiftingContext(options);
             _handler = new UpdateWorkoutTemplateCommandHandler(_context, _mapper);
             _random = new Random();

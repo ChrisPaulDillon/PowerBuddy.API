@@ -7,6 +7,7 @@ using PowerBuddy.App.Services.Weights.Util;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Dtos.Workouts;
+using PowerBuddy.Data.DTOs.WorkoutTemplates;
 
 namespace PowerBuddy.App.Services.Weights
 {
@@ -82,6 +83,25 @@ namespace PowerBuddy.App.Services.Weights
             }
 
             return WeightInsertResponse<IEnumerable<WorkoutExerciseDto>>.NotMetric(workoutExercises);
+        }
+
+        public async Task<WeightInsertResponse<IEnumerable<WorkoutTemplateExerciseDto>>> ConvertWorkoutTemplateExerciseWeightsToDbSuitable(string userId, IEnumerable<WorkoutTemplateExerciseDto> workoutExercises)
+        {
+            var isMetric = await IsUserUsingMetric(userId);
+            if (isMetric)
+            {
+                return WeightInsertResponse<IEnumerable<WorkoutTemplateExerciseDto>>.UsingMetric(workoutExercises);
+            }
+
+            foreach (var workoutExercise in workoutExercises)
+            {
+                foreach (var workoutSet in workoutExercise.WorkoutSets)
+                {
+                    workoutSet.WeightLifted = WeightConversionHelper.ConvertWeightToKiloInsert(workoutSet.WeightLifted);
+                }
+            }
+
+            return WeightInsertResponse<IEnumerable<WorkoutTemplateExerciseDto>>.NotMetric(workoutExercises);
         }
 
         public async Task<WeightInsertResponse<IEnumerable<WorkoutSetDto>>> ConvertWeightSetsToDbSuitable(string userId, IEnumerable<WorkoutSetDto> workoutSets)

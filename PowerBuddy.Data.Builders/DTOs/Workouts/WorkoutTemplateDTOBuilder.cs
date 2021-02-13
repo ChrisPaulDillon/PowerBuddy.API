@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.DTOs.WorkoutTemplates;
 
 namespace PowerBuddy.Data.Builders.Dtos.Workouts
@@ -19,7 +18,7 @@ namespace PowerBuddy.Data.Builders.Dtos.Workouts
                 WorkoutName = _random.Next().ToString(),
                 DateCreated = DateTime.UtcNow,
                 UserId = _random.Next().ToString(),
-                WorkoutExercises = new List<WorkoutExerciseDto>()
+                WorkoutExercises = new List<WorkoutTemplateExerciseDto>()
             };
         }
 
@@ -52,7 +51,7 @@ namespace PowerBuddy.Data.Builders.Dtos.Workouts
             return this;
         }
 
-        public WorkoutTemplateDtoBuilder WithWorkoutExercises(IEnumerable<WorkoutExerciseDto> workoutExercises)
+        public WorkoutTemplateDtoBuilder WithWorkoutExercises(IEnumerable<WorkoutTemplateExerciseDto> workoutExercises)
         {
             _workoutTemplateDto.WorkoutExercises = workoutExercises;
             return this;

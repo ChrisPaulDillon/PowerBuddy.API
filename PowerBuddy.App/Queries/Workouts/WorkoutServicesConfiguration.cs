@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PowerBuddy.App.Queries.WorkoutDays;
+using PowerBuddy.App.Queries.WorkoutTemplates;
 
 namespace PowerBuddy.App.Queries.Workouts
 {
@@ -17,6 +18,7 @@ namespace PowerBuddy.App.Queries.Workouts
             // Workout Days
             services.AddMediatR(typeof(GetWorkoutDayByIdQueryHandler));
             services.AddMediatR(typeof(GetWorkoutDayIdByDateQueryHandler));
+            services.AddMediatR(typeof(GetAllUserWorkoutTemplatesQueryHandler));
 
             // Misc
             return services;

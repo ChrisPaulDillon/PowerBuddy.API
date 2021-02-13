@@ -35,7 +35,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateWorkoutTemplate(WorkoutTemplateDto workoutTemplate)
         {
-            var convertedWorkoutExercises = await _weightInsertService.ConvertWorkoutExerciseWeightsToDbSuitable(_userId, workoutTemplate.WorkoutExercises);
+            var convertedWorkoutExercises = await _weightInsertService.ConvertWorkoutTemplateExerciseWeightsToDbSuitable(_userId, workoutTemplate.WorkoutExercises);
             workoutTemplate.WorkoutExercises = convertedWorkoutExercises.Data;
 
             var result = await _mediator.Send(new CreateWorkoutTemplateCommand(workoutTemplate, _userId));
@@ -50,7 +50,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateWorkoutTemplate(WorkoutTemplateDto workoutTemplate)
         {
-            var convertedWorkoutExercises = await _weightInsertService.ConvertWorkoutExerciseWeightsToDbSuitable(_userId, workoutTemplate.WorkoutExercises);
+            var convertedWorkoutExercises = await _weightInsertService.ConvertWorkoutTemplateExerciseWeightsToDbSuitable(_userId, workoutTemplate.WorkoutExercises);
             workoutTemplate.WorkoutExercises = convertedWorkoutExercises.Data;
 
             var result = await _mediator.Send(new UpdateWorkoutTemplateCommand(workoutTemplate, _userId));

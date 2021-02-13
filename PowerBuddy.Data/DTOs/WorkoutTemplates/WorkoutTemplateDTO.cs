@@ -8,7 +8,7 @@ namespace PowerBuddy.Data.DTOs.WorkoutTemplates
         public int WorkoutTemplateId { get; set; }
         public string WorkoutName { get; set; }
         public DateTime DateCreated { get; set; }
-        public IEnumerable<WorkoutTemplateExerciseDTO> WorkoutExercises { get; set; }
+        public IEnumerable<WorkoutTemplateExerciseDto> WorkoutExercises { get; set; }
         public string UserId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using PowerBuddy.App.Commands.WorkoutTemplates;
 using PowerBuddy.Data.Builders.Dtos.Workouts;
 using PowerBuddy.Data.Dtos.Workouts;
+using PowerBuddy.Data.DTOs.WorkoutTemplates;
 using Xunit;
 
 namespace PowerBuddy.UnitTests.MediatR.Validators.Commands.WorkoutTemplates
@@ -22,11 +23,11 @@ namespace PowerBuddy.UnitTests.MediatR.Validators.Commands.WorkoutTemplates
         [Fact]
         public void UpdateNew_ValidParameters_Passes()
         {
-            var workoutTemplate = new WorkoutTemplateDtoBuilder().WithWorkoutExercises(new List<WorkoutExerciseDto>() 
+            var workoutTemplate = new WorkoutTemplateDtoBuilder().WithWorkoutExercises(new List<WorkoutTemplateExerciseDto>() 
                 {
-                    new WorkoutExerciseDto() { WorkoutSets = new List<WorkoutSetDto>()
+                    new WorkoutTemplateExerciseDto() { WorkoutSets = new List<WorkoutTemplateSetDto>()
                     {
-                        new WorkoutSetDto()
+                        new WorkoutTemplateSetDto()
                     }}
                 })
                 .Build();
@@ -84,7 +85,7 @@ namespace PowerBuddy.UnitTests.MediatR.Validators.Commands.WorkoutTemplates
         [Fact]
         public void UpdateNew_WorkoutExercisesHasNoSets_ReturnsValidationErrors()
         {
-            var workoutTemplate = new WorkoutTemplateDtoBuilder().WithWorkoutExercises(new List<WorkoutExerciseDto>() { new WorkoutExerciseDto()}).Build();
+            var workoutTemplate = new WorkoutTemplateDtoBuilder().WithWorkoutExercises(new List<WorkoutTemplateExerciseDto>() { new WorkoutTemplateExerciseDto()}).Build();
             var result = _validator.Validate(new UpdateWorkoutTemplateCommand(workoutTemplate, _random.Next().ToString()));
 
             Assert.True(result.Errors.Any());

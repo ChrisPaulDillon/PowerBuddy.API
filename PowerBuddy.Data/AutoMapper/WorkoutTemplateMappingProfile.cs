@@ -27,7 +27,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.WorkoutExercises, d => d.MapFrom(src => src.WorkoutExercises));
 
             //into Dto
-            CreateMap<WorkoutExercise, WorkoutTemplateExerciseDTO>()
+            CreateMap<WorkoutExercise, WorkoutTemplateExerciseDto>()
                 .ForMember<int>(x => x.WorkoutExerciseId, d => d.MapFrom(src => src.WorkoutExerciseId))
                 .ForMember<int>(x => x.WorkoutTemplateId, d => d.MapFrom(src => src.WorkoutTemplateId))
                 .ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))
@@ -35,7 +35,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.Comment, d => d.MapFrom(src => src.Comment));
 
             //into entity
-            CreateMap<WorkoutTemplateExerciseDTO, WorkoutExercise>()
+            CreateMap<WorkoutTemplateExerciseDto, WorkoutExercise>()
                 .ForMember<int>(x => x.WorkoutExerciseId, d => d.MapFrom(src => src.WorkoutExerciseId))
                 .ForMember<int>(x => (int) x.WorkoutTemplateId, d => d.MapFrom(src => src.WorkoutTemplateId))
                 .ForMember<int>(x => x.ExerciseId, d => d.MapFrom(src => src.ExerciseId))

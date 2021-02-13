@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentValidation;
 using PowerBuddy.Data.Dtos.Workouts;
+using PowerBuddy.Data.DTOs.WorkoutTemplates;
 
 namespace PowerBuddy.App.Extensions.Validators
 {
@@ -10,6 +11,12 @@ namespace PowerBuddy.App.Extensions.Validators
             this IRuleBuilder<T, IEnumerable<WorkoutExerciseDto>> ruleBuilder)
         {
             return ruleBuilder.SetValidator(new WorkoutExerciseCollectionValidator());
+        }
+
+        public static IRuleBuilderOptions<T, IEnumerable<WorkoutTemplateExerciseDto>> ValidWorkoutTemplateExerciseCollection<T>(
+            this IRuleBuilder<T, IEnumerable<WorkoutTemplateExerciseDto>> ruleBuilder)
+        {
+            return ruleBuilder.SetValidator(new WorkoutTemplateExerciseCollectionValidator());
         }
     }
 }

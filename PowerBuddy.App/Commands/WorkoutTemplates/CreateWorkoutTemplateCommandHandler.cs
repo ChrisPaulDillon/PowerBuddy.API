@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.App.Extensions.Validators;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.DTOs.WorkoutTemplates;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Workouts;
@@ -37,7 +36,7 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
             RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).NotNull().WithMessage(ValidationConstants.NOT_NULL);
             RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).Must(x => x == null || x.Any()).WithMessage("'{PropertyName}' must have at least one exercise");
             RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
-            RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).ValidWorkoutExerciseCollection();
+            RuleFor(x => x.WorkoutTemplateDto.WorkoutExercises).ValidWorkoutTemplateExerciseCollection();
         }
     }
 

@@ -2,7 +2,7 @@
 
 namespace PowerBuddy.Data.DTOs.WorkoutTemplates
 {
-    public class WorkoutTemplateExerciseDTO
+    public class WorkoutTemplateExerciseDto
     {
         public int WorkoutExerciseId { get; set; }
         public int WorkoutTemplateId { get; set; }

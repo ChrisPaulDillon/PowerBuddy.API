@@ -18,6 +18,7 @@ using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Factories;
 using PowerBuddy.Data.Models.Workouts;
+using PowerBuddy.UnitTests.TestUtils;
 using Xunit;
 
 namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutDays
@@ -38,7 +39,7 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutDays
 		public CompleteWorkoutCommandHandlerTests()
 		{
 			var options = new DbContextOptionsBuilder<PowerLiftingContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-			_mapper = new MapperConfiguration(cfg => cfg.AddMaps("PowerBuddy.Data")).CreateMapper();
+			_mapper = new MapperConfiguration(cfg => cfg.AddMaps(TestConstants.MAPPER_ASSEMBLY)).CreateMapper();
 			_context = new PowerLiftingContext(options);
 
 			_workoutService = new Mock<IWorkoutService>(MockBehavior.Strict);
