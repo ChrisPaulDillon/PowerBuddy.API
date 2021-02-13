@@ -41,7 +41,30 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
             return result.Match<IActionResult>(
                 Result => Ok(Result),
-                WorkoutNameAlreadyExists => NotFound(Errors.Create(nameof(WorkoutNameAlreadyExists))));
+                WorkoutNameAlreadyExists => BadRequest(Errors.Create(nameof(WorkoutNameAlreadyExists))));
+        }
+
+        [HttpPut]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateWorkoutTemplate(WorkoutTemplateDto workoutTemplate)
+        {
+            var convertedWorkoutExercises = await _weightInsertService.ConvertWorkoutExerciseWeightsToDbSuitable(_userId, workoutTemplate.WorkoutExercises);
+            workoutTemplate.WorkoutExercises = convertedWorkoutExercises.Data;
+
+            var result = await _mediator.Send(new UpdateWorkoutTemplateCommand(workoutTemplate, _userId));
+
+            return Ok(result);
+        }
+
+        [HttpDelete("{workoutTemplateId:int}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteWorkoutTemplate(int workoutTemplateId)
+        {
+            var result = await _mediator.Send(new DeleteWorkoutTemplateCommand(workoutTemplateId, _userId));
+
+            return Ok(result);
         }
     }
 }
