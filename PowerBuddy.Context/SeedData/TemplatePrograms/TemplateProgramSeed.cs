@@ -35,11 +35,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                     {
                                         new TemplateExercise
                                         {
-                                            ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            ExerciseId = squat, TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -50,11 +46,8 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         },
                                         new TemplateExercise
                                         {
-                                            ExerciseId = bench,
-                                            
-                                                
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            ExerciseId = bench, 
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -66,9 +59,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = row,
-                                            
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -86,7 +77,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -97,9 +88,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         },
                                         new TemplateExercise
                                         {
-                                            ExerciseId = overheadPress,
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            ExerciseId = overheadPress, TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -111,8 +100,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = deadlift,
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -130,10 +118,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -145,8 +130,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = bench,
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 3, NoOfReps = 5},
@@ -157,8 +141,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = row,
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                             TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 0, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -171,14 +154,12 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                 },
                         new TemplateDay()
                         {
-                            WeekNo = 2,
-                                    DayNo = 1, TemplateExercises = new List<TemplateExercise>
+                            WeekNo = 2, DayNo = 1, TemplateExercises = new List<TemplateExercise>
                                     {
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                             TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -190,8 +171,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = overheadPress,
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                             TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -203,8 +183,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = deadlift,
-                                            RepSchemeFormat = "1x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, NoOfReps = 5},
@@ -223,7 +202,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
@@ -237,7 +216,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                             ExerciseId = bench,
                                             
                                                 
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
@@ -250,7 +229,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = row,
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
@@ -270,7 +249,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            RepSchemeFormat = "1x5", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
@@ -285,7 +264,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                             ExerciseId = overheadPress,
                                             
                                                 
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
@@ -298,7 +277,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = deadlift,
-                                            RepSchemeFormat = "1x5", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5},
@@ -330,7 +309,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            RepSchemeFormat = "6x2", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
@@ -351,9 +330,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x3", TemplateRepSchemes =
+                                            TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 3},
@@ -374,10 +351,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x2", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 2},
@@ -397,10 +371,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x4", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 4},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 4},
@@ -420,9 +391,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x2", TemplateRepSchemes =
+                                            TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
@@ -443,10 +412,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 5},
@@ -467,10 +433,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x2", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 2},
@@ -490,10 +453,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x6", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 6},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 6},
@@ -513,10 +473,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x2", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 2},
@@ -537,10 +494,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "5x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 85, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 85, NoOfReps = 5},
@@ -559,10 +513,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x2", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 2},
@@ -582,10 +533,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "4x4", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 90, NoOfReps = 4},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 90, NoOfReps = 4},
@@ -603,9 +551,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x2", TemplateRepSchemes =
+                                            TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
@@ -626,9 +572,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "3x3", TemplateRepSchemes =
+                                            TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 95, NoOfReps = 3},
@@ -646,9 +590,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x2", TemplateRepSchemes =
+                                            TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
@@ -669,10 +611,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "2x2", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 100, NoOfReps = 2},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 100, NoOfReps = 2},
@@ -688,10 +627,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "6x2", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 2},
@@ -711,13 +647,10 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = squat,
-                                            
-                                                
-                                            RepSchemeFormat = "1x1", TemplateRepSchemes =
+                                            TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
-                                                    new TemplateRepScheme
-                                                        {SetNo = 1, Percentage = 105, NoOfReps = 1, AMRAP = true},
+                                                    new TemplateRepScheme {SetNo = 1, Percentage = 105, NoOfReps = 1, AMRAP = true},
                                                 }
                                         }
                                     }
@@ -741,10 +674,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = bench,
-                                            
-                                                
-                                            RepSchemeFormat = "6x6", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 6},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 70, NoOfReps = 6},
@@ -764,10 +694,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = bench,
-                                            
-                                                
-                                            RepSchemeFormat = "7x5", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -790,7 +717,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                             ExerciseId = bench,
                                             
                                                 
-                                            RepSchemeFormat = "8x4", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 4},
@@ -813,9 +740,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = bench,
-                                            
-                                                
-                                            RepSchemeFormat = "10x3", TemplateRepSchemes =
+                                            TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 85, NoOfReps = 3},
@@ -843,7 +768,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                             ExerciseId = bench,
                                             
                                                 
-                                            RepSchemeFormat = "6x6", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 72, NoOfReps = 6},
@@ -866,7 +791,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                             ExerciseId = bench,
                                             
                                                 
-                                            RepSchemeFormat = "7x5", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 77, NoOfReps = 5},
@@ -890,7 +815,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                             ExerciseId = bench,
                                             
                                                 
-                                            RepSchemeFormat = "8x4", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 82, NoOfReps = 4},
@@ -913,10 +838,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = bench,
-                                            
-                                                
-                                            RepSchemeFormat = "10x3", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 87, NoOfReps = 3},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 87, NoOfReps = 3},
@@ -936,24 +858,20 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                         new TemplateDay()
                         {
                             WeekNo = 3,
-                            DayNo = 1, TemplateExercises = new List<TemplateExercise>
-                                    {
+                            DayNo = 1, TemplateExercises = new List<TemplateExercise> {
                                         new TemplateExercise
                                         {
                                             ExerciseId = bench,
-                                            
-                                                
-                                            RepSchemeFormat = "6x6", TemplateRepSchemes =
-                                                new List<TemplateRepScheme>
-                                                {
+                                            TemplateRepSchemes = new List<TemplateRepScheme>
+                                            {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 74, NoOfReps = 6},
                                                     new TemplateRepScheme {SetNo = 2, Percentage = 74, NoOfReps = 6},
                                                     new TemplateRepScheme {SetNo = 3, Percentage = 74, NoOfReps = 6},
                                                     new TemplateRepScheme {SetNo = 4, Percentage = 74, NoOfReps = 6},
                                                     new TemplateRepScheme {SetNo = 5, Percentage = 74, NoOfReps = 6},
                                                     new TemplateRepScheme {SetNo = 6, Percentage = 74, NoOfReps = 6},
-                                                }
-                                        }
+                                                    }
+                                            }
                                     }
                                 },
                                 new TemplateDay
@@ -966,7 +884,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                             ExerciseId = bench,
                                             
                                                 
-                                            RepSchemeFormat = "7x5", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 77, NoOfReps = 5},
@@ -988,9 +906,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                         new TemplateExercise
                                         {
                                             ExerciseId = bench,
-                                            
-                                                
-                                            RepSchemeFormat = "8x4", TemplateRepSchemes =
+                                            TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 84, NoOfReps = 4},
@@ -1015,7 +931,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                                             ExerciseId = bench,
                                             
                                                 
-                                            RepSchemeFormat = "10x3", TemplateRepSchemes =
+                                             TemplateRepSchemes =
                                                 new List<TemplateRepScheme>
                                                 {
                                                     new TemplateRepScheme {SetNo = 1, Percentage = 89, NoOfReps = 3},
@@ -1063,7 +979,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1077,7 +993,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1091,7 +1007,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1113,7 +1029,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1127,7 +1043,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1141,7 +1057,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -1161,8 +1077,6 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "4x5, 1x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1175,8 +1089,6 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "4x5, 1x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1189,8 +1101,6 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = row,
-                                 
-                                RepSchemeFormat = "4x5, 1x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1212,8 +1122,6 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "5x5",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1226,8 +1134,6 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "5x5",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1240,8 +1146,6 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = row,
-                                 
-                                RepSchemeFormat = "5x5",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1262,8 +1166,6 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "5x5",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1276,8 +1178,6 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = press,
-                                 
-                                RepSchemeFormat = "5x5",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1291,7 +1191,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -1312,7 +1212,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1326,7 +1226,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1340,7 +1240,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1363,7 +1263,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1377,7 +1277,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1391,7 +1291,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1413,7 +1313,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1427,7 +1327,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1440,8 +1340,6 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "4x5",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -1462,7 +1360,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1476,7 +1374,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1490,7 +1388,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1513,7 +1411,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1527,7 +1425,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1541,7 +1439,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1563,7 +1461,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1577,7 +1475,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1591,7 +1489,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -1612,7 +1510,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1626,7 +1524,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1640,7 +1538,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -1662,7 +1560,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1676,7 +1574,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1690,7 +1588,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1712,7 +1610,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1726,7 +1624,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1740,7 +1638,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -1761,7 +1659,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1775,7 +1673,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1789,7 +1687,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1811,7 +1709,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1825,7 +1723,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1839,7 +1737,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1861,7 +1759,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1875,7 +1773,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1889,7 +1787,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 5},
@@ -1910,7 +1808,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1924,7 +1822,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1938,7 +1836,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -1961,7 +1859,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -1975,7 +1873,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -1989,7 +1887,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2011,7 +1909,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2025,7 +1923,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2039,7 +1937,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 5},
@@ -2060,7 +1958,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2074,7 +1972,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2088,7 +1986,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2110,7 +2008,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2124,7 +2022,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2138,7 +2036,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2160,7 +2058,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2174,7 +2072,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2188,7 +2086,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 5},
@@ -2209,7 +2107,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2223,7 +2121,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2237,7 +2135,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2259,7 +2157,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2273,7 +2171,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2287,7 +2185,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2309,7 +2207,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2323,7 +2221,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2337,7 +2235,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -2358,7 +2256,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2372,7 +2270,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2386,7 +2284,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2408,7 +2306,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2422,7 +2320,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2436,7 +2334,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2458,7 +2356,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2472,7 +2370,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2486,7 +2384,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -2507,7 +2405,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2521,7 +2419,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2535,7 +2433,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2557,7 +2455,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2571,7 +2469,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2585,7 +2483,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2607,7 +2505,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2621,7 +2519,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2635,7 +2533,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -2656,7 +2554,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2670,7 +2568,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2684,7 +2582,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -2706,7 +2604,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2720,7 +2618,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2734,7 +2632,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2756,7 +2654,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2770,7 +2668,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "5x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2784,7 +2682,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "4x5",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 5},
@@ -2805,7 +2703,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2819,7 +2717,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2833,7 +2731,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = row,
                                  
-                                RepSchemeFormat = "4x5, 1x3",
+                                
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2868,8 +2766,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x5", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2897,8 +2794,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "3x5", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2926,8 +2822,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "3x5", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -2956,8 +2851,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x3", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
@@ -2985,15 +2879,13 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "3x3", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 3, Percentage = 90, NoOfReps = 3, AMRAP = true},
-                                    new TemplateRepScheme
-                                        {SetNo = 4, Percentage = 50, NoOfReps = 10, IsBackOffSet = true},
+                                    new TemplateRepScheme {SetNo = 4, Percentage = 50, NoOfReps = 10, IsBackOffSet = true},
                                     new TemplateRepScheme
                                         {SetNo = 5, Percentage = 50, NoOfReps = 10, IsBackOffSet = true},
                                     new TemplateRepScheme
@@ -3014,23 +2906,17 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "3x3", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 3, Percentage = 90, NoOfReps = 3, AMRAP = true},
-                                    new TemplateRepScheme
-                                        {SetNo = 4, Percentage = 50, NoOfReps = 8, IsBackOffSet = true},
-                                    new TemplateRepScheme
-                                        {SetNo = 5, Percentage = 50, NoOfReps = 8, IsBackOffSet = true},
-                                    new TemplateRepScheme
-                                        {SetNo = 6, Percentage = 50, NoOfReps = 8, IsBackOffSet = true},
-                                    new TemplateRepScheme
-                                        {SetNo = 7, Percentage = 50, NoOfReps = 8, IsBackOffSet = true},
-                                    new TemplateRepScheme
-                                        {SetNo = 8, Percentage = 50, NoOfReps = 8, IsBackOffSet = true}
+                                    new TemplateRepScheme {SetNo = 4, Percentage = 50, NoOfReps = 8, IsBackOffSet = true},
+                                    new TemplateRepScheme {SetNo = 5, Percentage = 50, NoOfReps = 8, IsBackOffSet = true},
+                                    new TemplateRepScheme {SetNo = 6, Percentage = 50, NoOfReps = 8, IsBackOffSet = true},
+                                    new TemplateRepScheme {SetNo = 7, Percentage = 50, NoOfReps = 8, IsBackOffSet = true},
+                                    new TemplateRepScheme {SetNo = 8, Percentage = 50, NoOfReps = 8, IsBackOffSet = true}
                                 }
                             }
                         }
@@ -3044,8 +2930,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets = true,
+                                HasBackOffSets = true,
                                 BackOffSetFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -3074,7 +2959,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets = true,
+                                HasBackOffSets = true,
                                 BackOffSetFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -3103,7 +2988,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets = true,
+                                HasBackOffSets = true,
                                 BackOffSetFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -3134,7 +3019,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3153,7 +3038,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3172,7 +3057,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3206,7 +3091,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "3x5", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                 HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -3234,7 +3119,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "3x5", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                 HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -3262,7 +3147,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "3x5", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                 HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -3290,7 +3175,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "3x5", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                 HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
@@ -3320,7 +3205,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "3x3", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
@@ -3348,7 +3233,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "3x3", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
@@ -3376,7 +3261,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "3x3", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
@@ -3404,7 +3289,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "3x3", HasBackOffSets = true, BackOffSetFormat = "5x10",
+                                HasBackOffSets = true, BackOffSetFormat = "5x10",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
@@ -3433,7 +3318,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets = true,
+                                HasBackOffSets = true,
                                 BackOffSetFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -3461,7 +3346,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets = true,
+                                HasBackOffSets = true,
                                 BackOffSetFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -3489,7 +3374,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets = true,
+                                HasBackOffSets = true,
                                 BackOffSetFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -3516,8 +3401,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = press,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x1+", HasBackOffSets = true,
+                                HasBackOffSets = true,
                                 BackOffSetFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -3545,8 +3429,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3562,8 +3445,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3579,8 +3461,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = row,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3597,7 +3478,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3628,8 +3509,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -3645,8 +3525,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -3662,8 +3541,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -3680,8 +3558,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -3697,8 +3574,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -3714,8 +3590,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -3732,9 +3607,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes =
-                                    new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
                                         new TemplateRepScheme {SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -3750,9 +3623,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes =
-                                    new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
                                         new TemplateRepScheme {SetNo = 2, Percentage = 85, NoOfReps = 3},
@@ -3768,8 +3639,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes =
+                                TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -3787,8 +3657,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3804,8 +3673,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3821,8 +3689,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -3853,8 +3720,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -3870,8 +3736,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -3887,8 +3752,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -3905,7 +3769,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -3922,8 +3786,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -3940,7 +3803,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -3957,7 +3820,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -3974,7 +3837,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "3x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 3},
@@ -3993,7 +3856,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -4011,7 +3874,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -4029,7 +3892,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -4047,7 +3910,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
@@ -4065,8 +3928,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -4082,8 +3944,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -4099,8 +3960,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -4117,7 +3977,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -4148,8 +4008,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                
-                                RepSchemeFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 10},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 60, NoOfReps = 10},
@@ -4168,7 +4027,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                 
-                                RepSchemeFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 10},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 60, NoOfReps = 10},
@@ -4187,7 +4046,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                 
-                                RepSchemeFormat = "5x10", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 10},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 60, NoOfReps = 10},
@@ -4205,8 +4064,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 10},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 60, NoOfReps = 10},
@@ -4225,8 +4083,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "2x5, 3x10", TemplateRepSchemes =
+                                TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -4246,7 +4103,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "2x5, 3x10", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -4266,7 +4123,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "2x5, 3x10", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -4286,7 +4143,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "2x5, 3x10", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -4306,8 +4163,8 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x1, 1x1+", TemplateRepSchemes =
+                                
+                                TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -4326,7 +4183,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1, 1x1+", TemplateRepSchemes =
+                               TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -4345,7 +4202,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x1, 1x1+", TemplateRepSchemes =
+                               TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -4363,8 +4220,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x1, 1x1+", TemplateRepSchemes =
+                               TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
@@ -4383,8 +4239,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -4400,8 +4255,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -4417,8 +4271,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = press,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -4434,8 +4287,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 40, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 50, NoOfReps = 5},
@@ -4452,8 +4304,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                
-                                RepSchemeFormat = "5x8", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 8},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 8},
@@ -4471,8 +4322,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                
-                                RepSchemeFormat = "5x8", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 85, NoOfReps = 8},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 85, NoOfReps = 8},
@@ -4491,7 +4341,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                 
-                                RepSchemeFormat = "5x8", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 8},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 70, NoOfReps = 8},
@@ -4510,7 +4360,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                 
-                                RepSchemeFormat = "5x8", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 8},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 8},
@@ -4529,8 +4379,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "2x3, 3x8", TemplateRepSchemes =
+                                TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 3},
@@ -4550,7 +4399,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "2x3, 3x8", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 3},
@@ -4570,7 +4419,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "2x3, 3x8", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 3},
@@ -4589,8 +4438,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "2x3, 3x8", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 8},
@@ -4611,8 +4459,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1+", TemplateRepSchemes =
+                                TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -4631,9 +4478,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1+", TemplateRepSchemes =
-                                    new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 65, NoOfReps = 5},
                                         new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 3},
@@ -4651,9 +4496,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = press,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1+", TemplateRepSchemes =
-                                    new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
                                         new TemplateRepScheme {SetNo = 2, Percentage = 65, NoOfReps = 3},
@@ -4672,7 +4515,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1+", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
@@ -4694,7 +4537,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 60, NoOfReps = 5},
@@ -4711,7 +4554,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 65, NoOfReps = 5},
@@ -4728,7 +4571,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 45, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 55, NoOfReps = 5},
@@ -4745,7 +4588,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 45, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 55, NoOfReps = 5},
@@ -4763,8 +4606,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
-                                 
-                                RepSchemeFormat = "6x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 85, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 85, NoOfReps = 5},
@@ -4784,7 +4626,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                 
-                                RepSchemeFormat = "6x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 95, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 95, NoOfReps = 5},
@@ -4804,7 +4646,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                 
-                                RepSchemeFormat = "6x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 5},
@@ -4824,7 +4666,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                 
-                                RepSchemeFormat = "6x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 85, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 85, NoOfReps = 5},
@@ -4845,7 +4687,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "2x2, 4x5", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
@@ -4865,9 +4707,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "2x2, 4x5", TemplateRepSchemes =
-                                    new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 90, NoOfReps = 2},
                                         new TemplateRepScheme {SetNo = 2, Percentage = 100, NoOfReps = 2},
@@ -4886,9 +4726,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = press,
-                                 
-                                RepSchemeFormat = "2x2, 4x5", TemplateRepSchemes =
-                                    new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 2},
                                         new TemplateRepScheme {SetNo = 2, Percentage = 80, NoOfReps = 2},
@@ -4908,7 +4746,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                   
-                                RepSchemeFormat = "2x2, 4x5", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 80, NoOfReps = 2},
@@ -4930,7 +4768,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1, 1x1+", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -4951,7 +4789,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1, 1x1+", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 70, NoOfReps = 5},
@@ -4971,10 +4809,8 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = press,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1, 1x1+", TemplateRepSchemes =
-                                    new List<TemplateRepScheme>
-                                    {
+                                TemplateRepSchemes = new List<TemplateRepScheme>
+                                {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
                                         new TemplateRepScheme {SetNo = 2, Percentage = 70, NoOfReps = 3},
                                         new TemplateRepScheme {SetNo = 3, Percentage = 80, NoOfReps = 2},
@@ -4993,7 +4829,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1, 1x1+", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
@@ -5015,7 +4851,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 60, NoOfReps = 5},
@@ -5031,8 +4867,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 70, NoOfReps = 5},
@@ -5049,7 +4884,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 45, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 55, NoOfReps = 5},
@@ -5065,8 +4900,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = deadlift,
-                                 
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 60, NoOfReps = 5},
@@ -5084,7 +4918,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                 
-                                RepSchemeFormat = "7x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 95, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 95, NoOfReps = 3},
@@ -5105,8 +4939,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                
-                                RepSchemeFormat = "7x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 110, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 110, NoOfReps = 3},
@@ -5127,7 +4960,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                 
-                                RepSchemeFormat = "7x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 90, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 90, NoOfReps = 3},
@@ -5148,7 +4981,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                 
-                                RepSchemeFormat = "7x3", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 100, NoOfReps = 3},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 100, NoOfReps = 3},
@@ -5170,7 +5003,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "2x1, 5x3", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 90, NoOfReps = 1},
@@ -5191,10 +5024,8 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "2x1, 5x3", TemplateRepSchemes =
-                                    new List<TemplateRepScheme>
-                                    {
+                                TemplateRepSchemes = new List<TemplateRepScheme>
+                                {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 105, NoOfReps = 1},
                                         new TemplateRepScheme {SetNo = 2, Percentage = 115, NoOfReps = 1},
                                         new TemplateRepScheme {SetNo = 3, Percentage = 120, NoOfReps = 3},
@@ -5214,7 +5045,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "2x1, 5x3", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 85, NoOfReps = 1},
@@ -5236,7 +5067,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "2x1, 5x3", TemplateRepSchemes =
+                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 95, NoOfReps = 1},
@@ -5259,7 +5090,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1, 1x1, 1x1+",
+                                
                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
@@ -5281,10 +5112,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                 
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1, 1x1, 1x1+",
-                                TemplateRepSchemes =
-                                    new List<TemplateRepScheme>
+                                TemplateRepSchemes = new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, Percentage = 75, NoOfReps = 5},
                                         new TemplateRepScheme {SetNo = 2, Percentage = 90, NoOfReps = 3},
@@ -5305,7 +5133,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                   
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1, 1x1, 1x1+",
+                                
                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
@@ -5328,7 +5156,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "1x5, 1x3, 1x2, 1x1, 1x1, 1x1, 1x1+",
+                                
                                 TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
@@ -5352,7 +5180,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 65, NoOfReps = 5},
@@ -5369,7 +5197,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 60, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 75, NoOfReps = 5},
@@ -5386,7 +5214,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = press,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 50, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 60, NoOfReps = 5},
@@ -5403,7 +5231,7 @@ namespace PowerBuddy.Data.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadlift,
                                  
-                                RepSchemeFormat = "3x5", TemplateRepSchemes = new List<TemplateRepScheme>
+                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, Percentage = 55, NoOfReps = 5},
                                     new TemplateRepScheme {SetNo = 2, Percentage = 65, NoOfReps = 5},

@@ -58,7 +58,9 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.TemplateDayId, opt => opt.MapFrom<int>(src => src.TemplateDayId))
                 .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom<int>(src => src.ExerciseId))
                 .ForMember(dest => dest.NoOfSets, opt => opt.MapFrom<int>(src => src.TemplateRepSchemes.Count()))
-                .ForMember(dest => dest.RepSchemeFormat, opt => opt.MapFrom<string>(src => src.RepSchemeFormat))
+                .ForMember(dest => dest.RepSchemeFormat, opt => opt.MapFrom(mapExpression: src =>
+                    string.Join(", ", src.TemplateRepSchemes.OrderBy(x => x.Percentage).GroupBy(x => x.NoOfReps).Select(x => new string(x.Count().ToString() + "x" + x.Key.ToString())).ToList())
+                ))
                 .ForMember(dest => dest.RepSchemeType, opt => opt.MapFrom<string>(src => src.TemplateRepSchemes.GroupBy(o => o.Percentage).Count() == 1 ? "Fixed" : "Ramped"))
                 .ForMember(dest => dest.HasBackOffSets, opt => opt.MapFrom<bool>(src => src.HasBackOffSets))
                 .ForMember(dest => dest.BackOffSetFormat, opt => opt.MapFrom<string>(src => src.BackOffSetFormat))
