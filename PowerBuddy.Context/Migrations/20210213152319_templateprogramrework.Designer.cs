@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBuddy.Data.Context;
 
 namespace PowerBuddy.Data.Context.Migrations
 {
     [DbContext(typeof(PowerLiftingContext))]
-    partial class PowerLiftingContextModelSnapshot : ModelSnapshot
+    [Migration("20210213152319_templateprogramrework")]
+    partial class templateprogramrework
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,7 +122,9 @@ namespace PowerBuddy.Data.Context.Migrations
             modelBuilder.Entity("PowerBuddy.Data.Entities.Exercise", b =>
                 {
                     b.Property<int>("ExerciseId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("AdminApprover")
                         .HasColumnType("nvarchar(max)");
@@ -447,6 +451,8 @@ namespace PowerBuddy.Data.Context.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("TemplateExerciseId");
+
+                    b.HasIndex("ExerciseId");
 
                     b.HasIndex("TemplateDayId");
 
@@ -905,10 +911,6 @@ namespace PowerBuddy.Data.Context.Migrations
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.Exercise", b =>
                 {
-                    b.HasOne("PowerBuddy.Data.Entities.TemplateExercise", null)
-                        .WithOne("Exercise")
-                        .HasForeignKey("PowerBuddy.Data.Entities.Exercise", "ExerciseId");
-
                     b.HasOne("PowerBuddy.Data.Entities.ExerciseType", "ExerciseType")
                         .WithMany()
                         .HasForeignKey("ExerciseTypeId");
@@ -978,16 +980,25 @@ namespace PowerBuddy.Data.Context.Migrations
                     b.HasOne("PowerBuddy.Data.Entities.TemplateProgram", null)
                         .WithMany("TemplateDays")
                         .HasForeignKey("TemplateProgramId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateExercise", b =>
                 {
+                    b.HasOne("PowerBuddy.Data.Entities.Exercise", "Exercise")
+                        .WithMany()
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PowerBuddy.Data.Entities.TemplateDay", null)
                         .WithMany("TemplateExercises")
                         .HasForeignKey("TemplateDayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Exercise");
                 });
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateExerciseCollection", b =>
@@ -1143,8 +1154,6 @@ namespace PowerBuddy.Data.Context.Migrations
 
             modelBuilder.Entity("PowerBuddy.Data.Entities.TemplateExercise", b =>
                 {
-                    b.Navigation("Exercise");
-
                     b.Navigation("TemplateRepSchemes");
                 });
 

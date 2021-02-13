@@ -16,7 +16,6 @@ namespace PowerBuddy.Data.Builders.Templates
                 TemplateProgramId = _random.Next(),
                 Name = _random.Next().ToString(),
                 Difficulty = _random.Next().ToString(),
-                NoOfWeeks = _random.Next(),
                 NoOfDaysPerWeek = _random.Next(),
                 TemplateType = _random.Next().ToString(),
                 WeightProgressionType = _random.Next().ToString(),
@@ -42,12 +41,6 @@ namespace PowerBuddy.Data.Builders.Templates
         public TemplateProgramBuilder WithDifficulty(string difficulty)
         {
             _templateProgram.Difficulty = difficulty;
-            return this;
-        }
-
-        public TemplateProgramBuilder WithNoOfWeeks(int noOfWeeks)
-        {
-            _templateProgram.NoOfWeeks = noOfWeeks;
             return this;
         }
 

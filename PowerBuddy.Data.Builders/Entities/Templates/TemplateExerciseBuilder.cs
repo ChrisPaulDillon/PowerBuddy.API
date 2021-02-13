@@ -16,7 +16,6 @@ namespace PowerBuddy.Data.Builders.Templates
                 TemplateExerciseId = _random.Next(),
                 TemplateDayId = _random.Next(),
                 ExerciseId = _random.Next(),
-                NoOfSets = _random.Next(),
                 RepSchemeFormat = _random.Next().ToString(),
                 RepSchemeType = _random.Next().ToString(),
                 HasBackOffSets = false,
@@ -43,12 +42,6 @@ namespace PowerBuddy.Data.Builders.Templates
         public TemplateExerciseBuilder WithExerciseId(int exerciseId)
         {
             _templateExercise.ExerciseId = exerciseId;
-            return this;
-        }
-
-        public TemplateExerciseBuilder WithNoOfSets(int noOfSets)
-        {
-            _templateExercise.NoOfSets = noOfSets;
             return this;
         }
 

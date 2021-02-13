@@ -17,34 +17,23 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
 
         public static TemplateProgram CreateBeginnerSheiko(List<Exercise> exercises)
         {
-            var squat = exercises.Where(x => x.ExerciseName.Contains("(B) Back Squat"))
-                .Select<Exercise, int>(x => x.ExerciseId).FirstOrDefault();
-            var bench = exercises.Where(x => x.ExerciseName.Contains("(B) Bench Press"))
-                .Select<Exercise, int>(x => x.ExerciseId).FirstOrDefault();
-            var declineBench = exercises.Where(x => x.ExerciseName.Contains("(B) Decline Bench Press"))
-                .Select<Exercise, int>(x => x.ExerciseId).FirstOrDefault();
-            var deadlift = exercises.Where(x => x.ExerciseName.Contains("(B) DeadLift"))
-                .Select<Exercise, int>(x => x.ExerciseId).FirstOrDefault();
-            var deadliftToKnee = exercises.Where(x => x.ExerciseName.Contains("(B) Deadlift (to knee"))
-                .Select<Exercise, int>(x => x.ExerciseId).FirstOrDefault();
-            var deadliftFromBoxes = exercises.Where(x => x.ExerciseName.Contains("(B) Deadlift (from boxes)"))
-                .Select<Exercise, int>(x => x.ExerciseId).FirstOrDefault();
-            var deficitDeadlift = exercises.Where(x => x.ExerciseName.Contains("(B) Deadlift (deficit)"))
-                .Select<Exercise, int>(x => x.ExerciseId).FirstOrDefault();
-            var benchCloseGrip = exercises.Where(x => x.ExerciseName.Contains("(B) Bench Press (Close Grip)"))
-                .Select<Exercise, int>(x => x.ExerciseId).FirstOrDefault();
-            var deadliftPaused = exercises.Where(x => x.ExerciseName.Contains("(B) Deadlift (Paused)"))
-                .Select<Exercise, int>(x => x.ExerciseId).FirstOrDefault();
+            var squat = exercises.Where(x => x.ExerciseName.Contains("(B) Back Squat")).Select(x => x.ExerciseId).FirstOrDefault();
+            var bench = exercises.Where(x => x.ExerciseName.Contains("(B) Bench Press")).Select(x => x.ExerciseId).FirstOrDefault();
+            var declineBench = exercises.Where(x => x.ExerciseName.Contains("(B) Decline Bench Press")).Select(x => x.ExerciseId).FirstOrDefault();
+            var deadlift = exercises.Where(x => x.ExerciseName.Contains("(B) Deadlift")).Select(x => x.ExerciseId).FirstOrDefault();
+            var deadliftToKnee = exercises.Where(x => x.ExerciseName.Contains("(B) Deadlift (to knee")).Select(x => x.ExerciseId).FirstOrDefault();
+            var deadliftFromBoxes = exercises.Where(x => x.ExerciseName.Contains("(B) Deadlift (from boxes)")).Select(x => x.ExerciseId).FirstOrDefault();
+            var deficitDeadlift = exercises.Where(x => x.ExerciseName.Contains("(B) Deadlift (deficit)")).Select(x => x.ExerciseId).FirstOrDefault();
+            var benchCloseGrip = exercises.Where(x => x.ExerciseName.Contains("(B) Bench Press (Close Grip)")).Select(x => x.ExerciseId).FirstOrDefault();
+            var deadliftPaused = exercises.Where(x => x.ExerciseName.Contains("(B) Deadlift (paused)")).Select(x => x.ExerciseId).FirstOrDefault();
 
             return new TemplateProgram
             {
                 Name = "Sheiko (Beginner)",
                 Difficulty = Enum.GetName(typeof(TemplateDifficultyEnum), TemplateDifficultyEnum.Beginner),
-                NoOfWeeks = 4,
                 NoOfDaysPerWeek = 3,
                 TemplateType = "Block",
-                WeightProgressionType =
-                    Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
+                WeightProgressionType = Enum.GetName(typeof(WeightProgressionTypeEnum), WeightProgressionTypeEnum.PERCENTAGE),
                 TemplateDays = new List<TemplateDay>
                 {
                     new TemplateDay()
@@ -56,7 +45,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x5, 1x5, 4x4", TemplateRepSchemes =
+                                RepSchemeFormat = "1x5, 1x5, 4x4", TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -71,7 +60,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x5, 1x4, 1x3, 4x3", TemplateRepSchemes =
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 4x3", TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -87,13 +76,14 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                     },
                     new TemplateDay
                     {
+                        WeekNo = 1,
                         DayNo = 2, TemplateExercises = new List<TemplateExercise>
                         {
                             new TemplateExercise
                             {
                                 ExerciseId = deadliftToKnee,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x3, 1x3, 1x3, 4x2",
+                                RepSchemeFormat = "1x3, 1x3, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 3, Percentage = 50},
@@ -109,7 +99,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadliftFromBoxes,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x3, 1x3, 1x3, 3x2",
+                                RepSchemeFormat = "1x3, 1x3, 1x3, 3x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 3, Percentage = 55},
@@ -124,13 +114,14 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                     },
                     new TemplateDay
                     {
+                        WeekNo = 1,
                         DayNo = 3, TemplateExercises = new List<TemplateExercise>
                         {
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x5, 1x4, 1x3, 4x3", TemplateRepSchemes =
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 4x3", TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -146,7 +137,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x5, 1x4, 1x3, 4x2",
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -170,7 +161,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x5, 1x4, 1x3, 4x2",
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -186,7 +177,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 8, RepSchemeFormat = "1x5, 1x4, 1x3, 5x3",
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 5x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -203,13 +194,14 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                     },
                     new TemplateDay
                     {
+                        WeekNo = 2,
                         DayNo = 2, TemplateExercises = new List<TemplateExercise>
                         {
                             new TemplateExercise
                             {
                                 ExerciseId = deadliftToKnee,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x3, 1x3, 1x3, 4x2",
+                                RepSchemeFormat = "1x3, 1x3, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 3, Percentage = 50},
@@ -225,7 +217,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x6, 1x6, 4x6",
+                                RepSchemeFormat = "1x6, 1x6, 4x6",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 6, Percentage = 50},
@@ -240,7 +232,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadliftFromBoxes,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x4, 1x4, 4x4",
+                                RepSchemeFormat = "1x4, 1x4, 4x4",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 4, Percentage = 55},
@@ -255,6 +247,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                     },
                     new TemplateDay
                     {
+                        WeekNo = 2,
                         DayNo = 3,
                         TemplateExercises = new List<TemplateExercise>
                         {
@@ -262,7 +255,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x5, 1x5, 4x4",
+                                RepSchemeFormat = "1x5, 1x5, 4x4",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -277,7 +270,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = benchCloseGrip,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x3, 1x3, 4x3",
+                                RepSchemeFormat = "1x3, 1x3, 4x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 3, Percentage = 50},
@@ -299,7 +292,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x5, 1x4, 1x3, 4x3",
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 4x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -315,7 +308,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 8, RepSchemeFormat = "1x5, 1x4, 1x3, 5x2",
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 5x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -332,13 +325,14 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                     },
                     new TemplateDay
                     {
+                        WeekNo = 3,
                         DayNo = 2, TemplateExercises = new List<TemplateExercise>
                         {
                             new TemplateExercise
                             {
                                 ExerciseId = deficitDeadlift,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x3, 1x3, 4x2",
+                                RepSchemeFormat = "1x3, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 3, Percentage = 50},
@@ -353,7 +347,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 8, RepSchemeFormat = "1x5, 1x4, 1x3, 2x3, 3x2", TemplateRepSchemes =
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 2x3, 3x2", TemplateRepSchemes =
                                     new List<TemplateRepScheme>
                                     {
                                         new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -370,7 +364,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadliftFromBoxes,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x3, 1x3, 2x3 3x2",
+                                RepSchemeFormat = "1x3, 1x3, 2x3 3x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 3, Percentage = 60},
@@ -386,6 +380,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                     },
                     new TemplateDay
                     {
+                        WeekNo = 3,
                         DayNo = 3,
                         TemplateExercises = new List<TemplateExercise>
                         {
@@ -393,7 +388,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x5, 1x4, 1x3, 4x2",
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -409,7 +404,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = declineBench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x4, 1x4, 4x4",
+                                RepSchemeFormat = "1x4, 1x4, 4x4",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 4, Percentage = 50},
@@ -431,7 +426,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = squat,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 8, RepSchemeFormat = "1x5, 1x4, 1x3, 2x2, 3x2",
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 2x2, 3x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -448,7 +443,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 8, RepSchemeFormat = "1x5, 1x4, 1x3, 5x3",
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 5x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -465,13 +460,14 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                     },
                     new TemplateDay
                     {
+                        WeekNo = 4,
                         DayNo = 2, TemplateExercises = new List<TemplateExercise>
                         {
                             new TemplateExercise
                             {
                                 ExerciseId = bench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 8, RepSchemeFormat = "1x5, 1x4, 1x3, 1x3, 4x2",
+                                RepSchemeFormat = "1x5, 1x4, 1x3, 1x3, 4x2",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 50},
@@ -488,7 +484,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = deadliftPaused,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 7, RepSchemeFormat = "1x2, 1x2, 2x2, 3x1",
+                                RepSchemeFormat = "1x2, 1x2, 2x2, 3x1",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 2, Percentage = 50},
@@ -504,14 +500,15 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                     },
                     new TemplateDay
                     {
+                        WeekNo = 4,
                         DayNo = 3,
                         TemplateExercises = new List<TemplateExercise>
                         {
                             new TemplateExercise
                             {
                                 ExerciseId = squat,
-                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x5, 1x4, 4x3",
+                                RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped), 
+                                RepSchemeFormat = "1x5, 1x4, 4x3",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 5, Percentage = 55},
@@ -526,7 +523,7 @@ namespace PowerBuddy.Data.Context.SeedData.TemplatePrograms
                             {
                                 ExerciseId = bench,
                                 RepSchemeType = Enum.GetName(typeof(RepSchemeTypeEnum), RepSchemeTypeEnum.Ramped),
-                                NoOfSets = 6, RepSchemeFormat = "1x4, 1x4, 4x4",
+                                RepSchemeFormat = "1x4, 1x4, 4x4",
                                 TemplateRepSchemes = new List<TemplateRepScheme>
                                 {
                                     new TemplateRepScheme {SetNo = 1, NoOfReps = 4, Percentage = 50},

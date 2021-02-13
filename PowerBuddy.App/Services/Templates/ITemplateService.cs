@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using PowerBuddy.Data.Entities;
+using PowerBuddy.Data.Dtos.Templates;
 
 namespace PowerBuddy.App.Services.Templates
 {
     public interface ITemplateService
     {
-        Task<TemplateProgram> GetTemplateProgramById(int templateProgramId);
+        Task<TemplateProgramExtendedDto> GetTemplateProgramById(int templateProgramId);
         void AddTemplateProgramAudit(int templateProgramId, string userId, DateTime dateAdded);
     }
 }

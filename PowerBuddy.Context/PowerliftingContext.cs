@@ -151,6 +151,19 @@ namespace PowerBuddy.Data.Context
                 .HasForeignKey<LiftingStatAudit>(x => x.WorkoutSetId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
+
+            modelBuilder.Entity<TemplateProgram>()
+                .HasMany(x => x.TemplateDays)
+                .WithOne()
+                .HasForeignKey(x => x.TemplateProgramId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TemplateExercise>()
+                .HasOne(x => x.Exercise)
+                .WithOne()
+                .HasForeignKey<Exercise>(x => x.ExerciseId)
+                .IsRequired(false);
         }
     }
 }
