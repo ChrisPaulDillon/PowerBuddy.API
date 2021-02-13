@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -39,15 +40,18 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
     public class UpdateWorkoutTemplateCommandHandler : IRequestHandler<UpdateWorkoutTemplateCommand, bool>
     {
         private readonly PowerLiftingContext _context;
+        private readonly IMapper _mapper;
 
-        public UpdateWorkoutTemplateCommandHandler(PowerLiftingContext context)
+        public UpdateWorkoutTemplateCommandHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<bool> Handle(UpdateWorkoutTemplateCommand request, CancellationToken cancellationToken)
         {
             var workoutTemplate = await _context.WorkoutTemplate
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.WorkoutTemplateId == request.WorkoutTemplateDto.WorkoutTemplateId, cancellationToken: cancellationToken);
 
             if (workoutTemplate == null)
@@ -55,7 +59,20 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
                 return false;
             }
 
-            _context.WorkoutTemplate.Remove(workoutTemplate);
+            var doesNameAlreadyExists = await _context.WorkoutTemplate
+                .AsNoTracking()
+                .AnyAsync(x => x.WorkoutName.ToLower() == request.WorkoutTemplateDto.WorkoutName.ToLower() && 
+                                x.UserId == request.UserId &&
+                                x.WorkoutTemplateId != request.WorkoutTemplateDto.WorkoutTemplateId, cancellationToken: cancellationToken);
+
+            if (doesNameAlreadyExists)
+            {
+                return false;
+            }
+
+            _mapper.Map(request.WorkoutTemplateDto, workoutTemplate);
+
+            _context.WorkoutTemplate.Update(workoutTemplate);
             var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
 
             return modifiedRows > 0;
