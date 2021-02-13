@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Commands.WorkoutTemplates;
-using PowerBuddy.Data.Builders.Dtos.Workouts;
 using PowerBuddy.Data.Builders.Entities.Workouts;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Entities;
 using Xunit;
 
 namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
@@ -24,17 +21,13 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
             var options = new DbContextOptionsBuilder<PowerLiftingContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             _context = new PowerLiftingContext(options);
             _handler = new DeleteWorkoutTemplateCommandHandler(_context);
-
             _random = new Random();
         }
-
 
         [Fact]
         public async Task Handle_NoWorkoutTemplateFound_ReturnsFalse()
         {
             // Arrange
-            var templateWorkout = new WorkoutTemplateDtoBuilder().Build();
-
             var command = new DeleteWorkoutTemplateCommand(_random.Next(), _random.Next().ToString());
 
             // Act
@@ -52,7 +45,7 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
 
             var workoutTemplate = new WorkoutTemplateBuilder().WithWorkoutTemplateId(workoutTemplateId).Build();
 
-            _context.WorkoutTemplate.Add(workoutTemplate);
+            await _context.WorkoutTemplate.AddAsync(workoutTemplate);
             await _context.SaveChangesAsync();
 
             var command = new DeleteWorkoutTemplateCommand(workoutTemplateId, _random.Next().ToString());
@@ -73,7 +66,7 @@ namespace PowerBuddy.UnitTests.MediatR.CommandHandlers.WorkoutTemplates
 
             var workoutTemplate = new WorkoutTemplateBuilder().WithWorkoutTemplateId(workoutTemplateId).WithUserId(userId).Build();
 
-            _context.WorkoutTemplate.Add(workoutTemplate);
+            await _context.WorkoutTemplate.AddAsync(workoutTemplate);
             await _context.SaveChangesAsync();
 
             var command = new DeleteWorkoutTemplateCommand(workoutTemplateId, userId);

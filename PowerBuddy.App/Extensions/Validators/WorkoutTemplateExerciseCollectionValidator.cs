@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.Validators;
-using PowerBuddy.Data.Dtos.Workouts;
+using PowerBuddy.Data.DTOs.WorkoutTemplates;
 
 namespace PowerBuddy.App.Extensions.Validators
 {
-    public class WorkoutExerciseCollectionValidator : PropertyValidator
+    public class WorkoutTemplateExerciseCollectionValidator : PropertyValidator
     {
         protected override string GetDefaultMessageTemplate()
         {
@@ -14,7 +14,7 @@ namespace PowerBuddy.App.Extensions.Validators
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            var workoutExercises = (IEnumerable<WorkoutExerciseDto>) context.PropertyValue;
+            var workoutExercises = (IEnumerable<WorkoutTemplateExerciseDto>)context.PropertyValue;
 
             if (workoutExercises == null)
             {
