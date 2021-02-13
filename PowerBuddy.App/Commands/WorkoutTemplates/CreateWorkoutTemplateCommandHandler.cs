@@ -4,15 +4,18 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using OneOf;
 using PowerBuddy.App.Extensions.Validators;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
+using PowerBuddy.Data.Models.Workouts;
 using PowerBuddy.Util;
 
 namespace PowerBuddy.App.Commands.WorkoutTemplates
 {
-    public class CreateWorkoutTemplateCommand : IRequest<WorkoutTemplate>
+    public class CreateWorkoutTemplateCommand : IRequest<OneOf<WorkoutTemplate, WorkoutNameAlreadyExists>>
     {
         public WorkoutTemplateDto WorkoutTemplateDto { get; }
         public string UserId { get; }
@@ -37,7 +40,7 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
         }
     }
 
-    public class CreateWorkoutTemplateCommandHandler : IRequestHandler<CreateWorkoutTemplateCommand, WorkoutTemplate>
+    public class CreateWorkoutTemplateCommandHandler : IRequestHandler<CreateWorkoutTemplateCommand, OneOf<WorkoutTemplate, WorkoutNameAlreadyExists>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -48,8 +51,18 @@ namespace PowerBuddy.App.Commands.WorkoutTemplates
             _mapper = mapper;
         }
 
-        public async Task<WorkoutTemplate> Handle(CreateWorkoutTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<WorkoutTemplate, WorkoutNameAlreadyExists>> Handle(CreateWorkoutTemplateCommand request, CancellationToken cancellationToken)
         {
+            var doesNameExist = await _context.WorkoutTemplate
+                .AsNoTracking()
+                .AnyAsync(x => x.WorkoutName.ToLower() == request.WorkoutTemplateDto.WorkoutName.ToLower() &&
+                    x.UserId == request.UserId, cancellationToken: cancellationToken);
+
+            if (doesNameExist)
+            {
+                return new WorkoutNameAlreadyExists();
+            }
+
             var workoutTemplate = _mapper.Map<WorkoutTemplate>(request.WorkoutTemplateDto);
 
             await _context.WorkoutTemplate.AddAsync(workoutTemplate, cancellationToken);
