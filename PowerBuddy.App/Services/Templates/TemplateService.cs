@@ -42,7 +42,7 @@ namespace PowerBuddy.App.Services.Templates
 
             templateProgramDto.TemplateExerciseCollection = templateProgram.TemplateDays
                 .SelectMany(x => x.TemplateExercises).GroupBy(g => g.ExerciseId).Select(x =>
-                    new TemplateExerciseCollectionDto()
+                    new TemplateExerciseCollectionDto
                     {
                         ExerciseId = x.First().ExerciseId,
                         ExerciseName = x.First().Exercise?.ExerciseName
@@ -53,7 +53,7 @@ namespace PowerBuddy.App.Services.Templates
             foreach (var groupedWeek in groupedWeeks)
             {
                 var templateDays = _mapper.Map<IEnumerable<TemplateDayDto>>(groupedWeek.ToList());
-                var week = new TemplateWeekDto()
+                var week = new TemplateWeekDto
                 {
                     WeekNo = groupedWeek.Key,
                     TemplateDays = templateDays.OrderBy(x => x.DayNo)
