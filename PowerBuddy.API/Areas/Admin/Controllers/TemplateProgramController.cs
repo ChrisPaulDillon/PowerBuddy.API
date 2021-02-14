@@ -23,26 +23,6 @@ namespace PowerBuddy.API.Areas.Admin.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("Collection/All")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateAllTemplateExerciseCollectionForProgram()
-        {
-            var userId = "3e892bab-0149-4593-9128-e3c1e193557e";
-            var result = await _mediator.Send(new CreateAllTemplateExerciseCollectionForTemplateCommand(userId));
-            return Ok(result);
-        }
-
-        [HttpPost("Collection/{templateProgramId:int}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateTemplateExerciseCollectionForProgram(int templateProgramId)
-        {
-            var userId = User.Claims.First(x => x.Type == "UserID").Value;
-            var result = await _mediator.Send(new CreateTemplateExerciseCollectionForTemplateCommand(templateProgramId, userId));
-            return Ok(result);
-        }
-
         [HttpPost]
         [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status409Conflict)]

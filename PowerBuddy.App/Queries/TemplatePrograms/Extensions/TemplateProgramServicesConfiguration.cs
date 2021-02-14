@@ -9,8 +9,6 @@ namespace PowerBuddy.App.Queries.TemplatePrograms.Extensions
         {
             // QueryHandler Registration
             services.AddMediatR(typeof(GetAllTemplateProgramsQueryHandler));
-            services.AddMediatR(typeof(GetPersonalBestsForTemplateExercisesQueryHandler));
-            services.AddMediatR(typeof(GetTecByTemplateProgramIdQueryHandler));
             services.AddMediatR(typeof(GetTemplateActivityFeedQueryHandler));
             services.AddMediatR(typeof(GetTemplateProgramByIdQueryHandler));
             services.AddMediatR(typeof(GetTemplateProgramsBySearchQueryHandler));

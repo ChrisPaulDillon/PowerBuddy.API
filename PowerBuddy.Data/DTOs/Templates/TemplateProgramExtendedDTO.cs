@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PowerBuddy.Data.DTOs.Templates;
 
 namespace PowerBuddy.Data.Dtos.Templates
 {
@@ -13,7 +14,7 @@ namespace PowerBuddy.Data.Dtos.Templates
         public string TemplateType { get; set; } //incremental, percentage based
         public string WeightProgressionType { get; set; } //incremental, percentage based
         public int ActiveUsersCount { get; set; }
-        public virtual IEnumerable<TemplateWeekDto> TemplateWeeks { get; set; }
+        public IEnumerable<TemplateWeekDto> TemplateWeeks { get; set; }
         public IEnumerable<TemplateExerciseCollectionDto> TemplateExerciseCollection { get; set; }
     }
 }

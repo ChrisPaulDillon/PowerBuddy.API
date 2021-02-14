@@ -47,8 +47,6 @@ namespace PowerBuddy.App.Commands.Workouts
             RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
             RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
             RuleFor(x => x.WorkoutInputDto.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
-            RuleFor(x => x.WorkoutInputDto.CustomName).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
-            RuleFor(x => x.WorkoutInputDto.CustomName).MaximumLength(30).WithMessage(ValidationConstants.MAX_LENGTH);
             RuleFor(x => x.WorkoutInputDto.Monday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
             RuleFor(x => x.WorkoutInputDto.Tuesday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
             RuleFor(x => x.WorkoutInputDto.Wednesday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
@@ -90,48 +88,47 @@ namespace PowerBuddy.App.Commands.Workouts
                 return new WorkoutLogExistsOnDate();
             }
 
-           var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
-           if (templateProgram == null)
-           {
-               return new TemplateProgramNotFound();
-           }
+            var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
+            if (templateProgram == null)
+            {
+                return new TemplateProgramNotFound();
+            }
 
-           if (templateProgram.NoOfDaysPerWeek != request.WorkoutInputDto.DayCount)
-           {
-               return new WorkoutDaysDoesNotMatchTemplateDays();
-           }
+            if (templateProgram.NoOfDaysPerWeek != request.WorkoutInputDto.DayCount)
+            {
+                return new WorkoutDaysDoesNotMatchTemplateDays();
+            }
 
-           templateProgram.ActiveUsersCount++;
-           _templateService.AddTemplateProgramAudit(request.TemplateProgramId, request.UserId, DateTime.UtcNow);
+            _templateService.AddTemplateProgramAudit(request.TemplateProgramId, request.UserId, DateTime.UtcNow);
 
-           _calculateRepWeight = _calculateWeightFactory.Create(templateProgram.WeightProgressionType);
+            _calculateRepWeight = _calculateWeightFactory.Create(templateProgram.WeightProgressionType);
 
-           var workoutLog = _mapper.Map<WorkoutLog>(request.WorkoutInputDto);
+            var workoutLog = _mapper.Map<WorkoutLog>(request.WorkoutInputDto);
 
-           var startDate = request.WorkoutInputDto.StartDate.StartOfWeek(DayOfWeek.Monday);
-           var workoutOrder = WorkoutHelper.CalculateDayOrder(workoutLog, startDate);
+            var startDate = request.WorkoutInputDto.StartDate.StartOfWeek(DayOfWeek.Monday);
+            var workoutOrder = WorkoutHelper.CalculateDayOrder(workoutLog, startDate);
 
-           workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDto.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
-           workoutLog.CustomName ??= templateProgram.Name;
+            workoutLog.WorkoutDays = _workoutService.CreateWorkoutDaysFromTemplate(templateProgram, startDate, workoutOrder, request.WorkoutInputDto.WeightInputs, _calculateRepWeight, request.UserId); //create weeks based on template weeks
+            workoutLog.CustomName ??= templateProgram.Name;
 
-           await _context.WorkoutLog.AddAsync(workoutLog, cancellationToken);
-           var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
+            await _context.WorkoutLog.AddAsync(workoutLog, cancellationToken);
+            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
 
-           if (modifiedRows > 0)
-           {
-               var userName = await _context.User
-                   .AsNoTracking()
-                   .Where(x => x.Id == request.UserId)
-                   .Select(x => x.UserName)
-                   .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+            if (modifiedRows > 0)
+            {
+                var userName = await _context.User
+                    .AsNoTracking()
+                    .Where(x => x.Id == request.UserId)
+                    .Select(x => x.UserName)
+                    .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
                 await _hub.Clients.All.SendAsync(SignalRConstants.MESSAGE_METHOD_ALL, new UserMessage()
                 {
                     UserName = userName,
                     Body = $"{userName} just started the program {templateProgram.Name}!"
                 }, cancellationToken: cancellationToken);
-           }
-           return modifiedRows > 0;
+            }
+            return modifiedRows > 0;
         }
     }
 }

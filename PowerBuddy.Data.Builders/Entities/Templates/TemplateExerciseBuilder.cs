@@ -16,9 +16,6 @@ namespace PowerBuddy.Data.Builders.Templates
                 TemplateExerciseId = _random.Next(),
                 TemplateDayId = _random.Next(),
                 ExerciseId = _random.Next(),
-                NoOfSets = _random.Next(),
-                RepSchemeFormat = _random.Next().ToString(),
-                RepSchemeType = _random.Next().ToString(),
                 HasBackOffSets = false,
                 BackOffSetFormat = _random.Next().ToString()
             };
@@ -28,6 +25,7 @@ namespace PowerBuddy.Data.Builders.Templates
         {
             return _templateExercise;
         }
+
         public TemplateExerciseBuilder WithTemplateExerciseId(int templateExerciseId)
         {
             _templateExercise.TemplateExerciseId = templateExerciseId;
@@ -43,24 +41,6 @@ namespace PowerBuddy.Data.Builders.Templates
         public TemplateExerciseBuilder WithExerciseId(int exerciseId)
         {
             _templateExercise.ExerciseId = exerciseId;
-            return this;
-        }
-
-        public TemplateExerciseBuilder WithNoOfSets(int noOfSets)
-        {
-            _templateExercise.NoOfSets = noOfSets;
-            return this;
-        }
-
-        public TemplateExerciseBuilder WithRepSchemeFormat(string format)
-        {
-            _templateExercise.RepSchemeFormat = format;
-            return this;
-        }
-
-        public TemplateExerciseBuilder WithRepSchemeType(string type)
-        {
-            _templateExercise.RepSchemeType = type;
             return this;
         }
 

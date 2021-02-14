@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using PowerBuddy.Data.Context.SeedData.TemplatePrograms;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.SeedData.MuscleGroups;
 using PowerBuddy.Data.SeedData.TemplatePrograms;
@@ -137,7 +138,9 @@ namespace PowerBuddy.Data.Context.SeedData
             if (!context.TemplateProgram.Any() && templateExercises.Any())
             {
                 var createdTemplates = TemplateProgramSeed.CreateTemplatePrograms(templateExercises);
+                var createdOtherTemplates = NewTemplateProgramSeed.CreateTemplatePrograms(templateExercises);
                 context.TemplateProgram.AddRange(createdTemplates);
+                context.TemplateProgram.AddRange(createdOtherTemplates);
                 context.SaveChanges();
             }
         }

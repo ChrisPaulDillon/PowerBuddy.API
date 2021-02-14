@@ -1,13 +1,9 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using OneOf;
-using PowerBuddy.Data.Context;
+using PowerBuddy.App.Services.Templates;
 using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Models.TemplatePrograms;
 using PowerBuddy.Util;
@@ -34,21 +30,16 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
 
     internal class GetTemplateProgramByIdQueryHandler : IRequestHandler<GetTemplateProgramByIdQuery, OneOf<TemplateProgramExtendedDto, TemplateProgramNotFound>>
     {
-        private readonly PowerLiftingContext _context;
-        private readonly IMapper _mapper;
+        private readonly ITemplateService _templateService;
 
-        public GetTemplateProgramByIdQueryHandler(PowerLiftingContext context, IMapper mapper)
+        public GetTemplateProgramByIdQueryHandler(ITemplateService templateService)
         {
-            _context = context;
-            _mapper = mapper;
+            _templateService = templateService;
         }
 
         public async Task<OneOf<TemplateProgramExtendedDto, TemplateProgramNotFound>> Handle(GetTemplateProgramByIdQuery request, CancellationToken cancellationToken)
         {
-            var templateProgram = await _context.TemplateProgram.AsNoTracking()
-                .Where(x => x.TemplateProgramId == request.TemplateProgramId)
-                .ProjectTo<TemplateProgramExtendedDto>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+            var templateProgram = await _templateService.GetTemplateProgramById(request.TemplateProgramId);
 
             if (templateProgram == null)
             {

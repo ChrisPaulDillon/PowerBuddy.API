@@ -39,13 +39,14 @@ namespace PowerBuddy.App.Services.Workouts
                     userId == x.UserId);
         }
 
-        public IEnumerable<WorkoutDay> CreateWorkoutDaysFromTemplate(TemplateProgram tp, DateTime startDate, Dictionary<int, string> workoutOrder, IEnumerable<TemplateWeightInputDto> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<WorkoutDay> CreateWorkoutDaysFromTemplate(TemplateProgramExtendedDto tp, DateTime startDate, Dictionary<int, string> workoutOrder, IEnumerable<TemplateWeightInputDto> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
         {
             var listOfDays = new List<WorkoutDay>();
 
             var currentDate = startDate;
             var dateOfWorkout = DateTime.UtcNow;
 
+      
             foreach (var templateWeek in tp.TemplateWeeks)
             {
                 var counter = 1;
@@ -72,7 +73,7 @@ namespace PowerBuddy.App.Services.Workouts
             return listOfDays;
         }
 
-        public IEnumerable<WorkoutExercise> CreateWorkoutExercisesForTemplateDay(TemplateDay templateDay, IEnumerable<TemplateWeightInputDto> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<WorkoutExercise> CreateWorkoutExercisesForTemplateDay(TemplateDayDto templateDay, IEnumerable<TemplateWeightInputDto> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
         {
             var workoutExercises = new List<WorkoutExercise>();
 

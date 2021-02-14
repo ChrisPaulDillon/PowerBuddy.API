@@ -34,7 +34,6 @@ namespace PowerBuddy.App.Commands
         {
             // CommandHandler Registration
             services.AddMediatR(typeof(CreateTemplateProgramCommandHandler));
-            services.AddMediatR(typeof(CreateTemplateExerciseCollectionForTemplateCommandHandler));
 
             return services;
         }

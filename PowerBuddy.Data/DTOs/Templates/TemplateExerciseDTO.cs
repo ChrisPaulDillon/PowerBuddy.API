@@ -13,8 +13,7 @@ namespace PowerBuddy.Data.Dtos.Templates
         public string RepSchemeType { get; set; } //ramped, fixed
         public bool HasBackOffSets { get; set; }
         public string BackOffSetFormat { get; set; }
-
-        public virtual ExerciseDto Exercise { get; set; }
+        public string ExerciseName { get; set; }
         public virtual IEnumerable<TemplateRepSchemeDto> TemplateRepSchemes { get; set; }
     }
 }

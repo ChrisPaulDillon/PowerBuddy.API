@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.Data.Context;
-using PowerBuddy.Data.Entities;
-
+using PowerBuddy.Data.Dtos.Templates;
+using PowerBuddy.Data.DTOs.Templates;
 using PowerBuddy.Data.Factories;
-using PowerBuddy.Data.Models.TemplatePrograms;
 
 namespace PowerBuddy.App.Services.Templates
 {
@@ -15,24 +15,55 @@ namespace PowerBuddy.App.Services.Templates
     {
         private readonly PowerLiftingContext _context;
         private readonly IEntityFactory _entityFactory;
+        private readonly IMapper _mapper;
 
-        public TemplateService(PowerLiftingContext context, IEntityFactory entityFactory)
+        public TemplateService(PowerLiftingContext context, IEntityFactory entityFactory, IMapper mapper)
         {
             _context = context;
             _entityFactory = entityFactory;
+            _mapper = mapper;
         }
 
-        public async Task<TemplateProgram> GetTemplateProgramById(int templateProgramId)
+        public async Task<TemplateProgramExtendedDto> GetTemplateProgramById(int templateProgramId)
         {
             var templateProgram = await _context.TemplateProgram
                 .Where(x => x.TemplateProgramId == templateProgramId)
-                .Include(x => x.TemplateWeeks)
-                .ThenInclude(x => x.TemplateDays)
+                .Include(x => x.TemplateDays)
                 .ThenInclude(x => x.TemplateExercises)
                 .ThenInclude(x => x.TemplateRepSchemes)
+                .Include(x => x.TemplateDays)
+                .ThenInclude(x => x.TemplateExercises)
+                .ThenInclude(x => x.Exercise)
                 .FirstOrDefaultAsync();
 
-            return templateProgram;
+            var groupedWeeks = templateProgram.TemplateDays.GroupBy(x => x.WeekNo).ToList();
+
+            var templateProgramDto = _mapper.Map<TemplateProgramExtendedDto>(templateProgram);
+
+            templateProgramDto.TemplateExerciseCollection = templateProgram.TemplateDays
+                .SelectMany(x => x.TemplateExercises).GroupBy(g => g.ExerciseId).Select(x =>
+                    new TemplateExerciseCollectionDto
+                    {
+                        ExerciseId = x.First().ExerciseId,
+                        ExerciseName = x.First().Exercise?.ExerciseName
+                    });
+
+            var templateWeekList = new List<TemplateWeekDto>();
+
+            foreach (var groupedWeek in groupedWeeks)
+            {
+                var templateDays = _mapper.Map<IEnumerable<TemplateDayDto>>(groupedWeek.ToList());
+                var week = new TemplateWeekDto
+                {
+                    WeekNo = groupedWeek.Key,
+                    TemplateDays = templateDays.OrderBy(x => x.DayNo)
+                };
+                templateWeekList.Add(week);
+            }
+
+            templateProgramDto.TemplateWeeks = templateWeekList.OrderBy(x => x.WeekNo);
+
+            return templateProgramDto;
         }
 
         public void AddTemplateProgramAudit(int templateProgramId, string userId, DateTime dateAdded)
