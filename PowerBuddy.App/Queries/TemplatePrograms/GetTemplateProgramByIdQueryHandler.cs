@@ -1,14 +1,9 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.App.Services.Templates;
-using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Models.TemplatePrograms;
 using PowerBuddy.Util;
