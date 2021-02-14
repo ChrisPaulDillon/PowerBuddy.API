@@ -74,30 +74,6 @@ namespace PowerBuddy.UnitTests.MediatR.Validators.Commands.Workouts
         }
 
         [Fact]
-        public void CreateNew_CustomNameIsNull_ReturnsValidationErrors()
-        {
-            _workoutLogInput.CustomName = null;
-            var result = _validator.Validate(new CreateWorkoutLogFromTemplateCommand(_workoutLogInput, _random.Next(), _random.Next().ToString()));
-            Assert.True(result.Errors.Any());
-        }
-
-        [Fact]
-        public void CreateNew_CustomNameIsEmpty_ReturnsValidationErrors()
-        {
-            _workoutLogInput.CustomName = "";
-            var result = _validator.Validate(new CreateWorkoutLogFromTemplateCommand(_workoutLogInput, _random.Next(), _random.Next().ToString()));
-            Assert.True(result.Errors.Any());
-        }
-
-        [Fact]
-        public void CreateNew_CustomNameIsOver30Chars_ReturnsValidationErrors()
-        {
-            _workoutLogInput.CustomName = "".PadRight(100);
-            var result = _validator.Validate(new CreateWorkoutLogFromTemplateCommand(_workoutLogInput, _random.Next(), _random.Next().ToString()));
-            Assert.True(result.Errors.Any());
-        }
-
-        [Fact]
         public void CreateNew_NoWeightInputsProvided_ReturnsValidationErrors()
         {
             var templateWeightInputDtos = new List<TemplateWeightInputDto>();
