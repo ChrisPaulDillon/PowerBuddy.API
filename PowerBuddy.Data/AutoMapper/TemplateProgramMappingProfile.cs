@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using PowerBuddy.Data.Dtos.Templates;
 using PowerBuddy.Data.Entities;
@@ -31,7 +32,14 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom<string>(src => src.WeightProgressionType))
                 .ForMember(dest => dest.ActiveUsersCount, opt => opt.MapFrom(src => src.ActiveUsersCount))
                 .ForMember(dest => dest.TemplateWeeks, opt => opt.Ignore())
-                .ForMember(dest => dest.TemplateExerciseCollection, opt => opt.MapFrom(src => src.TemplateExerciseCollection));
+                .ForMember(dest => dest.TemplateExerciseCollection, opt =>
+                    opt.MapFrom<IEnumerable<TemplateExerciseCollectionDto>>(src => src.TemplateDays
+                        .SelectMany(x => x.TemplateExercises).GroupBy(g => g.ExerciseId).Select(x =>
+                            new TemplateExerciseCollectionDto()
+                            {
+                                ExerciseId = x.First().ExerciseId,
+                                ExerciseName = x.First().Exercise.ExerciseName
+                            })));
 
             CreateMap<TemplateExerciseCollection, TemplateExerciseCollectionDto>()
                 .ForMember(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom<int>(src => src.TemplateExerciseCollectionId))

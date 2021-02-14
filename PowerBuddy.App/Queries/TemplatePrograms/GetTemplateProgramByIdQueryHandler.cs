@@ -35,12 +35,10 @@ namespace PowerBuddy.App.Queries.TemplatePrograms
 
     internal class GetTemplateProgramByIdQueryHandler : IRequestHandler<GetTemplateProgramByIdQuery, OneOf<TemplateProgramExtendedDto, TemplateProgramNotFound>>
     {
-        private readonly PowerLiftingContext _context;
         private readonly ITemplateService _templateService;
 
-        public GetTemplateProgramByIdQueryHandler(PowerLiftingContext context, ITemplateService templateService)
+        public GetTemplateProgramByIdQueryHandler(ITemplateService templateService)
         {
-            _context = context;
             _templateService = templateService;
         }
 
