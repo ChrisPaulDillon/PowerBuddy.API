@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +8,6 @@ using PowerBuddy.API.Extensions;
 using PowerBuddy.API.Models;
 using PowerBuddy.App.Commands.LiftingStats;
 using PowerBuddy.App.Queries.LiftingStats;
-using PowerBuddy.App.Queries.TemplatePrograms;
 using PowerBuddy.App.Services.Weights;
 using PowerBuddy.Data.Dtos.LiftingStats;
 
@@ -57,14 +55,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
             return liftingStatOneOf.Match<IActionResult>(Ok,
                 LiftingStatNotFound => BadRequest(Errors.Create(nameof(LiftingStatNotFound))));
-        }
-
-        [HttpGet("Template/{templateProgramId:int}")]
-        [ProducesResponseType(typeof(IEnumerable<LiftingStatAuditDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetPersonalBestsForTemplate(int templateProgramId)
-        {
-            var personalBests = await _mediator.Send(new GetPersonalBestsForTemplateExercisesQuery(templateProgramId, _userId));
-            return Ok(personalBests);
         }
 
         [HttpDelete("Audit/{liftingStatAuditId:int}")]

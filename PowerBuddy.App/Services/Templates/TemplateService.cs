@@ -31,27 +31,28 @@ namespace PowerBuddy.App.Services.Templates
                 .Include(x => x.TemplateDays)
                 .ThenInclude(x => x.TemplateExercises)
                 .ThenInclude(x => x.TemplateRepSchemes)
+                .Include(x => x.TemplateDays)
+                .ThenInclude(x => x.TemplateExercises)
+                .ThenInclude(x => x.Exercise)
                 .FirstOrDefaultAsync();
 
             var groupedWeeks = templateProgram.TemplateDays.GroupBy(x => x.WeekNo).ToList();
 
             var templateProgramDto = _mapper.Map<TemplateProgramExtendedDto>(templateProgram);
+
+            templateProgramDto.TemplateExerciseCollection = templateProgram.TemplateDays
+                .SelectMany(x => x.TemplateExercises).GroupBy(g => g.ExerciseId).Select(x =>
+                    new TemplateExerciseCollectionDto()
+                    {
+                        ExerciseId = x.First().ExerciseId,
+                        ExerciseName = x.First().Exercise?.ExerciseName
+                    });
+
             var templateWeekList = new List<TemplateWeekDto>();
 
             foreach (var groupedWeek in groupedWeeks)
             {
                 var templateDays = _mapper.Map<IEnumerable<TemplateDayDto>>(groupedWeek.ToList());
-                foreach (var templateDay in templateDays)
-                {
-                    foreach (var templateExercise in templateDay.TemplateExercises)
-                    {
-                        templateExercise.ExerciseName = await _context.Exercise
-                            .AsNoTracking()
-                            .Where(x => x.ExerciseId == templateExercise.ExerciseId)
-                            .Select(x => x.ExerciseName)
-                            .FirstOrDefaultAsync();
-                    }
-                }
                 var week = new TemplateWeekDto()
                 {
                     WeekNo = groupedWeek.Key,

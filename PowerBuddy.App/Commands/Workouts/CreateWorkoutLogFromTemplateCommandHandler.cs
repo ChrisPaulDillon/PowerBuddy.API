@@ -47,8 +47,6 @@ namespace PowerBuddy.App.Commands.Workouts
             RuleFor(x => x.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
             RuleFor(x => x.TemplateProgramId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
             RuleFor(x => x.WorkoutInputDto.UserId).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
-            RuleFor(x => x.WorkoutInputDto.CustomName).NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
-            RuleFor(x => x.WorkoutInputDto.CustomName).MaximumLength(30).WithMessage(ValidationConstants.MAX_LENGTH);
             RuleFor(x => x.WorkoutInputDto.Monday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
             RuleFor(x => x.WorkoutInputDto.Tuesday).NotNull().WithMessage(ValidationConstants.NOT_NULL);
             RuleFor(x => x.WorkoutInputDto.Wednesday).NotNull().WithMessage(ValidationConstants.NOT_NULL);

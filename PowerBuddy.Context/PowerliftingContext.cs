@@ -37,7 +37,6 @@ namespace PowerBuddy.Data.Context
         public DbSet<TemplateDay> TemplateDay { get; set; }
         public DbSet<TemplateExercise> TemplateExercise { get; set; }
         public DbSet<TemplateRepScheme> TemplateRepScheme { get; set; }
-        public DbSet<TemplateExerciseCollection> TemplateExerciseCollection { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<IdentityRole> Role { get; set; }
         public DbSet<IdentityUserClaim<string>> UserClaim { get; set; }
@@ -96,7 +95,6 @@ namespace PowerBuddy.Data.Context
             modelBuilder.Entity<TemplateDay>().ToTable("TemplateDay");
             modelBuilder.Entity<TemplateExercise>().ToTable("TemplateExercise");
             modelBuilder.Entity<TemplateRepScheme>().ToTable("TemplateRepScheme");
-            modelBuilder.Entity<TemplateExerciseCollection>().ToTable("TemplateExerciseCollection");
 
             modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
 
@@ -118,12 +116,6 @@ namespace PowerBuddy.Data.Context
                 .HasForeignKey(x => x.WorkoutExerciseId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<TemplateProgram>()
-                .HasMany(x => x.TemplateExerciseCollection)
-                .WithOne()
-                .HasForeignKey(x => x.TemplateProgramId)
-                .IsRequired(false);
 
             modelBuilder.Entity<UserSetting>()
                 .HasOne(x => x.LiftingLevel)
@@ -161,8 +153,8 @@ namespace PowerBuddy.Data.Context
 
             modelBuilder.Entity<TemplateExercise>()
                 .HasOne(x => x.Exercise)
-                .WithOne()
-                .HasForeignKey<Exercise>(x => x.ExerciseId)
+                .WithMany()
+                .HasForeignKey(x => x.ExerciseId)
                 .IsRequired(false);
         }
     }

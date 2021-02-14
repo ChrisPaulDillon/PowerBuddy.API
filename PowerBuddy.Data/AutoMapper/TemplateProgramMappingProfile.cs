@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using PowerBuddy.Data.Dtos.Templates;
@@ -32,26 +33,7 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(dest => dest.WeightProgressionType, opt => opt.MapFrom<string>(src => src.WeightProgressionType))
                 .ForMember(dest => dest.ActiveUsersCount, opt => opt.MapFrom(src => src.ActiveUsersCount))
                 .ForMember(dest => dest.TemplateWeeks, opt => opt.Ignore())
-                .ForMember(dest => dest.TemplateExerciseCollection, opt =>
-                    opt.MapFrom<IEnumerable<TemplateExerciseCollectionDto>>(src => src.TemplateDays
-                        .SelectMany(x => x.TemplateExercises).GroupBy(g => g.ExerciseId).Select(x =>
-                            new TemplateExerciseCollectionDto()
-                            {
-                                ExerciseId = x.First().ExerciseId,
-                                ExerciseName = x.First().Exercise.ExerciseName
-                            })));
-
-            CreateMap<TemplateExerciseCollection, TemplateExerciseCollectionDto>()
-                .ForMember(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom<int>(src => src.TemplateExerciseCollectionId))
-                .ForMember(dest => dest.TemplateProgramId, opt => opt.MapFrom<int>(src => src.TemplateProgramId))
-                .ForMember(dest => dest.ExerciseId, opt => opt.MapFrom<int>(src => src.ExerciseId))
-                .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom<string>(src => src.Exercise.ExerciseName));
-
-            CreateMap<TemplateExerciseCollectionDto, TemplateExerciseCollection>()
-                .ForMember<int>(dest => dest.TemplateExerciseCollectionId, opt => opt.MapFrom(src => src.TemplateExerciseCollectionId))
-                .ForMember<int>(dest => dest.TemplateProgramId, opt => opt.MapFrom(src => src.TemplateProgramId))
-                .ForMember<int>(dest => dest.ExerciseId, opt => opt.MapFrom(src => src.ExerciseId))
-                .ForMember(dest => dest.Exercise, opt => opt.Ignore());
+                .ForMember(dest => dest.TemplateExerciseCollection, opt => opt.Ignore());
 
             CreateMap<TemplateDay, TemplateDayDto>()
                 .ForMember(dest => dest.TemplateDayId, opt => opt.MapFrom<int>(src => src.TemplateDayId))
