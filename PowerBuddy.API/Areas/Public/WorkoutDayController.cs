@@ -43,7 +43,7 @@ namespace PowerBuddy.API.Areas.Public
 
 			if (workoutDayOneOf.IsT0)
 			{
-				workoutDayOneOf.AsT0.WorkoutExercises = await _weightOutputService.ConvertWorkoutExercises(workoutDayOneOf.AsT0.WorkoutExercises, workoutDayOneOf.AsT0.UserId, null);
+				workoutDayOneOf.AsT0.WorkoutExercises = await _weightOutputService.ConvertWorkoutExercises(workoutDayOneOf.AsT0.WorkoutExercises, workoutDayOneOf.AsT0.UserId);
 			}
 
 			return workoutDayOneOf.Match<IActionResult>(
