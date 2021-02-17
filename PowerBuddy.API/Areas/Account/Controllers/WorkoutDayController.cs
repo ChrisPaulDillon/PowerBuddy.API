@@ -36,25 +36,6 @@ namespace PowerBuddy.API.Areas.Account.Controllers
             _userId = accessor.HttpContext.User.FindUserId();
         }
 
-        [HttpGet("{workoutDayId:int}")]
-        [ProducesResponseType(typeof(WorkoutDayDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetWorkoutDayById(int workoutDayId)
-        {
-            var workoutDayOneOf = await _mediator.Send(new GetWorkoutDayByIdQuery(workoutDayId, _userId));
-
-            if (workoutDayOneOf.IsT0)
-            {
-                workoutDayOneOf.AsT0.WorkoutExercises = await _weightOutputService.ConvertWorkoutExercises(workoutDayOneOf.AsT0.WorkoutExercises, _userId, null);
-            }
-
-            return workoutDayOneOf.Match<IActionResult>(
-                Result => Ok(Result),
-                WorkoutDayNotFound => NotFound(Errors.Create(nameof(WorkoutDayNotFound))));
-        }
-
         [HttpPost]
         [ProducesResponseType(typeof(WorkoutDayDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiError), StatusCodes.Status400BadRequest)]
