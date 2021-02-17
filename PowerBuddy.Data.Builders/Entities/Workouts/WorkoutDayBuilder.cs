@@ -7,12 +7,12 @@ namespace PowerBuddy.Data.Builders.Entities.Workouts
 	public class WorkoutDayBuilder
 	{
 		private readonly Random _random;
-		private readonly WorkoutDay _workoutDayDto;
+		private readonly WorkoutDay _workoutDay;
 
 		public WorkoutDayBuilder(Random random = null)
 		{
 			_random = random ?? new Random();
-			_workoutDayDto = new WorkoutDay
+			_workoutDay = new WorkoutDay
 			{
 				WorkoutDayId = _random.Next(),
 				WorkoutLogId = _random.Next(),
@@ -24,36 +24,36 @@ namespace PowerBuddy.Data.Builders.Entities.Workouts
 
 		public WorkoutDay Build()
 		{
-			return _workoutDayDto;
+			return _workoutDay;
 		}
 
 		public WorkoutDayBuilder WithWorkoutDayId(int workoutDayId)
 		{
-			_workoutDayDto.WorkoutDayId = workoutDayId;
+			_workoutDay.WorkoutDayId = workoutDayId;
 			return this;
 		}
 
 		public WorkoutDayBuilder WithWorkoutLogId(int workoutLogId)
 		{
-			_workoutDayDto.WorkoutDayId = workoutLogId;
+			_workoutDay.WorkoutLogId = workoutLogId;
 			return this;
 		}
 
 		public WorkoutDayBuilder WithDate(DateTime date)
 		{
-			_workoutDayDto.Date = date;
+			_workoutDay.Date = date;
 			return this;
 		}
 
 		public WorkoutDayBuilder WithUserId(string userId)
 		{
-			_workoutDayDto.UserId = userId;
+			_workoutDay.UserId = userId;
 			return this;
 		}
 
 		public WorkoutDayBuilder WithWorkoutExercises(IEnumerable<WorkoutExercise> workoutExercises)
 		{
-			_workoutDayDto.WorkoutExercises = workoutExercises;
+			_workoutDay.WorkoutExercises = workoutExercises;
 			return this;
 		}
 	}

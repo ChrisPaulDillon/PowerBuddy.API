@@ -17,12 +17,10 @@ namespace PowerBuddy.App.Queries.WorkoutDays
     public class GetWorkoutDayByIdQuery : IRequest<OneOf<WorkoutDayDto, WorkoutDayNotFound>>
     {
         public int WorkoutDayId { get; }
-        public string UserId { get; }
 
-        public GetWorkoutDayByIdQuery(int workoutDayId, string userId)
+        public GetWorkoutDayByIdQuery(int workoutDayId)
         {
             WorkoutDayId = workoutDayId;
-            UserId = userId;
         }
     }
 
@@ -30,12 +28,11 @@ namespace PowerBuddy.App.Queries.WorkoutDays
     {
         public GetWorkoutDayByIdQueryValidator()
         {
-            RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage(ValidationConstants.NOT_EMPTY);
-            RuleFor(x => x.WorkoutDayId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
+	        RuleFor(x => x.WorkoutDayId).GreaterThan(0).WithMessage(ValidationConstants.GREATER_THAN);
         }
     }
 
-    internal class GetWorkoutDayByIdQueryHandler : IRequestHandler<GetWorkoutDayByIdQuery, OneOf<WorkoutDayDto, WorkoutDayNotFound>>
+    public class GetWorkoutDayByIdQueryHandler : IRequestHandler<GetWorkoutDayByIdQuery, OneOf<WorkoutDayDto, WorkoutDayNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
@@ -48,7 +45,7 @@ namespace PowerBuddy.App.Queries.WorkoutDays
 
         public async Task<OneOf<WorkoutDayDto, WorkoutDayNotFound>> Handle(GetWorkoutDayByIdQuery request, CancellationToken cancellationToken)
         {
-            var workoutDay = await _context.WorkoutDay.Where(x => x.WorkoutDayId == request.WorkoutDayId && x.UserId == request.UserId)
+            var workoutDay = await _context.WorkoutDay.Where(x => x.WorkoutDayId == request.WorkoutDayId)
 	            .AsNoTracking()
                 .ProjectTo<WorkoutDayDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);

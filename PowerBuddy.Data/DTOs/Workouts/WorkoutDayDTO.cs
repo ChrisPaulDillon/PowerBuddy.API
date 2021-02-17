@@ -9,6 +9,7 @@ namespace PowerBuddy.Data.Dtos.Workouts
         public int? WorkoutLogId { get; set; }
         public int? WeekNo { get; set; }
         public string UserId { get; set; }
+        public string UserName { get; set; }
         public DateTime Date { get; set; }
         public string Comment { get; set; }
         public bool Completed { get; set; }
