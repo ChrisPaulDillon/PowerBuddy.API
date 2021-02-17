@@ -7,7 +7,6 @@ using PowerBuddy.Data.Dtos.Users;
 
 namespace PowerBuddy.API.Areas.Public
 {
-
 	[Route("api/[area]/[controller]")]
 	[ApiController]
 	[Produces("application/json")]
