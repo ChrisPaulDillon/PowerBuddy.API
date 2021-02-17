@@ -1,7 +1,7 @@
 ﻿using System;
 using PowerBuddy.Data.Entities;
 
-namespace PowerBuddy.Data.Builders.Account
+namespace PowerBuddy.Data.Builders.Entities.Account
 {
     public class UserBuilder
     {
@@ -22,7 +22,8 @@ namespace PowerBuddy.Data.Builders.Account
                 Email = email,
                 NormalizedEmail = email.ToUpper(),
                 PasswordHash = _random.Next().ToString(),
-                MemberStatusId = 1
+                MemberStatusId = 1,
+                IsPublic = true
             };
         }
 
@@ -65,6 +66,12 @@ namespace PowerBuddy.Data.Builders.Account
         {
             _user.MemberStatusId = memberId;
             return this;
+        }
+
+        public UserBuilder WithIsPublic(bool isPublic)
+        {
+	        _user.IsPublic = isPublic;
+	        return this;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace PowerBuddy.App.Queries.Workouts
             services.AddMediatR(typeof(GetWorkoutDayByIdQueryHandler));
             services.AddMediatR(typeof(GetWorkoutDayIdByDateQueryHandler));
             services.AddMediatR(typeof(GetAllUserWorkoutTemplatesQueryHandler));
+            services.AddMediatR(typeof(GetAllPublicWorkoutDayIdsQueryHandler));
 
             // Misc
             return services;

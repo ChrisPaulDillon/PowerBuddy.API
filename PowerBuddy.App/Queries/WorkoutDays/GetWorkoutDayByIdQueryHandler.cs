@@ -49,8 +49,8 @@ namespace PowerBuddy.App.Queries.WorkoutDays
         public async Task<OneOf<WorkoutDayDto, WorkoutDayNotFound>> Handle(GetWorkoutDayByIdQuery request, CancellationToken cancellationToken)
         {
             var workoutDay = await _context.WorkoutDay.Where(x => x.WorkoutDayId == request.WorkoutDayId && x.UserId == request.UserId)
+	            .AsNoTracking()
                 .ProjectTo<WorkoutDayDto>(_mapper.ConfigurationProvider)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (workoutDay == null)
