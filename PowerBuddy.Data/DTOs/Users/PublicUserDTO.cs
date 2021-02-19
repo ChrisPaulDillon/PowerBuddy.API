@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using PowerBuddy.Data.Dtos.LiftingStats;
-
-namespace PowerBuddy.Data.Dtos.Users
+﻿namespace PowerBuddy.Data.Dtos.Users
 {
     public class PublicUserDto
     {
@@ -13,7 +10,6 @@ namespace PowerBuddy.Data.Dtos.Users
         public int MemberStatusId { get; set; }
         public string Gender { get; set; }
         public string LiftingLevel { get; set; }
-        public IEnumerable<LiftFeedDto> LiftFeed { get; set; }
         public int PersonalBestCount { get; set; }
         public int WorkoutDayCount { get; set; }
     }

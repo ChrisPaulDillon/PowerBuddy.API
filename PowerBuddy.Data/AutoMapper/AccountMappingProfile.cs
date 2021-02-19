@@ -39,7 +39,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.LiftingStatAudit, d => d.Ignore())
                 .ForMember(x => x.Gender, d => d.Ignore())
                 .ForMember(x => x.MemberStatus, d => d.Ignore())
-                .ForMember(x => x.UserSetting, d => d.Ignore());
+                .ForMember(x => x.UserSetting, d => d.Ignore())
+                .ForMember(x => x.WorkoutDays, d => d.Ignore());
 
             CreateMap<EditProfileDto, UserSetting>()
                 .ForMember<decimal>(x => x.BodyWeight, d => d.MapFrom(src => src.BodyWeight))
@@ -94,7 +95,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.LiftingStatAudit, d => d.Ignore())
                 .ForMember(x => x.Gender, d => d.Ignore())
                 .ForMember(x => x.MemberStatus, d => d.Ignore())
-                .ForMember(x => x.UserSetting, d => d.Ignore());
+                .ForMember(x => x.UserSetting, d => d.Ignore())
+                .ForMember(x => x.WorkoutDays, d => d.Ignore());
 
             CreateMap<User, PublicUserDto>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))
@@ -105,9 +107,8 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.MemberStatusId, d => d.MapFrom<int?>(src => src.MemberStatusId))
                 .ForMember(x => x.Gender, d => d.MapFrom<string>(src => src.Gender.GenderName))
                 .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.UserSetting.LiftingLevel.LiftingLevelStr))
-                .ForMember(x => x.LiftFeed, d => d.MapFrom(src => src.LiftingStatAudit))
                 .ForMember(x => x.PersonalBestCount, d => d.MapFrom(src => src.LiftingStatAudit.Count()))
-                .ForMember(x => x.LiftFeed, d => d.MapFrom(src => src.WorkoutDays.Count()));
+                .ForMember(x => x.WorkoutDayCount, d => d.MapFrom(src => src.WorkoutDays.Count()));
 
             CreateMap<User, AdminUserDto>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))
