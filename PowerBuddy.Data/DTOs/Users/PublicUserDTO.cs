@@ -14,5 +14,7 @@ namespace PowerBuddy.Data.Dtos.Users
         public string Gender { get; set; }
         public string LiftingLevel { get; set; }
         public IEnumerable<LiftFeedDto> LiftFeed { get; set; }
+        public int PersonalBestCount { get; set; }
+        public int WorkoutDayCount { get; set; }
     }
 }

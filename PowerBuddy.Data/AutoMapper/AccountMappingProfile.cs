@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using PowerBuddy.Data.Dtos.Account;
 using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Entities;
@@ -104,7 +105,9 @@ namespace PowerBuddy.Data.AutoMapper
                 .ForMember(x => x.MemberStatusId, d => d.MapFrom<int?>(src => src.MemberStatusId))
                 .ForMember(x => x.Gender, d => d.MapFrom<string>(src => src.Gender.GenderName))
                 .ForMember(x => x.LiftingLevel, d => d.MapFrom(src => src.UserSetting.LiftingLevel.LiftingLevelStr))
-                .ForMember(x => x.LiftFeed, d => d.MapFrom(src => src.LiftingStatAudit));
+                .ForMember(x => x.LiftFeed, d => d.MapFrom(src => src.LiftingStatAudit))
+                .ForMember(x => x.PersonalBestCount, d => d.MapFrom(src => src.LiftingStatAudit.Count()))
+                .ForMember(x => x.LiftFeed, d => d.MapFrom(src => src.WorkoutDays.Count()));
 
             CreateMap<User, AdminUserDto>()
                 .ForMember(x => x.UserId, d => d.MapFrom<string>(src => src.Id))

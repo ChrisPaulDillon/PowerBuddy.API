@@ -8,5 +8,6 @@ namespace PowerBuddy.Data.Entities
         public MemberStatus MemberStatus { get; set; }
         public IEnumerable<LiftingStatAudit> LiftingStatAudit { get; set; }
         public UserSetting UserSetting { get; set; }
+        public IEnumerable<WorkoutDay> WorkoutDays { get; set; }
     }
 }
