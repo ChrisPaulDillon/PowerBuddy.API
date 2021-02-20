@@ -16,6 +16,7 @@ namespace PowerBuddy.Data.Builders.Entities.Workouts
 			{
 				WorkoutLogId = _random.Next(),
 				UserId = _random.Next().ToString(),
+				CustomName = _random.Next().ToString(),
 				WorkoutDays = new List<WorkoutDay>()
 			};
 		}
@@ -36,6 +37,12 @@ namespace PowerBuddy.Data.Builders.Entities.Workouts
 			_workoutLog.UserId = userId;
 			return this;
 		}
+
+        public WorkoutLogBuilder WithCustomName(string customName)
+        {
+            _workoutLog.CustomName = customName;
+            return this;
+        }
 
 		public WorkoutLogBuilder WithWorkoutDays(IEnumerable<WorkoutDay> workoutDays)
 		{
