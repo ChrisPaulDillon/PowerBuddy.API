@@ -2,7 +2,7 @@
 
 namespace PowerBuddy.Data.Models.Account
 {
-    public struct EmailNotConfirmed 
+    public readonly struct EmailNotConfirmed 
     {
         public string UserId { get; }
 

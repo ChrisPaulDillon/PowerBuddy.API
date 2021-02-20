@@ -92,7 +92,7 @@ namespace PowerBuddy.App.Commands.Workouts
 
             if (doesLogExistOnDate != string.Empty)
             {
-                return new WorkoutLogExistsOnDate();
+                return new WorkoutLogExistsOnDate(doesLogExistOnDate);
             }
 
 
