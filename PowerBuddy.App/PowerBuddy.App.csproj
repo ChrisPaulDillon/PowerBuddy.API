@@ -8,13 +8,13 @@
     <PackageReference Include="FluentValidation" Version="9.5.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="OneOf" Version="3.0.178" />
     <PackageReference Include="Scrutor" Version="3.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PowerBuddy.AuthenticationService\PowerBuddy.AuthenticationService.csproj" />
-    <ProjectReference Include="..\PowerBuddy.Context\PowerBuddy.Data.Context.csproj" />
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
     <ProjectReference Include="..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj" />
     <ProjectReference Include="..\PowerBuddy.SignalR\PowerBuddy.SignalR.csproj" />

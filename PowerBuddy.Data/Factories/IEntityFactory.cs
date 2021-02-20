@@ -18,5 +18,8 @@ namespace PowerBuddy.Data.Factories
         public WorkoutSet CreateWorkoutSet(int workoutExerciseId, int noOfReps, decimal weightLifted, bool amrap);
 
         public RefreshToken CreateRefreshToken(string jwtId, string userId);
+
+        public TemplateProgram CreateTemplateProgram(string name, string description, TemplateDifficultyEnum difficulty, int daysPerWeek, string templateType, WeightProgressionTypeEnum weightProgressionType);
+
     }
 }

@@ -9,10 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F06C8141-0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.Data", "..\PowerBuddy.Data\PowerBuddy.Data.csproj", "{F7020530-A953-4EB4-9AB6-29FE3266A291}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.Data.Builders", "..\PowerBuddy.Data.Builders\PowerBuddy.Data.Builders.csproj", "{2471FA5F-4ABD-44A5-917F-6B488408A97F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.Data.Context", "..\PowerBuddy.Context\PowerBuddy.Data.Context.csproj", "{E33E9A09-08E6-4B38-8405-31ABDEE57682}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.Util", "..\PowerBuddy.Util\PowerBuddy.Util.csproj", "{9D65CB87-475C-4A31-839C-5B0088609A2C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.EmailService", "..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj", "{4C2C4D8A-A783-401E-A6F3-87047F62883A}"
@@ -25,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.UnitTests", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.SignalR", "..\PowerBuddy.SignalR\PowerBuddy.SignalR.csproj", "{2C534802-B08F-43A9-B6F3-69EA5B094E95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBuddy.App", "..\PowerBuddy.App\PowerBuddy.App.csproj", "{026CEE0A-AD9E-4914-B432-260CE998215E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBuddy.App", "..\PowerBuddy.App\PowerBuddy.App.csproj", "{026CEE0A-AD9E-4914-B432-260CE998215E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,14 +37,6 @@ Global
 		{F7020530-A953-4EB4-9AB6-29FE3266A291}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7020530-A953-4EB4-9AB6-29FE3266A291}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7020530-A953-4EB4-9AB6-29FE3266A291}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2471FA5F-4ABD-44A5-917F-6B488408A97F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2471FA5F-4ABD-44A5-917F-6B488408A97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2471FA5F-4ABD-44A5-917F-6B488408A97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2471FA5F-4ABD-44A5-917F-6B488408A97F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E33E9A09-08E6-4B38-8405-31ABDEE57682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E33E9A09-08E6-4B38-8405-31ABDEE57682}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E33E9A09-08E6-4B38-8405-31ABDEE57682}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E33E9A09-08E6-4B38-8405-31ABDEE57682}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D65CB87-475C-4A31-839C-5B0088609A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9D65CB87-475C-4A31-839C-5B0088609A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D65CB87-475C-4A31-839C-5B0088609A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,8 +71,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F7020530-A953-4EB4-9AB6-29FE3266A291} = {F06C8141-0DFD-438E-8F16-FBDC71FA6672}
-		{2471FA5F-4ABD-44A5-917F-6B488408A97F} = {F06C8141-0DFD-438E-8F16-FBDC71FA6672}
-		{E33E9A09-08E6-4B38-8405-31ABDEE57682} = {F06C8141-0DFD-438E-8F16-FBDC71FA6672}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A055F8E2-2CE9-45B2-AB7A-2763D385A235}

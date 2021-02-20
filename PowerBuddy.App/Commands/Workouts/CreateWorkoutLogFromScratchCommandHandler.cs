@@ -9,14 +9,13 @@ using OneOf;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Workouts;
 using PowerBuddy.Data.Entities;
-using PowerBuddy.Data.Factories;
 using PowerBuddy.Data.Models.Account;
 using PowerBuddy.Util;
 using PowerBuddy.Util.Extensions;
 
 namespace PowerBuddy.App.Commands.Workouts
 {
-    public class CreateWorkoutLogFromScratchCommand : IRequest<OneOf<WorkoutLog, UserNotFound>>
+    public class CreateWorkoutLogFromScratchCommand : IRequest<OneOf<bool, UserNotFound>>
     {
         public WorkoutLogInputScratchDto WorkoutLogDto { get; }
         public string UserId { get; }
@@ -40,20 +39,18 @@ namespace PowerBuddy.App.Commands.Workouts
         }
     }
 
-    public class CreateWorkoutLogFromScratchCommandHandler : IRequestHandler<CreateWorkoutLogFromScratchCommand, OneOf<WorkoutLog, UserNotFound>>
+    public class CreateWorkoutLogFromScratchCommandHandler : IRequestHandler<CreateWorkoutLogFromScratchCommand, OneOf<bool, UserNotFound>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;
-        private readonly IDtoFactory _dtoFactory;
 
-        public CreateWorkoutLogFromScratchCommandHandler(PowerLiftingContext context, IMapper mapper, IDtoFactory dtoFactory)
+        public CreateWorkoutLogFromScratchCommandHandler(PowerLiftingContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _dtoFactory = dtoFactory;
         }
 
-        public async Task<OneOf<WorkoutLog, UserNotFound>> Handle(CreateWorkoutLogFromScratchCommand request, CancellationToken cancellationToken)
+        public async Task<OneOf<bool, UserNotFound>> Handle(CreateWorkoutLogFromScratchCommand request, CancellationToken cancellationToken)
         {
             if (request.WorkoutLogDto.UserId != request.UserId)
             {
@@ -64,11 +61,17 @@ namespace PowerBuddy.App.Commands.Workouts
 
             var startDate = request.WorkoutLogDto.StartDate.StartOfWeek(DayOfWeek.Monday);
 
-            for (var i = 0; i < request.WorkoutLogDto.NoOfWeeks; i++)
+            for (var i = 1; i < request.WorkoutLogDto.NoOfWeeks + 1; i++)
             {
                 for (var j = 0; j < 7; j++)
                 {
-                    var workoutDay = _dtoFactory.CreateWorkoutDay(startDate, i, request.UserId);
+                    var workoutDay =  new WorkoutDayDto()
+                    {
+                        Date = startDate,
+                        WeekNo = i,
+                        UserId = request.UserId,
+                        WorkoutExercises = new List<WorkoutExerciseDto>(),
+                    };
                     listOfWorkoutDays.Add(workoutDay);
                     startDate = startDate.AddDays(1);
                 }
@@ -79,9 +82,9 @@ namespace PowerBuddy.App.Commands.Workouts
             var workoutLogEntity = _mapper.Map<WorkoutLog>(request.WorkoutLogDto);
 
             await _context.WorkoutLog.AddAsync(workoutLogEntity, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
+            var modifiedRows = await _context.SaveChangesAsync(cancellationToken);
 
-            return workoutLogEntity;
+            return modifiedRows > 0;
         }
     }
 }
