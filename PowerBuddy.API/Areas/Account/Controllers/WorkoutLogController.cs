@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -105,7 +104,7 @@ namespace PowerBuddy.API.Areas.Account.Controllers
 
             return result.Match<IActionResult>(
                 Result => Ok(Result),
-                WorkoutLogExistsOnDate => BadRequest(Errors.Create(nameof(WorkoutLogExistsOnDate))),
+                WorkoutLogExistsOnDate => BadRequest(Errors.Create(nameof(WorkoutLogExistsOnDate), WorkoutLogExistsOnDate.Message)),
                 UserNotFound => BadRequest(Errors.Create(nameof(UserNotFound))),
                 TemplateProgramNotFound => NotFound(Errors.Create(nameof(TemplateProgramNotFound))));
         }

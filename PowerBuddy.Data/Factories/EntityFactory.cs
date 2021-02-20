@@ -100,5 +100,21 @@ namespace PowerBuddy.Data.Factories
                 ExpiryDate = DateTime.UtcNow.AddMonths(6)
             };
         }
+
+        public TemplateProgram CreateTemplateProgram(string name, string description, TemplateDifficultyEnum difficulty,
+            int daysPerWeek, string templateType, WeightProgressionTypeEnum weightProgressionType)
+        {
+            return new TemplateProgram()
+            {
+                Name = name,
+                Description = description,
+                Difficulty = difficulty.ToString(),
+                NoOfDaysPerWeek = daysPerWeek,
+                TemplateType = templateType,
+                WeightProgressionType = weightProgressionType.ToString(),
+                IsPublished = false,
+                TemplateDays = new List<TemplateDay>()
+            };
+        }
     }
 }

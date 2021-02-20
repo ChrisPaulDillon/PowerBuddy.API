@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using PowerBuddy.App.Services.Workouts.Strategies;
 using PowerBuddy.App.Services.Workouts.Util;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Templates;
@@ -29,17 +28,40 @@ namespace PowerBuddy.App.Services.Workouts
             _entityFactory = entityFactory;
         }
 
-        public async Task<bool> DoesWorkoutLogExistOnDates(DateTime startDate, string userId)
+        public async Task<string> DoesWorkoutLogExistOnDates(DateTime startDate, DateTime endDate, string userId)
         {
-            return await _context.WorkoutLog
+            var startDateOverlap = await _context.WorkoutLog
                 .AsNoTracking()
-                .AnyAsync(x => 
-                    startDate >= x.WorkoutDays.OrderBy(x => x.Date).FirstOrDefault().Date &&
-                    startDate <= x.WorkoutDays.OrderBy(x => x.Date).FirstOrDefault().Date &&
-                    userId == x.UserId);
+                .Where(x =>
+                    x.WorkoutDays.OrderBy(x => x.Date).FirstOrDefault().Date <= startDate.Date &&
+                    startDate.Date <= x.WorkoutDays.OrderByDescending(x => x.Date).FirstOrDefault().Date &&
+                    x.UserId == userId)
+                .Select(x => x.CustomName)
+                .FirstOrDefaultAsync();
+
+            if (startDateOverlap != null)
+            {
+                return startDateOverlap;
+            }
+
+            var endDateOverlap = await _context.WorkoutLog
+                .AsNoTracking()
+                .Where(x =>
+                    x.WorkoutDays.OrderBy(x => x.Date).FirstOrDefault().Date <= endDate.Date &&
+                    endDate.Date <= x.WorkoutDays.OrderByDescending(x => x.Date).FirstOrDefault().Date &&
+                    userId == x.UserId)
+                .Select(x => x.CustomName)
+                .FirstOrDefaultAsync();
+
+            if (endDateOverlap != null)
+            {
+                return endDateOverlap;
+            }
+
+            return string.Empty;
         }
 
-        public IEnumerable<WorkoutDay> CreateWorkoutDaysFromTemplate(TemplateProgramExtendedDto tp, DateTime startDate, Dictionary<int, string> workoutOrder, IEnumerable<TemplateWeightInputDto> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<WorkoutDay> CreateWorkoutDaysFromTemplate(TemplateProgramExtendedDto tp, DateTime startDate, Dictionary<int, string> workoutOrder, IEnumerable<TemplateWeightInputDto> weightInputs, string weightProgressionType, string userId)
         {
             var listOfDays = new List<WorkoutDay>();
 
@@ -63,7 +85,7 @@ namespace PowerBuddy.App.Services.Workouts
                     else if (DayOfWeek.Sunday.ToString() == workoutDayOfWeek) dateOfWorkout = currentDate.ClosestDateByDay(DayOfWeek.Sunday);
 
                     var workoutDay = _entityFactory.CreateWorkoutDay(templateWeek.WeekNo, dateOfWorkout, userId);
-                    workoutDay.WorkoutExercises = CreateWorkoutExercisesForTemplateDay(templateDay, weightInputs, calculateRepWeight, userId);
+                    workoutDay.WorkoutExercises = CreateWorkoutExercisesForTemplateDay(templateDay.TemplateExercises, weightInputs, weightProgressionType, userId);
                     listOfDays.Add(workoutDay);
                     counter++;
                 }
@@ -73,23 +95,21 @@ namespace PowerBuddy.App.Services.Workouts
             return listOfDays;
         }
 
-        public IEnumerable<WorkoutExercise> CreateWorkoutExercisesForTemplateDay(TemplateDayDto templateDay, IEnumerable<TemplateWeightInputDto> weightInputs, ICalculateRepWeight calculateRepWeight, string userId)
+        public IEnumerable<WorkoutExercise> CreateWorkoutExercisesForTemplateDay(IEnumerable<TemplateExerciseDto> templateExercises, IEnumerable<TemplateWeightInputDto> weightInputs, string weightProgressionType, string userId)
         {
             var workoutExercises = new List<WorkoutExercise>();
 
-            foreach (var temExercise in templateDay.TemplateExercises)
+            foreach (var temExercise in templateExercises)
             {
-                var workoutExercise = _entityFactory.CreateWorkoutExercise(temExercise.ExerciseId);
                 var weightInputForExercise = weightInputs.FirstOrDefault(x => x.ExerciseId == temExercise.ExerciseId);
-                var exerciseTonnage = 0.00M;
 
-                foreach (var templateSet in temExercise.TemplateRepSchemes)
+                var workoutSets = CreateWorkoutSetsForTemplateExercise(temExercise, weightInputForExercise, weightProgressionType, out var exerciseTonnage);
+
+                var workoutExercise = new WorkoutExercise()
                 {
-                    var weight = calculateRepWeight.CalculateWeight(weightInputForExercise?.Weight ?? 0, templateSet.Percentage ?? 2.5M);
-                    var workoutSet = _entityFactory.CreateWorkoutSet(templateSet.NoOfReps, weight, templateSet.AMRAP);
-                    exerciseTonnage += WorkoutHelper.CalculateTonnage(workoutSet.WeightLifted, workoutSet.NoOfReps);
-                    workoutExercise.WorkoutSets.Add(workoutSet);
-                }
+                    ExerciseId = temExercise.ExerciseId,
+                    WorkoutSets = workoutSets.ToList()
+                };
 
                 var workoutExerciseTonnage = _entityFactory.CreateWorkoutExerciseTonnage(exerciseTonnage, workoutExercise.ExerciseId, userId);
                 workoutExerciseTonnage.WorkoutExercise = workoutExercise;
@@ -99,10 +119,30 @@ namespace PowerBuddy.App.Services.Workouts
             return workoutExercises;
         }
 
+        public IEnumerable<WorkoutSet> CreateWorkoutSetsForTemplateExercise(TemplateExerciseDto templateExercise, TemplateWeightInputDto weightInputForExercise, string weightProgressionType, out decimal exerciseTonnage)
+        {
+            var workoutSets = new List<WorkoutSet>();
+            exerciseTonnage = 0.00M;
+
+            foreach (var templateSet in templateExercise.TemplateRepSchemes)
+            {
+                var weight = WorkoutHelper.CalculateWeight(weightProgressionType, weightInputForExercise?.Weight ?? 0, templateSet.Percentage ?? 2.5M);
+                var workoutSet = new WorkoutSet()
+                {
+                    NoOfReps = templateSet.NoOfReps,
+                    WeightLifted = weight,
+                    AMRAP = templateSet.AMRAP
+                };
+                exerciseTonnage += WorkoutHelper.CalculateTonnage(workoutSet.WeightLifted, workoutSet.NoOfReps);
+                workoutSets.Add(workoutSet);
+            }
+
+            return workoutSets;
+        }
+
         public WorkoutExercise CreateSetsForExercise(CreateWorkoutExerciseDto createWorkoutExercise, string userId)
         {
             var setCollection = new List<WorkoutSet>();
-
             var exerciseTonnage = 0.00M;
 
             var workoutExercise = new WorkoutExercise()

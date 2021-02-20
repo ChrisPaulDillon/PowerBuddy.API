@@ -7,6 +7,20 @@ namespace PowerBuddy.App.Services.Workouts.Util
 {
     public static class WorkoutHelper
     {
+        public static decimal CalculateWeight(string weightProgressionType, decimal weightInput, decimal incrementValue)
+        {
+            switch (weightProgressionType)
+            {
+                case "PERCENTAGE":
+                    decimal percent = (decimal)(incrementValue / 100);
+                    return weightInput * percent;
+                case "INCREMENTAL":
+                    return Math.Round((weightInput + incrementValue) * 4, MidpointRounding.ToEven) / 4;
+            }
+
+            return 0;
+        }
+
         public static decimal CalculateTonnage(decimal weight, int reps)
         {
             return weight * reps;

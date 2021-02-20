@@ -22,7 +22,6 @@ namespace PowerBuddy.App.Queries
             services.AddTemplateMediatrHandlers();
             services.AddUserMediatrHandlers();
             services.AddWorkoutMediatrHandlers();
-            services.AddAuthentication();
 
             return services;
         }
