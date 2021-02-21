@@ -37,7 +37,7 @@ namespace PowerBuddy.App.Queries.Authentication
         }
     }
 
-    internal class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, OneOf<AuthenticationResultDto, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>>
+    public class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, OneOf<AuthenticationResultDto, UserNotFound, EmailNotConfirmed, AccountLockout, InvalidCredentials>>
     {
         private readonly PowerLiftingContext _context;
         private readonly IMapper _mapper;

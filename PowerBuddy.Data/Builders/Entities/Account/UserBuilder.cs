@@ -23,7 +23,8 @@ namespace PowerBuddy.Data.Builders.Entities.Account
                 NormalizedEmail = email.ToUpper(),
                 PasswordHash = _random.Next().ToString(),
                 MemberStatusId = 1,
-                IsPublic = true
+                IsPublic = true,
+                EmailConfirmed = true
             };
         }
 
@@ -72,6 +73,12 @@ namespace PowerBuddy.Data.Builders.Entities.Account
         {
 	        _user.IsPublic = isPublic;
 	        return this;
+        }
+
+        public UserBuilder WithEmailConfirmed(bool emailConfirmed)
+        {
+            _user.EmailConfirmed = emailConfirmed;
+            return this;
         }
     }
 }
