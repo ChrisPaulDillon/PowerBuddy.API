@@ -11,9 +11,9 @@ using PowerBuddy.App.Commands.Emails.Models;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Models.Account;
-using PowerBuddy.EmailService;
-using PowerBuddy.EmailService.Models;
 using PowerBuddy.Util;
+using SharedLibraries.EmailService;
+using SharedLibraries.EmailService.Models;
 
 namespace PowerBuddy.App.Commands.Emails
 {

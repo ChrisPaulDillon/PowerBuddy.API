@@ -24,14 +24,14 @@ using PowerBuddy.App.Queries;
 using PowerBuddy.App.Repositories.Exercises;
 using PowerBuddy.App.Repositories.System;
 using PowerBuddy.App.Services;
-using PowerBuddy.AuthenticationService.Configuration;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Data.Extensions;
 using PowerBuddy.Data.Util;
-using PowerBuddy.EmailService.Extensions;
 using PowerBuddy.SmsService.Extensions;
 using PowerBuddy.SignalR;
+using SharedLibraries.AuthenticationService.Configuration;
+using SharedLibraries.EmailService.Extensions;
 
 namespace PowerBuddy.API
 {

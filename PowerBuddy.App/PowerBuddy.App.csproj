@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ChrisDillon.SharedLibraries.AuthenticationService" Version="1.3.20" />
+    <PackageReference Include="ChrisDillon.SharedLibraries.EmailService" Version="1.3.20" />
+    <PackageReference Include="ChrisDillon.SharedLibraries.SmsService" Version="1.3.20" />
     <PackageReference Include="FluentValidation" Version="9.5.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
@@ -20,11 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerBuddy.AuthenticationService\PowerBuddy.AuthenticationService.csproj" />
     <ProjectReference Include="..\PowerBuddy.Data\PowerBuddy.Data.csproj" />
-    <ProjectReference Include="..\PowerBuddy.EmailService\PowerBuddy.EmailService.csproj" />
     <ProjectReference Include="..\PowerBuddy.SignalR\PowerBuddy.SignalR.csproj" />
-    <ProjectReference Include="..\PowerBuddy.SmsService\PowerBuddy.SmsService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

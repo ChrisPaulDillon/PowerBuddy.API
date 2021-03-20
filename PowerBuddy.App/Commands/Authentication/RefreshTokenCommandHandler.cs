@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using PowerBuddy.App.Services.Authentication;
 using PowerBuddy.App.Services.Authentication.Models;
-using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Models.Auth;
 using PowerBuddy.Util;

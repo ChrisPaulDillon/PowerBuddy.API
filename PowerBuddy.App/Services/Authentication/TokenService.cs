@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Services.Authentication.Models;
-using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Dtos.Users;
 using PowerBuddy.Data.Factories;
+using SharedLibraries.AuthenticationService;
 
 namespace PowerBuddy.App.Services.Authentication
 {

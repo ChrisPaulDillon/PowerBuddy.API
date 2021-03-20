@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerBuddy.App.Services.Authentication;
 using PowerBuddy.App.Services.Authentication.Models;
-using PowerBuddy.AuthenticationService;
 using PowerBuddy.Data.Context;
 using PowerBuddy.Data.Entities;
 using PowerBuddy.Util;
+using SharedLibraries.AuthenticationService;
 
 namespace PowerBuddy.App.Queries.Authentication
 {
